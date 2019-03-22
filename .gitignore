@@ -1,0 +1,54 @@
+*.swp
+*~
+.netrwhist
+.DS_Store
+
+vim/.vim/tmp/**
+vim/.vim/custom-dictionary.utf-8.add.spl
+vim/.vim/bundle/**
+vim/.vim/plugged/**
+vim/.vim/session
+vim/.vim/sessions
+vim/.vim/view/**
+vim/.vim/autoload/plug.vim
+
+tmux/.tmux/plugins/**
+
+# Fish installation script renames the existing config.fish to config.orig
+config.orig
+fish_history
+
+# Emacs files
+*.elc
+*#
+.#*
+!.#
+emacs.d/ac-comphist.dat
+emacs.d/.places
+emacs.d/.mc-lists*
+emacs.d/history
+emacs.d/eshell/**
+emacs.d/history/**
+emacs.d/undo/**
+emacs.d/saveplace/**
+emacs.d/elpa/**
+emacs.d/auto-save-list/**
+emacs.d/packages/**
+emacs.d/el-get/**
+emacs.d/backups/**
+emacs.d/network-security.data
+emacs.d/projectile.cache
+emacs.d/projectile-bookmarks.eld
+spacemacs/.spacemacs.d/custom.el
+
+# lua
+.luacheckcache
+/GPATH
+
+# Karabiner-elements compiled files
+misc/karabiner/config/**
+
+.macosdefaultsinstalled
+
+!.gitkeep
+!*/
