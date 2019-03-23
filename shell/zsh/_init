@@ -1,0 +1,80 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source .zshenv
+
+# Dependencies
+
+common_deps=(
+  zsh
+  fzf
+  fasd
+)
+
+brew_deps=(
+  zsh-history-substring-search
+  fd
+)
+
+linux_deps=(
+  fd-find
+  make
+)
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]} ${brew_deps[@]}
+      ;;
+    debian)
+      sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
+      ;;
+    fedora)
+      sudo dnf install -y ${common_deps[@]} ${linux_deps[@]}
+      ;;
+  esac
+
+  local zsh="$(which zsh)"
+  grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
+  sudo tee $zshenv <<<"export ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
+
+  # For security reasons compinit also checks if the completion system would use
+  # files not owned by root or by the current user, or files in directories that
+  # are world- or group-writable or that are not owned by root or by the current
+  # user.
+  # Fix this by changing owner and removing write permissions for listed files.
+  compaudit | xargs chown -R "$(whoami)"
+  compaudit | xargs chmod go-w
+}
+
+update() {
+  # Update zpugins and recompile
+  if [[ -e ${ZPLGM[BIN_DIR]}/zplugin.zsh ]]; then
+    source ${ZPLGM[BIN_DIR]}/zplugin.zsh
+    zplugin self-update
+    zplugin update --all
+    zplugin compile --all
+  fi
+}
+
+link() {
+  mklink .zsh* $ZDOTDIR/
+  mklink functions $ZDOTDIR/
+
+  case $(_os) in
+    macos)
+      mklink .zshenv ~/.zshenv
+      ;;
+  esac
+}
+
+clean() {
+  rm -rfv "$ZDOTDIR" "$ZSH_CACHE/*";
+
+  case $(_os) in
+    macos)
+      rm -f "~/.zshenv"
+      ;;
+  esac
+}
+
+init "$@"
