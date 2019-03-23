@@ -41,7 +41,6 @@ PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP=(
   htpc "♆"
 )
 
-# zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
 export SIMPL_GIT_DIRTY_SYMBOL="⌁"
 zpl ice pick"async.zsh" src"simpl.zsh"
 # FIXME This is spawning a new zsh process
