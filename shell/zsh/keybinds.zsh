@@ -125,22 +125,3 @@ bindkey -rM viins '^X'
 bindkey -M viins '^X,' _history-complete-newer \
   '^X/' _history-complete-older \
   '^X`' _bash_complete-word
-
-
-function zle-keymap-select zle-line-init zle-line-finish {
-  my_terms=(xterm-256color xterm-kitty)
-
-  # Change cursor shape only on tested $TERMs
-  if [[ ${my_terms[(ie)$TERM]} -le ${#my_terms} ]]; then
-    case $KEYMAP in
-      # vi emulation - command mode
-      vicmd)      echo -ne "\e[2 q";;
-      # vi emulation - insert mode
-      viins|main) echo -ne "\e[3 q";;
-    esac
-  fi
-}
-
-zle -N zle-keymap-select
-zle -N zle-line-init
-zle -N zle-line-finish
