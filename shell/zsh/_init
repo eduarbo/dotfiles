@@ -33,17 +33,11 @@ install() {
       ;;
   esac
 
+  [[ $SHELL == */zsh ]] || chsh -s $(which zsh) $(whoami)
+
   local zsh="$(which zsh)"
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
   sudo tee $zshenv <<<"export ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
-
-  # For security reasons compinit also checks if the completion system would use
-  # files not owned by root or by the current user, or files in directories that
-  # are world- or group-writable or that are not owned by root or by the current
-  # user.
-  # Fix this by changing owner and removing write permissions for listed files.
-  compaudit | xargs chown -R "$(whoami)"
-  compaudit | xargs chmod go-w
 }
 
 update() {
