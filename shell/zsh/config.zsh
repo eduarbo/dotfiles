@@ -25,7 +25,7 @@ unsetopt HUP              # Don't kill jobs on shell exit.
 unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
 
 ## History
-HISTFILE="$XDG_CACHE_HOME/zhistory"
+HISTFILE="$XDG_DATA_HOME/zhistory"
 HISTSIZE=10000                   # Max events to store in internal history.
 SAVEHIST=10000                   # Max events to store in history file.
 
