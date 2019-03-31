@@ -24,9 +24,11 @@ zpl light zdharma/history-search-multi-word
 zpl light supercrabtree/k
 zpl light djui/alias-tips
 
+# NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
+zpl light mafredri/zsh-async # Required by simpl
+
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-# FIXME This is spawning a new zsh process
 zpl light zsh-users/zsh-autosuggestions
 zpl ice blockf; zpl light zsh-users/zsh-completions # Disallow zsh-completions to modify fpath
 if [[ -z $SSH_CONNECTION ]]; then
@@ -35,15 +37,14 @@ fi
 
 typeset -gA PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP
 PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP=(
-  eduarbook "ᚱ"
+  chrono "ᚱ"
   lavos "𝔫𝔰"
   other "ᛟ"
   htpc "♆"
 )
 
-export SIMPL_GIT_DIRTY_SYMBOL="⌁"
-zpl ice pick"async.zsh" src"simpl.zsh"
-# FIXME This is spawning a new zsh process
+typeset -gA SIMPL
+SIMPL[ENABLE_RPROMPT]=1
 zpl light eduarbo/simpl
 
 #
