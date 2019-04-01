@@ -43,8 +43,8 @@ PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP=(
   htpc "♆"
 )
 
-typeset -gA SIMPL
-SIMPL[ENABLE_RPROMPT]=1
+typeset -A SIMPL
+# zpl light ~/dev/simpl
 zpl light eduarbo/simpl
 
 #
