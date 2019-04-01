@@ -57,7 +57,7 @@ _load shell/zsh/config.zsh
 _load shell/zsh/completion.zsh
 _load shell/zsh/keybinds.zsh
 _load shell/zsh/fzf.zsh
-_load ~/.secrets
+_source ~/.secrets
 
 #
 # Speed up zsh load
