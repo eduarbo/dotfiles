@@ -1,7 +1,7 @@
 autoload -U zmv
 
 alias q="exit"
-alias clr="clear"
+alias cl="SIMPL_NEWLINE_BEFORE_PROMPT= && clear"
 
 # Allow aliases to be with sudo
 alias sudo="sudo "
@@ -51,8 +51,6 @@ alias ef="v ~/.config/fish/config.fish"
 alias ej="v ~/.jshintrc"
 alias todo="v ~/todo.md"
 alias etp="v ~/tp.md"
-
-alias cl="clear"
 
 alias d="docker"
 
