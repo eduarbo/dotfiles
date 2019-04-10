@@ -14,38 +14,34 @@ _load_repo zdharma/zplugin $ZPL_DIR zplugin.zsh
 # load plugins from enabled topics
 _load_all plugins.zsh
 
-# TODO: Stop zplugin trying to compile binaries
-zpl ice from"gh-r" as"program"; zpl light junegunn/fzf-bin
-zpl ice as"command" pick"bin/fzf-tmux"; zplugin load junegunn/fzf
-zpl snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
-zpl snippet "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh"
-zpl light zsh-users/zsh-history-substring-search
-zpl light zdharma/history-search-multi-word
-zpl light supercrabtree/k
-zpl light djui/alias-tips
+zplugin ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zplugin light junegunn/fzf
+zplugin light zsh-users/zsh-history-substring-search
+zplugin light zdharma/history-search-multi-word
+zplugin light supercrabtree/k
+zplugin light djui/alias-tips
 
 # NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
-zpl light mafredri/zsh-async # Required by simpl
+zplugin light mafredri/zsh-async # Required by simpl
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-zpl light zsh-users/zsh-autosuggestions
-zpl ice blockf; zpl light zsh-users/zsh-completions # Disallow zsh-completions to modify fpath
+zplugin light zsh-users/zsh-autosuggestions
+zplugin ice blockf; zplugin light zsh-users/zsh-completions # Disallow zsh-completions to modify fpath
 if [[ -z $SSH_CONNECTION ]]; then
-  zpl light zdharma/fast-syntax-highlighting
+  zplugin light zdharma/fast-syntax-highlighting
 fi
 
 typeset -gA PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP
-PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP=(
-  chrono "ᚱ"
-  lavos "𝔫𝔰"
-  other "ᛟ"
-  htpc "♆"
+SIMPL_HOST_SYMBOL_MAP=(
+  lavos "ᚱ"
+  htpc "Ħ"
+  chrono "ᛟ"
 )
 
 typeset -A SIMPL
-# zpl light ~/dev/simpl
-zpl light eduarbo/simpl
+SIMPL[ENABLE_RPROMPT]=1
+# zplugin light ~/dev/simpl
+zplugin light eduarbo/simpl
 
 #
 # configs
@@ -91,7 +87,7 @@ fi;
 } &!
 
 # execute compdefs provided by rest of plugins
-zpl cdreplay -q # -q is for quiet
+zplugin cdreplay -q # -q is for quiet
 
 # load aliases from enabled topics
 # source them after compinit to be able to use compdef
