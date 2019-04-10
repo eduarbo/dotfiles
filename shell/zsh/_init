@@ -27,6 +27,9 @@ install() {
       ;;
     debian)
       sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
+
+      curl https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb -Lo /tmp/fd-musl_7.3.0_amd64.deb
+      sudo dpkg -i "/tmp/fd-musl_7.3.0_amd64.deb"
       ;;
     fedora)
       sudo dnf install -y ${common_deps[@]} ${linux_deps[@]}
