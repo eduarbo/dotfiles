@@ -2,12 +2,13 @@ autoload -U zmv
 
 alias q="exit"
 alias cl="SIMPL_NEWLINE_BEFORE_PROMPT= && clear"
+alias rmrf="rm -rf"
 
 # Allow aliases to be with sudo
 alias sudo="sudo "
 
 # rerun last command with sudo, please!
-alias please="sudo !!"
+alias please='sudo $(fc -ln -1)'
 alias fuck="killall -9"
 
 alias dush="du -csh * | sort -h"
@@ -56,9 +57,10 @@ alias d="docker"
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+alias rl=reload
 
-# Lists the 20 most used commands.
-alias historystat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head -n 20"
+# Lists the 50 most used commands.
+alias historystat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head -n 50"
 
 alias ssh="TERM=xterm-256color ssh"
 
@@ -155,4 +157,29 @@ loadtime() {
     /usr/bin/time $SHELL -lic exit;
   done
   unset DISABLE_LOAD_TIME
+}
+
+ix() {
+  local opts
+  local OPTIND
+  [ -f "$HOME/.netrc" ] && opts='-n'
+  while getopts ":hd:i:n:" x; do
+    case $x in
+      h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+      d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+      i) opts="$opts -X PUT"; local id="$OPTARG";;
+      n) opts="$opts -F read:1=$OPTARG";;
+    esac
+  done
+  shift $(($OPTIND - 1))
+  [ -t 0 ] && {
+    local filename="$1"
+    shift
+    [ "$filename" ] && {
+      curl $opts -F f:1=@"$filename" $* ix.io/$id
+      return
+    }
+    echo "^C to cancel, ^D to send."
+  }
+  curl $opts -F f:1='<-' $* ix.io/$id
 }
