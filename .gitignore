@@ -41,6 +41,9 @@ emacs.d/projectile.cache
 emacs.d/projectile-bookmarks.eld
 spacemacs/.spacemacs.d/custom.el
 
+# node
+node_modules/
+
 # lua
 .luacheckcache
 /GPATH
