@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+# only for macOS
+[[ $(_os) != macos ]] && exit
+
+# link() {
+# }
+
+install() {
+  brew cask install karabiner-elements
+
+  KARABINER_CONFIG_DIR='/tmp/karabiner' ./main.js
+}
+
+update() {
+  KARABINER_CONFIG_DIR='/tmp/karabiner' ./main.js
+}
+
+clean() {
+  rm -fv $KARABINER_CONFIG_DIR $KARABINER_DATA_DIR
+}
+
+init "$@"
