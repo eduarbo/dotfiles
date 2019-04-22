@@ -42,16 +42,15 @@ emacs.d/projectile-bookmarks.eld
 spacemacs/.spacemacs.d/custom.el
 
 # node
-node_modules/
+macos/karabiner/node_modules/
 
 # lua
 .luacheckcache
 /GPATH
 
 # Karabiner-elements compiled files
-misc/karabiner/config/**
+macos/karabiner/config/**
 
 .macosdefaultsinstalled
 
 !.gitkeep
-!*/
