@@ -48,9 +48,6 @@ macos/karabiner/node_modules/
 .luacheckcache
 /GPATH
 
-# Karabiner-elements compiled files
-macos/karabiner/config/**
-
 .macosdefaultsinstalled
 
 !.gitkeep
