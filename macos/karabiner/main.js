@@ -1,12 +1,16 @@
 #!/usr/bin/env node
+
+// Generate main configuration and complex_modifications files
+
 const fs = require('fs');
 const path = require('path');
 
-const karabiner = require('./karabiner');
-const mods = require('./mods');
+const karabiner = require('./config/karabiner');
+const mods = require('./config/mods');
 
 const JSON_SPACE_INDENTATION = 2;
-const CONFIG_DIR = process.env.KARABINER_CONFIG_DIR || '~/.config/karabiner';
+const DEFAULT_CONFIG_DIR = '~/.config/karabiner';
+const CONFIG_DIR = process.env.KARABINER_CONFIG_DIR || DEFAULT_CONFIG_DIR;
 
 writeFile(`${CONFIG_DIR}/karabiner.json`, karabiner);
 
