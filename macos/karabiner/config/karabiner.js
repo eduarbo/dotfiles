@@ -1,4 +1,6 @@
-const { launcher } = require('./mods');
+const { launcher, arrows } = require('./mods');
+
+const getRules = (...args) => args.reduce((rules, mod) => rules.concat(mod.rules), []);
 
 module.exports = {
   global: {
@@ -16,9 +18,10 @@ module.exports = {
           'basic.to_if_alone_timeout_milliseconds': 1000,
           'basic.to_if_held_down_threshold_milliseconds': 500,
         },
-        rules: [
-          ...launcher.rules,
-        ],
+        rules: getRules(
+          arrows,
+          launcher,
+        ),
       },
       devices: [],
       virtual_hid_keyboard: {
