@@ -1,17 +1,19 @@
 const { profile } = require('../utils');
 const { corneKeyboard } = require('./devices');
 
-const launcher = require('./mods/launcher');
 const arrows = require('./mods/arrows');
+const emacs = require('./mods/emacs');
+const fn = require('./mods/fn');
+const launcher = require('./mods/launcher');
 const qwerty = require('./mods/qwerty');
 const symbols = require('./mods/symbols');
-const fn = require('./mods/fn');
 
 const karabiner = {
   profiles: [
     profile('Clean'),
     profile('Rev 1', [
       arrows,
+      emacs,
       fn,
       symbols,
       qwerty,
@@ -35,6 +37,7 @@ const karabiner = {
 
 const complexModifications = {
   arrows,
+  emacs,
   fn,
   launcher,
   qwerty,

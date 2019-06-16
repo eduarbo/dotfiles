@@ -29,9 +29,9 @@ const manipulators = Object.entries(appsMap).map(([key, app]) => ({
 }));
 
 module.exports = {
-  title: 'Launcher (@eduarbo)',
+  title: 'Launcher',
   rules: [{
-    description: 'Launch apps by right option+letters.',
+    description: 'Launch apps by right option+letters',
     manipulators,
   }],
 };
