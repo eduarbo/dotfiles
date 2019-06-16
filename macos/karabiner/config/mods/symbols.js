@@ -1,10 +1,10 @@
 const { remap } = require('../../utils');
 
-const symbolsMods = ['left_shift'];
+const mandatoryMods = ['left_shift'];
+const optionalMods = ['caps_lock', 'command', 'control', 'option'];
 const shiftedNumbersRow = 'pqwertyuio'.split('');
 const numbersRow = ['semicolon', ...'asdfghjkl'.split('')];
-const optionalMods = ['caps_lock', 'command', 'control', 'option'];
-const remapToLayer = (fromKey, toKey) => remap([fromKey, symbolsMods, optionalMods], toKey);
+const remapToLayer = (fromKey, toKey) => remap([fromKey, mandatoryMods, optionalMods], toKey);
 
 module.exports = {
   title: 'Symbols layer',
