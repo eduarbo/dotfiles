@@ -5,8 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const karabiner = require('./config/karabiner');
-const mods = require('./config/mods');
+const { karabiner, complexModifications } = require('./config/karabiner');
 
 const JSON_SPACE_INDENTATION = 2;
 const DEFAULT_CONFIG_DIR = '~/.config/karabiner';
@@ -14,7 +13,7 @@ const CONFIG_DIR = process.env.KARABINER_CONFIG_DIR || DEFAULT_CONFIG_DIR;
 
 writeFile(`${CONFIG_DIR}/karabiner.json`, karabiner);
 
-Object.entries(mods).forEach(([name, mod]) => {
+Object.entries(complexModifications).forEach(([name, mod]) => {
   writeFile(`${CONFIG_DIR}/assets/complex_modifications/${name}.json`, mod);
 });
 
