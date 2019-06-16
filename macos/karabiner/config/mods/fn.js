@@ -40,8 +40,8 @@ module.exports = {
         remapToLayer('i', [['page_up']]),
         remapToLayer('u', [['page_down']]),
         // FIXME
-        remapToLayer('comma', [['home']]),
-        remapToLayer('m', [['end']]),
+        // remapToLayer('comma', [['home']]),
+        // remapToLayer('m', [['end']]),
       ],
     },
   ],
