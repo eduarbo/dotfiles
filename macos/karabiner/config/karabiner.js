@@ -4,11 +4,12 @@ const { corneKeyboard } = require('./devices');
 const launcher = require('./mods/launcher');
 const arrows = require('./mods/arrows');
 const qwerty = require('./mods/qwerty');
+const symbols = require('./mods/symbols');
 
 const karabiner = {
   profiles: [
     profile('Clean'),
-    profile('Rev 1', [arrows, launcher, qwerty], {
+    profile('Rev 1', [arrows, launcher, symbols, qwerty], {
       selected: true,
       devices: [{
         identifiers: corneKeyboard,
@@ -29,6 +30,7 @@ const complexModifications = {
   launcher,
   arrows,
   qwerty,
+  symbols,
 };
 
 module.exports = {
