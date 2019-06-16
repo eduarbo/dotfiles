@@ -4,7 +4,7 @@ const mandatoryMods = ['left_shift'];
 const optionalMods = ['caps_lock', 'command', 'control', 'option'];
 const shiftedNumbersRow = 'pqwertyuio'.split('');
 const numbersRow = ['semicolon', ...'asdfghjkl'.split('')];
-const remapToLayer = (fromKey, toKey) => remap([fromKey, mandatoryMods, optionalMods], toKey);
+const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey);
 
 module.exports = {
   title: 'Symbols layer',
@@ -13,10 +13,10 @@ module.exports = {
       description: 'Shifted numbers in upper row, numbers in home row, other symbols in lower row',
       manipulators: [
         // Upper row
-        ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num, ['left_shift']]])),
+        ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num.toString(), ['left_shift']]])),
 
         // Home row
-        ...numbersRow.map((key, num) => remapToLayer(key, [[num]])),
+        ...numbersRow.map((key, num) => remapToLayer(key, [[num.toString()]])),
         remapToLayer('quote', [['equal_sign', ['left_shift']]]),
         remapToLayer('caps_lock', [['hyphen']]),
 

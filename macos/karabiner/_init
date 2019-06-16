@@ -10,11 +10,11 @@ source ${0:A:h}/../../deploy
 install() {
   brew cask install karabiner-elements
 
-  KARABINER_CONFIG_DIR='/tmp/karabiner' ./main.js
+  ./main.js
 }
 
 update() {
-  KARABINER_CONFIG_DIR='/tmp/karabiner' ./main.js
+  ./main.js
 }
 
 clean() {
