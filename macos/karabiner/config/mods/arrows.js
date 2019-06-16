@@ -11,7 +11,7 @@ const mapKey = (fromKey, toKey) => ({
 });
 
 module.exports = {
-  title: 'Arrow keys (@eduarbo)',
+  title: 'Arrow keys',
   rules: [{
     description: 'Option + H/J/K/L to arrow keys',
     manipulators: [

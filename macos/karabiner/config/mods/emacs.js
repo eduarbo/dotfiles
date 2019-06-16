@@ -13,7 +13,7 @@ const remapIf = (fromKey, toKey, options) => remap([fromKey, mandatoryMods, opti
 });
 
 module.exports = {
-  title: 'Emacs and shell style key bindings (@eduarbo)',
+  title: 'Emacs and shell style key bindings',
   rules: [
     {
       description: 'Delete bindings',

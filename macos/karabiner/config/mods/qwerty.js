@@ -1,7 +1,7 @@
 const { modTap, remap } = require('../../utils');
 
 module.exports = {
-  title: 'Qwerty layer (@eduarbo)',
+  title: 'Qwerty layer',
   rules: [
     {
       description: 'Thumb cluster',
