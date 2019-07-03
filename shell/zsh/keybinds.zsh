@@ -43,7 +43,6 @@ bindkey '^ ' edit-command-line
 
 bindkey -M viins '^n' history-substring-search-down
 bindkey -M viins '^p' history-substring-search-up
-# bindkey -M viins '^s' history-incremental-pattern-search-backward
 bindkey -M viins '^u' backward-kill-line
 bindkey -M viins '^w' backward-kill-word
 bindkey -M viins '^b' backward-word
@@ -80,9 +79,6 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# Omni-Completion
-bindkey -M viins '^x^f' fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
-bindkey -M viins '^x^d' fasd-complete-d  # C-x C-d to do fasd-complete-d (only directories)
 # Completing words in buffer in tmux
 if [ -n "$TMUX" ]; then
   _tmux_pane_words() {
