@@ -42,7 +42,7 @@ emacs.d/projectile-bookmarks.eld
 spacemacs/.spacemacs.d/custom.el
 
 # node
-macos/karabiner/node_modules/
+misc/karabiner/node_modules/
 
 # lua
 .luacheckcache
