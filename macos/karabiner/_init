@@ -18,7 +18,7 @@ update() {
 }
 
 clean() {
-  rm -fv $KARABINER_CONFIG_DIR $KARABINER_DATA_DIR
+  rm -rfv $KARABINER_CONFIG_DIR
 }
 
 init "$@"
