@@ -69,7 +69,7 @@ Usage: deploy [-acdlLit] [TOPIC...]
 ```
 
 e.g.
-+ `deploy macos/kitty shell/{zsh,tmux}`: enables macos/kitty, shell/zsh & shell/tmux
++ `deploy misc/kitty shell/{zsh,tmux}`: enables misc/kitty, shell/zsh & shell/tmux
 + `deploy -d shell/zsh`: disables shell/zsh & cleans up after it
 + `deploy -l shell/zsh`: refresh links for shell/zsh (inhibits init script)
 + `deploy -l`: relink all enabled topics
