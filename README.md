@@ -1,4 +1,6 @@
-# My homies ese!
+# 🏗 WIP - My homies ese!
+
+> This a fresh start for my dotfiles, it's still a **Work in Progress**
 
 A tidy `$HOME` is a tidy mind.
 
@@ -15,43 +17,41 @@ strive for minimum `$HOME` presence (adhering to XDG standards where possible).
 
 `bash <(curl -s https://raw.githubusercontent.com/eduarbo/homies/master/bootstrap.sh)`
 
-## What does it include?
+## What will it include?
 
 The following are the categories and topics available to install:
 
-```
-.
-├── macos/               # macOS apps and utilities
-│   ├── base/            ## bare essentials for macOS
-│   ├── iterm/           ## iTerm2, is there a better macOS terminal?
-│   ├── kitty/           ## well, it seems that in fact there is a better terminal
-│   ├── karabiner/       ## absolutely amazing macOS app that lets me remap completely my keyboard
-│   └── hammerspoon/     ## a bunch of lua scripts for macOS to boost my productivity
-|
-├── linux/               # linux apps and utilities
-│   └── base/            ## bare essentials for Linux distros
-|
-├── dev/                 # Relevant to software development & programming in general
-│   ├── lua/             ## manage lua environments with luaenv
-│   ├── python/          ## setup pyenv, a simple Python version management
-│   └── node/            ## setup nodenv, a lightweight alternative to nvm
-|
-├── editor/              # Configuration for my text editors
-│   ├── editorconfig/    ## maintain consistent coding styles between different editors
-│   ├── vim/             ## for quick and remote file editing
-│   └── emacs/           ## the best of Emacs and Vim worlds
-|
-├── misc/                # For various apps & tools
-│   ├── cvim/            ## Vim-like bindings for Google Chrome
-│   └── surfingKeys/     ## Vim-like bindings for Google Chrome
-│
-└── shell/               # Shell utilities
-    ├── bash/            ## Not my default shell but doesn't hurt to have a basic config
-    ├── git/             ## nice aliases and zsh plugins
-    ├── sk/              ## faster than fzf, Skim it's Fuzzy Finder in rust!
-    ├── tmux/            ## window manager within the terminal + nice plugins
-    └── zsh/             ## My shell of choice with a nice prompt, really fast and extensible with zplugin
-```
+- `base/` - Provisions my system with the bare essentials
+  - [ ] `linux` - bare essentials for Linux distros
+  - [ ] `macos` - bare essentials for macOS
+
+- `misc/` - Very handy apps & tools
+  - [ ] `hammerspoon` - a bunch of lua scripts for macOS to boost my productivity
+  - [X] `karabiner` - powerful and stable keyboard customizer for macOS with
+        useful helpers
+  - [ ] `macos-apps` - collection of macOS apps that I use on a daily basis
+  - [ ] `surfingkeys` - vim-like bindings for Google Chrome
+
+- `editor/` - Configuration for my text editors
+  - [ ] `editorconfig` - maintain consistent coding styles between different editors
+  - [ ] `emacs` - the best of Emacs and Vim in one place
+  - [ ] `vim` - for quick and remote file editing
+
+- `shell/` - Shell utilities
+  - [ ] `bash` - not my default shell but doesn't hurt to have a basic config
+  - [ ] `git` - nice aliases and zsh plugins
+  - [ ] `gnupg` - encryption/signing
+  - [ ] `iterm` - iTerm2, is there a better macOS terminal?
+  - [ ] `kitty` - well, in fact there is a better macOS terminal
+  - [ ] `sk` - faster than fzf, Skim it's Fuzzy Finder in rust!
+  - [ ] `tmux` - window manager within the terminal + nice plugins
+  - [X] `zsh` - my shell of choice with a nice prompt, really fast and extensible with zplugin
+
+- `dev/` - Relevant to software development & programming in general
+  - [ ] `lua` - manage lua environments with luaenv
+  - [ ] `node` - setup nodenv, a lightweight alternative to nvm
+  - [ ] `python` - setup pyenv, a simple Python version management
+
 
 ## Dotfile management
 
