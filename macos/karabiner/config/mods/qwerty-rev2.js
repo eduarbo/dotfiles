@@ -1,4 +1,21 @@
-const { modTap, remap } = require('../../utils');
+const utils = require('../../utils');
+const { corneKeyboard } = require('../devices');
+
+const remap = (fromKey, toKey, options) => utils.remap(fromKey, toKey, {
+  // conditions: [{
+  //   type: 'device_unless',
+  //   identifiers: [corneKeyboard],
+  // }],
+  // ...options,
+});
+
+const modTap = (fromKey, toKey, toKeyOnTap, options) => utils.modTap(fromKey, toKey, toKeyOnTap, {
+  // conditions: [{
+  //   type: 'device_unless',
+  //   identifiers: [corneKeyboard],
+  // }],
+  // ...options,
+});
 
 module.exports = {
   title: 'Qwerty layer Rev2',
@@ -6,11 +23,12 @@ module.exports = {
     {
       description: 'Thumb cluster',
       manipulators: [
-        modTap(['spacebar'], [['right_command']], [['spacebar']]),
+        modTap(['spacebar'], [['right_command']], [['return_or_enter']]),
         modTap(['right_command'], [['right_shift']], [['escape']]),
-        modTap(['left_command'], [['left_shift']], [['return_or_enter']]),
+        modTap(['left_command'], [['left_shift']], [['spacebar']]),
+        // sticky(['left_command', ['caps_lock', 'command', 'control', 'option']], 'symbols_layer'),
         modTap(['right_option'], [['right_option']], [['escape']]),
-        modTap(['left_option'], [['right_control']], [['return_or_enter']]),
+        modTap(['left_option'], [['right_control']], [['spacebar']]),
       ],
     },
     {

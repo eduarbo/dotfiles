@@ -10,6 +10,15 @@ const qwertyRev2 = require('./mods/qwerty-rev2');
 const symbols = require('./mods/symbols');
 const symbolsRev2 = require('./mods/symbols-rev2');
 
+const rev2 = [
+  arrows,
+  emacs,
+  fn,
+  symbolsRev2,
+  qwertyRev2,
+  launcher,
+];
+
 const karabiner = {
   profiles: [
     profile('Clean'),
@@ -20,23 +29,17 @@ const karabiner = {
       symbols,
       qwerty,
       launcher,
-    ], {
+    ]),
+    profile('Rev 2', rev2, {
+      selected: true,
+    }),
+    profile('Rev 2 (disable mac kbd if corne is plugged in)', rev2, {
       devices: [{
         identifiers: corneKeyboard,
-        disable_built_in_keyboard_if_exists: false,
+        disable_built_in_keyboard_if_exists: true,
         ignore: false,
         manipulate_caps_lock_led: true,
       }],
-    }),
-    profile('Rev 2', [
-      arrows,
-      emacs,
-      fn,
-      symbolsRev2,
-      qwertyRev2,
-      launcher,
-    ], {
-      selected: true,
     }),
   ],
   global: {

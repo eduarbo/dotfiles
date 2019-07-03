@@ -32,13 +32,59 @@ const remap = (fromKey, toKey, options) => ({
   ...options,
 });
 
-const modTap = (fromKey, toKey, toKeyOnTap) => ({
-  ...remap(fromKey, toKey),
+const sticky = (fromKey, layer, options) => ({
+  type: 'basic',
+  from: from(...fromKey),
+  to: {
+    set_variable: {
+      name: layer,
+      value: 1,
+    },
+  },
+  to_after_key_up: [
+    {
+      set_variable: {
+        name: layer,
+        value: 0,
+      },
+    },
+  ],
+  // to_delayed_action: {
+  //   to_if_invoked: [
+  //     {
+  //       set_variable: {
+  //         name: layer,
+  //         value: 0,
+  //       },
+  //     },
+  //   ],
+  //   // to_if_canceled: [
+  //   //   {
+  //   //     set_variable: {
+  //   //       name: layer,
+  //   //       value: 1,
+  //   //     },
+  //   //   },
+  //   // ],
+  // },
+  ...options,
+});
+
+const modTap = (fromKey, toKey, toKeyOnTap, options) => ({
+  ...remap(fromKey, toKey, options),
   description: `${keyToString(fromKey)} to ${keyToString(...toKey)}, send ${keyToString(...toKeyOnTap)} on tap`,
   to_if_alone: to(toKeyOnTap),
 });
 
-const getRules = mods => mods.reduce((rules, mod) => rules.concat(mod.rules), []);
+const getRules = mods => mods.reduce((rules, mod) => {
+  // when rules are passed in the form: [qwerty, ['thumbCluster', 'customQwerty']]
+  if (Array.isArray(mod)) {
+    const [modification, modRules] = mod;
+    return rules.concat(modification.rules.filter(rule => modRules.includes(rule.id)));
+  }
+
+  return rules.concat(mod.rules);
+}, []);
 
 const profile = (name, mods = [], overrides = {}) => ({
   name,
@@ -63,9 +109,10 @@ const profile = (name, mods = [], overrides = {}) => ({
 
 module.exports = {
   from,
-  to,
   manipulator,
-  remap,
   modTap,
   profile,
+  remap,
+  sticky,
+  to,
 };
