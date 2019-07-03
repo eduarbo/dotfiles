@@ -1,8 +1,14 @@
 const { remap } = require('../../utils');
+const { corneKeyboard } = require('../devices');
 
 const mandatoryMods = ['left_shift', 'right_shift'];
 const optionalMods = [];
-const remapToLayer = (fromKey, toKey) => remap([fromKey, mandatoryMods, optionalMods], toKey);
+const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey, {
+  // conditions: [{
+  //   type: 'device_unless',
+  //   identifiers: [corneKeyboard],
+  // }],
+});
 
 module.exports = {
   title: 'Fn layer',

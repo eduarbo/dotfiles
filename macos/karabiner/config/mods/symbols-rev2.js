@@ -1,10 +1,16 @@
 const { remap } = require('../../utils');
+const { corneKeyboard } = require('../devices');
 
 const mandatoryMods = ['left_shift'];
 const optionalMods = ['caps_lock', 'command', 'control', 'option'];
 const shiftedNumbersRow = 'pqwertyuio'.split('');
 const numbersRow = ['semicolon', ...'asdfghjkl'.split('')];
-const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey);
+const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey, {
+  // conditions: [{
+  //   type: 'device_unless',
+  //   identifiers: [corneKeyboard],
+  // }],
+});
 
 module.exports = {
   title: 'Symbols layer',
