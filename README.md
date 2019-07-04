@@ -42,7 +42,7 @@ The following are the categories and topics available to install:
   - [ ] `git` - nice aliases and zsh plugins
   - [ ] `gnupg` - encryption/signing
   - [ ] `iterm` - iTerm2, is there a better macOS terminal?
-  - [ ] `kitty` - well, in fact there is a better macOS terminal
+  - [X] `kitty` - well, in fact there is a better macOS terminal
   - [ ] `sk` - faster than fzf, Skim it's Fuzzy Finder in rust!
   - [ ] `tmux` - window manager within the terminal + nice plugins
   - [X] `zsh` - my shell of choice with a nice prompt, really fast and extensible with zplugin
