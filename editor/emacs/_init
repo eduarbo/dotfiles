@@ -1,0 +1,61 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+# Dependencies
+
+common_deps=(
+  the_silver_searcher
+  ripgrep
+  sqlite
+)
+
+brew_deps=(
+  pandoc
+  markdown
+  coreutils
+  gnu-tar
+  llvm
+  cmake
+  glslang
+  pyenv
+)
+
+cask_deps=(
+  marked
+  font-hack
+  font-hack-nerd-font
+  font-noto-sans
+)
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]} ${brew_deps[@]}
+      brew cask install ${cask_deps[@]}
+      brew install emacs-plus --without-spacemacs-icon
+      ;;
+  esac
+
+  # Clone and setup doom-emacs
+  _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
+
+  cd ~/.emacs.d && YES=1 make install
+  # Create or regenerate the envvar file
+  doom env refresh
+}
+
+update() {
+  cd ~/.emacs.d && YES=1 make
+  # Create or regenerate the envvar file
+  doom env refresh
+}
+
+link() {
+  mklink doom $XDG_CONFIG_HOME
+}
+
+clean() {
+  rm -rfv "$XDG_CONFIG_HOME/doom" "~/.emacs.d"
+}
+
+init "$@"
