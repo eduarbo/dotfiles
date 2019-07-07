@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: arrow function
+# key: a
+# --
+${1:arg} => `(if (> (%lines %) 1) (concat "{ " (!%!) " }") %)`$0`(when (eolp) ";")`
