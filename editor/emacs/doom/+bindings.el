@@ -7,7 +7,6 @@
 
 (map! "s-;" #'execute-extended-command
       "s-x" #'execute-extended-command
-      "s-/" #'which-key-show-top-level
       "s-," #'+nav-flash/blink-cursor
       "s-." #'helpful-key
 
@@ -29,6 +28,7 @@
                  'flyspell-correct-word-generic)
 
       ;; misc
+      :gnv "s-/"  #'which-key-show-top-level
       :nv ";"     #'evil-ex
       :nv ":"     #'eval-expression
 
