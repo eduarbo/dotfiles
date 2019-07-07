@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: context
+# key: cx
+# --
+context('${1:name}', () => {
+  `%`$0
+});

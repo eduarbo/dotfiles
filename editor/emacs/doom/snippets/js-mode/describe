@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: describe
+# key: des
+# --
+describe('${1:name}', function () {
+  `%`$0
+});
