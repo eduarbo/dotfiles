@@ -13,6 +13,29 @@
       "s-[" #'previous-buffer
       "s-]" #'next-buffer
 
+      :i "S-SPC" 'yas-expand
+      :v "S-SPC" (general-predicate-dispatch nil
+                   (and (bound-and-true-p yas-minor-mode)
+                        (or (eq evil-visual-selection 'line)
+                            (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
+                   'yas-insert-snippet)
+
+      [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
+              (featurep! :completion company)
+              'company-indent-or-complete-common)
+              ;; '+company/complete)
+      ;; Smart tab, these will only work in GUI Emacs
+      ;; :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
+      ;;            (and (featurep! :completion company)
+      ;;                 (+company-has-completion-p))
+      ;;            '+company/complete)
+      :n [tab] (general-predicate-dispatch nil
+                 (fboundp 'evil-jump-item)
+                 'evil-jump-item)
+      :v [tab] (general-predicate-dispatch nil
+                 (fboundp 'evil-jump-item)
+                 'evil-jump-item)
+
       (:when (featurep! :ui workspaces)
         "s-t" #'+workspace/new
         "s-{" #'+workspace/switch-left
@@ -80,7 +103,8 @@
       :gi "C-S-l"        #'sp-forward-symbol
 
       ;; Basic editing
-      :gi "S-SPC"        #'tab-to-tab-stop
+      :i "S-RET"         #'tab-to-tab-stop
+      :i [S-return]      #'tab-to-tab-stop
       ;; TODO: Tranpose last two WORDS not those around
       :gi "C-t"          #'transpose-words
       ;; TODO: Tranpose last two SEXPS not those around
