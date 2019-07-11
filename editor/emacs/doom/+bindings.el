@@ -207,20 +207,24 @@
         :n [return] #'+gist/open-current))
 
 ;;; :lang
-(map! :map org-mode-map
-      :n "SPC" #'org-todo
-      (:when IS-MAC
-        :ni "s-o"   (λ! (+org/insert-item 'below))
-        :ni "s-O"   (λ! (+org/insert-item 'above))))
 
-;; A fresh start
+(map! :map evil-org-mode-map
+      :after org
+      :n [tab] #'org-todo
+      :n "SPC" #'org-cycle)
+      ;; :n "SPC" #'+org/toggle-fold)
+
 (map! :map org-mode-map
       :after org
+
+      (:when IS-MAC
+        "s-o"   #'+org/insert-item-below
+        "s-O"   #'+org/insert-item-above)
+
       :localleader
-      ;; Unmap the whole map
-      "" nil)
-(map! :map org-mode-map
-      :after org
+      ;; A fresh start - Unmap the whole map
+      "" nil
+
       :localleader
 
       :desc "Schedule"              :n  "s"   #'org-schedule
