@@ -35,8 +35,9 @@ module.exports = {
       description: 'Custom Qwerty (Rev2)',
       manipulators: [
         remap(['delete_or_backspace'], [['f13']]),
-        remap(['open_bracket'], [['delete_or_backspace']]),
-        remap(['caps_lock'], [['grave_accent_and_tilde']]),
+        remap(['open_bracket'], [['grave_accent_and_tilde']]),
+        remap(['caps_lock', ['command']], [['grave_accent_and_tilde', ['left_command']]]),
+        remap(['caps_lock'], [['delete_or_backspace']]),
         remap(['quote'], [['quote']]),
         remap(['left_shift'], [['open_bracket']]),
         remap(['right_shift'], [['close_bracket']]),
