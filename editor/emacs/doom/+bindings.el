@@ -254,6 +254,11 @@
       "n" #'org-journal-open-next-entry
       "p" #'org-journal-open-previous-entry)
 
+(map! :map emmet-mode-keymap
+      :after emmet-mode
+      :v "S-SPC" #'emmet-wrap-with-markup
+      :i "S-SPC" #'+eduarbo/yas-or-emmet-expand)
+
 
 ;;
 ;;; <leader>
