@@ -57,3 +57,17 @@
               (gethash +workspace--last
                        *persp-hash* 'non-existent))
     (+workspace/switch-to +workspace--last)))
+
+;;;###autoload
+(defun +eduarbo/yas-or-emmet-expand ()
+  "Do-what-I-mean on TAB.
+
+Invokes `yas-expand' if on a snippet or `emmet-expand-yas'/`emmet-expand-line',
+depending on whether `yas-minor-mode' is enabled or not."
+  (interactive)
+  (call-interactively
+   (cond ((bound-and-true-p yas-minor-mode)
+          (if (yas--templates-for-key-at-point)
+              #'yas-expand
+            #'emmet-expand-yas))
+         (#'emmet-expand-line))))
