@@ -177,7 +177,7 @@
 
 ;;; :editor
 (map! (:when (featurep! :editor fold)
-        :nv [(shift return)] #'+fold/toggle))
+        :nv "SPC" #'+fold/toggle))
 
 ;;; :emacs
 (map! :map emacs-lisp-mode-map
