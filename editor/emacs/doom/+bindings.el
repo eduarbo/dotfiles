@@ -13,28 +13,33 @@
       "s-[" #'previous-buffer
       "s-]" #'next-buffer
 
-      :i "S-SPC" 'yas-expand
-      :v "S-SPC" (general-predicate-dispatch nil
+      :i [C-tab] 'yas-expand
+      :v [C-tab] (general-predicate-dispatch nil
                    (and (bound-and-true-p yas-minor-mode)
                         (or (eq evil-visual-selection 'line)
                             (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
                    'yas-insert-snippet)
 
-      [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
-              (featurep! :completion company)
-              'company-indent-or-complete-common)
-              ;; '+company/complete)
-      ;; Smart tab, these will only work in GUI Emacs
-      ;; :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
-      ;;            (and (featurep! :completion company)
-      ;;                 (+company-has-completion-p))
-      ;;            '+company/complete)
+      :i [tab] (general-predicate-dispatch nil
+                 (and (featurep! :editor snippets)
+                      (bound-and-true-p yas-minor-mode)
+                      (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+                 'yas-expand)
       :n [tab] (general-predicate-dispatch nil
                  (fboundp 'evil-jump-item)
                  'evil-jump-item)
       :v [tab] (general-predicate-dispatch nil
                  (fboundp 'evil-jump-item)
                  'evil-jump-item)
+
+      :i [backtab] (general-predicate-dispatch nil
+                     (featurep! :completion company)
+                     'company-indent-or-complete-common)
+      :v [backtab] (general-predicate-dispatch nil
+                     (and (bound-and-true-p yas-minor-mode)
+                          (or (eq evil-visual-selection 'line)
+                              (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
+                     'yas-insert-snippet)
 
       (:when (featurep! :ui workspaces)
         "s-t" #'+workspace/new
@@ -139,7 +144,16 @@
 
 ;;; :completion
 (map! (:when (featurep! :completion company)
-        :i [C-return] #'+company/complete
+        (:prefix "S-SPC"
+          :i "l"    #'+company/whole-lines
+          :i "k"    #'+company/dict-or-keywords
+          :i "f"    #'company-files
+          :i "t"    #'company-etags
+          :i "s"    #'company-ispell
+          :i "y"    #'company-yasnippet
+          :i "o"    #'company-capf
+          :i "n"    #'+company/dabbrev
+          :i "p"    #'+company/dabbrev-code-previous)
         (:after company
           (:map company-active-map
             [C-return] #'company-complete-common)))
@@ -177,7 +191,19 @@
 
 ;;; :editor
 (map! (:when (featurep! :editor fold)
-        :nv "SPC" #'+fold/toggle))
+        :nv "SPC" #'+fold/toggle)
+
+      (:when (featurep! :editor snippets)
+        (:after yasnippet
+          (:map yas-keymap
+            ;; Do not interfer with yas-expand, sometimes I want to type "a" and
+            ;; move to the next field without accidentally inserting a snippet
+            [tab]         nil
+            "TAB"         nil
+            [backtab]     nil
+            "<S-tab>"     nil
+            "C-n"         #'yas-next-field
+            "C-p"         #'yas-prev-field))))
 
 ;;; :emacs
 (map! :map emacs-lisp-mode-map
@@ -257,11 +283,6 @@
       :map org-journal-mode-map
       "n" #'org-journal-open-next-entry
       "p" #'org-journal-open-previous-entry)
-
-(map! :map emmet-mode-keymap
-      :after emmet-mode
-      :v "S-SPC" #'emmet-wrap-with-markup
-      :i "S-SPC" #'+eduarbo/yas-or-emmet-expand)
 
 
 ;;
