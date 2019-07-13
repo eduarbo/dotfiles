@@ -56,6 +56,9 @@
                  'flyspell-correct-word-generic)
 
       ;; misc
+      :nvi "C-n"  #'sp-next-sexp
+      :nvi "C-p"  #'sp-previous-sexp
+
       :gnv "s-/"  #'which-key-show-top-level
       :nv ";"     #'evil-ex
       :nv ":"     #'eval-expression
