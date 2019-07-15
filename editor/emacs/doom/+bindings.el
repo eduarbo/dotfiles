@@ -295,43 +295,53 @@
       :desc "Eval expression"       ":"    #'eval-expression
       :desc "M-x"                   ";"    #'execute-extended-command
 
-      (:when (featurep! :ui workspaces)
-        :desc "Switch workspace"            "TAB" #'persp-switch
-
-        ;;; <leader> l --- workspace
-        (:prefix-map ("l" . "workspace")
-          :desc "Load a past session"       "L"   #'+workspace/load-session
-          :desc "Autosave current session"  "S"   #'+workspace/save-session))
+      ;;; <leader> l --- language
+      (:when (featurep! :config language)
+        (:prefix ("l" . "language")
+          :desc "Configure translate languages"    ","   #'+language/set-google-translate-languages
+          :desc "Translate"                        "t"   #'google-translate-smooth-translate
+          :desc "Translate any language"           "a"   #'+language/google-translate-smooth-translate-any
+          :desc "Translate from source lang"       "s"   #'google-translate-at-point
+          :desc "Translate from destination lang"  "d"   #'google-translate-at-point-reverse))
 
       ;;; <leader> b --- buffer
-      (:prefix-map ("b" . "buffer")
+      (:prefix ("b" . "buffer")
         :desc "Kill buried buffers"         "K"   #'doom/kill-buried-buffers)
 
       ;;; <leader> g --- git
-      (:prefix-map ("g" . "git")
+      (:prefix ("g" . "git")
         :desc "Git link for line or region" "y"   #'git-link
         (:when (featurep! :tools magit)
           :desc "Magit diff staged"         "d"   #'magit-diff-buffer-file))
 
+      (:when (featurep! :ui workspaces)
+        :desc "Switch workspace"            "TAB" #'persp-switch
+
+        ;;; <leader> k --- workspace
+        "k" doom-leader-workspace-map ;; Remap workspace to K prefix
+        (:prefix ("k" . "workspace")
+          :desc "Load a past session"       "L"   #'+workspace/load-session
+          :desc "Autosave current session"  "S"   #'+workspace/save-session))
+
       ;;; <leader> n --- notes
-      (:prefix-map ("n" . "notes")
+      (:prefix ("n" . "notes")
         :desc "New Journal entry"             "d" #'org-journal-new-entry
         :desc "Open mode notes"               "m" #'+eduarbo/find-notes-for-major-mode
         :desc "Open project notes"            "p" #'+eduarbo/find-notes-for-project)
 
       ;;; <leader> p --- project
-      (:prefix-map ("p" . "project")
+      (:prefix ("p" . "project")
         :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path)
 
       ;;; <leader> q --- session
-      (:prefix-map ("q" . "session")
+      (:prefix ("q" . "session")
         ;; :desc "Quit Emacs"                   "q" #'evil-quit-all
         ;; :desc "Save and quit Emacs"          "Q" #'evil-save-and-quit
         (:when (featurep! :feature workspaces)
           :desc "Quit Emacs & forget session"  "X" #'+workspace/kill-session-and-quit))
 
       ;;; <leader> t --- toggle
-      (:prefix-map ("t" . "toggle")
+      (:prefix ("t" . "toggle")
         :desc "Line numbers"                 "l" #'display-line-numbers-mode
         :desc "Global Line numbers"          "L" #'global-display-line-numbers-mode
         :desc "Visual line mode"             "v" #'visual-line-mode
