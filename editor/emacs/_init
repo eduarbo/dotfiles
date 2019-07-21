@@ -35,6 +35,8 @@ install() {
       brew install emacs-plus --without-spacemacs-icon
       ;;
   esac
+  # TODO allow installation of global node packages
+  # npm install -g eslint_d typescript-language-server
 
   # Clone and setup doom-emacs
   _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
