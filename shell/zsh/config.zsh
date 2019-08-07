@@ -1,6 +1,6 @@
 ## General
 # Treat these characters as part of a word.
-WORDCHARS='_-*?[]~&.;!#$%^(){}<>'
+WORDCHARS='*?[]~&.;!#$%^(){}<>'
 
 # When Ctrl-w treat slashes, dots and few other things as delimiters too
 autoload -U select-word-style
