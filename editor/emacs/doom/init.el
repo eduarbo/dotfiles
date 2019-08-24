@@ -62,6 +62,7 @@
 
        :term
        ;; eshell            ; a consistent, cross-platform shell (WIP)
+       ;; shell             ; a terminal REPL for Emacs
        ;; term              ; terminals in Emacs
        ;; vterm             ; another terminals in Emacs
 
@@ -146,7 +147,8 @@
        ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;; rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;; scala             ; java, but good
-       (sh +fish)        ; she sells (ba|z|fi)sh shells on the C xor
+       ;; scheme            ; a fully conniving family of lisps
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;; solidity          ; do you need a blockchain? No.
        ;; swift             ; who asked for emoji variables?
        ;; terra             ; Earth and Moon in alignment for performance.
@@ -182,5 +184,5 @@
        ;; The default module sets reasonable defaults for Emacs. It also
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
-       language
+       language             ; google translate
        (default +bindings +smartparens))
