@@ -308,6 +308,11 @@
       (:prefix ("b" . "buffer")
         :desc "Kill buried buffers"         "K"   #'doom/kill-buried-buffers)
 
+      ;;; <leader> f --- file
+      (:prefix ("f" . "file")
+        :desc "Find file in .dotfiles"        "t" #'+eduarbo/find-in-dotfiles
+        :desc "Browse .dotfiles"              "T" #'+eduarbo/browse-dotfiles)
+
       ;;; <leader> g --- git
       (:prefix ("g" . "git")
         :desc "Git link for line or region" "y"   #'git-link
