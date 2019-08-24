@@ -338,13 +338,6 @@
       (:prefix ("p" . "project")
         :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path)
 
-      ;;; <leader> q --- session
-      (:prefix ("q" . "session")
-        ;; :desc "Quit Emacs"                   "q" #'evil-quit-all
-        ;; :desc "Save and quit Emacs"          "Q" #'evil-save-and-quit
-        (:when (featurep! :feature workspaces)
-          :desc "Quit Emacs & forget session"  "X" #'+workspace/kill-session-and-quit))
-
       ;;; <leader> t --- toggle
       (:prefix ("t" . "toggle")
         :desc "Line numbers"                 "l" #'display-line-numbers-mode
