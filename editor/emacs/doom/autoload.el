@@ -71,3 +71,15 @@ depending on whether `yas-minor-mode' is enabled or not."
               #'yas-expand
             #'emmet-expand-yas))
          (#'emmet-expand-line))))
+
+;;;###autoload
+(defun +eduarbo/find-in-dotfiles ()
+  "Open a file somewhere in ~/.dotfiles via a fuzzy filename search."
+  (interactive)
+  (doom-project-find-file (expand-file-name "~/.dotfiles")))
+
+;;;###autoload
+(defun +eduarbo/browse-dotfiles ()
+  "Browse the files in ~/.dotfiles."
+  (interactive)
+  (doom-project-browse (expand-file-name "~/.dotfiles")))
