@@ -3,6 +3,9 @@
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
 
+(setq doom-leader-key ","
+      doom-localleader-key ", m")
+
 (doom! :input
        ;;chinese
        ;;japanese
