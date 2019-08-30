@@ -318,7 +318,8 @@
       (:prefix ("g" . "git")
         :desc "Git link for line or region" "y"   #'git-link
         (:when (featurep! :tools magit)
-          :desc "Magit diff staged"         "d"   #'magit-diff-buffer-file))
+          :desc "Magit diff staged"         "d"   #'magit-diff-buffer-file
+          :desc "Magit diff"                "D"   #'magit-diff))
 
       (:when (featurep! :ui workspaces)
         :desc "Switch workspace"            "TAB" #'persp-switch
