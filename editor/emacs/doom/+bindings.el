@@ -165,6 +165,7 @@
         (:after ivy
           :map ivy-minibuffer-map
           [C-return] #'ivy-call-and-recenter  ; preview file
+          "C-o"      #'hydra-ivy/body
           )
         (:after counsel
           :map counsel-ag-map
