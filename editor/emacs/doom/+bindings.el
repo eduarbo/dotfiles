@@ -170,7 +170,7 @@
         (:after counsel
           :map counsel-ag-map
           [C-return]    #'ivy-call-and-recenter ; preview
-          [backtab]  #'+ivy/wgrep-occur      ; search/replace on results
+          [backtab]  #'+ivy/woccur
           "C-,"      (+ivy-do-action! #'+ivy-git-grep-other-window-action))
         (:after swiper
           :map swiper-map
