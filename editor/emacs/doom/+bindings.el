@@ -134,7 +134,7 @@
       :v "C-v" #'er/contract-region
 
       :nv "go"    #'avy-goto-char-timer
-      :nv "g/"    #'+helm/project-search
+      :nv "g/"    #'+default/search-project
       :n  "g."    #'call-last-kbd-macro)
 
 ;; help
