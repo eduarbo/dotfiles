@@ -26,9 +26,6 @@
 ;;
 ;; Reasonable defaults
 
-(setq doom-leader-key ","
-      doom-localleader-key ", m")
-
 ;; That's me!!!
 (setq user-mail-address "eduarbo@gmail.com"
       user-full-name    "Eduardo Ruiz Macias"
