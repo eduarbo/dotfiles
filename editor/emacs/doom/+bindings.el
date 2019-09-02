@@ -57,7 +57,6 @@
       :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
       :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
 
-      ;; FIXME: Ensure they really move to previous/next buffer
       :n  "H"     #'previous-buffer
       :n  "L"     #'next-buffer
 
