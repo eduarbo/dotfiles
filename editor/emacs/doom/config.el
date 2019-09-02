@@ -236,13 +236,15 @@
 
 
 ;; tools/lsp
-(after! lsp-mode
-  (setq lsp-enable-symbol-highlighting nil))
-
 (after! lsp-ui
-  ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so
-  ;; disable it by default
-  (setq lsp-ui-sideline-enable nil))
+  ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable
+  ;; it by default
+  (setq lsp-ui-sideline-enable nil)
+  ;; Disable lsp-ui flychecker
+  (setq lsp-prefer-flymake :none))
+
+;; (after! lsp-mode
+;;   (setq lsp-enable-symbol-highlighting nil))
 
 
 ;; lang/javascript
