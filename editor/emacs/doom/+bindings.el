@@ -112,6 +112,7 @@
       :v "C-v" #'er/contract-region
 
       :nv "go"    #'avy-goto-char-timer
+      :nv "gO"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
       :nv "g/"    #'+default/search-project
       :n  "g."    #'call-last-kbd-macro
 
