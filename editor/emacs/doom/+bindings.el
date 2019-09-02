@@ -67,11 +67,6 @@
       (:map evil-org-mode-map
         :n  "~"        #'evil-switch-to-windows-last-buffer)
 
-      ;; Insert mode
-      :gi "C-s"          #'isearch-forward
-      (:map isearch-mode-map
-        :gi "C-S-s"      #'isearch-repeat-backward)
-
       ;; Behave like a backspace
       :gi [C-backspace]  #'backward-delete-char-untabify
 
@@ -118,8 +113,21 @@
 
       :nv "go"    #'avy-goto-char-timer
       :nv "g/"    #'+default/search-project
-      :n  "g."    #'call-last-kbd-macro)
+      :n  "g."    #'call-last-kbd-macro
 
+      (:after evil-snipe
+        :nv "s"   #'evil-snipe-repeat
+        :nv "S"   #'evil-snipe-repeat-reverse
+
+        :map evil-snipe-parent-transient-map
+        "C-s" (λ! (require 'evil-easymotion)
+                  (call-interactively
+                   (evilem-create #'evil-snipe-repeat
+                                  :bind ((evil-snipe-scope 'whole-buffer)
+                                         (evil-snipe-enable-highlight)
+                                         (evil-snipe-enable-incremental-highlight)))))
+        ;; Free keymap now that is remapped to C-s
+        "C-;" nil))
 ;; help
 (map! (:map help-map
         "H"   #'+lookup/documentation))

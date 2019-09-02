@@ -185,13 +185,13 @@
 
 ;; completion/company
 (after! company
-  ;; On-demand code completion. I don't often need it
+  ;; On-demand code completion
   (setq company-idle-delay nil))
 
 
 ;; f/F/t/T/s/S
 (after! evil-snipe
-  ;; Disable ~evil-snipe-mode but keep incremental highlighting for the f/F/t/T
+  ;; Disable evil-snipe-mode but keep incremental highlighting for the f/F/t/T
   ;; motions keys
   (evil-snipe-mode -1))
 
