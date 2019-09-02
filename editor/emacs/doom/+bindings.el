@@ -227,9 +227,7 @@
 
 (map! :map evil-org-mode-map
       :after org
-      :n [tab] #'org-todo
-      :n "SPC" #'org-cycle)
-      ;; :n "SPC" #'+org/toggle-fold)
+      :n "SPC"   #'org-todo)
 
 (map! :map org-mode-map
       :after org
