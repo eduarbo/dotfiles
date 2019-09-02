@@ -200,6 +200,19 @@
 (map! (:when (featurep! :editor fold)
         :nv "SPC" #'+fold/toggle)
 
+      ;; NOTE: Fix broken evil-multiedit bindings
+      (:when (featurep! :editor multiple-cursors)
+        :n  "s-d"   #'evil-multiedit-match-symbol-and-next
+        :n  "s-D"   #'evil-multiedit-match-symbol-and-prev
+        :v  "s-d"   #'evil-multiedit-match-and-next
+        :v  "s-D"   #'evil-multiedit-match-and-prev
+        :nv "C-s-d" #'evil-multiedit-restore
+        (:after evil-multiedit
+          (:map evil-multiedit-state-map
+            "s-d"    #'evil-multiedit-match-and-next
+            "s-D"    #'evil-multiedit-match-and-prev
+            [return] #'evil-multiedit-toggle-or-restrict-region)))
+
       (:when (featurep! :editor snippets)
         (:after yasnippet
           (:map yas-keymap
