@@ -7,21 +7,21 @@
       doom-localleader-key ", m")
 
 (doom! :input
-       ;;chinese
-       ;;japanese
+       ;; chinese
+       ;; japanese
 
        :completion
        (company          ; the ultimate code completion backend
         ;; +tng
         ;; +childframe
         )
-       ; (helm +fuzzy)     ; the *other* search engine for love and life
+       (helm +fuzzy)     ; the *other* search engine for love and life
        ;; ido               ; the other *other* search engine...
-       (ivy              ; a search engine for love and life
-        +fuzzy
-        ;; +icons
-        +prescient
-        )
+       ;; (ivy              ; a search engine for love and life
+       ;;  +fuzzy
+       ;;  ;; +icons
+       ;;  +prescient
+       ;;  )
 
        :ui
        ;; deft              ; notational velocity for Emacs
@@ -29,7 +29,7 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;; fill-column       ; a `fill-column' indicator
-       hl-todo           ; highlight TODO/FIXME/NOTE tags
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -40,7 +40,7 @@
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
        ;; pretty-code       ; replace bits of code with pretty symbols
-       ;; tabbar            ; FIXME an (incomplete) tab bar for Emacs
+       ;; tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;; unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -59,6 +59,7 @@
        ;; parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
+       ;; word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
        (dired            ; making dired pretty [functional]
@@ -164,9 +165,9 @@
        ;; vala              ; GObjective-C
 
        :email
-       ;;(mu4e +gmail)       ; WIP
-       ;;notmuch             ; WIP
-       ;;(wanderlust +gmail) ; WIP
+       ;; (mu4e +gmail)       ; WIP
+       ;; notmuch             ; WIP
+       ;; (wanderlust +gmail) ; WIP
 
        ;; Applications are complex and opinionated modules that transform Emacs
        ;; toward a specific purpose. They may have additional dependencies and
@@ -176,13 +177,9 @@
        ;; irc               ; how neckbeards socialize
        ;; (rss +org)        ; emacs as an RSS reader
        ;; twitter           ; twitter client https://twitter.com/vnought
-       ;; (write            ; emacs as a word processor (latex + org + markdown)
+       ;; (write            ; emacs for writers (fiction, notes, papers, etc.)
        ;;  +wordnut         ; wordnet (wn) search
        ;;  +langtool)       ; a proofreader (grammar/style check) for Emacs
-
-       :collab
-       ;; floobits          ; peer programming for a price
-       ;; impatient-mode    ; show off code over HTTP
 
        :config
        ;; For literate config users. This will tangle+compile a config.org
@@ -192,5 +189,5 @@
        ;; The default module sets reasonable defaults for Emacs. It also
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
-       language             ; google translate
+       ;; language             ; google translate
        (default +bindings +smartparens))
