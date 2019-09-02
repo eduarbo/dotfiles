@@ -189,6 +189,13 @@
   (setq company-idle-delay nil))
 
 
+;; f/F/t/T/s/S
+(after! evil-snipe
+  ;; Disable ~evil-snipe-mode but keep incremental highlighting for the f/F/t/T
+  ;; motions keys
+  (evil-snipe-mode -1))
+
+
 ;; completion/helm
 (after! helm
   ;; Show hidden files too
