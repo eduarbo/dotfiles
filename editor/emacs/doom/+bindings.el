@@ -234,6 +234,9 @@
 (map! :map org-mode-map
       :after org
 
+      :nv "s-j"  #'org-metadown
+      :nv "s-k"  #'org-metaup
+
       (:when IS-MAC
         "s-o"   #'+org/insert-item-below
         "s-O"   #'+org/insert-item-above)
