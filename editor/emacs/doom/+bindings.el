@@ -118,6 +118,11 @@
       :nv "g/"    #'+default/search-project
       :n  "g."    #'call-last-kbd-macro
 
+      ;; narrowing and widening
+      :v  "gn"    #'narrow-to-region
+      :n  "gn"    #'narrow-to-defun
+      :nv "gw"    #'widen
+
       (:after evil-snipe
         :nv "s"   #'evil-snipe-repeat
         :nv "S"   #'evil-snipe-repeat-reverse
