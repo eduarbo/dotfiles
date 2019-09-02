@@ -171,7 +171,14 @@
           :n  "C-`"  #'+eduarbo/switch-to-last-workspace)
 
         :n "C-S-l" #'+workspace/switch-right
-        :n "C-S-h" #'+workspace/switch-left))
+        :n "C-S-h" #'+workspace/switch-left)
+
+      (:when (featurep! :ui treemacs)
+        (:map evil-treemacs-state-map
+          "C-h" #'evil-window-left
+          "C-l" #'evil-window-right
+          "s-j" #'multi-next-line
+          "s-k" #'multi-previous-line)))
 
 ;;; :editor
 (map! (:when (featurep! :editor fold)
