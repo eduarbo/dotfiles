@@ -13,8 +13,8 @@
       "s-[" #'previous-buffer
       "s-]" #'next-buffer
 
-      :m "s-j" #'multi-next-line
-      :m "s-k" #'multi-previous-line
+      :m  "s-j" #'multi-next-line
+      :m  "s-k" #'multi-previous-line
 
       :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
                  (and (featurep! :editor snippets)
@@ -44,8 +44,8 @@
       :nvi "C-p"  #'sp-previous-sexp
 
       :gnv "s-/"  #'which-key-show-top-level
-      :nv ";"     #'evil-ex
-      :nv ":"     #'eval-expression
+      :nv  ";"    #'evil-ex
+      :nv  ":"    #'eval-expression
 
       :n "#"      #'evil-commentary-line
       :v "#"      #'evil-commentary
