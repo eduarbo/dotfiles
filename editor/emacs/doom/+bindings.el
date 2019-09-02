@@ -22,7 +22,9 @@
                       (yas-maybe-expand-abbrev-key-filter 'yas-expand))
                  'yas-expand
                  (and (featurep! :completion company)
-                      (+company-has-completion-p))
+                      ;; FIXME this breaks company-lsp
+                      ;; (+company-has-completion-p)
+                      )
                  'company-indent-or-complete-common)
 
       (:when (featurep! :ui workspaces)

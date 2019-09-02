@@ -130,7 +130,7 @@
        ;; (java +meghanada) ; the poster child for carpal tunnel syndrome
        (javascript       ; all(hope(abandon(ye(who(enter(here))))))
         ;; TODO Fix flycheck, it can't find the local eslint node package when lsp is enabled
-        ;; +lsp
+        +lsp
         )
        ;; julia             ; a better, faster MATLAB
        ;; kotlin            ; a better, slicker Java(Script)
