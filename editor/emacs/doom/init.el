@@ -6,6 +6,11 @@
 (setq doom-leader-key ","
       doom-localleader-key ", m")
 
+;; Make s and S the universal repeat-keys in evil-mode
+(setq +default-repeat-keys (cons "s" "S"))
+;; STOP binding ; and , as universal repeat-keys, they already have a job
+(setq evil-snipe-parent-transient-map (make-sparse-keymap))
+
 (doom! :input
        ;; chinese
        ;; japanese
