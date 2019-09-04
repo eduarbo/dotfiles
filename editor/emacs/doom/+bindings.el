@@ -123,19 +123,37 @@
       :n  "gn"    #'narrow-to-defun
       :nv "gw"    #'widen
 
-      (:after evil-snipe
-        :nv "s"   #'evil-snipe-repeat
-        :nv "S"   #'evil-snipe-repeat-reverse
+      :n  "s"     #'evil-surround-edit
+      :v  "s"     #'evil-surround-region
 
-        :map evil-snipe-parent-transient-map
-        "C-s" (λ! (require 'evil-easymotion)
-                  (call-interactively
-                   (evilem-create #'evil-snipe-repeat
-                                  :bind ((evil-snipe-scope 'whole-buffer)
-                                         (evil-snipe-enable-highlight)
-                                         (evil-snipe-enable-incremental-highlight)))))
-        ;; Free keymap now that is remapped to C-s
-        "C-;" nil))
+      (:after evil-easymotion
+        :map evilem-map
+        "d" (evilem-create #'evil-snipe-repeat
+                           :name 'evil-easymotion-snipe-forward
+                           :pre-hook (save-excursion (call-interactively #'evil-snipe-s))
+                           :bind ((evil-snipe-scope 'buffer)
+                                  (evil-snipe-enable-highlight)
+                                  (evil-snipe-enable-incremental-highlight)))
+        "D" (evilem-create #'evil-snipe-repeat
+                           :name 'evil-easymotion-snipe-backward
+                           :pre-hook (save-excursion (call-interactively #'evil-snipe-S))
+                           :bind ((evil-snipe-scope 'buffer)
+                                  (evil-snipe-enable-highlight)
+                                  (evil-snipe-enable-incremental-highlight)))
+
+        "s" (evilem-create #'evil-snipe-repeat
+                                :bind ((evil-snipe-scope 'whole-buffer)
+                                       (evil-snipe-enable-highlight)
+                                       (evil-snipe-enable-incremental-highlight)))
+
+        "S" (evilem-create #'evil-snipe-repeat-reverse
+                           :bind ((evil-snipe-scope 'whole-buffer)
+                                  (evil-snipe-enable-highlight)
+                                  (evil-snipe-enable-incremental-highlight))))
+
+      (:after evil-snipe
+        "C-s"    #'evil-snipe-repeat
+        "C-S-s"  #'evil-snipe-repeat-reverse))
 ;; help
 (map! (:map help-map
         "H"   #'+lookup/documentation))
