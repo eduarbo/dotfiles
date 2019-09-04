@@ -30,7 +30,9 @@
       (:when (featurep! :ui workspaces)
         "s-t" #'+workspace/new
         "s-{" #'+workspace/switch-left
-        "s-}" #'+workspace/switch-right)
+        "s-}" #'+workspace/switch-right
+        "s-h" #'+workspace/switch-left
+        "s-l" #'+workspace/switch-right)
 
       [remap evil-jump-to-tag] #'projectile-find-tag
       [remap find-tag]         #'projectile-find-tag
