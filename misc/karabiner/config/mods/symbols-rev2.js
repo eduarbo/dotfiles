@@ -20,10 +20,10 @@ module.exports = {
       manipulators: [
         // Upper row
         ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num.toString(), ['left_shift']]])),
+        remapToLayer('tab', [['f13']]),
 
         // Home row
         ...numbersRow.map((key, num) => remapToLayer(key, [[num.toString()]])),
-        remapToLayer('caps_lock', [['f13']]),
         remapToLayer('quote', [['backslash', ['left_shift']]]),
 
         // Lower row
