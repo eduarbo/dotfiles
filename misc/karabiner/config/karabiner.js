@@ -6,34 +6,24 @@ const emacs = require('./mods/emacs');
 const fn = require('./mods/fn');
 const launcher = require('./mods/launcher');
 const qwerty = require('./mods/qwerty');
-const qwertyRev2 = require('./mods/qwerty-rev2');
 const symbols = require('./mods/symbols');
-const symbolsRev2 = require('./mods/symbols-rev2');
 
 const rev2 = [
   arrows,
   emacs,
   fn,
-  symbolsRev2,
-  qwertyRev2,
+  symbols,
+  qwerty,
   launcher,
 ];
 
 const karabiner = {
   profiles: [
     profile('Clean'),
-    profile('Rev 1', [
-      arrows,
-      emacs,
-      fn,
-      symbols,
-      qwerty,
-      launcher,
-    ]),
-    profile('Rev 2', rev2, {
+    profile('Mac & Cheese', rev2, {
       selected: true,
     }),
-    profile('Rev 2 (disable mac kbd if corne is plugged in)', rev2, {
+    profile('Mac & Cheese (Mac kbd OFF if Corne ON)', rev2, {
       devices: [{
         identifiers: corneKeyboard,
         disable_built_in_keyboard_if_exists: true,
@@ -55,8 +45,7 @@ const complexModifications = {
   fn,
   launcher,
   qwerty,
-  qwertyRev2,
-  symbolsRev2,
+  symbols,
 };
 
 module.exports = {

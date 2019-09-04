@@ -1,10 +1,16 @@
 const { remap } = require('../../utils');
+const { corneKeyboard } = require('../devices');
 
 const mandatoryMods = ['left_shift'];
 const optionalMods = ['caps_lock', 'command', 'control', 'option'];
 const shiftedNumbersRow = 'pqwertyuio'.split('');
 const numbersRow = ['semicolon', ...'asdfghjkl'.split('')];
-const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey);
+const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey, {
+  // conditions: [{
+  //   type: 'device_unless',
+  //   identifiers: [corneKeyboard],
+  // }],
+});
 
 module.exports = {
   title: 'Symbols layer',
@@ -14,18 +20,18 @@ module.exports = {
       manipulators: [
         // Upper row
         ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num.toString(), ['left_shift']]])),
+        remapToLayer('tab', [['f13']]),
 
         // Home row
         ...numbersRow.map((key, num) => remapToLayer(key, [[num.toString()]])),
-        remapToLayer('quote', [['equal_sign', ['left_shift']]]),
-        remapToLayer('caps_lock', [['hyphen']]),
+        remapToLayer('quote', [['backslash', ['left_shift']]]),
 
         // Lower row
-        remapToLayer('left_shift', [['f13']]),
-        remapToLayer('grave_accent_and_tilde', [['f13']]),
-        remapToLayer('z', [['1', ['left_option']]]),
-        remapToLayer('x', [['backslash', ['left_shift']]]),
-        remapToLayer('c', [['hyphen', ['left_shift']]]),
+        remapToLayer('left_shift', [['1', ['left_option']]]),
+        remapToLayer('grave_accent_and_tilde', [['1', ['left_option']]]),
+        remapToLayer('z', [['hyphen', ['left_shift']]]),
+        remapToLayer('x', [['hyphen']]),
+        remapToLayer('c', [['equal_sign', ['left_shift']]]),
         remapToLayer('v', [['equal_sign']]),
         remapToLayer('b', [['backslash']]),
         remapToLayer('n', [['n', ['left_option']]]),
