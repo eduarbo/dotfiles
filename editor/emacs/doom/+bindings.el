@@ -104,10 +104,20 @@
       :nv "C-S-a" #'evil-numbers/dec-at-pt
 
       ;; Easier window/tab navigation
-      :en "C-h"   #'evil-window-left
-      :en "C-j"   #'evil-window-down
-      :en "C-k"   #'evil-window-up
-      :en "C-l"   #'evil-window-right
+      :nv "C-h"   #'evil-window-left
+      :nv "C-j"   #'evil-window-down
+      :nv "C-k"   #'evil-window-up
+      :nv "C-l"   #'evil-window-right
+
+      ;; Fix conflicts
+      (:after flycheck
+        :map flycheck-error-list-mode-map
+        :nv "C-j" nil
+        :nv "C-k" nil)
+      (:after evil-magit
+        :map magit-mode-map
+        :nv "C-j" nil
+        :nv "C-k" nil)
 
       ;; expand-region
       :v "v"   (general-predicate-dispatch 'er/expand-region
