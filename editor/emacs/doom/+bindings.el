@@ -59,8 +59,8 @@
       :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
       :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
 
-      :n  "H"     #'previous-buffer
-      :n  "L"     #'next-buffer
+      :nv "H"     #'previous-buffer
+      :nv "L"     #'next-buffer
 
       :n  "C-."   (cond ((featurep! :completion ivy)   #'ivy-resume)
                         ((featurep! :completion helm)  #'helm-resume))
