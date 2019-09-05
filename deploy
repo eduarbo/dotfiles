@@ -42,6 +42,9 @@ function _topics {
 function topic-enabled-p { [[ -L "$(topic-path $1)" ]] }
 function topic-path { echo "$DOTFILES_DATA/${1/\//$SEP}.topic" }
 
+# Alternative version to use only the topic name as path: ${1##*/}
+# function topic-path { echo "$DOTFILES_DATA/${1##*/}.topic" }
+
 function mklink {
   if [[ $1 == '-s' ]]; then
     local dosudo=1
