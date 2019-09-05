@@ -216,6 +216,13 @@
                                     helm-source-buffer-not-found)))
 
 
+;; completion/ivy
+(after! counsel
+  (setq counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never %s"
+        counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"
+        counsel-pt-base-command "pt -S --hidden --nocolor --nogroup -e %s"))
+
+
 ;; ui/modeline
 (after! doom-modeline
   (setq doom-modeline-major-mode-icon t
