@@ -79,10 +79,10 @@ Here's a breakdown of what the script does:
 
 ``` sh
 cd $topic
-if [[ -L $DOTFILES_DATA/${topic//\//.}.topic ]]; then
+if [[ -L $DOTFILES_DATA/${topic/\//.}.topic ]]; then
     ./_init update
 else
-    ln -sfv $DOTFILES/$topic $DOTFILES_DATA/${topic//\//.}.topic
+    ln -sfv $DOTFILES/$topic $DOTFILES_DATA/${topic/\//.}.topic
 
     ./_init install
     ./_init link
