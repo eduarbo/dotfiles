@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+common_deps=(
+  editorconfig
+)
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]}
+      ;;
+    fedora)
+      sudo dnf install -y ${common_deps[@]}
+      ;;
+  esac
+}
+
+# update() {}
+
+link() {
+  # TODO: Check if editorconfig supports XDG Base Directory
+  mklink .editorconfig ~/.editorconfig
+}
+
+clean() {
+  rm -fv ~/.editorconfig
+}
+
+init "$@"
