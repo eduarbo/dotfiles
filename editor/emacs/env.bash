@@ -1,3 +1,3 @@
-path=( ~/.emacs.d/{bin,cask/bin} ${path[@]} )
+path=( ~/.emacs.d/bin ${path[@]} )
 
 # export EDITOR="emacsclient -c -nw"
