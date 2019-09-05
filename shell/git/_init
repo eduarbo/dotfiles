@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+GIT_DIR="$XDG_CONFIG_HOME/git"
+
+# Dependencies
+
+common_deps=(
+  git
+  hub
+)
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]}
+      ;;
+    debian)
+      sudo apt install -y ${common_deps[@]}
+      ;;
+  esac
+
+  # Kill zcompdump to take new compdefs
+  rm -f "${ZPLGM[ZCOMPDUMP_PATH]}"
+  rm -f "${ZPLGM[ZCOMPDUMP_PATH]}.zwc"
+}
+
+# update() {}
+
+link() {
+  mklink {config,ignore,message} $GIT_DIR
+}
+
+clean() {
+  rm -rfv $GIT_DIR
+}
+
+init "$@"
