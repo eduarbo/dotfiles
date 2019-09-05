@@ -1,3 +1,5 @@
+_load shell/bash/aliases.bash
+
 autoload -U zmv
 
 zman() { PAGER="less -g -s '+/^       "$1"'" man zshall; }
