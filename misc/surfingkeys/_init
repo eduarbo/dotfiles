@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+SURFINGKEYS_CONF_PATH="$XDG_CONFIG_HOME/surfingkeys.js"
+
+# install() {}
+
+# update() {}
+
+link() {
+  mklink surfingkeys.js $XDG_CONFIG_HOME
+
+  echo
+  echo-note "To complete the setup you will need to do the following in Chrome:"
+  echo "- Allow Surfingkeys access to file URLs through Chrome's extension settings"
+  echo "- Check option 'Advanced mode'"
+  echo "- Paste full path of the local settings file in the input:"
+  echo -n "$(tput bold)"
+  echo "  $SURFINGKEYS_CONF_PATH"
+  echo -n "$(tput sgr0)"
+  echo "- Click Save"
+  echo
+}
+
+clean() {
+  rm -fv "$SURFINGKEYS_CONF_PATH"
+}
+
+init "$@"
