@@ -183,10 +183,13 @@
   (org-journal-hide-entries-p nil))
 
 
-;; completion/company
-(after! company
-  ;; On-demand code completion
-  (setq company-idle-delay nil))
+;; evil 😈
+(defun evil-embrace-js-mode-hook-setup ()
+  (add-to-list 'evil-embrace-evil-surround-keys ?\`)
+  (embrace-add-pair ?$ "${" "}"))
+
+(after! evil-embrace
+  (add-hook 'js-mode-hook 'evil-embrace-js-mode-hook-setup))
 
 
 ;; f/F/t/T/s/S
@@ -194,6 +197,12 @@
   ;; Disable evil-snipe-mode but keep incremental highlighting for the f/F/t/T
   ;; motions keys
   (evil-snipe-mode -1))
+
+
+;; completion/company
+(after! company
+  ;; On-demand code completion
+  (setq company-idle-delay nil))
 
 
 ;; completion/helm
