@@ -1,7 +1,10 @@
 # This script is also sourced in the zsh module
 
+# Clear the screen AND scrollback buffer. Works for kitty, iTerm2 and maybe
+# other terminals
+alias cl="SIMPL_NEWLINE_BEFORE_PROMPT= && printf '\033[2J\033[3J\033[1;1H'"
+
 alias q="exit"
-alias cl="SIMPL_NEWLINE_BEFORE_PROMPT= && clear"
 alias rmrf="rm -rf"
 
 # Allow aliases to be with sudo
