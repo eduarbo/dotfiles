@@ -1,0 +1,77 @@
+#!/usr/bin/env zsh
+
+# - Install homebrew if missing
+# - Configure homebrew permissions to allow multiple users
+# - Enable Cask of fonts
+# - Install base brew packages, macOS apps and fonts
+# - Set macOS default preferences
+
+brew_deps=(
+  wget
+  stow
+  coreutils
+  bash
+  gnupg
+  the_silver_searcher
+  ripgrep
+  pinentry-mac
+  aspell
+  tldr
+)
+
+cask_deps=(
+  font-hack
+  font-hack-nerd-font
+  font-fira-code
+  font-fira-mono
+  font-fira-sans
+  font-input
+  font-dejavu-sans
+)
+
+source ${0:A:h}/../../deploy
+
+install() {
+  # Install homebrew
+  if ! _is_callable brew; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  # Configure homebrew permissions to allow multiple users
+  chgrp -R admin /usr/local/*
+  chmod -R g+w /usr/local/*
+
+  # Fix curl
+  # https://github.com/Linuxbrew/brew/wiki/FAQ#why-does-curl-fail
+  brew reinstall freessl openssl curl
+
+  # Enable Cask of fonts
+  brew tap homebrew/cask-fonts
+
+  # Install brew and cask packages
+  brew install ${brew_deps[@]}
+  brew tap cjbassi/gotop
+  brew install gotop
+  brew cask install ${cask_deps[@]}
+
+  # Defaults for macOS
+  ./bin/macosdefaults
+}
+
+update() {
+  # Apply new macOS defaults
+  ./bin/macosdefaults
+
+  # Update brew packages
+  if _is_callable brew; then
+    brew update && brew upgrade && brew cleanup; brew doctor
+  else
+    echo-fail "homebrew not detected"
+  fi
+}
+
+# link() {}
+
+# clean() {}
+
+init "$@"
