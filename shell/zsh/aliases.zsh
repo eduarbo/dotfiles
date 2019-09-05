@@ -1,5 +1,8 @@
 _load shell/bash/aliases.bash
 
+alias ag="noglob ag -p $XDG_CONFIG_HOME/ag/agignore"
+alias rg='noglob rg'
+
 autoload -U zmv
 
 zman() { PAGER="less -g -s '+/^       "$1"'" man zshall; }
