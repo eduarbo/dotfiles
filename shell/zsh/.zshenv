@@ -28,4 +28,3 @@ _load shell/bash/env.bash
 
 # initialize enabled topics
 _load_all env.bash
-_load_all env.zsh

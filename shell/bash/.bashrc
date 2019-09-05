@@ -9,12 +9,12 @@ _init_env() {
 
   path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin )
 
-  _load shell/bash/env.bash
-
   # initialize enabled topics
   _load_all env.bash
-  # FIXME Remove duplicates and zplugin paths
   PATH="$(printf '%s:' "${path[@]}")$PATH"
+
+  # remove duplicate entries
+  PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 }
 
 _init_env
