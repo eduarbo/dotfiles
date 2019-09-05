@@ -24,9 +24,8 @@ fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-_load shell/bash/common_env.sh
+_load shell/bash/env.bash
 
 # initialize enabled topics
-_load_all env.sh
-# TODO Deprecate to just keep env.sh
+_load_all env.bash
 _load_all env.zsh

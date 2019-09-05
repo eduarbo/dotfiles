@@ -1,3 +1,5 @@
+# This script is also sourced in the zsh module
+
 alias q="exit"
 alias cl="SIMPL_NEWLINE_BEFORE_PROMPT= && clear"
 alias rmrf="rm -rf"
@@ -118,7 +120,7 @@ elif _is_callable notify-send; then
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
 

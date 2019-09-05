@@ -40,8 +40,8 @@ SIMPL_HOST_SYMBOL_MAP=(
 
 typeset -A SIMPL
 SIMPL[ENABLE_RPROMPT]=1
-# zplugin light ~/dev/simpl
-zplugin light eduarbo/simpl
+zplugin light ~/dev/simpl
+# zplugin light eduarbo/simpl
 
 #
 # configs
@@ -89,11 +89,9 @@ fi;
 # execute compdefs provided by rest of plugins
 zplugin cdreplay -q # -q is for quiet
 
-_load shell/bash/common_aliases.sh
 # load aliases from enabled topics
 # source them after compinit to be able to use compdef
-_load_all aliases.sh
-# TODO Deprecate to just keep aliases.sh
+_load_all aliases.bash
 _load_all aliases.zsh
 
 export _FASD_DATA="$XDG_DATA_HOME/fasd"

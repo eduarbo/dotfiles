@@ -9,10 +9,11 @@ _init_env() {
 
   path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin )
 
-  _load shell/bash/common_env.sh
+  _load shell/bash/env.bash
 
   # initialize enabled topics
-  _load_all env.sh
+  _load_all env.bash
+  # FIXME Remove duplicates and zplugin paths
   PATH="$(printf '%s:' "${path[@]}")$PATH"
 }
 
@@ -91,9 +92,9 @@ esac
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-_load shell/bash/common_aliases.sh
+_load shell/bash/aliases.bash
 # load aliases from enabled topics
-_load_all aliases.sh
+_load_all aliases.bash
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
