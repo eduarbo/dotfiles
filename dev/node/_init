@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source env.zsh
+
+link() {
+  _ensure_repo nodenv/nodenv $NODENV_ROOT
+  _ensure_repo nodenv/node-build $NODENV_ROOT/plugins/node-build
+  _ensure_repo nodenv/nodenv-update $NODENV_ROOT/plugins/nodenv-update
+  _ensure_repo nodenv/nodenv-npm-migrate $NODENV_ROOT/plugins/nodenv-npm-migrate
+  _ensure_repo nodenv/nodenv-default-packages $NODENV_ROOT/nodenv-default-packages
+  _ensure_repo nodenv/nodenv-package-rehash $NODENV_ROOT/plugins/nodenv-package-rehash
+
+  mklink default-packages "$NODENV_ROOT/default-packages"
+}
+
+# TODO: Install latest stable node version to be set as global
+install() {
+  # Installing node through Homebrew can cause problems with npm for globally
+  # installed packages. To prevent this issue install node without npm
+  [[ $(_os) == macos ]] && brew install node --without-npm
+}
+
+update() {
+  if [[ -n $NODENV_ROOT ]]; then
+    cd $NODENV_ROOT && git pull
+    for ver in $NODENV_ROOT/plugins/*(/); do
+      cd $ver && git pull
+    done
+  fi
+}
+
+clean() {
+  rm -rfv $NODENV_ROOT
+}
+
+init "$@"
