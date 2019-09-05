@@ -12,6 +12,3 @@ export LESS='-g -i -M -R -S -w -z-4'
 if _is_callable lesspipe; then
   export LESSOPEN='| /usr/bin/env lesspipe %s 2>&-'
 fi
-
-#
-# path=( /usr/local/{s,}bin $path  )
