@@ -21,36 +21,36 @@ strive for minimum `$HOME` presence (adhering to XDG standards where possible).
 
 The following are the categories and topics available to install:
 
-- `base/` - Provisions my system with the bare essentials
-  - [ ] `linux` - bare essentials for Linux distros
-  - [ ] `macos` - bare essentials for macOS
-
-- `misc/` - Very handy apps & tools
-  - [ ] `hammerspoon` - a bunch of lua scripts for macOS to boost my productivity
+- `macos/` - macOS compatible utilities
+  - [X] `apps` - collection of macOS apps that I use on a daily basis
+  - [X] `defaults` - bare essentials for macOS
+  - [X] `hammerspoon` - a bunch of lua scripts for macOS to boost my productivity
+  - [X] `iterm` - iTerm2, is there a better macOS terminal?
   - [X] `karabiner` - powerful and stable keyboard customizer for macOS with
         useful helpers
-  - [ ] `macos-apps` - collection of macOS apps that I use on a daily basis
-  - [ ] `surfingkeys` - vim-like bindings for Google Chrome
+  - [X] `kitty` - well, in fact there is a better macOS terminal
+
+- `misc/` - Very handy apps & tools
+  - [X] `surfingkeys` - vim-like bindings for Google Chrome
+  - [ ] `tridactyl` - vim-like bindings for Firefox
 
 - `editor/` - Configuration for my text editors
-  - [ ] `editorconfig` - maintain consistent coding styles between different editors
-  - [ ] `emacs` - the best of Emacs and Vim in one place
-  - [ ] `vim` - for quick and remote file editing
+  - [X] `editorconfig` - maintain consistent coding styles between different editors
+  - [X] `emacs` - the best of Emacs and Vim in one place
+  - [X] `vim` - for quick and remote file editing
 
 - `shell/` - Shell utilities
-  - [ ] `bash` - not my default shell but doesn't hurt to have a basic config
-  - [ ] `git` - nice aliases and zsh plugins
+  - [X] `bash` - not my default shell but doesn't hurt to have a basic config
+  - [X] `git` - nice aliases and zsh plugins
   - [ ] `gnupg` - encryption/signing
-  - [ ] `iterm` - iTerm2, is there a better macOS terminal?
-  - [X] `kitty` - well, in fact there is a better macOS terminal
   - [ ] `sk` - faster than fzf, Skim it's Fuzzy Finder in rust!
-  - [ ] `tmux` - window manager within the terminal + nice plugins
+  - [X] `tmux` - window manager within the terminal + nice plugins
   - [X] `zsh` - my shell of choice with a nice prompt, really fast and extensible with zplugin
 
 - `dev/` - Relevant to software development & programming in general
-  - [ ] `lua` - manage lua environments with luaenv
-  - [ ] `node` - setup nodenv, a lightweight alternative to nvm
-  - [ ] `python` - setup pyenv, a simple Python version management
+  - [X] `lua` - manage lua environments with luaenv
+  - [X] `node` - setup nodenv, a lightweight alternative to nvm
+  - [X] `python` - setup pyenv, a simple Python version management
 
 
 ## Dotfile management
