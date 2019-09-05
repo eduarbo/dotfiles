@@ -1,5 +1,6 @@
 _load shell/bash/aliases.bash
 
+alias cd="pushd -q"
 alias ag="noglob ag -p $XDG_CONFIG_HOME/ag/agignore"
 alias rg='noglob rg'
 

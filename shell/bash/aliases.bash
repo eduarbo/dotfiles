@@ -17,8 +17,6 @@ alias gurl="curl --compressed"
 alias rsyncd="rsync -va --delete"   # Hard sync two directories
 alias wget="wget -c"                # Resume dl if possible
 
-alias pubkey="cat ~/.ssh/id_rsa.pub"
-
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep="grep --color=auto"
@@ -58,7 +56,7 @@ alias pathlist="tr : '\n' <<<\$PATH"
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec \$SHELL -l"
-alias rl=reload
+alias rl="reload"
 
 # Lists the 50 most used commands.
 alias historystat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head -n 50"
@@ -76,7 +74,6 @@ alias verify='gpg --verify'
 # Files & Directories
 #
 
-alias cd="pushd -q"
 alias pd="popd"
 
 alias ..="cd .."
@@ -121,14 +118,13 @@ elif _is_callable notify-send; then
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
-alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
-alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
 
 alias whois="whois -h whois-servers.net"
 
 # Copy my public key to my clipboard
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
