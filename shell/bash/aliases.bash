@@ -25,7 +25,7 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
-alias ag="ag -p $XDG_CONFIG_HOME/ag/agignore"
+alias ag="ag -p \$XDG_CONFIG_HOME/ag/agignore"
 alias agg='ag -S --hidden --line-number'
 alias rgg='rg -S --hidden --line-number'
 
@@ -54,8 +54,10 @@ alias etp="v ~/tp.md"
 
 alias d="docker"
 
+alias pathlist="tr : '\n' <<<\$PATH"
+
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
+alias reload="exec \$SHELL -l"
 alias rl=reload
 
 # Lists the 50 most used commands.
@@ -63,7 +65,7 @@ alias historystat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r |
 
 alias ssh="TERM=xterm-256color ssh"
 
-alias mine="sudo chown -R $USER:$GROUPS"
+alias mine="sudo chown -R \$USER:\$GROUPS"
 
 alias encrypt='gpg --encrypt'
 alias decrypt='gpg --decrypt'
@@ -150,7 +152,7 @@ jj() {
 # Schedule sleep in X minutes, use like: sleep-in 60
 sleep-in() {
   local minutes=$1
-  local datetime=`date -v+${minutes}M +"%m/%d/%y %H:%M:%S"`
+  local datetime=$(date -v+${minutes}M +"%m/%d/%y %H:%M:%S")
   sudo pmset schedule sleep "$datetime"
 }
 
@@ -171,7 +173,7 @@ ix() {
   while getopts ":hd:i:n:" x; do
     case $x in
       h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
-      d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+      d) echo curl $opts -X DELETE ix.io/$OPTARG; return;;
       i) opts="$opts -X PUT"; local id="$OPTARG";;
       n) opts="$opts -F read:1=$OPTARG";;
     esac
