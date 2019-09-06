@@ -358,8 +358,10 @@
 
       ;;; <leader> f --- file
       (:prefix ("f" . "file")
-        :desc "Find file in .dotfiles"        "t" #'+eduarbo/find-in-dotfiles
-        :desc "Browse .dotfiles"              "T" #'+eduarbo/browse-dotfiles)
+        :desc "Find file in DOOM config"      "d" #'doom/find-file-in-private-config
+        :desc "Brose DOOM config"             "D" #'doom/open-private-config
+        :desc "Find file in .dotfiles"        "." #'+eduarbo/find-in-dotfiles
+        :desc "Browse .dotfiles"              ">" #'+eduarbo/browse-dotfiles)
 
       ;;; <leader> g --- git
       (:prefix ("g" . "git")
