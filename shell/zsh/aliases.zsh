@@ -1,7 +1,7 @@
 _load shell/bash/aliases.bash
 
-alias cd="pushd -q"
-alias ag="noglob ag -p $XDG_CONFIG_HOME/ag/agignore"
+alias cd='pushd -q'
+alias ag="noglob ag"
 alias rg='noglob rg'
 
 autoload -U zmv

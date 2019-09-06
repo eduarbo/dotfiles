@@ -87,7 +87,7 @@ alias gtd='gt -d'
 alias gta='gt -a'
 
 # do not get VCS status (much faster)
-alias k="k -Ah --no-vcs"
+alias k='k -Ah --no-vcs'
 
 # checkout git branch (including remote branches), sorted by most recent commit,
 # limit 30 last branches
