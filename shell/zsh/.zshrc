@@ -1,6 +1,3 @@
-# zshrc
-# By Eduardo Ruiz <eduarbo@gmail.com>
-
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
 bindkey -v
 
