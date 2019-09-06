@@ -12,13 +12,13 @@ link() {
 
   echo
   echo-note "To complete the setup you will need to do the following in Chrome:"
-  echo "- Allow Surfingkeys access to file URLs through Chrome's extension settings"
-  echo "- Check option 'Advanced mode'"
-  echo "- Paste full path of the local settings file in the input:"
+  echo "- Go to the Chrome's extension settings, Look for Surfingkeys, Click the 'Details' button and enable 'Allow access to file URLs'"
+  echo "- Open the Surfingkeys options and check the option 'Advanced mode'"
+  echo "- Paste the following path in 'Load settings from':"
   echo -n "$(tput bold)"
   echo "  $SURFINGKEYS_CONF_PATH"
   echo -n "$(tput sgr0)"
-  echo "- Click Save"
+  echo "- Click Save and refresh your tabs to apply changes"
   echo
 }
 
