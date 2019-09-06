@@ -5,15 +5,15 @@ const appsMap = {
   d: '/Applications/1Password 7.app',
   e: '/Applications/Emacs.app',
   f: '/System/Library/CoreServices/Finder.app',
+  x: '/Applications/Firefox.app',
   g: '/Applications/Google Chrome.app',
   i: '/Applications/kitty.app',
   m: '/Applications/Mail.app',
   p: '/Applications/Spotify.app',
-  q: '/Applications/Bitwarden.app',
   r: '/Applications/Utilities/Activity Monitor.app',
   s: '/Applications/Slack.app',
   v: '/Applications/Karabiner-EventViewer.app',
-  w: '/Applications/Preview.app'
+  w: '/Applications/Preview.app',
 };
 
 const manipulators = Object.entries(appsMap).map(([key, app]) => ({
