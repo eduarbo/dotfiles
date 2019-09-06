@@ -98,7 +98,7 @@ alias server='python -m SimpleHTTPServer'
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill'
+alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 
 # Lists the 50 most used commands.
 alias historystat='history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50'
