@@ -1,4 +1,4 @@
-# NOTE: This script is also sourced in the zsh module
+# NOTE This script is also sourced in the zsh module
 
 # Allow aliases to be sudo'ed
 alias sudo='sudo '
