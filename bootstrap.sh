@@ -28,9 +28,9 @@ fi
 if [[ ! -d ~/.dotfiles ]]; then
   _msg "Deploying dotfiles repository..."
   if [[ $USER == eduarbo ]]; then
-    dfrepo=git@github.com:eduarbo/dotfiles.git
+    dfrepo=git@github.com:eduarbo/homies.git
   else
-    dfrepo=https://github.com/eduarbo/dotfiles
+    dfrepo=https://github.com/eduarbo/homies
   fi
   git clone --recursive "$dfrepo" "$DOTFILES"
 fi
@@ -40,4 +40,4 @@ _msg
 _msg "And done!"
 _msg
 _msg "Use $DOTFILES/deploy to install your dotfiles, I suggest you begin"
-_msg "with 'base/arch' or 'base/macos'."
+_msg "with 'macos/defaults' or 'linux/defaults'."
