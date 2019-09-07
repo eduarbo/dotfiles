@@ -393,6 +393,10 @@
         :desc "Open mode notes"               "m" #'+eduarbo/find-notes-for-major-mode
         :desc "Open project notes"            "p" #'+eduarbo/find-notes-for-project)
 
+      ;;; <leader> TAB --- workspace
+      (:prefix ("TAB" . "workspace")
+        :desc "Kill this workspace"          "k" #'+workspace/delete)
+
       ;;; <leader> p --- project
       (:prefix ("p" . "project")
         :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path)
