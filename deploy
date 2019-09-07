@@ -158,12 +158,13 @@ function clean {
 
 ## Bootstrap
 if [[ $ZSH_EVAL_CONTEXT != *:file ]]; then
-  while getopts acdehlLit opt; do
+  while getopts acdefhlLit opt; do
     case $opt in
       a) TARGETS=( $(_topics) );;
       c) CLEAN=1               ;;
       d) REMOVE=1              ;;
       L) LIST=1                ;;
+      f) export LINK=1         ;;
       l) export LINK=1         ;&
       i) export INHIBIT_INIT=1 ;;
       t) export DRYRUN=1       ;;
@@ -174,6 +175,7 @@ Usage: ${0:A:t} [-acdlLit] [TOPIC...]
   -c   Afterwards, remove dead symlinks & empty dot-directories in $HOME.
        Can be used alone.
   -d   Disable & unlink topic(s)
+  -f   Force install & link
   -l   Only enable & relink topic(s) (implies -i)
   -L   List enabled topics
   -i   Do not run install/update/clean init scripts
