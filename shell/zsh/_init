@@ -51,6 +51,8 @@ update() {
     zplugin update --all
     zplugin compile --all
   fi
+
+  _upgrade
 }
 
 link() {
@@ -70,6 +72,17 @@ clean() {
   case $(_os) in
     macos)
       rm -f "~/.zshenv"
+      ;;
+  esac
+}
+
+_upgrade() {
+  case $(_os) in
+    macos)
+      brew upgrade ${common_deps[@]} ${brew_deps[@]}
+      ;;
+    debian)
+      sudo apt update && sudo apt upgrade -y ${common_deps[@]} ${linux_deps[@]}
       ;;
   esac
 }
