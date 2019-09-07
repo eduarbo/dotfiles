@@ -67,6 +67,7 @@ link() {
 }
 
 clean() {
+  [[ $SHELL == */zsh ]] && sudo usermod --shell $(which bash) $(whoami)
   rm -rfv "$ZDOTDIR" "$ZSH_CACHE/*";
 
   case $(_os) in
