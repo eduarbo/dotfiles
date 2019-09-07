@@ -16,6 +16,7 @@
       "s-]" #'next-buffer
 
       "s-," (λ! (+eduarbo/find-file doom-private-dir))
+      "s-g" #'magit-status
 
       :m  [up]   #'multi-previous-line
       :m  [down] #'multi-next-line
