@@ -24,19 +24,18 @@ install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
+
+      zshenv=/etc/zshenv
       ;;
     debian)
-      sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
+      sudo add-apt-repository ppa:aacebedo/fasd
+      sudo apt update && sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
 
-      curl https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb -Lo /tmp/fd-musl_7.3.0_amd64.deb
-      sudo dpkg -i "/tmp/fd-musl_7.3.0_amd64.deb"
-      ;;
-    fedora)
-      sudo dnf install -y ${common_deps[@]} ${linux_deps[@]}
+      zshenv=/etc/zsh/zshenv
       ;;
   esac
 
-  [[ $SHELL == */zsh ]] || chsh -s $(which zsh) $(whoami)
+  [[ $SHELL == */zsh ]] || sudo usermod --shell $(which zsh) $(whoami)
 
   local zsh="$(which zsh)"
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
