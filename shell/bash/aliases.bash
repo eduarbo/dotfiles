@@ -113,19 +113,6 @@ elif _is_callable notify-send; then
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
-
-# fasd & fzf change directory
-j() {
-  local dir
-  dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
-# fd & fzf change directory
-jj() {
-  local dir
-  dir="$(fd --type directory --follow --hidden "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
-}
-
 # Schedule sleep in X minutes, use like: sleep-in 60
 sleep-in() {
   local minutes=$1
