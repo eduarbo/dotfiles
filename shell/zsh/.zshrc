@@ -36,8 +36,7 @@ SIMPL_HOST_SYMBOL_MAP=(
 
 typeset -A SIMPL
 SIMPL[ENABLE_RPROMPT]=1
-zplugin light ~/dev/simpl
-# zplugin light eduarbo/simpl
+zplugin light eduarbo/simpl
 
 #
 # configs
