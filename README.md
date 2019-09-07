@@ -44,6 +44,7 @@ The following are the categories and topics available to install:
   - [X] `git` - nice aliases and zsh plugins
   - [ ] `gnupg` - encryption/signing
   - [ ] `sk` - faster than fzf, Skim it's Fuzzy Finder in rust!
+  - [X] `fzf` - a general-purpose command-line fuzzy finder
   - [X] `tmux` - window manager within the terminal + nice plugins
   - [X] `zsh` - my shell of choice with a nice prompt, really fast and extensible with zplugin
 

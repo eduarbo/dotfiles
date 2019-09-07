@@ -6,7 +6,6 @@ source .zshenv
 
 common_deps=(
   zsh
-  fzf
   fasd
 )
 
@@ -16,7 +15,6 @@ brew_deps=(
 )
 
 linux_deps=(
-  fd-find
   make
 )
 
@@ -30,6 +28,10 @@ install() {
     debian)
       sudo add-apt-repository ppa:aacebedo/fasd
       sudo apt update && sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
+
+      # Need to install fd manually because it's missing in apt for ubuntu 18.04
+      curl https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb -Lo /tmp/fd-musl_7.3.0_amd64.deb
+      sudo dpkg -i "/tmp/fd-musl_7.3.0_amd64.deb"
 
       zshenv=/etc/zsh/zshenv
       ;;

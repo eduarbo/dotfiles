@@ -11,7 +11,6 @@ _load_repo zdharma/zplugin $ZPL_DIR zplugin.zsh
 # load plugins from enabled topics
 _load_all plugins.zsh
 
-zplugin ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zplugin light junegunn/fzf
 zplugin light zsh-users/zsh-history-substring-search
 zplugin light zdharma/history-search-multi-word
 zplugin light supercrabtree/k
@@ -49,7 +48,6 @@ zplugin light ~/dev/simpl
 _load shell/zsh/config.zsh
 _load shell/zsh/completion.zsh
 _load shell/zsh/keybinds.zsh
-_load shell/zsh/fzf.zsh
 _source ~/.secrets
 
 #
