@@ -7,14 +7,15 @@
 
 (map! "s-;" #'execute-extended-command
       "s-x" #'execute-extended-command
-      "s-," #'+nav-flash/blink-cursor
       "s-." #'helpful-key
 
       "s-[" #'previous-buffer
       "s-]" #'next-buffer
 
-      :m  "s-j" #'multi-next-line
-      :m  "s-k" #'multi-previous-line
+      "s-," (λ! (+eduarbo/find-file doom-private-dir))
+
+      :m  [up]   #'multi-previous-line
+      :m  [down] #'multi-next-line
 
       :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
                  (and (featurep! :editor snippets)
