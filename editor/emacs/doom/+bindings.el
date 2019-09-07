@@ -64,6 +64,12 @@
 
       :nv "H"     #'previous-buffer
       :nv "L"     #'next-buffer
+      ;; deal with conflicts
+      (:after evil-magit
+        :map magit-mode-map
+        ;; FIXME Figure out a way to rebind `magit-log-refresh in the
+        ;; `magit-dispatch' transient command or just ignore it
+        "L" nil)
 
       :n  "C-."   (cond ((featurep! :completion ivy)   #'ivy-resume)
                         ((featurep! :completion helm)  #'helm-resume))
