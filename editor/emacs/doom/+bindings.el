@@ -17,6 +17,7 @@
 
       "s-," (λ! (+eduarbo/find-file doom-private-dir))
       "s-g" #'magit-status
+      "s-o" #'+treemacs/toggle
 
       :m  [up]   #'multi-previous-line
       :m  [down] #'multi-next-line
