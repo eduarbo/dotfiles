@@ -31,6 +31,8 @@
       user-full-name    "Eduardo Ruiz Macias"
       epa-file-encrypt-to user-mail-address)
 
+(defvar dotfiles-dir "~/.dotfiles")
+
 ;; A E S T H E T I C
 (setq doom-font (font-spec :family "Hack" :size 14)
       doom-variable-pitch-font (font-spec :family "Noto Sans" :size 14))
