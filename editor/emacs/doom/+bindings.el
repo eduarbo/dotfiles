@@ -132,18 +132,20 @@
                  'evil-visual-char)
       :v "C-v" #'er/contract-region
 
-      :nv "go"    #'avy-goto-char-timer
-      :nv "gO"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
-      :nv "g/"    #'+default/search-project
-      :n  "g."    #'call-last-kbd-macro
-
-      ;; narrowing and widening
-      :v  "gn"    #'narrow-to-region
-      :n  "gn"    #'narrow-to-defun
-      :nv "gw"    #'widen
-
       :n  "s"     #'evil-surround-edit
       :v  "s"     #'evil-surround-region
+
+      (:prefix "g"
+        :nv "o"    #'avy-goto-char-timer
+        :nv "O"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
+        :nv "/"    #'+default/search-project
+        :n  "."    #'call-last-kbd-macro
+
+        ;; narrowing and widening
+        :v  "n"    #'narrow-to-region
+        :n  "n"    #'narrow-to-defun
+        :nv "w"    #'widen
+        :nv "TAB"  #'persp-switch)
 
       (:after evil-easymotion
         :map evilem-map
@@ -379,15 +381,6 @@
         (:when (featurep! :tools magit)
           :desc "Magit diff staged"         "d"   #'magit-diff-buffer-file
           :desc "Magit diff"                "D"   #'magit-diff))
-
-      (:when (featurep! :ui workspaces)
-        :desc "Switch workspace"            "TAB" #'persp-switch
-
-        ;;; <leader> k --- workspace
-        "k" doom-leader-workspace-map ;; Remap workspace to K prefix
-        (:prefix ("k" . "workspace")
-          :desc "Load a past session"       "L"   #'+workspace/load-session
-          :desc "Autosave current session"  "S"   #'+workspace/save-session))
 
       ;;; <leader> n --- notes
       (:prefix ("n" . "notes")
