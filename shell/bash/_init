@@ -3,9 +3,11 @@ source ${0:A:h}/../../deploy
 
 install() {
   case $(_os) in
-    macos)  brew install bash bash-completion ;;
+    macos)  brew install bash bash-completion coreutils ;;
     debian) sudo apt-get install -y bash ;;
   esac
+
+  exec bash
 }
 
 # update() { }
