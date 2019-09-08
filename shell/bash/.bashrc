@@ -1,8 +1,8 @@
 _init_env() {
   shopt -s nullglob
 
-  path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-  PATH="$(printf '%s:' "${path[@]}")$PATH"
+  path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin $path )
+  PATH="$(printf '%s:' "${path[@]}")"
 
   # Replace macOS utilities with GNU coreutils
   [[ $OSTYPE == darwin* ]] && PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -15,9 +15,6 @@ _init_env() {
   # initialize enabled topics
   _load_all env.bash
   PATH="$(printf '%s:' "${path[@]}")$PATH"
-
-  # remove duplicate entries
-  PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 }
 
 _init_env
@@ -95,7 +92,6 @@ esac
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-_load shell/bash/aliases.bash
 # load aliases from enabled topics
 _load_all aliases.bash
 
