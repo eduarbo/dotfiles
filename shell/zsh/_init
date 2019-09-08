@@ -27,7 +27,7 @@ install() {
       zshenv=/etc/zshenv
       ;;
     debian)
-      sudo add-apt-repository ppa:aacebedo/fasd
+      sudo add-apt-repository ppa:aacebedo/fasd -y
       sudo apt update && sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
 
       # Need to install fd manually because it's missing in apt for ubuntu 18.04
