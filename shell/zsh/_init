@@ -38,7 +38,7 @@ install() {
       ;;
   esac
 
-  [[ $SHELL == */zsh ]] || sudo usermod --shell $(which zsh) $(whoami)
+  [[ $SHELL == */zsh ]] || sudo chsh -s $(which zsh) $(whoami)
 
   local zsh="$(command -v zsh)"
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
@@ -71,7 +71,6 @@ link() {
 }
 
 clean() {
-  [[ $SHELL == */zsh ]] && sudo usermod --shell $(which bash) $(whoami)
   rm -rfv "$ZDOTDIR" "$ZSH_CACHE/*";
 
   case $(_os) in
@@ -79,6 +78,10 @@ clean() {
       rm -f "~/.zshenv"
       ;;
   esac
+
+  # Go back to bash
+  sudo chsh -s $(command -v bash) $(whoami)
+  exec bash
 }
 
 _upgrade() {
