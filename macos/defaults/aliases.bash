@@ -9,6 +9,10 @@ alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
 alias dev='cd ~/dev'
 
+alert() {
+  osascript -e 'display notification "$*"'
+}
+
 o() {
   if [ -n "$1" ]; then
     open "$@"

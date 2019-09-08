@@ -105,16 +105,6 @@ alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v exten
 # Lists the 50 most used commands.
 alias historystat='history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50'
 
-if [[ $OSTYPE == darwin* ]]; then
-  alert() {
-    osascript -e 'display notification "$*"'
-  }
-elif _is_callable notify-send; then
-  # Add an "alert" alias for long running commands.  Use like so:
-  #   sleep 10; alert
-  alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-fi
-
 # Schedule sleep in X minutes, use like: sleep-in 60
 sleep-in() {
   local minutes=$1
