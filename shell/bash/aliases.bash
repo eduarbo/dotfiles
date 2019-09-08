@@ -29,7 +29,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias -- -='cd -'
 
-alias ln='${aliases[ln]:-ln} -v'  # verbose ln
+alias ln='ln -v'  # verbose ln
 
 alias l='ls -1'
 alias ll='ls -l' # List all files in long format
