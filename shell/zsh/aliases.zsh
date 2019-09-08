@@ -1,5 +1,3 @@
-_load shell/bash/aliases.bash
-
 alias cd='pushd -q'
 alias ag="noglob ag"
 alias rg='noglob rg'

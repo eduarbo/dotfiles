@@ -12,21 +12,21 @@ export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 local -A ZPLGM  # initial Zplugin's hash definition
 export ZPLGM[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump"
 
-# Ensure path arrays do not contain duplicates
-typeset -gU cdpath fpath mailpath manpath path
-typeset -gUT INFOPATH infopath
-path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) /usr/local/{,s}bin /usr/{,s}bin /{,}bin $path )
-# Replace macOS utilities with GNU coreutils
-[[ $(_os) == macos ]] && path=( /usr/local/opt/coreutils/libexec/gnubin $path )
-fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
-
 # These 2 variables need to be set in our local machine since they are passed
 # down to the remote host when we connect via SSH. Otherwise, we will be getting
 # an annoying perl warning from time to time.
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-_load shell/bash/env.bash
+# Ensure path arrays do not contain duplicates
+typeset -gU cdpath fpath mailpath manpath path
+typeset -gUT INFOPATH infopath
+path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
+# Replace macOS utilities with GNU coreutils
+[[ $(_os) == macos ]] && path=( /usr/local/opt/coreutils/libexec/gnubin $path )
+path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
+
+fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
 
 # initialize enabled topics
 _load_all env.bash
