@@ -40,9 +40,11 @@ install() {
 
   [[ $SHELL == */zsh ]] || sudo usermod --shell $(which zsh) $(whoami)
 
-  local zsh="$(which zsh)"
+  local zsh="$(command -v zsh)"
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
   sudo tee $zshenv <<<"export ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
+
+  exec $zsh
 }
 
 update() {
