@@ -61,10 +61,6 @@ alias rgg='rg -S --hidden --line-number'
 
 ## Misc
 
-# Reload the shell (i.e. invoke as a login shell)
-alias reload='exec $SHELL -l'
-alias rl='reload'
-
 alias gurl='curl --compressed'
 alias rsyncd='rsync -va --delete'   # Hard sync two directories
 
@@ -105,21 +101,26 @@ alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v exten
 # Lists the 50 most used commands.
 alias historystat='history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50'
 
+# Reload the current shell
+alias reload='exec $CURRENT_SHELL -l'
+alias rl='reload'
+
+# Reload the current shell and return the load time
+loadtime() {
+  export DISABLE_LOAD_TIME=1
+  local times=${1:-1}
+
+  for i in $(seq 1 "$times"); do
+    /usr/bin/time "$CURRENT_SHELL" -lic exit;
+  done
+  unset DISABLE_LOAD_TIME
+}
+
 # Schedule sleep in X minutes, use like: sleep-in 60
 sleep-in() {
   local minutes=$1
   local datetime=$(date -v+${minutes}M +"%m/%d/%y %H:%M:%S")
   sudo pmset schedule sleep "$datetime"
-}
-
-# Reload the shell and return the load time
-loadtime() {
-  export DISABLE_LOAD_TIME=1
-  local times=${1:-1}
-  for i in $(seq 1 "$times"); do
-    /usr/bin/time $SHELL -lic exit;
-  done
-  unset DISABLE_LOAD_TIME
 }
 
 ix() {
