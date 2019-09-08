@@ -4,9 +4,10 @@ _init_env() {
   path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
   PATH="$(printf '%s:' "${path[@]}")$PATH"
 
-  [[ $OSTYPE == linux* ]] && export DOTFILES="$(dirname $(readlink -f $BASH_SOURCE))/../.."
-  [[ $OSTYPE == darwin* ]] && export DOTFILES="$(dirname $(greadlink -f $BASH_SOURCE))/../.."
+  # Replace macOS utilities with GNU coreutils
+  [[ $OSTYPE == darwin* ]] && PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
+  export DOTFILES="$(dirname $(readlink -f $BASH_SOURCE))/../.."
   source "$DOTFILES/env"
 
   path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin )
