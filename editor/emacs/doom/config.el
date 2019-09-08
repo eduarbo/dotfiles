@@ -31,7 +31,7 @@
       user-full-name    "Eduardo Ruiz Macias"
       epa-file-encrypt-to user-mail-address)
 
-(defvar dotfiles-dir "~/.dotfiles")
+(defvar dotfiles-dir "~/dev/homies")
 
 ;; A E S T H E T I C
 (setq doom-font (font-spec :family "Hack" :size 14)
@@ -43,17 +43,19 @@
 (setq which-key-idle-delay 0.3
       which-key-idle-secondary-delay 0)
 
-;; Call projectile-discover-projects-in-search-path to look for projects in
-;; list of folders
-(setq projectile-project-search-path '("~/dev" "~/dev/opentable"))
+(setq projectile-project-search-path '("~/dev" "~/work"))
+
+(when IS-MAC
+  (setq-default
+   ;; use gnu ls to allow dired to sort directories
+   insert-directory-program "gls"))
 
 (setq-default
  ;; Enable accents
  ns-alternate-modifier 'none
  ;; Get some context when scrolling
  scroll-margin 10
- ;; use gnu ls to allow dired to sort directories
- insert-directory-program "gls" dired-use-ls-dired t
+ dired-use-ls-dired t
  ;; A more useful title
  frame-title-format '("%b   —   " (:eval (+workspace-current-name)))
 
