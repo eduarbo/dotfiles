@@ -87,6 +87,7 @@ alias dush='du -csh * | sort -h'
 alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr en1'
 alias whois='whois -h whois-servers.net'
+alias ipinfo="curl ipinfo.io/json"
 
 # Copy my public key to my clipboard
 alias pubkey='more ~/.ssh/id_rsa.pub | pbcopy | echo "=> Public key copied to pasteboard"'
@@ -107,7 +108,7 @@ loadtime() {
   export DISABLE_LOAD_TIME=1
   local times=${1:-1}
 
-  for i in $(seq 1 "$times"); do
+  for _ in $(seq 1 "$times"); do
     /usr/bin/time "$CURRENT_SHELL" -lic exit;
   done
   unset DISABLE_LOAD_TIME
