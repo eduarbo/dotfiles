@@ -98,9 +98,6 @@ alias server='python -m SimpleHTTPServer'
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 
-# Lists the 50 most used commands.
-alias historystat='history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50'
-
 # Reload the current shell
 alias reload='exec $CURRENT_SHELL -l'
 alias rl='reload'
@@ -116,11 +113,9 @@ loadtime() {
   unset DISABLE_LOAD_TIME
 }
 
-# Schedule sleep in X minutes, use like: sleep-in 60
-sleep-in() {
-  local minutes=$1
-  local datetime=$(date -v+${minutes}M +"%m/%d/%y %H:%M:%S")
-  sudo pmset schedule sleep "$datetime"
+# Lists the 50 most used commands.
+historystat() {
+  history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50
 }
 
 ix() {
