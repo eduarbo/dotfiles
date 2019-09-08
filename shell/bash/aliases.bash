@@ -15,6 +15,8 @@ alias wget='wget -c'  # Resume dl if possible
 alias scp='rsync --rsh=ssh -CarvP'
 alias ssh='TERM=xterm-256color ssh'
 
+alias ls="ls -Fh --color --group-directories-first"
+
 
 ## Files & Directories
 
@@ -45,7 +47,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Securely Erase Files
-alias shred='gshred -zuvn5'
+alias shred='shred -zuvn5'
 alias vanish='shred'
 
 # Always enable colored `grep` output

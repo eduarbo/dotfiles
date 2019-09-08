@@ -9,7 +9,6 @@
 brew_deps=(
   wget
   stow
-  coreutils
   bash
   gnupg
   the_silver_searcher

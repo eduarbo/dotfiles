@@ -16,6 +16,8 @@ export ZPLGM[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump"
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) /usr/local/{,s}bin /usr/{,s}bin /{,}bin $path )
+# Replace macOS utilities with GNU coreutils
+[[ $(_os) == macos ]] && path=( /usr/local/opt/coreutils/libexec/gnubin $path )
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
 
 # These 2 variables need to be set in our local machine since they are passed

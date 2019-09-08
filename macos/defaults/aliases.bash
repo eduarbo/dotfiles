@@ -1,6 +1,3 @@
-_is_callable gls && alias ls="gls -Fh --color --group-directories-first"
-alias date='gdate'
-
 alias y='pbcopy'
 alias p='pbpaste'
 
