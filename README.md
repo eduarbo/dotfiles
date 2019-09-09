@@ -17,7 +17,7 @@ strive for minimum `$HOME` presence (adhering to XDG standards where possible).
 
 `bash <(curl -s https://raw.githubusercontent.com/eduarbo/homies/master/bootstrap.sh)`
 
-## What will it include?
+## What does it include?
 
 The following are the categories and topics available to install:
 
