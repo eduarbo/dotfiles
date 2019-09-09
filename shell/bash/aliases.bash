@@ -9,7 +9,6 @@ alias cl='SIMPL_NEWLINE_BEFORE_PROMPT= && printf "\033[2J\033[3J\033[1;1H"'
 
 alias mk='make'
 alias q='exit'
-alias d='docker'
 
 alias wget='wget -c'  # Resume dl if possible
 alias scp='rsync --rsh=ssh -CarvP'

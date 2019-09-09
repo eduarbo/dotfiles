@@ -83,13 +83,13 @@ fi;
 # execute compdefs provided by rest of plugins
 zplugin cdreplay -q # -q is for quiet
 
+export _FASD_DATA="$XDG_DATA_HOME/fasd"
+export _FASD_VIMINFO="$XDG_DATA_HOME/viminfo"
+_cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
+
 # load aliases from enabled topics
 # source them after compinit to be able to use compdef
 _load_all aliases.bash
 _load_all aliases.zsh
-
-export _FASD_DATA="$XDG_DATA_HOME/fasd"
-export _FASD_VIMINFO="$XDG_DATA_HOME/viminfo"
-_cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
 
 # vim:set ft=sh:

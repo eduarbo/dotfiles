@@ -5,7 +5,8 @@ j() {
 }
 
 # fd & fzf change directory
-jj() {
+unalias d
+d() {
   local dir
   dir="$(fd --type directory --follow --hidden "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
