@@ -106,6 +106,9 @@ nnoremap <leader>h :<C-u>h
     " Mimic shortcuts in the terminal
     cnoremap <C-a> <Home>
     cnoremap <C-e> <End>
+
+    " Allow saving of files as sudo when I forgot to start vim using sudo.
+    cmap w!! w !sudo tee > /dev/null %
 " }}}
 
 " Plugins {{{
