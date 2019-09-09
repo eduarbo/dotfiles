@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+source ${0:A:h}/../../deploy
+
+# install() {}
+
+update() {
+  case $(_os) in
+    debian)
+      sudo apt update && sudo apt upgrade -y
+      ;;
+  esac
+}
+
+# link() {}
+
+# clean() {}
+
+init "$@"
