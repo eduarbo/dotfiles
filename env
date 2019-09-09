@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # env -- envvars & standard library for dotfiles; don't symlink me!
 # Can be sourced by zsh/bash scripts
 
@@ -52,12 +52,6 @@ function _load {
     /*) source "$1" ;;
     *)  source "$DOTFILES/$1" ;;
   esac
-}
-
-function _load_all {
-  for file in "$DOTFILES_DATA"/*.topic/"$1"; do
-    [[ -e $file ]] && source "$file"
-  done
 }
 
 function _load_repo {

@@ -28,5 +28,11 @@ path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
 
+function _load_all {
+  for file in "$DOTFILES_DATA"/*.topic/"$1"(N); do
+    [[ -e $file ]] && source "$file"
+  done
+}
+
 # initialize enabled topics
 _load_all env.bash
