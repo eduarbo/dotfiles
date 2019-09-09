@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
-source env.zsh
+source env.bash
 
 install() {
   _ensure_repo cehoffman/luaenv     $LUAENV_ROOT

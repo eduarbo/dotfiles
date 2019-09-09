@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
-source env.zsh
+source env.bash
 
 link() {
   _ensure_repo nodenv/nodenv $NODENV_ROOT
