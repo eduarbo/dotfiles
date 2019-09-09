@@ -14,6 +14,8 @@ install() {
       /tmp/fzf/install --bin
       ;;
   esac
+
+  exec $CURRENT_SHELL -l
 }
 
 # update() {
