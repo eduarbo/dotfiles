@@ -1,3 +1,9 @@
+_load_all() {
+  for file in "$DOTFILES_DATA"/*.topic/"$1"; do
+    [[ -e $file ]] && source "$file"
+  done
+}
+
 _init_env() {
   shopt -s nullglob
 
