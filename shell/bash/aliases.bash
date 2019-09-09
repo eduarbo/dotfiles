@@ -114,6 +114,7 @@ loadtime() {
   done
   unset DISABLE_LOAD_TIME
 }
+alias lt=loadtime
 
 # Lists the 50 most used commands.
 historystat() {
