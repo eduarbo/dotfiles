@@ -43,7 +43,7 @@ The following are the categories and topics available to install:
   - [X] `bash` - not my default shell but doesn't hurt to have a basic config
   - [X] `git` - nice aliases and zsh plugins
   - [ ] `gnupg` - encryption/signing
-  - [X] `sk` - faster than fzf, Skim it's Fuzzy Finder in rust!
+  - [X] `skim` - faster than fzf, Skim it's Fuzzy Finder in rust!
   - [X] `fzf` - a general-purpose command-line fuzzy finder
   - [X] `tmux` - window manager within the terminal + nice plugins
   - [X] `zsh` - my shell of choice with a nice prompt, really fast and extensible with zplugin
