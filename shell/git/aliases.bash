@@ -2,12 +2,6 @@
 # g ... = git $@
 g() { [[ $# = 0 ]] && git status --short . || git $*; }
 
-if _is_callable hub; then
-  alias git='hub'
-else
-  alias git='git'
-fi
-
 alias gbr='git browse'
 alias gi='git init'
 alias gf='git fetch'

@@ -14,8 +14,7 @@ install() {
       brew install ${common_deps[@]}
       ;;
     debian)
-      sudo add-apt-repository ppa:cpick/hub -y
-      sudo apt update && sudo apt install -y ${common_deps[@]} hub
+      sudo apt update && sudo apt install -y ${common_deps[@]}
       ;;
   esac
 
