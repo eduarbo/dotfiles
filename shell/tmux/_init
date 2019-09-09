@@ -18,7 +18,7 @@ install() {
       brew install ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
-      sudo apt install -y ${common_deps[@]}
+      sudo apt update && sudo apt install -y ${common_deps[@]}
       ;;
   esac
 

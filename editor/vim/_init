@@ -4,8 +4,8 @@ source env.zsh
 
 install() {
   case $(_os) in
-    macos)  _is_callable vim || brew install vim ;;
-    debian) sudo apt install -y vim ;;
+    macos)  brew install vim ;;
+    debian) sudo apt update && sudo apt install -y vim ;;
   esac
 
 	[ -f "$XDG_DATA_HOME/vim/autoload/plug.vim" ] || \

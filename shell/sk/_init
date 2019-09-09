@@ -5,7 +5,7 @@ install() {
   case $(_os) in
     macos)  brew install sbdchd/skim/skim ;;
     arch)   pacaur --needed --noconfirm -S skim ;;
-    debian) sudo apt-get install -y skim ;;
+    debian) sudo apt update && sudo apt-get install -y skim ;;
   esac
 }
 
