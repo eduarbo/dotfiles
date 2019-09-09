@@ -8,6 +8,11 @@ common_deps=(
   git
 )
 
+zplugin_deps=(
+  zdharma/zsh-diff-so-fancy
+  tj/git-extras
+)
+
 install() {
   case $(_os) in
     macos)
@@ -23,7 +28,16 @@ install() {
   rm -f "${ZPLGM[ZCOMPDUMP_PATH]}.zwc"
 }
 
-# update() {}
+update() {
+  if [[ -e ${ZPLGM[BIN_DIR]}/zplugin.zsh ]]; then
+    source ${ZPLGM[BIN_DIR]}/zplugin.zsh
+
+    for plugin in "${zplugin_deps[@]}" ; do
+      zplugin update $plugin
+      zplugin compile $plugin
+    done
+  fi
+}
 
 link() {
   mklink {config,ignore,message} $GIT_DIR
@@ -31,6 +45,14 @@ link() {
 
 clean() {
   rm -rfv $GIT_DIR
+
+  if [[ -e ${ZPLGM[BIN_DIR]}/zplugin.zsh ]]; then
+    source ${ZPLGM[BIN_DIR]}/zplugin.zsh
+
+    for plugin in "${zplugin_deps[@]}" ; do
+      zplugin delete $plugin
+    done
+  fi
 }
 
 init "$@"
