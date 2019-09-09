@@ -1,10 +1,16 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
+SKIM_DIR="$XDG_CONFIG_HOME/skim"
 
 install() {
   case $(_os) in
-    macos)  brew install sbdchd/skim/skim ;;
-    debian) sudo apt update && sudo apt-get install -y skim ;;
+    macos)
+      brew install sbdchd/skim/skim
+      ;;
+    debian)
+      git clone --depth 1 git@github.com:lotabout/skim.git "$SKIM_DIR"
+      $SKIM_DIR/install
+      ;;
   esac
 }
 
@@ -12,6 +18,8 @@ install() {
 
 # link() {}
 
-# clean() {}
+clean() {
+  [[ $(_os) == debian ]] && rm -rfv "$SKIM_DIR"
+}
 
 init "$@"
