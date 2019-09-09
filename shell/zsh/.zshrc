@@ -15,6 +15,8 @@ zplugin light zsh-users/zsh-history-substring-search
 zplugin light zdharma/history-search-multi-word
 zplugin light supercrabtree/k
 zplugin light djui/alias-tips
+zplugin ice from"gh-r" as"program"; zplugin light junegunn/fzf-bin
+zplugin ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zplugin light junegunn/fzf
 
 # NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
 zplugin light mafredri/zsh-async # Required by simpl
