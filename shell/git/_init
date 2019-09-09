@@ -6,7 +6,6 @@ GIT_DIR="$XDG_CONFIG_HOME/git"
 
 common_deps=(
   git
-  hub
 )
 
 install() {
@@ -15,7 +14,8 @@ install() {
       brew install ${common_deps[@]}
       ;;
     debian)
-      sudo apt install -y ${common_deps[@]}
+      sudo add-apt-repository ppa:cpick/hub -y
+      sudo apt update && sudo apt install -y ${common_deps[@]} hub
       ;;
   esac
 
