@@ -7,14 +7,14 @@ A tidy `$HOME` is a tidy mind.
 
 ![Workflow - Aug-2018 Screenshot of macOS High Sierra](assets/workflow.png)
 
-These are my dotfiles, designed primarily for macOS and Ubuntu (Server), heavily
-inspired by [hlissner/dotfiles](https://github.com/hlissner/dotfiles). They are
-my specific breed of madness, split into 2-level topics (e.g. `shell/zsh`) that
-strive for minimum `$HOME` presence (adhering to XDG standards where possible).
+These are my dotfiles, designed primarily for macOS and *Debian (well... it has
+only been tested on Ubuntu Server ¯\\\_(ツ)\_/¯), heavily inspired by
+[hlissner/dotfiles](https://github.com/hlissner/dotfiles). They are my specific
+breed of madness, split into 2-level topics (e.g. `shell/zsh`) that strive for
+minimum `$HOME` presence (adhering to XDG standards where possible).
 
-- - -
 
-### Quick start
+## Quick start
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/eduarbo/dotfiles/master/bootstrap.sh)
