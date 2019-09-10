@@ -90,7 +90,7 @@ _upgrade() {
       brew upgrade ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
-      sudo apt update && sudo apt upgrade -y ${common_deps[@]} ${linux_deps[@]}
+      sudo apt update && sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
       ;;
   esac
 }
