@@ -227,6 +227,11 @@
         counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"
         counsel-pt-base-command "pt -S --hidden --nocolor --nogroup -e %s"))
 
+(after! ivy
+  (custom-set-faces
+   '(ivy-minibuffer-match-face-1
+     ((t :foreground "#83898d" :box (:line-width -1))))))
+
 
 ;; ui/modeline
 (after! doom-modeline
