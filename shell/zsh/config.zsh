@@ -28,6 +28,10 @@ unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
 HISTFILE="$XDG_DATA_HOME/zhistory"
 HISTSIZE=10000                   # Max events to store in internal history.
 SAVEHIST=10000                   # Max events to store in history file.
+# The wrong command will show up upon UP-ARROW (so that you can correct it!),
+# but is not in the history stack; check with fc -l
+# https://superuser.com/questions/902241/how-to-make-zsh-not-store-failed-command
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 
 setopt BANG_HIST                 # Don't treat '!' specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
