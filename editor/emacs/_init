@@ -47,9 +47,9 @@ install() {
 }
 
 update() {
-  cd ~/.emacs.d && YES=1 make
+  doom refresh -y
   # Create or regenerate the envvar file
-  doom env refresh
+  doom env
 }
 
 link() {
