@@ -1,4 +1,4 @@
-;;; ~/.dotfiles/editor/emacs/doom/+bindings2.el -*- lexical-binding: t; -*-
+;;; ~/.dotfiles/editor/emacs/doom/+bindings.el -*- lexical-binding: t; -*-
 
 ;; This file defines a Spacemacs-esque keybinding scheme
 
