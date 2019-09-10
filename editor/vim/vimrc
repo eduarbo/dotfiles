@@ -23,6 +23,7 @@ call plug#begin('$XDG_DATA_HOME/vim/bundle')
     Plug 'sheerun/vim-polyglot'  " support for a variety of languages
     " Vim functionality fixes/enhancements
     Plug 'tpope/vim-repeat'      " better repeat compatibility ('.')
+    Plug 'tpope/vim-commentary'  " comment stuff out
     Plug 'vim-scripts/vis'       " improved visual commands
     " kill buffers without affecting window layout
     Plug 'moll/vim-bbye', { 'on': ['Bdelete', 'Bclose'] }

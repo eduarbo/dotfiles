@@ -1,12 +1,13 @@
 " Comma get some... sorry.
 let mapleader = ','
-let maplocalleader = '\\'
+let maplocalleader = ',m'
 noremap ; :
 
 " Trigger to preserve indentation on pastes
 set pastetoggle=<F12>
 " Turn off search highlighting
 noremap <silent> <leader>? :nohlsearch<CR>
+noremap <silent> //  :nohlsearch<CR>
 
 nnoremap <leader>h :<C-u>h
 
@@ -17,10 +18,21 @@ nnoremap <leader>h :<C-u>h
     " % matchit shortcut, but only in normal mode!
     nmap <Tab> %
     " Easier fold toggle
-    nnoremap <Space> 5j
-    vnoremap <Space> 5j
-    nnoremap <Backspace> 5k
-    vnoremap <Backspace> 5k
+    nnoremap <down> 5j
+    vnoremap <down> 5j
+    nnoremap <up> 5k
+    vnoremap <up> 5k
+
+    nnoremap <leader>w <C-w>
+
+    function! s:VSetSearch()
+      let temp = @@
+      norm! gvy
+      let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+      let @@ = temp
+    endfunction
+
+    vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
 
     " Make motions sensitive to wrapped lines
     " Same for 0, home, end, etc
@@ -76,12 +88,20 @@ nnoremap <leader>h :<C-u>h
 
     " Enabling repeat in visual mode
     vmap . :normal .<CR>
+
+    " Comment/Uncomment
+    nmap # gcc
+    vmap # gc
 " }}}
 
 " Buffers {{{
     " Next/prev buffer
-    nnoremap ]b :<C-u>bnext<CR>
     nnoremap [b :<C-u>bprevious<CR>
+    nnoremap ]b :<C-u>bnext<CR>
+    nnoremap H :<C-u>bprevious<CR>
+    vnoremap H :<C-u>bprevious<CR>
+    nnoremap L :<C-u>bnext<CR>
+    vnoremap L :<C-u>bnext<CR>
 " }}}
 
 " Command {{{
@@ -106,9 +126,6 @@ nnoremap <leader>h :<C-u>h
     " Mimic shortcuts in the terminal
     cnoremap <C-a> <Home>
     cnoremap <C-e> <End>
-
-    " Allow saving of files as sudo when I forgot to start vim using sudo.
-    cmap w!! w !sudo tee > /dev/null %
 " }}}
 
 " Plugins {{{
@@ -136,4 +153,8 @@ nnoremap <leader>h :<C-u>h
 
     " vim-switch
     nnoremap ! :Switch<CR>
+
+    " vim-fugitive
+    map <leader>gg :G<CR>
+    map <leader>gB :Gblame<CR>
 " }}}
