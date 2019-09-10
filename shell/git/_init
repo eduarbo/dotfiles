@@ -40,7 +40,7 @@ update() {
 }
 
 link() {
-  mklink {config,ignore,message} $GIT_DIR
+  mklink {config,ignore,message} "$GIT_DIR/"
 }
 
 clean() {
