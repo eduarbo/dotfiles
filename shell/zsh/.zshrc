@@ -29,15 +29,19 @@ if [[ -z $SSH_CONNECTION ]]; then
   zplugin light zdharma/fast-syntax-highlighting
 fi
 
-typeset -gA PROMPT_SIMPL_HOSTNAME_SYMBOL_MAP
+typeset -gA SIMPL_HOST_SYMBOL_MAP
 SIMPL_HOST_SYMBOL_MAP=(
-  lavos "ᚱ"
+  lavos "⑀"
   htpc "Ħ"
-  chrono "ᛟ"
+  GLaDOS "ᛟ"
 )
 
 typeset -A SIMPL
-SIMPL[ENABLE_RPROMPT]=1
+SIMPL[HOST_SYMBOL_COLOR]="%B%F{3}"
+# SIMPL[USER_COLOR]="%F{10}"
+SIMPL[USER_COLOR]="%F{11}"
+SIMPL[ENABLE_RPROMPT]=0
+SIMPL[ALWAYS_SHOW_USER_AND_HOST]=0
 zplugin light eduarbo/simpl
 
 #
