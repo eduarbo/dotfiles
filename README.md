@@ -1,21 +1,24 @@
-# 🏗 WIP - My homies ese!
-
-> This a fresh start for my dotfiles, it's still a **Work in Progress**
+# My homies ese! 😎
 
 A tidy `$HOME` is a tidy mind.
+
 
 ![Neofetch - Aug-2018 Screenshot of macOS High Sierra](assets/neofetch.png)
 
 ![Workflow - Aug-2018 Screenshot of macOS High Sierra](assets/workflow.png)
 
-These are my dotfiles, designed primarily for macOS and Ubuntu, heavily inspired
-by [hlissner/dotfiles](https://github.com/hlissner/dotfiles). They are my
-specific breed of madness, split into 2-level topics (e.g. `shell/zsh`) that
+These are my dotfiles, designed primarily for macOS and Ubuntu (Server), heavily
+inspired by [hlissner/dotfiles](https://github.com/hlissner/dotfiles). They are
+my specific breed of madness, split into 2-level topics (e.g. `shell/zsh`) that
 strive for minimum `$HOME` presence (adhering to XDG standards where possible).
 
-## Quick start
+- - -
 
-`bash <(curl -s https://raw.githubusercontent.com/eduarbo/homies/master/bootstrap.sh)`
+### Quick start
+
+```sh
+bash <(curl -s https://raw.githubusercontent.com/eduarbo/dotfiles/master/bootstrap.sh)
+```
 
 ## What does it include?
 
@@ -24,11 +27,10 @@ The following are the categories and topics available to install:
 - `macos/` - macOS compatible utilities
   - [X] `apps` - collection of macOS apps that I use on a daily basis
   - [X] `defaults` - bare essentials for macOS
-  - [X] `hammerspoon` - a bunch of lua scripts for macOS to boost my productivity
+  - [X] `hammerspoon` - a bunch of lua scripts to boost my productivity
   - [X] `iterm` - iTerm2, is there a better macOS terminal?
-  - [X] `karabiner` - powerful and stable keyboard customizer for macOS with
-        useful helpers
   - [X] `kitty` - well, in fact there is a better macOS terminal
+  - [X] `karabiner` - powerful keyboard customizer
 
 - `misc/` - Very handy apps & tools
   - [X] `surfingkeys` - vim-like bindings for Google Chrome
@@ -37,7 +39,7 @@ The following are the categories and topics available to install:
 - `editor/` - Configuration for my text editors
   - [X] `editorconfig` - maintain consistent coding styles between different editors
   - [X] `emacs` - the best of Emacs and Vim in one place
-  - [X] `vim` - for quick and remote file editing
+  - [X] `vim` - for quick file editing
 
 - `shell/` - Shell utilities
   - [X] `bash` - not my default shell but doesn't hurt to have a basic config
