@@ -356,6 +356,7 @@
 (map! :leader
       :desc "Eval expression"       ":"    #'eval-expression
       :desc "M-x"                   ";"    #'execute-extended-command
+      :desc "Switch scratch buffer" "X"    #'doom/switch-to-project-scratch-buffer
 
       ;;; <leader> l --- language
       (:when (featurep! :config language)
