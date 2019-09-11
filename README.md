@@ -33,8 +33,7 @@ The following are the categories and topics available to install:
   - [X] `karabiner` - powerful keyboard customizer
 
 - `misc/` - Very handy apps & tools
-  - [X] `surfingkeys` - vim-like bindings for Google Chrome
-  - [ ] `tridactyl` - vim-like bindings for Firefox
+  - [X] `surfingkeys` - vim-like bindings for Google Chrome & Firefox
 
 - `editor/` - Configuration for my text editors
   - [X] `editorconfig` - maintain consistent coding styles between different editors
