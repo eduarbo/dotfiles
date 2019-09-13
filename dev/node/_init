@@ -2,22 +2,22 @@
 source ${0:A:h}/../../deploy
 source env.bash
 
-link() {
-  _ensure_repo nodenv/nodenv $NODENV_ROOT
-  _ensure_repo nodenv/node-build $NODENV_ROOT/plugins/node-build
-  _ensure_repo nodenv/nodenv-update $NODENV_ROOT/plugins/nodenv-update
-  _ensure_repo nodenv/nodenv-npm-migrate $NODENV_ROOT/plugins/nodenv-npm-migrate
-  _ensure_repo nodenv/nodenv-default-packages $NODENV_ROOT/nodenv-default-packages
-  _ensure_repo nodenv/nodenv-package-rehash $NODENV_ROOT/plugins/nodenv-package-rehash
-
-  mklink default-packages "$NODENV_ROOT/default-packages"
-}
-
 # TODO: Install latest stable node version to be set as global
 install() {
   # Installing node through Homebrew can cause problems with npm for globally
   # installed packages. To prevent this issue install node without npm
   [[ $(_os) == macos ]] && brew install node --without-npm
+}
+
+link() {
+  local NODENV_PLUGINS=$NODENV_ROOT/plugins
+  _ensure_repo nodenv/nodenv $NODENV_ROOT
+  _ensure_repo nodenv/node-build $NODENV_PLUGINS/node-build
+  _ensure_repo nodenv/nodenv-default-packages $NODENV_PLUGINS/nodenv-default-packages
+  _ensure_repo nodenv/nodenv-package-rehash $NODENV_PLUGINS/nodenv-package-rehash
+  _ensure_repo nodenv/nodenv-installer $NODENV_PLUGINS/nodenv-installer
+
+  mklink default-packages "$NODENV_ROOT/default-packages"
 }
 
 update() {
@@ -27,6 +27,8 @@ update() {
       cd $ver && git pull
     done
   fi
+
+  nodenv default-packages install
 }
 
 clean() {

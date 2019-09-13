@@ -1,3 +1,5 @@
 prettier
 typescript
 typescript-language-server
+vscode-html-languageserver-bin
+vscode-css-languageserver-bin
