@@ -2,7 +2,7 @@
 source ${0:A:h}/../../deploy
 source env.bash
 
-# TODO: Install latest stable node version to be set as global
+# TODO Install latest stable node version to be set as global
 install() {
   # Installing node through Homebrew can cause problems with npm for globally
   # installed packages. To prevent this issue install node without npm
@@ -10,13 +10,16 @@ install() {
 }
 
 link() {
+  # NOTE plugins extend the commands available for `nodenv`
   local NODENV_PLUGINS=$NODENV_ROOT/plugins
-  _ensure_repo nodenv/nodenv $NODENV_ROOT
-  _ensure_repo nodenv/node-build $NODENV_PLUGINS/node-build
-  _ensure_repo nodenv/nodenv-default-packages $NODENV_PLUGINS/nodenv-default-packages
-  _ensure_repo nodenv/nodenv-package-rehash $NODENV_PLUGINS/nodenv-package-rehash
-  _ensure_repo nodenv/nodenv-installer $NODENV_PLUGINS/nodenv-installer
 
+  _ensure_repo nodenv/nodenv                  $NODENV_ROOT
+  _ensure_repo nodenv/node-build              $NODENV_PLUGINS/node-build
+  _ensure_repo nodenv/nodenv-default-packages $NODENV_PLUGINS/nodenv-default-packages
+  _ensure_repo nodenv/nodenv-installer        $NODENV_PLUGINS/nodenv-installer
+  _ensure_repo nodenv/nodenv-package-rehash   $NODENV_PLUGINS/nodenv-package-rehash
+
+  # List of default packages that will be installed on every new version of Node
   mklink default-packages "$NODENV_ROOT/default-packages"
 }
 
