@@ -116,10 +116,10 @@
       :nv "C-S-a" #'evil-numbers/dec-at-pt
 
       ;; Easier window/tab navigation
-      :nv "C-h"   #'evil-window-left
-      :nv "C-j"   #'evil-window-down
-      :nv "C-k"   #'evil-window-up
-      :nv "C-l"   #'evil-window-right
+      :inv "C-h"   #'evil-window-left
+      :inv "C-j"   #'evil-window-down
+      :inv "C-k"   #'evil-window-up
+      :inv "C-l"   #'evil-window-right
 
       ;; Fix conflicts
       (:after flycheck
@@ -185,6 +185,14 @@
 (map! (:map help-map
         "H"   #'+lookup/documentation))
 
+
+;; repl
+;; FIXME
+(map! :map comint-mode-map
+      :n "C-h"   #'evil-window-left
+      :n "C-j"   #'evil-window-down
+      :n "C-k"   #'evil-window-up
+      :n "C-l"   #'evil-window-right)
 
 ;;
 ;;; Module keybinds
