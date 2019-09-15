@@ -25,32 +25,32 @@ bash <(curl -s https://raw.githubusercontent.com/eduarbo/dotfiles/master/bootstr
 The following are the categories and topics available to install:
 
 - `macos/` - macOS compatible utilities
-  - [X] `apps` - collection of macOS apps that I use on a daily basis
-  - [X] `defaults` - bare essentials for macOS
-  - [X] `hammerspoon` - a bunch of lua scripts to boost my productivity
-  - [X] `iterm` - iTerm2, is there a better macOS terminal?
-  - [X] `kitty` - well, in fact there is a better macOS terminal
-  - [X] `karabiner` - powerful keyboard customizer
+  - `apps` - collection of macOS apps that I use on a daily basis
+  - `defaults` - bare essentials for macOS
+  - `hammerspoon` - a bunch of lua scripts to boost my productivity
+  - `iterm` - iTerm2, is there a better macOS terminal?
+  - `kitty` - well, in fact there is a better macOS terminal
+  - `karabiner` - powerful keyboard customizer
 
 - `misc/` - Very handy apps & tools
-  - [X] `surfingkeys` - vim-like bindings for Google Chrome & Firefox
+  - `surfingkeys` - vim-like bindings for Google Chrome & Firefox
+  - `gnupg` - encryption/signing
 
 - `editor/` - Configuration for my text editors
-  - [X] `editorconfig` - maintain consistent coding styles between different editors
-  - [X] `emacs` - the best of Emacs and Vim in one place
-  - [X] `vim` - for quick file editing
+  - `editorconfig` - maintain consistent coding styles between different editors
+  - `emacs` - the best of Emacs and Vim in one place
+  - `vim` - for quick file editing
 
 - `shell/` - Shell utilities
-  - [X] `bash` - not my default shell but doesn't hurt to have a basic config
-  - [X] `git` - nice aliases and zsh plugins
-  - [ ] `gnupg` - encryption/signing
-  - [X] `tmux` - window manager within the terminal + nice plugins
-  - [X] `zsh` - my shell of choice, fast, powerful and with a nice prompt
+  - `bash` - not my default shell but doesn't hurt to have a basic config
+  - `git` - nice aliases and zsh plugins
+  - `tmux` - window manager within the terminal + nice plugins
+  - `zsh` - my shell of choice, fast, powerful and with a nice prompt
 
 - `dev/` - Relevant to software development & programming in general
-  - [X] `lua` - manage lua environments with luaenv
-  - [X] `node` - setup nodenv, a lightweight alternative to nvm
-  - [X] `python` - setup pyenv, a simple Python version management
+  - `lua` - manage lua environments with luaenv
+  - `node` - setup nodenv, a lightweight alternative to nvm
+  - `python` - setup pyenv, a simple Python version management
 
 
 ## Dotfile management
