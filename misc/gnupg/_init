@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source env.bash
+
+install() {
+  common_deps=(
+    gnupg
+  )
+
+  brew_deps=(
+    pinentry-mac
+  )
+
+  cask_deps=(
+    gpg-suite
+  )
+
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]} ${brew_deps[@]}
+      brew cask install ${cask_deps[@]}
+      ;;
+    debian)
+      sudo apt update && sudo apt install -y ${common_deps[@]}
+      ;;
+  esac
+}
+
+update() {
+  # Re-link because GPG Suite seems to be removing the symlink to gpg.conf
+  link
+}
+
+link() {
+  mklink {gpg,gpg-agent}.conf $GNUPGHOME/
+  # Fix the permissions to please GPG
+  chmod -R go-rwx $GNUPGHOME
+}
+
+clean() {
+  rm -fv $GNUPGHOME/{gpg,gpg-agent}
+}
+
+init "$@"
