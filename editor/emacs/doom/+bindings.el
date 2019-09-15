@@ -148,9 +148,7 @@
         :n  "."    #'call-last-kbd-macro
 
         ;; narrowing and widening
-        :v  "n"    #'narrow-to-region
-        :n  "n"    #'narrow-to-defun
-        :nv "w"    #'widen
+        :nv "n"    #'+eduarbo/narrow-or-widen-dwim
         :nv "TAB"  #'persp-switch)
 
       (:after evil-easymotion

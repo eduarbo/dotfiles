@@ -52,3 +52,28 @@
                  (list t)))
   (let ((fill-column (point-max)))
     (fill-paragraph nil region)))
+
+;;;###autoload
+(defun +eduarbo/narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows
+intelligently.  Intelligently means: region, org-src-block,
+org-subtree, or defun, whichever applies first.  Narrowing to
+org-src-block actually calls `org-edit-src-code'.
+
+With prefix P, don't widen, just narrow even if buffer is already
+narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+        ((and (boundp 'org-src-mode) org-src-mode (not p))
+         (org-edit-src-exit))
+        ((region-active-p)
+         (narrow-to-region (region-beginning) (region-end)))
+        ((derived-mode-p 'org-mode)
+         (cond ((ignore-errors (org-edit-src-code))
+                (delete-other-windows))
+               ((org-at-block-p)
+                (org-narrow-to-block))
+               (t (org-narrow-to-subtree))))
+        ((derived-mode-p 'prog-mode) (narrow-to-defun))
+        (t (error "Please select a region to narrow to"))))
