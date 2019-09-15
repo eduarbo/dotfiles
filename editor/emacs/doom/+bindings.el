@@ -19,6 +19,9 @@
       "s-g" #'magit-status
       "s-p" #'+treemacs/toggle
 
+      "s-r" #'+eval/open-repl-other-window
+      "s-R" #'+eval/open-repl-same-window
+
       :m  [up]   #'multi-previous-line
       :m  [down] #'multi-next-line
 
