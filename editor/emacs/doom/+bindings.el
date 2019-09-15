@@ -141,6 +141,7 @@
       :v  "s"     #'evil-surround-region
 
       (:prefix "g"
+        :nv "Q"    #'+eduarbo/unfill-paragraph
         :nv "o"    #'avy-goto-char-timer
         :nv "O"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
         :nv "/"    #'+default/search-project
