@@ -43,3 +43,12 @@
   (require 'org)
   (let ((default-directory dir))
     (+default/search-project-for-symbol-at-point nil "")))
+
+;;;###autoload
+(defun +eduarbo/unfill-paragraph (&optional region)
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive (progn
+                 (barf-if-buffer-read-only)
+                 (list t)))
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil region)))
