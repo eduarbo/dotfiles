@@ -386,17 +386,18 @@ settings.theme = `
   font-size: 10pt;
   background: #282C2F;
   color: #abb2bf;
-}
-#sk_usage {
-  background: #282C2F;
-  color: #abb2bf;
-  padding: 0 1rem;
+  line-height: 1.2rem;
 }
 #sk_omnibar {
   width: 100%;
   left: 0;
   top: 0;
   border-radius: 0;
+}
+#sk_usage {
+  background: #282C2F;
+  color: #abb2bf;
+  padding: 0 1rem;
 }
 .sk_theme input {
     color: #d0d0d0;
@@ -433,7 +434,7 @@ settings.theme = `
   margin: 0;
 }
 #sk_omnibarSearchResult>ul>li {
-  padding: 0.125rem 0.5rem 0.25rem;
+  padding: 0.25rem 0.5rem;
 }
 #sk_omnibarSearchResult li div.title {
   color: #AAAAAA;
@@ -445,6 +446,9 @@ settings.theme = `
   font-family: Hack, Helvetica;
   color: #666666;
   font-weight: normal;
+}
+#sk_omnibarSearchResult li div.url {
+  line-height: 1rem;
 }
 .sk_theme .omnibar_visitcount {
   color: #888888;
@@ -480,5 +484,6 @@ settings.theme = `
 .sk_omnibar_middle #sk_omnibarSearchArea {
   margin: 0.5rem;
   border-bottom: none;
+  align-items: baseline;
 }
 `;
