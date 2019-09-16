@@ -363,7 +363,8 @@ keymap(GROUP.CHROME, ({ normal }) => {
 
 mySettings = {
   smoothScroll: false,
-  hintAlign: 'left'
+  hintAlign: 'left',
+  focusFirstCandidate: true
 };
 
 Object.assign(settings, mySettings);
