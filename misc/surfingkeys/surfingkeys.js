@@ -378,7 +378,7 @@ Hints.style(`
 Hints.style(`
   font-family: Hack, Helvetica;
   border-color: #3E9363;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D5FA82), to(#A6F772));
+  background: linear-gradient(0deg, #A6F772, #D5FA82);
 `, 'text');
 
 settings.theme = `
