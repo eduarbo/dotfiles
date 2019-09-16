@@ -410,6 +410,7 @@ settings.theme = `
   color: #24ddb2;
   padding-bottom: 2px;
   border-bottom: 2px solid #fece48;
+  font-size: 1rem;
 }
 .sk_theme .annotation {
   color: #999999;
