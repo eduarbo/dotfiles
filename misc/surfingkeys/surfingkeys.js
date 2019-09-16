@@ -371,49 +371,114 @@ Object.assign(settings, mySettings);
 // Theme
 
 Hints.style(`
-    border: solid 8px #C38A22;
-    padding: 1px;
-    background: #e39913;
-    font-family: Hack, Helvetica;
+  font-family: Hack, Helvetica;
+`);
+
+Hints.style(`
+  font-family: Hack, Helvetica;
+  border-color: #3E9363;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D5FA82), to(#A6F772));
 `, 'text');
 
 settings.theme = `
-#sk_hints>div {
-    font-family: Hack, Helvetica;
-}
 .sk_theme {
-    font-family: Input Sans Condensed, Charcoal, sans-serif;
-    font-size: 10pt;
-    background: #24272e;
-    color: #abb2bf;
+  font-family: Helvetica;
+  font-size: 10pt;
+  background: #282C2F;
+  color: #abb2bf;
 }
-.sk_theme tbody {
-    color: #fff;
+#sk_usage {
+  background: #282C2F;
+  color: #abb2bf;
+  padding: 0 1rem;
+}
+#sk_omnibar {
+  width: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 0;
 }
 .sk_theme input {
     color: #d0d0d0;
 }
-.sk_theme .url {
-    color: #61afef;
+.sk_theme .feature_name {
+  color: #24ddb2;
+  margin: 2rem 0 0.5rem;
+}
+#sk_usage .feature_name>span {
+  color: #24ddb2;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #fece48;
 }
 .sk_theme .annotation {
-    color: #56b6c2;
+  color: #999999;
 }
 .sk_theme .omnibar_highlight {
-    color: #528bff;
+  color: #24ddb2;
 }
-.sk_theme .omnibar_timestamp {
-    color: #e5c07b;
+.sk_theme .omnibar_folder {
+  color: #fcdc7c;
+}
+.sk_theme .separator {
+  display: none;
+}
+#sk_omnibarSearchArea>input {
+  padding: 0;
+  margin-left: 0.5rem;
+}
+#sk_omnibarSearchResult {
+  margin: 0;
+}
+.sk_omnibar_middle #sk_omnibarSearchResult>ul {
+  margin: 0;
+}
+#sk_omnibarSearchResult>ul>li {
+  padding: 0.125rem 0.5rem 0.25rem;
+}
+#sk_omnibarSearchResult li div.title {
+  color: #AAAAAA;
+  font-size: 0.875rem;
+}
+.sk_theme .omnibar_visitcount,
+.sk_theme .omnibar_timestamp,
+#sk_omnibarSearchResult li div.url {
+  font-family: Hack, Helvetica;
+  color: #666666;
+  font-weight: normal;
 }
 .sk_theme .omnibar_visitcount {
-    color: #98c379;
+  color: #888888;
 }
 .sk_theme #sk_omnibarSearchResult>ul>li:nth-child(odd) {
-    background: #303030;
+  background: #282C2F;
 }
 .sk_theme #sk_omnibarSearchResult>ul>li.focused {
-    background: #3e4452;
+  background: #3C4043;
 }
-#sk_status, #sk_find {
-    font-size: 20pt;
-}`;
+.sk_theme #sk_omnibarSearchResult>ul>li.focused .title {
+  color: #CCCCCC;
+}
+.sk_theme #sk_omnibarSearchResult>ul>li.focused .url {
+  color: #AAAAAA;
+}
+#sk_status {
+  padding: 0.25rem .8rem 0.25rem;
+}
+#sk_status,
+#sk_find {
+  font-size: 1rem;
+  border-bottom: none;
+}
+#sk_status>span {
+  padding: 0 !important;
+}
+#sk_status>span:first-child {
+  border: none !important;
+  color: #24ddb2;
+  font-weight: bold;
+}
+.sk_omnibar_middle #sk_omnibarSearchArea {
+  margin: 0.5rem;
+  border-bottom: none;
+}
+`;
