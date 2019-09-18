@@ -87,15 +87,9 @@ keymap(GROUP.SCROLL_PAGE, ({ normal }) => {
   normal('gf', 'Switch frames', Normal.rotateFrame);
   normal('gF', 'Focus top window', top.focus);
 
-  // Scroll page up
+  // Scroll page up/down
   map('K', 'e');
-  // Scroll page down
   map('J', 'd');
-  // FIXME: Ctrl bindings not working
-  // map('<Ctrl-u>', 'e');
-  // map('<Ctrl-d>', 'd');
-  unmap('e');
-  unmap('d');
 
   // Change scroll target
   map('gs', 'cs');
