@@ -13,7 +13,7 @@ const appsMap = {
   r: '/Applications/Utilities/Activity Monitor.app',
   s: '/Applications/Slack.app',
   v: '/Applications/Karabiner-EventViewer.app',
-  w: '/Applications/Preview.app',
+  w: '/Applications/WhatsApp.app',
 };
 
 const manipulators = Object.entries(appsMap).map(([key, app]) => ({
