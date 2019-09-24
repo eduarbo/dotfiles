@@ -1,4 +1,15 @@
-unmapAllExcept(['/', '.', 'cs', 'cS', 'n', 'N', 'd', 'e', 'gg', 'G', 'j', 'k', 'v']);
+//
+// Settings
+
+Object.assign(settings, {
+  smoothScroll: false,
+  hintAlign: 'left',
+});
+
+Object.assign(Hints, {
+  characters: 'asdfgqwertcvb',
+});
+
 
 //
 // Helpers
@@ -38,331 +49,239 @@ function keymap(group, fn) {
   return fn(helpers)
 }
 
+
 //
 // Bindings
+
+// I don't need them
+unmap('sp');           // namespace for Proxy bindings
+unmap('cp');           // toggle proxy for current site
+unmap('sfr');          // show failed web requests of current page
+unmap('se');           // edit settings
+unmap('sm');           // preview markdown
+unmap('<Ctrl-Alt-d>'); // settings
+unmap('Z');            // namespace for Session bindings
+unmap('sql');          // show last action
+iunmap(':');           // emoji completion
+
+// text navigation is already handled by Karabiner-Elements
+iunmap('<Ctrl-e>');
+iunmap('<Ctrl-f>');
+iunmap('<Ctrl-u>');
+iunmap('<Alt-b>');
+iunmap('<Alt-f>');
+iunmap('<Alt-w>');
+iunmap('<Alt-d>');
 
 keymap(GROUP.HELP, ({ normal }) => {
   // That way I have all site keyboard shortcuts available under the leader key
   // e.g. to use GitHub original shortcut to go to Pull Requests page just type `,gp`
   normal(',', 'Temporarily suppress SurfingKeys', Normal.passThrough);
-  normal('?', 'Show usage', Front.showUsage);
-  map('<Ctrl-q>', '<Alt-s>');
+  unmap('<Alt-i>');
+
+  map('#', '<Alt-s>');
 });
 
-keymap(GROUP.MOUSE_CLICK, ({ visual, normal }) => {
-  const openLink = (opts, selector = '') => () => Hints.create(selector, Hints.dispatchMouseClick, opts);
+keymap(GROUP.MOUSE_CLICK, () => {
+  // Open a link in new tab
+  map('F', 'af');
+  unmap('af');
 
-  normal('f',  'Open a link in current tab', openLink());
-  normal('F',  'Open a link in new tab', openLink({ tabbed: true, active: false }));
+  // Mouse out last element
+  map('gm', ';m');
+  unmap(';m');
 
-  normal('gi', 'Go to the first edit box', Hints.createInputLayer);
-  normal('i', 'Go to edit box', () => {
-    Hints.create("input, textarea, *[contenteditable=true], select", Hints.dispatchMouseClick);
-  });
-  normal('I', 'Go to edit box with vim editor', () => {
-    Hints.create('input, textarea, *[contenteditable=true], select', element => Front.showEditor(element));
-  });
+  // Mouse over elements
+  map('gh', '<Ctrl-h>');
+  unmap('<Ctrl-h)');
 
-  // FIXME
-  normal('[[', 'Click on the previous link on current page', previousPage);
-  normal(']]', 'Click on the next link on current page', nextPage);
+  // Mouse out elements
+  map('gH', '<Ctrl-j>');
+  unmap('<Ctrl-j>');
 
-  normal('oF', 'Open multiple links in a new tab', openLink({ multipleHits: true }));
-  normal('of', 'Click on an Image or a button', () => Hints.create('img, button', Hints.dispatchMouseClick));
-  normal('gm', 'mouse out last element', () => Hints.mouseoutLastElement());
-  normal('gh', 'Mouse over elements.', () => {
-    Hints.create('', Hints.dispatchMouseClick, { mouseEvents: ['mouseover'] });
-  });
-  normal('gH', 'Mouse out elements.', () => {
-    Hints.create('', Hints.dispatchMouseClick, { mouseEvents: ['mouseout'] });
-  });
-  normal('gl', 'Open detected links from text', () => {
-    Hints.create(runtime.conf.clickablePat, (element) => {
-      createElement(`<a href=${element[2]}>`).click();
-    }, { statusLine: 'Open detected links from text' });
-  });
+  map('gf', 'O'); // Open detected links from text
+
+  map('gq', 'cq');
+  unmap('cq');
+
+  // Open multiple links in a new tab
+  map('O', 'cf');
+  unmap('cf');
 });
 
-keymap(GROUP.SCROLL_PAGE, ({ normal }) => {
-  normal('gf', 'Switch frames', Normal.rotateFrame);
-  normal('gF', 'Focus top window', top.focus);
-
+keymap(GROUP.SCROLL_PAGE, () => {
   // Scroll page up/down
   map('K', 'e');
   map('J', 'd');
 
   // Change scroll target
   map('gs', 'cs');
+  unmap('cs');
+
   // Reset scroll target
   map('gS', 'cS');
-  // Unmap default mappings
-  unmap('cs');
   unmap('cS');
 });
 
 keymap(GROUP.TABS, ({ normal }) => {
-  const goHistoryTab = (opts) => () => RUNTIME('historyTab', opts);
-  normal('h', 'Go to previous tab', () => RUNTIME("previousTab"));
-  normal('l', 'Go to next tab', () => RUNTIME("nextTab"));
-  normal('{', 'Go one tab history back', goHistoryTab({ backward: true }), { repeatIgnore: true });
-  normal('}', 'Go one tab history forward', goHistoryTab({ backward: true }), { repeatIgnore: true });
-  normal('`', 'Go to last used tab', () => RUNTIME('goToLastTab'));
-  normal('xx', 'Close current tab', () => RUNTIME("closeTab"));
-  normal('X', 'Restore closed tab', () => RUNTIME('openLast'));
-  normal('<', 'Move current tab to left', () => RUNTIME('moveTab', { step: -1 }));
-  normal('>', 'Move current tab to right', () => RUNTIME('moveTab', { step: 1 }));
-  normal('W', 'New window with current tab',  () => RUNTIME('newWindow'));
-  normal('t', 'Choose a tab', Front.chooseTab);
-  normal('<Space>', 'Choose a tab', Front.chooseTab);
-  normal('zr', 'zoom reset', () => RUNTIME('setZoom', { zoomFactor: 0 }));
-  normal('zi', 'zoom in', () => RUNTIME('setZoom', { zoomFactor: 0.1 }));
-  normal('zo', 'zoom out', () => RUNTIME('setZoom', { zoomFactor: -0.1 }));
+  map('<Ctrl-h>', 'E'); // Go one tab left
+  map('<Ctrl-l>', 'R'); // Go one tab right
+  unmap('E');
+
+  // Go back in history
+  map('H', 'S');
+  unmap('S');
+
+  // Go forward in history
+  map('L', 'D');
+  unmap('D');
+
+  // Go to last used tab
+  map('`', '<Ctrl-6>');
+  unmap('<Ctrl-6>');
+
+  // pin/unpin current tab
+  map('gp', '<Alt-p>')
+  unmap('<Alt-p>');
+
+  // mute/unmute current tab
+  map('gm', '<Alt-m>')
+  unmap('<Alt-m>');
+
+  map('<', '<<'); // Move current tab to left
+  map('>', '>>'); // Move current tab to right
+
+  map('t', 'T'); // Choose a tab
+  map('T', 'X'); // Restore closed tab
 });
 
 keymap(GROUP.PAGE, ({ normal }) => {
-  normal('r', 'Reload the page', () => RUNTIME('reloadTab', { nocache: false }));
   normal('R', 'Reload the page without cache', () => RUNTIME('reloadTab', { nocache: true }));
-  normal('H', 'Go back in history', () => history.go(-1), {repeatIgnore: true});
-  normal('L', 'Go forward in history', () => history.go(1), {repeatIgnore: true});
-  normal('su', 'Edit current URL with vim and reload', () => {
-    Front.showEditor(window.location.href, (data) => window.location.href = data, 'url');
-  });
-  normal('sU', 'Edit current URL with vim and open in new tab', () => {
-    Front.showEditor(window.location.href, (data) => tabOpenLink(data), 'url');
-  });
+
+  map('gl', 'sU');
+  map('gL', 'su');
+  unmap('su');
+  unmap('sU');
 });
 
 keymap(GROUP.MISC, ({ normal }) => {
-  normal('gB', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
-  normal('gb', 'Bookmark current page to selected folder', () => {
+  unmap('b');
+  normal('bo', 'Open a bookmark', () => {
+    Front.openOmnibar({ type: 'Bookmarks', tabbed: false });
+  });
+  normal('bO', 'Open a bookmark in new tab', () => {
+    Front.openOmnibar({ type: 'Bookmarks' });
+  });
+  normal('bd', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
+  normal('ba', 'Bookmark current page to selected folder', () => {
     const extra = { url: window.location.href, title: document.title };
     Front.openOmnibar(({ type: "AddBookmark", extra }));
   });
 
-  injectKillElementHintStyle();
-
-  normal('d', 'Kill element', killElementWithStyle);
-  normal('D', 'Kill multiple element', () => killElementWithStyle({ multipleHits: true }));
-
-  // FIXME: Don't press ESC twice to exit
-  function killElementWithStyle(hintOptions = {}) {
-    const className = 'sk_trial';
-    const $body = document.querySelector('body');
-
-    Hints.create('*', (element) => {
-      element.parentNode.removeChild(element);
-      if (!hintOptions.multipleHits) {
-        handleHintsExit();
-      }
-    }, hintOptions);
-
-    $body.classList.add(className);
-
-    document.addEventListener('keydown', handleEsc);
-
-    function handleHintsExit() {
-      $body.classList.remove(className)
-      document.removeEventListener('keydown', handleEsc);
-    }
-
-    function handleEsc(event) {
-      if (event.key === 'Escape') {
-        handleHintsExit();
-      }
-    };
-  }
-
-  function injectKillElementHintStyle() {
-    const $css = document.createElement('style');
-    $css.type = 'text/css';
-
-    const styles = '.sk_trial * { outline: 1px dashed red; }';
-    $css.appendChild(document.createTextNode(styles));
-    const $head = document.querySelector('head');
-    $head.appendChild($css);
-  }
 });
 
-keymap(GROUP.INSERT, ({ normal }) => {
-  normal('<Ctrl-i>', 'Open vim editor for current input', () => {
-    const element = getRealEdit();
-    element.blur();
-    Insert.exit();
-    Front.showEditor(element);
-  });
+keymap(GROUP.VISUAL, () => {
+  map('gv', 'V'); // Restore visual mode
+  map('V', 'zv'); // Enter visual mode, and select whole element
+  unmap('zv');
 });
 
-keymap(GROUP.VISUAL, ({ visual, normal }) => {
-  normal('V', 'Restore visual mode', Visual.restore);
-  normal('gv', 'Enter visual mode, and select whole element', () => Visual.toggle('z'));
-  visual('*', 'Find selected text in current page', () => {
-    Visual.star();
-    Visual.toggle();
-  });
+keymap(GROUP.CLIPBOARD, () => {
+  // NOTE Using _ as a temporary variable to swap key bindings
+  map('_', 'yf');
+  map('yf', 'ya'); // Copy a link URL to the clipboard
+  map('ya', '_'); // Copy form data in JSON on current page
+  unmap('_');
 
-  // FIXME: Ctrl bindings not working
-  visual('<Ctrl-u>', 'Backward 20 lines', () => Visual.feedkeys('20k'));
-  visual('<Ctrl-d>', 'Forward 20 lines', () => Visual.feedkeys('20j'));
+  // Copy multiple link URLs to the clipboard
+  map('yF', 'yma');
+  unmap('yma');
+
+  // Yank text of multiple elements
+  map('yV', 'ymv');
+  unmap('ymv');
+
+  // Copy multiple columns of a table
+  map('yC', 'ymc');
+  unmap('ymc');
 });
 
-keymap(GROUP.CLIPBOARD, ({ normal }) => {
-  normal('cd', "Copy current downloading URL", () => {
-    const opts = { action: 'getDownloads', query: { state: "in_progress" } };
-    runtime.command(opts, ({ downloads }) => {
-      Clipboard.write(downloads.map(o => o.url).join(','));
-    });
-  });
-  normal('cc', "Copy current page's URL", () => Clipboard.write(window.location.href));
-  normal('ch', "Copy current page's host", () => {
-    const url = new URL(window.location.href);
-    Clipboard.write(url.host);
-  });
-  normal('cv', 'Copy text of an element', () => Visual.toggle("y"));
-  normal('cV', 'Copy text of multiple elements', () => Visual.toggle("ym"));
-  normal('ci', 'Copy text of an input', () => {
-    Hints.create("input, textarea, select", ({ value }) => Clipboard.write(value));
-  });
-  normal('cq', 'Copy pre text', () => {
-    Hints.create("pre", ({ innerText }) => Clipboard.write(innerText));
-  });
-  normal('cl', 'Copy a link URL to the clipboard', () => {
-    Hints.create('*[href]', element => Clipboard.write(element.href));
-  });
-  normal('cL', 'Copy multiple link URLs to the clipboard', () => {
-    const linksToYank = [];
-    Hints.create('*[href]', ({ href }) => {
-      linksToYank.push(href);
-      Clipboard.write(linksToYank.join('\n'));
-    }, { multipleHits: true });
-  });
-
-  normal(['cs', 'gc'], 'Open selected link or link from clipboard', () => {
-    const selection = window.getSelection().toString();
-    if (selection) {
-      tabOpenLink(selection);
-    } else {
-      Clipboard.read(({ data }) => tabOpenLink(data));
-    }
-  });
-});
-
-keymap(GROUP.VIM, ({ normal }) => {
-  normal('m', 'Add current URL to vim-like marks', Normal.addVIMark);
-  normal("'", 'Jump to vim-like mark', Normal.jumpVIMark);
-  normal("g'", 'Jump to vim-like mark in new tab', mark => Normal.jumpVIMark(mark, true));
+keymap(GROUP.VIM, () => {
+  // Duplicate keymap
+  unmap('<Ctrl-\'>');
 })
 
-keymap(GROUP.OMNIBAR, ({ normal, visual }) => {
-  normal(',;', 'Open commands', () => {
-    Front.openOmnibar({ type: "Commands" });
+keymap(GROUP.OMNIBAR, ({ normal }) => {
+  unmap('o');
+
+  normal('ot', 'Choose a tab with omnibar', () => {
+    Front.openOmnibar({ type: 'Tabs' });
   });
-  normal(';', 'Open a URL', () => {
-    Front.openOmnibar({ type: "URLs", extra: "getAllSites", tabbed: false });
-  });
-  normal(':', 'Open a URL in new tab', () => {
-    Front.openOmnibar({ type: "URLs", extra: "getAllSites" });
-  });
-  normal('ox', 'Open recently closed URL', () => {
-    Front.openOmnibar({ type: "URLs", extra: "getRecentlyClosed" });
-  });
-  normal(['ou', 'u'], 'Open opened URL', () => {
-    Front.openOmnibar({ type: "URLs", extra: "getTabURLs", tabbed: false });
-  });
-  normal(['oU', 'U'], 'Open opened URL in new tab', () => {
-    Front.openOmnibar({ type: "URLs", extra: "getTabURLs" });
-  });
-  normal(['ob', 'b'], 'Open a bookmark', () => {
-    Front.openOmnibar({ type: "Bookmarks", tabbed: false });
-  });
-  normal(['oB', 'B'], 'Open a bookmark in new tab', () => {
-    Front.openOmnibar({ type: "Bookmarks" });
-  });
-  normal('oy', 'Open URL from history', () => {
-    Front.openOmnibar({ type: "History", tabbed: false });
-  });
-  normal('oY', 'Open URL from history in new tab', () => {
-    Front.openOmnibar({ type: "History" });
-  });
-  normal('om', 'Open URL from vim-like marks', () => {
-    Front.openOmnibar({ type: "VIMarks" });
-  });
-  normal('oi', 'Open incognito window', () => {
+
+  openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites' });
+  openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed' });
+  openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs' });
+  openOmnibar(';', 'Open commands', { type: "Commands" });
+
+  const prefix = 'o';
+  openOmnibarCombo('a', 'Open a URL', { prefix, type: 'URLs', extra: 'getAllSites' });
+  openOmnibarCombo('x', 'Open recently closed URL', { prefix, type: 'URLs', extra: 'getRecentlyClosed' });
+  openOmnibarCombo('u', 'Open URL from tab history', { prefix, type: 'URLs', extra: 'getTabURLs' });
+  openOmnibarCombo('b', 'Open a bookmark', { prefix, type: 'Bookmarks' });
+  openOmnibarCombo('m', 'Open URL from vim-like marks', { prefix, type: 'VIMarks' });
+  openOmnibarCombo('y', 'Open URL from history', { prefix, type: 'History' });
+  normal(`${prefix}i`, 'Open incognito window', () => {
     runtime.command({ action: 'openIncognito', url: window.location.href });
   });
 
-  const mapSearchAlias = (alias, prompt, url, options = {}, cb) => {
-    const { suggestionUrl, prefix = 'o', searchLeaderKey = 's', mapToSearchSelected = true } = options
-    const aliasNewTab = alias.toUpperCase();
-    const searchEngine = (extra, tabbed) => () => {
-      Front.openOmnibar({ type: 'SearchEngine', extra, tabbed });
-    };
 
-    normal(`${prefix}${alias}`, `Search with ${prompt}`, searchEngine(alias, false));
-    normal(`${prefix}${aliasNewTab}`, `Search with ${prompt} in new tab`, searchEngine(alias));
-    addSearchAlias(alias, prompt, url, suggestionUrl, cb, prefix);
+  // Helpers
 
-    if (mapToSearchSelected) {
-      keymap(GROUP.SEARCH, ({ normal, visual }) => {
-        const searchMapping = `${searchLeaderKey}${alias}`;
-        const searchSelectedWithUrl = () => searchSelectedWith(url);
-        normal(searchMapping, `Search from clipboard with ${prompt}`, searchSelectedWithUrl);
-        visual(searchMapping, `Search Selected with ${prompt}`, searchSelectedWithUrl);
-      });
-    }
-  };
+  function openOmnibar(key, annotation, options) {
+    normal(key, annotation, () => {
+      Front.openOmnibar(options);
+    });
+  }
 
-  mapSearchAlias('g', 'Google', 'https://www.google.com/search?q=', {
-    suggestionUrl: 'https://www.google.com/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q='
-  }, (response) => {
-    const res = JSON.parse(response.text);
-    return res[1];
-  });
+  function openOmnibarCombo(key, annotation, options) {
+    const { prefix = '', ...opts } = options;
 
-  mapSearchAlias('d', 'DuckDuckGo', 'https://duckduckgo.com/?q=', {
-    suggestionUrl: 'https://duckduckgo.com/ac/?q='
-  }, (response) => {
-    const res = JSON.parse(response.text);
-    return res.map(r => r.phrase);
-  });
-
-  mapSearchAlias('v', 'YouTube', 'https://www.youtube.com/results?search_query=', {
-    suggestionUrl: 'https://clients1.google.com/complete/search?client=youtube&ds=yt&callback=cb&q='
-  }, (response) => {
-    const res = JSON.parse(response.text.substr(9, response.text.length - 10));
-    return res[1].map(d => d[0]);
-  });
-
-  mapSearchAlias('s', 'StackOverflow', 'http://stackoverflow.com/search?q=');
-  mapSearchAlias('h', 'GitHub', 'https://github.com/search?type=Code&utf8=%E2%9C%93&q=');
-
-  // TODO: Implement subreddit suggestions
-  mapSearchAlias('r', 'subReddit', 'https://reddit.com/r/', { mapToSearchSelected: false });
+    openOmnibar(`${prefix}${key}`, annotation, { ...opts, tabbed: false });
+    openOmnibar(`${prefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
+  }
 });
 
 keymap(GROUP.CHROME, ({ normal }) => {
-  normal('oca', 'Open Chrome About', () => tabOpenLink("chrome://help/"));
-  normal('ocb', 'Open Chrome Bookmarks', () => tabOpenLink("chrome://bookmarks/"));
-  normal('occ', 'Open Chrome Cache', () => tabOpenLink("chrome://cache/"));
-  normal('ocd', 'Open Chrome Downloads', () => tabOpenLink("chrome://downloads/"));
-  normal('ocy', 'Open Chrome History', () => tabOpenLink("chrome://history/"));
-  normal('ock', 'Open Chrome Cookies', () => tabOpenLink("chrome://settings/content/cookies"));
-  normal('oce', 'Open Chrome Extensions', () => tabOpenLink("chrome://extensions/"));
-  normal('ocn', 'Open Chrome net-internals', () => tabOpenLink("chrome://net-internals/#proxy"));
-  normal('oci', 'Open Chrome Inspect', () => tabOpenLink("chrome://inspect/#devices"));
+  map('ca', 'ga');
+  unmap('ga');
+
+  map('cb', 'gb');
+  unmap('gb');
+
+  map('cc', 'gc');
+  unmap('gc');
+
+  map('cd', 'gd');
+  unmap('gd');
+
+  map('ck', 'gk');
+  unmap('gk');
+
+  map('ce', 'ge');
+  unmap('ge');
+
+  map('cn', 'gn');
+  unmap('gn');
+
+  map('ci', 'si');
+  unmap('si');
+
+  normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink("chrome://net-internals/#hsts"));
+  normal('cy', 'Open Chrome History', () => tabOpenLink("chrome://history/"));
 });
 
 
 //
-// Settings
-
-mySettings = {
-  smoothScroll: false,
-  hintAlign: 'left',
-  focusFirstCandidate: true
-};
-
-Object.assign(settings, mySettings);
-
 // Theme
 
 const monospaceFontFamily = 'Hack, Lucida Console, Courier, monospace';
