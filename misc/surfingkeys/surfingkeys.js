@@ -6,11 +6,13 @@
 // Therefore, the best practice to remap is using map instead of mapkey, for
 // example:
 //
-//      map('F', 'af');
+//   map('F', 'af');
 //
 // is better than
 //
-//      mapkey('F', '#1Open a link in new tab', () => Hints.create("", Hints.dispatchMouseClick, {tabbed: true}));
+//   mapkey('F', '#1Open a link in new tab', () => {
+//     Hints.create("", Hints.dispatchMouseClick, { tabbed: true })
+//   });
 //
 // ************************* WARNING *************************
 
@@ -49,15 +51,15 @@ const GROUP = {
   CHROME: 12,
   PROXY: 13,
   MISC: 14,
-  INSERT: 15
+  INSERT: 15,
 };
 
 function keymap(group, fn) {
-  const bind = mapkeyFn => (keys, annotation, cb, options) => {
+  const bind = (mapkeyFn) => (keys, annotation, cb, options) => {
     [].concat(keys).forEach((key) => {
       mapkeyFn(key, `#${group}${annotation}`, cb, options);
-    })
-  }
+    });
+  };
 
   const helpers = {
     normal: bind(mapkey),
@@ -65,7 +67,7 @@ function keymap(group, fn) {
     insert: bind(imapkey),
   };
 
-  return fn(helpers)
+  return fn(helpers);
 }
 
 
@@ -126,8 +128,8 @@ keymap(GROUP.CHROME, ({ normal }) => {
   map('ci', 'si');
   unmap('si');
 
-  normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink("chrome://net-internals/#hsts"));
-  normal('cy', 'Open Chrome History', () => tabOpenLink("chrome://history/"));
+  normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink('chrome://net-internals/#hsts'));
+  normal('cy', 'Open Chrome History', () => tabOpenLink('chrome://history/'));
 });
 
 keymap(GROUP.MOUSE_CLICK, () => {
@@ -185,11 +187,11 @@ keymap(GROUP.TABS, () => {
   unmap('<Ctrl-6>');
 
   // pin/unpin current tab
-  map('gp', '<Alt-p>')
+  map('gp', '<Alt-p>');
   unmap('<Alt-p>');
 
   // mute/unmute current tab
-  map('gm', '<Alt-m>')
+  map('gm', '<Alt-m>');
   unmap('<Alt-m>');
 
   map('<', '<<'); // Move current tab to left
@@ -220,7 +222,7 @@ keymap(GROUP.MISC, ({ normal }) => {
   normal('bd', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
   normal('ba', 'Bookmark current page to selected folder', () => {
     const extra = { url: window.location.href, title: document.title };
-    Front.openOmnibar(({ type: "AddBookmark", extra }));
+    Front.openOmnibar(({ type: 'AddBookmark', extra }));
   });
 
   normal('gk', 'Kill element', () => killElement());
@@ -234,10 +236,10 @@ keymap(GROUP.MISC, ({ normal }) => {
       element.parentNode.removeChild(element);
 
       if (multipleHits) {
-        setTimeout(() => createHint(hintOptions))
+        setTimeout(() => createHint(hintOptions));
       } else {
         handleHintsExit();
-      };
+      }
     });
   }
 
@@ -249,7 +251,7 @@ keymap(GROUP.MISC, ({ normal }) => {
   }
 
   function handleHintsExit() {
-    document.body.classList.remove(firingWallClassName)
+    document.body.classList.remove(firingWallClassName);
     document.removeEventListener('keydown', handleEsc);
   }
 
@@ -257,7 +259,7 @@ keymap(GROUP.MISC, ({ normal }) => {
   // before this so we need to press ESC twice to restore the styling and exit
   function handleEsc(event) {
     if (event.key === 'Escape') handleHintsExit();
-  };
+  }
 
   function injectKillElementHintStyle() {
     const $css = document.createElement('style');
@@ -301,7 +303,7 @@ keymap(GROUP.CLIPBOARD, () => {
 keymap(GROUP.VIM, () => {
   // Duplicate keymap
   unmap('<Ctrl-\'>');
-})
+});
 
 keymap(GROUP.OMNIBAR, ({ normal }) => {
   unmap('o');
@@ -313,7 +315,7 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
   openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites' });
   openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed' });
   openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs' });
-  openOmnibar(';', 'Open commands', { type: "Commands" });
+  openOmnibar(';', 'Open commands', { type: 'Commands' });
 
   const prefix = 'o';
   openOmnibarCombo('a', 'Open a URL', { prefix, type: 'URLs', extra: 'getAllSites' });
@@ -336,10 +338,10 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
   }
 
   function openOmnibarCombo(key, annotation, options) {
-    const { prefix = '', ...opts } = options;
+    const { keyPrefix = '', ...opts } = options;
 
-    openOmnibar(`${prefix}${key}`, annotation, { ...opts, tabbed: false });
-    openOmnibar(`${prefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
+    openOmnibar(`${keyPrefix}${key}`, annotation, { ...opts, tabbed: false });
+    openOmnibar(`${keyPrefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
   }
 });
 
