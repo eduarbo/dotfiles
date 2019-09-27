@@ -1,12 +1,31 @@
+// ************************* WARNING *************************
+// We can't just copy statements from the default mappings file as the bound
+// functions in that file may rely on some unstable functions/variables, which
+// may be changed some day.
+//
+// Therefore, the best practice to remap is using map instead of mapkey, for
+// example:
+//
+//      map('F', 'af');
+//
+// is better than
+//
+//      mapkey('F', '#1Open a link in new tab', () => Hints.create("", Hints.dispatchMouseClick, {tabbed: true}));
+//
+// ************************* WARNING *************************
+
+
 //
 // Settings
 
 Object.assign(settings, {
   smoothScroll: false,
-  hintAlign: 'left',
+  createHintAlign: 'left',
+  focusFirstCandidate: true,
 });
 
 Object.assign(Hints, {
+  // Only left hand keys
   characters: 'asdfgqwertcvb',
 });
 
@@ -73,19 +92,50 @@ iunmap('<Alt-f>');
 iunmap('<Alt-w>');
 iunmap('<Alt-d>');
 
-keymap(GROUP.HELP, ({ normal }) => {
-  // That way I have all site keyboard shortcuts available under the leader key
-  // e.g. to use GitHub original shortcut to go to Pull Requests page just type `,gp`
-  normal(',', 'Temporarily suppress SurfingKeys', Normal.passThrough);
+keymap(GROUP.HELP, ({ insert }) => {
+  map(',', '<Alt-i>');
   unmap('<Alt-i>');
 
-  map('#', '<Alt-s>');
+  map('<Ctrl-q>', '<Alt-s>');
+  insert('<Ctrl-q>', 'Toggle SurfingKeys on current site', () => Normal.toggleBlacklist());
+  unmap('<Alt-s>');
+});
+
+keymap(GROUP.CHROME, ({ normal }) => {
+  map('ca', 'ga');
+  unmap('ga');
+
+  map('cb', 'gb');
+  unmap('gb');
+
+  map('cc', 'gc');
+  unmap('gc');
+
+  map('cd', 'gd');
+  unmap('gd');
+
+  map('ck', 'gk');
+  unmap('gk');
+
+  map('ce', 'ge');
+  unmap('ge');
+
+  map('cn', 'gn');
+  unmap('gn');
+
+  map('ci', 'si');
+  unmap('si');
+
+  normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink("chrome://net-internals/#hsts"));
+  normal('cy', 'Open Chrome History', () => tabOpenLink("chrome://history/"));
 });
 
 keymap(GROUP.MOUSE_CLICK, () => {
-  // Open a link in new tab
-  map('F', 'af');
   unmap('af');
+
+  // Open multiple links in a new tab
+  map('F', 'cf');
+  unmap('cf');
 
   // Mouse out last element
   map('gm', ';m');
@@ -99,14 +149,8 @@ keymap(GROUP.MOUSE_CLICK, () => {
   map('gH', '<Ctrl-j>');
   unmap('<Ctrl-j>');
 
-  map('gf', 'O'); // Open detected links from text
-
   map('gq', 'cq');
   unmap('cq');
-
-  // Open multiple links in a new tab
-  map('O', 'cf');
-  unmap('cf');
 });
 
 keymap(GROUP.SCROLL_PAGE, () => {
@@ -123,7 +167,7 @@ keymap(GROUP.SCROLL_PAGE, () => {
   unmap('cS');
 });
 
-keymap(GROUP.TABS, ({ normal }) => {
+keymap(GROUP.TABS, () => {
   map('<Ctrl-h>', 'E'); // Go one tab left
   map('<Ctrl-l>', 'R'); // Go one tab right
   unmap('E');
@@ -164,6 +208,7 @@ keymap(GROUP.PAGE, ({ normal }) => {
   unmap('sU');
 });
 
+const firingWallClassName = 'sk_firing_wall';
 keymap(GROUP.MISC, ({ normal }) => {
   unmap('b');
   normal('bo', 'Open a bookmark', () => {
@@ -178,7 +223,54 @@ keymap(GROUP.MISC, ({ normal }) => {
     Front.openOmnibar(({ type: "AddBookmark", extra }));
   });
 
+  normal('gk', 'Kill element', () => killElement());
+  normal('gK', 'Kill multiple elements', () => killElement({ multipleHits: true }));
+  injectKillElementHintStyle();
+
+  function createHint(hintOptions) {
+    const { multipleHits } = hintOptions || {};
+
+    Hints.create('*', (element) => {
+      element.parentNode.removeChild(element);
+
+      if (multipleHits) {
+        setTimeout(() => createHint(hintOptions))
+      } else {
+        handleHintsExit();
+      };
+    });
+  }
+
+  function killElement(hintOptions) {
+    document.body.classList.add(firingWallClassName);
+    document.addEventListener('keydown', handleEsc);
+
+    createHint(hintOptions);
+  }
+
+  function handleHintsExit() {
+    document.body.classList.remove(firingWallClassName)
+    document.removeEventListener('keydown', handleEsc);
+  }
+
+  // FIXME there is an existing event listener for keydown that takes place
+  // before this so we need to press ESC twice to restore the styling and exit
+  function handleEsc(event) {
+    if (event.key === 'Escape') handleHintsExit();
+  };
+
+  function injectKillElementHintStyle() {
+    const $css = document.createElement('style');
+    $css.type = 'text/css';
+
+    const styles = `.${firingWallClassName} * { outline: 1px dashed red; }`;
+    $css.appendChild(document.createTextNode(styles));
+    const $head = document.querySelector('head');
+    $head.appendChild($css);
+  }
 });
+
+keymap(GROUP.INSERT, () => {});
 
 keymap(GROUP.VISUAL, () => {
   map('gv', 'V'); // Restore visual mode
@@ -249,35 +341,6 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
     openOmnibar(`${prefix}${key}`, annotation, { ...opts, tabbed: false });
     openOmnibar(`${prefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
   }
-});
-
-keymap(GROUP.CHROME, ({ normal }) => {
-  map('ca', 'ga');
-  unmap('ga');
-
-  map('cb', 'gb');
-  unmap('gb');
-
-  map('cc', 'gc');
-  unmap('gc');
-
-  map('cd', 'gd');
-  unmap('gd');
-
-  map('ck', 'gk');
-  unmap('gk');
-
-  map('ce', 'ge');
-  unmap('ge');
-
-  map('cn', 'gn');
-  unmap('gn');
-
-  map('ci', 'si');
-  unmap('si');
-
-  normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink("chrome://net-internals/#hsts"));
-  normal('cy', 'Open Chrome History', () => tabOpenLink("chrome://history/"));
 });
 
 
