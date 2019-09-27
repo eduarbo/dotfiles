@@ -43,7 +43,6 @@ alias RM='rm -vrf'
 # notify me before clobbering files
 alias rm='rm -i'
 alias cp='cp -i'
-alias mv='mv -i'
 
 # Securely Erase Files
 alias shred='shred -zuvn5'
