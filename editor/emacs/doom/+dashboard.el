@@ -1,7 +1,7 @@
 ;;; ~/.dotfiles/editor/emacs/doom/banners.el -*- lexical-binding: t; -*-
 (require 'seq)
 
-(defvar +mi-dashboard-banners '("momacs"))
+(defvar +mi-dashboard-banners '("dunder-mifflin"))
 
 (setq +doom-dashboard-functions
       '(+mi--dashboard-widget-banner
