@@ -184,6 +184,7 @@ local function expandWin(ratio)
     local nx = cx - nw / 2
     local ny = cy - nh / 2
     win:setFrame(hs.geometry.rect(nx, ny, nw, nh))
+    redrawBorder()
 end
 
 local function bindExpandWin(ratio)
@@ -232,6 +233,7 @@ local function expandEdge(edge, ratio)
         return
     end
     win:setFrame(hs.geometry.rect(x, y, w, h))
+    redrawBorder()
 end
 
 local edges = {'h', 'j', 'k', 'l'}
@@ -249,3 +251,41 @@ for i = 1, #edges do
         prefix.bindMultiple(mod, edge, pressedFn, nil, fn)
     end
 end
+
+
+-- ╻ ╻╻┏┓╻╺┳┓┏━┓╻ ╻   ┏┓ ┏━┓┏━┓╺┳┓┏━╸┏━┓
+-- ┃╻┃┃┃┗┫ ┃┃┃ ┃┃╻┃   ┣┻┓┃ ┃┣┳┛ ┃┃┣╸ ┣┳┛
+-- ┗┻┛╹╹ ╹╺┻┛┗━┛┗┻┛   ┗━┛┗━┛╹┗╸╺┻┛┗━╸╹┗╸
+-- Window Border
+
+global_border = nil
+
+function redrawBorder()
+  win = hs.window.focusedWindow()
+  if win ~= nil then
+    top_left = win:topLeft()
+    size = win:size()
+    if global_border ~= nil then
+      global_border:delete()
+    end
+
+    -- https://www.uicolor.xyz/#/hex-to-ui to convert HEX to RGB
+    -- local color = {["red"]=0.74,["green"]=0.91,["blue"]=0.26,["alpha"]=0.8} -- green
+    -- local color = {["red"]=1,["green"]=0.81,["blue"]=0.28,["alpha"]=0.8} -- yellow
+    local color = {["red"]=0.14,["green"]=0.87,["blue"]=0.70,["alpha"]=0.8} -- emerald
+
+    global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
+    global_border:setStrokeColor(color)
+    global_border:setFill(false)
+    global_border:setStrokeWidth(3)
+    global_border:show()
+  end
+end
+
+redrawBorder()
+
+allwindows = hs.window.filter.new(nil)
+allwindows:subscribe(hs.window.filter.windowCreated, function () redrawBorder() end)
+allwindows:subscribe(hs.window.filter.windowFocused, function () redrawBorder() end)
+allwindows:subscribe(hs.window.filter.windowMoved, function () redrawBorder() end)
+allwindows:subscribe(hs.window.filter.windowUnfocused, function () redrawBorder() end)
