@@ -1,30 +1,40 @@
 ;;; ~/.dotfiles/editor/emacs/doom/config.el -*- lexical-binding: t; -*-
 
+;; ·▄▄▄▄              • ▌ ▄ ·.
+;; ██▪ ██ ▪     ▪     ·██ ▐███▪
+;; ▐█· ▐█▌ ▄█▀▄  ▄█▀▄ ▐█ ▌▐▌▐█·
+;; ██. ██ ▐█▌.▐▌▐█▌.▐▌██ ██▌▐█▌
+;; ▀▀▀▀▀•  ▀█▄▀▪ ▀█▄▀▪▀▀  █▪▀▀▀
+;;  ▄▄·        ▐ ▄ ·▄▄▄▪   ▄▄ •
+;; ▐█ ▌▪▪     •█▌▐█▐▄▄·██ ▐█ ▀ ▪
+;; ██ ▄▄ ▄█▀▄ ▐█▐▐▌██▪ ▐█·▄█ ▀█▄
+;; ▐███▌▐█▌.▐▌██▐█▌██▌.▐█▌▐█▄▪▐█
+;; ·▀▀▀  ▀█▄▀▪▀▀ █▪▀▀▀ ▀▀▀·▀▀▀▀
+;;
 ;; Project & code conventions
 ;; https://github.com/hlissner/doom-emacs/issues/839#issuecomment-416209165
 ;;
 ;; namespace-symbol-name => public variable or function
 ;; namespace--symbol-name => private one
 
-;; + `doom/abc` A public, interactive command, designed to be used via `M-x` or a
-;;   keybinding.
+;; + `doom/abc` A public, interactive command, designed to be used via `M-x` or
+;;   a keybinding.
 ;; + `doom:abc` A public evil operator, motion or command.
 ;; + `doom|abc` A public, non-interactive function meant to be used as a hook.
 ;; + `doom*abc` Functions designed to be used as advice for other functions.
 ;; + `abc!` A public Doom "autodef" function or macro. An autodef should always
-;;   be defined, even if its containing module is disabled (i.e. they will not throw a
-;;   void-function error). The purpose of this is to avoid peppering module configs
-;;   with conditionals or `after!` blocks before using their APIs. They should
-;;   noop if their module is disabled, and should be zero-cost in the case their
-;;   module is disabled.
+;;   be defined, even if its containing module is disabled (i.e. they will not
+;;   throw a void-function error). The purpose of this is to avoid peppering
+;;   module configs with conditionals or `after!` blocks before using their
+;;   APIs. They should noop if their module is disabled, and should be zero-cost
+;;   in the case their module is disabled.
 
-;;   Autodefs usually serve to configure Doom or a module. [and are usually syntactic sugar]
+;;   Autodefs usually serve to configure Doom or a module. [and are usually
+;;   syntactic sugar]
 ;; + Functions prefixed with `+abc...` belong to a module, e.g.
 ;;   `+emacs-lisp|init-hook` is a hook function in the `lang/emacs-lisp` module.
 ;; + `=abc` An interactive command that invokes an app module.
 
-;;
-;; Reasonable defaults
 
 ;; That's me!!!
 (setq user-mail-address "eduarbo@gmail.com"
@@ -33,7 +43,12 @@
 
 (defvar dotfiles-dir "~/dev/dotfiles")
 
+
+;; ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
+;; ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
+;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 ;; A E S T H E T I C
+
 (setq doom-font (font-spec :family "Hack" :size 14)
       doom-variable-pitch-font (font-spec :family "Noto Sans" :size 14))
 
@@ -113,7 +128,9 @@
 (global-subword-mode)
 
 
-;;
+;; ┏┳┓┏━┓╺┳┓╻ ╻╻  ┏━╸┏━┓
+;; ┃┃┃┃ ┃ ┃┃┃ ┃┃  ┣╸ ┗━┓
+;; ╹ ╹┗━┛╺┻┛┗━┛┗━╸┗━╸┗━┛
 ;; Modules
 
 ;; lang/org
@@ -122,14 +139,14 @@
 (after! org
   (add-to-list 'org-modules 'org-habit t)
   (setq org-hide-emphasis-markers t
-        org-directory (expand-file-name "~/org")
+        org-directory (expand-file-name "~/Documents/org")
         ;; TODO Use `org-directory` instead of the hardcoded path
         org-agenda-files '("~/org/notes" "~/org/journal")
         org-ellipsis " ▼ "  ;; ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
 
         org-todo-keywords
         '((sequence "[ ](i)" "[-](p)" "[?](m)" "|" "[X](x)")
-          (sequence "TODO(t)" "DOING(D)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)")
+          (sequence "TODO(t)" "ACTIVE(a)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)")
           (sequence "LATER(l)" "MAYBE(m)" "SOMEDAY(s)" "IDEA(i)" "|" "CANCELLED(c)"))
 
         org-agenda-custom-commands
@@ -137,8 +154,7 @@
           ;; ("gh" "Home" tags-todo "HOME")
           ("gl" "Later" tags-todo "LATER")
           ("G" "GTD Block Agenda"
-           ((todo "STARTED")
-            (todo "DOING")
+           ((todo "ACTIVE")
             (todo "NEXT"))
            ((org-agenda-prefix-format "[ ] %T: ")
             (org-agenda-with-colors nil)
@@ -153,7 +169,7 @@
         '(("[-]" :inherit font-lock-constant-face :weight bold)
           ("[?]" :inherit warning :weight bold)
           ("TODO" :inherit error :weight bold)
-          ("DOING" :inherit warning :weight bold)
+          ("ACTIVE" :inherit warning :weight bold)
           ("NEXT" :inherit success :weight bold)
           ("WAITING" :inherit default :weight bold)
           ("TODAY" :foreground "#dd8844" :weight bold)
@@ -194,7 +210,6 @@
 
 (after! evil-embrace
   (add-hook 'js-mode-hook 'evil-embrace-js-mode-hook-setup))
-
 
 ;; f/F/t/T/s/S
 (after! evil-snipe
@@ -281,10 +296,14 @@
   (setq completion-ignore-case t
         tide-completion-ignore-case t))
 
+(after! (flycheck tide)
+  (setq-default flycheck-disabled-checkers '(javascript-tide)))
 
-;;
+
+;; ┏━╸╻ ╻┏━┓╺┳╸┏━┓┏┳┓
+;; ┃  ┃ ┃┗━┓ ┃ ┃ ┃┃┃┃
+;; ┗━╸┗━┛┗━┛ ╹ ┗━┛╹ ╹
 ;; Custom
-
 
 (load! "./+dashboard.el")
 (load! "./+bindings.el")
