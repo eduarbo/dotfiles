@@ -67,6 +67,6 @@
            ░ ░           ░                ░
 ```
 
-My favourite ascii art fonts for [figlet](http://www.figlet.org/) or
-[toilet](http://caca.zoy.org/wiki/toilet). You can found more
-[here](https://github.com/xero/figlet-fonts).
+My favourite [ascii art fonts](https://github.com/xero/figlet-fonts) for [figlet](http://www.figlet.org/) or
+[toilet](http://caca.zoy.org/wiki/toilet). You can see a preview of all the
+fonts [here](http://patorjk.com/software/taag/#p=testall&f=Elite&t=Figlet%20Fonts).
