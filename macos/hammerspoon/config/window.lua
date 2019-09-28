@@ -1,19 +1,31 @@
+-- ░█░█░▀█▀░█▀█
+-- ░█▄█░░█░░█░█
+-- ░▀░▀░▀▀▀░▀░▀
+-- ░█▄█░█▀█░█▀█░█▀█░█▀▀░█▀▀░█▀▄
+-- ░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█▀▄
+-- ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
+
+
 local prefix = require("prefix")
 local utils = require("utils")
 
 hs.window.animationDuration = 0
 
-----------------
+
+-- ┏━╸┏━┓╻╺┳┓
+-- ┃╺┓┣┳┛┃ ┃┃
+-- ┗━┛╹┗╸╹╺┻┛
 -- Grid
-----------------
+
 hs.grid.setGrid('6x4', nil, nil)
 hs.grid.setMargins({0, 0})
 prefix.bind('', 'g', function() hs.grid.show() end)
 
-----------------
--- resize & move
-----------------
-local arrowKeys = {'h', 'j', 'k', 'l'}
+
+-- ┏━┓┏━╸┏━┓╻╺━┓┏━╸   ┏┓     ┏┳┓┏━┓╻ ╻┏━╸
+-- ┣┳┛┣╸ ┗━┓┃┏━┛┣╸    ┃╺╋╸   ┃┃┃┃ ┃┃┏┛┣╸
+-- ╹┗╸┗━╸┗━┛╹┗━╸┗━╸   ┗━┛    ╹ ╹┗━┛┗┛ ┗━╸
+-- Resize and move
 
 -- prefix + h -> left half
 -- prefix + j -> bottom half
@@ -26,6 +38,8 @@ local arrowKeys = {'h', 'j', 'k', 'l'}
 -- prefix + lj -> top bottom quarter
 -- prefix + jk -> center
 -- prefix + hl -> full screen
+
+local arrowKeys = {'h', 'j', 'k', 'l'}
 local rectMap = {
     ['h'] = {0, 0, 0.5, 1},
     ['j'] = {0, 0.5, 1, 0.5},
@@ -82,6 +96,7 @@ end
 -- prefix + ctrl-j -> left two thirds
 -- prefix + ctrl-k -> right two thirds
 -- prefix + ctrl-l -> right one third
+
 local rectMapCtrl = {
     ['h'] = {0, 0, 1/3, 1},
     ['j'] = {0, 0, 2/3, 1},
@@ -100,6 +115,7 @@ for k, v in pairs(rectMapCtrl) do
 end
 
 -- prefix + shift-hjkl -> move window
+
 local DX = {-1, 0, 0, 1}
 local DY = {0, 1, -1, 0}
 local DELTA = 20
@@ -146,6 +162,12 @@ end
 
 prefix.bind('', 'tab', moveToNextScreen)
 
+
+-- ┏━┓╻ ╻┏━┓╻┏┓╻╻┏     ╻   ┏━╸╻ ╻┏━┓┏━┓┏┓╻╺┳┓   ┏━╸┏━┓┏━┓┏┳┓┏━╸
+-- ┗━┓┣━┫┣┳┛┃┃┗┫┣┻┓   ┏┛   ┣╸ ┏╋┛┣━┛┣━┫┃┗┫ ┃┃   ┣╸ ┣┳┛┣━┫┃┃┃┣╸
+-- ┗━┛╹ ╹╹┗╸╹╹ ╹╹ ╹   ╹    ┗━╸╹ ╹╹  ╹ ╹╹ ╹╺┻┛   ╹  ╹┗╸╹ ╹╹ ╹┗━╸
+-- Shrink/Expand frame
+
 -- prefix + - -> shrink window frame
 -- prefix + = -> expand window frame
 
@@ -164,13 +186,31 @@ local function expandWin(ratio)
     win:setFrame(hs.geometry.rect(nx, ny, nw, nh))
 end
 
-prefix.bind('', '-', function() expandWin(0.9) end)
-prefix.bind('', '=', function() expandWin(1.1) end)
+local function bindExpandWin(ratio)
+  return function()
+    expandWin(ratio)
+  end
+end
 
+local pressedExpandWin = function(ratio)
+  return function()
+    prefix.cancelTimeout()
+    expandWin(ratio)
+  end
+end
+
+prefix.bindMultiple('', '-', pressedExpandWin(0.9), nil, bindExpandWin(0.9))
+prefix.bindMultiple('', '=', pressedExpandWin(1.1), nil, bindExpandWin(1.1))
+
+
+-- ┏━┓╻ ╻┏━┓╻┏┓╻╻┏     ╻   ┏━╸╻ ╻┏━┓┏━┓┏┓╻╺┳┓   ┏━╸╺┳┓┏━╸┏━╸┏━┓
+-- ┗━┓┣━┫┣┳┛┃┃┗┫┣┻┓   ┏┛   ┣╸ ┏╋┛┣━┛┣━┫┃┗┫ ┃┃   ┣╸  ┃┃┃╺┓┣╸ ┗━┓
+-- ┗━┛╹ ╹╹┗╸╹╹ ╹╹ ╹   ╹    ┗━╸╹ ╹╹  ╹ ╹╹ ╹╺┻┛   ┗━╸╺┻┛┗━┛┗━╸┗━┛
+-- Shrink/Expand Edges
 
 -- prefix + cmd-hjkl -> expand window edges
 -- prefix + cmd-shift-hjkl -> shrink window edges
---
+
 local function expandEdge(edge, ratio)
     local win = hs.window.focusedWindow()
     if win == nil then

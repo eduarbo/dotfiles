@@ -1,4 +1,9 @@
+-- ░█▀█░█▀▄░█▀▀░█▀▀░▀█▀░█░█
+-- ░█▀▀░█▀▄░█▀▀░█▀▀░░█░░▄▀▄
+-- ░▀░░░▀░▀░▀▀▀░▀░░░▀▀▀░▀░▀
+--
 -- Tmux style hotkey binding: prefix + hotkey
+
 
 local Prefix = {}
 local TIMEOUT = 5

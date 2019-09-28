@@ -1,3 +1,8 @@
+-- ░█▀█░█▀▀░▀█▀░█▀▀░█▀█░█▀▀░█▀▀░█▀▄
+-- ░█░█░█▀▀░░█░░▀▀█░█▀▀░█▀▀░█▀▀░█░█
+-- ░▀░▀░▀▀▀░░▀░░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░
+
+
 function data_diff()
     local in_seq = hs.execute(netspeed_in_str)
     local out_seq = hs.execute(netspeed_out_str)

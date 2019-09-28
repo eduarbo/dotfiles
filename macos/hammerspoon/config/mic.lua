@@ -1,5 +1,10 @@
+-- ░█▄█░▀█▀░█▀▀
+-- ░█░█░░█░░█░░
+-- ░▀░▀░▀▀▀░▀▀▀
+--
 -- When the mic is muted hold f13 key to talk and release to mute again.
 -- You can toggle mute by double tapping the f13 key
+
 
 local utils = require("utils")
 local label = require("labels")
