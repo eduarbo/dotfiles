@@ -1,9 +1,18 @@
 ;;; ~/.dotfiles/editor/emacs/doom/+bindings.el -*- lexical-binding: t; -*-
 
+;; ▄▄▄▄· ▪   ▐ ▄ ·▄▄▄▄  ▪   ▐ ▄  ▄▄ • .▄▄ ·
+;; ▐█ ▀█▪██ •█▌▐███▪ ██ ██ •█▌▐█▐█ ▀ ▪▐█ ▀.
+;; ▐█▀▀█▄▐█·▐█▐▐▌▐█· ▐█▌▐█·▐█▐▐▌▄█ ▀█▄▄▀▀▀█▄
+;; ██▄▪▐█▐█▌██▐█▌██. ██ ▐█▌██▐█▌▐█▄▪▐█▐█▄▪▐█
+;; ·▀▀▀▀ ▀▀▀▀▀ █▪▀▀▀▀▀• ▀▀▀▀▀ █▪·▀▀▀▀  ▀▀▀▀
+;;
 ;; This file defines a Spacemacs-esque keybinding scheme
 
-;;
-;;; Global keybindings
+
+;; ┏━╸╻  ┏━┓┏┓ ┏━┓╻  ┏━┓
+;; ┃╺┓┃  ┃ ┃┣┻┓┣━┫┃  ┗━┓
+;; ┗━┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗━┛
+;; Globals
 
 ;; Fix ESC
 (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
@@ -195,8 +204,11 @@
       :n "C-k"   #'evil-window-up
       :n "C-l"   #'evil-window-right)
 
-;;
-;;; Module keybinds
+
+;; ┏┳┓┏━┓╺┳┓╻ ╻╻  ┏━╸┏━┓
+;; ┃┃┃┃ ┃ ┃┃┃ ┃┃  ┣╸ ┗━┓
+;; ╹ ╹┗━┛╺┻┛┗━┛┗━╸┗━╸┗━┛
+;; Modules
 
 ;;; :completion
 (map! (:when (featurep! :completion company)
@@ -360,8 +372,10 @@
       "p" #'org-journal-open-previous-entry)
 
 
-;;
-;;; <leader>
+;; ╻  ┏━╸┏━┓╺┳┓┏━╸┏━┓
+;; ┃  ┣╸ ┣━┫ ┃┃┣╸ ┣┳┛
+;; ┗━╸┗━╸╹ ╹╺┻┛┗━╸╹┗╸
+;; Leader
 
 (map! :leader
       :desc "Eval expression"       ":"    #'eval-expression
