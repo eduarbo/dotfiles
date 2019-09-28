@@ -18,6 +18,8 @@ export ZPLGM[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+export FIGLET_FONTDIR="$ZDOTDIR/figlet-fonts"
+
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
