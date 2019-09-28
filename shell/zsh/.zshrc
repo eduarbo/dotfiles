@@ -1,9 +1,16 @@
+# ░▀▀█░█▀▀░█░█
+# ░▄▀░░▀▀█░█▀█
+# ░▀▀▀░▀▀▀░▀░▀
+
+
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
 bindkey -v
 
-#
+
+# ┏━┓╻  ╻ ╻┏━╸╻┏┓╻┏━┓
+# ┣━┛┃  ┃ ┃┃╺┓┃┃┗┫┗━┓
+# ╹  ┗━╸┗━┛┗━┛╹╹ ╹┗━┛
 # Plugins
-#
 
 # Load zplugin and install it when missing
 _load_repo zdharma/zplugin $ZPL_DIR zplugin.zsh
@@ -42,11 +49,14 @@ SIMPL[HOST_SYMBOL_COLOR]="%B%F{3}"
 SIMPL[USER_COLOR]="%F{11}"
 SIMPL[ENABLE_RPROMPT]=0
 SIMPL[ALWAYS_SHOW_USER_AND_HOST]=0
-zplugin light eduarbo/simpl
+zplugin light ~/dev/simpl
+# zplugin light eduarbo/simpl
 
-#
-# configs
-#
+
+# ┏━╸┏━┓┏┓╻┏━╸╻┏━╸┏━┓
+# ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓┗━┓
+# ┗━╸┗━┛╹ ╹╹  ╹┗━┛┗━┛
+# Config
 
 # ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
 # qualifiers
@@ -55,9 +65,11 @@ _load shell/zsh/completion.zsh
 _load shell/zsh/keybinds.zsh
 _source ~/.secrets
 
-#
+
+# ┏━┓┏━┓┏━╸┏━╸╺┳┓   ╻ ╻┏━┓   ╺━┓┏━┓╻ ╻   ╻  ┏━┓┏━┓╺┳┓
+# ┗━┓┣━┛┣╸ ┣╸  ┃┃   ┃ ┃┣━┛   ┏━┛┗━┓┣━┫   ┃  ┃ ┃┣━┫ ┃┃
+# ┗━┛╹  ┗━╸┗━╸╺┻┛   ┗━┛╹     ┗━╸┗━┛╹ ╹   ┗━╸┗━┛╹ ╹╺┻┛
 # Speed up zsh load
-#
 
 # Compinit should be called after loading of all plugins and before possibly calling cdreply
 autoload -Uz compinit
