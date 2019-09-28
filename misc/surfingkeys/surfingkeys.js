@@ -213,12 +213,6 @@ keymap(GROUP.PAGE, ({ normal }) => {
 const firingWallClassName = 'sk_firing_wall';
 keymap(GROUP.MISC, ({ normal }) => {
   unmap('b');
-  normal('bo', 'Open a bookmark', () => {
-    Front.openOmnibar({ type: 'Bookmarks', tabbed: false });
-  });
-  normal('bO', 'Open a bookmark in new tab', () => {
-    Front.openOmnibar({ type: 'Bookmarks' });
-  });
   normal('bd', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
   normal('ba', 'Bookmark current page to selected folder', () => {
     const extra = { url: window.location.href, title: document.title };
@@ -308,23 +302,24 @@ keymap(GROUP.VIM, () => {
 keymap(GROUP.OMNIBAR, ({ normal }) => {
   unmap('o');
 
-  normal('ot', 'Choose a tab with omnibar', () => {
+  openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites', noPrefix: true });
+  openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed', noPrefix: true });
+  openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs', noPrefix: true });
+  openOmnibar(';', 'Open commands', { type: 'Commands' });
+
+  const keyPrefix = 'o';
+
+  normal(`${keyPrefix}t`, 'Choose a tab with omnibar', () => {
     Front.openOmnibar({ type: 'Tabs' });
   });
 
   openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites' });
   openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed' });
   openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs' });
-  openOmnibar(';', 'Open commands', { type: 'Commands' });
-
-  const prefix = 'o';
-  openOmnibarCombo('a', 'Open a URL', { prefix, type: 'URLs', extra: 'getAllSites' });
-  openOmnibarCombo('x', 'Open recently closed URL', { prefix, type: 'URLs', extra: 'getRecentlyClosed' });
-  openOmnibarCombo('u', 'Open URL from tab history', { prefix, type: 'URLs', extra: 'getTabURLs' });
-  openOmnibarCombo('b', 'Open a bookmark', { prefix, type: 'Bookmarks' });
-  openOmnibarCombo('m', 'Open URL from vim-like marks', { prefix, type: 'VIMarks' });
-  openOmnibarCombo('y', 'Open URL from history', { prefix, type: 'History' });
-  normal(`${prefix}i`, 'Open incognito window', () => {
+  openOmnibarCombo('b', 'Open a bookmark', { type: 'Bookmarks' });
+  openOmnibarCombo('m', 'Open URL from vim-like marks', { type: 'VIMarks' });
+  openOmnibarCombo('y', 'Open URL from history', { type: 'History' });
+  normal(`${keyPrefix}i`, 'Open incognito window', () => {
     runtime.command({ action: 'openIncognito', url: window.location.href });
   });
 
@@ -338,10 +333,11 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
   }
 
   function openOmnibarCombo(key, annotation, options) {
-    const { keyPrefix = '', ...opts } = options;
+    const { noPrefix, ...opts } = options;
+    const prefix = noPrefix ? '' : keyPrefix;
 
-    openOmnibar(`${keyPrefix}${key}`, annotation, { ...opts, tabbed: false });
-    openOmnibar(`${keyPrefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
+    openOmnibar(`${prefix}${key}`, annotation, { ...opts, tabbed: false });
+    openOmnibar(`${prefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
   }
 });
 
