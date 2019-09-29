@@ -1,5 +1,10 @@
+# ░▀▀█░█▀▀░█░█░█▀▀░█▀█░█░█
+# ░▄▀░░▀▀█░█▀█░█▀▀░█░█░▀▄▀
+# ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░▀░
+#
 # This file is sourced by all instances of Zsh, and thus, it should be kept as
 # small as possible and should only define environment variables.
+
 
 unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
 source $(cd ${${(%):-%x}:A:h}/../.. && pwd -P)/env

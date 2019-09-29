@@ -1,6 +1,6 @@
-# ░▀▀█░█▀▀░█░█
-# ░▄▀░░▀▀█░█▀█
-# ░▀▀▀░▀▀▀░▀░▀
+# ░▀▀█░█▀▀░█░█░█▀▄░█▀▀
+# ░▄▀░░▀▀█░█▀█░█▀▄░█░░
+# ░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀
 
 
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
@@ -56,7 +56,7 @@ zplugin light ~/dev/simpl
 # ┏━╸┏━┓┏┓╻┏━╸╻┏━╸┏━┓
 # ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓┗━┓
 # ┗━╸┗━┛╹ ╹╹  ╹┗━┛┗━┛
-# Config
+# Configs
 
 # ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
 # qualifiers
@@ -105,9 +105,12 @@ export _FASD_DATA="$XDG_DATA_HOME/fasd"
 export _FASD_VIMINFO="$XDG_DATA_HOME/viminfo"
 _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
 
-# load aliases from enabled topics
+
+# ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
+# ┣━┫┃  ┃┣━┫┗━┓┣╸ ┗━┓
+# ╹ ╹┗━╸╹╹ ╹┗━┛┗━╸┗━┛
+# Load aliases from enabled topics
+
 # source them after compinit to be able to use compdef
 _load_all aliases.bash
 _load_all aliases.zsh
-
-# vim:set ft=sh:
