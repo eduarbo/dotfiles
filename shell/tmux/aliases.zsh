@@ -1,3 +1,7 @@
+# NOTE: Unfortunately tmux doesn't support XDG Base Directory because fuck you!
+# https://github.com/tmux/tmux/issues/142
+alias tmux='tmux -f $TMUX_HOME/tmux.conf'
+
 alias t='tmux'
 
 alias ta='tmux attach'
