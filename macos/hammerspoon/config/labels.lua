@@ -1,8 +1,8 @@
--- ░█░░░█▀█░█▀▄░█▀▀░█░░░█▀▀
--- ░█░░░█▀█░█▀▄░█▀▀░█░░░▀▀█
--- ░▀▀▀░▀░▀░▀▀░░▀▀▀░▀▀▀░▀▀▀
+--                          ░█░░░█▀█░█▀▄░█▀▀░█░░░█▀▀
+--                          ░█░░░█▀█░█▀▄░█▀▀░█░░░▀▀█
+--                          ░▀▀▀░▀░▀░▀▀░░▀▀▀░▀▀▀░▀▀▀
 --
--- Floating labels at the buttom right corner of screen
+--            Floating labels at the buttom right corner of screen
 
 
 local module = {}
