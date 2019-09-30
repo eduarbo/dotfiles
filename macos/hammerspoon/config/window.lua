@@ -258,27 +258,62 @@ end
 -- ┗┻┛╹╹ ╹╺┻┛┗━┛┗┻┛   ┗━┛┗━┛╹┗╸╺┻┛┗━╸╹┗╸
 -- Window Border
 
-global_border = nil
+showborders = true
+
+-- https://www.uicolor.xyz/#/hex-to-ui to convert HEX to RGB
+-- local borderColor = {red=0.74, green=0.91, blue=0.26, alpha=0.8} -- green
+-- local borderColor = {red=1, green=0.81, blue=0.28, alpha=0.8} -- yellow
+local borderColor = {red=0.14, green=0.87, blue=0.70, alpha=0.8} -- emerald
+local borderWidth = 4
+
+prefix.bind('', 'b', function() toggleBorders() end)
+
+----
+
+local currentIndicator
+
+function toggleBorders()
+  showborders = not showborders
+
+  if showborders then
+    redrawBorder()
+    currentIndicator:show()
+  else
+    currentIndicator:hide()
+  end
+end
 
 function redrawBorder()
-  win = hs.window.focusedWindow()
-  if win ~= nil then
-    top_left = win:topLeft()
-    size = win:size()
-    if global_border ~= nil then
-      global_border:delete()
+  if currentIndicator ~= nil then
+    currentIndicator:delete()
+    -- currentIndicator:hide()
+  end
+
+  local win = hs.window.focusedWindow()
+
+  if win ~= nil and showborders then
+    local winapp  = win:application():name()
+
+    local excludedApps = {
+      ['iTerm2']=true,
+      ['Spotlight']=true,
+      ['Alfred']=true
+    }
+
+    if not excludedApps[winapp] then
+      local size = win:size()
+      local topLeft = win:topLeft()
+      local activeWindowRect = hs.geometry.rect(topLeft.x, topLeft.y, size.w, size.h)
+
+      currentIndicator = hs.drawing.rectangle(activeWindowRect)
+
+      currentIndicator:setStrokeColor(borderColor)
+      currentIndicator:setFill(false)
+      currentIndicator:setStrokeWidth(borderWidth)
+      currentIndicator:setRoundedRectRadii(5.0, 5.0)
+      currentIndicator:setLevel("dock")
+      currentIndicator:show()
     end
-
-    -- https://www.uicolor.xyz/#/hex-to-ui to convert HEX to RGB
-    -- local color = {["red"]=0.74,["green"]=0.91,["blue"]=0.26,["alpha"]=0.8} -- green
-    -- local color = {["red"]=1,["green"]=0.81,["blue"]=0.28,["alpha"]=0.8} -- yellow
-    local color = {["red"]=0.14,["green"]=0.87,["blue"]=0.70,["alpha"]=0.8} -- emerald
-
-    global_border = hs.drawing.rectangle(hs.geometry.rect(top_left['x'], top_left['y'], size['w'], size['h']))
-    global_border:setStrokeColor(color)
-    global_border:setFill(false)
-    global_border:setStrokeWidth(3)
-    global_border:show()
   end
 end
 
@@ -289,3 +324,5 @@ allwindows:subscribe(hs.window.filter.windowCreated, function () redrawBorder() 
 allwindows:subscribe(hs.window.filter.windowFocused, function () redrawBorder() end)
 allwindows:subscribe(hs.window.filter.windowMoved, function () redrawBorder() end)
 allwindows:subscribe(hs.window.filter.windowUnfocused, function () redrawBorder() end)
+allwindows:subscribe(hs.window.filter.windowVisible, function () redrawBorder() end)
+allwindows:subscribe(hs.window.filter.hasNoWindows, function () redrawBorder() end)
