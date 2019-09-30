@@ -1,9 +1,8 @@
-// ░█▀▀░█░█░█▀▄░█▀▀░▀█▀░█▀█░█▀▀░█░█░█▀▀░█░█░█▀▀
-// ░▀▀█░█░█░█▀▄░█▀▀░░█░░█░█░█░█░█▀▄░█▀▀░░█░░▀▀█
-// ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀
+//                ░█▀▀░█░█░█▀▄░█▀▀░▀█▀░█▀█░█▀▀░█░█░█▀▀░█░█░█▀▀
+//                ░▀▀█░█░█░█▀▄░█▀▀░░█░░█░█░█░█░█▀▄░█▀▀░░█░░▀▀█
+//                ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀
 //
-//
-//                           == W A R N I N G ==
+//                            == W A R N I N G ==
 //
 // We can't just copy statements from the default mappings file as the bound
 // functions in that file may rely on some unstable functions/variables, which
@@ -20,7 +19,7 @@
 //     Hints.create("", Hints.dispatchMouseClick, { tabbed: true })
 //   });
 //
-//                           == W A R N I N G ==
+//                            == W A R N I N G ==
 
 
 // ┏━┓┏━╸╺┳╸╺┳╸╻┏┓╻┏━╸┏━┓
