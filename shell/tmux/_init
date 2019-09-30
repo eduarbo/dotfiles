@@ -43,16 +43,11 @@ update() {
 }
 
 link() {
-  # NOTE: Unfortunately tmux doesn't support XDG Base Directory because fuck you!
-  # https://github.com/tmux/tmux/issues/142
-  mklink .tmux.conf $HOME/
-  mklink tmux*.conf $TMUX_HOME/
-  mklink scripts    $TMUX_HOME/scripts
-  mklink layouts    $TMUXIFIER_LAYOUT_PATH
+  mklink *.conf     $TMUX_HOME/
 }
 
 clean() {
-  rm -rfv "$HOME/.tmux.conf" "$TMUX_HOME" "$TMUX_PLUGINS_HOME" "$TMUXIFIER"
+  rm -rfv "$TMUX_HOME" "$TMUX_PLUGINS_HOME" "$TMUXIFIER"
 }
 
 init "$@"
