@@ -341,6 +341,8 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
   }
 });
 
+removeSearchAliasX('b');
+removeSearchAliasX('w');
 
 //
 // Theme

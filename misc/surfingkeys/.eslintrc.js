@@ -18,6 +18,7 @@ module.exports = {
     runtime: true,
     RUNTIME: true,
     Normal: true,
+    removeSearchAliasX: true,
   },
   env: {
     browser: true,
