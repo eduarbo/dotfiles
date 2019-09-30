@@ -1,17 +1,13 @@
 ;;; ~/.dotfiles/editor/emacs/doom/config.el -*- lexical-binding: t; -*-
 
-;; ·▄▄▄▄              • ▌ ▄ ·.
-;; ██▪ ██ ▪     ▪     ·██ ▐███▪
-;; ▐█· ▐█▌ ▄█▀▄  ▄█▀▄ ▐█ ▌▐▌▐█·
-;; ██. ██ ▐█▌.▐▌▐█▌.▐▌██ ██▌▐█▌
-;; ▀▀▀▀▀•  ▀█▄▀▪ ▀█▄▀▪▀▀  █▪▀▀▀
-;;  ▄▄·        ▐ ▄ ·▄▄▄▪   ▄▄ •
-;; ▐█ ▌▪▪     •█▌▐█▐▄▄·██ ▐█ ▀ ▪
-;; ██ ▄▄ ▄█▀▄ ▐█▐▐▌██▪ ▐█·▄█ ▀█▄
-;; ▐███▌▐█▌.▐▌██▐█▌██▌.▐█▌▐█▄▪▐█
-;; ·▀▀▀  ▀█▄▀▪▀▀ █▪▀▀▀ ▀▀▀·▀▀▀▀
+;;       ·▄▄▄▄              • ▌ ▄ ·.      ▄▄·        ▐ ▄ ·▄▄▄▪   ▄▄ •
+;;       ██▪ ██ ▪     ▪     ·██ ▐███▪    ▐█ ▌▪▪     •█▌▐█▐▄▄·██ ▐█ ▀ ▪
+;;       ▐█· ▐█▌ ▄█▀▄  ▄█▀▄ ▐█ ▌▐▌▐█·    ██ ▄▄ ▄█▀▄ ▐█▐▐▌██▪ ▐█·▄█ ▀█▄
+;;       ██. ██ ▐█▌.▐▌▐█▌.▐▌██ ██▌▐█▌    ▐███▌▐█▌.▐▌██▐█▌██▌.▐█▌▐█▄▪▐█
+;;       ▀▀▀▀▀•  ▀█▄▀▪ ▀█▄▀▪▀▀  █▪▀▀▀    ·▀▀▀  ▀█▄▀▪▀▀ █▪▀▀▀ ▀▀▀·▀▀▀▀
 ;;
-;; Project & code conventions
+;;                      == Project & Code conventions ==
+;;
 ;; https://github.com/hlissner/doom-emacs/issues/839#issuecomment-416209165
 ;;
 ;; namespace-symbol-name => public variable or function
@@ -36,41 +32,39 @@
 ;; + `=abc` An interactive command that invokes an app module.
 
 
-;; That's me!!!
+;; ╺┳┓┏━╸┏━╸┏━┓╻ ╻╻  ╺┳╸┏━┓
+;;  ┃┃┣╸ ┣╸ ┣━┫┃ ┃┃   ┃ ┗━┓
+;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
+;; Sane defaults
+
 (setq user-mail-address "eduarbo@gmail.com"
       user-full-name    "Eduardo Ruiz Macias"
       epa-file-encrypt-to user-mail-address)
 
+;; Paths
 (defvar dotfiles-dir "~/dev/dotfiles")
+(setq projectile-project-search-path '("~/dev" "~/work"))
 
-
-;; ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
-;; ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
-;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
-;; A E S T H E T I C
-
+;; Fonts
 (setq doom-font (font-spec :family "Hack" :size 14)
       doom-variable-pitch-font (font-spec :family "Noto Sans" :size 14))
 
+;; Google Translate
 (setq google-translate-default-target-language "es"
       google-translate-default-source-language "en")
 
+;; Which-key
 (setq which-key-idle-delay 0.3
       which-key-idle-secondary-delay 0)
-
-(setq projectile-project-search-path '("~/dev" "~/work"))
-
-(when IS-MAC
-  (setq-default
-   ;; use gnu ls to allow dired to sort directories
-   insert-directory-program "gls"))
 
 (setq-default
  ;; Enable accents
  ns-alternate-modifier 'none
+
  ;; Get some context when scrolling
  scroll-margin 10
  dired-use-ls-dired t
+
  ;; A more useful title
  frame-title-format '("%b   —   " (:eval (+workspace-current-name)))
 
@@ -88,6 +82,7 @@
 
 ;; Hide line numbers
 (remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
+
 ;; Hide indent lines
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
 
@@ -95,6 +90,7 @@
   (setq hl-todo-keyword-faces `(("TODO"  . ,(face-foreground 'warning))
                                 ("FIXME" . ,(face-foreground 'error))
                                 ("NOTE"  . ,(face-foreground 'success)))))
+
 ;; Overwrite default doom theme faces for todo keywords
 (add-hook! 'doom-load-theme-hook #'eduarbo--set-hl-todo-keyword-faces)
 
@@ -103,8 +99,22 @@
   (setq-local show-trailing-whitespace t))
 (add-hook! (prog-mode conf-mode) #'eduarbo--show-trailing-whitespace)
 
+;; Stop in-between "camelCase" words instead of just spaces, hyphens or
+;; underscores
+(global-subword-mode)
+
+;; Syntax highlighting for systemd Files
+(add-to-list 'auto-mode-alist '("\\.service\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
+
 ;; OS specific fixes
 (when IS-MAC
+  (setq-default
+   ;; use gnu ls to allow dired to sort directories
+   insert-directory-program "gls")
+
   ;; Use the OS X Emoji font for Emoticons
   (set-fontset-font "fontset-default"
                     '(#x1F600 . #x1F64F)
@@ -115,17 +125,6 @@
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
   (add-hook 'window-setup-hook #'toggle-frame-maximized))
-  ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen))
-
-;; Syntax highlighting for systemd Files
-(add-to-list 'auto-mode-alist '("\\.service\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
-
-;; Stop in-between "camelCase" words instead of just spaces, hyphens or
-;; underscores
-(global-subword-mode)
 
 
 ;; ┏┳┓┏━┓╺┳┓╻ ╻╻  ┏━╸┏━┓
@@ -134,15 +133,40 @@
 ;; Modules
 
 ;; lang/org
-(setq +org-capture-todo-file "notes/backlog.org")
-
 (after! org
   (add-to-list 'org-modules 'org-habit t)
   (setq org-hide-emphasis-markers t
         org-directory (expand-file-name "~/Documents/org")
         ;; TODO Use `org-directory` instead of the hardcoded path
-        org-agenda-files '("~/org/notes" "~/org/journal")
-        org-ellipsis " ▼ "  ;; ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
+        ;; org-agenda-files '("~/org/notes" "~/org/journal")
+        org-agenda-files (quote ("~/Documents/org/todo.org"
+                                 "~/Documents/org/agendas.org"
+                                 "~/Documents/org/inbox.org"
+                                 "~/Documents/org/waiting.org"
+                                 "~/Documents/org/calendar/gcal.org"
+                                 "~/Documents/org/calendar/maple.org"
+                                 "~/Documents/org/somedaymaybe.org"))
+        +org-capture-todo-file "backlog.org"
+        org-ellipsis "  "  ;; ▼ ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
+        org-log-done t
+        org-startup-indented t
+        org-startup-truncated nil
+        org-startup-with-inline-images t
+        org-default-notes-file (concat org-directory "notes.org")
+        org-imenu-depth 5
+        org-outline-path-complete-in-steps nil
+        org-lowest-priority ?C
+        org-default-priority ?B
+        org-expiry-inactive-timestamps t
+        org-show-notification-handler 'message
+        ;; org-yank-adjusted-subtrees t
+        org-file-apps
+        '((auto-mode . emacs)
+          ("\\.mm\\'" . default)
+          ("\\.x?html?\\'" . "firefox %s")
+          ("\\.pdf\\'" . "open %s"))
+        org-pretty-entities t
+        org-agenda-block-separator ""
 
         org-todo-keywords
         '((sequence "[ ](i)" "[-](p)" "[?](m)" "|" "[X](x)")
