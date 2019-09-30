@@ -258,9 +258,11 @@ end
 showborders = true
 
 -- https://www.uicolor.xyz/#/hex-to-ui to convert HEX to RGB
--- local borderColor = {red=0.74, green=0.91, blue=0.26, alpha=0.8} -- green
--- local borderColor = {red=1, green=0.81, blue=0.28, alpha=0.8} -- yellow
-local borderColor = {red=0.14, green=0.87, blue=0.70, alpha=0.8} -- emerald
+local GREEN_COLOR = {red=0.74, green=0.91, blue=0.26, alpha=0.8} -- green
+local YELLOW_COLOR = {red=1, green=0.81, blue=0.28, alpha=0.8} -- yellow
+local EMERALD_COLOR = {red=0.14, green=0.87, blue=0.70, alpha=0.8} -- emerald
+
+local borderColor = YELLOW_COLOR
 local borderWidth = 4
 
 prefix.bind('', 'b', function() toggleBorders() end)
