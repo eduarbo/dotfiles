@@ -1,4 +1,10 @@
-// ************************* WARNING *************************
+// ░█▀▀░█░█░█▀▄░█▀▀░▀█▀░█▀█░█▀▀░█░█░█▀▀░█░█░█▀▀
+// ░▀▀█░█░█░█▀▄░█▀▀░░█░░█░█░█░█░█▀▄░█▀▀░░█░░▀▀█
+// ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀
+//
+//
+//                           == W A R N I N G ==
+//
 // We can't just copy statements from the default mappings file as the bound
 // functions in that file may rely on some unstable functions/variables, which
 // may be changed some day.
@@ -14,10 +20,12 @@
 //     Hints.create("", Hints.dispatchMouseClick, { tabbed: true })
 //   });
 //
-// ************************* WARNING *************************
+//                           == W A R N I N G ==
 
 
-//
+// ┏━┓┏━╸╺┳╸╺┳╸╻┏┓╻┏━╸┏━┓
+// ┗━┓┣╸  ┃  ┃ ┃┃┗┫┃╺┓┗━┓
+// ┗━┛┗━╸ ╹  ╹ ╹╹ ╹┗━┛┗━┛
 // Settings
 
 Object.assign(settings, {
@@ -32,27 +40,29 @@ Object.assign(Hints, {
 });
 
 
-//
+// ╻ ╻┏━╸╻  ┏━┓┏━╸┏━┓┏━┓
+// ┣━┫┣╸ ┃  ┣━┛┣╸ ┣┳┛┗━┓
+// ╹ ╹┗━╸┗━╸╹  ┗━╸╹┗╸┗━┛
 // Helpers
 
-const GROUP = {
-  HELP: 0,
-  MOUSE_CLICK: 1,
-  SCROLL_PAGE: 2,
-  TABS: 3,
-  PAGE: 4,
-  SESSIONS: 5,
-  SEARCH: 6,
-  CLIPBOARD: 7,
-  OMNIBAR: 8,
-  VISUAL: 9,
-  VIM: 10,
-  SETTINGS: 11,
-  CHROME: 12,
-  PROXY: 13,
-  MISC: 14,
-  INSERT: 15,
-};
+/* eslint-disable no-unused-vars */
+const HELP = 0;
+const MOUSE_CLICK = 1;
+const SCROLL_PAGE = 2;
+const TABS = 3;
+const PAGE = 4;
+const SESSIONS = 5;
+const SEARCH = 6;
+const CLIPBOARD = 7;
+const OMNIBAR = 8;
+const VISUAL = 9;
+const VIM = 10;
+const SETTINGS = 11;
+const CHROME = 12;
+const PROXY = 13;
+const MISC = 14;
+const INSERT = 15;
+/* eslint-enable no-unused-vars */
 
 function keymap(group, fn) {
   const bind = (mapkeyFn) => (keys, annotation, cb, options) => {
@@ -71,10 +81,12 @@ function keymap(group, fn) {
 }
 
 
-//
-// Bindings
+// ╻ ╻┏┓╻╻ ╻┏━┓┏┓╻╺┳╸┏━╸╺┳┓   ┏┓ ╻┏┓╻╺┳┓╻┏┓╻┏━╸┏━┓
+// ┃ ┃┃┗┫┃╻┃┣━┫┃┗┫ ┃ ┣╸  ┃┃   ┣┻┓┃┃┗┫ ┃┃┃┃┗┫┃╺┓┗━┓
+// ┗━┛╹ ╹┗┻┛╹ ╹╹ ╹ ╹ ┗━╸╺┻┛   ┗━┛╹╹ ╹╺┻┛╹╹ ╹┗━┛┗━┛
+// Unwanted Bindings
 
-// I don't need them
+// Bindings that I don't need
 unmap('sp');           // namespace for Proxy bindings
 unmap('cp');           // toggle proxy for current site
 unmap('sfr');          // show failed web requests of current page
@@ -94,7 +106,15 @@ iunmap('<Alt-f>');
 iunmap('<Alt-w>');
 iunmap('<Alt-d>');
 
-keymap(GROUP.HELP, ({ insert }) => {
+removeSearchAliasX('b');
+removeSearchAliasX('w');
+
+
+// ╻ ╻┏━╸╻  ┏━┓
+// ┣━┫┣╸ ┃  ┣━┛
+// ╹ ╹┗━╸┗━╸╹
+
+keymap(HELP, ({ insert }) => {
   map(',', '<Alt-i>');
   unmap('<Alt-i>');
 
@@ -103,7 +123,12 @@ keymap(GROUP.HELP, ({ insert }) => {
   unmap('<Alt-s>');
 });
 
-keymap(GROUP.CHROME, ({ normal }) => {
+
+// ┏━╸╻ ╻┏━┓┏━┓┏┳┓┏━╸
+// ┃  ┣━┫┣┳┛┃ ┃┃┃┃┣╸
+// ┗━╸╹ ╹╹┗╸┗━┛╹ ╹┗━╸
+
+keymap(CHROME, ({ normal }) => {
   map('ca', 'ga');
   unmap('ga');
 
@@ -132,7 +157,12 @@ keymap(GROUP.CHROME, ({ normal }) => {
   normal('cy', 'Open Chrome History', () => tabOpenLink('chrome://history/'));
 });
 
-keymap(GROUP.MOUSE_CLICK, () => {
+
+// ┏┳┓┏━┓╻ ╻┏━┓┏━╸   ┏━╸╻  ╻┏━╸╻┏
+// ┃┃┃┃ ┃┃ ┃┗━┓┣╸    ┃  ┃  ┃┃  ┣┻┓
+// ╹ ╹┗━┛┗━┛┗━┛┗━╸   ┗━╸┗━╸╹┗━╸╹ ╹
+
+keymap(MOUSE_CLICK, () => {
   unmap('af');
 
   // Open multiple links in a new tab
@@ -155,7 +185,7 @@ keymap(GROUP.MOUSE_CLICK, () => {
   unmap('cq');
 });
 
-keymap(GROUP.SCROLL_PAGE, () => {
+keymap(SCROLL_PAGE, () => {
   // Scroll page up/down
   map('K', 'e');
   map('J', 'd');
@@ -169,7 +199,12 @@ keymap(GROUP.SCROLL_PAGE, () => {
   unmap('cS');
 });
 
-keymap(GROUP.TABS, () => {
+
+// ╺┳╸┏━┓┏┓ ┏━┓
+//  ┃ ┣━┫┣┻┓┗━┓
+//  ╹ ╹ ╹┗━┛┗━┛
+
+keymap(TABS, () => {
   map('<Ctrl-h>', 'E'); // Go one tab left
   map('<Ctrl-l>', 'R'); // Go one tab right
   unmap('E');
@@ -201,7 +236,12 @@ keymap(GROUP.TABS, () => {
   map('T', 'X'); // Restore closed tab
 });
 
-keymap(GROUP.PAGE, ({ normal }) => {
+
+// ┏━┓┏━┓┏━╸┏━╸
+// ┣━┛┣━┫┃╺┓┣╸
+// ╹  ╹ ╹┗━┛┗━╸
+
+keymap(PAGE, ({ normal }) => {
   normal('R', 'Reload the page without cache', () => RUNTIME('reloadTab', { nocache: true }));
 
   map('gl', 'sU');
@@ -210,8 +250,13 @@ keymap(GROUP.PAGE, ({ normal }) => {
   unmap('sU');
 });
 
+
+// ┏┳┓╻┏━┓┏━╸
+// ┃┃┃┃┗━┓┃
+// ╹ ╹╹┗━┛┗━╸
+
 const firingWallClassName = 'sk_firing_wall';
-keymap(GROUP.MISC, ({ normal }) => {
+keymap(MISC, ({ normal }) => {
   unmap('b');
   normal('bd', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
   normal('ba', 'Bookmark current page to selected folder', () => {
@@ -266,15 +311,23 @@ keymap(GROUP.MISC, ({ normal }) => {
   }
 });
 
-keymap(GROUP.INSERT, () => {});
 
-keymap(GROUP.VISUAL, () => {
+// ╻ ╻╻┏━┓╻ ╻┏━┓╻
+// ┃┏┛┃┗━┓┃ ┃┣━┫┃
+// ┗┛ ╹┗━┛┗━┛╹ ╹┗━╸
+
+keymap(VISUAL, () => {
   map('gv', 'V'); // Restore visual mode
   map('V', 'zv'); // Enter visual mode, and select whole element
   unmap('zv');
 });
 
-keymap(GROUP.CLIPBOARD, () => {
+
+// ┏━╸╻  ╻┏━┓┏┓ ┏━┓┏━┓┏━┓╺┳┓
+// ┃  ┃  ┃┣━┛┣┻┓┃ ┃┣━┫┣┳┛ ┃┃
+// ┗━╸┗━╸╹╹  ┗━┛┗━┛╹ ╹╹┗╸╺┻┛
+
+keymap(CLIPBOARD, () => {
   // NOTE Using _ as a temporary variable to swap key bindings
   map('_', 'yf');
   map('yf', 'ya'); // Copy a link URL to the clipboard
@@ -294,12 +347,22 @@ keymap(GROUP.CLIPBOARD, () => {
   unmap('ymc');
 });
 
-keymap(GROUP.VIM, () => {
+
+// ╻ ╻╻┏┳┓
+// ┃┏┛┃┃┃┃
+// ┗┛ ╹╹ ╹
+
+keymap(VIM, () => {
   // Duplicate keymap
   unmap('<Ctrl-\'>');
 });
 
-keymap(GROUP.OMNIBAR, ({ normal }) => {
+
+// ┏━┓┏┳┓┏┓╻╻┏┓ ┏━┓┏━┓
+// ┃ ┃┃┃┃┃┗┫┃┣┻┓┣━┫┣┳┛
+// ┗━┛╹ ╹╹ ╹╹┗━┛╹ ╹╹┗╸
+
+keymap(OMNIBAR, ({ normal }) => {
   unmap('o');
 
   openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites', noPrefix: true });
@@ -323,7 +386,6 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
     runtime.command({ action: 'openIncognito', url: window.location.href });
   });
 
-
   // Helpers
 
   function openOmnibar(key, annotation, options) {
@@ -341,10 +403,10 @@ keymap(GROUP.OMNIBAR, ({ normal }) => {
   }
 });
 
-removeSearchAliasX('b');
-removeSearchAliasX('w');
 
-//
+// ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
+// ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
+// ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 // Theme
 
 const monospaceFontFamily = 'Hack, Lucida Console, Courier, monospace';
