@@ -21,6 +21,7 @@ link() {
 
   # List of default packages that will be installed on every new version of Node
   mklink default-packages "$NODENV_ROOT/default-packages"
+  mklink prettierrc.js "$HOME/.prettierrc.js"
 }
 
 update() {
@@ -35,7 +36,7 @@ update() {
 }
 
 clean() {
-  rm -rfv $NODENV_ROOT
+  rm -rfv $NODENV_ROOT "$HOME/.prettierrc.js"
 }
 
 init "$@"
