@@ -117,8 +117,7 @@
       :gi "C-S-l"        #'sp-forward-symbol
 
       ;; Basic editing
-      :i "S-RET"         #'tab-to-tab-stop
-      :i [S-return]      #'tab-to-tab-stop
+      :i "S-SPC"         #'tab-to-tab-stop
       ;; TODO: Tranpose last two WORDS not those around
       :gi "C-t"          #'transpose-words
       ;; TODO: Tranpose last two SEXPS not those around
