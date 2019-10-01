@@ -118,3 +118,16 @@ alias lt=loadtime
 historystat() {
   history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50
 }
+
+rvu() {
+  local offset=${2:=0}
+  local output
+
+  output=$($output | md5)
+  output=${output:$offset:15}
+  echo "$output" | y
+}
+
+rvp() {
+  echo "$1" | md5 | y
+}
