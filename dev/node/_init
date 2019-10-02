@@ -14,9 +14,17 @@ link() {
   local NODENV_PLUGINS=$NODENV_ROOT/plugins
 
   _ensure_repo nodenv/nodenv                  $NODENV_ROOT
+
+  # allow me to install virtually any version of Node
   _ensure_repo nodenv/node-build              $NODENV_PLUGINS/node-build
+
+  # automatically install npm packages every time you install a new version of Node
   _ensure_repo nodenv/nodenv-default-packages $NODENV_PLUGINS/nodenv-default-packages
+
+  # installer/updater and doctor scripts for nodenv
   _ensure_repo nodenv/nodenv-installer        $NODENV_PLUGINS/nodenv-installer
+
+  # never run `nodenv rehash` again
   _ensure_repo nodenv/nodenv-package-rehash   $NODENV_PLUGINS/nodenv-package-rehash
 
   # List of default packages that will be installed on every new version of Node
