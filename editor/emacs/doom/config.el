@@ -226,6 +226,7 @@
   ;; (org-journal-time-format "[%F %a %R]")
   (org-journal-hide-entries-p nil))
 
+(add-hook! 'text-mode-hook #'turn-on-visual-line-mode)
 
 ;; evil 😈
 (defun evil-embrace-js-mode-hook-setup ()
