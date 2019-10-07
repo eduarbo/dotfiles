@@ -8,6 +8,14 @@ local utils = require("utils")
 
 hs.window.animationDuration = 0
 
+-- Ignore the misbehaving apps to supress warnings
+hs.window.filter.ignoreAlways['WhatsApp Helper'] = true
+hs.window.filter.ignoreAlways['Mail Networking'] = true
+hs.window.filter.ignoreAlways['Firefox Developer EditionCP WebExtensions'] = true
+hs.window.filter.ignoreAlways['Firefox Developer EditionCP Web Content'] = true
+hs.window.filter.ignoreAlways['FirefoxCP Web Content'] = true
+hs.window.filter.ignoreAlways['FirefoxCP WebExtensions'] = true
+
 
 -- ┏━╸┏━┓╻╺┳┓
 -- ┃╺┓┣┳┛┃ ┃┃
