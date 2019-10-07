@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# hosts file switcher
+
+set -e
+
+# default dir for hosts files
+: "${HOSTS_SWITCHER_DIR:=$XDG_DATA_HOME/hosts}"
+
+# list available hosts files
+(( $# == 0 )) && ls -p "$HOSTS_SWITCHER_DIR" | grep -v / && exit
+
+export HOSTS_SWITCHER_FILE="$HOSTS_SWITCHER_DIR/$1"
+
+# Early exit if can't find hosts file
+if [[ ! -f "$HOSTS_SWITCHER_FILE" ]]; then
+  echo "Error: $HOSTS_SWITCHER_FILE doesn't exist"
+  exit 1
+fi
+
+# backup original hosts file if it hasn't been done yet
+[[ ! -f "$HOSTS_SWITCHER_DIR/original" ]] && sudo cp "/etc/hosts" "$HOSTS_SWITCHER_DIR/original"
+
+cat "$HOSTS_SWITCHER_FILE" | sudo tee /etc/hosts > /dev/null
