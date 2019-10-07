@@ -6,18 +6,18 @@
 -- adjust hotkey logging... info as the default is too much.
 local utils = require("utils")
 
--- Reload config on write
-hs.pathwatcher.new(os.getenv("HOME") .. "/.config/hammerspoon/", hs.reload):start()
-
-utils.tempNotify(2, hs.notify.new({
-    title = "Hammerspoon  🔨🥄",
-    subTitle = "Config reloaded",
-}))
-
 hs.hotkey.setLogLevel("warning")
 hs.logger.historySize(1000)
 log = hs.logger.new('init','debug')
 log.i('Initializing')
+
+-- Reload config on write
+hs.pathwatcher.new(os.getenv("HOME") .. "/.config/hammerspoon/", hs.reload):start()
+
+utils.tempNotify(2, hs.notify.new({
+    title = "🔨🥄 Hammerspoon",
+    subTitle = "Config reloaded",
+}))
 
 hs.alert.defaultStyle.strokeColor = { white = 0, alpha = 0 }
 hs.alert.defaultStyle.fillColor = { white = 0, alpha = 0.75 }
