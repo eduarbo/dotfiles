@@ -34,9 +34,7 @@ function Prefix:new()
   Prefix.bind('', 'escape', Prefix.exit)
   Prefix.bind('ctrl', 'space', Prefix.exit)
 
-  Prefix.bind('', 'd', hs.toggleConsole)
   Prefix.bind('', 'r', hs.reload)
-  Prefix.bind('', 'return', hs.caffeinate.startScreensaver)
 
   return Prefix
 end

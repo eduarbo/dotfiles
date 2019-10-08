@@ -47,7 +47,9 @@ quitModal:bind('', 'escape', function() quitModal:exit() end)
 -----------------------------------------------
 -- Lock system
 -----------------------------------------------
-hs.hotkey.bind({"rightalt"}, '`', 'Lock system', hs.caffeinate.systemSleep)
+hs.hotkey.bind({"rightalt"}, '`', hs.toggleConsole)
+hs.hotkey.bind({"rightalt"}, 'return', 'Lock system', hs.caffeinate.systemSleep)
+hs.hotkey.bind({"rightalt"}, 'space', hs.caffeinate.startScreensaver)
 
 -----------------------------------------------
 -- Modules
