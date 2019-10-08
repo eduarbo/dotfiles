@@ -24,7 +24,7 @@ local function displayStatus()
   end
 end
 
-function updateMicStatus(muted)
+local function updateMicStatus(muted)
   if muted then
     micMenubar:setIcon('./icons/mic-off.pdf', true)
   else
@@ -38,9 +38,7 @@ local function toggleMic()
   updateMicStatus(muted)
 end
 
-local doubleTapTimer = hs.timer.delayed.new(0.3, function()
-                                              recentlyTapped = false
-end)
+local doubleTapTimer = hs.timer.delayed.new(0.3, function() recentlyTapped = false end)
 
 local function onKeyDown(event)
   if not pushToTalk then
