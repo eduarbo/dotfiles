@@ -5,3 +5,5 @@
 (package! evil-escape :disable t)
 ;; Very annoying when trying to autocomplete with company, fuck off!
 (package! emmet-mode :disable t)
+(package! org-super-agenda)
+(package! org-randomnote)
