@@ -14,9 +14,6 @@
 ;; ┗━┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗━┛
 ;; Globals
 
-;; Fix ESC
-(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
-
 (map! "s-;" #'execute-extended-command
       "s-x" #'execute-extended-command
       "s-." #'helpful-key
