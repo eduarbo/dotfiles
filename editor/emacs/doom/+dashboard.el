@@ -1,4 +1,4 @@
-;;; ~/.dotfiles/editor/emacs/doom/banners.el -*- lexical-binding: t; -*-
+;;; ~/.dotfiles/editor/emacs/doom/+dashboard.el -*- lexical-binding: t; -*-
 
 ;;            ·▄▄▄▄   ▄▄▄· .▄▄ ·  ▄ .▄▄▄▄▄·        ▄▄▄· ▄▄▄  ·▄▄▄▄
 ;;           ██▪ ██ ▐█ ▀█ ▐█ ▀. ██▪▐█▐█ ▀█▪▪     ▐█ ▀█ ▀▄ █·██▪ ██
