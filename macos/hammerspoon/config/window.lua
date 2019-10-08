@@ -86,11 +86,11 @@ local function resizeWindow()
 end
 
 for i = 1, #arrowKeys do
-  local pressedFn = function()
+  local function pressedFn()
     wasPressed[i] = true
     pressed[i] = true
   end
-  local releasedFn = function()
+  local function releasedFn()
     pressed[i] = false
     resizeWindow()
   end
@@ -126,7 +126,7 @@ local DY = {0, 1, -1, 0}
 local DELTA = 20
 
 for i = 1, 4 do
-  local moveWin = function()
+  local function moveWin()
     local win = hs.window.focusedWindow()
     if win ~= nil then
       local p = win:topLeft()
@@ -135,7 +135,7 @@ for i = 1, 4 do
       win:setTopLeft(p)
     end
   end
-  local pressedFn = function()
+  local function pressedFn()
     prefix.cancelTimeout()
     moveWin()
   end
@@ -197,7 +197,7 @@ local function bindExpandWin(ratio)
   end
 end
 
-local pressedExpandWin = function(ratio)
+local function pressedExpandWin(ratio)
   return function()
     prefix.cancelTimeout()
     expandWin(ratio)
@@ -246,8 +246,8 @@ for i = 1, #edges do
   local edge = edges[i]
   for j = 1, #ratios do
     local mod = (ratios[j] > 1) and 'cmd' or 'cmd+shift'
-    local fn = function() expandEdge(edge, ratios[j]) end
-    local pressedFn = function()
+    local function fn() expandEdge(edge, ratios[j]) end
+    local function pressedFn()
       prefix.cancelTimeout()
       fn()
     end
