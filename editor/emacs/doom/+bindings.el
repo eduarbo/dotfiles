@@ -406,14 +406,14 @@
 
       ;;; <leader> g --- git
       (:prefix ("g" . "git")
-        :desc "Git link for line or region" "y"   #'git-link
         (:when (featurep! :tools magit)
           :desc "Magit diff staged"         "d"   #'magit-diff-buffer-file
           :desc "Magit diff"                "D"   #'magit-diff))
 
       ;;; <leader> n --- notes
       (:prefix ("n" . "notes")
-        :desc "New Journal entry"             "d" #'org-journal-new-entry
+        :desc "New Entry"                     "j" #'org-journal-new-entry
+        :desc "Search Forever"                "J" #'org-journal-search-forever
         :desc "Open mode notes"               "m" #'+eduarbo/find-notes-for-major-mode
         :desc "Open project notes"            "p" #'+eduarbo/find-notes-for-project)
 
