@@ -79,6 +79,12 @@ fi
 [[ ! -f "$HOSTS_SWITCHER_DIR/original" ]] && sudo cp "/etc/hosts" "$HOSTS_SWITCHER_DIR/original"
 
 if cat "$HOSTS_SWITCHER_FILE" | sudo tee /etc/hosts > /dev/null; then
+  # Flush DNS
+  case $OSTYPE in
+    darwin*) dscacheutil -flushcache ;;
+    linux*) sudo systemctl restart systemd-resolved.service ;;
+  esac &
+
   # Symlink selected hosts file
   ln -sf "$HOSTS_SWITCHER_FILE" "$HOSTS_SWITCHER_DIR/.selected"
 fi
