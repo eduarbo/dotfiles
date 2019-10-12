@@ -66,8 +66,8 @@
       :nv  ";"    #'evil-ex
       :nv  ":"    #'eval-expression
 
-      :n "#"      #'evil-commentary-line
-      :v "#"      #'evil-commentary
+      :n "#"      #'evilnc-comment-or-uncomment-lines
+      :v "#"      #'comment-or-uncomment-region
 
       ;; Shift text
       :n  "<"     #'evil-shift-left-line

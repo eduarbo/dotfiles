@@ -65,8 +65,7 @@
 (after! counsel
   ;; TODO add .git into a .ignore file
   (setq counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never --glob '!.git' %s"
-        counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"
-        counsel-pt-base-command "pt -S --hidden --nocolor --nogroup -e %s"))
+        counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"))
 
 
 ;; ╻  ┏━┓┏━┓
