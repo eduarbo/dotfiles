@@ -49,8 +49,7 @@ SIMPL[HOST_SYMBOL_COLOR]="%B%F{3}"
 SIMPL[USER_COLOR]="%F{11}"
 SIMPL[ENABLE_RPROMPT]=0
 SIMPL[ALWAYS_SHOW_USER_AND_HOST]=0
-zplugin light ~/dev/simpl
-# zplugin light eduarbo/simpl
+zplugin light eduarbo/simpl
 
 
 # ┏━╸┏━┓┏┓╻┏━╸╻┏━╸┏━┓
