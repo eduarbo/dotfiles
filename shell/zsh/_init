@@ -9,6 +9,10 @@ common_deps=(
   fasd
   figlet
   toilet
+  ripgrep
+  tldr
+  aspell
+  stow
 )
 
 brew_deps=(

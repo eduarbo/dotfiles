@@ -8,14 +8,10 @@
 
 brew_deps=(
   wget
-  stow
   bash
   gnupg
   the_silver_searcher
-  ripgrep
   pinentry-mac
-  aspell
-  tldr
 )
 
 cask_deps=(
