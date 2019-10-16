@@ -8,3 +8,4 @@
 (package! org-super-agenda)
 (package! org-randomnote)
 (package! vimrc-mode)
+(package! keyfreq)
