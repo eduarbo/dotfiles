@@ -62,7 +62,7 @@ zplugin light eduarbo/simpl
 _load shell/zsh/config.zsh
 _load shell/zsh/completion.zsh
 _load shell/zsh/keybinds.zsh
-_source ~/.secrets
+_source $ZDOTDIR/secrets.zsh
 
 
 # ┏━┓┏━┓┏━╸┏━╸╺┳┓   ╻ ╻┏━┓   ╺━┓┏━┓╻ ╻   ╻  ┏━┓┏━┓╺┳┓
