@@ -232,7 +232,7 @@
                       ))
 
 ;; Random Note
-(def-package! org-randomnote
+(use-package! org-randomnote
   :commands org-randomnote
   :init
   ;; FIXME use expand-file-name

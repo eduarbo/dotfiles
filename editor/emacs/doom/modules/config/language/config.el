@@ -1,6 +1,6 @@
 ;;; config/language/config.el -*- lexical-binding: t; -*-
 
-(def-package! google-translate
+(use-package! google-translate
   :commands (+language/set-google-translate-languages
              +language/google-translate-smooth-translate-ask-language
              google-translate-at-point
@@ -22,5 +22,5 @@
         google-translate-translation-directions-alist
         '(("en" . "es") ("es" . "en"))))
 
-(def-package! ob-translate
+(use-package! ob-translate
   :hook org-mode)
