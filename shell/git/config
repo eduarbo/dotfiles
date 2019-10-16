@@ -1,16 +1,9 @@
-[user]
-	name = Eduardo Ruiz Macias
-	email = eduarbo@gmail.com
-	signingkey = 0040409300090CC2
-
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	whitespace = trailing-space
 	autocrlf = input
 [color]
 	ui = auto
-[github]
-	user = eduarbo
 [fetch]
 	prune = true
 [rebase]
@@ -70,3 +63,6 @@
 [commit]
 	gpgsign = true
 	template = ~/.config/git/message
+
+[include]
+	path = secrets
