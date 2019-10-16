@@ -131,6 +131,9 @@
 (add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
 
+(use-package! vimrc-mode
+  :mode "\\.?vim\\(rc\\)?\\'")
+
 
 ;;  ┏┓┏━┓╻ ╻┏━┓┏━┓┏━╸┏━┓╻┏━┓╺┳╸
 ;;   ┃┣━┫┃┏┛┣━┫┗━┓┃  ┣┳┛┃┣━┛ ┃
