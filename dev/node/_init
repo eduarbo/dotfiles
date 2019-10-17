@@ -27,6 +27,9 @@ link() {
   # never run `nodenv rehash` again
   _ensure_repo nodenv/nodenv-package-rehash   $NODENV_PLUGINS/nodenv-package-rehash
 
+  # detects the Node version based on the engines field of the current tree's package.json file
+  _ensure_repo nodenv/nodenv-package-json-engine $NODENV_PLUGINS/nodenv-package-json-engine
+
   # List of default packages that will be installed on every new version of Node
   mklink default-packages "$NODENV_ROOT/default-packages"
   mklink prettierrc.js "$HOME/.prettierrc.js"
