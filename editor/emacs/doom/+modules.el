@@ -76,7 +76,10 @@
 (after! lsp-ui
   ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable
   ;; it by default
-  (setq lsp-ui-sideline-enable nil)
+  (setq lsp-ui-sideline-enable nil
+        lsp-enable-indentation nil
+        lsp-enable-on-type-formatting nil
+        lsp-enable-symbol-highlighting nil)
   ;; Disable lsp-ui flychecker
   (setq lsp-prefer-flymake :none))
 
