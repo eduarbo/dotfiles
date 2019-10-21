@@ -94,7 +94,9 @@
 
 (after! magit
   (setq magit-repository-directories '(("~/dev" . 2))
-        magit-save-repository-buffers nil))
+        magit-save-repository-buffers nil
+        ;; Don't restore the wconf after quitting magit
+        magit-inhibit-save-previous-winconf t))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
