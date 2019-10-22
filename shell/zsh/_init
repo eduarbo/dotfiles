@@ -42,7 +42,7 @@ install() {
           | grep "browser_download_url.*fd_.*_amd64.deb" \
           | cut -d : -f 2,3 \
           | tr -d '"' \
-          | wget -O fd_amd64.deb -qi -
+          | wget -O "/tmp/fd_amd64.deb" -qi -
         sudo dpkg -i "/tmp/fd_amd64.deb"
       fi
 
