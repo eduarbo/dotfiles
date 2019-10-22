@@ -21,8 +21,9 @@ brew_deps=(
   fd
 )
 
-linux_deps=(
+debian_deps=(
   make
+  fd-find
 )
 
 install() {
@@ -33,11 +34,17 @@ install() {
       zshenv=/etc/zshenv
       ;;
     debian)
-      sudo apt update && sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
+      sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
 
-      # Need to install fd manually because it's missing in apt for ubuntu 18.04
-      curl https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb -Lo /tmp/fd-musl_7.3.0_amd64.deb
-      sudo dpkg -i "/tmp/fd-musl_7.3.0_amd64.deb"
+      # install fd manually if it's missing from the package manager (it is for Ubuntu 18.04)
+      if ! _is_callable fdfind; then
+        curl -s https://api.github.com/repos/sharkdp/fd/releases/latest \
+          | grep "browser_download_url.*fd_.*_amd64.deb" \
+          | cut -d : -f 2,3 \
+          | tr -d '"' \
+          | wget -O fd_amd64.deb -qi -
+        sudo dpkg -i "/tmp/fd_amd64.deb"
+      fi
 
       zshenv=/etc/zsh/zshenv
       ;;
@@ -95,7 +102,7 @@ _upgrade() {
       brew upgrade ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
-      sudo apt update && sudo apt install -y ${common_deps[@]} ${linux_deps[@]}
+      sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
       ;;
   esac
 }
