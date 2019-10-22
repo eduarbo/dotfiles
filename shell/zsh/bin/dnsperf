@@ -1,8 +1,14 @@
 #!/usr/bin/env zsh
 
-# DNS Speed Benchmark - Test the performance of the most famous DNS providers
+# ╺┳┓┏┓╻┏━┓   ┏━┓┏━┓┏━╸┏━╸╺┳┓   ┏┓ ┏━╸┏┓╻┏━╸╻ ╻┏┳┓┏━┓┏━┓╻┏
+#  ┃┃┃┗┫┗━┓   ┗━┓┣━┛┣╸ ┣╸  ┃┃   ┣┻┓┣╸ ┃┗┫┃  ┣━┫┃┃┃┣━┫┣┳┛┣┻┓
+# ╺┻┛╹ ╹┗━┛   ┗━┛╹  ┗━╸┗━╸╺┻┛   ┗━┛┗━╸╹ ╹┗━╸╹ ╹╹ ╹╹ ╹╹┗╸╹ ╹
+# DNS Speed Benchmark by @eduarbo
 
-# Defaults
+# Test the performance of the most famous DNS providers
+
+
+# Positional arguments
 site=${1:-github.com}
 times=${2:-10}
 
