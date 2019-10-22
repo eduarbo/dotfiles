@@ -1,3 +1,7 @@
+[user]
+	name = Eduardo Ruiz Macias
+	email = eduarbo@gmail.com
+	signingkey = 0040409300090CC2
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	whitespace = trailing-space
