@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+
+# DNS Speed Benchmark - Test the performance of the most famous DNS providers
+
+# Defaults
+site=${1:-github.com}
+times=${2:-10}
+
+# DNS servers
+typeset -A servers
+servers[1.1.1.1]="Cloudflare"
+servers[8.8.8.8]="Google"
+servers[9.9.9.9]="Quad9 (IBM)"
+servers[9.9.9.10]="Quad9 (no DNSSEC)"
+servers[80.80.80.80]="Freenom"
+servers[208.67.222.222]="OpenDNS (Cisco)"
+
+
+echo "Query: $site"
+echo "Times: $times"
+
+for ip name in ${(kv)servers}; do
+  echo
+  echo "→ $name"
+  echo "  $ip"
+
+  start=$(date +%s.%N)
+  for _ in $(seq 1 "$times"); do
+    dig "$site" $ip 1> /dev/null
+  done
+  end=$(date +%s.%N)
+
+  avg_time="($end - $start) * 100 / $times" # average in milliseconds
+  printf '  Speed: %.4f ms\n' $(echo "$avg_time" | bc -l)
+done
