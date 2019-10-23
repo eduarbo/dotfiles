@@ -1,0 +1,27 @@
+[Unit]
+Description=Dockerized Kodi
+Requires=docker.service
+After=network.target docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker pull erichough/kodi
+ExecStart=/usr/bin/x11docker --xorg \
+          --alsa \
+          --user eduarbo \
+          --gpu \
+          --homedir /nas/config/kodi \
+          -- \
+            -v /nas/videos:/nas/videos \
+            -v /nas/movies:/nas/movies \
+            -v /nas/series:/nas/series \
+            -v /nas/music:/nas/music \
+            -v /nas/games:/nas/games \
+            -v /nas/photos:/nas/photos:ro \
+            -v /nas/downloads:/nas/downloads \
+          -- \
+          erichough/kodi
+Restart=always
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
