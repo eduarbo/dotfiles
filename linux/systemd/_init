@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+source ${0:A:h}/../../deploy
+
+# install() {}
+
+# update() {}
+
+link() {
+  systemctl link ./kodi.service
+}
+
+# clean() {}
+
+init "$@"
