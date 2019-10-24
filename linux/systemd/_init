@@ -7,7 +7,7 @@ source ${0:A:h}/../../deploy
 # update() {}
 
 link() {
-  systemctl link ./kodi.service
+  systemctl link *.{service,timer}
 }
 
 # clean() {}
