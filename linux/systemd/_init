@@ -4,7 +4,9 @@ source ${0:A:h}/../../deploy
 
 # install() {}
 
-# update() {}
+update() {
+  sudo systemctl daemon-reload
+}
 
 link() {
   sudo systemctl link $DOTFILES/linux/systemd/*.{service,timer}
