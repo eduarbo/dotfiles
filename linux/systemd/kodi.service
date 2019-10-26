@@ -9,7 +9,7 @@ ExecStart=/usr/bin/x11docker --xorg \
   --alsa \
   --user eduarbo \
   --gpu \
-  --homedir /nas/config/kodi \
+  --homedir /nas/config/$p \
   -- \
     -v /nas/videos:/nas/videos \
     -v /nas/movies:/nas/movies \

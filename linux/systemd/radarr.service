@@ -7,7 +7,7 @@ After=docker.service
 [Service]
 TimeoutStartSec=0
 Restart=on-failure
-ExecStartPre=-/usr/bin/docker pull linuxserver/%p
+ExecStartPre=-/usr/bin/docker pull linuxserver/radarr
 # run docker command in a subshell to wait for it to fully load
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
@@ -20,7 +20,7 @@ ExecStart=/bin/bash -c "\
     -v /nas/config/%p:/config \
     -v /nas/downloads:/downloads \
     -v /nas/movies:/movies \
-    linuxserver/%p"
+    linuxserver/radarr"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p
 
