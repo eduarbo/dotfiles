@@ -6,14 +6,15 @@ After=docker.service
 
 [Service]
 TimeoutStartSec=0
-Restart=on-failure
+Restart=always
 ExecStartPre=-/usr/bin/docker pull linuxserver/radarr
 # run docker command in a subshell to wait for it to fully load
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
     --name=%p \
-    --network=host \
+    --network=homelab \
+    -p 7878:7878 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
