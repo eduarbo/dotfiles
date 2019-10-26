@@ -9,7 +9,6 @@ ExecStart=/usr/bin/x11docker --xorg \
   --alsa \
   --user eduarbo \
   --gpu \
-  --network=homelabe \
   --homedir /nas/config/%p \
   -- \
     --network=homelab \
