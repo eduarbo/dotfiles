@@ -1,0 +1,28 @@
+[Unit]
+Description=NZBGet container
+Requires=docker.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker pull linuxserver/%p
+# run docker command in a subshell to wait for it to fully load
+ExecStart=/bin/bash -c "\
+  /usr/bin/docker run \
+    --rm \
+    --name=%p \
+    --network=host \
+    -p 6789:6789 \
+    -e PUID=$(id -u eduarbo) \
+    -e PGID=$(id -g docker) \
+    -e TZ=America/Mexico_City \
+    -v /nas/config/%p:/config \
+    -v /nas:/nas \
+    -v /nas/downloads:/downloads \
+    linuxserver/%p"
+ExecStop=/usr/bin/docker stop %p
+ExecReload=/usr/bin/docker restart %p
+
+[Install]
+WantedBy=multi-user.target
