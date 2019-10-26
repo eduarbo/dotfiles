@@ -16,7 +16,7 @@ ExecStart=/bin/bash -c "\
     -p 6800:6800 \
     -p 6880:80 \
     -e PUID=$(id -u eduarbo) \
-    -e PGID=$(id -g docker) \
+    -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
     -v /nas/config/%p:/conf \
     -v /nas/downloads:/data \
