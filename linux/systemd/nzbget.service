@@ -15,7 +15,7 @@ ExecStart=/bin/bash -c "\
     --network=host \
     -p 6789:6789 \
     -e PUID=$(id -u eduarbo) \
-    -e PGID=$(id -g docker) \
+    -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
     -v /nas/config/%p:/config \
     -v /nas:/nas \
