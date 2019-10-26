@@ -12,7 +12,7 @@ ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
     --name=%p \
-    --network=host \
+    --network=homelab \
     -p 6789:6789 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
