@@ -36,20 +36,25 @@ if [[ -z $SSH_CONNECTION ]]; then
   zplugin light zdharma/fast-syntax-highlighting
 fi
 
-typeset -gA SIMPL_HOST_SYMBOL_MAP
-SIMPL_HOST_SYMBOL_MAP=(
-  lavos "⑀"
-  htpc "Ħ"
-  GLaDOS "ᛟ"
-)
+# This hangs Tramp in Emacs so avoid using a fancy prompt there
+if [[ "$TERM" != "dumb" ]]; then
+  typeset -gA SIMPL_HOST_SYMBOL_MAP
+  SIMPL_HOST_SYMBOL_MAP=(
+    lavos "⑀"
+    htpc "Ħ"
+    GLaDOS "ᛟ"
+  )
 
-typeset -A SIMPL
-SIMPL[HOST_SYMBOL_COLOR]="%B%F{3}"
-# SIMPL[USER_COLOR]="%F{10}"
-SIMPL[USER_COLOR]="%F{11}"
-SIMPL[ENABLE_RPROMPT]=0
-SIMPL[ALWAYS_SHOW_USER_AND_HOST]=0
-zplugin light eduarbo/simpl
+  typeset -A SIMPL
+  SIMPL[HOST_SYMBOL_COLOR]="%B%F{3}"
+  # SIMPL[USER_COLOR]="%F{10}"
+  SIMPL[USER_COLOR]="%F{11}"
+  SIMPL[ENABLE_RPROMPT]=0
+  SIMPL[ALWAYS_SHOW_USER_AND_HOST]=0
+
+  zplugin light eduarbo/simpl
+  # zplugin light ~/dev/simpl
+fi
 
 
 # ┏━╸┏━┓┏┓╻┏━╸╻┏━╸┏━┓
