@@ -7,56 +7,6 @@
 bindkey -v
 
 
-# ┏━┓╻  ╻ ╻┏━╸╻┏┓╻┏━┓
-# ┣━┛┃  ┃ ┃┃╺┓┃┃┗┫┗━┓
-# ╹  ┗━╸┗━┛┗━┛╹╹ ╹┗━┛
-# Plugins
-
-# Load zplugin and install it when missing
-_load_repo zdharma/zplugin $ZPL_DIR zplugin.zsh
-
-# load plugins from enabled topics
-_load_all plugins.zsh
-
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light zdharma/history-search-multi-word
-zplugin light supercrabtree/k
-zplugin light djui/alias-tips
-zplugin ice from"gh-r" as"program"; zplugin light junegunn/fzf-bin
-zplugin ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zplugin light junegunn/fzf
-
-# NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
-zplugin light mafredri/zsh-async # Required by simpl
-
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-zplugin light zsh-users/zsh-autosuggestions
-zplugin ice blockf; zplugin light zsh-users/zsh-completions # Disallow zsh-completions to modify fpath
-if [[ -z $SSH_CONNECTION ]]; then
-  zplugin light zdharma/fast-syntax-highlighting
-fi
-
-# This hangs Tramp in Emacs so avoid using a fancy prompt there
-if [[ "$TERM" != "dumb" ]]; then
-  typeset -gA SIMPL_HOST_SYMBOL_MAP
-  SIMPL_HOST_SYMBOL_MAP=(
-    lavos "⑀"
-    htpc "Ħ"
-    GLaDOS "ᛟ"
-  )
-
-  typeset -A SIMPL
-  SIMPL[HOST_SYMBOL_COLOR]="%B%F{3}"
-  # SIMPL[USER_COLOR]="%F{10}"
-  SIMPL[USER_COLOR]="%F{11}"
-  SIMPL[ENABLE_RPROMPT]=0
-  SIMPL[ALWAYS_SHOW_USER_AND_HOST]=0
-
-  zplugin light eduarbo/simpl
-  # zplugin light ~/dev/simpl
-fi
-
-
 # ┏━╸┏━┓┏┓╻┏━╸╻┏━╸┏━┓
 # ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓┗━┓
 # ┗━╸┗━┛╹ ╹╹  ╹┗━┛┗━┛
@@ -64,11 +14,19 @@ fi
 
 # ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
 # qualifiers
+
+if [[ "$TERM" != "dumb" ]]; then
+   _load shell/zsh/plugins.zsh
+fi
 _load shell/zsh/config.zsh
 _load shell/zsh/completion.zsh
 _load shell/zsh/keybinds.zsh
-_source $ZDOTDIR/secrets.zsh
 
+# load configs from enabled topics
+_load_all config.zsh
+
+# 👀
+_source $ZDOTDIR/secrets.zsh
 
 # ┏━┓┏━┓┏━╸┏━╸╺┳┓   ╻ ╻┏━┓   ╺━┓┏━┓╻ ╻   ╻  ┏━┓┏━┓╺┳┓
 # ┗━┓┣━┛┣╸ ┣╸  ┃┃   ┃ ┃┣━┛   ┏━┛┗━┓┣━┫   ┃  ┃ ┃┣━┫ ┃┃
