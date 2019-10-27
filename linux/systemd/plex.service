@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/plex
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=%p \
+    --name=plex \
     --network=homelab \
     -p 32400:32400 \
     -p 32400:32400/udp \

@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker pull abcminiuser/docker-aria2-with-webui
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=%p \
+    --name=aria2 \
     --network=homelab \
     -p 6800:6800 \
     -p 6880:80 \

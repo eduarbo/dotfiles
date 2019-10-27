@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker pull homeassistant/home-assistant
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=%p \
+    --name=home-assistant \
     --network=homelab \
     -p 8123:8123 \
     -e PUID=$(id -u eduarbo) \
