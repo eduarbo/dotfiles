@@ -10,7 +10,8 @@ ExecStartPre=-/usr/bin/docker pull pihole/pihole
 # run docker command in a subshell to wait for it to fully load
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
-    --name %p \
+    --rm \
+    --name pihole \
     --network=homelab \
     -p 53:53/tcp \
     -p 53:53/udp \

@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/hydra2
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=%p \
+    --name=hydra2 \
     --network=homelab \
     -p 5076:5076 \
     -e PUID=$(id -u eduarbo) \

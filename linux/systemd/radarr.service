@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/radarr
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=%p \
+    --name=radarr \
     --network=homelab \
     -p 7878:7878 \
     -e PUID=$(id -u eduarbo) \
