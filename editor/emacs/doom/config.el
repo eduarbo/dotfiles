@@ -104,6 +104,9 @@
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
 
+(use-package! nginx-mode
+  :mode ("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode))
+
 
 ;; ╺┳╸┏━╸╻ ╻╺┳╸   ┏┳┓┏━┓╺┳┓┏━╸
 ;;  ┃ ┣╸ ┏╋┛ ┃ ╺━╸┃┃┃┃ ┃ ┃┃┣╸

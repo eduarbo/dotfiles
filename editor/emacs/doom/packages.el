@@ -9,3 +9,4 @@
 (package! org-randomnote)
 (package! vimrc-mode)
 (package! keyfreq)
+(package! nginx-mode)
