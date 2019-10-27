@@ -5,11 +5,13 @@ After=network.target docker.service
 
 [Service]
 ExecStartPre=-/usr/bin/docker pull erichough/kodi
-ExecStart=/usr/bin/x11docker --xorg \
+ExecStart=/usr/bin/x11docker \
+  --xorg \
   --alsa \
-  --user eduarbo \
   --gpu \
-  --homedir /nas/config/%p \
+  --hostuser=eduarbo \
+  --home=/nas/config/%p \
+  --name=kodi \
   -- \
     --network=homelab \
     -p 8080:8080 \
