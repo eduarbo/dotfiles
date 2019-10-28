@@ -11,18 +11,19 @@ ExecStartPre=-/usr/bin/docker pull pihole/pihole
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name pihole \
+    --name=%p \
     --network=homelab \
     -p 53:53/tcp \
     -p 53:53/udp \
+    -p 67:67/udp \
     -p 80:80 \
     -p 443:443 \
     -e TZ=America/Mexico_City \
-    -v /nas/config/etc-pihole/:/etc/pihole/ \
-    -v /nas/config/etc-dnsmasq.d/:/etc/dnsmasq.d/ \
+    -v /nas/config/pihole/:/etc/pihole/ \
+    -v /nas/config/pihole/dnsmasq.d/:/etc/dnsmasq.d/ \
     --dns=127.0.0.1 \
     --dns=1.1.1.1 \
-    pihole/pihole:latest"
+    pihole/pihole"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p
 
