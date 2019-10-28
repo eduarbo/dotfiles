@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/nginx
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name nginx \
+    --name=nginx \
     --network=homelab \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
