@@ -12,13 +12,13 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/hydra2
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=hydra2 \
+    --name=%p \
     --network=homelab \
     -p 5076:5076 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/config/%p:/config \
+    -v /nas/config/hydra2:/config \
     -v /nas/downloads:/downloads \
     linuxserver/hydra2"
 ExecStop=/usr/bin/docker stop %p
