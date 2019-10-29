@@ -16,11 +16,12 @@ ExecStart=/bin/bash -c "\
     -p 53:53/tcp \
     -p 53:53/udp \
     -p 67:67/udp \
-    -p 80:80 \
+    -p 8989:80 \
     -p 443:443 \
     -e TZ=America/Mexico_City \
     -v /nas/config/pihole/:/etc/pihole/ \
     -v /nas/config/pihole/dnsmasq.d/:/etc/dnsmasq.d/ \
+    -e VIRTUAL_HOST=pihole.lan \
     --dns=127.0.0.1 \
     --dns=1.1.1.1 \
     pihole/pihole"
