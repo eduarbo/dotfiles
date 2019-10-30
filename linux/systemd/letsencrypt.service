@@ -1,0 +1,33 @@
+[Unit]
+Description=Letsencrypt container
+Requires=docker.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker pull linuxserver/letsencrypt
+# run docker command in a subshell to wait for it to fully load
+ExecStart=/bin/bash -c "\
+  /usr/bin/docker run \
+    --name=letsencrypt \
+    --cap-add=NET_ADMIN \
+    --network=homelab \
+    -e PUID=$(id -u eduarbo) \
+    -e PGID=$(id -g eduarbo) \
+    -e TZ=America/Mexico_City \
+    -e URL=eduarbo.com \
+    -e SUBDOMAINS=wildcard \
+    -e VALIDATION=dns \
+    -e DNSPLUGIN=cloudflare \
+    -e EMAIL=eduarbo@gmail.com \
+    -e DHLEVEL=2048 \
+    -e ONLY_SUBDOMAINS=true \
+    -e STAGING=false \
+    -v /nas/config/%p:/config \
+    linuxserver/letsencrypt"
+ExecStop=/usr/bin/docker stop %p
+ExecReload=/usr/bin/docker restart %p
+
+[Install]
+WantedBy=multi-user.target
