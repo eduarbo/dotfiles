@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker pull pihole/pihole
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=%p \
+    --name=pihole \
     --network=homelab \
     -p 53:53/tcp \
     -p 53:53/udp \
