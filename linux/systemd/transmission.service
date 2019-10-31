@@ -10,6 +10,7 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/transmission
 # run docker command in a subshell to wait for it to fully load
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
+    --rm \
     --name=%p \
     -p 9091:9091 \
     -p 51413:51413 \
