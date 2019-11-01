@@ -24,7 +24,7 @@
        ;; ido               ; the other *other* search engine...
        ;; (ivy              ; a search engine for love and life
        ;;  +fuzzy
-       ;; ;;  ;; +icons
+       ;;  ;; +icons
        ;;  +prescient
        ;;  )
 
@@ -60,6 +60,7 @@
        (format           ; automated prettiness
         ;; +onsave
         )
+       ;; god               ; run Emacs commands without modifier keys
        ;; lispy             ; vim for lisp, for people who dont like vim
        multiple-cursors  ; editing in many places at once
        ;; objed             ; text object editing for the innocent
@@ -90,7 +91,7 @@
        docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;; ein               ; tame Jupyter notebooks with emacs
-       eval              ; run code, run (also, repls)
+       (eval +overlay)   ; run code, run (also, repls)
        (flycheck         ; tasing you for every semicolon you forget
         +childframe)
        flyspell          ; tasing you for misspelling mispelling
@@ -120,11 +121,12 @@
        ;; crystal           ; ruby at the speed of c
        ;; csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
-       ;; erlang            ; an elegant language for a more civilized age
        ;; elixir            ; erlang done right
        ;; elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
+       ;; erlang            ; an elegant language for a more civilized age
        ;; ess               ; emacs speaks statistics
+       ;; faust             ; dsp, but you get to keep your soul
        ;; fsharp            ; ML stands for Microsoft's Language
        ;; go                ; the hipster dialect
        ;; (haskell +intero) ; a language that's lazier than I am
@@ -147,6 +149,7 @@
        ;; ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
+        ;; +hugo            ; use Emacs for hugo blogging
         +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
         +present         ; using org-mode for presentations
@@ -171,7 +174,9 @@
        ;; solidity          ; do you need a blockchain? No.
        ;; swift             ; who asked for emoji variables?
        ;; terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       (web              ; the tubes
+        +lsp
+        )
 
        :email
        ;; (mu4e +gmail)       ; WIP
