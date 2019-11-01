@@ -150,6 +150,10 @@
 ;; ┗━┛╹ ╹┗┛ ╹ ╹┗━┛┗━╸╹┗╸╹╹   ╹
 ;; javascript
 
+;; Normalize indentation level
+(set-editorconfig-indent-var! '(rjsx-mode js-indent-level sgml-basic-offset))
+(after! js2-mode (setq js-chain-indent nil))
+
 (after! tide
   (setq tide-always-show-documentation nil
         tide-completion-detailed nil)
