@@ -64,7 +64,7 @@
 
       :gnv "s-/"  #'which-key-show-top-level
       :nv  ";"    #'evil-ex
-      :nv  ":"    #'eval-expression
+      :nv  ":"    #'pp-eval-expression
 
       :n "#"      #'evilnc-comment-or-uncomment-lines
       :v "#"      #'comment-or-uncomment-region
@@ -374,7 +374,7 @@
 ;; Leader
 
 (map! :leader
-      :desc "Eval expression"       ":"    #'eval-expression
+      :desc "Eval expression"       ":"    #'pp-eval-expression
       :desc "M-x"                   ";"    #'execute-extended-command
       :desc "Switch scratch buffer" "X"    #'doom/switch-to-project-scratch-buffer
 
