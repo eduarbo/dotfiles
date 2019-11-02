@@ -223,17 +223,19 @@
       (:when (featurep! :completion ivy)
         (:after ivy
           :map ivy-minibuffer-map
-          [C-return] #'ivy-call-and-recenter  ; preview file
-          "C-o"      #'ivy-dispatching-done-hydra
-          "s-o"      #'hydra-ivy/body)
+          [S-down]   #'scroll-up-command
+          [S-up]     #'scroll-down-command
+          [S-left]   #'beginning-of-buffer
+          [S-right]  #'end-of-buffer
+          [tab]      #'ivy-call-and-recenter)
         (:after counsel
           :map counsel-ag-map
-          [C-return]    #'ivy-call-and-recenter ; preview
           [backtab]  #'+ivy/woccur
-          "C-,"      #'+ivy/git-grep-other-window-action)
+          [C-return] #'+ivy/git-grep-other-window-action
+          "C-o"      #'+ivy/git-grep-other-window-action)
         (:after swiper
           :map swiper-map
-          [backtab] #'+ivy/wgrep-occur))
+          [backtab] #'+ivy/woccur))
 
       (:when (featurep! :completion helm)
         (:after helm
