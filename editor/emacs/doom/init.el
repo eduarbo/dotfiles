@@ -19,13 +19,13 @@
        (company          ; the ultimate code completion backend
         ;; +childframe
         )
-       (helm +fuzzy)     ; the *other* search engine for love and life
+       ;; (helm +fuzzy)     ; the *other* search engine for love and life
        ;; ido               ; the other *other* search engine...
-       ;; (ivy              ; a search engine for love and life
-       ;;  +fuzzy
-       ;;  ;; +icons
-       ;;  +prescient
-       ;;  )
+       (ivy              ; a search engine for love and life
+        ;; +fuzzy
+        +icons
+        +prescient
+        )
 
        :ui
        ;; deft              ; notational velocity for Emacs
