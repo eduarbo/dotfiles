@@ -90,18 +90,22 @@
 (use-package! nginx-mode
   :mode ("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode))
 
+;; Hide line numbers
+(remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
+;; Hide indent lines
+(remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
+
 
 ;; ╺┳╸┏━╸╻ ╻╺┳╸   ┏┳┓┏━┓╺┳┓┏━╸
 ;;  ┃ ┣╸ ┏╋┛ ┃ ╺━╸┃┃┃┃ ┃ ┃┃┣╸
 ;;  ╹ ┗━╸╹ ╹ ╹    ╹ ╹┗━┛╺┻┛┗━╸
 ;; Text mode
 
-;; Hide line numbers
-(remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
-;; Hide indent lines
-(remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
 ;; Enable word wrap only for text-mode
 (add-hook! 'text-mode-hook #'turn-on-visual-line-mode)
+
+(after! text-mode
+  (set-company-backend! 'text-mode 'company-ispell 'company-capf))
 
 
 ;; ┏━┓┏━┓┏━┓┏━╸   ┏┳┓┏━┓╺┳┓┏━╸
