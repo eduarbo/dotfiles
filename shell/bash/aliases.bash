@@ -87,6 +87,7 @@ alias localip='ipconfig getifaddr en1'
 alias whois='whois -h whois-servers.net'
 alias ipinfo="curl ipinfo.io/json"
 
+# FIXME make it work on Debian/Linux
 # Copy my public key to my clipboard
 alias pubkey='more ~/.ssh/id_rsa.pub | pbcopy | echo "=> Public key copied to pasteboard"'
 
