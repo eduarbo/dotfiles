@@ -142,7 +142,11 @@
         tide-completion-detailed nil)
   ;; Try to ignore case
   (setq completion-ignore-case t
-        tide-completion-ignore-case t))
+        tide-completion-ignore-case t)
+
+  ;; Disable eldoc for tide, multiline eldoc is very annoying and unfortunately
+  ;; I can't disable it by setting the VAR `eldoc-echo-area-use-multiline-p`
+  (advice-remove #'tide-setup :after #'eldoc-mode))
 
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
@@ -150,6 +154,7 @@
 ;; Company is more useful than emmet in these modes, so... fuck off!
 (remove-hook! '(rjsx-mode-hook css-mode-hook)
               #'emmet-mode)
+
 
 ;; ┏┳┓╻┏━┓┏━╸
 ;; ┃┃┃┃┗━┓┃
