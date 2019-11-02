@@ -184,10 +184,10 @@
       (:after evil-snipe
         "C-s"    #'evil-snipe-repeat
         "C-S-s"  #'evil-snipe-repeat-reverse))
+
 ;; help
 (map! (:map help-map
         "H"   #'+lookup/documentation))
-
 
 ;; repl
 ;; FIXME
@@ -229,7 +229,7 @@
           :map counsel-ag-map
           [C-return]    #'ivy-call-and-recenter ; preview
           [backtab]  #'+ivy/woccur
-          "C-,"      (+ivy-do-action! #'+ivy-git-grep-other-window-action))
+          "C-,"      #'+ivy/git-grep-other-window-action)
         (:after swiper
           :map swiper-map
           [backtab] #'+ivy/wgrep-occur))
