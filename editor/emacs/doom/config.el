@@ -27,6 +27,16 @@
 ;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 ;; a e s t h e t i c
 
+
+;; (load-theme 'doom-one t)
+(load-theme 'doom-vibrant t)
+;; (load-theme 'doom-dracula t)
+;; (load-theme 'doom-oceanic-next t)
+;; (load-theme 'doom-palenight t)
+;; (load-theme 'doom-challenger-deep t)
+;; (load-theme 'doom-moonlight t)
+;; (load-theme 'doom-one-light t)
+
 ;; Fonts
 (setq doom-font (font-spec :family "Hack" :size 14)
       doom-serif-font (font-spec :family "Fira Code")
