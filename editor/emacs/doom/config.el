@@ -164,6 +164,9 @@
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
 
+;; Company is more useful than emmet in these modes, so... fuck off!
+(remove-hook! '(rjsx-mode-hook css-mode-hook)
+              #'emmet-mode)
 
 ;; ┏┳┓╻┏━┓┏━╸
 ;; ┃┃┃┃┗━┓┃
