@@ -1,6 +1,7 @@
 prettier
 typescript
 typescript-language-server
+bash-language-server
 vscode-html-languageserver-bin
 vscode-css-languageserver-bin
 lua-fmt
@@ -8,3 +9,4 @@ eslint
 eslint_d
 eslint-config-airbnb-base
 eslint-plugin-import
+stylelint
