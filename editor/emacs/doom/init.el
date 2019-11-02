@@ -17,7 +17,6 @@
 
        :completion
        (company          ; the ultimate code completion backend
-        ;; +tng
         ;; +childframe
         )
        (helm +fuzzy)     ; the *other* search engine for love and life
