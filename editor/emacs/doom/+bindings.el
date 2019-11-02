@@ -35,12 +35,9 @@
                  (and (featurep! :editor snippets)
                       (bound-and-true-p yas-minor-mode)
                       (yas-maybe-expand-abbrev-key-filter 'yas-expand))
-                 'yas-expand
-                 (and (featurep! :completion company)
-                      ;; FIXME this breaks company-lsp
-                      ;; (+company-has-completion-p)
-                      )
-                 'company-indent-or-complete-common)
+                 #'yas-expand
+                 (and (featurep! :completion company))
+                 #'company-indent-or-complete-common)
 
       (:when (featurep! :ui workspaces)
         "s-t" #'+workspace/new
@@ -209,6 +206,9 @@
 ;;; :completion
 (map! (:when (featurep! :completion company)
         (:prefix [backtab]
+          :i [tab] #'+company/complete
+          :i [backtab] #'company-indent-or-complete-common
+
           :i "l"    #'+company/whole-lines
           :i "k"    #'+company/dict-or-keywords
           :i "f"    #'company-files
