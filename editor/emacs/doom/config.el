@@ -103,6 +103,8 @@
 ;; underscores
 (global-subword-mode)
 
+;; http://blog.binchen.org/posts/how-to-be-extremely-efficient-in-emacs.html
+;; https://github.com/redguardtoo/emacs.d/blob/master/lisp/init-keyfreq.el
 (use-package! keyfreq
   :config
   (keyfreq-mode 1)
