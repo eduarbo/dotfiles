@@ -7,29 +7,6 @@
 ;;       ▀▀▀▀▀•  ▀█▄▀▪ ▀█▄▀▪▀▀  █▪▀▀▀    ·▀▀▀  ▀█▄▀▪▀▀ █▪▀▀▀ ▀▀▀·▀▀▀▀
 ;;
 ;;                      == Project & Code conventions ==
-;;
-;; https://github.com/hlissner/doom-emacs/issues/839#issuecomment-416209165
-;;
-;; namespace-symbol-name => public variable or function
-;; namespace--symbol-name => private one
-
-;; + `doom/abc` A public, interactive command, designed to be used via `M-x` or
-;;   a keybinding.
-;; + `doom:abc` A public evil operator, motion or command.
-;; + `doom|abc` A public, non-interactive function meant to be used as a hook.
-;; + `doom*abc` Functions designed to be used as advice for other functions.
-;; + `abc!` A public Doom "autodef" function or macro. An autodef should always
-;;   be defined, even if its containing module is disabled (i.e. they will not
-;;   throw a void-function error). The purpose of this is to avoid peppering
-;;   module configs with conditionals or `after!` blocks before using their
-;;   APIs. They should noop if their module is disabled, and should be zero-cost
-;;   in the case their module is disabled.
-
-;;   Autodefs usually serve to configure Doom or a module. [and are usually
-;;   syntactic sugar]
-;; + Functions prefixed with `+abc...` belong to a module, e.g.
-;;   `+emacs-lisp|init-hook` is a hook function in the `lang/emacs-lisp` module.
-;; + `=abc` An interactive command that invokes an app module.
 
 
 (defvar dotfiles-dir "~/dev/dotfiles")
