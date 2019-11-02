@@ -191,7 +191,6 @@
         "H"   #'+lookup/documentation))
 
 ;; repl
-;; FIXME
 (map! :map comint-mode-map
       :n "C-h"   #'evil-window-left
       :n "C-j"   #'evil-window-down

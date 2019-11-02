@@ -235,5 +235,4 @@
 (use-package! org-randomnote
   :commands org-randomnote
   :init
-  ;; FIXME use expand-file-name
-  (setq org-randomnote-candidates '("~/Documents/org/todo.org" )))
+  (setq org-randomnote-candidates (list (expand-file-name "todo.org" org-directory))))
