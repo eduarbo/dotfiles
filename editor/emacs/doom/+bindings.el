@@ -31,13 +31,14 @@
       :m  [up]   #'multi-previous-line
       :m  [down] #'multi-next-line
 
-      :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
-                 (and (featurep! :editor snippets)
-                      (bound-and-true-p yas-minor-mode)
-                      (yas-maybe-expand-abbrev-key-filter 'yas-expand))
-                 #'yas-expand
-                 (and (featurep! :completion company))
-                 #'company-indent-or-complete-common)
+      (:map prog-mode-map
+        :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
+                   (and (featurep! :editor snippets)
+                        (bound-and-true-p yas-minor-mode)
+                        (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+                   #'yas-expand
+                   (and (featurep! :completion company))
+                   #'company-indent-or-complete-common))
 
       (:when (featurep! :ui workspaces)
         "s-t" #'+workspace/new
@@ -205,19 +206,19 @@
 
 ;;; :completion
 (map! (:when (featurep! :completion company)
-        (:prefix [backtab]
-          :i [tab] #'+company/complete
-          :i [backtab] #'company-indent-or-complete-common
+        [C-escape]     #'+company/complete
 
-          :i "l"    #'+company/whole-lines
-          :i "k"    #'+company/dict-or-keywords
-          :i "f"    #'company-files
-          :i "t"    #'company-etags
-          :i "s"    #'company-ispell
-          :i "y"    #'company-yasnippet
-          :i "o"    #'company-capf
-          :i "n"    #'+company/dabbrev
-          :i "p"    #'+company/dabbrev-code-previous))
+        (:map prog-mode-map
+          (:prefix [backtab]
+            :i "l"    #'+company/whole-lines
+            :i "k"    #'+company/dict-or-keywords
+            :i "f"    #'company-files
+            :i "t"    #'company-etags
+            :i "s"    #'company-ispell
+            :i "y"    #'company-yasnippet
+            :i "o"    #'company-capf
+            :i "n"    #'+company/dabbrev
+            :i "p"    #'+company/dabbrev-code-previous)))
 
       (:when (featurep! :completion ivy)
         (:after ivy
