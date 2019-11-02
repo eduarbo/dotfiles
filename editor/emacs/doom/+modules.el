@@ -66,7 +66,6 @@
      ((t :foreground "#83898d" :box (:line-width -1))))))
 
 (after! counsel
-  ;; TODO add .git into a .ignore file
   (setq counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never --glob '!.git' %s"
         counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"))
 
