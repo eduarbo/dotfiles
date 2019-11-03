@@ -17,7 +17,7 @@ ExecStart=/bin/bash -c "\
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/config/%p:/config \
+    -v /nas/home/homelab/%p:/config \
     homeassistant/home-assistant"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p

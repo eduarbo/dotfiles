@@ -18,7 +18,7 @@ ExecStart=/bin/bash -c "\
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/config/%p:/conf \
+    -v /nas/home/homelab/%p:/conf \
     -v /nas/downloads:/data \
     abcminiuser/docker-aria2-with-webui"
 ExecStop=/usr/bin/docker stop %p

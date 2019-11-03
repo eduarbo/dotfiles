@@ -17,7 +17,7 @@ ExecStart=/bin/bash -c "\
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/config/%p:/config \
+    -v /nas/home/homelab/%p:/config \
     -v /nas:/nas \
     -v /nas/downloads:/downloads \
     linuxserver/nzbget"

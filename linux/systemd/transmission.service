@@ -19,7 +19,7 @@ ExecStart=/bin/bash -c "\
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
     -e TRANSMISSION_WEB_HOME=/combustion-release/ \
-    -v /nas/config/transmission:/config \
+    -v /nas/home/homelab/transmission:/config \
     -v /nas/downloads:/downloads \
     -v /nas/downloads/watch:/watch \
     linuxserver/transmission"
