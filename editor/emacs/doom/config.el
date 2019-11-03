@@ -154,9 +154,9 @@
   (setq completion-ignore-case t
         tide-completion-ignore-case t)
 
-  ;; Disable eldoc for tide, multiline eldoc is very annoying and unfortunately
-  ;; I can't disable it by setting the VAR `eldoc-echo-area-use-multiline-p`
-  (advice-remove #'tide-setup :after #'eldoc-mode))
+  ;; Disable eldoc for tide. Multiline eldoc is very annoying and unfortunately
+  ;; the VAR `eldoc-echo-area-use-multiline-p` doesn't work as I expected
+  (advice-remove #'tide-setup #'eldoc-mode))
 
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
