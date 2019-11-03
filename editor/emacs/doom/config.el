@@ -152,11 +152,7 @@
         tide-completion-detailed nil)
   ;; Try to ignore case
   (setq completion-ignore-case t
-        tide-completion-ignore-case t)
-
-  ;; Disable eldoc for tide. Multiline eldoc is very annoying and unfortunately
-  ;; the VAR `eldoc-echo-area-use-multiline-p` doesn't work as I expected
-  (advice-remove #'tide-setup #'eldoc-mode))
+        tide-completion-ignore-case t))
 
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
