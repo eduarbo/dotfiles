@@ -28,8 +28,8 @@
 ;; a e s t h e t i c
 
 
-;; (load-theme 'doom-one t)
-(load-theme 'doom-vibrant t)
+(load-theme 'doom-one t)
+;; (load-theme 'doom-vibrant t)
 ;; (load-theme 'doom-dracula t)
 ;; (load-theme 'doom-oceanic-next t)
 ;; (load-theme 'doom-palenight t)
