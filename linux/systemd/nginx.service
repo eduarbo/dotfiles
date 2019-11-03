@@ -18,7 +18,7 @@ ExecStart=/bin/bash -c "\
     -e TZ=America/Mexico_City \
     -p 80:80 \
     -p 443:443 \
-    -v /nas/config/%p:/config \
+    -v /nas/home/homelab/%p:/config \
     linuxserver/nginx"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p

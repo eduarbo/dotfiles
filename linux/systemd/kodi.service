@@ -10,7 +10,7 @@ ExecStart=/usr/bin/x11docker \
   --alsa \
   --gpu \
   --hostuser=eduarbo \
-  --home=/nas/config/%p \
+  --home=/nas/home/homelab/%p \
   --name=kodi \
   -- \
     --network=homelab \

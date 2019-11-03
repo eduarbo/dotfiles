@@ -18,7 +18,7 @@ ExecStart=/bin/bash -c "\
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/config/hydra2:/config \
+    -v /nas/home/homelab/hydra2:/config \
     -v /nas/downloads:/downloads \
     linuxserver/hydra2"
 ExecStop=/usr/bin/docker stop %p

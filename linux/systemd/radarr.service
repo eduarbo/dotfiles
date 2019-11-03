@@ -18,7 +18,7 @@ ExecStart=/bin/bash -c "\
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/config/%p:/config \
+    -v /nas/home/homelab/%p:/config \
     -v /nas/downloads:/downloads \
     -v /nas/movies:/movies \
     linuxserver/radarr"

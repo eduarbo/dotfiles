@@ -23,8 +23,8 @@ ExecStart=/bin/bash -c "\
     -e DNS1=192.168.1.1 \
     -e DNS2=no \
     -e DNSMASQ_LISTENING=all \
-    -v /nas/config/pihole/:/etc/pihole/ \
-    -v /nas/config/pihole/dnsmasq.d/:/etc/dnsmasq.d/ \
+    -v /nas/home/homelab/pihole/:/etc/pihole/ \
+    -v /nas/home/homelab/pihole/dnsmasq.d/:/etc/dnsmasq.d/ \
     --dns=127.0.0.1 \
     --dns=1.1.1.1 \
     pihole/pihole"
