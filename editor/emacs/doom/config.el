@@ -154,6 +154,11 @@
   (setq completion-ignore-case t
         tide-completion-ignore-case t))
 
+;; No multiline eldoc please
+(after! lsp
+  (setq lsp-eldoc-enable-signature-help nil
+        lsp-eldoc-enable-hover nil))
+
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
 
