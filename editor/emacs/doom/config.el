@@ -162,6 +162,16 @@
               #'emmet-mode)
 
 
+;; ┏━╸┏━┓┏━┓┏━┓╻ ╻┏━┓╻
+;; ┃╺┓┣┳┛┣━┫┣━┛┣━┫┃┓┃┃
+;; ┗━┛╹┗╸╹ ╹╹  ╹ ╹┗┻┛┗━╸
+;; GraphQL
+
+(set-editorconfig-indent-var! '(graphql-mode graphql-indent-level))
+(after! graphql-mode
+  (add-to-list 'auto-mode-alist '("\\.graphql\\'" . graphql-mode)))
+
+
 ;; ┏┳┓╻┏━┓┏━╸
 ;; ┃┃┃┃┗━┓┃
 ;; ╹ ╹╹┗━┛┗━╸
