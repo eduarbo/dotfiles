@@ -6,7 +6,9 @@ const emacs = require('./mods/emacs');
 const fn = require('./mods/fn');
 const launcher = require('./mods/launcher');
 const qwerty = require('./mods/qwerty');
+const qwertyAlt = require('./mods/qwerty-alt');
 const symbols = require('./mods/symbols');
+const symbolsAlt = require('./mods/symbols-alt');
 
 const rev2 = [
   arrows,
@@ -20,8 +22,14 @@ const rev2 = [
 const karabiner = {
   profiles: [
     profile('Clean'),
-    profile('Mac & Cheese', rev2, {
-      selected: true,
+    profile('Mac & Cheese', [
+      arrows,
+      emacs,
+      fn,
+      symbols,
+      qwerty,
+      launcher,
+    ], {
     }),
     profile('Mac & Cheese (Mac kbd OFF if Corne ON)', rev2, {
       devices: [{
@@ -30,6 +38,16 @@ const karabiner = {
         ignore: false,
         manipulate_caps_lock_led: true,
       }],
+    }),
+    profile('eduarbo v3', [
+      arrows,
+      emacs,
+      fn,
+      symbolsAlt,
+      qwertyAlt,
+      launcher,
+    ], {
+      selected: true,
     }),
   ],
   global: {

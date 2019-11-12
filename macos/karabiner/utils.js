@@ -6,12 +6,12 @@ const from = (key, mandatory, optional = ['any']) => ({
   },
 });
 
-const to = keys => keys.map(([key, modifiers]) => ({
+const to = (keys) => keys.map(([key, modifiers]) => ({
   key_code: key,
   modifiers,
 }));
 
-const manipulator = options => ({
+const manipulator = (options) => ({
   type: 'basic',
   ...options,
 });
@@ -76,11 +76,11 @@ const modTap = (fromKey, toKey, toKeyOnTap, options) => ({
   to_if_alone: to(toKeyOnTap),
 });
 
-const getRules = mods => mods.reduce((rules, mod) => {
+const getRules = (mods) => mods.reduce((rules, mod) => {
   // when rules are passed in the form: [qwerty, ['thumbCluster', 'customQwerty']]
   if (Array.isArray(mod)) {
     const [modification, modRules] = mod;
-    return rules.concat(modification.rules.filter(rule => modRules.includes(rule.id)));
+    return rules.concat(modification.rules.filter((rule) => modRules.includes(rule.id)));
   }
 
   return rules.concat(mod.rules);
