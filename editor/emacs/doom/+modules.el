@@ -122,9 +122,8 @@
 
 (add-to-list 'org-modules 'org-habit t)
 
+(setq org-directory (expand-file-name "~/Documents/org"))
 (after! org
-  (setq org-directory (expand-file-name "~/Documents/org"))
-
   (setq org-ellipsis "  "  ;; ▼ ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
         org-bullets-bullet-list '("#")
         org-pretty-entities t
@@ -182,11 +181,21 @@
 ;; ┗━┛╹┗╸┗━┛   ┗━┛┗━┛┗━┛╹┗╸╹ ╹╹ ╹┗━╸
 ;; org-journal
 
+(setq org-journal-dir (expand-file-name "journal" org-directory))
 (after! org-journal
-  (setq org-journal-dir (expand-file-name "journal" org-directory)
-        org-extend-today-until 4 ;; sometimes my days end at 4am
+  (setq org-extend-today-until 4 ;; sometimes my days end at 4am
         org-journal-carryover-items nil
-        org-journal-file-type 'weekly))
+        org-journal-file-type 'weekly
+        ;; Check ~format-time-string~ help for a list of the formatting symbols
+        ;; org-journal-date-format 'org-journal-date-format-func
+        ;; org-journal-file-format "%Y/%Y-%m-%d %A.org"
+        ;; org-journal-date-prefix "#+TITLE: "
+        ;; FIXME Exclude journals from doom file-templates, that is overriding the TITLE
+        ;; org-journal-date-format "%A, %d %B %Y"
+        ;; org-journal-time-prefix "* "
+        ;; (org-journal-time-format "[%F %a %R]")
+        ;; org-journal-hide-entries-p nil
+        ))
 
 ;; FIXME exclude journal notes from templates
 ;; (setq +file-templates-alist
