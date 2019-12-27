@@ -6,11 +6,9 @@ const emacs = require('./mods/emacs');
 const fn = require('./mods/fn');
 const launcher = require('./mods/launcher');
 const qwerty = require('./mods/qwerty');
-const qwertyAlt = require('./mods/qwerty-alt');
 const symbols = require('./mods/symbols');
-const symbolsAlt = require('./mods/symbols-alt');
 
-const rev2 = [
+const rev3 = [
   arrows,
   emacs,
   fn,
@@ -22,32 +20,17 @@ const rev2 = [
 const karabiner = {
   profiles: [
     profile('Clean'),
-    profile('Mac & Cheese', [
-      arrows,
-      emacs,
-      fn,
-      symbols,
-      qwerty,
-      launcher,
-    ], {
+    profile('eduarbo v3', rev3, {
+      // selected: true,
     }),
-    profile('Mac & Cheese (Mac kbd OFF if Corne ON)', rev2, {
+    profile('eduarbo v3 (Mac kbd OFF if Corne ON)', rev3, {
+      selected: true,
       devices: [{
         identifiers: corneKeyboard,
         disable_built_in_keyboard_if_exists: true,
         ignore: false,
         manipulate_caps_lock_led: true,
       }],
-    }),
-    profile('eduarbo v3', [
-      arrows,
-      emacs,
-      fn,
-      symbolsAlt,
-      qwertyAlt,
-      launcher,
-    ], {
-      selected: true,
     }),
   ],
   global: {

@@ -1,16 +1,10 @@
 const { remap } = require('../../utils');
-const { corneKeyboard } = require('../devices');
 
 const mandatoryMods = ['left_shift'];
 const optionalMods = ['caps_lock', 'command', 'control', 'option'];
 const shiftedNumbersRow = 'pqwertyuio'.split('');
 const numbersRow = ['semicolon', ...'asdfghjkl'.split('')];
-const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey, {
-  // conditions: [{
-  //   type: 'device_unless',
-  //   identifiers: [corneKeyboard],
-  // }],
-});
+const remapToLayer = (keyCode, toKey) => remap([keyCode, mandatoryMods, optionalMods], toKey);
 
 module.exports = {
   title: 'Symbols layer',
@@ -19,27 +13,42 @@ module.exports = {
       description: 'Shifted numbers in upper row, numbers in home row, other symbols in lower row',
       manipulators: [
         // Upper row
+
+        // !@#$%^&*()
         ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num.toString(), ['left_shift']]])),
         remapToLayer('tab', [['f13']]),
+        // `
+        remapToLayer('open_bracket', [['grave_accent_and_tilde']]),
 
         // Home row
+
         ...numbersRow.map((key, num) => remapToLayer(key, [[num.toString()]])),
-        remapToLayer('quote', [['backslash', ['left_shift']]]),
+        // -
+        remapToLayer('caps_lock', [['hyphen']]),
+        // +
+        remapToLayer('quote', [['equal_sign', ['left_shift']]]),
 
         // Lower row
-        remapToLayer('left_shift', [['1', ['left_option']]]),
-        remapToLayer('grave_accent_and_tilde', [['1', ['left_option']]]),
+
+        // _
         remapToLayer('z', [['hyphen', ['left_shift']]]),
-        remapToLayer('x', [['hyphen']]),
-        remapToLayer('c', [['equal_sign', ['left_shift']]]),
+        // \
+        remapToLayer('x', [['backslash']]),
+        // |
+        remapToLayer('c', [['backslash', ['left_shift']]]),
+        // =
         remapToLayer('v', [['equal_sign']]),
-        remapToLayer('b', [['backslash']]),
+        // ~
+        remapToLayer('b', [['grave_accent_and_tilde', ['left_shift']]]),
+        // ñ tilde
         remapToLayer('n', [['n', ['left_option']]]),
+        // accent
         remapToLayer('m', [['e', ['left_option']]]),
+
+        // Do not shift these
         remapToLayer('comma', [['comma']]),
         remapToLayer('period', [['period']]),
         remapToLayer('slash', [['slash']]),
-        remapToLayer('right_shift', [['slash', ['left_shift', 'left_option']]]),
       ],
     },
   ],
