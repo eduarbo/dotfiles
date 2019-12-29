@@ -301,12 +301,16 @@ keymap(MISC, ({ normal }) => {
 
   function injectKillElementHintStyle() {
     const $css = document.createElement('style');
-    $css.type = 'text/css';
 
-    const styles = `.${firingWallClassName} * { outline: 1px dashed red; }`;
-    $css.appendChild(document.createTextNode(styles));
-    const $head = document.querySelector('head');
-    $head.appendChild($css);
+    if ($css) {
+      $css.type = 'text/css';
+
+      const styles = `.${firingWallClassName} * { outline: 1px dashed red; }`;
+      $css.appendChild(document.createTextNode(styles));
+
+      const $head = document.querySelector('head');
+      if ($head) $head.appendChild($css);
+    }
   }
 });
 
