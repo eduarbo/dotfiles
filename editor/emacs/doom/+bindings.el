@@ -14,188 +14,196 @@
 ;; ┗━┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗━┛
 ;; Globals
 
-(map! "s-;" #'execute-extended-command
-      "s-x" #'execute-extended-command
-      "s-." #'helpful-key
+(map!
+  "s-;" #'execute-extended-command
+  "s-x" #'execute-extended-command
+  "s-." #'helpful-key
 
-      "s-[" #'previous-buffer
-      "s-]" #'next-buffer
+  "s-[" #'previous-buffer
+  "s-]" #'next-buffer
 
-      "s-," (λ! (+eduarbo/find-file doom-private-dir))
-      "s-g" #'magit-status
-      "s-p" #'+treemacs/toggle
+  "s-," (λ! (+eduarbo/find-file doom-private-dir))
+  "s-g" #'magit-status
+  "s-p" #'+treemacs/toggle
 
-      "s-r" #'+eval/open-repl-other-window
-      "s-R" #'+eval/open-repl-same-window
+  "s-r" #'+eval/open-repl-other-window
+  "s-R" #'+eval/open-repl-same-window
 
-      :m  [up]   #'multi-previous-line
-      :m  [down] #'multi-next-line
+  :m  [up]   #'multi-previous-line
+  :m  [down] #'multi-next-line
 
-      (:map prog-mode-map
-        :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
-                   (and (featurep! :editor snippets)
-                        (bound-and-true-p yas-minor-mode)
-                        (yas-maybe-expand-abbrev-key-filter 'yas-expand))
-                   #'yas-expand
-                   (and (featurep! :completion company))
-                   #'company-indent-or-complete-common))
+  (:map prog-mode-map
+    :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
+               (and (featurep! :editor snippets)
+                 (bound-and-true-p yas-minor-mode)
+                 (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+               #'yas-expand
+               (and (featurep! :completion company))
+               #'company-indent-or-complete-common))
 
-      (:when (featurep! :ui workspaces)
-        "s-t" #'+workspace/new
-        "s-{" #'+workspace/switch-left
-        "s-}" #'+workspace/switch-right
-        "s-h" #'+workspace/switch-left
-        "s-l" #'+workspace/switch-right)
+  (:when (featurep! :ui workspaces)
+    "s-t" #'+workspace/new
+    "s-{" #'+workspace/switch-left
+    "s-}" #'+workspace/switch-right
+    "s-h" #'+workspace/switch-left
+    "s-l" #'+workspace/switch-right)
 
-      [remap evil-jump-to-tag] #'projectile-find-tag
-      [remap find-tag]         #'projectile-find-tag
+  [remap evil-jump-to-tag] #'projectile-find-tag
+  [remap find-tag]         #'projectile-find-tag
 
-      ;; Smarter RET in normal mode
-      :n "RET" (general-predicate-dispatch nil
-                 (and (bound-and-true-p flyspell-mode)
-                      (+flyspell-correction-at-point-p))
-                 'flyspell-correct-word-generic)
+  ;; Smarter RET in normal mode
+  :n "RET" (general-predicate-dispatch nil
+             (and (bound-and-true-p flyspell-mode)
+               (+flyspell-correction-at-point-p))
+             'flyspell-correct-word-generic)
 
-      ;; misc
-      :nvi "C-n"  #'sp-next-sexp
-      :nvi "C-p"  #'sp-previous-sexp
+  ;; misc
+  :nvi "C-n"  #'sp-next-sexp
+  :nvi "C-p"  #'sp-previous-sexp
 
-      :gnv "s-/"  #'which-key-show-top-level
-      :nv  ";"    #'evil-ex
-      :nv  ":"    #'pp-eval-expression
+  :gnv "s-/"  #'which-key-show-top-level
+  :nv  ";"    #'evil-ex
+  :nv  ":"    #'pp-eval-expression
 
-      :n "#"      #'evilnc-comment-or-uncomment-lines
-      :v "#"      #'comment-or-uncomment-region
+  :n "#"      #'evilnc-comment-or-uncomment-lines
+  :v "#"      #'comment-or-uncomment-region
 
-      ;; Shift text
-      :n  "<"     #'evil-shift-left-line
-      :n  ">"     #'evil-shift-right-line
-      ;; don't leave visual mode after shifting
-      :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
-      :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
+  ;; Shift text
+  :n  "<"     #'evil-shift-left-line
+  :n  ">"     #'evil-shift-right-line
+  ;; don't leave visual mode after shifting
+  :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
+  :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
 
-      :nv "H"     #'previous-buffer
-      :nv "L"     #'next-buffer
-      ;; deal with conflicts
-      (:after evil-magit
-        :map magit-mode-map
-        ;; FIXME Figure out a way to rebind `magit-log-refresh in the
-        ;; `magit-dispatch' transient command or just ignore it
-        "L" nil)
+  :nv "H"     #'previous-buffer
+  :nv "L"     #'next-buffer
+  ;; deal with conflicts
+  (:after evil-magit
+    :map magit-mode-map
+    ;; FIXME Figure out a way to rebind `magit-log-refresh in the
+    ;; `magit-dispatch' transient command or just ignore it
+    "L" nil)
 
-      :n  "C-."   (cond ((featurep! :completion ivy)   #'ivy-resume)
-                        ((featurep! :completion helm)  #'helm-resume))
+  :n  "C-."   (cond ((featurep! :completion ivy)   #'ivy-resume)
+                ((featurep! :completion helm)  #'helm-resume))
 
-      :n  "~"        #'evil-switch-to-windows-last-buffer
-      (:map evil-org-mode-map
-        :n  "~"        #'evil-switch-to-windows-last-buffer)
+  :n  "~"        #'evil-switch-to-windows-last-buffer
+  (:map evil-org-mode-map
+    :n  "~"        #'evil-switch-to-windows-last-buffer)
 
-      ;; Behave like a backspace
-      :gi [C-backspace]  #'backward-delete-char-untabify
+  ;; Behave like a backspace
+  :gi [C-backspace]  #'backward-delete-char-untabify
 
-      ;; :gi [S-backspace]  #'delete-forward-char
+  ;; :gi [S-backspace]  #'delete-forward-char
 
-      :gi "C-d"          #'evil-delete-line
-      :gi "C-S-d"        #'evil-delete-whole-line
-      :gi "C-S-u"        #'evil-change-whole-line
-      :gi "C-S-w"        #'backward-kill-sexp
+  :gi "C-d"          #'evil-delete-line
+  :gi "C-S-d"        #'evil-delete-whole-line
+  :gi "C-S-u"        #'evil-change-whole-line
+  :gi "C-S-w"        #'backward-kill-sexp
 
-      :gi "C-S-a"        #'sp-beginning-of-sexp
-      :gi "C-S-e"        #'sp-end-of-sexp
+  :gi "C-S-a"        #'sp-beginning-of-sexp
+  :gi "C-S-e"        #'sp-end-of-sexp
 
-      :gi "C-S-f"        #'sp-forward-sexp
-      :gi "C-S-b"        #'sp-backward-sexp
+  :gi "C-S-f"        #'sp-forward-sexp
+  :gi "C-S-b"        #'sp-backward-sexp
 
-      :gi "C-h"          #'left-char
-      :gi "C-l"          #'right-char
-      :gi "C-S-h"        #'sp-backward-symbol
-      :gi "C-S-l"        #'sp-forward-symbol
+  :gi "C-h"          #'left-char
+  :gi "C-l"          #'right-char
+  :gi "C-S-h"        #'sp-backward-symbol
+  :gi "C-S-l"        #'sp-forward-symbol
 
-      ;; Basic editing
-      :i "S-SPC"         #'tab-to-tab-stop
-      ;; TODO: Tranpose last two WORDS not those around
-      :gi "C-t"          #'transpose-words
-      ;; TODO: Tranpose last two SEXPS not those around
-      :gi "C-S-t"        #'transpose-sexps
+  ;; Basic editing
+  :i "S-SPC"         #'tab-to-tab-stop
+  ;; TODO: Tranpose last two WORDS not those around
+  :gi "C-t"          #'transpose-words
+  ;; TODO: Tranpose last two SEXPS not those around
+  :gi "C-S-t"        #'transpose-sexps
 
-      :nv "C-a"   #'evil-numbers/inc-at-pt
-      :nv "C-S-a" #'evil-numbers/dec-at-pt
+  :nv "C-a"   #'evil-numbers/inc-at-pt
+  :nv "C-S-a" #'evil-numbers/dec-at-pt
 
-      ;; Easier window/tab navigation
-      :inv "C-h"   #'evil-window-left
-      :inv "C-j"   #'evil-window-down
-      :inv "C-k"   #'evil-window-up
-      :inv "C-l"   #'evil-window-right
+  ;; Easier window/tab navigation
+  (:map (global-map comint-mode-map)
+    :ni "C-h"   #'evil-window-left
+    :ni "C-j"   #'evil-window-down
+    :ni "C-k"   #'evil-window-up
+    :ni "C-l"   #'evil-window-right
+    )
+  (:after evil-org
+    :map evil-org-mode-map
+    :ni "C-h"   #'evil-window-left
+    :ni "C-j"   #'evil-window-down
+    :ni "C-k"   #'evil-window-up
+    :ni "C-l"   #'evil-window-right
+    )
+  (:after treemacs-mode
+    :map treemacs-mode-map
+    :g "C-h"   #'evil-window-left
+    :g "C-l"   #'evil-window-right
+    )
 
-      ;; Fix conflicts
-      (:after flycheck
-        :map flycheck-error-list-mode-map
-        :nv "C-j" nil
-        :nv "C-k" nil)
-      (:after evil-magit
-        :map magit-mode-map
-        :nv "C-j" nil
-        :nv "C-k" nil)
+  ;; Fix conflicts
+  (:after flycheck
+    :map flycheck-error-list-mode-map
+    :nv "C-j" nil
+    :nv "C-k" nil)
+  (:after evil-magit
+    :map magit-mode-map
+    :nv "C-j" nil
+    :nv "C-k" nil)
 
-      ;; expand-region
-      :v "v"   (general-predicate-dispatch 'er/expand-region
-                 (eq (evil-visual-type) 'line)
-                 'evil-visual-char)
-      :v "C-v" #'er/contract-region
+  ;; expand-region
+  :v "v"   (general-predicate-dispatch 'er/expand-region
+             (eq (evil-visual-type) 'line)
+             'evil-visual-char)
+  :v "C-v" #'er/contract-region
 
-      :n  "s"     #'evil-surround-edit
-      :v  "s"     #'evil-surround-region
+  :n  "s"     #'evil-surround-edit
+  :v  "s"     #'evil-surround-region
 
-      (:prefix "g"
-        :nv "Q"    #'+eduarbo/unfill-paragraph
-        :nv "o"    #'avy-goto-char-timer
-        :nv "O"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
-        :nv "/"    #'+default/search-project
-        :n  "."    #'call-last-kbd-macro
+  (:prefix "g"
+    :nv "Q"    #'+eduarbo/unfill-paragraph
+    :nv "o"    #'avy-goto-char-timer
+    :nv "O"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
+    :nv "/"    #'+default/search-project
+    :n  "."    #'call-last-kbd-macro
 
-        ;; narrowing and widening
-        :nv "n"    #'+eduarbo/narrow-or-widen-dwim
-        :nv "TAB"  #'persp-switch)
+    ;; narrowing and widening
+    :nv "n"    #'+eduarbo/narrow-or-widen-dwim
+    :nv "TAB"  #'persp-switch)
 
-      (:after evil-easymotion
-        :map evilem-map
-        "d" (evilem-create #'evil-snipe-repeat
-                           :name 'evil-easymotion-snipe-forward
-                           :pre-hook (save-excursion (call-interactively #'evil-snipe-s))
-                           :bind ((evil-snipe-scope 'buffer)
-                                  (evil-snipe-enable-highlight)
-                                  (evil-snipe-enable-incremental-highlight)))
-        "D" (evilem-create #'evil-snipe-repeat
-                           :name 'evil-easymotion-snipe-backward
-                           :pre-hook (save-excursion (call-interactively #'evil-snipe-S))
-                           :bind ((evil-snipe-scope 'buffer)
-                                  (evil-snipe-enable-highlight)
-                                  (evil-snipe-enable-incremental-highlight)))
+  (:after evil-easymotion
+    :map evilem-map
+    "d" (evilem-create #'evil-snipe-repeat
+          :name 'evil-easymotion-snipe-forward
+          :pre-hook (save-excursion (call-interactively #'evil-snipe-s))
+          :bind ((evil-snipe-scope 'buffer)
+                  (evil-snipe-enable-highlight)
+                  (evil-snipe-enable-incremental-highlight)))
+    "D" (evilem-create #'evil-snipe-repeat
+          :name 'evil-easymotion-snipe-backward
+          :pre-hook (save-excursion (call-interactively #'evil-snipe-S))
+          :bind ((evil-snipe-scope 'buffer)
+                  (evil-snipe-enable-highlight)
+                  (evil-snipe-enable-incremental-highlight)))
 
-        "s" (evilem-create #'evil-snipe-repeat
-                                :bind ((evil-snipe-scope 'whole-buffer)
-                                       (evil-snipe-enable-highlight)
-                                       (evil-snipe-enable-incremental-highlight)))
+    "s" (evilem-create #'evil-snipe-repeat
+          :bind ((evil-snipe-scope 'whole-buffer)
+                  (evil-snipe-enable-highlight)
+                  (evil-snipe-enable-incremental-highlight)))
 
-        "S" (evilem-create #'evil-snipe-repeat-reverse
-                           :bind ((evil-snipe-scope 'whole-buffer)
-                                  (evil-snipe-enable-highlight)
-                                  (evil-snipe-enable-incremental-highlight))))
+    "S" (evilem-create #'evil-snipe-repeat-reverse
+          :bind ((evil-snipe-scope 'whole-buffer)
+                  (evil-snipe-enable-highlight)
+                  (evil-snipe-enable-incremental-highlight))))
 
-      (:after evil-snipe
-        "C-s"    #'evil-snipe-repeat
-        "C-S-s"  #'evil-snipe-repeat-reverse))
+  (:after evil-snipe
+    "C-s"    #'evil-snipe-repeat
+    "C-S-s"  #'evil-snipe-repeat-reverse))
 
 ;; help
 (map! (:map help-map
         "H"   #'+lookup/documentation))
-
-;; repl
-(map! :map comint-mode-map
-      :n "C-h"   #'evil-window-left
-      :n "C-j"   #'evil-window-down
-      :n "C-k"   #'evil-window-up
-      :n "C-l"   #'evil-window-right)
 
 
 ;; ┏┳┓┏━┓╺┳┓╻ ╻╻  ┏━╸┏━┓
@@ -252,13 +260,7 @@
 
         :n "C-S-l" #'+workspace/switch-right
         :n "C-S-h" #'+workspace/switch-left)
-
-      (:when (featurep! :ui treemacs)
-        (:map evil-treemacs-state-map
-          "C-h" #'evil-window-left
-          "C-l" #'evil-window-right
-          "s-j" #'multi-next-line
-          "s-k" #'multi-previous-line)))
+  )
 
 ;;; :editor
 (map! (:when (featurep! :editor fold)
