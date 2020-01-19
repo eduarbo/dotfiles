@@ -27,7 +27,6 @@
 ;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 ;; a e s t h e t i c
 
-
 (load-theme 'doom-one t)
 ;; (load-theme 'doom-vibrant t)
 ;; (load-theme 'doom-dracula t)
@@ -38,9 +37,11 @@
 ;; (load-theme 'doom-one-light t)
 
 ;; Fonts
-(setq doom-font (font-spec :family "Hack" :size 14)
-      doom-serif-font (font-spec :family "Fira Code")
-      doom-variable-pitch-font (font-spec :family "Noto Sans"))
+(setq
+  doom-font (font-spec :family "Hack" :size 14 :weight 'light)
+  doom-serif-font (font-spec :family "Fira Code")
+  doom-variable-pitch-font (font-spec :family "Noto Sans" :weight 'light)
+  )
 
  ;; A more useful title
  (setq frame-title-format '("%b   —   " (:eval (+workspace-current-name))))
@@ -64,21 +65,25 @@
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 ;; Sane defaults
 
-(setq-default
- ;; Enable accents
- ns-alternate-modifier 'none
- ;; Get some context when scrolling
- scroll-margin 10
- ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
- auto-save-visited-interval 20)
+(setq doom-leader-key ","
+      doom-localleader-key ", m")
+
+(setq
+  ;; Enable accents
+  ns-alternate-modifier 'none
+  ;; Get some context when scrolling
+  scroll-margin 10
+  ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
+  auto-save-visited-interval 20
 
 ;;; :editor evil
-(setq evil-split-window-below t
-      evil-vsplit-window-right t)
+  evil-split-window-below t
+  evil-vsplit-window-right t
 
-;; Which-key
-(setq which-key-idle-delay 0.3
-      which-key-idle-secondary-delay 0)
+  ;; Which-key
+  which-key-idle-delay 0.3
+  which-key-idle-secondary-delay 0
+  )
 
 ;; Dired
 (setq dired-use-ls-dired t)
@@ -96,9 +101,6 @@
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
-
-(use-package! nginx-mode
-  :mode ("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode))
 
 ;; Hide line numbers
 (remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
@@ -133,6 +135,9 @@
 (add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
+
+(use-package! nginx-mode
+  :mode "/nginx/sites-\\(?:available\\|enabled\\)/")
 
 (use-package! vimrc-mode
   :mode "\\.?vim\\(rc\\)?\\'")
@@ -181,6 +186,6 @@
 ;; ┃┃┃┃┗━┓┃
 ;; ╹ ╹╹┗━┛┗━╸
 
-(load! "./+modules.el")
-(load! "./+dashboard.el")
-(load! "./+bindings.el")
+(load! "+modules.el")
+(load! "+dashboard.el")
+(load! "+bindings.el")

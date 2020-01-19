@@ -120,60 +120,111 @@
 ;; ┗━┛╹┗╸┗━┛   ╹ ╹┗━┛╺┻┛┗━╸
 ;; org-mode
 
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+
+(load! "+gtd.el")
+
+;; Load org-habit with org.el
+(setq org-habit-graph-column 105)
 (add-to-list 'org-modules 'org-habit t)
 
-(setq org-directory (expand-file-name "~/Documents/org"))
+;; Paths
+(setq
+  org-directory (expand-file-name "~/Documents/org")
+  org-archive-location (expand-file-name "archive/%s::" org-directory)
+  )
+
+;; Options
+
+(setq
+  ;; Disable template for .org files to avoid conflicts with capture tools
+  +file-templates-alist (remove '("\\.org$" :trigger "__" :mode org-mode) +file-templates-alist)
+  )
+
 (after! org
-  (setq org-ellipsis "  "  ;; ▼ ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
-        org-bullets-bullet-list '("#")
-        org-pretty-entities t
-        org-hide-emphasis-markers t)
+  (setq
+    org-pretty-entities t
+    org-hide-emphasis-markers t
 
-  (setq org-log-done t
-        org-startup-indented t
-        org-startup-truncated nil
-        org-startup-with-inline-images t
-        org-imenu-depth 5
-        org-outline-path-complete-in-steps nil
-        org-highest-priority ?A
-        org-default-priority ?B
-        org-lowest-priority ?C
-        org-image-actual-width '(300)
+    org-log-done 'time
+    org-startup-indented t
+    org-startup-truncated nil
+    org-startup-with-inline-images t
+    org-imenu-depth 5
+    org-outline-path-complete-in-steps nil
+    org-highest-priority ?A
+    org-default-priority ?B
+    org-lowest-priority ?C
+    org-image-actual-width '(600)
+    org-expiry-inactive-timestamps t
+    org-show-notification-handler 'message
 
-        ;; requires org-expiry
-        org-expiry-inactive-timestamps t
+    ;; By using unique ID's for links in Org-mode, links will work even if you
+    ;; move them across files
+    org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
+    org-clone-delete-id t
 
-        ;; requires org-clock
-        org-show-notification-handler 'message
+    ;; org-completion-use-ido t
+    ;; org-goto-max-level 10
+    ;; org-goto-interface 'outline-path-completion
+    ;; org-src-fontify-natively t
+    ;; org-special-ctrl-a/e t
+    ;; org-special-ctrl-k t
+    ;; org-yank-adjusted-subtrees t
 
-        ;; org-yank-adjusted-subtrees t
+    org-file-apps
+    '((auto-mode . emacs)
+       ("\\.x?html?\\'" . "firefox %s")
+       ("\\.pdf\\'" . "open %s"))
+    )
 
-        org-file-apps
-        '((auto-mode . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" . "firefox %s")
-          ("\\.pdf\\'" . "open %s")))
 
-  ;; By using unique ID's for links in Org-mode, links will work even if you
-  ;; move them across files
-  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
-        org-clone-delete-id t)
+  ;; Styling
+  (setq
+    org-ellipsis "  "  ;; ▼ ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
+    org-bullets-bullet-list '("𝍠" "𝍡" "𝍢" "𝍤" "𝍥" "𝍦" "𝍧" "𝍨")
+    ;; org-bullets-bullet-list '("Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ")
+    ;; org-bullets-bullet-list '("𐄇" "𐄈" "𐄉" "𐄊" "𐄋" "𐄌" "𐄍" "𐄎" "𐄏")
+    ;; org-bullets-bullet-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")
+    )
+  )
 
-  (setq +file-templates-alist
-        (remove '("\\.org$" :trigger "__" :mode org-mode) +file-templates-alist))
+(add-hook! org-mode
+  (custom-set-faces!
+    '(link :weight normal)
+    '((org-document-title outline-1 outline-2 outline-3 outline-4 outline-5 outline-6 outline-7 outline-8)
+       :weight normal))
 
-  (add-to-list 'org-global-properties
-               ;; TODO make a decision
-               ;; '("Effort_ALL" . "1h 2h 4h 6h 8h 16h"))
-               '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
+  (set-face-attribute 'variable-pitch nil :font doom-variable-pitch-font)
+  ;; (set-face-attribute 'fixed-pitch nil :font doom-font)
+  (set-face-attribute 'fixed-pitch nil :family "Hack")
+  (set-face-attribute 'org-document-title nil :height 1.4)
+  (set-face-attribute 'org-level-1 nil :height 1.2)
+  (set-face-attribute 'org-level-2 nil :height 1.1)
+  ;; (set-face-attribute 'org-verbatim nil :foreground "#ECBE7B" :box t)
 
-  (defun org-config-faces ()
-    (set-face-attribute 'org-document-title nil :height 1.4)
-    (set-face-attribute 'org-level-1 nil :height 1.2)
-    (set-face-attribute 'org-level-2 nil :height 1.1))
-  (add-hook 'org-mode-hook 'org-config-faces)
-
-  (load! "./+gtd.el"))
+  ;; Keep the fixed-pitch for some faces when variable-pitch-mode is enabled
+  (dolist (face '(
+                   org-block
+                   org-code
+                   org-document-info-keyword
+                   org-indent
+                   org-meta-line
+                   org-property-value
+                   org-special-keyword
+                   org-table
+                   org-tag
+                   org-todo
+                   hl-todo
+                   org-block-begin-line
+                   org-verbatim
+                   ;; org-headline-done
+                   org-date
+                   font-lock-comment-face
+                   line-number
+                   line-number-current-line
+                   ))
+    (set-face-attribute face nil :inherit 'fixed-pitch)))
 
 
 ;; ┏━┓┏━┓┏━╸    ┏┓┏━┓╻ ╻┏━┓┏┓╻┏━┓╻

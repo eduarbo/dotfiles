@@ -1,16 +1,5 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
-
-(setq doom-leader-key ","
-      doom-localleader-key ", m")
-
-;; Make s and S the universal repeat-keys in evil-mode
-(setq +default-repeat-keys (cons "s" "S"))
-;; STOP binding ; and , as universal repeat-keys, they already have a job
-(setq evil-snipe-parent-transient-map (make-sparse-keymap))
-
 (doom! :input
        ;; chinese
        ;; japanese
@@ -25,6 +14,7 @@
         ;; +fuzzy
         +icons
         +prescient
+        ;; +childframe
         )
 
        :ui
@@ -83,6 +73,13 @@
        ;; term              ; terminals in Emacs
        ;; vterm             ; another terminals in Emacs
 
+       :checkers
+       (syntax              ; tasing you for every semicolon you forget
+        +childframe
+        )
+       ;;spell             ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
        :tools
        ;; ansible
        ;; debugger          ; FIXME stepping through code, to help you add bugs
@@ -91,12 +88,11 @@
        editorconfig      ; let someone else argue about tabs vs spaces
        ;; ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)   ; run code, run (also, repls)
-       (flycheck         ; tasing you for every semicolon you forget
-        +childframe)
-       flyspell          ; tasing you for misspelling mispelling
        gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
-        +docsets)        ; ...or in Dash docsets locally
+        +docsets         ; ...or in Dash docsets locally
+        +dictionary
+        )
        lsp
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
@@ -149,8 +145,8 @@
        (org              ; organize your plain life in plain text
         +dragndrop       ; drag & drop files/images into org buffers
         ;; +hugo            ; use Emacs for hugo blogging
-        +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
+        ;; +pomodoro        ; be fruitful with the tomato technique
         +present         ; using org-mode for presentations
         +journal
         )
@@ -180,17 +176,11 @@
        ;; notmuch             ; WIP
        ;; (wanderlust +gmail) ; WIP
 
-       ;; Applications are complex and opinionated modules that transform Emacs
-       ;; toward a specific purpose. They may have additional dependencies and
-       ;; should be loaded late.
        :app
        ;; calendar
        ;; irc               ; how neckbeards socialize
        ;; (rss +org)        ; emacs as an RSS reader
        ;; twitter           ; twitter client https://twitter.com/vnought
-       ;; (write            ; emacs for writers (fiction, notes, papers, etc.)
-       ;;  +wordnut         ; wordnet (wn) search
-       ;;  +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :config
        ;; For literate config users. This will tangle+compile a config.org
