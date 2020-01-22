@@ -12,6 +12,7 @@ ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
     --name=%p \
+    --network=homelab \
     -p 9091:9091 \
     -p 51413:51413 \
     -p 51413:51413/udp \
