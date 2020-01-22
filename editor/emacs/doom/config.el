@@ -48,7 +48,7 @@
 
 ;; Overwrite default doom theme faces for todo keywords
 (defun eduarbo--set-hl-todo-keyword-faces ()
-  (setq hl-todo-keyword-faces `(("TODO"  . ,(face-foreground 'warning))
+  (setq hl-todo-keyword-faces (("TODO"  . ,(face-foreground 'warning))
                                 ("FIXME" . ,(face-foreground 'error))
                                 ("NOTE"  . ,(face-foreground 'success)))))
 (add-hook! 'doom-load-theme-hook #'eduarbo--set-hl-todo-keyword-faces)
@@ -65,8 +65,12 @@
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 ;; Sane defaults
 
-(setq doom-leader-key ","
-      doom-localleader-key ", m")
+(setq
+  doom-leader-key ","
+  doom-leader-alt-key "C-,"
+  doom-localleader-key ", m"
+  doom-localleader-alt-key "s-,"
+  +evil-repeat-keys '("C-s" . "C-S-s"))
 
 (setq
   ;; Enable accents
@@ -187,5 +191,6 @@
 ;; ╹ ╹╹┗━┛┗━╸
 
 (load! "+modules.el")
+(load! "+gtd.el")
 (load! "+dashboard.el")
 (load! "+bindings.el")

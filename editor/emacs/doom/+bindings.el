@@ -9,6 +9,8 @@
 ;;           This file defines a Spacemacs-esque keybinding scheme
 
 
+(defvar my-completion-map (make-sparse-keymap))
+
 ;; ┏━╸╻  ┏━┓┏┓ ┏━┓╻  ┏━┓
 ;; ┃╺┓┃  ┃ ┃┣┻┓┣━┫┃  ┗━┓
 ;; ┗━┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗━┛
@@ -22,24 +24,24 @@
   "s-[" #'previous-buffer
   "s-]" #'next-buffer
 
-  "s-," (λ! (+eduarbo/find-file doom-private-dir))
   "s-g" #'magit-status
   "s-p" #'+treemacs/toggle
 
   "s-r" #'+eval/open-repl-other-window
   "s-R" #'+eval/open-repl-same-window
 
-  :m  [up]   #'multi-previous-line
-  :m  [down] #'multi-next-line
+  :m  [up]     #'multi-previous-line
+  :m  [down]   #'multi-next-line
 
-  (:map prog-mode-map
-    :i [tab] (general-predicate-dispatch nil ; fall back to nearest keymap
-               (and (featurep! :editor snippets)
-                 (bound-and-true-p yas-minor-mode)
-                 (yas-maybe-expand-abbrev-key-filter 'yas-expand))
-               #'yas-expand
-               (and (featurep! :completion company))
-               #'company-indent-or-complete-common))
+  ;; Disable smart tab which is not very smart...
+  :niv [tab]   nil
+
+  :nv  [tab]   #'evil-jump-item
+  (:when (featurep! :ui workspaces)
+    :nv  [S-tab] #'persp-switch)
+
+  :n   "SPC"   #'evil-toggle-fold
+  :v   "SPC"   #'evil-vimish-fold/create
 
   (:when (featurep! :ui workspaces)
     "s-t" #'+workspace/new
@@ -50,12 +52,6 @@
 
   [remap evil-jump-to-tag] #'projectile-find-tag
   [remap find-tag]         #'projectile-find-tag
-
-  ;; Smarter RET in normal mode
-  :n "RET" (general-predicate-dispatch nil
-             (and (bound-and-true-p flyspell-mode)
-               (+flyspell-correction-at-point-p))
-             'flyspell-correct-word-generic)
 
   ;; misc
   :nvi "C-n"  #'sp-next-sexp
@@ -71,15 +67,16 @@
   ;; Shift text
   :n  "<"     #'evil-shift-left-line
   :n  ">"     #'evil-shift-right-line
+  (:after evil-org :map evil-org-mode-map
+    :n "<"    #'+eduarbo/evil-org-<
+    :n ">"    #'+eduarbo/evil-org->)
   ;; don't leave visual mode after shifting
   :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
   :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
 
   :nv "H"     #'previous-buffer
   :nv "L"     #'next-buffer
-  ;; deal with conflicts
-  (:after evil-magit
-    :map magit-mode-map
+  (:after evil-magit :map magit-mode-map
     ;; FIXME Figure out a way to rebind `magit-log-refresh in the
     ;; `magit-dispatch' transient command or just ignore it
     "L" nil)
@@ -87,14 +84,12 @@
   :n  "C-."   (cond ((featurep! :completion ivy)   #'ivy-resume)
                 ((featurep! :completion helm)  #'helm-resume))
 
-  :n  "~"        #'evil-switch-to-windows-last-buffer
-  (:map evil-org-mode-map
-    :n  "~"        #'evil-switch-to-windows-last-buffer)
+  :n  [C-tab]        #'evil-switch-to-windows-last-buffer
 
   ;; Behave like a backspace
   :gi [C-backspace]  #'backward-delete-char-untabify
 
-  ;; :gi [S-backspace]  #'delete-forward-char
+  :gi [S-backspace]  #'delete-forward-char
 
   :gi "C-d"          #'evil-delete-line
   :gi "C-S-d"        #'evil-delete-whole-line
@@ -123,34 +118,46 @@
   :nv "C-S-a" #'evil-numbers/dec-at-pt
 
   ;; Easier window/tab navigation
-  (:map (global-map comint-mode-map)
-    :ni "C-h"   #'evil-window-left
-    :ni "C-j"   #'evil-window-down
-    :ni "C-k"   #'evil-window-up
-    :ni "C-l"   #'evil-window-right
-    )
-  (:after evil-org
-    :map evil-org-mode-map
-    :ni "C-h"   #'evil-window-left
-    :ni "C-j"   #'evil-window-down
-    :ni "C-k"   #'evil-window-up
-    :ni "C-l"   #'evil-window-right
-    )
-  (:after treemacs-mode
-    :map treemacs-mode-map
+  :n "C-h"   #'evil-window-left
+  :n "C-j"   #'evil-window-down
+  :n "C-k"   #'evil-window-up
+  :n "C-l"   #'evil-window-right
+  ;; overrides
+  (:after evil-org-agenda :map evil-org-agenda-mode-map
+    :m "C-h"   #'evil-window-left
+    :m "C-j"   #'evil-window-down
+    :m "C-k"   #'evil-window-up
+    :m "C-l"   #'evil-window-right)
+  (:map comint-mode-map
+    :i "C-h"   #'evil-window-left
+    :i "C-j"   #'evil-window-down
+    :i "C-k"   #'evil-window-up
+    :i "C-l"   #'evil-window-right)
+  (:after treemacs-mode :map treemacs-mode-map
     :g "C-h"   #'evil-window-left
-    :g "C-l"   #'evil-window-right
-    )
+    :g "C-l"   #'evil-window-right)
+  (:after org :map org-mode-map
+    :n "C-h"  nil
+    :n "C-j"  nil
+    :n "C-k"  nil
+    :n "C-l"  nil)
+  (:after flycheck :map flycheck-error-list-mode-map
+    :nv "C-j" nil
+    :nv "C-k" nil)
+  (:after evil-magit :map magit-mode-map
+    :nv "C-j" nil
+    :nv "C-k" nil)
 
-  ;; Fix conflicts
-  (:after flycheck
-    :map flycheck-error-list-mode-map
-    :nv "C-j" nil
-    :nv "C-k" nil)
-  (:after evil-magit
-    :map magit-mode-map
-    :nv "C-j" nil
-    :nv "C-k" nil)
+  (:after git-timemachine :map git-timemachine-mode-map
+    :n "C-p" #'git-timemachine-show-previous-revision
+    :n "C-n" #'git-timemachine-show-next-revision)
+
+  (:after evil-snipe
+    :nv "s"    #'evil-avy-goto-char-2
+
+    :map (evil-snipe-override-mode-map evil-snipe-parent-transient-map)
+    :gm ";"  nil
+    :gm ","  nil)
 
   ;; expand-region
   :v "v"   (general-predicate-dispatch 'er/expand-region
@@ -158,8 +165,8 @@
              'evil-visual-char)
   :v "C-v" #'er/contract-region
 
-  :n  "s"     #'evil-surround-edit
-  :v  "s"     #'evil-surround-region
+  :n  "S"     #'evil-surround-edit
+  :v  "S"     #'evil-surround-region
 
   (:prefix "g"
     :nv "Q"    #'+eduarbo/unfill-paragraph
@@ -167,39 +174,9 @@
     :nv "O"    (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
     :nv "/"    #'+default/search-project
     :n  "."    #'call-last-kbd-macro
-
     ;; narrowing and widening
-    :nv "n"    #'+eduarbo/narrow-or-widen-dwim
-    :nv "TAB"  #'persp-switch)
-
-  (:after evil-easymotion
-    :map evilem-map
-    "d" (evilem-create #'evil-snipe-repeat
-          :name 'evil-easymotion-snipe-forward
-          :pre-hook (save-excursion (call-interactively #'evil-snipe-s))
-          :bind ((evil-snipe-scope 'buffer)
-                  (evil-snipe-enable-highlight)
-                  (evil-snipe-enable-incremental-highlight)))
-    "D" (evilem-create #'evil-snipe-repeat
-          :name 'evil-easymotion-snipe-backward
-          :pre-hook (save-excursion (call-interactively #'evil-snipe-S))
-          :bind ((evil-snipe-scope 'buffer)
-                  (evil-snipe-enable-highlight)
-                  (evil-snipe-enable-incremental-highlight)))
-
-    "s" (evilem-create #'evil-snipe-repeat
-          :bind ((evil-snipe-scope 'whole-buffer)
-                  (evil-snipe-enable-highlight)
-                  (evil-snipe-enable-incremental-highlight)))
-
-    "S" (evilem-create #'evil-snipe-repeat-reverse
-          :bind ((evil-snipe-scope 'whole-buffer)
-                  (evil-snipe-enable-highlight)
-                  (evil-snipe-enable-incremental-highlight))))
-
-  (:after evil-snipe
-    "C-s"    #'evil-snipe-repeat
-    "C-S-s"  #'evil-snipe-repeat-reverse))
+    :nv "n"    #'+eduarbo/narrow-or-widen-dwim)
+  )
 
 ;; help
 (map! (:map help-map
@@ -213,163 +190,154 @@
 
 ;;; :completion
 (map! (:when (featurep! :completion company)
-        [C-escape]     #'+company/complete
+        :i [tab]      #'company-complete
+        :i [S-tab]    my-completion-map
 
-        (:map prog-mode-map
-          (:prefix [backtab]
-            :i "l"    #'+company/whole-lines
-            :i "k"    #'+company/dict-or-keywords
-            :i "f"    #'company-files
-            :i "t"    #'company-etags
-            :i "s"    #'company-ispell
-            :i "y"    #'company-yasnippet
-            :i "o"    #'company-capf
-            :i "n"    #'+company/dabbrev
-            :i "p"    #'+company/dabbrev-code-previous)))
+        (:after company
+          (:map company-active-map
+            [S-tab]   #'company-select-previous
+            "C-l"     #'company-complete
+            [right]   #'company-complete
+            "C-h"     #'company-abort
+            [left]    #'company-abort))
+
+        (:map my-completion-map
+          "d"      #'+company/dict-or-keywords
+          "f"      #'company-files
+          "s"      #'company-ispell
+          [S-tab]  #'company-yasnippet
+          "o"      #'company-capf
+          "a"      #'+company/dabbrev
+          ))
 
       (:when (featurep! :completion ivy)
         (:after ivy
           :map ivy-minibuffer-map
-          [S-down]   #'scroll-up-command
-          [S-up]     #'scroll-down-command
-          [S-left]   #'beginning-of-buffer
-          [S-right]  #'end-of-buffer
+          "C-n"      #'scroll-up-command
+          "C-p"      #'scroll-down-command
           [tab]      #'ivy-call-and-recenter)
         (:after counsel
           :map counsel-ag-map
-          [backtab]  #'+ivy/woccur
+          [S-tab]  #'+ivy/woccur
           [C-return] #'+ivy/git-grep-other-window-action
           "C-o"      #'+ivy/git-grep-other-window-action)
         (:after swiper
           :map swiper-map
-          [backtab] #'+ivy/woccur))
+          [S-tab] #'+ivy/woccur))
 
       (:when (featurep! :completion helm)
         (:after helm
           (:after swiper-helm
-            :map swiper-helm-keymap [backtab] #'helm-ag-edit)
+            :map swiper-helm-keymap [S-tab] #'helm-ag-edit)
           (:after helm-ag
             :map helm-ag-map
-            [backtab]  #'helm-ag-edit))))
+            [S-tab]  #'helm-ag-edit))))
 
 ;;; :ui
 (map! (:when (featurep! :ui workspaces)
-        :n  "C-`"  #'+eduarbo/switch-to-last-workspace
-        (:map evil-org-mode-map
-          :n  "C-`"  #'+eduarbo/switch-to-last-workspace)
+        :n  [C-S-tab]  #'+eduarbo/switch-to-last-workspace
 
         :n "C-S-l" #'+workspace/switch-right
         :n "C-S-h" #'+workspace/switch-left)
   )
 
 ;;; :editor
-(map! (:when (featurep! :editor fold)
-        :nv "SPC" #'+fold/toggle)
+(map!
+  ;; NOTE: Fix broken evil-multiedit bindings
+  (:when (featurep! :editor multiple-cursors)
+    :n  "s-d"   #'evil-multiedit-match-symbol-and-next
+    :n  "s-D"   #'evil-multiedit-match-symbol-and-prev
+    :v  "s-d"   #'evil-multiedit-match-and-next
+    :v  "s-D"   #'evil-multiedit-match-and-prev
+    :nv "C-s-d" #'evil-multiedit-restore
+    (:after evil-multiedit
+      (:map evil-multiedit-state-map
+        "s-d"    #'evil-multiedit-match-and-next
+        "s-D"    #'evil-multiedit-match-and-prev
+        [return] #'evil-multiedit-toggle-or-restrict-region)))
 
-      ;; NOTE: Fix broken evil-multiedit bindings
-      (:when (featurep! :editor multiple-cursors)
-        :n  "s-d"   #'evil-multiedit-match-symbol-and-next
-        :n  "s-D"   #'evil-multiedit-match-symbol-and-prev
-        :v  "s-d"   #'evil-multiedit-match-and-next
-        :v  "s-D"   #'evil-multiedit-match-and-prev
-        :nv "C-s-d" #'evil-multiedit-restore
-        (:after evil-multiedit
-          (:map evil-multiedit-state-map
-            "s-d"    #'evil-multiedit-match-and-next
-            "s-D"    #'evil-multiedit-match-and-prev
-            [return] #'evil-multiedit-toggle-or-restrict-region)))
+  (:when (featurep! :editor snippets)
+    :i  [C-tab]    #'yas-expand
+    :v  [C-tab]    #'yas-insert-snippet
 
-      (:when (featurep! :editor snippets)
-        (:after yasnippet
-          (:map yas-keymap
-            ;; Do not interfer with yas-expand, sometimes I want to type "a" and
-            ;; move to the next field without accidentally inserting a snippet
-            [tab]         nil
-            "TAB"         nil
-            [backtab]     nil
-            "<S-tab>"     nil
-            "C-n"         #'yas-next-field
-            "C-p"         #'yas-prev-field))))
+    :i  [C-return] #'aya-expand
+    :nv [C-return] #'aya-create
+
+    (:after yasnippet
+      (:map yas-keymap
+        ;; Do not interfer with company
+        [tab]         nil
+        "TAB"         nil
+        [S-tab]       nil
+        "<S-tab>"     nil
+        "C-n"         #'yas-next-field
+        "C-p"         #'yas-prev-field))))
 
 ;;; :emacs
 (map! :map emacs-lisp-mode-map
       :nv "K"  #'helpful-at-point)
 
-;;; :tools
-(map! (:when (featurep! :tools flyspell)
-        ;; Keybinds that have no Emacs+evil analogues (i.e. don't exist):
-        ;;   zq - mark word at point as good word
-        ;;   zw - mark word at point as bad
-        ;;   zu{q,w} - undo last marking
-        ;; Keybinds that evil define:
-        ;;   z= - correct flyspell word at point
-        ;;   ]s - jump to previous spelling error
-        ;;   [s - jump to next spelling error
-        :m "]S" #'flyspell-correct-word-generic
-        :m "[S" #'flyspell-correct-previous-word-generic)
-
-      (:when (featurep! :tools flycheck)
-        :m "]e" #'next-error
-        :m "[e" #'previous-error)
-
-      (:when (featurep! :tools gist)
-        :after gist
-        :map gist-list-menu-mode-map
-        :n "RET"    #'+gist/open-current
-        :n [return] #'+gist/open-current))
-
 ;;; :lang
 
-(map! :map evil-org-mode-map
-      :after org
-      :n "SPC"   #'org-todo)
+(map!
+  (:after org :map org-mode-map
+    :n "SPC"     #'org-todo
+    :n "S-SPC"   #'org-todo-yesterday
 
-(map! :map org-mode-map
-      :after org
+    :n "C-n"     #'org-metadown
+    :n "C-p"     #'org-metaup
 
-      :nv "s-j"  #'org-metadown
-      :nv "s-k"  #'org-metaup
+    ;; Basic char syntax:
+    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
+    :vi "s-b"   (λ! (org-emphasize ?*)) ;; bold
+    :vi "s-i"   (λ! (org-emphasize ?/)) ;; italic
+    :vi "s-k"   #'org-insert-link
+    :vi "s-K"   #'+org/remove-link
+    :vi "s-l"   #'org-store-link
+    :vi "s-m"   (λ! (org-emphasize ?~)) ;; monospace/code
+    :vi "s-u"   (λ! (org-emphasize ?_)) ;; underline
+    :vi "s-v"   (λ! (org-emphasize ?=)) ;; verbose
+    :vi "s-o"   (λ! (org-emphasize ?+)) ;; strikethrough
+    :vi "s-r"   (λ! (org-emphasize ?\s)) ;; restore format
 
-      (:when IS-MAC
-        "s-o"   #'+org/insert-item-below
-        "s-O"   #'+org/insert-item-above)
+    (:when IS-MAC
+      "s-o"   #'+org/insert-item-below
+      "s-O"   #'+org/insert-item-above)
 
-      :localleader
-      ;; A fresh start - Unmap the whole map
-      "" nil
+    :localleader
+    ;; A fresh start - Unmap the whole map
+    "" nil
 
-      :localleader
+    :localleader
 
-      :desc "Schedule"              :n  "s"   #'org-schedule
-      :desc "Set deadline"          :n  "d"   #'org-deadline
-      :desc "Set tags"              :n  "t"   #'org-set-tags-command
-      ;; Basic char syntax:
-      ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
-      :desc "Bold"                  :v  "b"   (λ! (org-emphasize ?*)) ;; bold
-      :desc "Italic"                :v  "i"   (λ! (org-emphasize ?/)) ;; italic
-      :desc "Insert link"           :v  "k"   #'org-insert-link
-      :desc "Remove link"           :nv "K"   #'+org/remove-link
-      :desc "Store link to heading" :n  "l"   #'org-store-link
-      :desc "Monospace/code"        :v  "m"   (λ! (org-emphasize ?~)) ;; monospace/code
-      :desc "Restore format"        :v  "r"   (λ! (org-emphasize ?\s)) ;; restore format
-      :desc "Underline"             :v  "u"   (λ! (org-emphasize ?_)) ;; underline
-      :desc "Verbose"               :v  "v"   (λ! (org-emphasize ?=)) ;; verbose
-      :desc "Strikethrough"         :v  "x"   (λ! (org-emphasize ?+)) ;; strikethrough
+    (:prefix ("f" . "fomart")
+      :desc "Bold"                  :iv  "b"   (λ! (org-emphasize ?*)) ;; bold
+      :desc "Italic"                :iv  "i"   (λ! (org-emphasize ?/)) ;; italic
+      :desc "Insert link"           :iv  "k"   #'org-insert-link
+      :desc "Remove link"           :i   "K"   #'+org/remove-link
+      :desc "Store link to heading" :i   "l"   #'org-store-link
+      :desc "Monospace/code"        :iv  "m"   (λ! (org-emphasize ?~)) ;; monospace/code
+      :desc "Underline"             :iv  "u"   (λ! (org-emphasize ?_)) ;; underline
+      :desc "Verbose"               :iv  "v"   (λ! (org-emphasize ?=)) ;; verbose
+      :desc "Strikethrough"         :iv  "s"   (λ! (org-emphasize ?+)) ;; strikethrough
+      :desc "Restore format"        :i   "r"   (λ! (org-emphasize ?\s)) ;; restore format
+      )
 
-      (:prefix ("c" . "clock/timer")
-        :desc "Start timer"                   :n "c" #'org-clock-in
-        :desc "Stop timer"                    :n "C" #'org-clock-out
-        :desc "Display total time on heading" :n "d" #'org-clock-display
-        :desc "Create table report"           :n "d" #'org-clock-report
-        :desc "Go to running timer's entry"   :n "g" #'org-clock-goto
-        :desc "Select past timers entry"      :n "G" (λ! (org-clock-goto 'select))
-        :desc "Cancel running timer"          :n "x" #'org-clock-cancel))
+    :desc "Archive Subtree"       :n  "a"   #'org-archive-subtree
+    :desc "Refile"                :n  "r"   #'org-refile
+    :desc "Refile to file"        :n  "R"   #'+org/refile-to-file
+    :desc "Schedule"              :n  "s"   #'org-schedule
+    :desc "Set deadline"          :n  "d"   #'org-deadline
+    :desc "Set tags"              :n  "t"   #'org-set-tags-command
 
-(map! :mode org-journal-mode
-      :localleader
-      :map org-journal-mode-map
-      "n" #'org-journal-open-next-entry
-      "p" #'org-journal-open-previous-entry)
+    (:prefix ("c" . "clock/timer")
+      :desc "Start timer"                   :n "c" #'org-clock-in
+      :desc "Stop timer"                    :n "C" #'org-clock-out
+      :desc "Display total time on heading" :n "d" #'org-clock-display
+      :desc "Create table report"           :n "d" #'org-clock-report
+      :desc "Go to running timer's entry"   :n "g" #'org-clock-goto
+      :desc "Select past timers entry"      :n "G" (λ! (org-clock-goto 'select))
+      :desc "Cancel running timer"          :n "x" #'org-clock-cancel)))
 
 
 ;; ╻  ┏━╸┏━┓╺┳┓┏━╸┏━┓
@@ -408,6 +376,7 @@
       ;;; <leader> g --- git
       (:prefix ("g" . "git")
         (:when (featurep! :tools magit)
+          :desc "Timemachine for branch"    "T"   #'git-timemachine-switch-branch
           :desc "Magit diff staged"         "d"   #'magit-diff-buffer-file
           :desc "Magit diff"                "D"   #'magit-diff))
 

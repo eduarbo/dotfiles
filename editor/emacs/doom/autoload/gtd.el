@@ -46,13 +46,15 @@
 (defun my-org-super-agenda ()
   (interactive)
   (let ((org-super-agenda-groups
-         '((:name "Schedule"
-                  :time-grid t)
-           ;; After the last group, the agenda will display items that didn't
-           ;; match any of these groups, with the default order position of 99
-           ;; To prevent this, add this code:
-           ;; (:discard (:anything t))
-           )))
+          '((:name "Schedule"
+              :time-grid t)
+             (:name "WORK"
+               :tag "work")
+             ;; After the last group, the agenda will display items that didn't
+             ;; match any of these groups, with the default order position of 99
+             ;; To prevent this, add this code:
+             ;; (:discard (:anything t))
+             )))
     (org-agenda nil "a")))
 
 ;;;###autoload
@@ -66,11 +68,23 @@
 (defun my-personal-agenda ()
   (interactive)
   (let ((org-super-agenda-groups
-         '(;; After the last group, the agenda will display items that didn't
-           ;; match any of these groups, with the default order position of 99
-           ;; To prevent this, add this code:
-           ;; (:discard (:tag ("maple")))
-           )))
+          '(;; After the last group, the agenda will display items that didn't
+             ;; match any of these groups, with the default order position of 99
+             ;; To prevent this, add this code:
+             (:discard (:tag ("work"))))))
+    (org-agenda nil "a")
+    (org-agenda-day-view)))
+
+;;;###autoload
+(defun my-work-agenda ()
+  (interactive)
+  (let ((org-super-agenda-groups
+          '((:name "WORK"
+              :tag "work")
+             ;; After the last group, the agenda will display items that didn't
+             ;; match any of these groups, with the default order position of 99
+             ;; To prevent this, add this code:
+             (:discard (:anything t)))))
     (org-agenda nil "a")
     (org-agenda-day-view)))
 
