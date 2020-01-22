@@ -1,3 +1,4 @@
+//
 //                ░█▀▀░█░█░█▀▄░█▀▀░▀█▀░█▀█░█▀▀░█░█░█▀▀░█░█░█▀▀
 //                ░▀▀█░█░█░█▀▄░█▀▀░░█░░█░█░█░█░█▀▄░█▀▀░░█░░▀▀█
 //                ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀
@@ -18,6 +19,9 @@
 //   mapkey('F', '#1Open a link in new tab', () => {
 //     Hints.create("", Hints.dispatchMouseClick, { tabbed: true })
 //   });
+//
+// Avoid mapping the underscore key `_`, it is used as a temporary variable to
+// swap key bindings
 //
 //                            == W A R N I N G ==
 
@@ -79,6 +83,18 @@ function keymap(group, fn) {
   return fn(helpers);
 }
 
+function swap(key1, key2) {
+  // NOTE Using _ as a temporary variable to swap key bindings
+  map('_', key1);
+  map(key1, key2);
+  map(key2, '_');
+  unmap('_');
+}
+
+function remap(newKey, oldKey) {
+  map(newKey, oldKey);
+  unmap(oldKey);
+}
 
 // ╻ ╻┏┓╻╻ ╻┏━┓┏┓╻╺┳╸┏━╸╺┳┓   ┏┓ ╻┏┓╻╺┳┓╻┏┓╻┏━╸┏━┓
 // ┃ ┃┃┗┫┃╻┃┣━┫┃┗┫ ┃ ┣╸  ┃┃   ┣┻┓┃┃┗┫ ┃┃┃┃┗┫┃╺┓┗━┓
@@ -128,29 +144,14 @@ keymap(HELP, ({ insert }) => {
 // ┗━╸╹ ╹╹┗╸┗━┛╹ ╹┗━╸
 
 keymap(CHROME, ({ normal }) => {
-  map('ca', 'ga');
-  unmap('ga');
-
-  map('cb', 'gb');
-  unmap('gb');
-
-  map('cc', 'gc');
-  unmap('gc');
-
-  map('cd', 'gd');
-  unmap('gd');
-
-  map('ck', 'gk');
-  unmap('gk');
-
-  map('ce', 'ge');
-  unmap('ge');
-
-  map('cn', 'gn');
-  unmap('gn');
-
-  map('ci', 'si');
-  unmap('si');
+  remap('ca', 'ga');
+  remap('cb', 'gb');
+  remap('cc', 'gc');
+  remap('cd', 'gd');
+  remap('ck', 'gk');
+  remap('ce', 'ge');
+  remap('cn', 'gn');
+  remap('ci', 'si');
 
   normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink('chrome://net-internals/#hsts'));
   normal('cy', 'Open Chrome History', () => tabOpenLink('chrome://history/'));
@@ -165,23 +166,16 @@ keymap(MOUSE_CLICK, () => {
   unmap('af');
 
   // Open multiple links in a new tab
-  map('F', 'cf');
-  unmap('cf');
-
+  remap('F', 'cf');
   // Mouse out last element
-  map('gm', ';m');
-  unmap(';m');
-
+  remap('gm', ';m');
   // Mouse over elements
-  map('gh', '<Ctrl-h>');
-  unmap('<Ctrl-h)');
-
+  remap('gh', '<Ctrl-h>');
   // Mouse out elements
-  map('gH', '<Ctrl-j>');
-  unmap('<Ctrl-j>');
+  remap('gH', '<Ctrl-j>');
 
-  map('gq', 'cq');
-  unmap('cq');
+  remap('gq', 'cq');
+  swap('i', 'gi');
 });
 
 keymap(SCROLL_PAGE, () => {
@@ -190,12 +184,10 @@ keymap(SCROLL_PAGE, () => {
   map('J', 'd');
 
   // Change scroll target
-  map('gs', 'cs');
-  unmap('cs');
+  remap('gs', 'cs');
 
   // Reset scroll target
-  map('gS', 'cS');
-  unmap('cS');
+  remap('gS', 'cS');
 });
 
 
@@ -204,35 +196,32 @@ keymap(SCROLL_PAGE, () => {
 //  ╹ ╹ ╹┗━┛┗━┛
 
 keymap(TABS, () => {
-  map('<Ctrl-h>', 'E'); // Go one tab left
-  map('<Ctrl-l>', 'R'); // Go one tab right
+  // Go one tab left
+  map('<Ctrl-h>', 'E');
+  // Go one tab right
+  map('<Ctrl-l>', 'R');
   unmap('E');
 
   // Go back in history
-  map('H', 'S');
-  unmap('S');
-
+  remap('H', 'S');
   // Go forward in history
-  map('L', 'D');
-  unmap('D');
-
+  remap('L', 'D');
   // Go to last used tab
-  map('`', '<Ctrl-6>');
-  unmap('<Ctrl-6>');
-
+  remap('`', '<Ctrl-6>');
   // pin/unpin current tab
-  map('gp', '<Alt-p>');
-  unmap('<Alt-p>');
-
+  remap('gp', '<Alt-p>');
   // mute/unmute current tab
-  map('gm', '<Alt-m>');
-  unmap('<Alt-m>');
+  remap('gm', '<Alt-m>');
 
-  map('<', '<<'); // Move current tab to left
-  map('>', '>>'); // Move current tab to right
+  // Move current tab to left
+  map('<', '<<');
+  // Move current tab to right
+  map('>', '>>');
 
-  map('t', 'T'); // Choose a tab
-  map('T', 'X'); // Restore closed tab
+  // Choose a tab
+  map('t', 'T');
+  // Restore closed tab
+  map('T', 'X');
 });
 
 
@@ -244,8 +233,7 @@ keymap(PAGE, ({ normal }) => {
   normal('R', 'Reload the page without cache', () => RUNTIME('reloadTab', { nocache: true }));
 
   map('gl', 'sU');
-  map('gL', 'su');
-  unmap('su');
+  remap('gL', 'su');
   unmap('sU');
 });
 
@@ -321,8 +309,7 @@ keymap(MISC, ({ normal }) => {
 
 keymap(VISUAL, () => {
   map('gv', 'V'); // Restore visual mode
-  map('V', 'zv'); // Enter visual mode, and select whole element
-  unmap('zv');
+  remap('V', 'zv');
 });
 
 
@@ -331,23 +318,16 @@ keymap(VISUAL, () => {
 // ┗━╸┗━╸╹╹  ┗━┛┗━┛╹ ╹╹┗╸╺┻┛
 
 keymap(CLIPBOARD, () => {
-  // NOTE Using _ as a temporary variable to swap key bindings
-  map('_', 'yf');
-  map('yf', 'ya'); // Copy a link URL to the clipboard
-  map('ya', '_'); // Copy form data in JSON on current page
-  unmap('_');
+  swap('yf', 'ya');
 
   // Copy multiple link URLs to the clipboard
-  map('yF', 'yma');
-  unmap('yma');
+  remap('yF', 'yma');
 
   // Yank text of multiple elements
-  map('yV', 'ymv');
-  unmap('ymv');
+  remap('yV', 'ymv');
 
   // Copy multiple columns of a table
-  map('yC', 'ymc');
-  unmap('ymc');
+  remap('yC', 'ymc');
 });
 
 
