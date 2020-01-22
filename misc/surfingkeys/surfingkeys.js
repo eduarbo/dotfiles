@@ -84,7 +84,7 @@ function keymap(group, fn) {
 }
 
 function swap(key1, key2) {
-  // NOTE Using _ as a temporary variable to swap key bindings
+  // Using underscore as a temporary variable to swap key bindings
   map('_', key1);
   map(key1, key2);
   map(key2, '_');
