@@ -1,0 +1,11 @@
+[Unit]
+Description=Sync files between my NAS & Backblaze with rclone
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone sync \
+  -v \
+  --delete-excluded \
+  --config %h/.config/rclone/rclone.conf \
+  --filter-from %h/.config/rclone/backup-filter.txt \
+  /nas backblaze:eduarbo-nas
