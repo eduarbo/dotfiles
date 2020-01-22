@@ -2,9 +2,14 @@
 
 source ${0:A:h}/../../deploy
 
-# install() {}
+install() {
+  # Create a user-defined bridge network so the containers connected to this
+  # network automatically expose all ports to each other.
+  docker network create homelab --opt com.docker.network.bridge.name=br_homelab
+}
 
 update() {
+  link
   sudo systemctl daemon-reload
 }
 
