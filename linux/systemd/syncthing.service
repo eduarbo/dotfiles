@@ -21,7 +21,7 @@ ExecStart=/bin/bash -c "\
     -e TZ=America/Mexico_City \
     -e UMASK_SET=022 \
     -v /nas/home/homelab/syncthing:/config \
-    -v /nas/home/sandbox:/sandbox \
+    -v /nas/home:/data \
     linuxserver/syncthing"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p
