@@ -70,7 +70,7 @@
   doom-leader-alt-key "C-,"
   doom-localleader-key ", m"
   doom-localleader-alt-key "s-,"
-  +evil-repeat-keys '("C-s" . "C-S-s"))
+  +evil-repeat-keys '("|" . "\\"))
 
 (setq
   ;; Enable accents
