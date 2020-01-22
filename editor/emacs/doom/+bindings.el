@@ -87,10 +87,7 @@
 
   :n  [C-tab]        #'evil-switch-to-windows-last-buffer
 
-  ;; Behave like a backspace
-  :gi [C-backspace]  #'backward-delete-char-untabify
-
-  :gi [S-backspace]  #'delete-forward-char
+  :gi [C-backspace]  #'delete-forward-char
 
   :gi "C-d"          #'evil-delete-line
   :gi "C-S-d"        #'evil-delete-whole-line
