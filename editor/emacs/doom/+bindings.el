@@ -17,8 +17,9 @@
 ;; Globals
 
 (map!
+  :givn "s-x" #'execute-extended-command
+
   "s-;" #'execute-extended-command
-  "s-x" #'execute-extended-command
   "s-." #'helpful-key
 
   "s-[" #'previous-buffer
