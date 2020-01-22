@@ -35,15 +35,6 @@
   (evil-snipe-mode -1))
 
 
-;; ┏━╸╻  ╻ ╻┏━┓┏━┓┏━╸╻  ╻
-;; ┣╸ ┃  ┗┳┛┗━┓┣━┛┣╸ ┃  ┃
-;; ╹  ┗━╸ ╹ ┗━┛╹  ┗━╸┗━╸┗━╸
-
-(after! flyspell
-  ;; default to flyspell prog mode
-  (setq flyspell-generic-check-word-predicate #'flyspell-generic-progmode-verify))
-
-
 ;; ╻ ╻┏━╸╻  ┏┳┓
 ;; ┣━┫┣╸ ┃  ┃┃┃
 ;; ╹ ╹┗━╸┗━╸╹ ╹
@@ -122,8 +113,6 @@
 
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 
-(load! "+gtd.el")
-
 ;; Load org-habit with org.el
 (setq org-habit-graph-column 105)
 (add-to-list 'org-modules 'org-habit t)
@@ -182,10 +171,10 @@
   ;; Styling
   (setq
     org-ellipsis "  "  ;; ▼ ˅ ⌄ ↓ ⤵ ▼ ↴ ⬎ ⤷
-    org-bullets-bullet-list '("𝍠" "𝍡" "𝍢" "𝍤" "𝍥" "𝍦" "𝍧" "𝍨")
-    ;; org-bullets-bullet-list '("Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ")
+    org-bullets-bullet-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")
+    ;; org-bullets-bullet-list '("𝍠" "𝍡" "𝍢" "𝍤" "𝍥" "𝍦" "𝍧" "𝍨")
     ;; org-bullets-bullet-list '("𐄇" "𐄈" "𐄉" "𐄊" "𐄋" "𐄌" "𐄍" "𐄎" "𐄏")
-    ;; org-bullets-bullet-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")
+    ;; org-bullets-bullet-list '("Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ")
     )
   )
 
@@ -215,6 +204,8 @@
                    org-table
                    org-tag
                    org-todo
+                   org-hide
+                   org-drawer
                    hl-todo
                    org-block-begin-line
                    org-verbatim
@@ -232,26 +223,30 @@
 ;; ┗━┛╹┗╸┗━┛   ┗━┛┗━┛┗━┛╹┗╸╹ ╹╹ ╹┗━╸
 ;; org-journal
 
-(setq org-journal-dir (expand-file-name "journal" org-directory))
-(after! org-journal
-  (setq org-extend-today-until 4 ;; sometimes my days end at 4am
-        org-journal-carryover-items nil
-        org-journal-file-type 'weekly
-        ;; Check ~format-time-string~ help for a list of the formatting symbols
-        ;; org-journal-date-format 'org-journal-date-format-func
-        ;; org-journal-file-format "%Y/%Y-%m-%d %A.org"
-        ;; org-journal-date-prefix "#+TITLE: "
-        ;; FIXME Exclude journals from doom file-templates, that is overriding the TITLE
-        ;; org-journal-date-format "%A, %d %B %Y"
-        ;; org-journal-time-prefix "* "
-        ;; (org-journal-time-format "[%F %a %R]")
-        ;; org-journal-hide-entries-p nil
-        ))
+;; (setq org-journal-dir (expand-file-name "journal" org-directory))
 
-;; FIXME exclude journal notes from templates
-;; (setq +file-templates-alist
-;;       (cons '("\\(?!/journal/\\).+\\.org$" :trigger "__" :mode org-mode)
-;;             (remove '("\\.org$" :trigger "__" :mode org-mode) +file-templates-alist)))
+(when (featurep! +journal)
+  (after! org-journal
+    (setq org-extend-today-until 4 ;; sometimes my days end at 4am
+      org-journal-carryover-items nil
+      org-journal-file-type 'weekly
+      ;; Check ~format-time-string~ help for a list of the formatting symbols
+      ;; org-journal-date-format 'org-journal-date-format-func
+      ;; org-journal-file-format "%Y/%Y-%m-%d %A.org"
+      ;; org-journal-date-prefix "#+TITLE: "
+      ;; FIXME Exclude journals from doom file-templates, that is overriding the TITLE
+      ;; org-journal-date-format "%A, %d %B %Y"
+      ;; org-journal-time-prefix "* "
+      ;; (org-journal-time-format "[%F %a %R]")
+      ;; org-journal-hide-entries-p nil
+      ))
+
+  ;; FIXME exclude journal notes from templates
+  ;; (setq +file-templates-alist
+  ;;       (cons '("\\(?!/journal/\\).+\\.org$" :trigger "__" :mode org-mode)
+  ;;             (remove '("\\.org$" :trigger "__" :mode org-mode) +file-templates-alist)))
+  )
+
 
 
 ;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸

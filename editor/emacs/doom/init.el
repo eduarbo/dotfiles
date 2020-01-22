@@ -77,8 +77,8 @@
        (syntax              ; tasing you for every semicolon you forget
         +childframe
         )
-       ;;spell             ; tasing you for misspelling mispelling
-       ;;grammar           ; tasing grammar mistake every you make
+       spell             ; tasing you for misspelling mispelling
+       grammar           ; tasing grammar mistake every you make
 
        :tools
        ;; ansible
@@ -88,7 +88,7 @@
        editorconfig      ; let someone else argue about tabs vs spaces
        ;; ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)   ; run code, run (also, repls)
-       gist              ; interacting with github gists
+       ;; gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets         ; ...or in Dash docsets locally
         +dictionary
@@ -191,4 +191,8 @@
        ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
        ;; config. Use it as a reference for your own modules.
        ;; language             ; google translate
-       (default +bindings +smartparens))
+       (default
+        +bindings
+        +smartparens
+        +gtd
+        ))

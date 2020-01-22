@@ -1,4 +1,5 @@
 ;;; ~/.dotfiles/editor/emacs/doom/+gtd.el -*- lexical-binding: t; -*-
+;;;###if (featurep! +gtd)
 
 ;;       ▄▄▄   ▄▄ •  ▄▄▄·  ▐ ▄ ▪  ·▄▄▄▄• ▄▄▄· ▄▄▄▄▄▪         ▐ ▄
 ;; ▪     ▀▄ █·▐█ ▀ ▪▐█ ▀█ •█▌▐███ ▪▀·.█▌▐█ ▀█ •██  ██ ▪     •█▌▐█
@@ -25,10 +26,13 @@
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 ;; Defaults
 
-(setq org-templates-dir (expand-file-name "templates" org-directory))
+(setq
+  org-default-notes-file "inbox.org"
+  +org-capture-todo-file org-default-notes-file
+  )
 
-(setq org-default-notes-file "inbox.org")
-(setq +org-capture-todo-file org-default-notes-file)
+(after! org
+  (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h")))
 
 
 ;; ┏━┓┏━╸┏━╸┏┓╻╺┳┓┏━┓┏━┓
@@ -36,60 +40,52 @@
 ;; ╹ ╹┗━┛┗━╸╹ ╹╺┻┛╹ ╹┗━┛
 ;; Agendas
 
-(setq org-agenda-files
-      '("inbox.org" "todo.org" "somedaymaybe.org" "agendas.org" "waiting.org" "goals.org")
-      ;; org-agenda-block-separator ""
-      org-agenda-inhibit-startup nil
-      org-agenda-show-future-repeats nil
-      org-agenda-start-on-weekday nil
-      org-agenda-skip-deadline-if-done t
-      org-agenda-skip-scheduled-if-done t)
-
 (use-package! org-super-agenda
-  :init (org-super-agenda-mode))
+  :after org-agenda
+  :config (org-super-agenda-mode))
 
-;; TODO Setup only useful agendas
-;; (setq org-agenda-custom-commands
-;;       '(("g" . "GTD contexts")
-;;         ;; ("gh" "Home" tags-todo "HOME")
-;;         ("gl" "Later" tags-todo "LATER")
-;;         ("G" "GTD Block Agenda"
-;;          ((todo "ACTIVE")
-;;           (todo "NEXT"))
-;;          ((org-agenda-prefix-format "[ ] %T: ")
-;;           (org-agenda-with-colors nil)
-;;           (org-agenda-compact-blocks t)
-;;           (org-agenda-remove-tags t)
-;;           (ps-number-of-columns 2)
-;;           (ps-landscape-mode t))
-;;          ;;nil                      ;; i.e., no local settings
-;;          )))
+(setq
+  org-agenda-files
+  '("inbox.org" "todo.org" "somedaymaybe.org" "agendas.org" "waiting.org" "goals.org")
+  ;; org-agenda-block-separator ""
+  org-agenda-inhibit-startup nil
+  org-agenda-show-future-repeats nil
+  org-agenda-start-on-weekday nil
+  org-agenda-skip-deadline-if-done t
+  org-agenda-skip-scheduled-if-done t
+  )
 
-;; Timeline
+;; UI
+(add-hook! org-mode
+  (set-face-attribute 'org-column nil :background nil)
+  (set-face-attribute 'org-column-title nil :background nil)
+  )
 
-;; The org-timeline functionality was recently removed. This code, adapted from
-;; a comment on Reddit, adds similar functionality back.
-;; https://www.reddit.com/r/orgmode/comments/7hps9j/rip_orgtimeline/dqt4pfs/
-(add-to-list 'org-agenda-custom-commands
-             '("L" "Timeline"
-               ((agenda
-                 ""
-                 ((org-agenda-span 7)
-                  (org-agenda-prefix-format '((agenda . " %1c %?-12t% s"))))))))
+(after! org-agenda
+  ;; Timeline
+  ;; The org-timeline functionality was recently removed. This code, adapted from
+  ;; a comment on Reddit, adds similar functionality back.
+  ;; https://www.reddit.com/r/orgmode/comments/7hps9j/rip_orgtimeline/dqt4pfs/
+  (add-to-list 'org-agenda-custom-commands
+    '("L" "Timeline"
+       ((agenda
+          ""
+          ((org-agenda-span 7)
+            (org-agenda-prefix-format '((agenda . " %1c %?-12t% s"))))))))
 
-;; Unscheduled Tasks
-(add-to-list 'org-agenda-custom-commands
-             '("u" "Unscheduled TODOs"
-               ((todo ""
-                      ((org-agenda-overriding-header "\nUnscheduled TODO")
-                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "CANCELLED" "MAYBE" "WAITING" "SOMEDAY"))))))) t)
+  ;; Unscheduled Tasks
+  (add-to-list 'org-agenda-custom-commands
+    '("u" "Unscheduled TODOs"
+       ((todo ""
+          ((org-agenda-overriding-header "\nUnscheduled TODO")
+            (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "CANCELED" "MAYBE" "WAIT" "SOMEDAY"))))))) t)
 
-;; Delegated and Waiting Tasks
-(add-to-list 'org-agenda-custom-commands
-             '("w" "WAITING" todo "WAITING" ((org-agenda-overriding-header "Delegated and/or Waiting"))) t)
+  ;; Delegated and Waiting Tasks
+  (add-to-list 'org-agenda-custom-commands
+    '("w" "WAIT" todo "WAIT" ((org-agenda-overriding-header "Delegated and/or Waiting"))) t)
+  )
 
-;; Agendas should be full screen!
-(add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
+;; TODO Agendas should be full screen!
 
 
 ;; ┏━╸┏━┓┏━┓╺┳╸╻ ╻┏━┓┏━╸   ╺┳╸┏━╸┏┳┓┏━┓╻  ┏━┓╺┳╸┏━╸┏━┓
@@ -97,23 +93,27 @@
 ;; ┗━╸╹ ╹╹   ╹ ┗━┛╹┗╸┗━╸    ╹ ┗━╸╹ ╹╹  ┗━╸╹ ╹ ╹ ┗━╸┗━┛
 ;; Capture templates
 
-(setq org-capture-templates
-      '(("t" "Task" entry
-         (file+headline "inbox.org" "Tasks")
-         "* TODO %?\n%i\n%a" :prepend t :kill-buffer t)
-        ("n" "Note" entry
-         (file+headline "inbox.org" "Notes")
-         "* %u %?\n%i\n%a" :prepend t :kill-buffer t)
-        ("p" "Project" entry (file+headline "todo.org" "Projects")
+(after! org
+  (setq
+    org-capture-templates
+    '(("t" "Task" entry (file "inbox.org")
+        "* TODO %?\n")
+       ("n" "Note" entry (file "inbox.org")
+         "* %u %?\n%i\n%a")
+       ("p" "Project" entry (file+headline "todo.org" "Projects")
          (file "templates/newprojecttemplate.org"))
-        ("s" "Someday" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
+       ("w" "Work" entry (file+olp+datetree "work.org")
+         "* %?\nAdded: %U\n" :clock-in t :clock-resume t)
+       ("j" "Journal" entry (file+olp+datetree "journal.org")
+         "* %?\nAdded: %U\n" :clock-in t :clock-resume t)
+       ("s" "Someday" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
          "* SOMEDAY %?\n")
-        ("m" "Maybe" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
+       ("m" "Maybe" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
          "* MAYBE %?\n")
-        ;; TODO create the template
-        ;; ("l" "Log" entry (file+olp+datetree "log.org" "Log")
-        ;;  (file "templates/logtemplate.org"))
-      ))
+       ("l" "Log" entry (file+olp+datetree "log.org" "Log")
+         "** %<%R>\n%?")
+       )
+    ))
 
 
 ;; ┏━╸╻  ┏━┓┏━╸╻┏ ╻┏┓╻┏━╸
@@ -121,17 +121,18 @@
 ;; ┗━╸┗━╸┗━┛┗━╸╹ ╹╹╹ ╹┗━┛
 ;; Clocking
 
-(setq org-log-done 'time
-        org-clock-idle-time nil
-        org-clock-continuously nil
-        org-clock-persist t
-        org-clock-in-switch-to-state "STARTED"
-        org-clock-in-resume nil
-        org-clock-report-include-clocking-task t
-        org-clock-out-remove-zero-time-clocks t
-        ;; Too many clock entries clutter up a heading
-        org-log-into-drawer t
-        org-clock-into-drawer 1)
+(setq
+  org-clock-idle-time nil
+  org-clock-continuously nil
+  org-clock-persist t
+  org-clock-in-switch-to-state "STARTED"
+  org-clock-in-resume nil
+  org-clock-report-include-clocking-task t
+  org-clock-out-remove-zero-time-clocks t
+  ;; Too many clock entries clutter up a heading
+  org-log-into-drawer t
+  org-clock-into-drawer 1
+  )
 
 (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
@@ -172,16 +173,16 @@
 ;; ┣┳┛┣╸ ┣╸ ┃┃  ┃┃┗┫┃╺┓
 ;; ╹┗╸┗━╸╹  ╹┗━╸╹╹ ╹┗━┛
 ;; Refiling
-(setq org-refile-files (let ((default-directory org-directory))
-                         (cl-mapcar 'expand-file-name '("todo.org" "somedaymaybe.org"))))
 
-(setq org-refile-targets
-      '((nil :maxlevel . 3)
-        (org-refile-files :maxlevel . 3))
-      ;; org-refile-use-cache t
-      org-refile-use-outline-path t)
-
-(setq org-refile-target-verify-function 'bh/verify-refile-target)
+(setq
+  org-refile-targets '((("todo.org" "somedaymaybe.org") :maxlevel . 2))
+  ;; org-refile-targets
+  ;; '((nil :maxlevel . 1)
+  ;;    (org-refile-files :maxlevel . 2))
+  ;; org-refile-use-cache t
+  org-refile-use-outline-path t
+  org-refile-target-verify-function 'bh/verify-refile-target
+  )
 
 
 ;; ╺┳╸┏━┓┏━┓╻┏    ╻┏ ┏━╸╻ ╻╻ ╻┏━┓┏━┓╺┳┓┏━┓
@@ -189,23 +190,43 @@
 ;;  ╹ ╹ ╹┗━┛╹ ╹   ╹ ╹┗━╸ ╹ ┗┻┛┗━┛╹┗╸╺┻┛┗━┛
 ;; Task keywords
 
-(setq org-todo-keywords
-      '((sequence "[ ](i)" "[-](p)" "[?](m)" "|" "[X](x)")
-        (sequence "TODO(t)" "ACTIVE(a)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)")
-        (sequence "LATER(l)" "MAYBE(m)" "SOMEDAY(s)" "IDEA(i)" "|" "CANCELLED(c)"))
+;; HACK Face specs fed directly to `org-todo-keyword-faces' don't respect
+;;      underlying faces like the `org-todo' face does, so we define our own
+;;      intermediary faces that extend from org-todo.
+(with-no-warnings
+  (custom-declare-face '+org-todo-todo '((t (:foreground "#98BE65" :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-doing '((t (:foreground "#FF6C6B" :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-wait '((t (:foreground "#24DDB2" :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-done '((t (:foreground "#5B6268" :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-canceled '((t (:foreground "#3F444A" :strike-through t :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-next '((t (:foreground "#ECBE7B" :inherit org-todo))) ""))
 
-      org-todo-keyword-faces
-      '(("[-]" :inherit font-lock-constant-face :weight bold)
-        ("[?]" :inherit warning :weight bold)
-        ("TODO" :inherit error :weight bold)
-        ("ACTIVE" :inherit warning :weight bold)
-        ("NEXT" :inherit success :weight bold)
-        ("WAITING" :inherit default :weight bold)
-        ("TODAY" :foreground "#dd8844" :weight bold)
-        ("LATER" :foreground "#44b9b1" :weight bold)
-        ("IDEA" :foreground "#5699AF" :weight bold)
-        ("MAYBE" :foreground "#5699AF" :weight bold)
-        ("SOMEDAY" :foreground "#5699AF" :weight bold)))
+;; NOTE
+;; "@" means to add a note (with time)
+;; "!" means to record only the time of the state change
+;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
+;; state, and use Y when leaving the state if and only if the *target* state
+;; does not define X. You may omit any of the fast-selection key or X or /Y, so
+;; WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
+(setq
+  org-todo-keywords
+  '((sequence "[ ](i)" "[-](-)" "[?](?)" "|" "[X](x)")
+     (sequence "TODO(t!)" "STARTED(s!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
+     (sequence "NEXT(n)" "MAYBE(m)" "SOMEDAY(y)" "|" "CANCELED(c@)"))
+
+  org-todo-keyword-faces
+  '(
+     ("[-]" . +org-todo-doing)
+     ("[?]" . +org-todo-wait)
+     ("TODO" . +org-todo-todo)
+     ("STARTED" . +org-todo-doing)
+     ("NEXT" . +org-todo-next)
+     ("WAIT" . +org-todo-wait)
+     ("MAYBE" . +org-todo-wait)
+     ("SOMEDAY" . +org-todo-wait)
+     ("DONE" . +org-todo-done)
+     ("CANCELED" . +org-todo-canceled)
+     ))
 
 
 ;; ╺┳╸┏━┓┏━╸┏━╸╻┏┓╻┏━╸
@@ -213,23 +234,24 @@
 ;;  ╹ ╹ ╹┗━┛┗━┛╹╹ ╹┗━┛
 ;; Tagging
 
-(setq org-tag-alist '(
-                      ;; Depth
-                      ("@immersive" . ?i) ;; "Deep"
-                      ("@process" . ?p) ;; "Shallow"
-                      ;; Context
-                      ("@work" . ?w)
-                      ("@home" . ?h)
-                      ("@errand" . ?e)
-                      ;; Time
-                      ("15min" . ?<)
-                      ("30min" . ?=)
-                      ("1h" . ?>)
-                      ;; Energy
-                      ("Challenge" . ?1)
-                      ("Average" . ?2)
-                      ("Easy" . ?3)
-                      ))
+(setq
+  org-tag-alist '(
+                   ;; Depth
+                   ("@immersive" . ?i) ;; "Deep"
+                   ("@process" . ?p) ;; "Shallow"
+                   ;; Context
+                   ("@work" . ?w)
+                   ("@home" . ?h)
+                   ("@errand" . ?e)
+                   ;; Time
+                   ("15min" . ?<)
+                   ("30min" . ?=)
+                   ("1h" . ?>)
+                   ;; Energy
+                   ("Challenge" . ?1)
+                   ("Average" . ?2)
+                   ("Easy" . ?3)
+                   ))
 
 ;; Random Note
 (use-package! org-randomnote
