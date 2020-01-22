@@ -154,7 +154,7 @@
     :n "C-n" #'git-timemachine-show-next-revision)
 
   (:after evil-snipe
-    :nv "s"    #'evil-avy-goto-char-2
+    :nv "S"    #'evil-avy-goto-char-2
 
     :map (evil-snipe-override-mode-map evil-snipe-parent-transient-map)
     :gm ";"  nil
@@ -166,8 +166,8 @@
              'evil-visual-char)
   :v "C-v" #'er/contract-region
 
-  :n  "S"     #'evil-surround-edit
-  :v  "S"     #'evil-surround-region
+  :n  "s"     #'evil-surround-edit
+  :v  "s"     #'evil-surround-region
 
   (:prefix "g"
     :nv "Q"    #'+eduarbo/unfill-paragraph
