@@ -296,8 +296,8 @@
     :vi "s-l"   #'org-store-link
     :vi "s-m"   (λ! (org-emphasize ?~)) ;; monospace/code
     :vi "s-u"   (λ! (org-emphasize ?_)) ;; underline
-    :vi "s-v"   (λ! (org-emphasize ?=)) ;; verbose
-    :vi "s-o"   (λ! (org-emphasize ?+)) ;; strikethrough
+    :vi "s-e"   (λ! (org-emphasize ?=)) ;; verbose
+    :vi "s-i"   (λ! (org-emphasize ?+)) ;; strikethrough
     :vi "s-r"   (λ! (org-emphasize ?\s)) ;; restore format
 
     (:when IS-MAC
