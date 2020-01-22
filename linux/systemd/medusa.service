@@ -12,13 +12,13 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/medusa
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=medusa \
+    --name=%p \
     --network=homelab \
     -p 8081:8081 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/medusa:/config \
     -v /nas/downloads:/downloads \
     -v /nas/series:/tv \
     linuxserver/medusa"
