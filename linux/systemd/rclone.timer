@@ -1,0 +1,9 @@
+[Unit]
+Description=Perform an rclone sync periodically
+
+[Timer]
+OnBootSec=1h
+OnCalendar=02:00
+
+[Install]
+WantedBy=timers.target
