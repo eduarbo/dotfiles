@@ -12,13 +12,13 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/radarr
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=radarr \
+    --name=%p \
     --network=homelab \
     -p 7878:7878 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/radarr:/config \
     -v /nas/downloads:/downloads \
     -v /nas/movies:/movies \
     linuxserver/radarr"

@@ -11,13 +11,13 @@ ExecStartPre=-/usr/bin/docker pull jlesage/jdownloader-2
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=jdownloader2 \
+    --name=%p \
     --network=homelab \
     -p 5800:5800 \
     -e USER_ID=$(id -u eduarbo) \
     -e GROUP_ID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/jd2:/config \
     -v /nas/downloads:/downloads \
     jlesage/jdownloader-2"
 ExecStop=/usr/bin/docker stop %p

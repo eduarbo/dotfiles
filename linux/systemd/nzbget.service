@@ -11,13 +11,13 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/nzbget
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=nzbget \
+    --name=%p \
     --network=homelab \
     -p 6789:6789 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/nzbget:/config \
     -v /nas:/nas \
     -v /nas/downloads:/downloads \
     linuxserver/nzbget"

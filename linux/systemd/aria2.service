@@ -11,14 +11,14 @@ ExecStartPre=-/usr/bin/docker pull abcminiuser/docker-aria2-with-webui
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=aria2 \
+    --name=%p \
     --network=homelab \
     -p 6800:6800 \
     -p 6880:80 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/home/homelab/%p:/conf \
+    -v /nas/home/homelab/aria2:/conf \
     -v /nas/downloads:/data \
     abcminiuser/docker-aria2-with-webui"
 ExecStop=/usr/bin/docker stop %p

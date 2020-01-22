@@ -11,13 +11,13 @@ ExecStartPre=-/usr/bin/docker pull homeassistant/home-assistant
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=home-assistant \
+    --name=%p \
     --network=homelab \
     -p 8123:8123 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/hass:/config \
     homeassistant/home-assistant"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p

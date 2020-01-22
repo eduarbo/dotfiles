@@ -11,14 +11,14 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/nginx
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=nginx \
+    --name=%p \
     --network=homelab \
+    -p 80:80 \
+    -p 443:443 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -p 80:80 \
-    -p 443:443 \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/nginx:/config \
     linuxserver/nginx"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p

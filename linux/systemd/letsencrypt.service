@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker pull linuxserver/letsencrypt
 ExecStart=/bin/bash -c "\
   /usr/bin/docker run \
     --rm \
-    --name=letsencrypt \
+    --name=%p \
     --cap-add=NET_ADMIN \
     --network=homelab \
     -e PUID=$(id -u eduarbo) \
@@ -25,7 +25,7 @@ ExecStart=/bin/bash -c "\
     -e DHLEVEL=2048 \
     -e ONLY_SUBDOMAINS=true \
     -e STAGING=false \
-    -v /nas/home/homelab/%p:/config \
+    -v /nas/home/homelab/letsencrypt:/config \
     linuxserver/letsencrypt"
 ExecStop=/usr/bin/docker stop %p
 ExecReload=/usr/bin/docker restart %p
