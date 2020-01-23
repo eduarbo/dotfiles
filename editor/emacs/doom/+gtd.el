@@ -78,7 +78,7 @@
     '("u" "Unscheduled TODOs"
        ((todo ""
           ((org-agenda-overriding-header "\nUnscheduled TODO")
-            (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "NOPE" "MAYB" "WAIT" "SMDY"))))))) t)
+            (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "NOPE" "MAYB" "WAIT" "SOON"))))))) t)
 
   ;; Delegated and Waiting Tasks
   (add-to-list 'org-agenda-custom-commands
@@ -107,7 +107,7 @@
        ("j" "Journal" entry (file+olp+datetree "journal.org")
          "* %?\nAdded: %U\n" :clock-in t :clock-resume t)
        ("s" "Someday" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
-         "* SMDY %?\n")
+         "* SOON %?\n")
        ("m" "Maybe" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
          "* MAYB %?\n")
        ("l" "Log" entry (file+olp+datetree "log.org" "Log")
@@ -125,7 +125,7 @@
   org-clock-idle-time nil
   org-clock-continuously nil
   org-clock-persist t
-  org-clock-in-switch-to-state "STRT"
+  org-clock-in-switch-to-state "DOIN"
   org-clock-in-resume nil
   org-clock-report-include-clocking-task t
   org-clock-out-remove-zero-time-clocks t
@@ -210,20 +210,21 @@
     ;; does not define X. You may omit any of the fast-selection key or X or /Y,
     ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
     org-todo-keywords
-    '((sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
-       (sequence "TODO(t!)" "STRT(s!)" "WAIT(w@/!)" "|" "DONE(d!)" "NOPE(k)")
-       (sequence "NEXT(n)" "MAYB(m)" "SMDY(y)" "|" "NOPE()"))
+    '((sequence "[ ](T)" "[-](D)" "[?](W)" "|" "[X](X)")
+       (sequence "TODO(t!)" "NEXT(n)" "DOIN(d!)" "WAIT(w@/!)" "|" "DONE(x!)" "NOPE(k@)")
+       (sequence "MAYB(m)" "SOON(s)" "|" "NOPE(k@)"))
 
     org-todo-keyword-faces
     '(
+       ("[X]" . +org-todo-done)
        ("[-]" . +org-todo-doing)
        ("[?]" . +org-todo-wait)
        ("TODO" . +org-todo-todo)
-       ("STRT" . +org-todo-doing)
+       ("DOIN" . +org-todo-doing)
        ("NEXT" . +org-todo-next)
        ("WAIT" . +org-todo-wait)
        ("MAYB" . +org-todo-wait)
-       ("SMDY" . +org-todo-wait)
+       ("SOON" . +org-todo-wait)
        ("DONE" . +org-todo-done)
        ("NOPE" . +org-todo-canceled)
        )))
