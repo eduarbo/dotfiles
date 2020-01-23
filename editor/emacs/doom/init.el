@@ -6,7 +6,7 @@
 
        :completion
        (company          ; the ultimate code completion backend
-        ;; +childframe
+        +childframe
         )
        ;; (helm +fuzzy)     ; the *other* search engine for love and life
        ;; ido               ; the other *other* search engine...
