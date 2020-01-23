@@ -119,7 +119,7 @@
 
 ;; Paths
 (setq
-  org-directory (expand-file-name "~/Documents/org")
+  org-directory (expand-file-name "~/org")
   org-archive-location (expand-file-name "archive/%s::" org-directory)
   )
 
