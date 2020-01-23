@@ -78,7 +78,7 @@
     '("u" "Unscheduled TODOs"
        ((todo ""
           ((org-agenda-overriding-header "\nUnscheduled TODO")
-            (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "CANCELED" "MAYBE" "WAIT" "SOMEDAY"))))))) t)
+            (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "NOPE" "MAYB" "WAIT" "SMDY"))))))) t)
 
   ;; Delegated and Waiting Tasks
   (add-to-list 'org-agenda-custom-commands
@@ -107,9 +107,9 @@
        ("j" "Journal" entry (file+olp+datetree "journal.org")
          "* %?\nAdded: %U\n" :clock-in t :clock-resume t)
        ("s" "Someday" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
-         "* SOMEDAY %?\n")
+         "* SMDY %?\n")
        ("m" "Maybe" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
-         "* MAYBE %?\n")
+         "* MAYB %?\n")
        ("l" "Log" entry (file+olp+datetree "log.org" "Log")
          "** %<%R>\n%?")
        )
@@ -125,7 +125,7 @@
   org-clock-idle-time nil
   org-clock-continuously nil
   org-clock-persist t
-  org-clock-in-switch-to-state "STARTED"
+  org-clock-in-switch-to-state "STRT"
   org-clock-in-resume nil
   org-clock-report-include-clocking-task t
   org-clock-out-remove-zero-time-clocks t
@@ -201,32 +201,32 @@
   (custom-declare-face '+org-todo-canceled '((t (:foreground "#3F444A" :strike-through t :inherit org-todo))) "")
   (custom-declare-face '+org-todo-next '((t (:foreground "#ECBE7B" :inherit org-todo))) ""))
 
-;; NOTE
-;; "@" means to add a note (with time)
-;; "!" means to record only the time of the state change
-;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
-;; state, and use Y when leaving the state if and only if the *target* state
-;; does not define X. You may omit any of the fast-selection key or X or /Y, so
-;; WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
-(setq
-  org-todo-keywords
-  '((sequence "[ ](i)" "[-](-)" "[?](?)" "|" "[X](x)")
-     (sequence "TODO(t!)" "STARTED(s!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
-     (sequence "NEXT(n)" "MAYBE(m)" "SOMEDAY(y)" "|" "CANCELED(c@)"))
+(after! org
+  (setq
+    ;; "@" means to add a note (with time)
+    ;; "!" means to record only the time of the state change
+    ;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
+    ;; state, and use Y when leaving the state if and only if the *target* state
+    ;; does not define X. You may omit any of the fast-selection key or X or /Y,
+    ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
+    org-todo-keywords
+    '((sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+       (sequence "TODO(t!)" "STRT(s!)" "WAIT(w@/!)" "|" "DONE(d!)" "NOPE(k)")
+       (sequence "NEXT(n)" "MAYB(m)" "SMDY(y)" "|" "NOPE()"))
 
-  org-todo-keyword-faces
-  '(
-     ("[-]" . +org-todo-doing)
-     ("[?]" . +org-todo-wait)
-     ("TODO" . +org-todo-todo)
-     ("STARTED" . +org-todo-doing)
-     ("NEXT" . +org-todo-next)
-     ("WAIT" . +org-todo-wait)
-     ("MAYBE" . +org-todo-wait)
-     ("SOMEDAY" . +org-todo-wait)
-     ("DONE" . +org-todo-done)
-     ("CANCELED" . +org-todo-canceled)
-     ))
+    org-todo-keyword-faces
+    '(
+       ("[-]" . +org-todo-doing)
+       ("[?]" . +org-todo-wait)
+       ("TODO" . +org-todo-todo)
+       ("STRT" . +org-todo-doing)
+       ("NEXT" . +org-todo-next)
+       ("WAIT" . +org-todo-wait)
+       ("MAYB" . +org-todo-wait)
+       ("SMDY" . +org-todo-wait)
+       ("DONE" . +org-todo-done)
+       ("NOPE" . +org-todo-canceled)
+       )))
 
 
 ;; ╺┳╸┏━┓┏━╸┏━╸╻┏┓╻┏━╸
