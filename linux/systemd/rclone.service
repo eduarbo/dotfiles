@@ -6,5 +6,6 @@ Type=simple
 ExecStart=/usr/bin/rclone sync \
   -v \
   --delete-excluded \
+  --config /home/eduarbo/.config/rclone/rclone.conf \
   --filter-from %h/.config/rclone/backup-filter.txt \
   /nas backblaze:eduarbo-nas
