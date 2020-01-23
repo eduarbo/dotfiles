@@ -185,7 +185,8 @@
        :weight normal))
 
   (set-face-attribute 'variable-pitch nil :font doom-variable-pitch-font)
-  ;; (set-face-attribute 'fixed-pitch nil :font doom-font)
+  ;; FIXME use doom-font instead of hardcoding the font
+  ;; (set-face-attribute 'fixed-pitch nil :family (font-get doom-font :family))
   (set-face-attribute 'fixed-pitch nil :family "Hack")
   (set-face-attribute 'org-document-title nil :height 1.4)
   (set-face-attribute 'org-level-1 nil :height 1.2)
@@ -206,6 +207,7 @@
                    org-todo
                    org-hide
                    org-drawer
+                   org-done
                    hl-todo
                    org-block-begin-line
                    org-verbatim
