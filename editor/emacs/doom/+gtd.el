@@ -196,10 +196,12 @@
 (with-no-warnings
   (custom-declare-face '+org-todo-todo '((t (:foreground "#98BE65" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-doing '((t (:foreground "#FF6C6B" :inherit org-todo))) "")
-  (custom-declare-face '+org-todo-wait '((t (:foreground "#24DDB2" :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-wait '((t (:foreground "#84DBC7" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-done '((t (:foreground "#5B6268" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-canceled '((t (:foreground "#3F444A" :strike-through t :inherit org-todo))) "")
-  (custom-declare-face '+org-todo-next '((t (:foreground "#ECBE7B" :inherit org-todo))) ""))
+  (custom-declare-face '+org-todo-next '((t (:foreground "#FCDC7C" :inherit org-todo))) ""))
+  (custom-declare-face '+org-todo-maybe '((t (:foreground "#B4A1EC" :inherit org-todo))) "")
+  (custom-declare-face '+org-todo-someday '((t (:foreground "#B4A1EC" :inherit org-todo))) "")
 
 (after! org
   (setq
@@ -223,8 +225,8 @@
        ("DOIN" . +org-todo-doing)
        ("NEXT" . +org-todo-next)
        ("WAIT" . +org-todo-wait)
-       ("MAYB" . +org-todo-wait)
-       ("SOON" . +org-todo-wait)
+       ("MAYB" . +org-todo-maybe)
+       ("SOON" . +org-todo-someday)
        ("DONE" . +org-todo-done)
        ("NOPE" . +org-todo-canceled)
        )))
