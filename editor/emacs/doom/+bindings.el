@@ -127,10 +127,10 @@
     :m "C-k"   #'evil-window-up
     :m "C-l"   #'evil-window-right)
   (:map comint-mode-map
-    :i "C-h"   #'evil-window-left
-    :i "C-j"   #'evil-window-down
-    :i "C-k"   #'evil-window-up
-    :i "C-l"   #'evil-window-right)
+    :in "C-h"   #'evil-window-left
+    :in "C-j"   #'evil-window-down
+    :in "C-k"   #'evil-window-up
+    :in "C-l"   #'evil-window-right)
   (:after treemacs-mode :map treemacs-mode-map
     :g "C-h"   #'evil-window-left
     :g "C-l"   #'evil-window-right)
