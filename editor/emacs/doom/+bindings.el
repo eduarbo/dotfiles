@@ -31,6 +31,9 @@
   "s-r" #'+eval/open-repl-other-window
   "s-R" #'+eval/open-repl-same-window
 
+  "s-i" #'projectile-run-async-shell-command-in-root
+  "s-I" #'async-shell-command
+
   :m  [up]     #'multi-previous-line
   :m  [down]   #'multi-next-line
 
