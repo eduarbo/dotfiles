@@ -100,10 +100,14 @@
 
 (after! doom-modeline
   (setq doom-modeline-major-mode-icon t
-        ;; Given ~/Projects/FOSS/emacs/lisp/comint.el => emacs/lisp/comint.el
-        ;; doom-modeline-buffer-file-name-style 'relative-from-project
-        ;; Given ~/Projects/FOSS/emacs/lisp/comint.el => ~/Projects/FOSS/emacs/l/comint.el
-        doom-modeline-buffer-file-name-style 'truncate-upto-project))
+    ;; ~/Projects/FOSS/emacs/lisp/comint.el => ~/P/F/emacs/lisp/comint.el
+    ;; doom-modeline-buffer-file-name-style 'truncate-upto-project
+    ;; ~/Projects/FOSS/emacs/lisp/comint.el => ~/P/F/e/lisp/comint.el
+    ;; doom-modeline-buffer-file-name-style 'truncate-upto-root
+    ;; ~/Projects/FOSS/emacs/lisp/comint.el => emacs/lisp/comint.el
+    doom-modeline-buffer-file-name-style 'relative-from-project
+    doom-modeline-buffer-encoding nil
+    ))
 
 
 ;; ┏━┓┏━┓┏━╸   ┏┳┓┏━┓╺┳┓┏━╸
