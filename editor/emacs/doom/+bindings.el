@@ -189,6 +189,15 @@
 ;; ╹ ╹┗━┛╺┻┛┗━┛┗━╸┗━╸┗━┛
 ;; Modules
 
+;;; checkers
+(map! :after flyspell :map flyspell-mouse-map
+  ;; Unbind from insert state
+  "RET"         nil
+  [return]      nil
+  :n  "RET"     #'flyspell-correct-at-point
+  :n  [return]  #'flyspell-correct-at-point
+  )
+
 ;;; :completion
 (map! (:when (featurep! :completion company)
         :i [tab]      #'company-complete
