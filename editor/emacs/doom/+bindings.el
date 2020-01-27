@@ -289,6 +289,8 @@
     :n "C-n"     #'org-metadown
     :n "C-p"     #'org-metaup
 
+    :mi "C-o"    #'evil-org-org-insert-heading-respect-content-below
+
     ;; Basic char syntax:
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
     :vi "s-b"   (λ! (org-emphasize ?*)) ;; bold
