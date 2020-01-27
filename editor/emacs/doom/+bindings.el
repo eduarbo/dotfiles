@@ -225,8 +225,7 @@
           :map ivy-minibuffer-map
           "C-n"      #'scroll-up-command
           "C-p"      #'scroll-down-command
-          "s-o"      #'hydra-ivy/body
-          [tab]      #'ivy-call-and-recenter)
+          "s-o"      #'hydra-ivy/body)
         (:after counsel
           :map counsel-ag-map
           [S-tab]  #'+ivy/woccur
