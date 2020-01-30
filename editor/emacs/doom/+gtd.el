@@ -28,7 +28,7 @@
 
 (setq
   org-default-notes-file "inbox.org"
-  +org-capture-todo-file org-default-notes-file
+  +org-capture-notes-file org-default-notes-file
   )
 
 (after! org
