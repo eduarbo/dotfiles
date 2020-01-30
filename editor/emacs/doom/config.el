@@ -87,6 +87,8 @@
   ;; Which-key
   which-key-idle-delay 0.3
   which-key-idle-secondary-delay 0
+
+  doom-scratch-buffer-major-mode 'org-mode
   )
 
 ;; Dired
