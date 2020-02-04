@@ -201,7 +201,7 @@
 ;;; :completion
 (map! (:when (featurep! :completion company)
         :i [tab]      #'company-complete
-        :i [S-tab]    my-completion-map
+        :i [C-tab]    my-completion-map
 
         (:after company
           (:map company-active-map
@@ -215,7 +215,7 @@
           "d"      #'+company/dict-or-keywords
           "f"      #'company-files
           "s"      #'company-ispell
-          [S-tab]  #'company-yasnippet
+          [C-tab]  #'company-yasnippet
           "o"      #'company-capf
           "a"      #'+company/dabbrev
           ))
@@ -267,8 +267,9 @@
         [return] #'evil-multiedit-toggle-or-restrict-region)))
 
   (:when (featurep! :editor snippets)
-    :i  [C-tab]    #'yas-expand
-    :v  [C-tab]    #'yas-insert-snippet
+    :i  [S-tab]    (λ! (unless (call-interactively 'yas-expand)
+                         (call-interactively 'company-yasnippet)))
+    :v  [S-tab]    #'yas-insert-snippet
 
     :i  [C-return] #'aya-expand
     :nv [C-return] #'aya-create
