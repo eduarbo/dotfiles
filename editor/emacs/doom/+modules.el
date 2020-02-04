@@ -195,7 +195,10 @@
   (set-face-attribute 'org-document-title nil :height 1.4)
   (set-face-attribute 'org-level-1 nil :height 1.2)
   (set-face-attribute 'org-level-2 nil :height 1.1)
-  ;; (set-face-attribute 'org-verbatim nil :foreground "#ECBE7B" :box t)
+  (set-face-attribute 'org-property-value nil :foreground "#83898d" :weight 'bold)
+  (dolist (face '(org-document-info-keyword org-drawer org-special-keyword))
+    (set-face-attribute face nil :foreground "#5B6268"))
+  (set-face-attribute 'org-special-keyword nil :weight 'bold)
 
   ;; Keep the fixed-pitch for some faces when variable-pitch-mode is enabled
   (dolist (face '(
@@ -215,7 +218,6 @@
                    hl-todo
                    org-block-begin-line
                    org-verbatim
-                   ;; org-headline-done
                    org-date
                    font-lock-comment-face
                    line-number
