@@ -175,6 +175,8 @@ keymap(MOUSE_CLICK, () => {
   remap('gH', '<Ctrl-j>');
 
   remap('gq', 'cq');
+
+  // FIXME "Go to the first edit box" doesn't work well on some sites
   swap('i', 'gi');
 });
 
