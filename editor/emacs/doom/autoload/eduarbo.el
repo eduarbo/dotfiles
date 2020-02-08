@@ -1,21 +1,11 @@
 ;;; ~/.dotfiles/editor/emacs/doom/autoload/eduarbo.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
-(defun +eduarbo/find-notes-for-major-mode (&optional arg)
-  "TODO"
-  (interactive "P")
-  (let ((default-directory (expand-file-name "code/" org-directory)))
-    (if arg
-        (call-interactively #'find-file)
-      (find-file
-       (expand-file-name (concat (string-remove-suffix "-mode" (symbol-name major-mode)) ".org"))))))
-
-;;;###autoload
 (defun +eduarbo/find-notes-for-project (&optional arg)
   "TODO"
   (interactive "P")
   (let ((project-root (doom-project-name))
-        (default-directory (expand-file-name "projects/" org-directory)))
+        (default-directory (expand-file-name "notes/" org-directory)))
     (if arg
         (call-interactively #'find-file)
       (find-file
