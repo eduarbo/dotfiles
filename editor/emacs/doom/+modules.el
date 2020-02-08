@@ -153,13 +153,9 @@
     org-default-priority ?B
     org-lowest-priority ?C
     org-image-actual-width '(600)
-    org-expiry-inactive-timestamps t
     org-show-notification-handler 'message
     org-clock-clocked-in-display 'frame-title
 
-    ;; By using unique ID's for links in Org-mode, links will work even if you
-    ;; move them across files
-    org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
     org-clone-delete-id t
 
     ;; org-src-fontify-natively t
@@ -224,6 +220,20 @@
                    line-number-current-line
                    ))
     (set-face-attribute face nil :inherit 'fixed-pitch)))
+
+(use-package! org-id ; built-in
+  :after org
+  :init
+  ;; By using unique ID's, links will work even if you move them across files
+  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id))
+
+;; Add CREATED date property to TODOs
+(use-package! org-expiry ; built-in
+  :after org
+  :init
+  (setq org-expiry-inactive-timestamps t)
+  :config
+  (org-expiry-insinuate))
 
 
 ;; ┏━┓┏━┓┏━╸    ┏┓┏━┓╻ ╻┏━┓┏┓╻┏━┓╻
