@@ -99,7 +99,8 @@
 ;; modeline
 
 (after! doom-modeline
-  (setq doom-modeline-major-mode-icon t
+  (setq
+    doom-modeline-major-mode-icon t
     ;; ~/Projects/FOSS/emacs/lisp/comint.el => ~/P/F/emacs/lisp/comint.el
     ;; doom-modeline-buffer-file-name-style 'truncate-upto-project
     ;; ~/Projects/FOSS/emacs/lisp/comint.el => ~/P/F/e/lisp/comint.el
