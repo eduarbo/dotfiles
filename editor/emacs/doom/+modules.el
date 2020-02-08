@@ -143,6 +143,8 @@
     org-pretty-entities t
     org-hide-emphasis-markers t
 
+    ;; Too many clock entries clutter up a heading
+    org-log-into-drawer t
     org-log-done 'time
     org-startup-indented t
     org-startup-truncated nil
