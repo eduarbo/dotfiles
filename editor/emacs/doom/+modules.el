@@ -151,6 +151,7 @@
     org-image-actual-width '(600)
     org-expiry-inactive-timestamps t
     org-show-notification-handler 'message
+    org-clock-clocked-in-display 'frame-title
 
     ;; By using unique ID's for links in Org-mode, links will work even if you
     ;; move them across files
