@@ -129,8 +129,6 @@
   org-clock-in-resume nil
   org-clock-report-include-clocking-task t
   org-clock-out-remove-zero-time-clocks t
-  ;; Too many clock entries clutter up a heading
-  org-log-into-drawer t
   org-clock-into-drawer 1
   )
 
