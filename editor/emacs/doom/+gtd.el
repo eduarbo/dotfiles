@@ -199,9 +199,10 @@
   (custom-declare-face '+org-todo-wait '((t (:foreground "#84DBC7" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-done '((t (:foreground "#5B6268" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-canceled '((t (:foreground "#3F444A" :strike-through t :inherit org-todo))) "")
-  (custom-declare-face '+org-todo-next '((t (:foreground "#FCDC7C" :inherit org-todo))) ""))
+  (custom-declare-face '+org-todo-next '((t (:foreground "#FCDC7C" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-maybe '((t (:foreground "#B4A1EC" :inherit org-todo))) "")
   (custom-declare-face '+org-todo-someday '((t (:foreground "#B4A1EC" :inherit org-todo))) "")
+  )
 
 (after! org
   (setq
