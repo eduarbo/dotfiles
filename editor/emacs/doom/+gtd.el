@@ -205,19 +205,18 @@
   )
 
 (after! org
-  (setq
-    ;; "@" means to add a note (with time)
-    ;; "!" means to record only the time of the state change
-    ;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
-    ;; state, and use Y when leaving the state if and only if the *target* state
-    ;; does not define X. You may omit any of the fast-selection key or X or /Y,
-    ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
-    org-todo-keywords
-    '((sequence "[ ](T)" "[-](D)" "[?](W)" "|" "[X](X)")
-       (sequence "TODO(t!)" "NEXT(n)" "DOIN(d!)" "WAIT(w@/!)" "|" "DONE(x!)" "NOPE(k@)")
-       (sequence "MAYB(m)" "SOON(s)" "|" "NOPE(k@)"))
+  ;; "@" means to add a note (with time)
+  ;; "!" means to record only the time of the state change
+  ;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
+  ;; state, and use Y when leaving the state if and only if the *target* state
+  ;; does not define X. You may omit any of the fast-selection key or X or /Y,
+  ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
+  (setq org-todo-keywords
+    '((sequence "[-](D)" "[ ](T)" "[?](W)" "|" "[X](X)")
+       (sequence "DOIN(d!)" "NEXT(n)" "TODO(t)" "WAIT(w@/!)" "|" "DONE(x!)" "NOPE(k@)")
+       (sequence "SOON(s)" "MAYB(m)" "READ(r)" "VIEW(v)" "|" "DONE(x!)" "NOPE(k@)")))
 
-    org-todo-keyword-faces
+  (setq org-todo-keyword-faces
     '(
        ("[X]" . +org-todo-done)
        ("[-]" . +org-todo-doing)
@@ -230,7 +229,11 @@
        ("SOON" . +org-todo-someday)
        ("DONE" . +org-todo-done)
        ("NOPE" . +org-todo-canceled)
-       )))
+       ("READ" . +org-todo-wait)
+       ("VIEW" . +org-todo-wait)
+       )
+    )
+  )
 
 
 ;; ╺┳╸┏━┓┏━╸┏━╸╻┏┓╻┏━╸
