@@ -237,6 +237,10 @@
   :config
   (org-expiry-insinuate))
 
+;; fix autoload for +org/toggle-clock
+(use-package! org-clock ; built-in
+  :commands (org-clock-save org-clocking-p org-clock-load))
+
 
 ;; ┏━┓┏━┓┏━╸    ┏┓┏━┓╻ ╻┏━┓┏┓╻┏━┓╻
 ;; ┃ ┃┣┳┛┃╺┓╺━╸  ┃┃ ┃┃ ┃┣┳┛┃┗┫┣━┫┃
