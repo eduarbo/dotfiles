@@ -162,12 +162,7 @@
     org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
     org-clone-delete-id t
 
-    ;; org-completion-use-ido t
-    ;; org-goto-max-level 10
-    ;; org-goto-interface 'outline-path-completion
     ;; org-src-fontify-natively t
-    ;; org-special-ctrl-a/e t
-    ;; org-special-ctrl-k t
     ;; org-yank-adjusted-subtrees t
 
     org-file-apps
