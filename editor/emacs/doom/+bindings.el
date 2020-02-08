@@ -363,7 +363,6 @@
       (:prefix ("n" . "notes")
         :desc "New Entry"                     "j" #'org-journal-new-entry
         :desc "Search Forever"                "J" #'org-journal-search-forever
-        :desc "Open mode notes"               "m" #'+eduarbo/find-notes-for-major-mode
         :desc "Open project notes"            "p" #'+eduarbo/find-notes-for-project)
 
       ;;; <leader> TAB --- workspace
