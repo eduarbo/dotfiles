@@ -316,41 +316,7 @@
     (:when IS-MAC
       "s-o"   #'+org/insert-item-below
       "s-O"   #'+org/insert-item-above)
-
-    :localleader
-    ;; A fresh start - Unmap the whole map
-    "" nil
-
-    :localleader
-
-    (:prefix ("f" . "fomart")
-      :desc "Bold"                  :iv  "b"   (λ! (org-emphasize ?*)) ;; bold
-      :desc "Italic"                :iv  "i"   (λ! (org-emphasize ?/)) ;; italic
-      :desc "Insert link"           :iv  "k"   #'org-insert-link
-      :desc "Remove link"           :i   "K"   #'+org/remove-link
-      :desc "Store link to heading" :i   "l"   #'org-store-link
-      :desc "Monospace/code"        :iv  "m"   (λ! (org-emphasize ?~)) ;; monospace/code
-      :desc "Underline"             :iv  "u"   (λ! (org-emphasize ?_)) ;; underline
-      :desc "Verbose"               :iv  "v"   (λ! (org-emphasize ?=)) ;; verbose
-      :desc "Strikethrough"         :iv  "s"   (λ! (org-emphasize ?+)) ;; strikethrough
-      :desc "Restore format"        :i   "r"   (λ! (org-emphasize ?\s)) ;; restore format
-      )
-
-    :desc "Archive Subtree"       :n  "a"   #'org-archive-subtree
-    :desc "Refile"                :n  "r"   #'org-refile
-    :desc "Refile to file"        :n  "R"   #'+org/refile-to-file
-    :desc "Schedule"              :n  "s"   #'org-schedule
-    :desc "Set deadline"          :n  "d"   #'org-deadline
-    :desc "Set tags"              :n  "t"   #'org-set-tags-command
-
-    (:prefix ("c" . "clock/timer")
-      :desc "Start timer"                   :n "c" #'org-clock-in
-      :desc "Stop timer"                    :n "C" #'org-clock-out
-      :desc "Display total time on heading" :n "d" #'org-clock-display
-      :desc "Create table report"           :n "d" #'org-clock-report
-      :desc "Go to running timer's entry"   :n "g" #'org-clock-goto
-      :desc "Select past timers entry"      :n "G" (λ! (org-clock-goto 'select))
-      :desc "Cancel running timer"          :n "x" #'org-clock-cancel)))
+    ))
 
 
 ;; ╻  ┏━╸┏━┓╺┳┓┏━╸┏━┓
