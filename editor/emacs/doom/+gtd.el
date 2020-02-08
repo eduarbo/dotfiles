@@ -121,15 +121,15 @@
 ;; ┗━╸┗━╸┗━┛┗━╸╹ ╹╹╹ ╹┗━┛
 ;; Clocking
 
-(setq
-  org-clock-idle-time nil
-  org-clock-continuously nil
-  org-clock-persist t
-  org-clock-in-switch-to-state "DOIN"
-  org-clock-in-resume nil
-  org-clock-report-include-clocking-task t
-  org-clock-out-remove-zero-time-clocks t
-  org-clock-into-drawer 1
+(after! org-clock
+  (setq
+    org-clock-idle-time nil
+    org-clock-persist t
+    org-clock-in-switch-to-state "DOIN"
+    org-clock-report-include-clocking-task t
+    org-clock-out-remove-zero-time-clocks t
+    org-clock-into-drawer 1
+    )
   )
 
 (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
