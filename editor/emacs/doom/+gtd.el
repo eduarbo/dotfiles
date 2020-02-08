@@ -211,8 +211,8 @@
   ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
   (setq org-todo-keywords
     '((sequence "[-](D)" "[ ](T)" "[?](W)" "|" "[X](X)")
-       (sequence "DOIN(d!)" "NEXT(n)" "TODO(t)" "WAIT(w@/!)" "|" "DONE(x!)" "NOPE(k@)")
-       (sequence "SOON(s)" "MAYB(m)" "READ(r)" "VIEW(v)" "|" "DONE(x!)" "NOPE(k@)")))
+       (sequence "DOIN(d)" "NEXT(n)" "TODO(t)" "WAIT(w@/!)" "|" "DONE(x)" "NOPE(k@)")
+       (sequence "SOON(s)" "MAYB(m)" "READ(r)" "VIEW(v)" "|" "DONE(x)" "NOPE(k@)")))
 
   (setq org-todo-keyword-faces
     '(
