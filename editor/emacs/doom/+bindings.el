@@ -32,8 +32,8 @@
   "s-r" #'+eval/open-repl-other-window
   "s-R" #'+eval/open-repl-same-window
 
-  "s-i" #'projectile-run-async-shell-command-in-root
-  "s-I" #'async-shell-command
+  "s-i" #'org-capture
+  "s-I" #'org-journal-new-entry
 
   :m  [up]     #'multi-previous-line
   :m  [down]   #'multi-next-line
@@ -385,12 +385,18 @@
         :desc "Search Forever"                "J" #'org-journal-search-forever
         :desc "Open project notes"            "p" #'+eduarbo/find-notes-for-project)
 
+      ;;; <leader> o --- open
+      (:prefix ("o" . "open")
+        :desc "Shell command"                 "s" #'async-shell-command
+        :desc "Shell command in project root" "S" #'projectile-run-async-shell-command-in-root)
+
       ;;; <leader> TAB --- workspace
       (:prefix ("TAB" . "workspace")
         :desc "Kill this workspace"          "k" #'+workspace/delete)
 
       ;;; <leader> p --- project
       (:prefix ("p" . "project")
+        :desc "Run cmd in project root"      "!" #'projectile-run-async-shell-command-in-root
         :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path)
 
       ;;; <leader> t --- toggle
