@@ -10,6 +10,7 @@
 
 
 (defvar my-completion-map (make-sparse-keymap))
+(defvar my-org-format-map (make-sparse-keymap))
 
 ;; ┏━╸╻  ┏━┓┏┓ ┏━┓╻  ┏━┓
 ;; ┃╺┓┃  ┃ ┃┣┻┓┣━┫┃  ┗━┓
@@ -291,37 +292,50 @@
 ;;; :lang
 
 (map!
-  (:after org :map org-mode-map
-    :n "SPC"     #'org-todo
-    :n "S-SPC"   #'org-todo-yesterday
+  (:after org
+    (:map my-org-format-map
+      ;; Basic char syntax:
+      ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
+      "b"   (λ! (org-emphasize ?*)) ;; bold
+      "i"   (λ! (org-emphasize ?/)) ;; italic
+      "k"   #'org-insert-link
+      "K"   #'+org/remove-link
+      "l"   #'org-store-link
+      "m"   (λ! (org-emphasize ?~)) ;; monospace/code
+      "u"   (λ! (org-emphasize ?_)) ;; underline
+      "v"   (λ! (org-emphasize ?=)) ;; verbose
+      "s"   (λ! (org-emphasize ?+)) ;; strikethrough
+      "r"   (λ! (org-emphasize ?\s)) ;; restore format
+      )
 
-    :n "C-n"     #'org-metadown
-    :n "C-p"     #'org-metaup
+    (:map org-mode-map
+      "s-r"        #'org-refile
+      :vi "s-f"    my-org-format-map
 
-    :mi "C-o"    #'evil-org-org-insert-heading-respect-content-below
+      :n "SPC"     #'org-todo
+      :n "S-SPC"   #'org-todo-yesterday
 
-    ;; Basic char syntax:
-    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
-    :vi "s-b"   (λ! (org-emphasize ?*)) ;; bold
-    :vi "s-i"   (λ! (org-emphasize ?/)) ;; italic
-    :vi "s-k"   #'org-insert-link
-    :vi "s-K"   #'+org/remove-link
-    :vi "s-l"   #'org-store-link
-    :vi "s-m"   (λ! (org-emphasize ?~)) ;; monospace/code
-    :vi "s-u"   (λ! (org-emphasize ?_)) ;; underline
-    :vi "s-e"   (λ! (org-emphasize ?=)) ;; verbose
-    :vi "s-i"   (λ! (org-emphasize ?+)) ;; strikethrough
-    :vi "s-r"   (λ! (org-emphasize ?\s)) ;; restore format
+      :n "C-n"     #'org-metadown
+      :n "C-p"     #'org-metaup
 
-    (:when IS-MAC
-      "s-o"   #'+org/insert-item-below
-      "s-O"   #'+org/insert-item-above)
+      :mi "C-o"    #'evil-org-org-insert-heading-respect-content-below
 
-    :localleader
-    "y" #'org-copy
-    "p" #'org-paste-subtree
-    "P" #'org-priority
-    )
+      (:when IS-MAC
+        "s-o"   #'+org/insert-item-below
+        "s-O"   #'+org/insert-item-above)
+
+      :localleader
+      :desc "format" "f"    my-org-format-map
+
+      "F" #'org-footnote-new
+      "y" #'org-copy
+      "p" #'org-paste-subtree
+      "P" #'org-priority)
+
+    (:map org-capture-mode-map
+      "s-w" #'org-capture-kill
+      "s-s" #'org-capture-finalize
+      ))
   )
 
 
