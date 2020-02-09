@@ -140,25 +140,22 @@
 
 (after! org
   (setq
-    org-pretty-entities t
-    org-hide-emphasis-markers t
-
     ;; Too many clock entries clutter up a heading
-    org-log-into-drawer t
     org-log-done 'time
+    org-log-into-drawer t
+
     org-startup-indented t
     org-startup-truncated nil
     org-startup-with-inline-images t
+
+    org-clock-clocked-in-display 'frame-title
+    org-clone-delete-id t
+    org-hide-emphasis-markers t
+    org-image-actual-width '(600)
     org-imenu-depth 5
     org-outline-path-complete-in-steps nil
-    org-highest-priority ?A
-    org-default-priority ?B
-    org-lowest-priority ?C
-    org-image-actual-width '(600)
+    org-pretty-entities t
     org-show-notification-handler 'message
-    org-clock-clocked-in-display 'frame-title
-
-    org-clone-delete-id t
 
     ;; org-src-fontify-natively t
     ;; org-yank-adjusted-subtrees t

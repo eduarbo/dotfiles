@@ -31,9 +31,6 @@
   +org-capture-notes-file org-default-notes-file
   )
 
-(after! org
-  (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h")))
-
 
 ;; ┏━┓┏━╸┏━╸┏┓╻╺┳┓┏━┓┏━┓
 ;; ┣━┫┃╺┓┣╸ ┃┗┫ ┃┃┣━┫┗━┓
@@ -203,6 +200,8 @@
   )
 
 (after! org
+  (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h"))
+
   ;; "@" means to add a note (with time)
   ;; "!" means to record only the time of the state change
   ;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
@@ -230,6 +229,12 @@
        ("READ" . +org-todo-wait)
        ("VIEW" . +org-todo-wait)
        )
+    )
+
+  (setq
+    org-highest-priority ?A
+    org-default-priority ?B
+    org-lowest-priority ?C
     )
   )
 
