@@ -112,6 +112,7 @@
 (remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
 ;; Hide indent lines
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
+(remove-hook! text-mode #'flyspell-mode)
 
 
 ;; ╺┳╸┏━╸╻ ╻╺┳╸   ┏┳┓┏━┓╺┳┓┏━╸
