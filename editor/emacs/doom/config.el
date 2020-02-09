@@ -53,11 +53,13 @@
                                 ("NOTE"  . ,(face-foreground 'success)))))
 (add-hook! 'doom-load-theme-hook #'eduarbo--set-hl-todo-keyword-faces)
 
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 (when IS-MAC
   (setq ns-use-thin-smoothing t)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (add-hook 'window-setup-hook #'toggle-frame-maximized))
+  )
 
 
 ;; ╺┳┓┏━╸┏━╸┏━┓╻ ╻╻  ╺┳╸┏━┓
