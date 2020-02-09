@@ -128,7 +128,7 @@
 ;; Paths
 (setq
   org-directory (expand-file-name "~/org")
-  org-archive-location (expand-file-name "archive/%s::" org-directory)
+  org-archive-location "archive/%s::datetree/"
   )
 
 ;; Options
