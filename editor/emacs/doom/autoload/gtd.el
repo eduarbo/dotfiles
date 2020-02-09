@@ -273,10 +273,3 @@
 (defun bh/verify-refile-target ()
   "Exclude todo keywords with a done state from refile targets"
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
-;;;###autoload
-(defun eduarbo/create-notes-file ()
-  "Create an org file in the notes directory"
-  (interactive)
-  (let ((name (read-string "Filename: ")))
-    (expand-file-name (format "%s.org" name) org-notes-directory)))
