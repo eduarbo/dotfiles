@@ -333,6 +333,7 @@
       "P" #'org-priority)
 
     (:map org-capture-mode-map
+      "s-r" #'org-capture-refile
       "s-w" #'org-capture-kill
       "s-s" #'org-capture-finalize
       ))
