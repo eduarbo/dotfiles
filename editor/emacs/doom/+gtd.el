@@ -15,10 +15,7 @@
 ;; Building a Second Brain in Org-mode using GTD and PARA for organization
 ;;
 ;; inbox         => where I collect everything (from laptop and mobile)
-;; todo          => tasks, filed in Projects or Areas
-;; somedaymaybe  => inactive tasks that I might do at some point in the future
-;; agendas       => lists of items to discuss with specific people when I see them next
-;; goals         => tracking long-term goals, which Tasks, Projects and Areas move towards
+;; todo          => Projects, Area tasks and Resources
 
 
 ;; ╺┳┓┏━╸┏━╸┏━┓╻ ╻╻  ╺┳╸┏━┓
