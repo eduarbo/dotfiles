@@ -1,15 +1,18 @@
 ;;; ~/.dotfiles/editor/emacs/doom/autoload/eduarbo.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
-(defun +eduarbo/find-notes-for-project (&optional arg)
-  "TODO"
-  (interactive "P")
-  (let ((project-root (doom-project-name))
-        (default-directory (expand-file-name "notes/" org-directory)))
-    (if arg
-        (call-interactively #'find-file)
-      (find-file
-       (expand-file-name (concat project-root ".org"))))))
+(defun +eduarbo-org-capture-project-file ()
+  "Get the path for the project org file"
+  (if (doom-project-root)
+    (let ((filename (doom-project-name)))
+      (expand-file-name (concat filename ".org") +org-projects-directory))
+    (user-error "Couldn't detect a project")))
+
+;;;###autoload
+(defun +eduarbo/find-notes-for-project ()
+  "Open project org file."
+  (interactive)
+  (find-file (+eduarbo-org-capture-project-file)))
 
 ;;;###autoload
 (defun +eduarbo/switch-to-last-workspace ()

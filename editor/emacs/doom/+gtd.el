@@ -26,6 +26,7 @@
 (setq
   org-default-notes-file "inbox.org"
   +org-capture-notes-file org-default-notes-file
+  +org-projects-directory (expand-file-name "projects" org-directory)
   )
 
 
