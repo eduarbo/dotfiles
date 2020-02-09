@@ -398,7 +398,8 @@
       ;;; <leader> p --- project
       (:prefix ("p" . "project")
         :desc "Run cmd in project root"      "!" #'projectile-run-async-shell-command-in-root
-        :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path)
+        :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path
+        :desc "Open project notes"           "n" #'+eduarbo/find-notes-for-project)
 
       ;;; <leader> t --- toggle
       (:prefix ("t" . "toggle")
