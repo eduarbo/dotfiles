@@ -155,6 +155,8 @@
     :n "C-n" #'git-timemachine-show-next-revision)
 
   (:after evil-snipe
+    "C-s"    #'evil-snipe-repeat
+    "C-S-s"  #'evil-snipe-repeat-reverse
     :nv "S"    #'evil-avy-goto-char-2
 
     :map (evil-snipe-override-mode-map evil-snipe-parent-transient-map)
