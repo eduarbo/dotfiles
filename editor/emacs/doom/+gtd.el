@@ -245,9 +245,12 @@
   ;; does not define X. You may omit any of the fast-selection key or X or /Y,
   ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
   (setq org-todo-keywords
-    '((sequence "[-](D)" "[ ](T)" "[?](W)" "|" "[X](X)")
-       (sequence "DOIN(d)" "NEXT(n)" "TODO(t)" "WAIT(w@/!)" "|" "DONE(x)" "NOPE(k@)")
-       (sequence "SOON(s)" "MAYB(m)" "READ(r)" "VIEW(v)" "|" "DONE(x)" "NOPE(k@)")))
+    '((sequence "DOIN(d)" "NEXT(n)" "|")
+       (sequence "TODO(t)" "WAIT(w@/!)" "|")
+       (sequence "SOON(s)" "MAYB(m)" "|")
+       (sequence "READ(r)" "VIEW(v)" "|")
+       (sequence "|" "DONE(x)" "NOPE(k@)")
+       (sequence "[ ](T)" "[-](D)" "[?](W)" "|" "[X](X)")))
 
   (setq org-todo-keyword-faces
     '(
