@@ -133,11 +133,6 @@
 
 ;; Options
 
-(setq
-  ;; Disable template for .org files to avoid conflicts with capture tools
-  +file-templates-alist (remove '("\\.org$" :trigger "__" :mode org-mode) +file-templates-alist)
-  )
-
 (after! org
   (setq
     ;; Too many clock entries clutter up a heading
