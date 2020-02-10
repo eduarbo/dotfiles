@@ -310,6 +310,7 @@
 
     (:map org-mode-map
       "s-r"        #'org-refile
+      "s-R"        #'+org/refile-to-running-clock
       :vi "s-f"    my-org-format-map
 
       :n "SPC"     #'org-todo
