@@ -5,7 +5,7 @@
   "Get the path for the project org file"
   (if (doom-project-root)
     (let ((filename (doom-project-name)))
-      (expand-file-name (concat filename ".org") +org-projects-directory))
+      (expand-file-name (concat filename ".org") org-default-projects-dir))
     (user-error "Couldn't detect a project")))
 
 ;;;###autoload
