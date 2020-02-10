@@ -23,12 +23,18 @@
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 ;; Defaults
 
-(setq
-  org-default-notes-file "inbox.org"
-  +org-capture-notes-file org-default-notes-file
-  +org-projects-directory (expand-file-name "projects" org-directory)
-  )
+(after! org
+  ;; New stuff collects in this file
+  (setq org-default-notes-file (expand-file-name "inbox.org" org-directory)))
 
+(defvar org-default-notes-dir (expand-file-name "notes" org-directory)
+  "Directory of un-shareable, personal notes")
+(defvar org-default-projects-dir (expand-file-name "projects" org-directory)
+  "Directory of project notes, usually repos")
+(defvar org-default-tasks-file (expand-file-name "todo.org" org-default-notes-dir)
+  "Tasks, TODOs and little projects")
+(defvar org-default-incubate-file (expand-file-name "incubate.org" org-default-notes-dir)
+  "Ideas simmering on back burner")
 
 ;; ┏━┓┏━╸┏━╸┏┓╻╺┳┓┏━┓┏━┓
 ;; ┣━┫┃╺┓┣╸ ┃┗┫ ┃┃┣━┫┗━┓
@@ -39,16 +45,16 @@
   :after org-agenda
   :config (org-super-agenda-mode))
 
-(setq
-  org-agenda-files
-  '("inbox.org" "todo.org" "somedaymaybe.org" "agendas.org" "waiting.org" "goals.org")
-  ;; org-agenda-block-separator ""
-  org-agenda-inhibit-startup nil
-  org-agenda-show-future-repeats nil
-  org-agenda-start-on-weekday nil
-  org-agenda-skip-deadline-if-done t
-  org-agenda-skip-scheduled-if-done t
-  )
+(after! org
+  (setq
+    org-agenda-files (list org-default-tasks-file org-default-projects-dir org-default-notes-dir)
+    ;; org-agenda-block-separator ""
+    org-agenda-inhibit-startup nil
+    org-agenda-show-future-repeats nil
+    org-agenda-start-on-weekday nil
+    org-agenda-skip-deadline-if-done t
+    org-agenda-skip-scheduled-if-done t
+    ))
 
 ;; UI
 (add-hook! org-mode
@@ -91,24 +97,57 @@
 (after! org
   (setq
     org-capture-templates
-    '(("t" "Task" entry (file "inbox.org")
-        "* TODO %?\n")
-       ("n" "Note" entry (file "inbox.org")
-         "* %u %?\n%i\n%a")
-       ("p" "Project" entry (file+headline "todo.org" "Projects")
-         (file "templates/newprojecttemplate.org"))
-       ("w" "Work" entry (file+olp+datetree "work.org")
-         "* %?\nAdded: %U\n" :clock-in t :clock-resume t)
-       ("j" "Journal" entry (file+olp+datetree "journal.org")
-         "* %?\nAdded: %U\n" :clock-in t :clock-resume t)
-       ("s" "Someday" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
-         "* SOON %?\n")
-       ("m" "Maybe" entry (file+headline "somedaymaybe.org" "Someday / Maybe")
-         "* MAYB %?\n")
-       ("l" "Log" entry (file+olp+datetree "log.org" "Log")
-         "** %<%R>\n%?")
-       )
-    ))
+    '(
+       ("n" "Note" entry
+         (file org-default-notes-file)
+         (file "templates/new-note.org") :prepend t)
+       ("N" "Note From" entry
+         (file org-default-notes-file)
+         (file "templates/new-note-from.org") :prepend t)
+       ("t" "Task" entry
+         (file org-default-notes-file)
+         (file "templates/new-task.org") :prepend t)
+       ("T" "Task From" entry
+         (file org-default-notes-file)
+         (file "templates/new-task-from.org") :prepend t)
+       ("l" "Log" entry
+         (file org-default-notes-file)
+         (file "templates/new-log.org") :prepend t)
+       ("L" "Log From" entry
+         (file org-default-notes-file)
+         (file "templates/new-log-from.org") :prepend t)
+       ("k" "Cliplink" entry
+         (fil org-default-notes-file)
+         (file "templates/new-cliplink.org") :prepend t)
+
+       ;; Will use {org-default-projects-dir}/{project-root}.org
+       ("p" "Templates for projects")
+       ("pn" "Note" entry
+         (file+headline +eduarbo-org-capture-project-file "Notes")
+         (file "templates/new-note.org") :prepend t)
+       ("pn" "Note From" entry
+         (file+headline +eduarbo-org-capture-project-file "Notes")
+         (file "templates/new-note-from.org") :prepend t)
+       ("pt" "Task" entry
+         (file+headline +eduarbo-org-capture-project-file "Tasks")
+         (file "templates/new-task.org") :prepend t)
+       ("pT" "Task From" entry
+         (file+headline +eduarbo-org-capture-project-file "Tasks")
+         (file "templates/new-task-from.org") :prepend t)
+       ("pl" "Log" entry
+         (file+headline +eduarbo-org-capture-project-file "Log")
+         (file "templates/new-log.org") :prepend t)
+       ("pL" "Log From" entry
+         (file+headline +eduarbo-org-capture-project-file "Log")
+         (file "templates/new-log-from.org") :prepend t)
+       ("pr" "Resource" entry
+         (file+headline +eduarbo-org-capture-project-file "Resources")
+         (file "templates/new-resource.org") :prepend t)
+       ("pk" "Cliplink" entry
+         (file+headline +eduarbo-org-capture-project-file "Resources")
+         (file "templates/new-cliplink.org") :prepend t)
+       ))
+  )
 
 
 ;; ┏━╸╻  ┏━┓┏━╸╻┏ ╻┏┓╻┏━╸
@@ -167,15 +206,14 @@
 ;; ╹┗╸┗━╸╹  ╹┗━╸╹╹ ╹┗━┛
 ;; Refiling
 
-(setq
-  org-refile-targets '((("todo.org" "somedaymaybe.org") :maxlevel . 2))
-  ;; org-refile-targets
-  ;; '((nil :maxlevel . 1)
-  ;;    (org-refile-files :maxlevel . 2))
-  ;; org-refile-use-cache t
-  org-refile-use-outline-path t
-  org-refile-target-verify-function 'bh/verify-refile-target
-  )
+(after! org
+  (setq
+    org-refile-targets
+    '((nil :maxlevel . 2)
+       (org-agenda-files :maxlevel . 2))
+    org-refile-use-outline-path t
+    org-refile-target-verify-function 'bh/verify-refile-target
+    ))
 
 
 ;; ╺┳╸┏━┓┏━┓╻┏    ╻┏ ┏━╸╻ ╻╻ ╻┏━┓┏━┓╺┳┓┏━┓
