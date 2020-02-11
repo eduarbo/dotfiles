@@ -120,10 +120,11 @@
   :nv "C-S-a" #'evil-numbers/dec-at-pt
 
   ;; Easier window/tab navigation
-  :n "C-h"   #'evil-window-left
-  :n "C-j"   #'evil-window-down
-  :n "C-k"   #'evil-window-up
-  :n "C-l"   #'evil-window-right
+  (:map general-override-mode-map
+    :n "C-h"   #'evil-window-left
+    :n "C-j"   #'evil-window-down
+    :n "C-k"   #'evil-window-up
+    :n "C-l"   #'evil-window-right)
   ;; overrides
   (:after evil-org-agenda :map evil-org-agenda-mode-map
     :m "C-h"   #'evil-window-left
@@ -138,17 +139,6 @@
   (:after treemacs-mode :map treemacs-mode-map
     :g "C-h"   #'evil-window-left
     :g "C-l"   #'evil-window-right)
-  (:after org :map org-mode-map
-    :n "C-h"  nil
-    :n "C-j"  nil
-    :n "C-k"  nil
-    :n "C-l"  nil)
-  (:after flycheck :map flycheck-error-list-mode-map
-    :nv "C-j" nil
-    :nv "C-k" nil)
-  (:after evil-magit :map magit-mode-map
-    :nv "C-j" nil
-    :nv "C-k" nil)
 
   (:after git-timemachine :map git-timemachine-mode-map
     :n "C-p" #'git-timemachine-show-previous-revision
