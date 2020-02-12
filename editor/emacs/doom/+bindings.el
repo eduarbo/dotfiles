@@ -329,6 +329,11 @@
       "s-r" #'org-capture-refile
       "s-w" #'org-capture-kill
       "s-s" #'org-capture-finalize
+      )
+
+    (:map org-src-mode-map
+      "s-w" #'org-edit-src-abort
+      "s-s" #'org-edit-src-exit
       ))
   )
 
