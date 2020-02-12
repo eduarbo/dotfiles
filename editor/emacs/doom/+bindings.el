@@ -405,4 +405,8 @@
         :desc "Global Line numbers"          "L" #'global-display-line-numbers-mode
         :desc "Visual line mode"             "v" #'visual-line-mode
         :desc "Subword mode"                 "w" #'subword-mode
-        :desc "Frame maximized"              "z" #'toggle-frame-maximized))
+        :desc "Frame maximized"              "z" #'toggle-frame-maximized)
+
+      ;;; <leader> w --- window
+      (:prefix ("w" . "window")
+        :desc "Most recently used buffer"    "w" #'evil-window-mru))
