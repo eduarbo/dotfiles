@@ -344,9 +344,9 @@
 ;; Leader
 
 (map! :leader
-      :desc "Eval expression"       ":"    #'pp-eval-expression
-      :desc "M-x"                   ";"    #'execute-extended-command
-      :desc "Switch scratch buffer" "X"    #'doom/switch-to-project-scratch-buffer
+      :desc "Eval expression"          ":"    #'pp-eval-expression
+      :desc "M-x"                      ";"    #'execute-extended-command
+      :desc "Switch to scratch buffer" "X"    #'doom/switch-to-scratch-buffer
 
       ;;; <leader> l --- language
       (:when (featurep! :config language)
