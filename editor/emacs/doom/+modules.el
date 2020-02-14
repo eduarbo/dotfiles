@@ -239,30 +239,22 @@
 ;; ┗━┛╹┗╸┗━┛   ┗━┛┗━┛┗━┛╹┗╸╹ ╹╹ ╹┗━╸
 ;; org-journal
 
-;; (setq org-journal-dir (expand-file-name "journal" org-directory))
+(setq org-journal-dir (expand-file-name "journal/" org-directory))
 
-(when (featurep! +journal)
-  (after! org-journal
-    (setq org-extend-today-until 4 ;; sometimes my days end at 4am
-      org-journal-carryover-items nil
-      org-journal-file-type 'weekly
-      ;; Check ~format-time-string~ help for a list of the formatting symbols
-      ;; org-journal-date-format 'org-journal-date-format-func
-      ;; org-journal-file-format "%Y/%Y-%m-%d %A.org"
-      ;; org-journal-date-prefix "#+TITLE: "
-      ;; FIXME Exclude journals from doom file-templates, that is overriding the TITLE
-      ;; org-journal-date-format "%A, %d %B %Y"
-      ;; org-journal-time-prefix "* "
-      ;; (org-journal-time-format "[%F %a %R]")
-      ;; org-journal-hide-entries-p nil
-      ))
+(after! org-journal
+  ;; Disable default org template for the journal
+  (set-file-template! "\\/journal/.+\\.org$" :ignore t)
 
-  ;; FIXME exclude journal notes from templates
-  ;; (setq +file-templates-alist
-  ;;       (cons '("\\(?!/journal/\\).+\\.org$" :trigger "__" :mode org-mode)
-  ;;             (remove '("\\.org$" :trigger "__" :mode org-mode) +file-templates-alist)))
-  )
-
+  (setq
+    org-extend-today-until 4 ;; sometimes my days end at 4am
+    org-journal-carryover-items nil
+    org-journal-file-type 'weekly
+    ;; Check the function "format-time-string" for
+    org-journal-file-format "%Y/W%W %Y-%m-%d.org"
+    org-journal-date-format "%A, %-a %B %Y"
+    org-journal-time-format "%-I:%M %p"
+    org-journal-time-prefix "** "
+    ))
 
 
 ;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸
