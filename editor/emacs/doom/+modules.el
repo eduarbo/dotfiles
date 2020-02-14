@@ -119,8 +119,6 @@
 ;; ┗━┛╹┗╸┗━┛   ╹ ╹┗━┛╺┻┛┗━╸
 ;; org-mode
 
-(add-hook 'org-mode-hook 'variable-pitch-mode)
-
 ;; Load org-habit with org.el
 (setq org-habit-graph-column 105)
 (add-to-list 'org-modules 'org-habit t)
@@ -173,6 +171,11 @@
   )
 
 (add-hook! org-mode
+  (setq-local line-spacing 0.2)
+  ;; Side padding
+  (setq-local left-margin-width 1)
+  (setq-local right-margin-width 1)
+
   (custom-set-faces!
     '(link :weight normal)
     '((org-document-title outline-1 outline-2 outline-3 outline-4 outline-5 outline-6 outline-7 outline-8)
@@ -213,7 +216,10 @@
                    line-number
                    line-number-current-line
                    ))
-    (set-face-attribute face nil :inherit 'fixed-pitch)))
+    (set-face-attribute face nil :inherit 'fixed-pitch))
+
+  (set-window-buffer nil (current-buffer))
+  (variable-pitch-mode))
 
 (use-package! org-id ; built-in
   :after org
