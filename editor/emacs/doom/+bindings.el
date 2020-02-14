@@ -335,6 +335,12 @@
       "s-w" #'org-edit-src-abort
       "s-s" #'org-edit-src-exit
       ))
+
+  (:after evil-org-agenda
+    :map evil-org-agenda-mode-map
+    ;; :map (org-agenda-keymap org-agenda-mode-map org-super-agenda-header-map)
+    :m "k" #'org-agenda-previous-item
+    :m "j" #'org-agenda-next-item)
   )
 
 
