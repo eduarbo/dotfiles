@@ -319,6 +319,9 @@
 
       :localleader
       :desc "format" "f"    my-org-format-map
+      :desc "Timestamp"                        "t"   #'org-time-stamp
+      :desc "Togle Timestamp type"             "T"   #'org-toggle-timestamp-type
+      :desc "Inactive Timestamp"               "i"   #'org-time-stamp-inactive
 
       "F" #'org-footnote-new
       "y" #'org-copy
