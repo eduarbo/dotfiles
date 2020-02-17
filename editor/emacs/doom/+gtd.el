@@ -119,7 +119,7 @@
          (file org-default-notes-file)
          (file "templates/new-log-from.org") :prepend t)
        ("k" "Cliplink" entry
-         (fil org-default-notes-file)
+         (file org-default-notes-file)
          (file "templates/new-cliplink.org") :prepend t)
 
        ;; Will use {org-default-projects-dir}/{project-root}.org
