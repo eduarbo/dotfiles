@@ -41,10 +41,6 @@
 ;; ╹ ╹┗━┛┗━╸╹ ╹╺┻┛╹ ╹┗━┛
 ;; Agendas
 
-(use-package! org-super-agenda
-  :after org-agenda
-  :config (org-super-agenda-mode))
-
 (after! org
   (setq
     org-agenda-files (list org-default-tasks-file org-default-projects-dir org-default-notes-dir)
@@ -57,6 +53,10 @@
     org-agenda-span 'day
     org-agenda-start-day nil
     ))
+
+(use-package! org-super-agenda
+  :after (org org-agenda)
+  :config (org-super-agenda-mode))
 
 ;; UI
 (add-hook! org-mode
