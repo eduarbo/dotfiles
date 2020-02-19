@@ -252,7 +252,7 @@
        (sequence "SOON(s)" "MAYB(m)" "|")
        (sequence "READ(r)" "VIEW(v)" "|")
        (sequence "|" "DONE(x)" "NOPE(k@)")
-       (sequence "[ ](T)" "[-](D)" "[?](W)" "|" "[X](X)")))
+       (sequence "[-](D)" "[ ](T)" "[?](W)" "|" "[X](X)")))
 
   (setq org-todo-keyword-faces
     '(
