@@ -31,9 +31,9 @@
   "Directory of un-shareable, personal notes")
 (defvar org-default-projects-dir (expand-file-name "projects" org-directory)
   "Directory of project notes, usually repos")
-(defvar org-default-tasks-file (expand-file-name "todo.org" org-default-notes-dir)
+(defvar org-default-todo-file (expand-file-name "todo.org" org-directory)
   "Tasks, TODOs and little projects")
-(defvar org-default-incubate-file (expand-file-name "incubate.org" org-default-notes-dir)
+(defvar org-default-incubate-file (expand-file-name "incubate.org" org-directory)
   "Ideas simmering on back burner")
 
 ;; ┏━┓┏━╸┏━╸┏┓╻╺┳┓┏━┓┏━┓
@@ -43,8 +43,8 @@
 
 (after! org
   (setq
-    org-agenda-files (list org-default-tasks-file org-default-projects-dir org-default-notes-dir)
     ;; org-agenda-block-separator ""
+    org-agenda-files (list org-default-todo-file org-default-incubate-file org-default-projects-dir)
     org-agenda-inhibit-startup nil
     org-agenda-show-future-repeats nil
     org-agenda-start-on-weekday nil
