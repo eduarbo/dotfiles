@@ -253,7 +253,7 @@
     org-journal-file-type 'weekly
     ;; Check the function "format-time-string" for
     org-journal-file-format "%Y/W%W %Y-%m-%d.org"
-    org-journal-date-format "%A, %-a %B %Y"
+    org-journal-date-format "%A, %-e %B %Y"
     org-journal-time-format "%-I:%M %p"
     org-journal-time-prefix "** "
     ))
