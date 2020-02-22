@@ -77,7 +77,7 @@
 (setq
   custom-file (concat doom-private-dir "custom.el")
   ;; Enable accents
-  ns-alternate-modifier 'none
+  mac-option-modifier 'none
   ;; Get some context when scrolling
   scroll-margin 10
   ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
