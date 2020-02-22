@@ -50,11 +50,7 @@
 
 (after! ivy
   ;; Swap engines since ivy-resume doesn't play well with rg when using options
-  (setq +ivy-project-search-engines '(ag rg))
-
-  (custom-set-faces
-   '(ivy-minibuffer-match-face-1
-     ((t :foreground "#83898d" :box (:line-width -1))))))
+  (setq +ivy-project-search-engines '(ag rg)))
 
 (after! counsel
   (setq counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never --glob '!.git' %s"
