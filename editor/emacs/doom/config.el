@@ -38,8 +38,7 @@
 
 ;; Fonts
 (setq
-  doom-font (font-spec :family "Hack" :size 14 :weight 'light)
-  doom-serif-font (font-spec :family "Fira Code")
+  doom-font (font-spec :family "Hack Nerd Font" :size 14)
   doom-variable-pitch-font (font-spec :family "Noto Sans" :weight 'light)
   )
 
