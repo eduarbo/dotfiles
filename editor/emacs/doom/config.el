@@ -82,13 +82,17 @@
   ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
   auto-save-visited-interval 20
 
-;;; :editor evil
+  ;; evil
   evil-split-window-below t
   evil-vsplit-window-right t
 
   ;; Which-key
   which-key-idle-delay 0.3
   which-key-idle-secondary-delay 0
+
+  ;; Better lisp indentation
+  ;; https://oremacs.com/2015/01/28/notes-on-elisp-indentation/
+  lisp-indent-function 'common-lisp-indent-function
 
   doom-scratch-buffer-major-mode 'org-mode
   )
