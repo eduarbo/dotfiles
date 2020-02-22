@@ -90,10 +90,6 @@
   which-key-idle-delay 0.3
   which-key-idle-secondary-delay 0
 
-  ;; Better lisp indentation
-  ;; https://oremacs.com/2015/01/28/notes-on-elisp-indentation/
-  lisp-indent-function 'common-lisp-indent-function
-
   doom-scratch-buffer-major-mode 'org-mode
   )
 
