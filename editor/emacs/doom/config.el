@@ -75,6 +75,7 @@
   +evil-repeat-keys '("|" . "\\"))
 
 (setq
+  custom-file (concat doom-private-dir "custom.el")
   ;; Enable accents
   ns-alternate-modifier 'none
   ;; Get some context when scrolling
@@ -195,6 +196,7 @@
 ;; ┃┃┃┃┗━┓┃
 ;; ╹ ╹╹┗━┛┗━╸
 
+(load! "custom.el")
 (load! "+modules.el")
 (load! "+gtd.el")
 (load! "+dashboard.el")
