@@ -1,4 +1,4 @@
-;;; ~/.dotfiles/editor/emacs/doom/+bindings.el -*- lexical-binding: t; -*-
+;;; ~/dev/dotfiles/editor/emacs/doom/+bindings.el -*- lexical-binding: t; -*-
 
 ;;                 ▄▄▄▄· ▪   ▐ ▄ ·▄▄▄▄  ▪   ▐ ▄  ▄▄ • .▄▄ ·
 ;;                 ▐█ ▀█▪██ •█▌▐███▪ ██ ██ •█▌▐█▐█ ▀ ▪▐█ ▀.
@@ -6,11 +6,24 @@
 ;;                 ██▄▪▐█▐█▌██▐█▌██. ██ ▐█▌██▐█▌▐█▄▪▐█▐█▄▪▐█
 ;;                 ·▀▀▀▀ ▀▀▀▀▀ █▪▀▀▀▀▀• ▀▀▀▀▀ █▪·▀▀▀▀  ▀▀▀▀
 
-;;           This file defines a Spacemacs-esque keybinding scheme
+;;                  == Spacemacs-esque keybinding scheme ==
 
 
 (defvar my-completion-map (make-sparse-keymap))
 (defvar my-org-format-map (make-sparse-keymap))
+
+
+(setq
+  doom-leader-key ","
+  ;; FIXME
+  doom-leader-alt-key "s-,"
+  ;; doom-leader-alt-key "C-,"
+  doom-localleader-key ", m"
+  ;; FIXME
+  doom-localleader-alt-key "s-m"
+  ;; doom-localleader-alt-key "C-m"
+  +evil-repeat-keys '("|" . "\\"))
+
 
 ;; ┏━╸╻  ┏━┓┏┓ ┏━┓╻  ┏━┓
 ;; ┃╺┓┃  ┃ ┃┣┻┓┣━┫┃  ┗━┓
@@ -35,8 +48,8 @@
   "s-i" #'org-capture
   "s-I" #'org-journal-new-entry
 
-  :m  [up]     #'multi-previous-line
-  :m  [down]   #'multi-next-line
+  :m  [up]     #'+evil-multi-previous-line
+  :m  [down]   #'+evil-multi-next-line
 
   ;; Disable smart tab which is not very smart...
   :niv [tab]   nil
@@ -73,8 +86,8 @@
   :n  "<"     #'evil-shift-left-line
   :n  ">"     #'evil-shift-right-line
   (:after evil-org :map evil-org-mode-map
-    :n "<"    #'+eduarbo/evil-org-<
-    :n ">"    #'+eduarbo/evil-org->)
+    :n "<"    #'+evil/evil-org-<
+    :n ">"    #'+evil/evil-org->)
   ;; don't leave visual mode after shifting
   :v  "<"     #'+evil/visual-dedent  ; vnoremap < <gv
   :v  ">"     #'+evil/visual-indent  ; vnoremap > >gv
@@ -391,7 +404,7 @@
       (:prefix ("n" . "notes")
         :desc "New Entry"                     "j" #'org-journal-new-entry
         :desc "Search Forever"                "J" #'org-journal-search-forever
-        :desc "Open project notes"            "p" #'+eduarbo/find-notes-for-project)
+        :desc "Open project notes"            "p" #'+org/find-notes-for-project)
 
       ;;; <leader> o --- open
       (:prefix ("o" . "open")
@@ -406,7 +419,7 @@
       (:prefix ("p" . "project")
         :desc "Run cmd in project root"      "!" #'projectile-run-async-shell-command-in-root
         :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path
-        :desc "Open project notes"           "n" #'+eduarbo/find-notes-for-project)
+        :desc "Open project notes"           "n" #'+org/find-notes-for-project)
 
       ;;; <leader> t --- toggle
       (:prefix ("t" . "toggle")
