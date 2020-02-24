@@ -91,25 +91,16 @@
 
 (after! lsp-ui
   (setq
-    ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so
-    ;; disable it by default
+    ;; disable invasive lsp-ui-sideline
     lsp-ui-sideline-enable nil
 
     ;; No multiline eldoc please
-    lsp-eldoc-enable-signature-help nil
     lsp-eldoc-enable-hover nil
 
-    lsp-enable-indentation nil
-    lsp-enable-on-type-formatting nil
-    lsp-enable-symbol-highlighting nil
-    lsp-enable-file-watchers nil
-
-    ;; Disable lsp-ui flychecker
-    lsp-prefer-flymake :none)
-  )
-
-;; (after! lsp-mode
-;;   (setq lsp-enable-symbol-highlighting nil))
+    ;; Disable diagnostic b/c annoying
+    lsp-flycheck-live-reporting nil
+    lsp-diagnostic-package :none
+    lsp-prefer-flymake :none))
 
 
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸

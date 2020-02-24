@@ -131,7 +131,7 @@
        ;; (java +meghanada) ; the poster child for carpal tunnel syndrome
        (javascript       ; all(hope(abandon(ye(who(enter(here))))))
         ;; FIXME company doesn't match text at point on pop-up
-        ;; +lsp
+        +lsp
         )
        ;; julia             ; a better, faster MATLAB
        ;; kotlin            ; a better, slicker Java(Script)
