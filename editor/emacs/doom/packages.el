@@ -8,4 +8,5 @@
 (package! org-fancy-priorities)
 (package! org-randomnote)
 (package! org-super-agenda)
+(package! org-cliplink)
 (package! vimrc-mode)
