@@ -133,6 +133,10 @@
     )
   )
 
+(custom-set-faces!
+  '(doom-modeline-info :inherit success)
+  '(doom-modeline-buffer-major-mode :inherit mode-line-emphasis))
+
 
 ;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸
 ;; ┣━┛┣┳┛┃ ┃  ┃┣╸ ┃   ┃ ┃┃  ┣╸
