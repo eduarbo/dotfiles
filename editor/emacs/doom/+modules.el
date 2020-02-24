@@ -63,8 +63,9 @@
   (setq +ivy-project-search-engines '(ag rg)))
 
 (after! counsel
-  (setq counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never --glob '!.git' %s"
-        counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"))
+  (setq
+    counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never --glob '!.git' %s"
+    counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"))
 
 (custom-set-faces!
   '(ivy-minibuffer-match-face-1
@@ -109,10 +110,11 @@
 ;; magit
 
 (after! magit
-  (setq magit-repository-directories '(("~/dev" . 2))
-        magit-save-repository-buffers nil
-        ;; Don't restore the wconf after quitting magit
-        magit-inhibit-save-previous-winconf t))
+  (setq
+    magit-repository-directories '(("~/dev" . 2))
+    magit-save-repository-buffers nil
+    ;; Don't restore the wconf after quitting magit
+    magit-inhibit-save-previous-winconf t))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
@@ -140,9 +142,10 @@
   (setq projectile-project-search-path '("~/dev" "~/work")))
 
 (after! helm-projectile
-  (setq helm-mini-default-sources '(helm-source-buffers-list
-                                    helm-source-projectile-recentf-list
-                                    helm-source-buffer-not-found)))
+  (setq helm-mini-default-sources
+    '(helm-source-buffers-list
+       helm-source-projectile-recentf-list
+       helm-source-buffer-not-found)))
 
 
 ;; ╺━┓┏━╸┏┓╻
