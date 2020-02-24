@@ -64,23 +64,31 @@
   )
 
 (custom-set-faces!
-  '(org-agenda-date
-     :foreground "#BEB0E8"
-     :overline "#A48DE8"
-     :height 1.1)
+  '(org-agenda-structure
+     :inherit variable-pitch
+     :foreground "#84DBC7"
+     :weight thin
+     :height 1.8)
   '(org-agenda-date-today
-     :foreground "#DFDFDF"
-     :overline "#FECE48"
-     :height 1.1)
+     :inherit variable-pitch
+     :foreground "#FECE48"
+     :weight thin
+     :height 1.8)
+  '(org-agenda-date
+     :inherit variable-pitch
+     :foreground "#A48DE8"
+     :weight thin
+     :height 1.6)
   '(org-agenda-date-weekend
+     :inherit variable-pitch
      :foreground "#797194"
-     :overline "#6A5C93"
-     :height 1.1)
+     :weight thin
+     :height 1.6)
   '(org-super-agenda-header
      :inherit variable-pitch
      :foreground "#64697C"
      :overline "#3D445B"
-     :height 0.9))
+     :height 1))
 
 
 ;; ┏┳┓╻ ╻   ┏━┓┏━╸┏━╸┏┓╻╺┳┓┏━┓┏━┓
@@ -122,7 +130,7 @@
                   ))))
           ;; TODO Display number of tasks in the Inbox
           (alltodo ""
-            ((org-agenda-overriding-header "")
+            ((org-agenda-overriding-header "Unscheduled")
               (org-super-agenda-groups
                 '((:discard
                     (:not (:todo ("TODO" "NEXT" "DOIN" "WAIT" "READ" "VIEW" "PROJ"))
@@ -158,22 +166,22 @@
                    (:discard (:anything t))))))))
        ("u" "Unscheduled"
          ((alltodo ""
-            ((org-agenda-overriding-header "Unscheduled")
+            ((org-agenda-overriding-header "Habits")
               (org-super-agenda-groups
-                '((:discard
-                    (:not (:habit t)
-                      :scheduled t
-                      :deadline t))
-                   (:name "Habits" :anything t)))))
+                '((:name none
+                    :and (:habit t
+                           :scheduled nil
+                           :deadline nil))
+                   (:discard (:anything t))
+                   ))))
            (alltodo ""
-             ((org-agenda-overriding-header "")
+             ((org-agenda-overriding-header "Projects")
                (org-super-agenda-groups
                  '((:discard
                      (:not (:todo ("PROJ"))
                        :scheduled t
-                       :deadline t)
-                     )
-                    (:name "Projects"
+                       :deadline t))
+                    (:name none
                       :and (:todo "PROJ" :children todo)
                       :order 2)
                     (:name "Stuck Projects"
