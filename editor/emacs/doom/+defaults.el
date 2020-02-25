@@ -66,5 +66,15 @@
 ;; Maximize window on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
-(when IS-MAC
-  (setq ns-use-thin-smoothing t))
+
+;;; Theme customization
+
+(add-to-list 'default-frame-alist '(background-color . "#21242B"))
+
+(setq evil-normal-state-cursor '(box "#FECE48")
+      evil-insert-state-cursor '(bar "#FECE48")
+      evil-visual-state-cursor '(hollow "#FECE48"))
+
+(custom-set-faces!
+  '(highlight
+     :background "#24DDB2"))
