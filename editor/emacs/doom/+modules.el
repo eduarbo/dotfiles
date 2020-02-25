@@ -125,8 +125,6 @@
 (after! doom-modeline
   (setq
     doom-modeline-major-mode-icon t
-    ;; ~/Projects/FOSS/emacs/lisp/comint.el => emacs/lisp/comint.el
-    doom-modeline-buffer-file-name-style 'relative-from-project
     doom-modeline-vcs-max-length 18
     doom-modeline-buffer-encoding nil
     size-indication-mode nil
