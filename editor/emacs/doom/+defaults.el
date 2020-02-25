@@ -50,9 +50,12 @@
   (setq insert-directory-program "gls"))
 
 
-;; ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
-;; ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
-;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
+;;; Fonts
+
+(setq
+  doom-font (font-spec :family "Hack Nerd Font" :size 12)
+  doom-variable-pitch-font (font-spec :family "NotoSans Nerd Font"))
+
 
 ;;; Frames/Windows
 
@@ -65,15 +68,3 @@
 
 (when IS-MAC
   (setq ns-use-thin-smoothing t))
-
-
-;;; Fonts
-
-(setq
-  doom-font (font-spec :family "Hack Nerd Font" :size 14)
-  doom-variable-pitch-font (font-spec :family "NotoSans Nerd Font"))
-
-
-;;; Theme
-
-(load-theme 'doom-one t)

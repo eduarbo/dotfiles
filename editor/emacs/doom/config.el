@@ -21,4 +21,3 @@
 (load! "+org.el")
 (load! "+org-agenda.el")
 (load! "+dashboard.el")
-;; (load! "custom.el")
