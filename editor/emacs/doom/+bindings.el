@@ -369,6 +369,7 @@
       :desc "Eval expression"          ":"    #'pp-eval-expression
       :desc "M-x"                      ";"    #'execute-extended-command
       :desc "Switch to scratch buffer" "X"    #'doom/switch-to-scratch-buffer
+      :desc "Show marks"               "'"    #'counsel-evil-marks
 
       ;;; <leader> l --- language
       (:when (featurep! :config language)
