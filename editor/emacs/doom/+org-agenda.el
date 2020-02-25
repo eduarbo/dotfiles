@@ -87,8 +87,8 @@
   '(org-super-agenda-header
      :inherit variable-pitch
      :foreground "#64697C"
-     :overline "#3D445B"
-     :height 1))
+     :weight thin
+     :height 1.4))
 
 
 ;; ┏┳┓╻ ╻   ┏━┓┏━╸┏━╸┏┓╻╺┳┓┏━┓┏━┓
