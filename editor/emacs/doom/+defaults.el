@@ -27,8 +27,12 @@
   which-key-idle-delay 0.3
   which-key-idle-secondary-delay 0
 
-  doom-scratch-buffer-major-mode 'org-mode
-  )
+  ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
+  ;; They're generally unhelpful and only add confusing visual clutter.
+  mode-line-default-help-echo nil
+  show-help-function nil
+
+  doom-scratch-buffer-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or
 ;; underscores
