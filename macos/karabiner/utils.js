@@ -6,9 +6,10 @@ const from = (key, mandatory, optional = ['any']) => ({
   },
 });
 
-const to = (keys) => keys.map(([key, modifiers]) => ({
+const to = (keys, options = {}) => keys.map(([key, modifiers]) => ({
   key_code: key,
   modifiers,
+  ...options,
 }));
 
 const manipulator = (options) => ({
@@ -24,12 +25,12 @@ const keyToString = (...args) => args.map(([key, modifiers = []]) => [
   key,
 ].filter(Boolean).join('')).join(' | ');
 
-const remap = (fromKey, toKey, options) => ({
+const remap = (fromKey, toKey, { conditions, ...toOptions } = {}) => ({
   description: `${keyToString(fromKey)} to ${keyToString(...toKey)}`,
   type: 'basic',
   from: from(...fromKey),
-  to: to(toKey),
-  ...options,
+  to: to(toKey, toOptions),
+  conditions,
 });
 
 const sticky = (fromKey, layer, options) => ({
@@ -70,8 +71,8 @@ const sticky = (fromKey, layer, options) => ({
   ...options,
 });
 
-const modTap = (fromKey, toKey, toKeyOnTap, options) => ({
-  ...remap(fromKey, toKey, options),
+const modTap = (fromKey, toKey, toKeyOnTap) => ({
+  ...remap(fromKey, toKey),
   description: `${keyToString(fromKey)} to ${keyToString(...toKey)}, send ${keyToString(...toKeyOnTap)} on tap`,
   to_if_alone: to(toKeyOnTap),
 });
@@ -99,7 +100,7 @@ const profile = (name, mods = [], overrides = {}) => ({
     parameters: {
       'basic.simultaneous_threshold_milliseconds': 50,
       'basic.to_delayed_action_delay_milliseconds': 500,
-      'basic.to_if_alone_timeout_milliseconds': 1000,
+      'basic.to_if_alone_timeout_milliseconds': 500,
       'basic.to_if_held_down_threshold_milliseconds': 500,
     },
     rules: getRules(mods),
