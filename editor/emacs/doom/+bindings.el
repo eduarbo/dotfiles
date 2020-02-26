@@ -206,7 +206,7 @@
 
 ;;; :completion
 (map! (:when (featurep! :completion company)
-        :i [tab]      #'company-complete
+        :i [tab]      #'+company/complete
         :i [C-tab]    my-completion-map
 
         (:after company
