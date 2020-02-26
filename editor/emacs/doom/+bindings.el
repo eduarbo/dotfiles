@@ -102,7 +102,7 @@
   :n  "C-."   (cond ((featurep! :completion ivy)   #'ivy-resume)
                 ((featurep! :completion helm)  #'helm-resume))
 
-  :n  [C-tab]        #'evil-switch-to-windows-last-buffer
+  :n  [C-tab]        #'+eduarbo/switch-to-last-workspace
 
   :gi [C-backspace]  #'delete-forward-char
 
@@ -247,11 +247,8 @@
 
 ;;; :ui
 (map! (:when (featurep! :ui workspaces)
-        :n  [C-S-tab]  #'+eduarbo/switch-to-last-workspace
-
         :n "C-S-l" #'+workspace/switch-right
-        :n "C-S-h" #'+workspace/switch-left)
-  )
+        :n "C-S-h" #'+workspace/switch-left))
 
 ;;; :editor
 (map!
