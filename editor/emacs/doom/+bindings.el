@@ -379,13 +379,13 @@
 
       ;;; <leader> f --- file
       (:prefix ("f" . "file")
-        :desc "Search in emacs.d"           "E" (λ! (+eduarbo/search-project doom-emacs-dir))
-        :desc "Find file in DOOM config"    "c" (λ! (+eduarbo/find-file doom-private-dir))
-        :desc "Search in DOOM config"       "C" (λ! (+eduarbo/search-project doom-private-dir))
+        :desc "Search in emacs.d"           "E" (λ! (+eduarbo-search-project doom-emacs-dir))
+        :desc "Find file in DOOM config"    "c" (λ! (+eduarbo-find-file doom-private-dir))
+        :desc "Search in DOOM config"       "C" (λ! (+eduarbo-search-project doom-private-dir))
         :desc "Find file in other project"  "o" #'doom/find-file-in-other-project
         :desc "Search in other project"     "O" #'+default/search-other-project
-        :desc "Find file in .dotfiles"      "d" (λ! (+eduarbo/find-file dotfiles-dir))
-        :desc "Search in .dotfiles"         "D" (λ! (+eduarbo/search-project dotfiles-dir)))
+        :desc "Find file in .dotfiles"      "d" (λ! (+eduarbo-find-file dotfiles-dir))
+        :desc "Search in .dotfiles"         "D" (λ! (+eduarbo-search-project dotfiles-dir)))
 
       ;;; <leader> g --- git
       (:prefix ("g" . "git")

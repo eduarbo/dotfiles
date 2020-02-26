@@ -10,13 +10,13 @@
     (+workspace/switch-to +workspace--last)))
 
 ;;;###autoload
-(defun +eduarbo/find-file (dir)
+(defun +eduarbo-find-file (dir)
   "Open a file somewhere in DIR via a fuzzy filename search."
   (interactive)
   (doom-project-find-file (expand-file-name dir)))
 
 ;;;###autoload
-(defun +eduarbo/search-project (dir)
+(defun +eduarbo-search-project (dir)
   "Perform a text search on DIR."
   (interactive)
   (require 'org)
