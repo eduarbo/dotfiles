@@ -63,7 +63,7 @@
 ;; ╹┗┛  ╹
 
 (after! ivy
-  (add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-plus)))
+  (add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-ignore-order)))
 
 (custom-set-faces!
   '(ivy-minibuffer-match-face-1
