@@ -45,7 +45,8 @@
 ;; ╹  ┗━╸ ╹ ┗━┛╹  ┗━╸┗━╸┗━╸
 
 (after! flyspell
-  (remove-hook! text-mode #'flyspell-mode))
+  ;; I prefer to enable flyspell on demand
+  (remove-hook! org-mode #'flyspell-mode))
 
 
 ;; ╻ ╻┏━╸╻  ┏┳┓
