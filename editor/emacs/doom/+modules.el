@@ -59,13 +59,7 @@
 ;; ╹┗┛  ╹
 
 (after! ivy
-  ;; Swap engines since ivy-resume doesn't play well with rg when using options
-  (setq +ivy-project-search-engines '(ag rg)))
-
-(after! counsel
-  (setq
-    counsel-rg-base-command "rg -S --hidden --no-heading --line-number --color never --glob '!.git' %s"
-    counsel-ag-base-command "ag -S --hidden --nocolor --nogroup %s"))
+  (add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-plus)))
 
 (custom-set-faces!
   '(ivy-minibuffer-match-face-1
