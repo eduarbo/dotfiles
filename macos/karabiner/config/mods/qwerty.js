@@ -39,8 +39,8 @@ module.exports = {
         remap(['caps_lock'], [['open_bracket']]),
         // LSHFIT -> DEL
         remap(['left_shift'], [['delete_or_backspace']]),
-        // RSHIFT -> ´
-        remap(['right_shift'], [['e', ['left_option']]]),
+        // RSHIFT -> `
+        remap(['right_shift'], [['grave_accent_and_tilde']]),
       ],
     },
   ],
