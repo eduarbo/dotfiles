@@ -89,7 +89,8 @@
 
 (after! lsp-ui
   (setq
-    ;; disable invasive lsp-ui-sideline
+    ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so
+    ;; disable it by default.
     lsp-ui-sideline-enable nil
 
     ;; No multiline eldoc please

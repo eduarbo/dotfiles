@@ -175,6 +175,11 @@
   :n  "s"     #'evil-surround-edit
   :v  "s"     #'evil-surround-region
 
+  (:map (prog-mode-map org-mode-map)
+    :nv  [S-return] #'+default/search-project)
+  (:map prog-mode-map
+    :nv  [return]   #'+default/search-project-for-symbol-at-point)
+
   (:prefix "g"
     :nv "Q"    #'+eduarbo/unfill-paragraph
     :nv "o"    #'avy-goto-char-timer
@@ -194,15 +199,6 @@
 ;; ┃┃┃┃ ┃ ┃┃┃ ┃┃  ┣╸ ┗━┓
 ;; ╹ ╹┗━┛╺┻┛┗━┛┗━╸┗━╸┗━┛
 ;; Modules
-
-;;; checkers
-(map! :after flyspell :map flyspell-mouse-map
-  ;; Unbind from insert state
-  "RET"         nil
-  [return]      nil
-  :n  "RET"     #'flyspell-correct-at-point
-  :n  [return]  #'flyspell-correct-at-point
-  )
 
 ;;; :completion
 (map! (:when (featurep! :completion company)
