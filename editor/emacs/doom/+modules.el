@@ -100,7 +100,12 @@
     ;; Disable diagnostic b/c annoying
     lsp-flycheck-live-reporting nil
     lsp-diagnostic-package :none
-    lsp-prefer-flymake :none))
+    lsp-prefer-flymake :none
+
+    lsp-enable-symbol-highlighting nil
+    lsp-enable-indentation nil
+    lsp-enable-on-type-formatting nil
+    lsp-enable-file-watchers nil))
 
 
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸
