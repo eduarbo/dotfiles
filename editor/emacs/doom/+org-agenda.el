@@ -134,9 +134,7 @@
               (org-super-agenda-groups
                 '((:discard
                     (:not (:todo ("TODO" "NEXT" "DOIN" "WAIT" "READ" "VIEW" "PROJ"))
-                      :scheduled t
-                      :deadline t
-                      ))
+                      :scheduled t))
                    (:name "In Progress"
                      :todo "DOIN"
                      :order 1)
@@ -170,17 +168,14 @@
               (org-super-agenda-groups
                 '((:name none
                     :and (:habit t
-                           :scheduled nil
-                           :deadline nil))
-                   (:discard (:anything t))
-                   ))))
+                           :scheduled nil))
+                   (:discard (:anything t))))))
            (alltodo ""
              ((org-agenda-overriding-header "Projects")
                (org-super-agenda-groups
                  '((:discard
                      (:not (:todo ("PROJ"))
-                       :scheduled t
-                       :deadline t))
+                       :scheduled t))
                     (:name none
                       :and (:todo "PROJ" :children todo)
                       :order 2)
@@ -196,7 +191,6 @@
                  '((:discard
                      (:not (:todo ("TODO" "NEXT" "DOIN" "WAIT" "READ" "VIEW"))
                        :scheduled t
-                       :deadline t
                        :habit t))
                     (:auto-outline-path t)))))))
        )))
