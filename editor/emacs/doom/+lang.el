@@ -40,10 +40,9 @@
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
 
-(after! evil-embrace
-  (add-hook 'js-mode-hook
-    (add-to-list 'evil-embrace-evil-surround-keys ?\`)
-    (embrace-add-pair ?$ "${" "}")))
+(add-hook! js-mode
+  (add-to-list 'evil-embrace-evil-surround-keys ?\`)
+  (embrace-add-pair ?\$ "${" "}"))
 
 
 ;; ┏┓╻┏━╸╻┏┓╻╻ ╻
