@@ -21,10 +21,10 @@ const karabiner = {
   profiles: [
     profile('Clean'),
     profile('eduarbo v3', rev3, {
-      // selected: true,
+      selected: true,
     }),
     profile('eduarbo v3 (Mac kbd OFF if Corne ON)', rev3, {
-      selected: true,
+      // selected: true,
       devices: [{
         identifiers: corneKeyboard,
         disable_built_in_keyboard_if_exists: true,
