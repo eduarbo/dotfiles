@@ -15,13 +15,9 @@
 
 (setq
   doom-leader-key ","
-  ;; FIXME
   doom-leader-alt-key "s-,"
-  ;; doom-leader-alt-key "C-,"
   doom-localleader-key ", m"
-  ;; FIXME
   doom-localleader-alt-key "s-m"
-  ;; doom-localleader-alt-key "C-m"
   +evil-repeat-keys '("|" . "\\"))
 
 
