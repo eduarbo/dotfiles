@@ -48,6 +48,9 @@
   "s-i" #'org-capture
   "s-I" #'org-journal-new-entry
 
+  :m  "k"     #'evil-previous-visual-line
+  :m  "j"     #'evil-next-visual-line
+
   :m  [up]     #'+evil-multi-previous-line
   :m  [down]   #'+evil-multi-next-line
 
