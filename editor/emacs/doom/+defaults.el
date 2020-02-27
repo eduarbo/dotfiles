@@ -47,6 +47,9 @@
 ;; whitespace
 (add-hook! (prog-mode conf-mode) #'doom-enable-show-trailing-whitespace-h)
 
+;; Enable visual line mode for text-mode
+(add-hook! text-mode #'visual-line-mode)
+
 ;; dired
 (setq dired-use-ls-dired t)
 (when IS-MAC
