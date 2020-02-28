@@ -76,12 +76,9 @@
 
 ;;; Theme customization
 
+(setq evil-default-cursor "#FECE48")
+
 (add-to-list 'default-frame-alist '(background-color . "#21242B"))
 
-(setq evil-normal-state-cursor '(box "#FECE48")
-      evil-insert-state-cursor '(bar "#FECE48")
-      evil-visual-state-cursor '(hollow "#FECE48"))
-
 (custom-set-faces!
-  '(highlight
-     :background "#24DDB2"))
+  '(highlight :background "#24DDB2"))
