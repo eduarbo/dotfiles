@@ -13,10 +13,8 @@ module.exports = {
         modTap(['right_command'], [['right_shift']], [['escape']]),
         modTap(['left_command'], [['left_shift']], [['spacebar']]),
 
-        remap(['left_option'], [['right_control']]),
-
-        // modTap(['right_option'], [['right_option']], [['return_or_enter']]),
-        // modTap(['left_option'], [['right_control']], [['escape']]),
+        modTap(['right_option'], [['right_option']], [['grave_accent_and_tilde']]),
+        modTap(['left_option'], [['right_control']], [['quote']]),
       ],
     },
     {
