@@ -32,6 +32,8 @@
   mode-line-default-help-echo nil
   show-help-function nil
 
+  avy-timeout-seconds 0.3
+
   doom-scratch-buffer-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or
