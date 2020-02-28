@@ -24,7 +24,6 @@ const karabiner = {
       selected: true,
     }),
     profile('eduarbo v3 (Mac kbd OFF if Corne ON)', rev3, {
-      // selected: true,
       devices: [{
         identifiers: corneKeyboard,
         disable_built_in_keyboard_if_exists: true,
