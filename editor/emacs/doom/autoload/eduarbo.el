@@ -1,6 +1,9 @@
 ;;; ~/dev/dotfiles/editor/emacs/doom/autoload/eduarbo.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
+(defvar eduarbo--enlargen-focused-window nil)
+
+;;;###autoload
 (defun +eduarbo/switch-to-last-workspace ()
   "Switch to previously selected workspace, if it exists."
   (interactive)
@@ -56,3 +59,27 @@ narrowed."
                (t (org-narrow-to-subtree))))
         ((derived-mode-p 'prog-mode) (narrow-to-defun))
         (t (error "Please select a region to narrow to"))))
+
+
+;; Keep focused window enlarged
+
+;;;###autoload
+(add-hook! 'doom-switch-window-hook
+  (defun eduarbo-focused-window-enlargen-h ()
+    (when eduarbo--enlargen-focused-window
+      (doom/window-enlargen)
+      (evil-window-mru)
+      (doom/window-enlargen))))
+
+;;;###autoload
+(defun eduarbo/window-enlargen ()
+  "TODO"
+  (interactive)
+  (doom/window-enlargen)
+  (setq eduarbo--enlargen-focused-window nil))
+
+;;;###autoload
+(defun eduarbo/focused-window-enlargen ()
+  "TODO"
+  (interactive)
+  (setq eduarbo--enlargen-focused-window (when (doom/window-enlargen) t)))
