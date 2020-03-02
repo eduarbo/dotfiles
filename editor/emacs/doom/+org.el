@@ -98,10 +98,9 @@
 ;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 
 (custom-set-faces!
-  `((org-document-info-keyword org-drawer)
-     :foreground ,(doom-color 'comments))
+  '((org-document-info-keyword org-drawer)
+     :foreground "#797194")
   `((org-special-keyword org-meta-line)
-     :weight bold
      :foreground ,(doom-color 'comments))
   '(org-document-title
      :weight normal
