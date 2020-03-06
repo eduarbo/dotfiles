@@ -88,21 +88,28 @@
 ;; ┗━╸┗━┛╹
 ;; lsp
 
+;; Free the s-l binding
+(setq lsp-keymap-prefix nil)
+
 (after! lsp-ui
   (setq
     ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so
     ;; disable it by default.
     lsp-ui-sideline-enable nil
+    ;; lsp-ui-doc-use-webkit t
+    ;; lsp-ui-doc-use-childframe t
+    ))
 
+(after! lsp-mode
+  (setq
     ;; No multiline eldoc please
     lsp-eldoc-enable-hover nil
 
     ;; Disable diagnostic b/c annoying
     lsp-flycheck-live-reporting nil
     lsp-diagnostic-package :none
-    lsp-prefer-flymake :none
 
-    lsp-enable-symbol-highlighting nil
+    ;; lsp-enable-symbol-highlighting nil
     lsp-enable-indentation nil
     lsp-enable-on-type-formatting nil
     lsp-enable-file-watchers nil))
