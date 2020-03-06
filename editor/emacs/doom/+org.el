@@ -307,18 +307,17 @@
   ;; does not define X. You may omit any of the fast-selection key or X or /Y,
   ;; so WAIT(w@), WAIT(w/@) and WAIT(@/@) are all valid
   (setq org-todo-keywords
-    '((sequence
-        "PROJ(p)"      ; An ongoing project that cannot be completed in one step
-        "DOIN(d)"      ; A task that is in progress
-        "NEXT(n)"      ; Next task to do in an area or project
-        "|")
+    '(
        (sequence
          "TODO(t)"     ; A task that needs doing & is ready to do
-         "READ(r)"     ; Read it later
-         "VIEW(v)"     ; Review/Watch it later
+         "DOIN(d)"     ; A task that is in progress
+         "NEXT(n)"     ; Next task to do in an area or project
+         "PROJ(p)"     ; An ongoing project that cannot be completed in one step
+         "WAIT(w@/!)"  ; Something is holding up this task; or it is paused
          "|")
        (sequence
-         "WAIT(w@/!)"  ; Something is holding up this task; or it is paused
+         "READ(r)"     ; Read it later
+         "VIEW(v)"     ; Review/Watch it later
          "SOON(s)"     ; Someday I will do it
          "MAYB(m)"     ; Maybe I will do it
          "|")
@@ -333,7 +332,8 @@
          "[?](W)"      ; Task is being held up or paused
          "|"
          "[X](X)"      ; Task was completed
-         )))
+         )
+       ))
 
   (setq org-todo-keyword-faces
     '(
