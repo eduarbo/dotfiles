@@ -4,6 +4,10 @@
 (defvar eduarbo--enlargen-focused-window nil)
 
 ;;;###autoload
+(defvar eduarbo-agenda-workspace-name "Agenda")
+
+
+;;;###autoload
 (defun +eduarbo/switch-to-last-workspace ()
   "Switch to previously selected workspace, if it exists."
   (interactive)
@@ -83,3 +87,33 @@ narrowed."
   "TODO"
   (interactive)
   (setq eduarbo--enlargen-focused-window (when (doom/window-enlargen) t)))
+
+
+;; Agenda Workspace
+
+;;;###autoload
+(defun eduarbo--switch-to-agenda-workspace (command)
+  "Switch to the agenda workspace and dispatch agenda command"
+  (+workspace-switch eduarbo-agenda-workspace-name)
+  (org-agenda nil command))
+
+;;;###autoload
+(defun eduarbo--open-or-switch-to-agenda (command)
+  "Switch to agenda workspace if exists or create a new one"
+  (condition-case nil
+    (eduarbo--switch-to-agenda-workspace command)
+    (error
+      (+workspace-new eduarbo-agenda-workspace-name)
+      (eduarbo--switch-to-agenda-workspace command))))
+
+;;;###autoload
+(defun eduarbo/daily-agenda ()
+  "Open the daily agenda in a dedicated workspace"
+  (interactive)
+  (eduarbo--open-or-switch-to-agenda "d"))
+
+;;;###autoload
+(defun eduarbo/unscheduled-agenda ()
+  "Open the unscheduled agenda in a dedicated workspace"
+  (interactive)
+  (eduarbo--open-or-switch-to-agenda "u"))

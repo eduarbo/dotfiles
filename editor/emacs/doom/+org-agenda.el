@@ -97,7 +97,7 @@
 
 (after! org-agenda
   (setq org-agenda-custom-commands
-    '(("t" "Today's Agenda"
+    '(("d" "Daily Agenda"
         ((agenda ""
            (
              (org-agenda-overriding-header "")
