@@ -35,8 +35,8 @@
 ;; ┗━╸┗┛ ╹┗━╸   ┗━┛╹ ╹╹╹  ┗━╸
 
 (after! evil-snipe
-  ;; Disable evil-snipe-mode but keep incremental highlighting for the f/F/t/T
-  ;; motions keys
+  ;; Disable evil-snipe-s binding but keep incremental highlighting for the
+  ;; f/F/t/T motions keys
   (evil-snipe-mode -1))
 
 
