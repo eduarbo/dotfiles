@@ -303,6 +303,31 @@
 
 (map!
   (:after org
+    (:map (org-mode-map org-agenda-mode-map)
+      "s-r"           #'org-refile
+      "s-R"           #'+org/refile-to-running-clock
+
+      :n [S-return]   #'org-todo
+      :n [return]     #'+org/dwim-at-point
+
+      :n "H"          #'org-metadown
+      :n "L"          #'org-metaup)
+
+    (:map org-capture-mode-map
+      "s-r" #'org-capture-refile
+      "s-w" #'org-capture-kill
+      "s-k" #'org-capture-kill
+      "s-s" #'org-capture-finalize)
+
+    (:map org-src-mode-map
+      "s-k" #'org-edit-src-abort
+      "s-s" #'org-edit-src-save
+      "s-w" #'org-edit-src-exit
+
+      (:leader
+        :desc "Save file"   "fs"    #'org-edit-src-save)))
+
+  (:after evil-org
     (:map my-org-format-map
       ;; Basic char syntax:
       ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
@@ -318,15 +343,8 @@
       "r"   (λ! (org-emphasize ?\s)) ;; restore format
       )
 
-    (:map org-mode-map
-      "s-r"           #'org-refile
-      "s-R"           #'+org/refile-to-running-clock
+    (:map evil-org-mode-map
       :vi "s-f"       my-org-format-map
-
-      :n [S-return]   #'org-todo
-
-      :n "C-n"        #'org-metadown
-      :n "C-p"        #'org-metaup
 
       :mi "C-o"       #'evil-org-org-insert-heading-respect-content-below
 
@@ -334,34 +352,20 @@
         "s-o"   #'+org/insert-item-below
         "s-O"   #'+org/insert-item-above)
 
-      :localleader
-      :desc "format" "f"    my-org-format-map
-      :desc "Timestamp"                        "t"   #'org-time-stamp
-      :desc "Togle Timestamp type"             "T"   #'org-toggle-timestamp-type
-      :desc "Inactive Timestamp"               "i"   #'org-time-stamp-inactive
-
-      "F" #'org-footnote-new
-      "y" #'org-copy
-      "p" #'org-paste-subtree
-      "P" #'org-priority)
-
-    (:map org-capture-mode-map
-      "s-r" #'org-capture-refile
-      "s-w" #'org-capture-kill
-      "s-s" #'org-capture-finalize
-      )
-
-    (:map org-src-mode-map
-      "s-w" #'org-edit-src-abort
-      "s-s" #'org-edit-src-exit
-      ))
+      (:localleader
+        :desc "format"                           "f"   my-org-format-map
+        :desc "Timestamp"                        "t"   #'org-time-stamp
+        :desc "Togle Timestamp type"             "T"   #'org-toggle-timestamp-type
+        :desc "Inactive Timestamp"               "i"   #'org-time-stamp-inactive))
 
   (:after evil-org-agenda
-    :map evil-org-agenda-mode-map
-    ;; :map (org-agenda-keymap org-agenda-mode-map org-super-agenda-header-map)
-    :m "k" #'org-agenda-previous-item
-    :m "j" #'org-agenda-next-item)
-  )
+    (:map evil-org-agenda-mode-map
+    :m "k"          #'org-agenda-previous-item
+    :m "j"          #'org-agenda-next-item))))
+
+;; Disable bindings for org-super-agenda headers
+(after! org-super-agenda
+  (setq org-super-agenda-header-map nil))
 
 
 ;; ╻  ┏━╸┏━┓╺┳┓┏━╸┏━┓
