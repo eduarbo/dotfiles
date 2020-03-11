@@ -164,6 +164,14 @@
 ;; ┏━┛┣╸ ┃┗┫
 ;; ┗━╸┗━╸╹ ╹
 
+(add-hook! text-mode
+  ;; Set bigger line-spacing and center text vertically
+  (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3))
+  (setq-local visual-fill-column-mode 80)
+
+  (mixed-pitch-mode t)
+  (visual-fill-column-mode t))
+
 (after! mixed-pitch
   (pushnew! mixed-pitch-fixed-pitch-faces
     'org-hide
@@ -173,14 +181,3 @@
     'warning
     'success
     'error))
-
-(add-hook! mixed-pitch-mode
-  ;; Set bigger line-spacing and center text vertically.
-  ;; writeroom-mode can also set the line-spacing but won't center the text
-  (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3)))
-
-(after! writeroom-mode
-  (setq +zen-text-scale 0)
-  (setq writeroom-mode-line t))
-
-(add-hook! text-mode #'writeroom-mode)
