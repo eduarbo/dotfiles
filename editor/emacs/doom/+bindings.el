@@ -15,10 +15,9 @@
 
 (setq
   doom-leader-key ","
-  doom-leader-alt-key "s-,"
   doom-localleader-key ", m"
-  doom-localleader-alt-key "s-m"
   +evil-repeat-keys '("+" . "-"))
+
 
 ;; ┏━╸╻  ┏━┓┏┓ ┏━┓╻  ┏━┓
 ;; ┃╺┓┃  ┃ ┃┣┻┓┣━┫┃  ┗━┓
@@ -31,16 +30,12 @@
   :m    ";"             #'evil-ex
 
   :n    "#"             #'evilnc-comment-or-uncomment-lines
-  :v    "#"             #'comment-or-uncomment-region
+  :v    "#"             #'evilnc-comment-operator
 
   :nv   "SPC"           #'+default/search-project-for-symbol-at-point
   :nv   "S-SPC"         #'+default/search-project
 
   :i    "S-SPC"         #'tab-to-tab-stop
-
-  :gn   "s-/"           #'which-key-show-top-level
-  "s-."                 #'helpful-key
-
 
   ;; Tab
 
@@ -80,8 +75,8 @@
     "s-H"               #'+workspace/switch-left
     "s-L"               #'+workspace/switch-right)
 
-  :gn   "s-`"           #'evil-switch-to-windows-last-buffer
-  :gn   "s-'"           #'+eduarbo/switch-to-last-workspace
+  :gn   "s-j"           #'evil-switch-to-windows-last-buffer
+  :gn   "s-J"           #'+eduarbo/switch-to-last-workspace
 
 
   ;; Easier window navigation
@@ -109,12 +104,34 @@
 
   ;; Shortcuts
 
+  :ginv "s-/"           #'counsel-descbinds
+  "s-?"                 #'which-key-show-top-level
+  "s--"                 #'doom/decrease-font-size
+  "s-+"                 #'doom/increase-font-size
+  "s-="                 #'doom/reset-font-size
+  "s-,"                 #'doom/find-file-in-private-config
+  "s-<"                 #'doom/open-private-config
+
+  "s-."                 (cond ((featurep! :completion ivy) #'ivy-resume)
+                          ((featurep! :completion helm)    #'helm-resume))
+  "s-`"                 (cond ((featurep! :completion ivy) #'ivy-resume)
+                          ((featurep! :completion helm)    #'helm-resume))
+  "s->"                 #'+popup/toggle
+  "s-'"                 #'+popup/toggle
+
+  "s-b"                 #'bookmark-jump
+  "s-B"                 #'bookmark-delete
   "s-g"                 #'magit-status
-  "s-p"                 #'+treemacs/toggle
-  "s-r"                 #'+eval/open-repl-other-window
-  "s-R"                 #'+eval/open-repl-same-window
   "s-i"                 #'org-capture
   "s-I"                 #'org-journal-new-entry
+  "s-m"                 #'helpful-key
+  "s-p"                 #'+treemacs/toggle
+  [s-escape]            #'projectile-switch-project
+  "s-r"                 #'+eval/open-repl-other-window
+  "s-R"                 #'+eval/open-repl-same-window
+  "s-u"                 #'winner-undo
+  "s-U"                 #'winner-redo
+  "s-y"                 #'+default/yank-pop
 
 
   ;; Text objects
@@ -375,12 +392,12 @@
 (map! :leader
   :desc "M-x"                         ":"         #'execute-extended-command
   :desc "Eval expression"             ";"         #'pp-eval-expression
-  :desc "Switch to scratch buffer"    "X"         #'doom/switch-to-scratch-buffer
   :desc "Show marks"                  "/"         #'counsel-evil-marks
-  :desc "Toggle last popup"           "'"         #'+popup/toggle
-  :desc "Switch project"              "RET"       #'projectile-switch-project
-  :desc "Find file in other project"  [S-return]  #'doom/find-file-in-other-project
+  :desc "Switch to scratch buffer"    "X"         #'doom/switch-to-scratch-buffer
+  :desc "Escape"                      "ESC"       #'doom/escape
+  :desc "Find file in other project"  "RET"       #'doom/find-file-in-other-project
   :desc "Search other project"        "S-SPC"     #'+default/search-other-project
+  :desc "Toggle last popup"           "'"         #'+popup/toggle
   :desc "Ivy resume"                  "`"         (cond ((featurep! :completion ivy) #'ivy-resume)
                                                   ((featurep! :completion helm)    #'helm-resume))
 
@@ -399,13 +416,13 @@
 
       ;;; <leader> f --- file
   (:prefix ("f" . "file")
-    :desc "Search in emacs.d"           "E" (λ! (+eduarbo-search-project doom-emacs-dir))
-    :desc "Find file in DOOM config"    "c" (λ! (+eduarbo-find-file doom-private-dir))
-    :desc "Search in DOOM config"       "C" (λ! (+eduarbo-search-project doom-private-dir))
     :desc "Find file in other project"  "o" #'doom/find-file-in-other-project
     :desc "Search in other project"     "O" #'+default/search-other-project
-    :desc "Find file in .dotfiles"      "d" (λ! (+eduarbo-find-file dotfiles-dir))
-    :desc "Search in .dotfiles"         "D" (λ! (+eduarbo-search-project dotfiles-dir)))
+    :desc "Find file in private config" "," #'doom/find-file-in-private-config
+    :desc "Browse private config"       "<" #'doom/open-private-config
+    :desc "Find file in .dotfiles"      "." (λ! (+eduarbo-find-file dotfiles-dir))
+    :desc "Search in .dotfiles"         ">" (λ! (+eduarbo-search-project dotfiles-dir))
+    )
 
       ;;; <leader> g --- git
   (:prefix ("g" . "git")
