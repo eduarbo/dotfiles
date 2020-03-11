@@ -40,6 +40,15 @@
   (evil-snipe-mode -1))
 
 
+;; ┏━╸╻┏━╸╻  ┏━╸╺┳╸
+;; ┣╸ ┃┃╺┓┃  ┣╸  ┃
+;; ╹  ╹┗━┛┗━╸┗━╸ ╹
+
+(use-package! figlet
+  :config
+  (setq figlet-default-font "Future"))
+
+
 ;; ┏━╸╻  ╻ ╻┏━┓┏━┓┏━╸╻  ╻
 ;; ┣╸ ┃  ┗┳┛┗━┓┣━┛┣╸ ┃  ┃
 ;; ╹  ┗━╸ ╹ ┗━┛╹  ┗━╸┗━╸┗━╸

@@ -10,3 +10,4 @@
 (package! org-super-agenda)
 (package! org-cliplink)
 (package! vimrc-mode)
+(package! figlet)
