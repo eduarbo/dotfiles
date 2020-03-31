@@ -33,7 +33,7 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       ;; pretty-code       ; replace bits of code with pretty symbols
+       ;; pretty-code       ; ligatures or substitute text with pretty symbols
        ;; tabs              ; an tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
        ;; unicode           ; extended unicode support for various languages
@@ -116,6 +116,7 @@
        ;; crystal           ; ruby at the speed of c
        csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
+       ;; (dart +flutter)   ; paint ui and not much else
        ;; elixir            ; erlang done right
        ;; elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
@@ -170,6 +171,7 @@
        ;; scala             ; java, but good
        ;; scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;; sml
        ;; solidity          ; do you need a blockchain? No.
        ;; swift             ; who asked for emoji variables?
        ;; terra             ; Earth and Moon in alignment for performance.
