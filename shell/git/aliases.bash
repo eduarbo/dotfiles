@@ -37,7 +37,6 @@ alias grk='git rebase --skip'
 # checkout
 alias gco='git checkout'
 alias gcoo='git checkout --'
-alias gcob='git checkout -b'
 
 # commit
 alias gc='git commit -S'
@@ -83,6 +82,18 @@ alias gta='gt -a'
 # do not get VCS status (much faster)
 alias k='k -Ah --no-vcs'
 
+# Create branch and checkout.
+# If the argument is a url, extract everything after the last slash to use it as
+# branch name. Very useful for JIRA tickets :)
+gcob() {
+  local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]\.[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
+  if [[ "$1" =~ $url_regex ]]; then
+    local branch=${1##*/}
+    git checkout -b "$branch"
+  else
+    git checkout -b "$1"
+  fi
+}
 
 # checkout git branch (including remote branches), sorted by most recent commit,
 # limit 30 last branches
