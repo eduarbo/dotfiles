@@ -59,6 +59,7 @@
 	exec = "!exec "
 	orphan = checkout --orphan
 	squash = rebase -i origin/master
+	done = !git checkout master && git branch -D @{-1}
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
