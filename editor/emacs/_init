@@ -41,15 +41,17 @@ install() {
   # Clone and setup doom-emacs
   _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
 
-  cd ~/.emacs.d && YES=1 make install
-  # Create or regenerate the envvar file
-  doom env refresh
+  ~/.emacs.d/bin/doom -y install
+  ~/.emacs.d/bin/doom purge
+  ~/.emacs.d/bin/doom env
+  ~/.emacs.d/bin/doom sync
 }
 
 update() {
-  doom refresh -y
-  # Create or regenerate the envvar file
+  doom update
+  doom purge
   doom env
+  doom sync
 }
 
 link() {
