@@ -61,8 +61,8 @@ install() {
 
 update() {
   # Update zpugins and recompile
-  if [[ -e ${ZPLGM[BIN_DIR]}/zplugin.zsh ]]; then
-    source ${ZPLGM[BIN_DIR]}/zplugin.zsh
+  if [[ -e ${ZINIT[BIN_DIR]}/zplugin.zsh ]]; then
+    source ${ZINIT[BIN_DIR]}/zplugin.zsh
     zplugin self-update
     zplugin update --all
     zplugin compile --all

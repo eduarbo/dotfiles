@@ -15,19 +15,19 @@ autoload -Uz compinit
 # - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
 # - '.' matches "regular files"
 # - 'mh+20' matches files (or directories or whatever) that are older than 20 hours.
-if [[ -n $ZPLGM[ZCOMPDUMP_PATH](#qN.mh+20) ]]; then
-	compinit -d $ZPLGM[ZCOMPDUMP_PATH];
+if [[ -n $ZINIT[ZCOMPDUMP_PATH](#qN.mh+20) ]]; then
+	compinit -d $ZINIT[ZCOMPDUMP_PATH];
   # update the timestamp on compdump file
   compdump
 else
-	compinit -C -d $ZPLGM[ZCOMPDUMP_PATH];
+	compinit -C -d $ZINIT[ZCOMPDUMP_PATH];
 fi;
 
 # Execute code that does not affect the current session in the background.
 {
   # Compile the completion dump to increase startup speed
-  if [[ "${ZPLGM[ZCOMPDUMP_PATH]}" -nt "${ZPLGM[ZCOMPDUMP_PATH]}.zwc" || ! -s "${ZPLGM[ZCOMPDUMP_PATH]}.zwc" ]]; then
-    zcompile "${ZPLGM[ZCOMPDUMP_PATH]}"
+  if [[ "${ZINIT[ZCOMPDUMP_PATH]}" -nt "${ZINIT[ZCOMPDUMP_PATH]}.zwc" || ! -s "${ZINIT[ZCOMPDUMP_PATH]}.zwc" ]]; then
+    zcompile "${ZINIT[ZCOMPDUMP_PATH]}"
   fi
 } &!
 
