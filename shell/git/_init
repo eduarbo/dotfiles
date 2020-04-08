@@ -24,13 +24,13 @@ install() {
   esac
 
   # Kill zcompdump to take new compdefs
-  rm -f "${ZPLGM[ZCOMPDUMP_PATH]}"
-  rm -f "${ZPLGM[ZCOMPDUMP_PATH]}.zwc"
+  rm -f "${ZINIT[ZCOMPDUMP_PATH]}"
+  rm -f "${ZINIT[ZCOMPDUMP_PATH]}.zwc"
 }
 
 update() {
-  if [[ -e ${ZPLGM[BIN_DIR]}/zplugin.zsh ]]; then
-    source ${ZPLGM[BIN_DIR]}/zplugin.zsh
+  if [[ -e ${ZINIT[BIN_DIR]}/zplugin.zsh ]]; then
+    source ${ZINIT[BIN_DIR]}/zplugin.zsh
 
     for plugin in "${zplugin_deps[@]}" ; do
       zplugin update $plugin
@@ -46,8 +46,8 @@ link() {
 clean() {
   rm -rfv $GIT_DIR
 
-  if [[ -e ${ZPLGM[BIN_DIR]}/zplugin.zsh ]]; then
-    source ${ZPLGM[BIN_DIR]}/zplugin.zsh
+  if [[ -e ${ZINIT[BIN_DIR]}/zplugin.zsh ]]; then
+    source ${ZINIT[BIN_DIR]}/zplugin.zsh
 
     for plugin in "${zplugin_deps[@]}" ; do
       zplugin delete $plugin
