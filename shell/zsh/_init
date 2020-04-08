@@ -46,6 +46,11 @@ install() {
         sudo dpkg -i "/tmp/fd_amd64.deb"
       fi
 
+      if ! _is_callable ripgrep; then
+        sudo add-apt-repository -y ppa:x4121/ripgrep
+        sudo apt install ripgrep
+      fi
+
       zshenv=/etc/zsh/zshenv
       ;;
   esac
