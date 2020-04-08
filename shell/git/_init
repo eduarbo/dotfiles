@@ -8,7 +8,7 @@ common_deps=(
   git
 )
 
-zplugin_deps=(
+zinit_deps=(
   zdharma/zsh-diff-so-fancy
   tj/git-extras
 )
@@ -29,12 +29,12 @@ install() {
 }
 
 update() {
-  if [[ -e ${ZINIT[BIN_DIR]}/zplugin.zsh ]]; then
-    source ${ZINIT[BIN_DIR]}/zplugin.zsh
+  if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
+    source ${ZINIT[BIN_DIR]}/zinit.zsh
 
-    for plugin in "${zplugin_deps[@]}" ; do
-      zplugin update $plugin
-      zplugin compile $plugin
+    for plugin in "${zinit_deps[@]}" ; do
+      zinit update $plugin
+      zinit compile $plugin
     done
   fi
 }
@@ -46,11 +46,11 @@ link() {
 clean() {
   rm -rfv $GIT_DIR
 
-  if [[ -e ${ZINIT[BIN_DIR]}/zplugin.zsh ]]; then
-    source ${ZINIT[BIN_DIR]}/zplugin.zsh
+  if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
+    source ${ZINIT[BIN_DIR]}/zinit.zsh
 
-    for plugin in "${zplugin_deps[@]}" ; do
-      zplugin delete $plugin
+    for plugin in "${zinit_deps[@]}" ; do
+      zinit delete $plugin
     done
   fi
 }

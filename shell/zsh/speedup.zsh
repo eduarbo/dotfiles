@@ -33,7 +33,7 @@ fi;
 
 if [[ "$TERM" != "dumb" ]]; then
   # execute compdefs provided by rest of plugins
-  zplugin cdreplay -q # -q is for quiet
+  zinit cdreplay -q # -q is for quiet
 fi
 
 export _FASD_DATA="$XDG_DATA_HOME/fasd"

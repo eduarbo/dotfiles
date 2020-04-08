@@ -4,25 +4,25 @@
 # Plugins
 
 
-# Load zplugin and install it when missing
-_load_repo zdharma/zplugin $ZPL_DIR zplugin.zsh
+# Load zinit and install it when missing
+_load_repo zdharma/zinit $ZINIT_DIR zinit.zsh
 
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light zdharma/history-search-multi-word
-zplugin light supercrabtree/k
-zplugin light djui/alias-tips
-zplugin ice from"gh-r" as"program"; zplugin light junegunn/fzf-bin
-zplugin ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zplugin light junegunn/fzf
+zinit light zsh-users/zsh-history-substring-search
+zinit light zdharma/history-search-multi-word
+zinit light supercrabtree/k
+zinit light djui/alias-tips
+zinit ice from"gh-r" as"program"; zinit light junegunn/fzf-bin
+zinit ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zinit light junegunn/fzf
 
 # NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
-zplugin light mafredri/zsh-async # Required by simpl
+zinit light mafredri/zsh-async # Required by simpl
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-zplugin light zsh-users/zsh-autosuggestions
-zplugin ice blockf; zplugin light zsh-users/zsh-completions # Disallow zsh-completions to modify fpath
+zinit light zsh-users/zsh-autosuggestions
+zinit ice blockf; zinit light zsh-users/zsh-completions # Disallow zsh-completions to modify fpath
 if [[ -z $SSH_CONNECTION ]]; then
-  zplugin light zdharma/fast-syntax-highlighting
+  zinit light zdharma/fast-syntax-highlighting
 fi
 
 typeset -gA SIMPL_HOST_SYMBOL_MAP
@@ -38,4 +38,4 @@ SIMPL_USER_COLOR="%F{11}"
 SIMPL_ENABLE_RPROMPT=0
 SIMPL_ALWAYS_SHOW_USER_AND_HOST=0
 
-zplugin light eduarbo/simpl
+zinit light eduarbo/simpl

@@ -11,11 +11,11 @@ source $(cd ${${(%):-%x}:A:h}/../.. && pwd -P)/env
 
 # Move ZDOTDIR from $HOME to reduce dotfile pollution.
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export ZPL_DIR="$XDG_CACHE_HOME/zpl"
+export ZINIT_DIR="$XDG_CACHE_HOME/zinit"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 
-local -A ZPLGM  # initial Zplugin's hash definition
-export ZPLGM[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump"
+local -A ZINIT # initial Zinit's hash definition
+export ZINIT[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump"
 
 # These 2 variables need to be set in our local machine since they are passed
 # down to the remote host when we connect via SSH. Otherwise, we will be getting

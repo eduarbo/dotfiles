@@ -66,11 +66,11 @@ install() {
 
 update() {
   # Update zpugins and recompile
-  if [[ -e ${ZINIT[BIN_DIR]}/zplugin.zsh ]]; then
-    source ${ZINIT[BIN_DIR]}/zplugin.zsh
-    zplugin self-update
-    zplugin update --all
-    zplugin compile --all
+  if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
+    source ${ZINIT[BIN_DIR]}/zinit.zsh
+    zinit self-update
+    zinit update --all
+    zinit compile --all
   fi
 
   _upgrade
