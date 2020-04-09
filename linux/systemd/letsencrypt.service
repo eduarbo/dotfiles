@@ -14,17 +14,17 @@ ExecStart=/bin/bash -c "\
     --name=%p \
     --cap-add=NET_ADMIN \
     --network=homelab \
+    -p 80:80 \
+    -p 443:443 \
     -e PUID=$(id -u eduarbo) \
     -e PGID=$(id -g eduarbo) \
     -e TZ=America/Mexico_City \
-    -e URL=eduarbo.com \
+    -e URL=guts.cc \
     -e SUBDOMAINS=wildcard \
     -e VALIDATION=dns \
     -e DNSPLUGIN=cloudflare \
-    -e EMAIL=eduarbo@gmail.com \
-    -e DHLEVEL=2048 \
-    -e ONLY_SUBDOMAINS=true \
-    -e STAGING=false \
+    -e EMAIL='eduarbo@gmail.com' \
+    -e EXTRA_DOMAINS=eduarbo.com \
     -v /nas/home/homelab/letsencrypt:/config \
     linuxserver/letsencrypt"
 ExecStop=/usr/bin/docker stop %p
