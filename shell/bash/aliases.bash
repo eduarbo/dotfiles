@@ -75,6 +75,9 @@ alias fuck='killall -9'
 
 alias top='top -o cpu'
 
+alias d='docker'
+alias dc='docker-compose'
+
 # Intuitive map function
 # For example, to list all directories that contain a certain file: find . -name
 # .gitattributes | map dirname
