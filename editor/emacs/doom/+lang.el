@@ -41,7 +41,7 @@
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
 
 (add-hook! js-mode
-  (add-to-list 'evil-embrace-evil-surround-keys ?\`)
+  (embrace-add-pair ?\` "`" "`")
   (embrace-add-pair ?\$ "${" "}"))
 
 
