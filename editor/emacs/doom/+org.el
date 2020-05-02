@@ -59,7 +59,7 @@
     ;; org-yank-adjusted-subtrees t
 
     org-ellipsis "  "
-    org-bullets-bullet-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")
+    org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")
 
     org-highest-priority ?A
     org-default-priority ?B
