@@ -11,3 +11,4 @@
 (package! org-cliplink)
 (package! vimrc-mode)
 (package! figlet)
+(package! graphql-mode)
