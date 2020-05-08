@@ -459,6 +459,7 @@
     :desc "Line numbers"                 "l" #'display-line-numbers-mode
     :desc "Global Line numbers"          "L" #'global-display-line-numbers-mode
     :desc "Visual line mode"             "v" #'visual-line-mode
+    :desc "Visual fill column mode"      "V" #'visual-fill-column-mode
     :desc "Subword mode"                 "w" #'subword-mode
     :desc "Frame maximized"              "z" #'toggle-frame-maximized)
 
