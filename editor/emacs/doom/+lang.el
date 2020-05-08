@@ -12,10 +12,11 @@
 ;; ┗━┛╹┗╸╹ ╹╹  ╹ ╹┗┻┛┗━╸
 ;;; GraphQL
 
-(set-editorconfig-indent-var! '(graphql-mode graphql-indent-level))
 
-(after! graphql-mode
-  (add-to-list 'auto-mode-alist '("\\.graphql\\'" . graphql-mode)))
+(use-package! graphql-mode
+  :mode "\\.g\\(?:raph\\)?ql$"
+  :config
+  (set-editorconfig-indent-var! '(graphql-mode graphql-indent-level)))
 
 
 ;;  ┏┓┏━┓╻ ╻┏━┓┏━┓┏━╸┏━┓╻┏━┓╺┳╸
