@@ -36,21 +36,6 @@ install() {
     debian)
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
 
-      # install fd manually if it's missing from the package manager (it is for Ubuntu 18.04)
-      if ! _is_callable fdfind; then
-        curl -s https://api.github.com/repos/sharkdp/fd/releases/latest \
-          | grep "browser_download_url.*fd_.*_amd64.deb" \
-          | cut -d : -f 2,3 \
-          | tr -d '"' \
-          | wget -O "/tmp/fd_amd64.deb" -qi -
-        sudo dpkg -i "/tmp/fd_amd64.deb"
-      fi
-
-      if ! _is_callable ripgrep; then
-        sudo add-apt-repository -y ppa:x4121/ripgrep
-        sudo apt install ripgrep
-      fi
-
       zshenv=/etc/zsh/zshenv
       ;;
   esac
