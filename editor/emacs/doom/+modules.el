@@ -173,13 +173,14 @@
 ;; ┏━┛┣╸ ┃┗┫
 ;; ┗━╸┗━╸╹ ╹
 
-(add-hook! text-mode
-  ;; Set bigger line-spacing and center text vertically
-  (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3))
-  (setq-local visual-fill-column-mode 80)
+;; FIXME This kills buffers when switching to other workspaces
+;; (add-hook! text-mode
+;;   ;; Set bigger line-spacing and center text vertically
+;;   (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3))
+;;   (setq-local visual-fill-column-mode 80)
 
-  (mixed-pitch-mode t)
-  (visual-fill-column-mode t))
+;;   (mixed-pitch-mode t)
+;;   (visual-fill-column-mode t))
 
 (after! mixed-pitch
   (pushnew! mixed-pitch-fixed-pitch-faces
