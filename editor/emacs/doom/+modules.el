@@ -147,8 +147,10 @@
     doom-modeline-buffer-encoding nil
     doom-modeline-buffer-modification-icon nil
     doom-modeline-major-mode-icon t
-    doom-modeline-vcs-max-length 18
-    size-indication-mode nil))
+    doom-modeline-vcs-max-length 18)
+
+  ;; Remove size indicator
+  (remove-hook! doom-modeline-mode #'size-indication-mode))
 
 (custom-set-faces!
   '(doom-modeline-info :inherit success)
