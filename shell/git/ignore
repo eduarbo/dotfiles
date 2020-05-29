@@ -46,6 +46,7 @@ tags
 tmp
 .codekit-cache
 config.codekit
+node_modules
 
 # Compiled thangs
 *.class
