@@ -288,7 +288,9 @@
       [S-tab]       nil
       "<S-tab>"     nil
       "C-n"         #'yas-next-field
-      "C-p"         #'yas-prev-field)))
+      "C-p"         #'yas-prev-field
+      "C-l"         #'yas-next-field
+      "C-h"         #'yas-prev-field)))
 
 
 ;;; multiple-cursors
