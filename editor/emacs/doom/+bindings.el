@@ -435,8 +435,8 @@
 
       ;;; <leader> n --- notes
   (:prefix ("n" . "notes")
-    :desc "New Entry"                     "j" #'org-journal-new-entry
-    :desc "Search Forever"                "J" #'org-journal-search-forever
+    :desc "Today's journal"               "j" #'org-journal-new-entry
+    :desc "Date journal"                  "J" #'org-journal-new-date-entry
     :desc "Daily Agenda"                  "d" #'eduarbo/daily-agenda
     :desc "Unscheduled Agenda"            "u" #'eduarbo/unscheduled-agenda
     :desc "Open project notes"            "p" #'+org/find-notes-for-project)
