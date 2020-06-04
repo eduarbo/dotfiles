@@ -38,7 +38,7 @@
 (after! org
   (setq
     org-default-notes-file +org-default-inbox-file
-    org-archive-location "archive/%s::datetree/"
+    org-archive-location "archive/%s::"
     org-agenda-files (list +org-default-todo-file +org-default-incubate-file +org-default-projects-dir)
 
     org-log-done 'time
