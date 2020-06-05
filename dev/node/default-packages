@@ -1,4 +1,5 @@
 prettier
+js-beautify
 typescript
 typescript-language-server
 bash-language-server
