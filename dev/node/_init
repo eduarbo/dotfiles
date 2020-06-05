@@ -36,14 +36,39 @@ link() {
 }
 
 update() {
-  if [[ -n $NODENV_ROOT ]]; then
-    cd $NODENV_ROOT && git pull
-    for ver in $NODENV_ROOT/plugins/*(/); do
-      cd $ver && git pull
-    done
+  # Install latest node version
+
+  nodenv update
+  LATEST_NODE_VERSION=$(nodenv install -l | grep -E "^[0-9]+(\.[0-9]+){2}" | sort -V | tail -1)
+  echo "Install latest node version: v$LATEST_NODE_VERSION"
+  nodenv install $LATEST_NODE_VERSION
+
+  # List of orphan node versions
+
+  repos_dir=($HOME/{work,dev})
+
+  find_node_versions() {
+    find $repos_dir -type f -name
+  }
+
+  fd_node_versions() {
+    fd -H .node-version $repos_dir -x cat {}
+  }
+
+  INSTALLED_NODE_VERSIONS=$(nodenv versions --bare)
+  USED_NODE_VERSIONS=$((fd_node_versions 2>/dev/null || find_node_versions 2>/dev/null) | sort -uV)
+  ORPHAN_NODE_VERSIONS=$( \
+    comm -23 \
+    <(nodenv versions --bare) \
+    <((fd_node_versions 2>/dev/null || find_node_versions 2>/dev/null) | sort -uV) \
+    )
+  COUNT_ORPHAN_NODE_VERSIONS=$(echo $ORPHAN_NODE_VERSIONS | awk NF | wc -l)
+  if [[ $COUNT_ORPHAN_NODE_VERSIONS -ne 0 ]]; then
+    echo-note "Orphan node versions"
+    echo $ORPHAN_NODE_VERSIONS
   fi
 
-  nodenv default-packages install
+  # TODO ask to remove orphan node versions
 }
 
 clean() {
