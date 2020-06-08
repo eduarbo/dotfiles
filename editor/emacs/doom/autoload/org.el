@@ -37,7 +37,7 @@
       (concat +org-agenda-project-heading-prefix parent +org-agenda-project-heading-suffix))))
 
 ;;;###autoload
-(defun +org-org-capture-project-file ()
+(defun +org--capture-project-file ()
   "Get the path for the project org file"
   (if (doom-project-root)
     (let ((filename (doom-project-name)))
@@ -48,7 +48,7 @@
 (defun +org/find-notes-for-project ()
   "Open project org file."
   (interactive)
-  (find-file (+org-org-capture-project-file)))
+  (find-file (+org--capture-project-file)))
 
 ;;;###autoload
 (defun +org/emphasize-dwim (&optional char)
