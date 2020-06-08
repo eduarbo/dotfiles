@@ -345,13 +345,13 @@
     (:map my-org-format-map
       ;; Basic char syntax:
       ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
-      "b"   (+org-emphasize +org/bold ?*)
-      "i"   (+org-emphasize +org/italic ?/)
-      "m"   (+org-emphasize +org/monospace ?~)  ;; monospace/code
-      "u"   (+org-emphasize +org/underline ?_)
-      "v"   (+org-emphasize +org/verbose ?=)
-      "s"   (+org-emphasize +org/strike-through ?+)
-      "r"   (+org-emphasize +org/restore-format ? )
+      "b"   (org-emphasize! +org/bold ?*)
+      "i"   (org-emphasize! +org/italic ?/)
+      "m"   (org-emphasize! +org/monospace ?~)  ;; monospace/code
+      "u"   (org-emphasize! +org/underline ?_)
+      "v"   (org-emphasize! +org/verbose ?=)
+      "s"   (org-emphasize! +org/strike-through ?+)
+      "r"   (org-emphasize! +org/restore-format ? )
       "k"   #'org-insert-link
       "K"   #'+org/remove-link
       )
