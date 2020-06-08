@@ -49,3 +49,18 @@
   "Open project org file."
   (interactive)
   (find-file (+org-org-capture-project-file)))
+
+;;;###autoload
+(defun +org/emphasize-dwim (&optional char)
+  (interactive)
+  (unless (region-active-p)
+    (forward-word)
+    (backward-word)
+    (mark-word))
+  (org-emphasize char))
+
+;;;###autoload
+(defmacro org-emphasize! (fname char)
+  "Make function for setting the emphasis in org mode"
+  `(defun ,fname () (interactive)
+     (+org/emphasize-dwim ,char)))

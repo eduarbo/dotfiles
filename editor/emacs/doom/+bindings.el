@@ -350,20 +350,19 @@
     (:map my-org-format-map
       ;; Basic char syntax:
       ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
-      "b"   (λ! (org-emphasize ?*)) ;; bold
-      "i"   (λ! (org-emphasize ?/)) ;; italic
+      "b"   (+org-emphasize +org/bold ?*)
+      "i"   (+org-emphasize +org/italic ?/)
+      "m"   (+org-emphasize +org/monospace ?~)  ;; monospace/code
+      "u"   (+org-emphasize +org/underline ?_)
+      "v"   (+org-emphasize +org/verbose ?=)
+      "s"   (+org-emphasize +org/strike-through ?+)
+      "r"   (+org-emphasize +org/restore-format ? )
       "k"   #'org-insert-link
       "K"   #'+org/remove-link
-      "l"   #'org-store-link
-      "m"   (λ! (org-emphasize ?~)) ;; monospace/code
-      "u"   (λ! (org-emphasize ?_)) ;; underline
-      "v"   (λ! (org-emphasize ?=)) ;; verbose
-      "s"   (λ! (org-emphasize ?+)) ;; strikethrough
-      "r"   (λ! (org-emphasize ?\s)) ;; restore format
       )
 
     (:map evil-org-mode-map
-      :vi "s-f"       my-org-format-map
+      "s-e"       my-org-format-map
 
       :mi "C-o"       #'evil-org-org-insert-heading-respect-content-below
 
