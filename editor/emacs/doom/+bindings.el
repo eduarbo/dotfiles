@@ -24,8 +24,6 @@
 ;; ┗━┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗━┛
 
 (map!
-  "s-;"                 #'pp-eval-expression
-  :gv   "s-x"           #'execute-extended-command
   :m    ":"             #'execute-extended-command
   :m    ";"             #'evil-ex
 
@@ -67,9 +65,6 @@
   "s-l"                 #'next-buffer
 
   (:when (featurep! :ui workspaces)
-    (:leader
-      :nv ">"           #'persp-switch)
-
     "s-{"               #'+workspace/switch-left
     "s-}"               #'+workspace/switch-right
     "s-H"               #'+workspace/switch-left
@@ -104,8 +99,12 @@
 
   ;; Shortcuts
 
-  :ginv "s-/"           #'counsel-descbinds
-  "s-?"                 #'which-key-show-top-level
+  :gv     "s-x"         #'execute-extended-command
+  "s-;"                 #'pp-eval-expression
+  "s-f"                 #'swiper-thing-at-point
+  :ginv "s-/"           #'helpful-key
+  ;; "s-?"                 #'which-key-show-top-level
+  "s-?"                 #'counsel-descbinds
   "s--"                 #'doom/decrease-font-size
   "s-+"                 #'doom/increase-font-size
   "s-="                 #'doom/reset-font-size
@@ -114,19 +113,15 @@
 
   "s-."                 (cond ((featurep! :completion ivy) #'ivy-resume)
                           ((featurep! :completion helm)    #'helm-resume))
-  "s-`"                 (cond ((featurep! :completion ivy) #'ivy-resume)
-                          ((featurep! :completion helm)    #'helm-resume))
   "s->"                 #'+popup/toggle
-  "s-'"                 #'+popup/toggle
 
   "s-b"                 #'bookmark-jump
   "s-B"                 #'bookmark-delete
   "s-g"                 #'magit-status
   "s-i"                 #'org-capture
   "s-I"                 #'org-journal-new-entry
-  "s-m"                 #'helpful-key
   "s-p"                 #'+treemacs/toggle
-  [s-escape]            #'projectile-switch-project
+  "s-P"                 #'treemacs-find-file
   "s-r"                 #'+eval/open-repl-other-window
   "s-R"                 #'+eval/open-repl-same-window
   "s-u"                 #'winner-undo
@@ -395,9 +390,12 @@
   :desc "Eval expression"             ";"         #'pp-eval-expression
   :desc "Show marks"                  "/"         #'counsel-evil-marks
   :desc "Switch to scratch buffer"    "X"         #'doom/switch-to-scratch-buffer
-  :desc "Escape"                      "ESC"       #'doom/escape
-  :desc "Find file in other project"  "RET"       #'doom/find-file-in-other-project
-  :desc "Search other project"        "S-SPC"     #'+default/search-other-project
+  :desc "Switch Project"              "RET"       #'projectile-switch-project
+  :desc "Switch Workspace"            "ESC"       #'persp-switch
+  :desc "Find file"                   "."         #'counsel-find-file
+  :desc "Find file from here"         ">"         #'+default/find-file-under-here
+  :desc "Search other project"        [S-return]  #'+default/search-other-project
+  :desc "Find file in other project"  "S-SPC"     #'doom/find-file-in-other-project
   :desc "Toggle last popup"           "'"         #'+popup/toggle
   :desc "Ivy resume"                  "`"         (cond ((featurep! :completion ivy) #'ivy-resume)
                                                   ((featurep! :completion helm)    #'helm-resume))
