@@ -311,6 +311,15 @@
   :n "C-n" #'git-timemachine-show-next-revision)
 
 
+;;; with-editor
+
+(map! :after with-editor
+  (:map with-editor-mode-map
+    "s-s" #'with-editor-finish
+    "s-k" #'with-editor-cancel
+    "s-w" #'with-editor-cancel))
+
+
 ;; ┏━┓┏━┓┏━╸   ┏┳┓┏━┓╺┳┓┏━╸
 ;; ┃ ┃┣┳┛┃╺┓╺━╸┃┃┃┃ ┃ ┃┃┣╸
 ;; ┗━┛╹┗╸┗━┛   ╹ ╹┗━┛╺┻┛┗━╸
