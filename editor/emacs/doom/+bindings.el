@@ -455,10 +455,12 @@
 
       ;;; <leader> t --- toggle
   (:prefix ("t" . "toggle")
+    (:when (featurep! :lang org +roam)
+      :desc "Org Roam"                   "r" #'org-roam)
+    :desc "Read-only mode"               "R" #'read-only-mode
     :desc "Line numbers"                 "l" #'display-line-numbers-mode
     :desc "Global Line numbers"          "L" #'global-display-line-numbers-mode
-    :desc "Visual line mode"             "v" #'visual-line-mode
-    :desc "Visual fill column mode"      "V" #'visual-fill-column-mode
+    :desc "Visual fill column mode"      "v" #'visual-fill-column-mode
     :desc "Subword mode"                 "W" #'subword-mode
     :desc "Frame maximized"              "Z" #'toggle-frame-maximized)
 
