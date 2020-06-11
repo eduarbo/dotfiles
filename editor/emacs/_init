@@ -18,6 +18,8 @@ brew_deps=(
   cmake
   glslang
   pyenv
+  jq
+  black
 )
 
 cask_deps=(
