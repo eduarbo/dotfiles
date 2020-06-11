@@ -441,11 +441,16 @@
 
       ;;; <leader> n --- notes
   (:prefix ("n" . "notes")
-    :desc "Today's journal"               "j" #'org-journal-new-entry
-    :desc "Date journal"                  "J" #'org-journal-new-date-entry
-    :desc "Daily Agenda"                  "d" #'eduarbo/daily-agenda
-    :desc "Unscheduled Agenda"            "u" #'eduarbo/unscheduled-agenda
-    :desc "Open project notes"            "p" #'+org/find-notes-for-project)
+    :desc "Org Roam capture"            "RET" #'org-roam-capture
+    :desc "Find note"                   "SPC" #'org-roam-find-file
+    :desc "Switch to buffer"            ","   #'org-roam-switch-to-buffer
+    :desc "Org Roam Insert"             "i"   #'org-roam-insert
+    :desc "Jump to index"               "I"   #'org-roam-jump-to-index
+    :desc "Today's journal"             "j"   #'org-journal-new-entry
+    :desc "Date journal"                "J"   #'org-journal-new-date-entry
+    :desc "Daily Agenda"                "d"   #'eduarbo/daily-agenda
+    :desc "Unscheduled Agenda"          "u"   #'eduarbo/unscheduled-agenda
+    :desc "Open project notes"          "p"   #'+org/find-notes-for-project)
 
       ;;; <leader> o --- open
   (:prefix ("o" . "open")
