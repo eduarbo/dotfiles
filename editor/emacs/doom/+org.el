@@ -18,16 +18,16 @@
 (defvar +org-default-notes-dir (expand-file-name "notes" org-directory)
   "Directory of un-shareable, personal notes")
 
-(defvar +org-default-projects-dir (expand-file-name "projects" org-directory)
+(defvar +org-default-projects-dir +org-default-notes-dir
   "Directory of project notes, usually repos")
 
-(defvar +org-default-inbox-file (expand-file-name "inbox.org" org-directory)
+(defvar +org-default-inbox-file (expand-file-name "inbox.org" +org-default-notes-dir)
   "New stuff collects in this file")
 
-(defvar +org-default-todo-file (expand-file-name "todo.org" org-directory)
+(defvar +org-default-todo-file (expand-file-name "todo.org" +org-default-notes-dir)
   "Tasks, TODOs and little projects")
 
-(defvar +org-default-incubate-file (expand-file-name "incubate.org" org-directory)
+(defvar +org-default-incubate-file (expand-file-name "incubate.org" +org-default-notes-dir)
   "Ideas simmering on back burner")
 
 
@@ -39,7 +39,7 @@
   (setq
     org-default-notes-file +org-default-inbox-file
     org-archive-location "archive/%s::"
-    org-agenda-files (list +org-default-todo-file +org-default-incubate-file +org-default-projects-dir)
+    org-agenda-files (list +org-default-todo-file +org-default-incubate-file)
 
     org-log-done 'time
     org-log-into-drawer t
@@ -219,7 +219,7 @@
 ;; ┗━┛╹┗╸┗━┛   ┗━┛┗━┛┗━┛╹┗╸╹ ╹╹ ╹┗━╸
 ;; org-journal
 
-(setq org-journal-dir (expand-file-name "journal/" org-directory))
+(setq org-journal-dir (expand-file-name "journal/" +org-default-notes-dir))
 
 (after! org-journal
   ;; Disable default org template for the journal
@@ -234,6 +234,25 @@
     org-journal-date-format "%A, %-e %B %Y"
     org-journal-time-format "%-I:%M %p"
     org-journal-time-prefix "** "
+    )
+  )
+
+
+;; ┏━┓┏━┓┏━╸   ┏━┓┏━┓┏━┓┏┳┓
+;; ┃ ┃┣┳┛┃╺┓╺━╸┣┳┛┃ ┃┣━┫┃┃┃
+;; ┗━┛╹┗╸┗━┛   ╹┗╸┗━┛╹ ╹╹ ╹
+;; org-roam
+
+(after! org-roam
+  (setq
+    org-roam-directory +org-default-notes-dir
+    org-roam-capture-templates
+    '(("d" "default" plain #'org-roam-capture--get-point
+        "%?"
+        ;; :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)"
+        :file-name "${slug}"
+        :head "#+TITLE: ${title}\n"
+        :unnarrowed t))
     )
   )
 
