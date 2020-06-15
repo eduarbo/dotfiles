@@ -131,6 +131,7 @@
        ;; faust             ; dsp, but you get to keep your soul
        ;; fsharp            ; ML stands for Microsoft's Language
        ;; fstar             ; (dependent) types and (monadic) effects and Z3
+       ;; gdscript          ; the language you waited for
        ;; (go +lsp)         ; the hipster dialect
        ;; (haskell +dante)  ; a language that's lazier than I am
        ;; hy                ; readability of scheme w/ speed of python
@@ -172,6 +173,7 @@
          )
        ;; qt                ; the 'cutest' gui framework ever
        ;; racket            ; a DSL for DSLs
+       ;; raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
        ;; rst               ; ReST in peace
        ;; (ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
