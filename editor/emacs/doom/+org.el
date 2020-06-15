@@ -16,7 +16,7 @@
 (setq org-directory (expand-file-name "~/org"))
 
 (defvar +org-default-notes-dir (expand-file-name "notes" org-directory)
-  "Directory of un-shareable, personal notes")
+  "Directory of notes")
 
 (defvar +org-default-projects-dir +org-default-notes-dir
   "Directory of project notes, usually repos")
