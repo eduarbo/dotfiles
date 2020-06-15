@@ -34,7 +34,7 @@ install() {
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
       brew cask install ${cask_deps[@]}
-      brew install emacs-plus --without-spacemacs-icon
+      brew install emacs-plus@27 --with-modern-icon-papirus --with-xwidgets
       ;;
   esac
   # TODO allow installation of global node packages
