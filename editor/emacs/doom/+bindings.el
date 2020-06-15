@@ -361,6 +361,7 @@
       "v"   (org-emphasize! +org/verbose ?=)
       "s"   (org-emphasize! +org/strike-through ?+)
       "r"   (org-emphasize! +org/restore-format ? )
+      "c"   #'org-cliplink
       "k"   #'org-insert-link
       "K"   #'+org/remove-link
       )
