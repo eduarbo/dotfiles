@@ -12,3 +12,5 @@
 (package! vimrc-mode)
 (package! figlet)
 (package! graphql-mode)
+(package! eslintd-fix)
+(package! prettier-js)
