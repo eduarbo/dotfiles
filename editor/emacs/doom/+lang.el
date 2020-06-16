@@ -41,9 +41,26 @@
 (after! (flycheck tide)
   (setq-default flycheck-disabled-checkers '(javascript-tide)))
 
+(after! flycheck
+  (setq flycheck-javascript-eslint-executable "eslint_d"))
+
 (add-hook! js-mode
   (embrace-add-pair ?\` "`" "`")
   (embrace-add-pair ?\$ "${" "}"))
+
+(use-package! prettier-js
+  :commands (prettier-js prettier-js-mode)
+  :init
+  (map! :after js2-mode :map js2-mode-map
+        :localleader
+        "p" #'prettier-js))
+
+(use-package! eslintd-fix
+  :commands (eslintd-fix eslintd-fix-mode)
+  :init
+  (map! :after js2-mode :map js2-mode-map
+        :localleader
+        "l" #'eslintd-fix))
 
 
 ;; ┏┓╻┏━╸╻┏┓╻╻ ╻
