@@ -11,3 +11,6 @@ eslint_d
 eslint-config-airbnb-base
 eslint-plugin-import
 stylelint
+dockerfile-language-server-nodejs
+vscode-json-languageserver
+yaml-language-server
