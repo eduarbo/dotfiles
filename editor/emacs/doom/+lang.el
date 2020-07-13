@@ -38,8 +38,8 @@
     tide-completion-ignore-case t
     ))
 
-(after! (flycheck tide)
-  (setq-default flycheck-disabled-checkers '(javascript-tide)))
+(after! flycheck
+  (setq-default flycheck-disabled-checkers '(javascript-tide eglot)))
 
 (after! flycheck
   (setq flycheck-javascript-eslint-executable "eslint_d"))
