@@ -100,7 +100,9 @@
          +docsets        ; ...or in Dash docsets locally
          +dictionary
          )
-       lsp
+      (lsp
+        ;; +eglot
+        )
        macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
