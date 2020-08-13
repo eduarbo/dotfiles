@@ -59,7 +59,6 @@
     ;; org-yank-adjusted-subtrees t
 
     org-ellipsis "  "
-    org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")
 
     org-highest-priority ?A
     org-default-priority ?B
@@ -74,12 +73,6 @@
   (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h"))
   )
 
-
-(use-package! org-fancy-priorities
-  :hook (org-mode . org-fancy-priorities-mode)
-  :config (setq org-fancy-priorities-list '("" "" "")))
-
-
 (use-package! org-id ; built-in
   :after org
   :init
@@ -91,6 +84,11 @@
   (setq org-habit-graph-column 105)
   (add-to-list 'org-modules 'org-habit t))
 
+(after! org-superstar
+  (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")))
+
+(after! org-fancy-priorities
+  (setq org-fancy-priorities-list '("" "" "")))
 
 
 ;; ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
