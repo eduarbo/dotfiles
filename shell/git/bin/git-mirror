@@ -1,0 +1,20 @@
+#!/bin/sh
+# Author: Eduardo Ruiz <eduarbo@gmail.com>
+
+# Setup a mirror remote through ssh and keep it in sync with origin remote
+# when pushing to origin
+
+if [ -z "$1" ] || [ -z "$2" ]
+then
+  echo "Please provide the SSH hostname and parent path for the remote repository"
+  exit 1
+fi
+
+ssh_host="$1"
+ssh_path="$2"
+repo_name=$(basename "$(git config --get remote.origin.url)")
+repo_path="$ssh_path/$repo_name"
+
+ssh "$ssh_host" "mkdir $repo_path"
+ssh "$ssh_host" "git init --bare $repo_path"
+git remote set-url --add --push origin "ssh://$ssh_host:$repo_path"
