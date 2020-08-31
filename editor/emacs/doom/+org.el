@@ -317,6 +317,8 @@
   )
 
 (after! org
+  (setq org-done-keywords '("DONE" "NOPE"))
+
   ;; "@" means to add a note (with time)
   ;; "!" means to record only the time of the state change
   ;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
