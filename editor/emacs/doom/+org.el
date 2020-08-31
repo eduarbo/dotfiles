@@ -328,10 +328,12 @@
   (setq org-todo-keywords
     '(
        (sequence
-         "TODO(t)"     ; A task that needs doing & is ready to do
-         "DOIN(d)"     ; A task that is in progress
-         "NEXT(n)"     ; Next task to do in an area or project
          "PROJ(p)"     ; An ongoing project that cannot be completed in one step
+         "DOIN(d)"     ; A task that is in progress
+         "|")
+       (sequence
+         "TODO(t)"     ; A task that needs doing & is ready to do
+         "NEXT(n)"     ; Next task to do in an area or project
          "WAIT(w@/!)"  ; Something is holding up this task; or it is paused
          "|")
        (sequence
