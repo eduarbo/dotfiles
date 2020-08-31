@@ -264,6 +264,7 @@
     '((nil :maxlevel . 2)
        (org-agenda-files :maxlevel . 2))
     org-refile-use-outline-path t
+    org-refile-allow-creating-parent-nodes 'confirm  ;; create parents on-the-fly
     org-refile-target-verify-function 'bh/verify-refile-target
     )
   )
