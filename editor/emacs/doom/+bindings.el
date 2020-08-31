@@ -359,6 +359,8 @@
       "m"   (org-emphasize! +org/monospace ?~)  ;; monospace/code
       "u"   (org-emphasize! +org/underline ?_)
       "v"   (org-emphasize! +org/verbose ?=)
+      "l"   #'org-roam-insert
+      "L"   #'org-roam-insert-immediate
       "s"   (org-emphasize! +org/strike-through ?+)
       "r"   (org-emphasize! +org/restore-format ? )
       "c"   #'org-cliplink
