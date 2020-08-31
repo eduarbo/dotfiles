@@ -52,6 +52,8 @@
     org-outline-path-complete-in-steps nil
     org-pretty-entities t
     org-priority-start-cycle-with-default t
+    org-link-file-path-type 'relative
+    org-use-property-inheritance t
 
     ;; org-yank-adjusted-subtrees t
 
