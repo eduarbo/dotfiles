@@ -27,9 +27,6 @@
 (defvar +org-default-todo-file (expand-file-name "todo.org" +org-default-notes-dir)
   "Tasks, TODOs and little projects")
 
-(defvar +org-default-incubate-file (expand-file-name "incubate.org" +org-default-notes-dir)
-  "Ideas simmering on back burner")
-
 
 ;; ╺┳┓┏━╸┏━╸┏━┓╻ ╻╻  ╺┳╸┏━┓
 ;;  ┃┃┣╸ ┣╸ ┣━┫┃ ┃┃   ┃ ┗━┓
@@ -39,7 +36,7 @@
   (setq
     org-default-notes-file +org-default-inbox-file
     org-archive-location "archive/%s::"
-    org-agenda-files (list +org-default-todo-file +org-default-incubate-file)
+    org-agenda-files (list +org-default-todo-file)
 
     org-log-done 'time
     org-log-into-drawer t
