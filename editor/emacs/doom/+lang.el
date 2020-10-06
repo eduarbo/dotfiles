@@ -62,6 +62,9 @@
         :localleader
         "l" #'eslintd-fix))
 
+(after! xref-js2
+  (setq xref-js2-search-program 'rg))
+
 
 ;; ┏┓╻┏━╸╻┏┓╻╻ ╻
 ;; ┃┗┫┃╺┓┃┃┗┫┏╋┛
