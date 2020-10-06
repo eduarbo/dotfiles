@@ -12,8 +12,6 @@
 ;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
 
 (after! company
-  (set-company-backend! 'text-mode 'company-ispell 'company-capf)
-
   ;; This just slow down company
   (setq company-box-doc-enable nil)
 
