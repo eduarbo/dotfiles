@@ -47,15 +47,6 @@
   (setq figlet-default-font "Future"))
 
 
-;; ┏━╸╻  ╻ ╻┏━┓┏━┓┏━╸╻  ╻
-;; ┣╸ ┃  ┗┳┛┗━┓┣━┛┣╸ ┃  ┃
-;; ╹  ┗━╸ ╹ ┗━┛╹  ┗━╸┗━╸┗━╸
-
-(after! flyspell
-  ;; I prefer to enable flyspell on demand
-  (remove-hook! org-mode #'flyspell-mode))
-
-
 ;; ╻ ╻┏━╸╻  ┏┳┓
 ;; ┣━┫┣╸ ┃  ┃┃┃
 ;; ╹ ╹┗━╸┗━╸╹ ╹
@@ -63,6 +54,25 @@
 (after! helm
   ;; Show hidden files too
   (setq helm-ag-command-option "--hidden"))
+
+
+;; ╻┏━┓┏━┓┏━╸╻  ╻
+;; ┃┗━┓┣━┛┣╸ ┃  ┃
+;; ╹┗━┛╹  ┗━╸┗━╸┗━╸
+
+(after! ispell
+  (setq ispell-dictionary "en_US,en_GB,es_ANY")
+  ;; ispell-set-spellchecker-params has to be called before
+  ;; ispell-hunspell-add-multi-dic will work
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_US,en_GB,es_ANY")
+  (setq ispell-personal-dictionary
+    (expand-file-name (concat "hunspell_personal") doom-etc-dir))
+
+  ;; The personal dictionary file has to exist, otherwise hunspell will silently
+  ;; not use it.
+  (unless (file-exists-p ispell-personal-dictionary)
+    (write-region "" nil ispell-personal-dictionary nil 0)))
 
 
 ;; ╻╻ ╻╻ ╻
