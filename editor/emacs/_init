@@ -58,10 +58,6 @@ update() {
 }
 
 link() {
-  # source: https://www.freeoffice.com/en/download/dictionaries
-  DICTIONARIES_DIR=~/Library/Spelling
-  mkdir -p $DICTIONARIES_DIR
-  mklink dictionaries/* "$DICTIONARIES_DIR/"
   mklink doom $XDG_CONFIG_HOME
 }
 

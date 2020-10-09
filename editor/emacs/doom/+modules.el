@@ -56,25 +56,6 @@
   (setq helm-ag-command-option "--hidden"))
 
 
-;; ╻┏━┓┏━┓┏━╸╻  ╻
-;; ┃┗━┓┣━┛┣╸ ┃  ┃
-;; ╹┗━┛╹  ┗━╸┗━╸┗━╸
-
-(after! ispell
-  (setq ispell-dictionary "en_US,en_GB,es_ANY")
-  ;; ispell-set-spellchecker-params has to be called before
-  ;; ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_US,en_GB,es_ANY")
-  (setq ispell-personal-dictionary
-    (expand-file-name (concat "hunspell_personal") doom-etc-dir))
-
-  ;; The personal dictionary file has to exist, otherwise hunspell will silently
-  ;; not use it.
-  (unless (file-exists-p ispell-personal-dictionary)
-    (write-region "" nil ispell-personal-dictionary nil 0)))
-
-
 ;; ╻╻ ╻╻ ╻
 ;; ┃┃┏┛┗┳┛
 ;; ╹┗┛  ╹
@@ -177,6 +158,30 @@
     '(helm-source-buffers-list
        helm-source-projectile-recentf-list
        helm-source-buffer-not-found)))
+
+
+;; ┏━┓┏━┓┏━╸╻  ╻
+;; ┗━┓┣━┛┣╸ ┃  ┃
+;; ┗━┛╹  ┗━╸┗━╸┗━╸
+
+(after! spell-fu
+  ;; I prefer to enable flyspell on demand
+  (remove-hook! '(yaml-mode-hook
+                   conf-mode-hook
+                   prog-mode-hook
+                   text-mode-hook)
+    #'spell-fu-mode)
+
+  (add-hook! '(yaml-mode-hook
+                   conf-mode-hook
+                   prog-mode-hook
+                   text-modek-hook)
+    #'spell-fu-mode-disable))
+
+
+(after! ispell
+  (setq ispell-personal-dictionary
+    (expand-file-name (concat "personal_dict") doom-etc-dir)))
 
 
 ;; ╺━┓┏━╸┏┓╻
