@@ -1,45 +1,42 @@
 ;;; ~/dev/dotfiles/editor/emacs/doom/+org.el -*- lexical-binding: t; -*-
 
-;;       ▄▄▄   ▄▄ •      • ▌ ▄ ·.       ·▄▄▄▄  ▄▄▄ .
-;; ▪     ▀▄ █·▐█ ▀ ▪     ·██ ▐███▪▪     ██▪ ██ ▀▄.▀·
-;;  ▄█▀▄ ▐▀▀▄ ▄█ ▀█▄     █ ▌▐▌▐█· ▄█▀▄ ▐█· ▐█▌▐▀▀▪▄
-;; ▐█▌.▐▌▐█•█▌▐█▄▪▐█     ██ ██▌▐█▌▐█▌.▐▌██. ██ ▐█▄▄▌
-;;  ▀█▄▀▪.▀  ▀·▀▀▀▀      ▀▀  █▪▀▀▀ ▀█▄▀▪▀▀▀▀▀•  ▀▀▀
+;;       ▄▄▄   ▄▄ •     • ▌ ▄ ·.       ·▄▄▄▄  ▄▄▄ .
+;; ▪     ▀▄ █·▐█ ▀ ▪    ·██ ▐███▪▪     ██▪ ██ ▀▄.▀·
+;;  ▄█▀▄ ▐▀▀▄ ▄█ ▀█▄    ▐█ ▌▐▌▐█· ▄█▀▄ ▐█· ▐█▌▐▀▀▪▄
+;; ▐█▌.▐▌▐█•█▌▐█▄▪▐█    ██ ██▌▐█▌▐█▌.▐▌██. ██ ▐█▄▄▌
+;;  ▀█▄▀▪.▀  ▀·▀▀▀▀     ▀▀  █▪▀▀▀ ▀█▄▀▪▀▀▀▀▀•  ▀▀▀
 
-;; Building a Second Brain in Org-mode using GTD and PARA for organization
-
-
-;; ┏━┓┏━┓╺┳╸╻ ╻┏━┓
-;; ┣━┛┣━┫ ┃ ┣━┫┗━┓
-;; ╹  ╹ ╹ ╹ ╹ ╹┗━┛
-
-(setq org-directory (expand-file-name "~/org"))
-
-(defvar +org-default-notes-dir (expand-file-name "notes" org-directory)
-  "Directory of notes")
-
-(defvar +org-default-projects-dir +org-default-notes-dir
-  "Directory of project notes, usually repos")
-
-(defvar +org-default-inbox-file (expand-file-name "inbox.org" +org-default-notes-dir)
-  "New stuff collects in this file")
-
-(defvar +org-default-todo-file (expand-file-name "todo.org" +org-default-notes-dir)
-  "Tasks, TODOs and little projects")
+;; Building a Second Brain in Org-mode using Roam and P.A.R.A.
 
 
 ;; ╺┳┓┏━╸┏━╸┏━┓╻ ╻╻  ╺┳╸┏━┓
 ;;  ┃┃┣╸ ┣╸ ┣━┫┃ ┃┃   ┃ ┗━┓
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 
+(setq org-directory (expand-file-name "~/org"))
+
+(defvar +org-default-notes-dir (expand-file-name "notes" org-directory)
+  "Directory of notes")
+
+(defvar +org-default-archive-dir (expand-file-name "archive" org-directory)
+  "Directory of archived files")
+
+(defvar +org-default-agenda-dir (expand-file-name "agenda" +org-default-notes-dir)
+  "Directory of agenda files")
+
+(defvar +org-notes-search-headlines-depth 1)
+
+(defvar +org-agenda-search-headlines-depth 2)
+
 (after! org
   (setq
-    org-default-notes-file +org-default-inbox-file
-    org-archive-location "archive/%s::"
-    org-agenda-files (list +org-default-todo-file)
+    org-archive-location (expand-file-name "%s::" +org-default-archive-dir)
+    org-agenda-files (list +org-default-agenda-dir)
+    ;; org-agenda-file-regexp "\\`[^.].*_agenda\\.org\\'"
 
     org-log-done 'time
-    org-log-into-drawer t
+    org-log-into-drawer t  ;; Log everything into the LOGBOOK drawer
+    org-treat-insert-todo-heading-as-state-change t  ;; insert inactive timestamps on TODO entries
 
     org-startup-indented t
     org-startup-truncated nil
@@ -49,7 +46,6 @@
     org-hide-emphasis-markers t
     org-image-actual-width '(600)
     org-imenu-depth 5
-    org-outline-path-complete-in-steps nil
     org-pretty-entities t
     org-priority-start-cycle-with-default t
     org-link-file-path-type 'relative
