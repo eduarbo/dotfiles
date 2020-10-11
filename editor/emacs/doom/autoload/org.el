@@ -14,13 +14,12 @@
     (beginning-of-line 0)
     (org-remove-empty-drawer-at (point))))
 
-;; Exclude completed tasks from refile targets, from Michael Englehorn's Emacs
-;; Configuration
-;; https://michael.englehorn.com/config.html
+;; Exclude task from refile targets that match any keyword from the list
+;; +org-refile-exclude-keywords
 ;;;###autoload
-(defun bh/verify-refile-target ()
+(defun +org/verify-refile-target ()
   "Exclude todo keywords with a done state from refile targets"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+  (unless (member (nth 2 (org-heading-components)) +org-refile-exclude-keywords) t))
 
 ;;;###autoload
 (defun +org-clock-heading-reversed-outline-path ()
