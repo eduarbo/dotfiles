@@ -446,6 +446,7 @@
   (:prefix ("n" . "notes")
     :desc "Org Roam capture"            "RET" #'org-roam-capture
     :desc "Find note"                   "SPC" #'org-roam-find-file
+    :desc "Search notes"              "S-SPC" #'+org/org-notes-search
     :desc "Switch to buffer"            ","   #'org-roam-switch-to-buffer
     :desc "Org Roam Insert"             "i"   #'org-roam-insert
     :desc "Jump to index"               "I"   #'org-roam-jump-to-index
@@ -453,6 +454,8 @@
     :desc "Date journal"                "J"   #'org-journal-new-date-entry
     :desc "Daily Agenda"                "d"   #'eduarbo/daily-agenda
     :desc "Unscheduled Agenda"          "u"   #'eduarbo/unscheduled-agenda
+    :desc "Search org agenda headlines" "A"   #'+org/org-agenda-headlines
+    :desc "Search org notes headlines"  "S"   #'+org/org-notes-headlines
     :desc "Open project notes"          "p"   #'+org/find-notes-for-project)
 
       ;;; <leader> o --- open
