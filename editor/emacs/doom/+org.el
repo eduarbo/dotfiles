@@ -256,14 +256,18 @@
 ;; ┣┳┛┣╸ ┣╸ ┃┃  ┃┃┗┫┃╺┓
 ;; ╹┗╸┗━╸╹  ╹┗━╸╹╹ ╹┗━┛
 
+(defvar +org-refile-exclude-keywords '("DONE" "NOPE" "[X]")
+  "List of todo keywords to exclude from the refile targets")
 (after! org
   (setq
-    org-refile-targets
-    '((nil :maxlevel . 2)
-       (org-agenda-files :maxlevel . 2))
-    org-refile-use-outline-path t
+    org-refile-target-verify-function '+org/verify-refile-target
+    org-refile-targets '((nil :maxlevel . 2)
+                          (org-agenda-files :maxlevel . 2))
+    ;; org-refile-targets '((nil :maxlevel . 2)
+    ;;                       (org-agenda-files :todo . "PROJ"))
+    org-refile-use-outline-path 'file  ;; Workaround to allow refiling entries to the Top level
+    org-outline-path-complete-in-steps nil
     org-refile-allow-creating-parent-nodes 'confirm  ;; create parents on-the-fly
-    org-refile-target-verify-function 'bh/verify-refile-target
     )
   )
 
