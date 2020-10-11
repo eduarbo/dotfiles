@@ -21,6 +21,7 @@ brew_deps=(
   jq
   black
   hunspell
+  pngpaste # org-download
 )
 
 cask_deps=(
