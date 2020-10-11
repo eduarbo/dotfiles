@@ -319,8 +319,6 @@
   )
 
 (after! org
-  (setq org-done-keywords '("DONE" "NOPE"))
-
   ;; "@" means to add a note (with time)
   ;; "!" means to record only the time of the state change
   ;; With X and Y being either "@" or "!", "X/Y" means use X when entering the
@@ -330,19 +328,19 @@
   (setq org-todo-keywords
     '(
        (sequence
-         "PROJ(p)"     ; An ongoing project that cannot be completed in one step
-         "DOIN(d)"     ; A task that is in progress
+         "PROJ(p!)"     ; An ongoing project that cannot be completed in one step
+         "DOIN(d!)"     ; A task that is in progress
          "|")
        (sequence
-         "TODO(t)"     ; A task that needs doing & is ready to do
-         "NEXT(n)"     ; Next task to do in an area or project
+         "TODO(t!)"     ; A task that needs doing & is ready to do
+         "NEXT(n!)"     ; Next task to do in an area or project
          "WAIT(w@/!)"  ; Something is holding up this task; or it is paused
          "|")
        (sequence
-         "READ(r)"     ; Read it later
-         "VIEW(v)"     ; Review/Watch it later
-         "SOON(s)"     ; Someday I will do it
-         "MAYB(m)"     ; Maybe I will do it
+         "READ(r!)"     ; Read it later
+         "VIEW(v!)"     ; Review/Watch it later
+         "SOON(s!)"     ; Someday I will do it
+         "MAYB(m!)"     ; Maybe I will do it
          "|")
        (sequence
          "|"
@@ -357,6 +355,8 @@
          "[X](X)"      ; Task was completed
          )
        ))
+
+  (setq org-done-keywords '("DONE" "NOPE"))
 
   (setq org-todo-keyword-faces
     '(
