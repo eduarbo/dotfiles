@@ -238,6 +238,7 @@
 
 (after! org-roam
   (setq
+    +org-roam-open-buffer-on-find-file nil
     org-roam-directory +org-default-notes-dir
     org-roam-capture-templates
     '(("d" "default" plain #'org-roam-capture--get-point
