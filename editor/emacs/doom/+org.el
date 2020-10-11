@@ -240,6 +240,7 @@
   (setq
     +org-roam-open-buffer-on-find-file nil
     org-roam-directory +org-default-notes-dir
+    org-roam-db-location (concat doom-cache-dir "org-roam.db")
     org-roam-capture-templates
     '(("d" "default" plain #'org-roam-capture--get-point
         "%?"
