@@ -63,3 +63,33 @@
   "Make function for setting the emphasis in org mode"
   `(defun ,fname () (interactive)
      (+org/emphasize-dwim ,char)))
+
+;;;###autoload
+(defun +org/org-agenda-headlines ()
+  "Jump to an Org headline in `org-agenda-files'."
+  (interactive)
+  (doom-completing-read-org-headings
+   "Jump to org headline: " org-agenda-files +org-agenda-search-headlines-depth t))
+
+;;;###autoload
+(defun +org/org-notes-headlines ()
+  "Jump to an Org headline in `+org-default-notes-dir'."
+  (interactive)
+  (doom-completing-read-org-headings
+   "Jump to org headline: " +org-default-notes-dir +org-notes-search-headlines-depth t))
+
+;;;###autoload
+(defun +org/org-notes-search ()
+  "Perform a text search on `+org-default-notes-dir'."
+  (interactive)
+  (require 'org)
+  (let ((default-directory +org-default-notes-dir))
+    (+default/search-project-for-symbol-at-point "")))
+
+;;;###autoload
+(defun +org/find-in-notes ()
+  "Find a file under `+org-default-notes-dir', recursively."
+  (interactive)
+  (unless (bound-and-true-p +org-default-notes-dir)
+    (require 'org))
+  (doom-project-find-file +org-default-notes-dir))
