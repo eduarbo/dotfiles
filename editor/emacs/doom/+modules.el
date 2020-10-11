@@ -105,7 +105,7 @@
 
     ;; Disable diagnostic b/c annoying
     lsp-flycheck-live-reporting nil
-    lsp-diagnostic-package :none
+    lsp-diagnostics-provider :none
 
     ;; lsp-enable-symbol-highlighting nil
     lsp-enable-indentation nil
