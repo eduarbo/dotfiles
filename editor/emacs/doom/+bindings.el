@@ -359,11 +359,13 @@
       "m"   (org-emphasize! +org/monospace ?~)  ;; monospace/code
       "u"   (org-emphasize! +org/underline ?_)
       "v"   (org-emphasize! +org/verbose ?=)
-      "l"   #'org-roam-insert
-      "L"   #'org-roam-insert-immediate
       "s"   (org-emphasize! +org/strike-through ?+)
-      "r"   (org-emphasize! +org/restore-format ? )
+      "x"   (org-emphasize! +org/restore-format ? )
+      "r"   #'org-roam-insert
+      "R"   #'org-roam-insert-immediate
       "c"   #'org-cliplink
+      "d"   #'org-download-yank
+      "D"   #'org-download-clipboard
       "k"   #'org-insert-link
       "K"   #'+org/remove-link
       )
