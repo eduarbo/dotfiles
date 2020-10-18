@@ -9,9 +9,15 @@
 ;;                  == Spacemacs-esque keybinding scheme ==
 
 
-(defvar my-completion-map (make-sparse-keymap))
-(defvar my-org-format-map (make-sparse-keymap))
+(defvar +completion-map (make-sparse-keymap))
+(defvar +org-format-map (make-sparse-keymap))
+(defvar +org-log-buffer-mode-map (make-sparse-keymap))
 
+;; Setup minor mode for org note log buffers
+(define-minor-mode +org-log-buffer-mode
+  "Minor mode for org note log buffers"
+  :keymap +org-log-buffer-mode-map)
+(add-hook! 'org-log-buffer-setup-hook #'+org-log-buffer-mode)
 
 (setq
   doom-leader-key ","
@@ -46,7 +52,7 @@
 
   (:when (featurep! :completion company)
     :i  [tab]           #'+company/complete
-    :i  [C-tab]         my-completion-map)
+    :i  [C-tab]         +completion-map)
 
   (:when (featurep! :editor snippets)
     :i  [S-tab]         (λ! (unless (call-interactively 'yas-expand)
@@ -222,7 +228,7 @@
         "C-h"     #'company-abort
         [left]    #'company-abort)
 
-      (:map my-completion-map
+      (:map +completion-map
         "d"      #'+company/dict-or-keywords
         "f"      #'company-files
         "s"      #'company-ispell
@@ -326,6 +332,11 @@
 
 (map!
   (:after org
+    (:map +org-log-buffer-mode-map
+      "s-s" #'org-ctrl-c-ctrl-c
+      "s-k" #'org-kill-note-or-show-branches
+      "s-w" #'org-kill-note-or-show-branches)
+
     (:map (org-mode-map org-agenda-mode-map)
       "s-r"           #'org-refile
       "s-R"           #'+org/refile-to-running-clock
@@ -351,7 +362,7 @@
         :desc "Save file"   "fs"    #'org-edit-src-save)))
 
   (:after evil-org
-    (:map my-org-format-map
+    (:map +org-format-map
       ;; Basic char syntax:
       ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
       "b"   (org-emphasize! +org/bold ?*)
@@ -368,10 +379,11 @@
       "D"   #'org-download-clipboard
       "k"   #'org-insert-link
       "K"   #'+org/remove-link
+      "n"   #'org-add-note
       )
 
     (:map evil-org-mode-map
-      "s-e"       my-org-format-map
+      "s-e"       +org-format-map
 
       :mi "C-o"       #'evil-org-org-insert-heading-respect-content-below
 
@@ -380,7 +392,8 @@
         "s-O"   #'+org/insert-item-above)
 
       (:localleader
-        :desc "format"                           "f"   my-org-format-map
+        :desc "Add note to the current entry"    "n"   #'org-add-note
+        :desc "format"                           "f"   +org-format-map
         :desc "Timestamp"                        "t"   #'org-time-stamp
         :desc "Togle Timestamp type"             "T"   #'org-toggle-timestamp-type
         :desc "Inactive Timestamp"               "i"   #'org-time-stamp-inactive))
