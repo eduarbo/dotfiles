@@ -34,7 +34,7 @@
     org-agenda-files (list +org-default-agenda-dir)
     ;; org-agenda-file-regexp "\\`[^.].*_agenda\\.org\\'"
 
-    org-log-done 'time
+    org-log-done 'note
     org-log-into-drawer t  ;; Log everything into the LOGBOOK drawer
     org-treat-insert-todo-heading-as-state-change t  ;; insert inactive timestamps on TODO entries
 
