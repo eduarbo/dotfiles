@@ -26,7 +26,7 @@
 
 (defvar +org-notes-search-headlines-depth 1)
 
-(defvar +org-agenda-search-headlines-depth 2)
+(defvar +org-agenda-search-headlines-depth 1)
 
 (after! org
   (setq
