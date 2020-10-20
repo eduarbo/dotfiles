@@ -61,10 +61,15 @@
 
 ;;; Fonts
 
-(setq
-  doom-font (font-spec :family "Hack Nerd Font" :size 12)
-  doom-variable-pitch-font (font-spec :family "NotoSans Nerd Font"))
+(let ((default-font-size 12))
+  (setq
+    doom-font (font-spec :family "Hack Nerd Font" :size default-font-size)
+    doom-unicode-font (font-spec :family "Noto Emoji" :size (+eduarbo--get-unicode-font-size default-font-size))
+    doom-big-font (font-spec :size (+ default-font-size doom-big-font-increment))
+    doom-variable-pitch-font (font-spec :family "Noto Sans")))
 
+;; (add-hook! 'doom-big-font-mode-hook #'+unicode-toggle-font-size-h)
+(add-hook! 'after-setting-font-hook #'+eduarbo-adjust-unicode-font-size-h)
 
 ;;; Frames/Windows
 

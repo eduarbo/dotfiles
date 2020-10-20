@@ -8,6 +8,22 @@
 
 
 ;;;###autoload
+(defun +eduarbo--get-unicode-font-size (size)
+  (let ((base (- size 1)))
+    (+ (/ (* (+ base (/ base 5)) 5) 6) 1)))
+
+;;;###autoload
+(defun +eduarbo-adjust-unicode-font-size-h ()
+  (let* ((default-font-size (font-get (face-attribute 'default :font) :size))
+          (unicode-font-size (+eduarbo--get-unicode-font-size default-font-size))
+          ;; (doom-unicode-font (font-spec :size unicode-font-size)))
+          (doom-unicode-font-family (font-get doom-unicode-font :family))
+          (doom-unicode-font (font-spec :family doom-unicode-font-family :size unicode-font-size)))
+    (with-selected-frame (selected-frame)
+      (when (fboundp 'set-fontset-font)
+        (set-fontset-font t 'unicode doom-unicode-font nil 'prepend)))))
+
+;;;###autoload
 (defun +eduarbo/switch-to-last-workspace ()
   "Switch to previously selected workspace, if it exists."
   (interactive)
