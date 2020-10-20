@@ -71,6 +71,7 @@
 ;; (add-hook! 'doom-big-font-mode-hook #'+unicode-toggle-font-size-h)
 (add-hook! 'after-setting-font-hook #'+eduarbo-adjust-unicode-font-size-h)
 
+
 ;;; Frames/Windows
 
 ;; A more useful title

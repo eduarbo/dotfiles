@@ -8,8 +8,10 @@
 
 
 ;;;###autoload
-(defun +eduarbo--get-unicode-font-size (size)
-  (let ((base (- size 1)))
+(defun +eduarbo--get-unicode-font-size (font-size)
+  "Return the size of the unicode font that matches the width of the char
+of the default font based on the given FONT-SIZE"
+  (let ((base (- font-size 1)))
     (+ (/ (* (+ base (/ base 5)) 5) 6) 1)))
 
 ;;;###autoload
