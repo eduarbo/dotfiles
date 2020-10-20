@@ -24,9 +24,9 @@
 (defvar +org-default-agenda-dir (expand-file-name "agenda" +org-default-notes-dir)
   "Directory of agenda files")
 
-(defvar +org-notes-search-headlines-depth 1)
+(defvar +org-notes-search-headlines-depth 0)
 
-(defvar +org-agenda-search-headlines-depth 1)
+(defvar +org-agenda-search-headlines-depth 0)
 
 (after! org
   (setq
