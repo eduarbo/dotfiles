@@ -88,6 +88,7 @@
 
 ;; Free the s-l binding
 (setq lsp-keymap-prefix nil)
+(setq +lsp-auto-install-servers t)
 
 (after! lsp-ui
   (setq
