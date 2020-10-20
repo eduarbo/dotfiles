@@ -22,6 +22,11 @@ cask_deps=(
   font-fira-sans
   font-input
   font-dejavu-sans
+  font-noto-sans
+  font-noto-emoji
+  font-noto-color-emoji
+  font-noto-mono
+  font-noto-sans-mono
 )
 
 source ${0:A:h}/../../deploy
