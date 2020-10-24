@@ -12,10 +12,15 @@ bindkey -v
 # ┗━╸┗━┛╹ ╹╹  ╹┗━┛┗━┛
 # Configs
 
-
-if [[ "$TERM" != "dumb" ]]; then
-   _load shell/zsh/plugins.zsh
+if [[ "$TERM" = "tramp" ]]; then
+  unset RPROMPT
+  unset RPS1
+  PS1="$ "
+  unsetopt zle
+  unsetopt rcs  # Inhibit loading of further config files
 fi
+
+_load shell/zsh/plugins.zsh
 
 # ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
 # qualifiers
