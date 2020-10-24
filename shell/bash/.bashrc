@@ -108,3 +108,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+if [[ $TERM == "tramp" ]]; then
+    export PS1="$ "
+fi
