@@ -31,10 +31,8 @@ fi;
   fi
 } &!
 
-if [[ "$TERM" != "dumb" ]]; then
-  # execute compdefs provided by rest of plugins
-  zinit cdreplay -q # -q is for quiet
-fi
+# execute compdefs provided by rest of plugins
+zinit cdreplay -q # -q is for quiet
 
 export _FASD_DATA="$XDG_DATA_HOME/fasd"
 export _FASD_VIMINFO="$XDG_DATA_HOME/viminfo"
