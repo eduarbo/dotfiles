@@ -238,6 +238,7 @@
 
   (:when (featurep! :completion ivy)
     (:after ivy :map ivy-minibuffer-map
+      [S-return] #'ivy-immediate-done
       "C-n"      #'scroll-up-command
       "C-p"      #'scroll-down-command
       "s-o"      #'hydra-ivy/body)
