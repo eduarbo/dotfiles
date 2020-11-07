@@ -295,6 +295,14 @@
       "C-h"         #'yas-prev-field)))
 
 
+;;; flyspell
+
+(map!
+  :after flyspell
+  (:map (org-mode-map evil-org-mode-map)
+    [S-return] #'eduarbo/add-word-to-dictionary))
+
+
 ;;; multiple-cursors
 
 (map!
@@ -342,7 +350,6 @@
       "s-r"           #'org-refile
       "s-R"           #'+org/refile-to-running-clock
 
-      :n [S-return]   #'org-todo
       :n [return]     #'+org/dwim-at-point
 
       :n "H"          #'org-metadown
@@ -384,9 +391,8 @@
       )
 
     (:map evil-org-mode-map
+      :n "C-i"    #'evil-jump-forward
       "s-e"       +org-format-map
-
-      :mi "C-o"       #'evil-org-org-insert-heading-respect-content-below
 
       (:when IS-MAC
         "s-o"   #'+org/insert-item-below
@@ -395,9 +401,11 @@
       (:localleader
         :desc "Add note to the current entry"    "n"   #'org-add-note
         :desc "format"                           "f"   +org-format-map
-        :desc "Timestamp"                        "t"   #'org-time-stamp
-        :desc "Togle Timestamp type"             "T"   #'org-toggle-timestamp-type
-        :desc "Inactive Timestamp"               "i"   #'org-time-stamp-inactive))
+        :desc "TODO"                             "t"   #'org-todo
+
+        (:prefix ("d" . "date/deadline")
+          "T" #'org-toggle-timestamp-type
+          "i" #'org-time-stamp-inactive)))
 
   (:after evil-org-agenda
     (:map evil-org-agenda-mode-map
