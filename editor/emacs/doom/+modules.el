@@ -165,22 +165,12 @@
 ;; ┗━┓┣━┛┣╸ ┃  ┃
 ;; ┗━┛╹  ┗━╸┗━╸┗━╸
 
-(after! spell-fu
-  ;; I prefer to enable flyspell on demand
-  (remove-hook! '(yaml-mode-hook
-                   conf-mode-hook
-                   prog-mode-hook
-                   text-mode-hook)
-    #'spell-fu-mode)
-
-  (add-hook! '(yaml-mode-hook
-                   conf-mode-hook
-                   prog-mode-hook
-                   text-modek-hook)
-    #'spell-fu-mode-disable))
-
-
 (after! ispell
+  (setq ispell-dictionary "en_GB,en_US,es_ANY")
+  (ispell-set-spellchecker-params)
+  ;; ispell-set-spellchecker-params has to be called before
+  ;; ispell-hunspell-add-multi-dic will work
+  (ispell-hunspell-add-multi-dic "en_GB,en_US,es_ANY")
   (setq ispell-personal-dictionary
     (expand-file-name (concat "personal_dict") doom-etc-dir)))
 
