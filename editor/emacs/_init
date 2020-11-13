@@ -22,6 +22,7 @@ brew_deps=(
   black
   hunspell
   pngpaste # org-download
+  trash
 )
 
 cask_deps=(
