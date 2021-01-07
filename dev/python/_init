@@ -3,17 +3,10 @@ source ${0:A:h}/../../deploy
 source env.bash
 
 install() {
-  _ensure_repo pyenv/pyenv $PYENV_ROOT
+  [[ $(_os) == macos ]] && brew install pyenv
 }
 
-update() {
-  if [[ -n $PYENV_ROOT ]]; then
-    cd $PYENV_ROOT && git pull
-    for ver in $PYENV_ROOT/plugins/*(/N); do
-      cd $ver && git pull
-    done
-  fi
-}
+# update() {}
 
 link() {
   mklink config/flake8 $XDG_CONFIG_HOME
@@ -21,7 +14,6 @@ link() {
 
 clean() {
   rm -fv $XDG_CONFIG_HOME/flake8
-  rm -rfv $PYENV_ROOT
 }
 
 init "$@"
