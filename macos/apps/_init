@@ -67,7 +67,6 @@ install() {
   case $(_os) in
     macos)
       brew install ${brew_deps[@]}
-      brew install findutils --with-default-names
       brew install gnu-sed --with-default-names
       brew install grep --with-default-names
       brew install wget --with-iri

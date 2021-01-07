@@ -17,6 +17,7 @@ common_deps=(
 
 brew_deps=(
   coreutils
+  findutils
   zsh-history-substring-search
   fd
 )

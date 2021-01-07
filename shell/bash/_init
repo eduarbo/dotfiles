@@ -3,7 +3,7 @@ source ${0:A:h}/../../deploy
 
 install() {
   case $(_os) in
-    macos)  brew install bash bash-completion coreutils ;;
+    macos)  brew install bash bash-completion coreutils findutils ;;
     debian) sudo apt update && sudo apt-get install -y bash ;;
   esac
 

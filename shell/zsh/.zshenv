@@ -29,8 +29,6 @@ export FIGLET_FONTDIR="$ZDOTDIR/figlet-fonts"
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-# Replace macOS utilities with GNU coreutils
-[[ $(_os) == macos ]] && path=( /usr/local/opt/coreutils/libexec/gnubin $path )
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
