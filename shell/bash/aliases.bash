@@ -14,8 +14,6 @@ alias wget='wget -c'  # Resume dl if possible
 alias scp='rsync --rsh=ssh -CarvP'
 alias ssh='TERM=xterm-256color ssh'
 
-alias ls="ls -Fh --color --group-directories-first"
-
 
 ## Files & Directories
 
@@ -29,6 +27,12 @@ alias ......='cd ../../../../..'
 alias -- -='cd -'
 
 alias ln='ln -v'  # verbose ln
+
+if [[ $(_os) == macos ]]; then
+  alias ls="gls -Fh --color --group-directories-first"
+else
+  alias ls="ls -Fh --color --group-directories-first"
+fi
 
 alias l='ls -1'
 alias ll='ls -l' # List all files in long format
