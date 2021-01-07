@@ -5,6 +5,4 @@ export PYLINTRC="$XDG_CONFIG_HOME/pylint/pylintrc"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-path=( "$PYENV_ROOT/bin" "${path[@]}" )
 _cache pyenv init - --no-rehash
