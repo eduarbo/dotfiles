@@ -5,7 +5,7 @@ const appsMap = {
   d: '/Applications/1Password 7.app',
   e: '/Applications/Emacs.app',
   f: '/System/Library/CoreServices/Finder.app',
-  x: '/Applications/Firefox.app',
+  x: '/Applications/Firefox Developer Edition.app',
   g: '/Applications/Google Chrome.app',
   i: '/Applications/kitty.app',
   m: '/Applications/Mail.app',
