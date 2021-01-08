@@ -68,10 +68,6 @@
     doom-big-font (font-spec :size (+ default-font-size doom-big-font-increment))
     doom-variable-pitch-font (font-spec :family "Noto Sans")))
 
-;; (add-hook! 'doom-big-font-mode-hook #'+unicode-toggle-font-size-h)
-(add-hook! 'after-setting-font-hook #'+eduarbo-adjust-unicode-font-size-h)
-
-
 ;;; Frames/Windows
 
 ;; A more useful title
