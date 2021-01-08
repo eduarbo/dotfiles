@@ -7,6 +7,8 @@ common_deps=(
   the_silver_searcher
   ripgrep
   sqlite
+  zstd
+  fd
 )
 
 brew_deps=(
@@ -53,10 +55,7 @@ install() {
 }
 
 update() {
-  doom update
-  doom purge
-  doom env
-  doom sync
+  doom upgrade
 }
 
 link() {
