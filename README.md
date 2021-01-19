@@ -39,7 +39,6 @@ The following are the categories and topics available to install:
 
 - `misc/` - Very handy apps & tools
   - `surfingkeys` - vim-like bindings for Google Chrome & Firefox
-  - `gnupg` - encryption/signing
 
 - `editor/` - Configuration for my text editors
   - `editorconfig` - maintain consistent coding styles between different editors
