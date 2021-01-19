@@ -9,9 +9,8 @@
 brew_deps=(
   wget
   bash
-  gnupg
   the_silver_searcher
-  pinentry-mac
+  gpg-suite
 )
 
 cask_deps=(
