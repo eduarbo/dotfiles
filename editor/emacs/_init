@@ -52,9 +52,6 @@ install() {
   _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
 
   ~/.emacs.d/bin/doom -y install
-  ~/.emacs.d/bin/doom purge
-  ~/.emacs.d/bin/doom env
-  ~/.emacs.d/bin/doom sync
 }
 
 update() {
@@ -63,6 +60,7 @@ update() {
 
 link() {
   mklink doom $XDG_CONFIG_HOME
+  mklink dictionaries/* "$HOME/Library/Spelling"
 }
 
 clean() {
