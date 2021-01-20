@@ -33,6 +33,7 @@ brew_deps=(
 
 node_deps=(
   eslint_d
+  prettier
   typescript
   typescript-language-server
   vscode-css-languageserver-bin
