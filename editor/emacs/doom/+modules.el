@@ -170,7 +170,7 @@
   (ispell-set-spellchecker-params)
   ;; ispell-set-spellchecker-params has to be called before
   ;; ispell-hunspell-add-multi-dic will work
-  (ispell-hunspell-add-multi-dic "en_GB,en_US,es_ANY")
+  (ispell-hunspell-add-multi-dic ispell-dictionary)
   (setq ispell-personal-dictionary
     (expand-file-name (concat "personal_dict") doom-etc-dir)))
 
