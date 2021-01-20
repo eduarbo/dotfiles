@@ -17,6 +17,8 @@ install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]}
+      # to sign commits
+      brew install gpg-suite
       ;;
     debian)
       sudo apt update && sudo apt install -y ${common_deps[@]}
