@@ -41,7 +41,6 @@ The following are the categories and topics available to install:
   - `surfingkeys` - vim-like bindings for Google Chrome & Firefox
 
 - `editor/` - Configuration for my text editors
-  - `editorconfig` - maintain consistent coding styles between different editors
   - `emacs` - the best of Emacs and Vim in one place
   - `vim` - for quick file editing
 
