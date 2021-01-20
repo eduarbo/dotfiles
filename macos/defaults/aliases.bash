@@ -2,6 +2,8 @@ alias y='pbcopy'
 alias p='pbpaste'
 
 alias b='brew'
+alias bi='brew install'
+alias br='brew remove'
 alias bu='brew update && brew upgrade && brew cleanup'
 
 alias dl='cd ~/Downloads'
