@@ -1,6 +1,5 @@
 const appsMap = {
   a: '/Applications/Calendar.app',
-  b: '/Applications/Karabiner-Elements.app',
   c: '/Applications/Utilities/Digital Color Meter.app',
   d: '/Applications/1Password 7.app',
   e: '/Applications/Emacs.app',
