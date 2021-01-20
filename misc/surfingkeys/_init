@@ -11,12 +11,22 @@ link() {
   mklink surfingkeys.js $XDG_CONFIG_HOME
 
   echo
-  echo-note "To complete the setup you will need to do the following in Chrome:"
-  echo "- Go to the Chrome's extension settings, Look for Surfingkeys, Click the 'Details' button and enable 'Allow access to file URLs'"
+  echo-note "To complete the setup you will need to do the following in your Browser."
+  echo
+  echo "For Chrome:"
+  echo "- Go to the Chrome's extension settings, look for Surfingkeys, click the 'Details' button and enable 'Allow access to file URLs'"
   echo "- Open the Surfingkeys options and check the option 'Advanced mode'"
   echo "- Paste the following path in 'Load settings from':"
   echo -n "$(tput bold)"
   echo "  $SURFINGKEYS_CONF_PATH"
+  echo -n "$(tput sgr0)"
+  echo "- Click Save and refresh your tabs to apply changes"
+  echo
+  echo "For Firefox:"
+  echo "- Go to the Extensions manager, look for Surfingkeys and click on 'Preferences'"
+  echo "- Paste the following path in 'Load settings from':"
+  echo -n "$(tput bold)"
+  echo "https://raw.githubusercontent.com/eduarbo/dotfiles/master/misc/surfingkeys/surfingkeys.js"
   echo -n "$(tput sgr0)"
   echo "- Click Save and refresh your tabs to apply changes"
   echo
