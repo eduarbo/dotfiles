@@ -9,11 +9,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const { karabiner, complexModifications } = require('./config/karabiner');
 
 const JSON_SPACE_INDENTATION = 2;
-const DEFAULT_CONFIG_DIR = '~/.config/karabiner';
+const HOME_PATH = os.homedir();
+const DEFAULT_CONFIG_DIR = `${HOME_PATH}/.config/karabiner`;
 const CONFIG_DIR = process.env.KARABINER_CONFIG_DIR || DEFAULT_CONFIG_DIR;
 
 writeFile(`${CONFIG_DIR}/karabiner.json`, karabiner);
