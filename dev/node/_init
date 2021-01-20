@@ -4,9 +4,7 @@ source env.bash
 
 # TODO Install latest stable node version to be set as global
 install() {
-  # Installing node through Homebrew can cause problems with npm for globally
-  # installed packages. To prevent this issue install node without npm
-  [[ $(_os) == macos ]] && brew install node --without-npm
+  [[ $(_os) == macos ]] && brew install node
 }
 
 link() {
