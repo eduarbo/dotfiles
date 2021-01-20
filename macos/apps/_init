@@ -10,7 +10,7 @@ brew_deps=(
   p7zip
   rsync
   tree
-  unrar
+  rar
   unzip
   wget
   adobe-acrobat-reader
@@ -20,7 +20,6 @@ brew_deps=(
   calibre
   ffmpeg
   ffms2
-  firefox-developer-edition
   google-chrome
   grandperspective
   handbrake
