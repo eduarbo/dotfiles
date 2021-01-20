@@ -10,7 +10,7 @@ _init_env() {
   path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin $path )
   PATH="$(printf '%s:' "${path[@]}")"
 
-  export DOTFILES="$(dirname $(readlink -f $BASH_SOURCE))/../.."
+  export DOTFILES="$(dirname $(greadlink -f $BASH_SOURCE))/../.."
   source "$DOTFILES/env"
 
   path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin )
