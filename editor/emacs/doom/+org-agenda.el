@@ -193,4 +193,16 @@
                        :scheduled t
                        :habit t))
                     (:auto-outline-path t)))))))
+       ("l" "Custom agenda" agenda ""
+         ((org-agenda-start-with-log-mode '(closed clock state))
+           (org-agenda-archives-mode t)))
+       ("w" "Weekly review"
+         agenda ""
+         ((org-agenda-start-day "-14d")
+           (org-agenda-span 14)
+           (org-agenda-start-on-weekday 1)
+           (org-agenda-start-with-log-mode '(state))
+           (org-agenda-archives-mode t)
+           (org-agenda-include-inactive-timestamps 't)
+           ))
        )))
