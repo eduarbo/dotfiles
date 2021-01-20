@@ -323,7 +323,35 @@
 
 (map! :after git-timemachine :map git-timemachine-mode-map
   :n "C-p" #'git-timemachine-show-previous-revision
-  :n "C-n" #'git-timemachine-show-next-revision)
+  :n "C-n" #'git-timemachine-show-next-revision
+
+  :n "-" #'git-timemachine-show-previous-revision
+  :n "+" #'git-timemachine-show-next-revision
+
+  :n "("   #'git-timemachine-show-previous-revision
+  :n ")"   #'git-timemachine-show-next-revision
+
+  :n "[["  #'git-timemachine-show-previous-revision
+  :n "]]"  #'git-timemachine-show-next-revision
+  )
+
+
+;;; org-journal
+
+(map! :after org-journal
+  (:map org-journal-mode-map
+    :n "C-p" #'org-journal-previous-entry
+    :n "C-n" #'org-journal-next-entry
+
+    :n "-" #'org-journal-previous-entry
+    :n "+" #'org-journal-next-entry
+
+    :n "("   #'org-journal-previous-entry
+    :n ")"   #'org-journal-next-entry
+
+    :n "[["  #'org-journal-previous-entry
+    :n "]]"  #'org-journal-next-entry
+    ))
 
 
 ;;; with-editor
@@ -468,9 +496,9 @@
 
       ;;; <leader> n --- notes
   (:prefix ("n" . "notes")
+    :desc "Search notes"              "S-SPC" #'+org/org-notes-search
     :desc "Org Roam capture"            "RET" #'org-roam-capture
     :desc "Find note"                   "SPC" #'org-roam-find-file
-    :desc "Search notes"              "S-SPC" #'+org/org-notes-search
     :desc "Switch to buffer"            ","   #'org-roam-switch-to-buffer
     :desc "Org Roam Insert"             "i"   #'org-roam-insert
     :desc "Jump to index"               "I"   #'org-roam-jump-to-index
@@ -480,7 +508,9 @@
     :desc "Unscheduled Agenda"          "u"   #'eduarbo/unscheduled-agenda
     :desc "Search org agenda headlines" "A"   #'+org/org-agenda-headlines
     :desc "Search org notes headlines"  "S"   #'+org/org-notes-headlines
-    :desc "Open project notes"          "p"   #'+org/find-notes-for-project)
+    :desc "Open project notes"          "p"   #'+org/find-notes-for-project
+    :desc "Today journal"               "t"   #'org-journal-open-current-journal-file
+    :desc "Todo list"                   "T"   #'org-todo-list)
 
       ;;; <leader> o --- open
   (:prefix ("o" . "open")
@@ -506,7 +536,7 @@
     :desc "Global Line numbers"          "L" #'global-display-line-numbers-mode
     :desc "Visual fill column mode"      "v" #'visual-fill-column-mode
     :desc "Subword mode"                 "W" #'subword-mode
-    :desc "Frame maximized"              "Z" #'toggle-frame-maximized)
+    :desc "Frame maximized"              "m" #'toggle-frame-maximized)
 
       ;;; <leader> w --- window
   (:prefix ("w" . "window")
