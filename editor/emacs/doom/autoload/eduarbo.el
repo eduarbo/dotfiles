@@ -124,3 +124,12 @@ narrowed."
   "Open the unscheduled agenda in a dedicated workspace"
   (interactive)
   (eduarbo--open-or-switch-to-agenda "u"))
+
+;;;###autoload
+(defun eduarbo/add-word-to-dictionary ()
+  "Add new word to dictionary"
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
