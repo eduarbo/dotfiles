@@ -9,6 +9,7 @@ common_deps=(
   sqlite
   zstd
   fd
+  editorconfig
 )
 
 brew_deps=(
@@ -16,6 +17,7 @@ brew_deps=(
   markdown
   coreutils
   gnu-tar
+  node
   llvm
   cmake
   glslang
@@ -26,6 +28,17 @@ brew_deps=(
   pngpaste # org-download
   trash
   marked
+  shellcheck
+)
+
+node_deps=(
+  eslint_d
+  typescript
+  typescript-language-server
+  vscode-css-languageserver-bin
+  vscode-html-languageserver-bin
+  stylelint
+  bash-language-server
 )
 
 cask_fonts_deps=(
@@ -46,7 +59,7 @@ install() {
       ;;
   esac
   # TODO allow installation of global node packages
-  # npm install -g eslint_d typescript-language-server
+  npm install -g ${node_deps[@]}
 
   # Clone and setup doom-emacs
   _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
@@ -61,10 +74,13 @@ update() {
 link() {
   mklink doom $XDG_CONFIG_HOME
   mklink dictionaries/* "$HOME/Library/Spelling"
+  # TODO: Check if editorconfig supports XDG Base Directory
+  mklink editorconfig ~/.editorconfig
 }
 
 clean() {
   rm -rfv "$XDG_CONFIG_HOME/doom" "~/.emacs.d"
+  rm -fv ~/.editorconfig
 }
 
 init "$@"
