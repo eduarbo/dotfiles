@@ -4,11 +4,16 @@ source ${0:A:h}/../../deploy
 # only for macOS
 [[ $(_os) != macos ]] && exit
 
+brew_deps=(
+  node
+  karabiner-elements
+)
+
 # link() {
 # }
 
 install() {
-  brew install karabiner-elements
+  brew install ${brew_deps[@]}
 
   ./main.js
 }
