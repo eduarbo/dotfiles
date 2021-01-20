@@ -24,9 +24,9 @@
 (defvar +org-default-agenda-dir (expand-file-name "agenda" +org-default-notes-dir)
   "Directory of agenda files")
 
-(defvar +org-notes-search-headlines-depth 0)
+(defvar +org-notes-search-headlines-depth 1)
 
-(defvar +org-agenda-search-headlines-depth 0)
+(defvar +org-agenda-search-headlines-depth 1)
 
 (after! org
   (setq
@@ -112,59 +112,85 @@
 ;; ┃  ┣━┫┣━┛ ┃ ┃ ┃┣┳┛┣╸     ┃ ┣╸ ┃┃┃┣━┛┃  ┣━┫ ┃ ┣╸ ┗━┓
 ;; ┗━╸╹ ╹╹   ╹ ┗━┛╹┗╸┗━╸    ╹ ┗━╸╹ ╹╹  ┗━╸╹ ╹ ╹ ┗━╸┗━┛
 
+(defvar +org-default-inbox-file (expand-file-name "inbox.org" +org-default-agenda-dir)
+  "New stuff collects in this file")
+
 (after! org
   (setq
+    +org-capture-notes-file "inbox.org"
     org-capture-templates
     '(
-       ("n" "Note" entry
-         (file +org-default-inbox-file)
-         (file "templates/new-note.org") :prepend t)
-       ("N" "Note From" entry
-         (file +org-default-inbox-file)
-         (file "templates/new-note-from.org") :prepend t)
        ("t" "Task" entry
          (file +org-default-inbox-file)
          (file "templates/new-task.org") :prepend t)
        ("T" "Task From" entry
          (file +org-default-inbox-file)
          (file "templates/new-task-from.org") :prepend t)
-       ("l" "Log" entry
+       ("n" "Note" entry
          (file +org-default-inbox-file)
-         (file "templates/new-log.org") :prepend t)
-       ("L" "Log From" entry
+         (file "templates/new-note.org") :prepend t)
+       ("N" "Note From" entry
          (file +org-default-inbox-file)
-         (file "templates/new-log-from.org") :prepend t)
+         (file "templates/new-note-from.org") :prepend t)
        ("k" "Cliplink" entry
          (file +org-default-inbox-file)
          (file "templates/new-cliplink.org") :prepend t)
 
-       ;; Will use {org-default-projects-dir}/{project-root}.org
-       ("p" "Templates for projects")
-       ("pn" "Note" entry
-         (file+headline +org-org-capture-project-file "Notes")
-         (file "templates/new-note.org") :prepend t)
-       ("pn" "Note From" entry
-         (file+headline +org-org-capture-project-file "Notes")
-         (file "templates/new-note-from.org") :prepend t)
-       ("pt" "Task" entry
-         (file+headline +org-org-capture-project-file "Tasks")
-         (file "templates/new-task.org") :prepend t)
-       ("pT" "Task From" entry
-         (file+headline +org-org-capture-project-file "Tasks")
-         (file "templates/new-task-from.org") :prepend t)
-       ("pl" "Log" entry
-         (file+headline +org-org-capture-project-file "Log")
-         (file "templates/new-log.org") :prepend t)
-       ("pL" "Log From" entry
-         (file+headline +org-org-capture-project-file "Log")
-         (file "templates/new-log-from.org") :prepend t)
-       ("pr" "Resource" entry
-         (file+headline +org-org-capture-project-file "Resources")
-         (file "templates/new-resource.org") :prepend t)
-       ("pk" "Cliplink" entry
-         (file+headline +org-org-capture-project-file "Resources")
-         (file "templates/new-cliplink.org") :prepend t)
-       ))
+       ;; Will use {org-directory}/{+org-capture-projects-file} and store
+       ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
+       ;; support `:parents' to specify what headings to put them under, e.g.
+       ;; :parents ("Projects")
+       ("o" "Centralized templates for projects")
+       ("ot" "Project todo" entry
+         (function +org-capture-central-project-todo-file)
+         "* TODO %?\n %i\n %a"
+         :heading "Tasks"
+         :prepend nil)
+       ("on" "Project notes" entry
+         (function +org-capture-central-project-notes-file)
+         "* %U %?\n %i\n %a"
+         :heading "Notes"
+         :prepend t)
+       ("oc" "Project changelog" entry
+         (function +org-capture-central-project-changelog-file)
+         "* %U %?\n %i\n %a"
+         :heading "Changelog"
+         :prepend t))
+
+    ;;    ("pn" "Protocol Note" entry
+    ;;      (file +org-default-inbox-file)
+    ;;      "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
+    ;;      :prepend t)
+    ;;    ("pl" "Protocol Link" entry
+    ;;      (file +org-default-inbox-file)
+    ;;      "* %? [[%:link][%:description]] \nCaptured On: %U"
+    ;;      :prepend t)
+
+    ;;    ;; ;; Will use {org-default-projects-dir}/{project-root}.org
+    ;;    ;; ("p" "Templates for projects")
+    ;;    ;; ("pn" "Note" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Notes")
+    ;;    ;;   (file "templates/new-note.org") :prepend t)
+    ;;    ;; ("pn" "Note From" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Notes")
+    ;;    ;;   (file "templates/new-note-from.org") :prepend t)
+    ;;    ;; ("pt" "Task" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Tasks")
+    ;;    ;;   (file "templates/new-task.org") :prepend t)
+    ;;    ;; ("pT" "Task From" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Tasks")
+    ;;    ;;   (file "templates/new-task-from.org") :prepend t)
+    ;;    ;; ("pl" "Log" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Log")
+    ;;    ;;   (file "templates/new-log.org") :prepend t)
+    ;;    ;; ("pL" "Log From" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Log")
+    ;;    ;;   (file "templates/new-log-from.org") :prepend t)
+    ;;    ;; ("pk" "Cliplink" entry
+    ;;    ;;   (file+headline +org-org-capture-project-file "Resources")
+    ;;    ;;   (file "templates/new-cliplink.org") :prepend t)
+    ;;    ))
+    )
   )
 
 
@@ -215,20 +241,15 @@
 (setq org-journal-dir (expand-file-name "journal/" +org-default-notes-dir))
 
 (after! org-journal
-  ;; Disable default org template for the journal
-  (set-file-template! "\\/journal/.+\\.org$" :ignore t)
-
   (setq
     org-extend-today-until 4 ;; sometimes my days end at 4am
     org-journal-carryover-items nil
-    org-journal-file-type 'weekly
-    ;; Check the function "format-time-string" for
-    org-journal-file-format "%Y/W%W %Y-%m-%d.org"
-    org-journal-date-format "%A, %-e %B %Y"
+    org-journal-file-type 'daily
+    org-journal-file-format "%Y/%Y-%m-%d.org"
+    org-journal-date-format "%A, %B %-e, %Y"
+    org-journal-date-prefix "#+TITLE: Journal: "
     org-journal-time-format "%-I:%M %p"
-    org-journal-time-prefix "** "
-    )
-  )
+    org-journal-time-prefix "\n* "))
 
 
 ;; ┏━┓┏━┓┏━╸   ┏━┓┏━┓┏━┓┏┳┓
@@ -244,12 +265,9 @@
     org-roam-capture-templates
     '(("d" "default" plain #'org-roam-capture--get-point
         "%?"
-        ;; :file-name "%(format-time-string \"%Y-%m-%d--%H-%M-%SZ--${slug}\" (current-time) t)"
-        :file-name "${slug}"
+        :file-name "%<%Y-%m-%d_%H-%M>__${slug}"
         :head "#+TITLE: ${title}\n"
-        :unnarrowed t))
-    )
-  )
+        :unnarrowed t))))
 
 
 ;; ┏━┓┏━╸┏━╸╻╻  ╻┏┓╻┏━╸
