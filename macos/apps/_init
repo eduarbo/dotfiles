@@ -26,6 +26,7 @@ brew_deps=(
   licecap
   nextcloud
   omnidisksweeper
+  prettyping
   provisionql
   qlcolorcode
   qlimagesize
@@ -54,6 +55,8 @@ install() {
       brew install ${brew_deps[@]}
       brew tap cjbassi/gotop
       brew install gotop
+      brew tap teamookla/speedtest
+      brew install speedtest
       ;;
   esac
 }
