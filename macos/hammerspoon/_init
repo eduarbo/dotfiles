@@ -6,7 +6,7 @@ HAMMERSPOON_DIR="$XDG_CONFIG_HOME/hammerspoon"
 [[ $(_os) != macos ]] && exit
 
 install() {
-  brew cask install hammerspoon
+  brew install hammerspoon
   defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HAMMERSPOON_DIR/init.lua"
   defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -int 0
   defaults write org.hammerspoon.Hammerspoon MJShowMenuIconKey -int 0

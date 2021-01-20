@@ -3,7 +3,6 @@ alias p='pbpaste'
 
 alias b='brew'
 alias bu='brew update && brew upgrade && brew cleanup'
-alias c='brew cask'
 
 alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
