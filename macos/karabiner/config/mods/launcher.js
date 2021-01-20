@@ -1,18 +1,17 @@
 const appsMap = {
-  a: '/Applications/Calendar.app',
-  c: '/Applications/Utilities/Digital Color Meter.app',
+  a: '/System/Applications/Calendar.app',
+  c: '/System/Applications/Utilities/Digital Color Meter.app',
   d: '/Applications/1Password 7.app',
   e: '/Applications/Emacs.app',
   f: '/System/Library/CoreServices/Finder.app',
   x: '/Applications/Firefox Developer Edition.app',
   g: '/Applications/Google Chrome.app',
   i: '/Applications/kitty.app',
-  m: '/Applications/Mail.app',
+  m: '/System/Applications/Mail.app',
   p: '/Applications/Spotify.app',
-  r: '/Applications/Utilities/Activity Monitor.app',
+  r: '/System/Applications/Utilities/Activity Monitor.app',
   s: '/Applications/Slack.app',
   v: '/Applications/Karabiner-EventViewer.app',
-  w: '/Applications/WhatsApp.app',
 };
 
 const manipulators = Object.entries(appsMap).map(([key, app]) => ({
