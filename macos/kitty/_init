@@ -6,7 +6,10 @@ KITTY_DIR="$XDG_CONFIG_HOME/kitty"
 [[ $(_os) != macos ]] && exit
 
 install() {
-  brew cask install kitty
+  brew install kitty
+  # Enable Cask of fonts
+  brew tap homebrew/cask-fonts
+  brew install font-hack
 }
 
 update() {

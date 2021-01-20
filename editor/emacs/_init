@@ -25,10 +25,10 @@ brew_deps=(
   hunspell
   pngpaste # org-download
   trash
+  marked
 )
 
-cask_deps=(
-  marked
+cask_fonts_deps=(
   font-hack
   font-hack-nerd-font
   font-noto-sans
@@ -38,7 +38,9 @@ install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
-      brew cask install ${cask_deps[@]}
+      # Enable Cask of fonts
+      brew tap homebrew/cask-fonts
+      brew install ${cask_fonts_deps[@]}
       brew tap d12frosted/emacs-plus
       brew install emacs-plus --with-mailutils
       ;;

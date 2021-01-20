@@ -8,7 +8,7 @@ source ${0:A:h}/../../deploy
 # }
 
 install() {
-  brew cask install karabiner-elements
+  brew install karabiner-elements
 
   ./main.js
 }
