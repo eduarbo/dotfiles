@@ -11,7 +11,6 @@ alias mk='make'
 alias q='exit'
 
 alias wget='wget -c'  # Resume dl if possible
-alias scp='rsync --rsh=ssh -CarvP'
 alias ssh='TERM=xterm-256color ssh'
 
 
