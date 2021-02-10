@@ -174,20 +174,6 @@
                           (eq (evil-visual-type) 'line)
                           'evil-visual-char)
   :v    "C-v"           #'er/contract-region
-
-
-  ;; Shift text
-
-  :n    "<"             #'evil-shift-left-line
-  :n    ">"             #'evil-shift-right-line
-
-  (:after evil-org :map evil-org-mode-map
-    :n  "<"             #'+evil/evil-org-<
-    :n  ">"             #'+evil/evil-org->)
-
-  ;; don't leave visual mode after shifting
-  :v    "<"             #'+evil/visual-dedent  ; vnoremap < <gv
-  :v    ">"             #'+evil/visual-indent  ; vnoremap > >gv
 )
 
 
