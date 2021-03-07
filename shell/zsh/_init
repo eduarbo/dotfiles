@@ -39,6 +39,8 @@ install() {
 
       zshenv=/etc/zsh/zshenv
       ;;
+
+    _install_chtsh
   esac
 
   [[ $SHELL == */zsh ]] || sudo chsh -s $(which zsh) $(whoami)
@@ -96,6 +98,13 @@ _upgrade() {
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
       ;;
   esac
+
+  _install_chtsh
+}
+
+_install_chtsh() {
+  curl "https://cht.sh/:cht.sh" > "$XDG_BIN_HOME/cht.sh"
+  chmod +x "$XDG_BIN_HOME/cht.sh"
 }
 
 init "$@"

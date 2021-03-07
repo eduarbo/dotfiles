@@ -62,6 +62,7 @@ alias rgg='rg -S --hidden --line-number'
 
 ## Misc
 
+alias cht="cht.sh"
 alias gurl='curl --compressed'
 alias rsyncd='rsync -va --delete'   # Hard sync two directories
 
