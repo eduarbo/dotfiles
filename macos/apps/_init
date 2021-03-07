@@ -2,9 +2,10 @@
 source ${0:A:h}/../../deploy
 
 brew_deps=(
+  bpytop
+  hacker1024/hacker1024/coretemp
   gtypist
   highlight
-  htop
   mvtools
   neofetch
   p7zip

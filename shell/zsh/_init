@@ -10,7 +10,11 @@ common_deps=(
   figlet
   toilet
   ripgrep
-  tldr
+  tldr # It's like only the examples sections from manuals, but from a website instead
+  htop # for top. Displays the same metrics as top in a pleasant and colorful display
+  ncdu # for du
+  lsd # for ls
+  jq # is like sed or grep but specifically designed to deal with JSON data
   aspell
   stow
 )
@@ -19,7 +23,7 @@ brew_deps=(
   coreutils
   findutils
   zsh-history-substring-search
-  fd
+  fd # for find: It's find with fewer options, but good defaults for typical uses
 )
 
 debian_deps=(
