@@ -14,6 +14,12 @@ zinit light djui/alias-tips
 zinit ice from"gh-r" as"program"; zinit light junegunn/fzf-bin
 zinit ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zinit light junegunn/fzf
 
+zinit ice mv=":cht.sh -> cht.sh" atclone="chmod +x cht.sh" as="program"
+zinit snippet https://cht.sh/:cht.sh
+
+zinit ice mv=":zsh -> _cht" as="completion"
+zinit snippet https://cheat.sh/:zsh
+
 # NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
 zinit light mafredri/zsh-async # Required by simpl
 
