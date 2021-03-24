@@ -39,10 +39,11 @@
     ))
 
 (after! flycheck
-  (setq-default flycheck-disabled-checkers '(javascript-tide eglot)))
+  (setq flycheck-javascript-eslint-executable "eslint_d")
+  (setq-default flycheck-disabled-checkers '(javascript-tide eglot))
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
-(after! flycheck
-  (setq flycheck-javascript-eslint-executable "eslint_d"))
+(add-hook! web-mode #'eduarbo/configure-web-mode-flycheck-disable-checkers-based-on-engine)
 
 (add-hook! js-mode
   (embrace-add-pair ?\` "`" "`")
