@@ -16,6 +16,9 @@ link() {
   # allow me to install virtually any version of Node
   _ensure_repo nodenv/node-build              $NODENV_PLUGINS/node-build
 
+  # update nodenv as well as all installed nodenv plugins
+  _ensure_repo nodenv/nodenv-update           $NODENV_PLUGINS/node-update
+
   # automatically install npm packages every time you install a new version of Node
   _ensure_repo nodenv/nodenv-default-packages $NODENV_PLUGINS/nodenv-default-packages
 
