@@ -133,3 +133,9 @@ narrowed."
          (word (flyspell-get-word)))
     (when (consp word)
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+
+;;;###autoload
+(defun eduarbo/configure-web-mode-flycheck-disable-checkers-based-on-engine ()
+  "Enable javascript-eslint checker on web-mode but only for svelte files"
+  (unless (string= web-mode-engine "svelte")
+    (setq-local flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-eslint)))))
