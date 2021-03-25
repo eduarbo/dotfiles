@@ -17,7 +17,6 @@ brew_deps=(
   markdown
   coreutils
   gnu-tar
-  node
   llvm
   cmake
   glslang
@@ -29,17 +28,6 @@ brew_deps=(
   trash
   marked
   shellcheck
-)
-
-node_deps=(
-  eslint_d
-  prettier
-  typescript
-  typescript-language-server
-  vscode-css-languageserver-bin
-  vscode-html-languageserver-bin
-  stylelint
-  bash-language-server
 )
 
 cask_fonts_deps=(
@@ -59,8 +47,6 @@ install() {
       brew install emacs-plus --with-mailutils
       ;;
   esac
-  # TODO allow installation of global node packages
-  npm install -g ${node_deps[@]}
 
   # Clone and setup doom-emacs
   _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
