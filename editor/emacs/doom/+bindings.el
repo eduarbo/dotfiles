@@ -191,6 +191,7 @@
     :nv "w"     #'transpose-words
     :nv "a"     #'evil-snipe-s
     :nv "A"     #'evil-snipe-S
+    :n  "J"     #'join-line
     :v  [tab]   #'evil-vimish-fold/create
     :n  [tab]   #'evil-vimish-fold/delete
     :n  [S-tab] #'evil-vimish-fold/delete-all
@@ -311,8 +312,8 @@
   :n "C-p" #'git-timemachine-show-previous-revision
   :n "C-n" #'git-timemachine-show-next-revision
 
-  :n "-" #'git-timemachine-show-previous-revision
-  :n "+" #'git-timemachine-show-next-revision
+  :n "-"   #'git-timemachine-show-previous-revision
+  :n "+"   #'git-timemachine-show-next-revision
 
   :n "("   #'git-timemachine-show-previous-revision
   :n ")"   #'git-timemachine-show-next-revision
