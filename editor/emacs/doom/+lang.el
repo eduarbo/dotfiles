@@ -45,7 +45,7 @@
 
 (add-hook! web-mode #'eduarbo/configure-web-mode-flycheck-disable-checkers-based-on-engine)
 
-(add-hook! js-mode
+(add-hook! (js-mode web-mode)
   (embrace-add-pair ?\` "`" "`")
   (embrace-add-pair ?\$ "${" "}"))
 
