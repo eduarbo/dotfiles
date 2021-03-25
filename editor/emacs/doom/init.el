@@ -15,7 +15,7 @@
         ;;+fuzzy
         +icons
         ;;+prescient     ; FIXME I can't escape characters
-        ;;+childframe
+        +childframe
         )
 
        :ui
@@ -81,7 +81,7 @@
 
        :checkers
        (syntax           ; tasing you for every semicolon you forget
-        +childframe
+        ;;+childframe    ; FIXME popup persists on the buffer
         )
        (spell            ; tasing you for misspelling mispelling
         +flyspell        ; allow me to use hunspell instead of aspell
@@ -104,7 +104,7 @@
         +dictionary
         )
        (lsp
-        ;;+eglot
+        +eglot
         )
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
