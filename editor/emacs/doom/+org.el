@@ -41,6 +41,7 @@
     org-startup-indented t
     org-startup-truncated nil
     org-startup-with-inline-images t
+    org-startup-folded 'overview
 
     org-clone-delete-id t
     org-hide-emphasis-markers t
