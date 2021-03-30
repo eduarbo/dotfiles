@@ -11,7 +11,6 @@ const appsMap = {
   p: '/Applications/Spotify.app',
   r: '/System/Applications/Utilities/Activity Monitor.app',
   s: '/Applications/Slack.app',
-  v: '/Applications/Karabiner-EventViewer.app',
   w: '/Applications/WhatsApp.app',
 };
 
