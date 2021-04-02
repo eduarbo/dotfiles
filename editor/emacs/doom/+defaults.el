@@ -34,11 +34,11 @@
 
   avy-timeout-seconds 0.3
 
-  doom-scratch-buffer-major-mode 'org-mode)
+  ;; Stop in-between "camelCase" words instead of just spaces, hyphens or
+  ;; underscores
+  global-subword-mode t
 
-;; Stop in-between "camelCase" words instead of just spaces, hyphens or
-;; underscores
-(global-subword-mode)
+  doom-scratch-buffer-major-mode 'org-mode)
 
 ;; Hide line numbers
 (remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
@@ -64,7 +64,6 @@
 (let ((default-font-size 12))
   (setq
     doom-font (font-spec :family "Hack Nerd Font" :size default-font-size)
-    doom-unicode-font (font-spec :family "Noto Emoji" :size (+eduarbo--get-unicode-font-size default-font-size))
     doom-big-font (font-spec :size (+ default-font-size doom-big-font-increment))
     doom-variable-pitch-font (font-spec :family "Noto Sans")))
 
@@ -80,9 +79,5 @@
 
 ;;; Theme customization
 
+(setq doom-theme 'doom-moonlight)
 (setq evil-default-cursor "#FECE48")
-
-(add-to-list 'default-frame-alist '(background-color . "#21242B"))
-
-(custom-set-faces!
-  '(highlight :background "#24DDB2"))
