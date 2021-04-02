@@ -172,15 +172,15 @@
 (map!
   (:prefix "g"
     :nv "Q"     #'+eduarbo/unfill-paragraph
-    :nv "o"     #'avy-goto-char-timer
-    :nv "O"     (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
     :n  "."     #'call-last-kbd-macro
     :nv "k"     #'avy-goto-line-above
     :nv "j"     #'avy-goto-line-below
-    :nv "s"     #'transpose-sexps
     :nv "w"     #'transpose-words
-    :nv "a"     #'evil-snipe-s
-    :nv "A"     #'evil-snipe-S
+    :nv "X"     #'transpose-sexps
+    :nv "o"     #'avy-goto-char-timer
+    :nv "O"     (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
+    :nv "s"     #'evil-snipe-s
+    :nv "S"     #'evil-snipe-S
     :n  "J"     #'join-line
     :v  [tab]   #'evil-vimish-fold/create
     :n  [tab]   #'evil-vimish-fold/delete
@@ -208,8 +208,10 @@
              #'evil-jump-item)
 
   (:when (featurep! :completion company)
-    :i  [tab]           #'+company/complete
-    :i  [C-tab]         +completion-map)
+    :i  [tab]      #'+company/complete
+    :i  [C-tab]    +completion-map)
+
+  :n [S-tab]      #'+fold/toggle
 
   (:when (featurep! :editor snippets)
     :i  [S-tab]    (λ! (unless (call-interactively 'yas-expand)
