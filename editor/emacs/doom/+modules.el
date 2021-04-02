@@ -52,40 +52,6 @@
   (setq figlet-default-font "Future"))
 
 
-;; ╻ ╻┏━╸╻  ┏┳┓
-;; ┣━┫┣╸ ┃  ┃┃┃
-;; ╹ ╹┗━╸┗━╸╹ ╹
-
-(after! helm
-  ;; Show hidden files too
-  (setq helm-ag-command-option "--hidden"))
-
-
-;; ╻╻ ╻╻ ╻
-;; ┃┃┏┛┗┳┛
-;; ╹┗┛  ╹
-
-(after! ivy
-  (add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-ignore-order)))
-
-(custom-set-faces!
-  '(ivy-minibuffer-match-face-1
-     :foreground "#83898d"
-     :box (:line-width -1)))
-
-
-;; ╻┏ ┏━╸╺┳╸┏━╸┏━┓┏━╸┏━┓
-;; ┣┻┓┣╸  ┃ ┣╸ ┣┳┛┣╸ ┃┓┃
-;; ╹ ╹┗━╸ ╹ ╹  ╹┗╸┗━╸┗┻┛
-
-;; http://blog.binchen.org/posts/how-to-be-extremely-efficient-in-emacs.html
-;; https://github.com/redguardtoo/emacs.d/blob/master/lisp/init-keyfreq.el
-(use-package! keyfreq
-  :config
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1))
-
-
 ;; ╻  ┏━┓┏━┓
 ;; ┃  ┗━┓┣━┛
 ;; ┗━╸┗━┛╹

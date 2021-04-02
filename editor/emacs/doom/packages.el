@@ -3,7 +3,6 @@
 
 ;; The ESC key is reachable in my custom keyboard layout so I don't need this
 (package! evil-escape :disable t)
-(package! keyfreq)
 (package! nginx-mode)
 (package! org-randomnote)
 (package! org-super-agenda)
