@@ -88,10 +88,7 @@
 
 (after! magit
   (setq
-    magit-repository-directories '(("~/dev" . 2))
-    magit-save-repository-buffers nil
-    ;; Don't restore the wconf after quitting magit
-    magit-inhibit-save-previous-winconf t))
+    magit-repository-directories '(("~/dev" . 2))))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
@@ -109,10 +106,6 @@
   ;; Remove size indicator
   (remove-hook! doom-modeline-mode #'size-indication-mode))
 
-(custom-set-faces!
-  '(doom-modeline-info :inherit success)
-  '(doom-modeline-buffer-major-mode :inherit mode-line-emphasis))
-
 
 ;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸
 ;; ┣━┛┣┳┛┃ ┃  ┃┣╸ ┃   ┃ ┃┃  ┣╸
@@ -120,12 +113,6 @@
 
 (after! projectile
   (setq projectile-project-search-path '("~/dev" "~/work")))
-
-(after! helm-projectile
-  (setq helm-mini-default-sources
-    '(helm-source-buffers-list
-       helm-source-projectile-recentf-list
-       helm-source-buffer-not-found)))
 
 
 ;; ┏━┓┏━┓┏━╸╻  ╻
