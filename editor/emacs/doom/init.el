@@ -104,6 +104,7 @@
         +dictionary
         )
        (lsp
+        +binding         ; unbind s-l
         ;;+eglot
         )
        magit             ; a git porcelain for Emacs
