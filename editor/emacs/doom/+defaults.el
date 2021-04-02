@@ -38,10 +38,11 @@
   ;; underscores
   global-subword-mode t
 
-  doom-scratch-buffer-major-mode 'org-mode)
+  ;; Line numbers are pretty slow all around. The performance boost of
+  ;; disabling them outweighs the utility of always keeping them on.
+  display-line-numbers-type nil
 
-;; Hide line numbers
-(remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
+  doom-scratch-buffer-major-mode 'org-mode)
 
 ;; Hide indent lines
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
