@@ -41,30 +41,9 @@
 
   :i    "S-SPC"         #'tab-to-tab-stop
 
-  ;; Tab
-
-  ;; This allows org-mode to bind org-cycle properly... do not why
-  :nvm  [tab]           nil
 
   ;; narrowing and widening
   :nv   [S-return]      #'+eduarbo/narrow-or-widen-dwim
-
-  (:map prog-mode-map
-    :nv [tab]           #'evil-jump-item
-    :n  [S-tab]         #'evil-toggle-fold)
-
-  (:when (featurep! :completion company)
-    :i  [tab]           #'+company/complete
-    :i  [C-tab]         +completion-map)
-
-  (:when (featurep! :editor snippets)
-    :i  [S-tab]         (λ! (unless (call-interactively 'yas-expand)
-                              (call-interactively 'company-yasnippet)))
-    :v  [S-tab]         #'yas-insert-snippet
-
-    :i  [C-return]      #'aya-expand
-    :nv [C-return]      #'aya-create)
-
 
   ;; Easier window navigation
 
@@ -217,14 +196,51 @@
 ;;; :completion
 
 (map!
+  :n [tab] (cmds! (and (featurep! :editor fold)
+                    (save-excursion (end-of-line) (invisible-p (point))))
+             #'+fold/toggle
+             (fboundp 'evil-jump-item)
+             #'evil-jump-item)
+  :v [tab] (cmds! (and (bound-and-true-p yas-minor-mode)
+                    (or (eq evil-visual-selection 'line)
+                      (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
+             (fboundp 'evil-jump-item)
+             #'evil-jump-item)
+
+  (:when (featurep! :completion company)
+    :i  [tab]           #'+company/complete
+    :i  [C-tab]         +completion-map)
+
+  (:when (featurep! :editor snippets)
+    :i  [S-tab]    (λ! (unless (call-interactively 'yas-expand)
+                         (call-interactively 'company-yasnippet)))
+    :v  [S-tab]    #'yas-insert-snippet
+
+    :i  [C-return] #'aya-expand
+    :nv [C-return] #'aya-create
+
+    (:after yasnippet :map yas-keymap
+      ;; Do not interfer with company
+      [tab]         nil
+      "TAB"         nil
+      [S-tab]       nil
+      "<S-tab>"     nil
+      "C-n"         #'yas-next-field
+      "C-l"         #'yas-next-field
+      "C-p"         #'yas-prev-field
+      "C-h"         #'yas-prev-field))
+
   (:when (featurep! :completion company)
     (:after company
       (:map company-active-map
         [S-tab]   #'company-select-previous
-        "C-l"     #'company-complete
-        [right]   #'company-complete
-        "C-h"     #'company-abort
-        [left]    #'company-abort)
+        "C-l"     #'company-next-page
+        [right]   #'company-next-page
+        "C-h"     #'company-previous-page
+        [left]    #'company-previous-page
+        "C-e"     #'company-select-last
+        "C-a"     #'company-select-first
+        [escape]  #'company-abort)
 
       (:map +completion-map
         "d"      #'+company/dict-or-keywords
@@ -237,15 +253,17 @@
   (:when (featurep! :completion ivy)
     (:after ivy :map ivy-minibuffer-map
       [S-return] #'ivy-immediate-done
-      "C-n"      #'scroll-up-command
-      "C-p"      #'scroll-down-command
-      "s-o"      #'hydra-ivy/body)
+      "C-l"      #'scroll-up-command
+      "C-h"      #'scroll-down-command
+      "C-,"      #'hydra-ivy/body)
+
     (:after counsel :map counsel-ag-map
-      [S-tab]  #'+ivy/woccur
+      [S-tab]    #'+ivy/woccur
       [C-return] #'+ivy/git-grep-other-window-action
       "C-o"      #'+ivy/git-grep-other-window-action)
+
     (:after swiper :map swiper-map
-      [S-tab] #'+ivy/woccur))
+      [S-tab]    #'+ivy/woccur))
 
   (:when (featurep! :completion helm)
     (:after swiper-helm
@@ -274,29 +292,6 @@
     ;; Don't interfere with my bindings
     ";"  nil
     ","  nil))
-
-
-;;; snippets
-
-(map!
-  (:when (featurep! :editor snippets)
-    :i  [S-tab]    (λ! (unless (call-interactively 'yas-expand)
-                         (call-interactively 'company-yasnippet)))
-    :v  [S-tab]    #'yas-insert-snippet
-
-    :i  [C-return] #'aya-expand
-    :nv [C-return] #'aya-create
-
-    (:after yasnippet :map yas-keymap
-      ;; Do not interfer with company
-      [tab]         nil
-      "TAB"         nil
-      [S-tab]       nil
-      "<S-tab>"     nil
-      "C-n"         #'yas-next-field
-      "C-p"         #'yas-prev-field
-      "C-l"         #'yas-next-field
-      "C-h"         #'yas-prev-field)))
 
 
 ;;; multiple-cursors
@@ -378,8 +373,8 @@
 
       [s-up]          #'org-metaup
       [s-down]        #'org-metadown
-      [s-left]        #'org-shiftmetaleft
-      [s-right]       #'org-shiftmetaright
+      :gi [s-left]    #'org-shiftmetaleft
+      :gi [s-right]   #'org-shiftmetaright
 
       :n "H"          #'org-metaleft
       :n "L"          #'org-metaright)
