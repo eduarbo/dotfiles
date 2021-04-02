@@ -88,7 +88,9 @@
 
 (after! magit
   (setq
-    magit-repository-directories '(("~/dev" . 2))))
+    ;; Don't restore the wconf after quitting magit, it's jarring
+    magit-inhibit-save-previous-winconf t
+    magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
