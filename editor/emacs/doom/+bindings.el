@@ -63,23 +63,6 @@
     :nv [C-return]      #'aya-create)
 
 
-  ;; Buffer/Workspace Navigation
-
-  "s-["                 #'previous-buffer
-  "s-]"                 #'next-buffer
-  "s-h"                 #'previous-buffer
-  "s-l"                 #'next-buffer
-
-  (:when (featurep! :ui workspaces)
-    "s-{"               #'+workspace/switch-left
-    "s-}"               #'+workspace/switch-right
-    "s-H"               #'+workspace/switch-left
-    "s-L"               #'+workspace/switch-right)
-
-  :gn   "s-j"           #'evil-switch-to-windows-last-buffer
-  :gn   "s-J"           #'+eduarbo/switch-to-last-workspace
-
-
   ;; Easier window navigation
 
   (:map general-override-mode-map
@@ -103,10 +86,9 @@
     :g  "C-l"           #'evil-window-right)
 
 
-  ;; Shortcuts
+  ;; CMD Shortcuts
 
-  :gv     "s-x"         #'execute-extended-command
-  "s-;"                 #'pp-eval-expression
+  :gv     "s-x"         #'doom/open-scratch-buffer
   "s-f"                 #'swiper-thing-at-point
   :ginv "s-/"           #'helpful-key
   ;; "s-?"                 #'which-key-show-top-level
@@ -117,22 +99,43 @@
   "s-,"                 #'doom/find-file-in-private-config
   "s-<"                 #'doom/open-private-config
 
-  "s-."                 (cond ((featurep! :completion ivy) #'ivy-resume)
-                          ((featurep! :completion helm)    #'helm-resume))
-  "s->"                 #'+popup/toggle
-
-  "s-b"                 #'bookmark-jump
-  "s-B"                 #'bookmark-delete
   "s-g"                 #'magit-status
   "s-i"                 #'org-capture
   "s-I"                 #'org-journal-new-entry
-  "s-p"                 #'+treemacs/toggle
-  "s-P"                 #'treemacs-find-file
   "s-r"                 #'+eval/open-repl-other-window
   "s-R"                 #'+eval/open-repl-same-window
   "s-u"                 #'winner-undo
   "s-U"                 #'winner-redo
   "s-y"                 #'+default/yank-pop
+
+  "s-e"                 #'execute-extended-command
+  ;; "s-a"                 #'
+  ;; "s-;"                 #'
+
+  "s-'"                 #'+popup/toggle
+  "s-`"                 (cond ((featurep! :completion ivy) #'ivy-resume)
+                          ((featurep! :completion helm)    #'helm-resume))
+
+  ;; Buffer/Workspace/Window Navigation
+
+  "s-."                 #'+treemacs/toggle
+  "s-o"                 #'+workspace/switch-to
+  "s-p"                 #'projectile-switch-project
+
+  "s-b"                 #'evil-switch-to-windows-last-buffer
+  :gn "s-j"             #'+workspace/other
+  "s-m"                 #'evil-window-mru
+
+  "s-["                 #'previous-buffer
+  "s-]"                 #'next-buffer
+  "s-h"                 #'previous-buffer
+  "s-l"                 #'next-buffer
+
+  (:when (featurep! :ui workspaces)
+    "s-{"               #'+workspace/switch-left
+    "s-}"               #'+workspace/switch-right
+    "s-H"               #'+workspace/switch-left
+    "s-L"               #'+workspace/switch-right)
 
 
   ;; Text objects
@@ -246,17 +249,23 @@
 
 ;;; evil-snipe
 
-(map! :after evil-snipe :map (evil-snipe-override-mode-map evil-snipe-parent-transient-map)
-  :nv "S" (λ! (require 'evil-easymotion)
+(map!
+  :nv "S" #'evil-snipe-repeat
+
+  (:after evil-snipe :map evil-snipe-parent-transient-map
+    "L" #'evil-snipe-repeat
+    "H" #'evil-snipe-repeat-reverse
+
+    "S" (λ! (require 'evil-easymotion)
           (call-interactively
-            (evilem-create #'evil-snipe-repeat
+            (evilem-create 'evil-snipe-repeat
               :bind ((evil-snipe-scope 'whole-buffer)
                       (evil-snipe-enable-highlight)
                       (evil-snipe-enable-incremental-highlight)))))
 
-  ;; Don't interfere with my bindings
-  :gm ";"  nil
-  :gm ","  nil)
+    ;; Don't interfere with my bindings
+    ";"  nil
+    ","  nil))
 
 
 ;;; snippets
@@ -441,12 +450,9 @@
   :desc "Eval expression"             ";"         #'pp-eval-expression
   :desc "Show marks"                  "/"         #'counsel-evil-marks
   :desc "Switch to scratch buffer"    "X"         #'doom/switch-to-scratch-buffer
-  :desc "Switch Project"              "RET"       #'projectile-switch-project
-  :desc "Switch Workspace"            "ESC"       #'persp-switch
+  :desc "Switch Project"              "RET"       #'bookmark-jump
+  :desc "Find file from here"         "ESC"       #'+default/find-file-under-here
   :desc "Find file"                   "."         #'counsel-find-file
-  :desc "Find file from here"         ">"         #'+default/find-file-under-here
-  :desc "Search other project"        [S-return]  #'+default/search-other-project
-  :desc "Find file in other project"  "S-SPC"     #'doom/find-file-in-other-project
   :desc "Toggle last popup"           "'"         #'+popup/toggle
   :desc "Ivy resume"                  "`"         (cond ((featurep! :completion ivy) #'ivy-resume)
                                                   ((featurep! :completion helm)    #'helm-resume))
@@ -513,6 +519,10 @@
     :desc "Run cmd in project root"      "!" #'projectile-run-async-shell-command-in-root
     :desc "Discover projects"            "D" #'projectile-discover-projects-in-search-path
     :desc "Open project notes"           "n" #'+org/find-notes-for-project)
+
+      ;;; <leader> q --- quit/session
+  (:prefix ("q" . "quit/session")
+    :desc "Start new instance of Emacs"  "e" #'restart-emacs-start-new-emacs)
 
       ;;; <leader> t --- toggle
   (:prefix ("t" . "toggle")
