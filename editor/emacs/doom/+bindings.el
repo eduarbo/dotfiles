@@ -46,6 +46,9 @@
   ;; This allows org-mode to bind org-cycle properly... do not why
   :nvm  [tab]           nil
 
+  ;; narrowing and widening
+  :nv   [S-return]      #'+eduarbo/narrow-or-widen-dwim
+
   (:map prog-mode-map
     :nv [tab]           #'evil-jump-item
     :n  [S-tab]         #'evil-toggle-fold)
@@ -115,6 +118,11 @@
   "s-'"                 #'+popup/toggle
   "s-`"                 (cond ((featurep! :completion ivy) #'ivy-resume)
                           ((featurep! :completion helm)    #'helm-resume))
+
+  [s-up]                #'drag-stuff-up
+  [s-down]              #'drag-stuff-down
+  [s-left]              #'drag-stuff-left
+  [s-right]             #'drag-stuff-right
 
   ;; Buffer/Workspace/Window Navigation
 
@@ -291,14 +299,6 @@
       "C-h"         #'yas-prev-field)))
 
 
-;;; flyspell
-
-(map!
-  :after flyspell
-  (:map (org-mode-map evil-org-mode-map)
-    [S-return] #'eduarbo/add-word-to-dictionary))
-
-
 ;;; multiple-cursors
 
 (map!
@@ -376,8 +376,13 @@
 
       :n [return]     #'+org/dwim-at-point
 
-      :n "H"          #'org-metadown
-      :n "L"          #'org-metaup)
+      [s-up]          #'org-metaup
+      [s-down]        #'org-metadown
+      [s-left]        #'org-shiftmetaleft
+      [s-right]       #'org-shiftmetaright
+
+      :n "H"          #'org-metaleft
+      :n "L"          #'org-metaright)
 
     (:map org-capture-mode-map
       "s-r" #'org-capture-refile
@@ -416,11 +421,11 @@
 
     (:map evil-org-mode-map
       :n "C-i"    #'evil-jump-forward
-      "s-e"       +org-format-map
+      "s-a"       +org-format-map
 
       (:when IS-MAC
-        "s-o"   #'+org/insert-item-below
-        "s-O"   #'+org/insert-item-above)
+        "s-;"     #'+org/insert-item-below
+        "s-:"     #'+org/insert-item-above)
 
       (:localleader
         :desc "Add note to the current entry"    "n"   #'org-add-note
