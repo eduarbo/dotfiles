@@ -33,9 +33,14 @@
 ;; ┗━╸┗┛ ╹┗━╸   ┗━┛╹ ╹╹╹  ┗━╸
 
 (after! evil-snipe
-  ;; Disable evil-snipe-s binding but keep incremental highlighting for the
-  ;; f/F/t/T motions keys
+  ;; free up the keys =s= and =S=
   (evil-snipe-mode -1))
+
+;; Do not override my bindings!
+(setq
+  evil-snipe-repeat-keys nil
+  evil-snipe-enable-incremental-highlight nil
+  evil-snipe-override-evil-repeat-keys nil)
 
 
 ;; ┏━╸╻┏━╸╻  ┏━╸╺┳╸
