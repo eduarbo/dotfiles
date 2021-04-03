@@ -82,3 +82,6 @@
 
 (setq doom-theme 'doom-moonlight)
 (setq evil-default-cursor "#FECE48")
+
+;; prevent blinking at startup
+(add-to-list 'default-frame-alist '(background-color . "#21242B"))
