@@ -28,6 +28,7 @@ brew_deps=(
   trash
   marked
   shellcheck
+  graphviz # graph visualizator - org-roam dep
 )
 
 cask_fonts_deps=(
