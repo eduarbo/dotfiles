@@ -45,6 +45,7 @@
   ;; narrowing and widening
   :nv   [S-return]      #'+eduarbo/narrow-or-widen-dwim
 
+
   ;; Easier window navigation
 
   (:map general-override-mode-map
@@ -67,62 +68,7 @@
     :g  "C-h"           #'evil-window-left
     :g  "C-l"           #'evil-window-right)
 
-
-  ;; CMD Shortcuts
-
-  :gv     "s-x"         #'doom/open-scratch-buffer
-  "s-f"                 #'swiper-thing-at-point
-  :ginv "s-/"           #'helpful-key
-  ;; "s-?"                 #'which-key-show-top-level
-  "s-?"                 #'counsel-descbinds
-  "s--"                 #'doom/decrease-font-size
-  "s-+"                 #'doom/increase-font-size
-  "s-="                 #'doom/reset-font-size
-  "s-,"                 #'doom/find-file-in-private-config
-  "s-<"                 #'doom/open-private-config
-
-  "s-g"                 #'magit-status
-  "s-i"                 #'org-capture
-  "s-I"                 #'org-journal-new-entry
-  "s-r"                 #'+eval/open-repl-other-window
-  "s-R"                 #'+eval/open-repl-same-window
-  "s-u"                 #'winner-undo
-  "s-U"                 #'winner-redo
-  "s-y"                 #'+default/yank-pop
-
-  "s-e"                 #'execute-extended-command
-  ;; "s-a"                 #'
-  ;; "s-;"                 #'
-
-  "s-'"                 #'+popup/toggle
-  "s-`"                 (cond ((featurep! :completion ivy) #'ivy-resume)
-                          ((featurep! :completion helm)    #'helm-resume))
-
-  [s-up]                #'drag-stuff-up
-  [s-down]              #'drag-stuff-down
-  [s-left]              #'drag-stuff-left
-  [s-right]             #'drag-stuff-right
-
-  ;; Buffer/Workspace/Window Navigation
-
-  "s-."                 #'+treemacs/toggle
-  "s-o"                 #'+workspace/switch-to
-  "s-p"                 #'projectile-switch-project
-
-  "s-b"                 #'evil-switch-to-windows-last-buffer
-  :gn "s-j"             #'+workspace/other
-  "s-m"                 #'evil-window-mru
-
-  "s-["                 #'previous-buffer
-  "s-]"                 #'next-buffer
-  "s-h"                 #'previous-buffer
-  "s-l"                 #'next-buffer
-
-  (:when (featurep! :ui workspaces)
-    "s-{"               #'+workspace/switch-left
-    "s-}"               #'+workspace/switch-right
-    "s-H"               #'+workspace/switch-left
-    "s-L"               #'+workspace/switch-right)
+  :n "K"                #'kill-current-buffer
 
 
   ;; Text objects
@@ -164,7 +110,66 @@
                           (eq (evil-visual-type) 'line)
                           'evil-visual-char)
   :v    "C-v"           #'er/contract-region
-)
+
+
+  ;; CMD Shortcuts
+
+  :gv     "s-x"         #'doom/open-scratch-buffer
+  "s-f"                 #'swiper-thing-at-point
+  :ginv "s-/"           #'helpful-key
+  ;; "s-?"                 #'which-key-show-top-level
+  "s-?"                 #'counsel-descbinds
+  "s--"                 #'doom/decrease-font-size
+  "s-+"                 #'doom/increase-font-size
+  "s-="                 #'doom/reset-font-size
+  "s-,"                 #'doom/find-file-in-private-config
+  "s-<"                 #'doom/open-private-config
+
+  "s-g"                 #'magit-status
+  "s-i"                 #'org-capture
+  "s-I"                 #'org-journal-new-entry
+  "s-r"                 #'+eval/open-repl-other-window
+  "s-R"                 #'+eval/open-repl-same-window
+  "s-u"                 #'winner-undo
+  "s-U"                 #'winner-redo
+  "s-y"                 #'+default/yank-pop
+
+  "s-e"                 #'execute-extended-command
+  ;; "s-;"                 #'
+  "s-a"                 #'lsp-ui-doc-glance
+
+  "s-'"                 #'+popup/toggle
+  "s-`"                 (cond ((featurep! :completion ivy) #'ivy-resume)
+                          ((featurep! :completion helm)    #'helm-resume))
+
+  [s-up]                #'drag-stuff-up
+  [s-down]              #'drag-stuff-down
+  [s-left]              #'drag-stuff-left
+  [s-right]             #'drag-stuff-right
+
+  ;; Buffer/Workspace/Window Navigation
+
+  "s-."                 #'+treemacs/toggle
+  "s-o"                 #'+workspace/switch-to
+  "s-p"                 #'projectile-switch-project
+
+  "s-b"                 #'evil-switch-to-windows-last-buffer
+  :gn "s-j"             #'+workspace/other
+  "s-m"                 #'evil-window-mru
+
+  "s-["                 #'previous-buffer
+  "s-]"                 #'next-buffer
+  "s-h"                 #'previous-buffer
+  "s-l"                 #'next-buffer
+
+  (:when (featurep! :ui workspaces)
+    "s-{"               #'+workspace/switch-left
+    "s-}"               #'+workspace/switch-right
+    "s-H"               #'+workspace/switch-left
+    "s-L"               #'+workspace/switch-right)
+
+  (:when (featurep! :tools lookup)
+    "s-k"               #'+lookup/documentation))
 
 
 ;;; [g]o-to prefix
