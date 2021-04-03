@@ -147,14 +147,16 @@
 ;; ┏━┛┣╸ ┃┗┫
 ;; ┗━╸┗━╸╹ ╹
 
-;; FIXME This kills buffers when switching to other workspaces
-;; (add-hook! text-mode
-;;   ;; Set bigger line-spacing and center text vertically
-;;   (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3))
-;;   (setq-local visual-fill-column-mode 80)
+(add-hook! 'writeroom-mode-hook
+  (defun +zen-better-line-spacing-mode-h ()
+    "Set bigger line-spacing and center text vertically"
+    (setq-local default-text-properties (if writeroom-mode '(line-spacing 0.3 line-height 1.3) nil)))
 
-;;   (mixed-pitch-mode t)
-;;   (visual-fill-column-mode t))
+  (defun +zen-fix-mixed-pitch-mode-h ()
+    "`solaire-mode' and make `mixed-pitch-mode' are incompatible since both
+     remaps faces. To fix that disable `solaire-mode' when enabling `mixed-pitch-mode'"
+    ;; https://www.reddit.com/r/DoomEmacs/comments/l9jy0h/how_does_variablepitchmode_work_and_why_does_it/gljibj9
+    (solaire-mode (if writeroom-mode -1 +1))))
 
 (after! mixed-pitch
   (pushnew! mixed-pitch-fixed-pitch-faces
