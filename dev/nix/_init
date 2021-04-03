@@ -4,24 +4,26 @@ source ${0:A:h}/../../deploy
 install() {
   case $(_os) in
     macos)
-      _is_callable nix && exit 0
+      if ! _is_callable nix; then
+        echo-info "You are about to install Nix, this requires that you have a Mac with a T2 chip and root acces"
+        echo
+        read -q "REPLY?Are you sure to continue (y/n)? "
 
-      echo-info "You are about to install Nix, this requires that you have a Mac with a T2 chip and root acces"
-      echo
-      read -q "REPLY?Are you sure to continue (y/n)? "
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+          echo " 👋"
+          exit 0
+        fi
 
-      if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo " 👋"
-        exit 0
+        echo
+        sudo -v  # Ask for the administrator password upfront
+
+        # installer only for Macs with a T2 chip
+        <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
       fi
-
-      echo
-      sudo -v  # Ask for the administrator password upfront
-
-      # installer only for Macs with a T2 chip
-      <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
       ;;
   esac
+
+  nix-env -iA nixpkgs.nixfmt
 }
 
 # link() {}
