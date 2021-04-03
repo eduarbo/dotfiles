@@ -66,7 +66,9 @@
   (setq
     doom-font (font-spec :family "Hack Nerd Font" :size default-font-size)
     doom-big-font (font-spec :size (+ default-font-size doom-big-font-increment))
-    doom-variable-pitch-font (font-spec :family "Noto Sans")))
+    doom-variable-pitch-font (font-spec :family "Noto Serif")
+    ;; doom-variable-pitch-font (font-spec :family "Noto Sans")
+    ))
 
 ;;; Frames/Windows
 

@@ -147,10 +147,12 @@
 ;; ┏━┛┣╸ ┃┗┫
 ;; ┗━╸┗━╸╹ ╹
 
+(setq +zen-text-scale 3)
+
 (add-hook! 'writeroom-mode-hook
   (defun +zen-better-line-spacing-mode-h ()
     "Set bigger line-spacing and center text vertically"
-    (setq-local default-text-properties (if writeroom-mode '(line-spacing 0.3 line-height 1.3) nil)))
+    (setq-local default-text-properties (if writeroom-mode '(line-spacing 0.6 line-height 1.6) nil)))
 
   (defun +zen-fix-mixed-pitch-mode-h ()
     "`solaire-mode' and make `mixed-pitch-mode' are incompatible since both
