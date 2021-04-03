@@ -57,28 +57,40 @@
 ;; ┗━╸┗━┛╹
 ;; lsp
 
+;; A guide on disabling/enabling lsp-mode features:
+;;   https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+;; Settings:
+;;   https://emacs-lsp.github.io/lsp-mode/page/settings/
+
 (after! lsp-ui
   (setq
-    ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so
-    ;; disable it by default.
+    ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable it by default
     lsp-ui-sideline-enable nil
+
+    lsp-ui-doc-include-signature t
+
     ;; lsp-ui-doc-use-webkit t
-    ;; lsp-ui-doc-use-childframe t
-    ))
+    lsp-ui-doc-max-width 100
+    lsp-ui-doc-max-height 12))
 
 (after! lsp-mode
   (setq
-    ;; No multiline eldoc please
+    lsp-signature-doc-lines 5
+    ;; lsp-signature-render-documentation nil
+
+    ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
+    ;; limiting the number of lines to display in eldoc
     lsp-eldoc-enable-hover nil
 
-    ;; Disable diagnostic b/c annoying
-    lsp-flycheck-live-reporting nil
+    ;; Disable lsp checker b/c annoying
     lsp-diagnostics-provider :none
 
-    ;; lsp-enable-symbol-highlighting nil
     lsp-enable-indentation nil
-    lsp-enable-on-type-formatting nil
-    lsp-enable-file-watchers nil))
+    ;; lsp-enable-symbol-highlighting nil
+    ;; lsp-enable-file-watchers nil
+
+    lsp-modeline-diagnostics-enable nil
+    lsp-modeline-code-actions-enable nil))
 
 
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸
