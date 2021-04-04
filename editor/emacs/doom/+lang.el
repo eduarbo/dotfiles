@@ -52,10 +52,8 @@
 (use-package! prettier-js
   :commands (prettier-js prettier-js-mode)
   :init
-  (map!
-    (:after (js2-mode web-mode) :leader
-      :desc "Prettier" "="  #'prettier-js
-      :desc "Prettier" "cp" #'prettier-js)))
+  (map! :localleader :map (js2-mode-map web-mode-map)
+    :desc "Prettier" "p" #'prettier-js))
 
 (use-package! eslintd-fix
   :commands (eslintd-fix eslintd-fix-mode)

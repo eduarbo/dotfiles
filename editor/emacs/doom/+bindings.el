@@ -443,6 +443,13 @@
     :m "k"          #'org-agenda-previous-item
     :m "j"          #'org-agenda-next-item))))
 
+(map! :after org-roam
+      :leader
+      (:prefix "t"
+       :desc "Org Roam Buffer"          "r"  #'org-roam)
+      (:localleader :map org-mode-map
+       :desc "Toggle Org Roam Buffer"   "R"  #'org-roam))
+
 ;; Disable bindings for org-super-agenda headers
 (after! org-super-agenda
   (setq org-super-agenda-header-map nil))
@@ -533,8 +540,6 @@
 
       ;;; <leader> t --- toggle
   (:prefix ("t" . "toggle")
-    (:when (featurep! :lang org +roam)
-      :desc "Org Roam"                   "r" #'org-roam)
     :desc "Read-only mode"               "R" #'read-only-mode
     :desc "Line numbers"                 "l" #'display-line-numbers-mode
     :desc "Global Line numbers"          "L" #'global-display-line-numbers-mode
