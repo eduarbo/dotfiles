@@ -446,9 +446,9 @@
 (map! :after org-roam
       :leader
       (:prefix "t"
-       :desc "Org Roam Buffer"          "r"  #'org-roam)
+       :desc "Org Roam"                 "r"  #'org-roam)
       (:localleader :map org-mode-map
-       :desc "Toggle Org Roam Buffer"   "R"  #'org-roam))
+       :desc "Toggle Org Roam"          "R"  #'org-roam))
 
 ;; Disable bindings for org-super-agenda headers
 (after! org-super-agenda
