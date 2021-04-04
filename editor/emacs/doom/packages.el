@@ -12,3 +12,4 @@
 (package! graphql-mode)
 (package! eslintd-fix)
 (package! prettier-js)
+(package! doom-snippets :ignore t)
