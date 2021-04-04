@@ -165,6 +165,7 @@
     'org-hide
     'org-drawer
     'org-done
+    'org-ellipsis
     'hl-todo
     'warning
     'success
