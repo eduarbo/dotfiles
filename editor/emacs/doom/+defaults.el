@@ -34,15 +34,17 @@
 
   avy-timeout-seconds 0.3
 
-  ;; Stop in-between "camelCase" words instead of just spaces, hyphens or
-  ;; underscores
-  global-subword-mode t
-
   ;; Line numbers are pretty slow all around. The performance boost of
   ;; disabling them outweighs the utility of always keeping them on.
   display-line-numbers-type nil
 
   doom-scratch-buffer-major-mode 'org-mode)
+
+;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
+(global-subword-mode t)
+
+;; treat symbols characters as parts of words: e.g., "this_is_a_symbol" counts as one word
+;; (global-superword-mode t)
 
 ;; Hide indent lines
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
