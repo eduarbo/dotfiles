@@ -143,6 +143,15 @@
     (expand-file-name (concat "personal_dict") doom-etc-dir)))
 
 
+;; ╺┳╸┏━┓┏━╸┏━╸┏┳┓┏━┓┏━╸┏━┓
+;;  ┃ ┣┳┛┣╸ ┣╸ ┃┃┃┣━┫┃  ┗━┓
+;;  ╹ ╹┗╸┗━╸┗━╸╹ ╹╹ ╹┗━╸┗━┛
+
+(after! treemacs
+  ;; Prefer a monospace font for treemacs
+  (setq doom-themes-treemacs-enable-variable-pitch nil))
+
+
 ;; ╺━┓┏━╸┏┓╻
 ;; ┏━┛┣╸ ┃┗┫
 ;; ┗━╸┗━╸╹ ╹
