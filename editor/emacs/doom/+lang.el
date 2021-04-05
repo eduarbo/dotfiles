@@ -65,6 +65,8 @@
 (after! xref-js2
   (setq xref-js2-search-program 'rg))
 
+(set-repl-handler! '(rjsx-mode web-mode) #'+javascript/open-repl)
+
 
 ;; ┏┓╻┏━╸╻┏┓╻╻ ╻
 ;; ┃┗┫┃╺┓┃┃┗┫┏╋┛
