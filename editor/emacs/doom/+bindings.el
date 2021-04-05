@@ -68,8 +68,6 @@
     :g  "C-h"           #'evil-window-left
     :g  "C-l"           #'evil-window-right)
 
-  :n "K"                #'kill-current-buffer
-
 
   ;; Text objects
 
@@ -114,8 +112,9 @@
 
   ;; CMD Shortcuts
 
-  :gv     "s-x"         #'doom/open-scratch-buffer
-  "s-f"                 #'swiper-thing-at-point
+  "s-x"                 #'doom/open-project-scratch-buffer
+  "s-X"                 #'doom/switch-to-project-scratch-buffer
+  ;; :gv     "s-x"         #'doom/open-scratch-buffer
   :ginv "s-/"           #'helpful-key
   ;; "s-?"                 #'which-key-show-top-level
   "s-?"                 #'counsel-descbinds
@@ -123,9 +122,10 @@
   "s-+"                 #'doom/increase-font-size
   "s-="                 #'doom/reset-font-size
   "s-,"                 #'doom/find-file-in-private-config
-  "s-<"                 #'doom/open-private-config
+  "s-<"                 #'doom/find-file-in-emacsd
 
   "s-g"                 #'magit-status
+  "s-G"                 #'magit-status-here
   "s-i"                 #'org-capture
   "s-I"                 #'org-journal-new-entry
   "s-r"                 #'+eval/open-repl-other-window
@@ -136,6 +136,7 @@
 
   "s-e"                 #'execute-extended-command
   ;; "s-;"                 #'
+  ;; "s-m"                 #'
   "s-a"                 #'lsp-ui-doc-glance
 
   "s-'"                 #'+popup/toggle
@@ -150,12 +151,15 @@
   ;; Buffer/Workspace/Window Navigation
 
   "s-."                 #'+treemacs/toggle
+  "s->"                 #'treemacs-find-file
   "s-o"                 #'+workspace/switch-to
+  "s-O"                 #'+workspace/other
   "s-p"                 #'projectile-switch-project
-
-  "s-b"                 #'evil-switch-to-windows-last-buffer
-  :gn "s-j"             #'+workspace/other
-  "s-m"                 #'evil-window-mru
+  "s-P"                 #'doom/find-file-in-other-project
+  "s-f"                 #'+ivy/projectile-find-file
+  "s-F"                 #'+default/find-file-under-here
+  :gn "s-j"             #'evil-switch-to-windows-last-buffer
+  :gn "s-J"             #'evil-window-mru
 
   "s-["                 #'previous-buffer
   "s-]"                 #'next-buffer
@@ -166,10 +170,7 @@
     "s-{"               #'+workspace/switch-left
     "s-}"               #'+workspace/switch-right
     "s-H"               #'+workspace/switch-left
-    "s-L"               #'+workspace/switch-right)
-
-  (:when (featurep! :tools lookup)
-    "s-k"               #'+lookup/documentation))
+    "s-L"               #'+workspace/switch-right))
 
 
 ;;; [g]o-to prefix
@@ -468,8 +469,6 @@
   :desc "Find file"                   "."      #'counsel-find-file
   :desc "Toggle last popup"           "'"      #'+popup/toggle
   :desc "Ivy resume"                  "`"      (cond ((featurep! :completion ivy) #'ivy-resume) ((featurep! :completion helm)    #'helm-resume))
-  :desc "Pop up project scratch buffer"    "x" #'doom/open-project-scratch-buffer
-  :desc "Switch to project scratch buffer" "X" #'doom/switch-to-project-scratch-buffer
 
       ;;; <leader> l --- language
   (:when (featurep! :config language)
