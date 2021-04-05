@@ -38,7 +38,7 @@
   ;; disabling them outweighs the utility of always keeping them on.
   display-line-numbers-type nil
 
-  doom-scratch-buffer-major-mode 'org-mode)
+  doom-scratch-initial-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
 (global-subword-mode t)
