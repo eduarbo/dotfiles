@@ -259,16 +259,14 @@
         "a"      #'+company/dabbrev)))
 
   (:when (featurep! :completion ivy)
-    (:after ivy :map ivy-minibuffer-map
-      [S-return] #'ivy-immediate-done
+    (:after ivy :map (ivy-minibuffer-map counsel-ag-map)
+      [S-return] #'+ivy/git-grep-other-window-action
       "C-l"      #'scroll-up-command
       "C-h"      #'scroll-down-command
       "C-,"      #'hydra-ivy/body)
 
     (:after counsel :map counsel-ag-map
-      [S-tab]    #'+ivy/woccur
-      [C-return] #'+ivy/git-grep-other-window-action
-      "C-o"      #'+ivy/git-grep-other-window-action)
+      [S-tab]    #'+ivy/woccur)
 
     (:after swiper :map swiper-map
       [S-tab]    #'+ivy/woccur))
