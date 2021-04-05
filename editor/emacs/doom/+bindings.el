@@ -460,16 +460,16 @@
 ;; ┗━╸┗━╸╹ ╹╺┻┛┗━╸╹┗╸
 
 (map! :leader
-  :desc "M-x"                         ":"         #'execute-extended-command
-  :desc "Eval expression"             ";"         #'pp-eval-expression
-  :desc "Show marks"                  "/"         #'counsel-evil-marks
-  :desc "Switch to scratch buffer"    "X"         #'doom/switch-to-scratch-buffer
-  :desc "Switch Project"              "RET"       #'bookmark-jump
-  :desc "Find file from here"         "ESC"       #'+default/find-file-under-here
-  :desc "Find file"                   "."         #'counsel-find-file
-  :desc "Toggle last popup"           "'"         #'+popup/toggle
-  :desc "Ivy resume"                  "`"         (cond ((featurep! :completion ivy) #'ivy-resume)
-                                                  ((featurep! :completion helm)    #'helm-resume))
+  :desc "M-x"                         ":"      #'execute-extended-command
+  :desc "Eval expression"             ";"      #'pp-eval-expression
+  :desc "Show marks"                  "/"      #'counsel-evil-marks
+  :desc "Switch Project"              "RET"    #'bookmark-jump
+  :desc "Find file from here"         "ESC"    #'+default/find-file-under-here
+  :desc "Find file"                   "."      #'counsel-find-file
+  :desc "Toggle last popup"           "'"      #'+popup/toggle
+  :desc "Ivy resume"                  "`"      (cond ((featurep! :completion ivy) #'ivy-resume) ((featurep! :completion helm)    #'helm-resume))
+  :desc "Pop up project scratch buffer"    "x" #'doom/open-project-scratch-buffer
+  :desc "Switch to project scratch buffer" "X" #'doom/switch-to-project-scratch-buffer
 
       ;;; <leader> l --- language
   (:when (featurep! :config language)
