@@ -83,19 +83,6 @@ narrowed."
       (evil-window-mru)
       (doom/window-enlargen))))
 
-;;;###autoload
-(defun eduarbo/window-enlargen ()
-  "TODO"
-  (interactive)
-  (doom/window-enlargen)
-  (setq eduarbo--enlargen-focused-window nil))
-
-;;;###autoload
-(defun eduarbo/focused-window-enlargen ()
-  "TODO"
-  (interactive)
-  (setq eduarbo--enlargen-focused-window (when (doom/window-enlargen) t)))
-
 
 ;; Agenda Workspace
 

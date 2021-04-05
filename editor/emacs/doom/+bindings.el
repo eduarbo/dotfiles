@@ -542,7 +542,5 @@
        :desc "Frame maximized"              "m"         #'toggle-frame-maximized)
 
       ;;; <leader> w --- window
-  (:prefix ("w" . "window")
-    "o" #'eduarbo/window-enlargen
-    "O" #'eduarbo/focused-window-enlargen
-    :desc "Most recently used buffer"    "w" #'evil-window-mru))
+      (:prefix ("w" . "window")
+       :desc "Most recently used buffer"    "w"         #'evil-window-mru))
