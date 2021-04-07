@@ -25,8 +25,8 @@
 ;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
 
 (after! company
-  ;; This just slow down company
-  (setq company-box-doc-enable nil)
+  ;; This slow down company
+  ;; (setq company-box-doc-enable nil)
 
   ;; On-demand code completion
   (setq company-idle-delay nil))
@@ -51,9 +51,9 @@
 
 ;; Do not override my bindings!
 (setq
-  evil-snipe-repeat-keys nil
-  evil-snipe-enable-incremental-highlight nil
-  evil-snipe-override-evil-repeat-keys nil)
+ evil-snipe-repeat-keys nil
+ evil-snipe-enable-incremental-highlight nil
+ evil-snipe-override-evil-repeat-keys nil)
 
 
 ;; ┏━╸╻┏━╸╻  ┏━╸╺┳╸
@@ -77,33 +77,33 @@
 
 (after! lsp-ui
   (setq
-    ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable it by default
-    lsp-ui-sideline-enable nil
+   ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable it by default
+   lsp-ui-sideline-enable nil
 
-    lsp-ui-doc-include-signature t
+   lsp-ui-doc-include-signature t
 
-    ;; lsp-ui-doc-use-webkit t
-    lsp-ui-doc-max-width 100
-    lsp-ui-doc-max-height 12))
+   ;; lsp-ui-doc-use-webkit t
+   lsp-ui-doc-max-width 100
+   lsp-ui-doc-max-height 12))
 
 (after! lsp-mode
   (setq
-    lsp-signature-doc-lines 5
-    ;; lsp-signature-render-documentation nil
+   lsp-signature-doc-lines 5
+   ;; lsp-signature-render-documentation nil
 
-    ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
-    ;; limiting the number of lines to display in eldoc
-    lsp-eldoc-enable-hover nil
+   ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
+   ;; limiting the number of lines to display in eldoc
+   lsp-eldoc-enable-hover nil
 
-    ;; Disable lsp checker b/c annoying
-    lsp-diagnostics-provider :none
+   ;; Disable lsp checker b/c annoying
+   lsp-diagnostics-provider :none
 
-    lsp-enable-indentation nil
-    ;; lsp-enable-symbol-highlighting nil
-    ;; lsp-enable-file-watchers nil
+   lsp-enable-indentation nil
+   ;; lsp-enable-symbol-highlighting nil
+   ;; lsp-enable-file-watchers nil
 
-    lsp-modeline-diagnostics-enable nil
-    lsp-modeline-code-actions-enable nil))
+   lsp-modeline-diagnostics-enable nil
+   lsp-modeline-code-actions-enable nil))
 
 
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸
@@ -113,9 +113,9 @@
 
 (after! magit
   (setq
-    ;; Don't restore the wconf after quitting magit, it's jarring
-    magit-inhibit-save-previous-winconf t
-    magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))))
+   ;; Don't restore the wconf after quitting magit, it's jarring
+   magit-inhibit-save-previous-winconf t
+   magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
@@ -125,10 +125,10 @@
 
 (after! doom-modeline
   (setq
-    doom-modeline-buffer-encoding nil
-    doom-modeline-buffer-modification-icon nil
-    doom-modeline-major-mode-icon t
-    doom-modeline-vcs-max-length 18)
+   doom-modeline-buffer-encoding nil
+   doom-modeline-buffer-modification-icon nil
+   doom-modeline-major-mode-icon t
+   doom-modeline-vcs-max-length 18)
 
   ;; Remove size indicator
   (remove-hook! doom-modeline-mode #'size-indication-mode))
@@ -153,7 +153,7 @@
   ;; ispell-hunspell-add-multi-dic will work
   (ispell-hunspell-add-multi-dic ispell-dictionary)
   (setq ispell-personal-dictionary
-    (expand-file-name (concat "personal_dict") doom-etc-dir)))
+        (expand-file-name (concat "personal_dict") doom-etc-dir)))
 
 
 ;; ╺┳╸┏━┓┏━╸┏━╸┏┳┓┏━┓┏━╸┏━┓
@@ -184,11 +184,11 @@
 
 (after! mixed-pitch
   (pushnew! mixed-pitch-fixed-pitch-faces
-    'org-hide
-    'org-drawer
-    'org-done
-    'org-ellipsis
-    'hl-todo
-    'warning
-    'success
-    'error))
+            'org-hide
+            'org-drawer
+            'org-done
+            'org-ellipsis
+            'hl-todo
+            'warning
+            'success
+            'error))
