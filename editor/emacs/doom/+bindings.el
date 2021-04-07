@@ -113,7 +113,7 @@
  ;; CMD Shortcuts
 
  "s-a"                #'ace-window
- ;; "s-b"                #' toggle enlarge-window
+ ;; "s-b"                #'
  "s-e"                #'execute-extended-command
  "s-f"                #'+ivy/projectile-find-file
  "s-F"                #'+default/find-file-under-here
@@ -525,8 +525,11 @@
        :desc "Global Line numbers"          "L"         #'global-display-line-numbers-mode
        :desc "Visual fill column mode"      "v"         #'visual-fill-column-mode
        :desc "Subword mode"                 "W"         #'subword-mode
-       :desc "Frame maximized"              "m"         #'toggle-frame-maximized)
+       :desc "Frame maximized"              "m"         #'toggle-frame-maximized
+       :desc "Zoom mode"                    "o"         #'zoom-mode)
 
       ;;; <leader> w --- window
       (:prefix ("w" . "window")
+       :desc "Zoom"                         "z"         #'zoom
+       :desc "Balance windows"              "b"         #'balance-windows
        :desc "Most recently used buffer"    "w"         #'evil-window-mru))
