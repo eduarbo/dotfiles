@@ -25,7 +25,7 @@
 ;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
 
 (after! company
-  ;; This slow down company
+  ;; This slows down company
   ;; (setq company-box-doc-enable nil)
 
   ;; On-demand code completion
