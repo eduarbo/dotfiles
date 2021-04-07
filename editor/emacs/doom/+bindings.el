@@ -112,64 +112,53 @@
 
  ;; CMD Shortcuts
 
+ "s-a"                #'ace-window
+ ;; "s-b"                #' toggle enlarge-window
+ "s-e"                #'execute-extended-command
+ "s-f"                #'+ivy/projectile-find-file
+ "s-F"                #'+default/find-file-under-here
+ "s-g"                #'magit-status
+ "s-G"                #'magit-status-here
+ "s-h"                #'previous-buffer
+ "s-H"                #'+workspace/switch-left
+ "s-l"                #'next-buffer
+ "s-L"                #'+workspace/switch-right
+ "s-i"                #'org-capture
+ "s-I"                #'org-journal-new-entry
+ "s-j"                #'+workspace/switch-to
+ "s-m"                #'counsel-mark-ring
+ "s-o"                #'+workspace/other
+ "s-O"                #'evil-switch-to-windows-last-buffer
+ "s-p"                #'projectile-switch-project
+ "s-P"                #'+treemacs/toggle
+ "s-r"                #'+eval/open-repl-other-window
+ "s-R"                #'+eval/open-repl-same-window
+ "s-u"                #'evil-window-mru
+ "s-U"                #'delete-other-windows
  "s-x"                #'doom/open-project-scratch-buffer
  "s-X"                #'doom/switch-to-project-scratch-buffer
- :ginv "s-/"          #'helpful-key
+ "s-y"                #'+default/yank-pop
+
+ "s-["                #'previous-buffer
+ "s-]"                #'next-buffer
+ "s-{"                #'+workspace/switch-left
+ "s-}"                #'+workspace/switch-right
+ "s-`"                #'helpful-key
  "s-?"                #'counsel-descbinds
  "s--"                #'doom/decrease-font-size
  "s-+"                #'doom/increase-font-size
  "s-="                #'doom/reset-font-size
  "s-,"                #'doom/find-file-in-private-config
- "s-<"                #'doom/find-file-in-emacsd
-
- "s-g"                #'magit-status
- "s-G"                #'magit-status-here
- "s-i"                #'org-capture
- "s-I"                #'org-journal-new-entry
- "s-r"                #'+eval/open-repl-other-window
- "s-R"                #'+eval/open-repl-same-window
- "s-u"                #'winner-undo
- "s-U"                #'winner-redo
- "s-y"                #'+default/yank-pop
-
- "s-e"                #'execute-extended-command
- ;; "s-;"                #'
- ;; "s-m"                #'
- "s-a"                #'lsp-ui-doc-glance
-
- "s-'"                #'+popup/toggle
- "s-`"                (cond ((featurep! :completion ivy) #'ivy-resume)
-                            ((featurep! :completion helm)    #'helm-resume))
+ "s-<"                (λ! (+eduarbo-find-file dotfiles-dir))
+ :ginv "s-/"          #'+default/search-buffer
+ "s-;"                #'+popup/toggle
+ "s-."                (cond ((featurep! :completion ivy)   #'ivy-resume)
+                            ((featurep! :completion helm)  #'helm-resume))
 
  [s-up]               #'drag-stuff-up
  [s-down]             #'drag-stuff-down
  [s-left]             #'drag-stuff-left
- [s-right]            #'drag-stuff-right
-
- ;; Buffer/Workspace/Window Navigation
-
- "s-."                #'+treemacs/toggle
- "s->"                #'treemacs-find-file
- "s-o"                #'+workspace/switch-to
- "s-O"                #'+workspace/other
- "s-p"                #'projectile-switch-project
- "s-P"                #'doom/find-file-in-other-project
- "s-f"                #'+ivy/projectile-find-file
- "s-F"                #'+default/find-file-under-here
- :gn "s-j"            #'evil-switch-to-windows-last-buffer
- :gn "s-J"            #'evil-window-mru
-
- "s-["                #'previous-buffer
- "s-]"                #'next-buffer
- "s-h"                #'previous-buffer
- "s-l"                #'next-buffer
-
- (:when (featurep! :ui workspaces)
-  "s-{"               #'+workspace/switch-left
-  "s-}"               #'+workspace/switch-right
-  "s-H"               #'+workspace/switch-left
-  "s-L"               #'+workspace/switch-right))
-
+ [s-right]            #'drag-stuff-right)
 
 ;;; [g]o-to prefix
 
@@ -205,11 +194,8 @@
                  #'+fold/toggle
                  (fboundp 'evil-jump-item)
                  #'evil-jump-item)
- :v [tab] (cmds! (and (bound-and-true-p yas-minor-mode)
-                      (or (eq evil-visual-selection 'line)
-                          (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
-                 (fboundp 'evil-jump-item)
-                 #'evil-jump-item)
+
+ :v [tab]        #'evil-jump-item
 
  (:when (featurep! :completion company)
   :i  [tab]      #'+company/complete
@@ -485,6 +471,7 @@
        :desc "Find file in private config" ","          #'doom/find-file-in-private-config
        :desc "Browse private config"       "<"          #'doom/open-private-config
        :desc "Find file in .dotfiles"      "."          (λ! (+eduarbo-find-file dotfiles-dir))
+       ;; FIXME
        :desc "Search in .dotfiles"         ">"          (λ! (+eduarbo-search-project dotfiles-dir))
        )
 
