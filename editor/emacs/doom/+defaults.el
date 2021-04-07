@@ -34,10 +34,6 @@
 
   avy-timeout-seconds 0.3
 
-  ;; Line numbers are pretty slow all around. The performance boost of
-  ;; disabling them outweighs the utility of always keeping them on.
-  display-line-numbers-type nil
-
   doom-scratch-initial-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
@@ -45,6 +41,10 @@
 
 ;; treat symbols characters as parts of words: e.g., "this_is_a_symbol" counts as one word
 ;; (global-superword-mode t)
+
+;; Line numbers are pretty slow all around. The performance boost of disabling them outweighs the
+;; utility of always keeping them on
+(remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
 
 ;; Hide indent lines
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
