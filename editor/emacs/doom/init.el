@@ -15,7 +15,7 @@
         ;;+fuzzy
         +icons
         ;;+prescient     ; FIXME I can't escape characters
-        +childframe
+        ;; +childframe
         )
 
        :ui
