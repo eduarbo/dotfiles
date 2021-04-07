@@ -126,7 +126,8 @@
  "s-i"                #'org-capture
  "s-I"                #'org-journal-new-entry
  "s-j"                #'+workspace/switch-to
- "s-m"                #'counsel-mark-ring
+ "s-K"                #'doom/kill-buried-buffers
+ "s-m"                nil
  "s-o"                #'+workspace/other
  "s-O"                #'evil-switch-to-windows-last-buffer
  "s-p"                #'projectile-switch-project
@@ -164,22 +165,22 @@
 
 (map!
  (:prefix "g"
-  :nv "Q"     #'+eduarbo/unfill-paragraph
   :n  "."     #'call-last-kbd-macro
-  :nv "k"     #'avy-goto-line-above
   :nv "j"     #'avy-goto-line-below
-  :nv "w"     #'transpose-words
-  :nv "X"     #'transpose-sexps
+  :n  "J"     #'join-line
+  :nv "k"     #'avy-goto-line-above
+  :nv "m"     #'counsel-mark-ring
+  :nv "n"     #'+eduarbo/narrow-or-widen-dwim
   :nv "o"     #'avy-goto-char-timer
   :nv "O"     (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
+  :nv "Q"     #'+eduarbo/unfill-paragraph
   :nv "s"     #'evil-snipe-s
   :nv "S"     #'evil-snipe-S
-  :n  "J"     #'join-line
+  :nv "w"     #'transpose-words
+  :nv "X"     #'transpose-sexps
   :v  [tab]   #'evil-vimish-fold/create
   :n  [tab]   #'evil-vimish-fold/delete
-  :n  [S-tab] #'evil-vimish-fold/delete-all
-  ;; narrowing and widening
-  :nv "n"     #'+eduarbo/narrow-or-widen-dwim))
+  :n  [S-tab] #'evil-vimish-fold/delete-all))
 
 
 ;; ┏┳┓┏━┓╺┳┓╻ ╻╻  ┏━╸┏━┓
@@ -404,12 +405,10 @@
    )
 
   (:map evil-org-mode-map
+   "s-m"        +org-format-map
    :n "C-i"     #'evil-jump-forward
-   "s-a"        +org-format-map
-
-   (:when IS-MAC
-    "s-;"       #'+org/insert-item-below
-    "s-:"       #'+org/insert-item-above)
+   :i "C-o"     #'+org/insert-item-below
+   :i "C-S-O"   #'+org/insert-item-above
 
    (:localleader
     :desc "Add note to the current entry"    "n"   #'org-add-note
