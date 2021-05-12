@@ -525,8 +525,7 @@
        :desc "Global Line numbers"          "L"         #'global-display-line-numbers-mode
        :desc "Visual fill column mode"      "v"         #'visual-fill-column-mode
        :desc "Subword mode"                 "W"         #'subword-mode
-       :desc "Frame maximized"              "m"         #'toggle-frame-maximized
-       :desc "Zoom mode"                    "o"         #'zoom-mode)
+       :desc "Frame maximized"              "m"         #'toggle-frame-maximized)
 
       ;;; <leader> w --- window
       (:prefix ("w" . "window")
