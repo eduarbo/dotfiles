@@ -84,7 +84,8 @@
 
    ;; lsp-ui-doc-use-webkit t
    lsp-ui-doc-max-width 100
-   lsp-ui-doc-max-height 12))
+   lsp-ui-doc-max-height 12)
+  +lsp-prompt-to-install-server 'quiet)
 
 (after! lsp-mode
   (setq
@@ -115,7 +116,10 @@
   (setq
    ;; Don't restore the wconf after quitting magit, it's jarring
    magit-inhibit-save-previous-winconf t
-   magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))))
+   magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))
+   ;; Don't restore the wconf after quitting magit, it's jarring
+   transient-values '((magit-rebase "--autosquash" "--autostash")
+                      (magit-pull "--rebase" "--autostash"))))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸

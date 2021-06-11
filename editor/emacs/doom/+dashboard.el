@@ -22,6 +22,8 @@
         doom-dashboard-widget-loaded
         doom-dashboard-widget-footer))
 
+;; Hide the menu for as minimalistic a startup screen as possible.
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 ;; ╻ ╻┏━╸╻  ┏━┓┏━╸┏━┓┏━┓
 ;; ┣━┫┣╸ ┃  ┣━┛┣╸ ┣┳┛┗━┓
