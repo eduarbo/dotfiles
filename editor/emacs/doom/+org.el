@@ -13,7 +13,7 @@
 ;;  ┃┃┣╸ ┣╸ ┣━┫┃ ┃┃   ┃ ┗━┓
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 
-(setq org-directory (expand-file-name "~/org"))
+(setq org-directory (expand-file-name "~/Syncthing/org"))
 
 (defvar +org-default-notes-dir (expand-file-name "notes" org-directory)
   "Directory of notes")
@@ -41,7 +41,6 @@
     org-startup-indented t
     org-startup-truncated nil
     org-startup-with-inline-images t
-    org-startup-folded 'overview
 
     org-clone-delete-id t
     org-hide-emphasis-markers t
@@ -64,7 +63,8 @@
     '((auto-mode . emacs)
        ("\\.x?html?\\'" . "firefox %s")
        ("\\.pdf\\'" . "open %s"))
-    )
+
+    org-attach-id-dir (expand-file-name "attach/" org-directory))
 
   (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h"))
   )
@@ -85,8 +85,8 @@
 ;; ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
 ;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 
-(after! org-superstar
-  (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")))
+;; (after! org-superstar
+;;   (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")))
 
 (after! org-fancy-priorities
   (setq org-fancy-priorities-list '("" "" "")))

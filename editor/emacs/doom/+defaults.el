@@ -64,13 +64,12 @@
 
 ;;; Fonts
 
-(let ((default-font-size 12))
-  (setq
-    doom-font (font-spec :family "Hack Nerd Font" :size default-font-size)
-    doom-big-font (font-spec :size (+ default-font-size doom-big-font-increment))
-    doom-variable-pitch-font (font-spec :family "Noto Serif")
-    ;; doom-variable-pitch-font (font-spec :family "Noto Sans")
-    ))
+(setq
+ doom-font (font-spec :family "JetBrains Mono" :size 12 :weight 'light)
+ ;; doom-font (font-spec :family "Hack Nerd Font" :size 12)
+ ;; doom-variable-pitch-font (font-spec :family "Noto Serif" :size 13)
+ doom-variable-pitch-font (font-spec :family "Noto Sans" :size 13)
+ ivy-posframe-font (font-spec :family "JetBrains Mono" :size 15))
 
 ;;; Frames/Windows
 

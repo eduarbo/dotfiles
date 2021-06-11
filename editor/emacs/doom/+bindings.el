@@ -384,6 +384,14 @@
     :desc "Save file"   "fs"    #'org-edit-src-save)))
 
  (:after evil-org
+  (:map evil-org-mode-map
+   :n "gk" (cmd! (if (org-on-heading-p)
+                     (org-backward-element)
+                   (evil-previous-visual-line)))
+   :n "gj" (cmd! (if (org-on-heading-p)
+                     (org-forward-element)
+                   (evil-next-visual-line))))
+
   (:map +org-format-map
    ;; Basic char syntax:
    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
