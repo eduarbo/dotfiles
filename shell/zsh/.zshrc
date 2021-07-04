@@ -26,10 +26,6 @@ _load_all config.zsh
 
 _load shell/zsh/speedup.zsh
 
-# 👀
-_source $HOME/.secrets.zsh
-_source $HOME/.local.zsh
-
 
 # ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
 # ┣━┫┃  ┃┣━┫┗━┓┣╸ ┗━┓
@@ -39,3 +35,10 @@ _source $HOME/.local.zsh
 # source them after compinit to be able to use compdef
 _load_all aliases.bash
 _load_all aliases.zsh
+
+
+# ┏━┓╻ ╻┏━╸┏━┓┏━┓╻╺┳┓┏━╸┏━┓
+# ┃ ┃┃┏┛┣╸ ┣┳┛┣┳┛┃ ┃┃┣╸ ┗━┓
+# ┗━┛┗┛ ┗━╸╹┗╸╹┗╸╹╺┻┛┗━╸┗━┛
+_source $HOME/.secrets.zsh
+_source $HOME/.local.zsh
