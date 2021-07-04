@@ -27,7 +27,8 @@ _load_all config.zsh
 _load shell/zsh/speedup.zsh
 
 # 👀
-_source $ZDOTDIR/secrets.zsh
+_source $HOME/.secrets.zsh
+_source $HOME/.local.zsh
 
 
 # ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
