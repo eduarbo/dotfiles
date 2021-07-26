@@ -38,10 +38,14 @@
     tide-completion-ignore-case t
     ))
 
+;; FIXME this slows down the loading of js files (specially R3 files)
 (after! flycheck
-  (setq flycheck-javascript-eslint-executable "eslint_d")
   (setq-default flycheck-disabled-checkers '(javascript-tide eglot))
-  (flycheck-add-mode 'javascript-eslint 'web-mode))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; Workaround for eslint loading slow
+  ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
+  )
 
 (add-hook! web-mode #'eduarbo/configure-web-mode-flycheck-disable-checkers-based-on-engine)
 
