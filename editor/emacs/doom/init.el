@@ -15,7 +15,7 @@
         ;;+fuzzy
         +icons
         ;;+prescient     ; FIXME I can't escape characters
-        ;; +childframe
+        ;;+childframe
         )
 
        :ui
@@ -24,7 +24,6 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
-       ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
@@ -104,7 +103,7 @@
         +docsets         ; ...or in Dash docsets locally
         +dictionary
         )
-       (lsp
+       (lsp              ; M-x vscode
         +binding         ; unbind s-l
         ;;+eglot
         )
@@ -196,7 +195,9 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       (web +lsp)        ; the tubes
+       (web              ; the tubes
+        +lsp
+        )
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 

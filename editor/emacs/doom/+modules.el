@@ -29,7 +29,8 @@
   ;; (setq company-box-doc-enable nil)
 
   ;; On-demand code completion
-  (setq company-idle-delay nil))
+  (setq company-idle-delay nil)
+  (setq company-transformers '(company-sort-by-occurrence)))
 
 
 ;; ┏━╸┏┳┓┏┳┓┏━╸╺┳╸
@@ -78,13 +79,16 @@
 (after! lsp-ui
   (setq
    ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable it by default
-   lsp-ui-sideline-enable nil
+   lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
+   lsp-ui-doc-enable nil        ; slow and redundant with K
 
    lsp-ui-doc-include-signature t
 
    ;; lsp-ui-doc-use-webkit t
    lsp-ui-doc-max-width 100
    lsp-ui-doc-max-height 12)
+  ;; If an LSP server isn't present when I start a prog-mode buffer, you don't need to tell me. I
+  ;; know. On some systems I don't care to have a whole development environment for some ecosystems.
   +lsp-prompt-to-install-server 'quiet)
 
 (after! lsp-mode
@@ -114,10 +118,9 @@
 
 (after! magit
   (setq
-   ;; Don't restore the wconf after quitting magit, it's jarring
-   magit-inhibit-save-previous-winconf t
    magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))
    ;; Don't restore the wconf after quitting magit, it's jarring
+   magit-inhibit-save-previous-winconf t
    transient-values '((magit-rebase "--autosquash" "--autostash")
                       (magit-pull "--rebase" "--autostash"))))
 
@@ -153,9 +156,9 @@
 (after! ispell
   (setq ispell-dictionary "en_GB,en_US,es_ANY")
   (ispell-set-spellchecker-params)
-  ;; ispell-set-spellchecker-params has to be called before
-  ;; ispell-hunspell-add-multi-dic will work
-  (ispell-hunspell-add-multi-dic ispell-dictionary)
+  (when (featurep! +hunspell)
+    ;; ispell-set-spellchecker-params has to be called before ispell-hunspell-add-multi-dic
+    (ispell-hunspell-add-multi-dic ispell-dictionary))
   (setq ispell-personal-dictionary
         (expand-file-name (concat "personal_dict") doom-etc-dir)))
 
