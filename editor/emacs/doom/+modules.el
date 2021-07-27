@@ -30,7 +30,8 @@
 
   ;; On-demand code completion
   (setq company-idle-delay nil)
-  (setq company-transformers '(company-sort-by-occurrence)))
+  ;; Sort by occurrence and group by backend (very useful for file completion)
+  (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance)))
 
 
 ;; ┏━╸┏┳┓┏┳┓┏━╸╺┳╸
