@@ -85,8 +85,11 @@
 ;; ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
 ;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 
-;; (after! org-superstar
-;;   (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡")))
+(after! org-superstar
+  ;; (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡"))
+  (setq org-superstar-item-bullet-alist '((?* . ?■)
+                                          (?+ . ?□)
+                                          (?- . ?■))))
 
 (after! org-fancy-priorities
   (setq org-fancy-priorities-list '("" "" "")))
