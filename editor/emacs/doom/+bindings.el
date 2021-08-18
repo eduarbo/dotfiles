@@ -115,7 +115,7 @@
  "s-a"                #'ace-window
  ;; "s-b"                #'
  "s-e"                #'execute-extended-command
- "s-f"                #'+ivy/projectile-find-file
+ "s-f"                #'projectile-find-file
  "s-F"                #'+default/find-file-under-here
  "s-g"                #'magit-status
  "s-G"                #'magit-status-here
@@ -153,8 +153,9 @@
  "s-<"                (λ! (+eduarbo-find-file dotfiles-dir))
  :ginv "s-/"          #'+default/search-buffer
  "s-;"                #'+popup/toggle
- "s-."                (cond ((featurep! :completion ivy)   #'ivy-resume)
-                            ((featurep! :completion helm)  #'helm-resume))
+ "s-."                (cond ((featurep! :completion vertico)    #'vertico-repeat)
+                            ((featurep! :completion ivy)        #'ivy-resume)
+                            ((featurep! :completion helm)       #'helm-resume))
 
  [s-up]               #'drag-stuff-up
  [s-down]             #'drag-stuff-down
@@ -260,13 +261,27 @@
   (:after swiper-helm :map swiper-helm-keymap
    [S-tab]       #'helm-ag-edit)
   (:after helm-ag :map helm-ag-map
-   [S-tab]       #'helm-ag-edit)))
+   [S-tab]       #'helm-ag-edit))
+
+ (:when (featurep! :completion vertico)
+  (:after vertico :map vertico-map
+   [S-return]   #'vertico-exit-input
+   "S-SPC"      #'+vertico/embark-preview
+   [S-tab]      #'+vertico/embark-export-write
+   "C-j"        #'vertico-next
+   "C-S-j"      #'+vertico/next-candidate-preview
+   "C-l"        #'vertico-scroll-up
+   "C-S-l"      #'vertico-next-group
+   "C-k"        #'vertico-previous
+   "C-S-k"      #'+vertico/previous-candidate-preview
+   "C-h"        #'vertico-scroll-down
+   "C-S-h"      #'vertico-previous-group)))
 
 
 ;;; evil-snipe
 
 (map!
- :nv "S"        #'evil-snipe-repeat
+ :mnv "S"       #'evil-snipe-repeat
 
  (:after evil-snipe :map evil-snipe-parent-transient-map
   "L"           #'evil-snipe-repeat
@@ -451,12 +466,14 @@
 (map! :leader
       :desc "M-x"                         ":"           #'execute-extended-command
       :desc "Eval expression"             ";"           #'pp-eval-expression
-      :desc "Show marks"                  "/"           #'counsel-evil-marks
+      :desc "Show marks"                  "/"           #'evil-show-marks
       :desc "Switch Project"              "RET"         #'bookmark-jump
       :desc "Find file from here"         "ESC"         #'+default/find-file-under-here
-      :desc "Find file"                   "."           #'counsel-find-file
+      :desc "Find file"                   "."           #'find-file
       :desc "Toggle last popup"           "'"           #'+popup/toggle
-      :desc "Ivy resume"                  "`"           (cond ((featurep! :completion ivy) #'ivy-resume) ((featurep! :completion helm)    #'helm-resume))
+      :desc "Ivy resume"                  "`"           (cond ((featurep! :completion vertico)  #'vertico-repeat)
+                                                              ((featurep! :completion ivy)      #'ivy-resume)
+                                                              ((featurep! :completion helm)     #'helm-resume))
 
       ;;; <leader> l --- language
       (:when (featurep! :config language)
