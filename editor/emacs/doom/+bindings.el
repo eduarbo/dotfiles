@@ -21,8 +21,7 @@
 
 (setq
  doom-leader-key ","
- doom-localleader-key ", m"
- +evil-repeat-keys '("+" . "-"))
+ doom-localleader-key ", m")
 
 
 ;; ┏━╸╻  ┏━┓┏┓ ┏━┓╻  ┏━┓
@@ -281,7 +280,7 @@
 ;;; evil-snipe
 
 (map!
- :mnv "S"       #'evil-snipe-repeat
+ :n "S"         #'evil-snipe-repeat
 
  (:after evil-snipe :map evil-snipe-parent-transient-map
   "L"           #'evil-snipe-repeat
