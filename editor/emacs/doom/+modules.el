@@ -47,15 +47,14 @@
 ;; ┣╸ ┃┏┛┃┃  ╺━╸┗━┓┃┗┫┃┣━┛┣╸
 ;; ┗━╸┗┛ ╹┗━╸   ┗━┛╹ ╹╹╹  ┗━╸
 
-(after! evil-snipe
-  ;; free up the keys =s= and =S=
-  (evil-snipe-mode -1))
-
 ;; Do not override my bindings!
 (setq
  evil-snipe-repeat-keys nil
  evil-snipe-enable-incremental-highlight nil
  evil-snipe-override-evil-repeat-keys nil)
+
+;; Unbind evil-snipe-S
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 
 ;; ┏━╸╻┏━╸╻  ┏━╸╺┳╸
