@@ -87,6 +87,7 @@
 
 (after! org-superstar
   ;; (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡"))
+  (setq org-superstar-headline-bullets-list '(?● ?◯))
   (setq org-superstar-item-bullet-alist '((?* . ?■)
                                           (?+ . ?□)
                                           (?- . ?■))))
