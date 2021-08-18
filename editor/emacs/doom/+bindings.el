@@ -154,7 +154,7 @@
  "s-="                #'doom/reset-font-size
  "s-,"                #'doom/find-file-in-private-config
  "s-<"                (λ! (+eduarbo-find-file dotfiles-dir))
- :ginv "s-/"          #'+default/search-buffer
+ :ginv "s-/"          #'evil-show-marks
  "s-."                #'projectile-switch-project
 
  [s-up]               #'drag-stuff-up
@@ -466,7 +466,7 @@
 (map! :leader
       :desc "M-x"                         ":"           #'execute-extended-command
       :desc "Eval expression"             ";"           #'pp-eval-expression
-      :desc "Show marks"                  "/"           #'evil-show-marks
+      :desc "Search buffer"               "/"           #'+default/search-buffer
       :desc "Switch Project"              "RET"         #'bookmark-jump
       :desc "Find file from here"         "ESC"         #'+default/find-file-under-here
       :desc "Find file"                   "."           #'find-file
