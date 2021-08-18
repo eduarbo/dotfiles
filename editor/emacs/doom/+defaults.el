@@ -61,6 +61,9 @@
   ;; use gnu ls to allow dired to sort directories
   (setq insert-directory-program "gls"))
 
+;; let me bind CMD-h please!
+(setq mac-pass-command-to-system nil)
+
 
 ;;; Fonts
 
@@ -70,6 +73,7 @@
  ;; doom-variable-pitch-font (font-spec :family "Noto Serif" :size 13)
  doom-variable-pitch-font (font-spec :family "Noto Sans" :size 13)
  ivy-posframe-font (font-spec :family "JetBrains Mono" :size 15))
+
 
 ;;; Frames/Windows
 
