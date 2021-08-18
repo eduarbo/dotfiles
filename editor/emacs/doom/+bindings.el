@@ -125,19 +125,23 @@
  "s-i"                #'org-capture
  "s-I"                #'org-journal-new-entry
  "s-j"                #'+workspace/switch-to
+ "s-k"                #'kill-current-buffer
  "s-K"                #'doom/kill-buried-buffers
  "s-m"                nil
  "s-o"                #'+workspace/other
  "s-O"                #'evil-switch-to-windows-last-buffer
- "s-p"                #'projectile-switch-project
- "s-P"                #'+treemacs/toggle
+ "s-p"                #'treemacs
+ "s-P"                #'treemacs-select-window
  "s-r"                #'+eval/open-repl-other-window
  "s-R"                #'+eval/open-repl-same-window
  "s-u"                #'evil-window-mru
  "s-U"                #'delete-other-windows
+ "s-y"                #'+default/yank-pop
+
  "s-x"                #'doom/open-project-scratch-buffer
  "s-X"                #'doom/switch-to-project-scratch-buffer
- "s-y"                #'+default/yank-pop
+ "s-;"                #'doom/open-scratch-buffer
+ "s-:"                #'doom/switch-to-scratch-buffer
 
  "s-["                #'previous-buffer
  "s-]"                #'next-buffer
@@ -151,10 +155,7 @@
  "s-,"                #'doom/find-file-in-private-config
  "s-<"                (λ! (+eduarbo-find-file dotfiles-dir))
  :ginv "s-/"          #'+default/search-buffer
- "s-;"                #'+popup/toggle
- "s-."                (cond ((featurep! :completion vertico)    #'vertico-repeat)
-                            ((featurep! :completion ivy)        #'ivy-resume)
-                            ((featurep! :completion helm)       #'helm-resume))
+ "s-."                #'projectile-switch-project
 
  [s-up]               #'drag-stuff-up
  [s-down]             #'drag-stuff-down
