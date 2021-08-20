@@ -244,6 +244,7 @@
 ;; org-journal
 
 (setq org-journal-dir (expand-file-name "journal/" +org-default-notes-dir))
+(setq +org-default-projects-dir (expand-file-name "projects/" +org-default-notes-dir))
 
 (after! org-journal
   (setq
@@ -266,13 +267,7 @@
   (setq
     +org-roam-open-buffer-on-find-file nil
     org-roam-directory +org-default-notes-dir
-    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
-    org-roam-capture-templates
-    '(("d" "default" plain #'org-roam-capture--get-point
-        "%?"
-        :file-name "%<%Y-%m-%d_%H-%M>__${slug}"
-        :head "#+TITLE: ${title}\n"
-        :unnarrowed t))))
+    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)))
 
 
 ;; ┏━┓┏━╸┏━╸╻╻  ╻┏┓╻┏━╸
