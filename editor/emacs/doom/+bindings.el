@@ -318,36 +318,28 @@
 ;;; git-timemachine
 
 (map! :after git-timemachine :map git-timemachine-mode-map
+      "s-["     #'git-timemachine-show-previous-revision
+      "s-]"     #'git-timemachine-show-next-revision
+
       :n "C-p"  #'git-timemachine-show-previous-revision
       :n "C-n"  #'git-timemachine-show-next-revision
 
-      :n "-"    #'git-timemachine-show-previous-revision
-      :n "+"    #'git-timemachine-show-next-revision
-
-      :n "("    #'git-timemachine-show-previous-revision
-      :n ")"    #'git-timemachine-show-next-revision
-
       :n "[["   #'git-timemachine-show-previous-revision
-      :n "]]"   #'git-timemachine-show-next-revision
-      )
+      :n "]]"   #'git-timemachine-show-next-revision)
 
 
 ;;; org-journal
 
 (map! :after org-journal
       (:map org-journal-mode-map
+       "s-["    #'org-journal-previous-entry
+       "s-]"    #'org-journal-next-entry
+
        :n "C-p" #'org-journal-previous-entry
        :n "C-n" #'org-journal-next-entry
 
-       :n "-"   #'org-journal-previous-entry
-       :n "+"   #'org-journal-next-entry
-
-       :n "("   #'org-journal-previous-entry
-       :n ")"   #'org-journal-next-entry
-
        :n "[["  #'org-journal-previous-entry
-       :n "]]"  #'org-journal-next-entry
-       ))
+       :n "]]"  #'org-journal-next-entry))
 
 
 ;;; with-editor
