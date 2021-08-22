@@ -69,6 +69,9 @@
   (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h"))
   )
 
+(when (featurep! :editor file-templates)
+  (set-file-template! "\\.el$" :when '+file-templates-in-emacs-dirs-p :trigger "__module" :mode 'emacs-lisp-mode))
+
 (use-package! org-id ; built-in
   :after org
   :init
