@@ -9,7 +9,6 @@
 ;;                  == Spacemacs-esque keybinding scheme ==
 
 
-(defvar +completion-map (make-sparse-keymap))
 (defvar +org-format-map (make-sparse-keymap))
 (defvar +org-log-buffer-mode-map (make-sparse-keymap))
 
@@ -178,6 +177,7 @@
   :nv "j"     #'avy-goto-line-below
   :n  "J"     #'join-line
   :nv "k"     #'avy-goto-line-above
+  ;; FIXME
   :nv "m"     #'counsel-mark-ring
   :nv "n"     #'+eduarbo/narrow-or-widen-dwim
   :nv "o"     #'avy-goto-char-timer
@@ -190,173 +190,6 @@
   :v  [tab]   #'evil-vimish-fold/create
   :n  [tab]   #'evil-vimish-fold/delete
   :n  [S-tab] #'evil-vimish-fold/delete-all))
-
-
-;; ┏┳┓┏━┓╺┳┓╻ ╻╻  ┏━╸┏━┓
-;; ┃┃┃┃ ┃ ┃┃┃ ┃┃  ┣╸ ┗━┓
-;; ╹ ╹┗━┛╺┻┛┗━┛┗━╸┗━╸┗━┛
-
-;;; :completion
-
-(map!
- :n [tab] (cmds! (and (featurep! :editor fold)
-                      (save-excursion (end-of-line) (invisible-p (point))))
-                 #'+fold/toggle
-                 (fboundp 'evil-jump-item)
-                 #'evil-jump-item)
-
- :v [tab]        #'evil-jump-item
-
- (:when (featurep! :completion company)
-  :i  [tab]      #'+company/complete
-  :i  [C-tab]    +completion-map)
-
- :n   [S-tab]    #'+fold/toggle
-
- (:when (featurep! :editor snippets)
-  :i  [S-tab]    (λ! (unless (call-interactively 'yas-expand)
-                       (call-interactively 'company-yasnippet)))
-  :v  [S-tab]    #'yas-insert-snippet
-
-  :i  [C-return] #'aya-expand
-  :nv [C-return] #'aya-create
-
-  (:after yasnippet :map yas-keymap
-   ;; Do not interfer with company
-   [tab]         nil
-   "TAB"         nil
-   [S-tab]       nil
-   "<S-tab>"     nil
-   "C-n"         #'yas-next-field
-   "C-l"         #'yas-next-field
-   "C-p"         #'yas-prev-field
-   "C-h"         #'yas-prev-field))
-
- (:when (featurep! :completion company)
-  (:after company
-   (:map company-active-map
-    [S-tab]      #'company-select-previous
-    "C-l"        #'company-next-page
-    [right]      #'company-next-page
-    "C-h"        #'company-previous-page
-    [left]       #'company-previous-page
-    "C-e"        #'company-select-last
-    "C-a"        #'company-select-first
-    [escape]     #'company-abort)
-
-   (:map +completion-map
-    "d"          #'+company/dict-or-keywords
-    "f"          #'company-files
-    "s"          #'company-ispell
-    [C-tab]      #'company-yasnippet
-    "o"          #'company-capf
-    "a"          #'+company/dabbrev)))
-
- (:when (featurep! :completion ivy)
-  (:after ivy :map (ivy-minibuffer-map counsel-ag-map)
-   [S-return]    #'+ivy/git-grep-other-window-action
-   "C-l"         #'scroll-up-command
-   "C-h"         #'scroll-down-command
-   "C-,"         #'hydra-ivy/body)
-
-  (:after counsel :map counsel-ag-map
-   [S-tab]       #'+ivy/woccur)
-
-  (:after swiper :map swiper-map
-   [S-tab]       #'+ivy/woccur))
-
- (:when (featurep! :completion helm)
-  (:after swiper-helm :map swiper-helm-keymap
-   [S-tab]       #'helm-ag-edit)
-  (:after helm-ag :map helm-ag-map
-   [S-tab]       #'helm-ag-edit))
-
- (:when (featurep! :completion vertico)
-  (:after vertico :map vertico-map
-   [S-return]   #'vertico-exit-input
-   "S-SPC"      #'+vertico/embark-preview
-   [S-tab]      #'+vertico/embark-export-write
-   "C-j"        #'vertico-next
-   "C-S-j"      #'+vertico/next-candidate-preview
-   "C-l"        #'vertico-scroll-up
-   "C-S-l"      #'vertico-next-group
-   "C-k"        #'vertico-previous
-   "C-S-k"      #'+vertico/previous-candidate-preview
-   "C-h"        #'vertico-scroll-down
-   "C-S-h"      #'vertico-previous-group)))
-
-
-;;; evil-snipe
-
-(map!
- :n "S"         #'evil-snipe-repeat
-
- (:after evil-snipe :map evil-snipe-parent-transient-map
-  "L"           #'evil-snipe-repeat
-  "H"           #'evil-snipe-repeat-reverse
-
-  "S" (λ! (require 'evil-easymotion)
-          (call-interactively
-           (evilem-create 'evil-snipe-repeat
-                          :bind ((evil-snipe-scope 'whole-buffer)
-                                 (evil-snipe-enable-highlight)
-                                 (evil-snipe-enable-incremental-highlight)))))
-
-  ;; Don't interfere with my bindings
-  ";"  nil
-  ","  nil))
-
-
-;;; multiple-cursors
-
-(map!
- (:when (featurep! :editor multiple-cursors)
-  :n  "s-d"     #'evil-multiedit-match-symbol-and-next
-  :n  "s-D"     #'evil-multiedit-match-symbol-and-prev
-  :v  "s-d"     #'evil-multiedit-match-and-next
-  :v  "s-D"     #'evil-multiedit-match-and-prev
-  :nv "s-C-d"   #'evil-multiedit-restore
-
-  (:after evil-multiedit :map evil-multiedit-state-map
-   "s-d"        #'evil-multiedit-match-and-next
-   "s-D"        #'evil-multiedit-match-and-prev
-   [return]     #'evil-multiedit-toggle-or-restrict-region)))
-
-
-;;; git-timemachine
-
-(map! :after git-timemachine :map git-timemachine-mode-map
-      "s-["     #'git-timemachine-show-previous-revision
-      "s-]"     #'git-timemachine-show-next-revision
-
-      :n "C-p"  #'git-timemachine-show-previous-revision
-      :n "C-n"  #'git-timemachine-show-next-revision
-
-      :n "[["   #'git-timemachine-show-previous-revision
-      :n "]]"   #'git-timemachine-show-next-revision)
-
-
-;;; org-journal
-
-(map! :after org-journal
-      (:map org-journal-mode-map
-       "s-["    #'org-journal-previous-entry
-       "s-]"    #'org-journal-next-entry
-
-       :n "C-p" #'org-journal-previous-entry
-       :n "C-n" #'org-journal-next-entry
-
-       :n "[["  #'org-journal-previous-entry
-       :n "]]"  #'org-journal-next-entry))
-
-
-;;; with-editor
-
-(map! :after with-editor
-      (:map with-editor-mode-map
-       "s-s"    #'with-editor-finish
-       "s-k"    #'with-editor-cancel
-       "s-w"    #'with-editor-cancel))
 
 
 ;; ┏━┓┏━┓┏━╸   ┏┳┓┏━┓╺┳┓┏━╸
@@ -466,12 +299,13 @@
 (map! :leader
       :desc "M-x"                         ":"           #'execute-extended-command
       :desc "Eval expression"             ";"           #'pp-eval-expression
-      :desc "Search buffer"               "/"           #'+default/search-buffer
-      :desc "Switch Project"              "RET"         #'bookmark-jump
-      :desc "Find file from here"         "ESC"         #'+default/find-file-under-here
-      :desc "Find file"                   "."           #'find-file
+      :desc "Search buffer"               "/"           #'consult-imenu
+      :desc "Switch Project"              "RET"         #'+workspace/switch-to
+      :desc "Find file from here"         "ESC"         #'projectile-switch-to-buffer
+      :desc "Find file from here"         "."           #'find-file
+      :desc "Find file"                   ">"           #'+default/find-file-under-here
       :desc "Toggle last popup"           "'"           #'+popup/toggle
-      :desc "Ivy resume"                  "`"           (cond ((featurep! :completion vertico)  #'vertico-repeat)
+      :desc "Resume last completion"      "`"           (cond ((featurep! :completion vertico)  #'vertico-repeat)
                                                               ((featurep! :completion ivy)      #'ivy-resume)
                                                               ((featurep! :completion helm)     #'helm-resume))
 
@@ -490,14 +324,8 @@
 
       ;;; <leader> f --- file
       (:prefix ("f" . "file")
-       :desc "Find file in other project"  "o"          #'doom/find-file-in-other-project
-       :desc "Search in other project"     "O"          #'+default/search-other-project
        :desc "Find file in private config" ","          #'doom/find-file-in-private-config
-       :desc "Browse private config"       "<"          #'doom/open-private-config
-       :desc "Find file in .dotfiles"      "."          (λ! (+eduarbo-find-file dotfiles-dir))
-       ;; FIXME
-       :desc "Search in .dotfiles"         ">"          (λ! (+eduarbo-search-project dotfiles-dir))
-       )
+       :desc "Find file in .dotfiles"      "."          (λ! (+eduarbo-find-file dotfiles-dir)))
 
       ;;; <leader> g --- git
       (:prefix ("g" . "git")
@@ -509,25 +337,32 @@
       ;;; <leader> n --- notes
       (:prefix ("n" . "notes")
        :desc "Search notes"              "S-SPC"        #'+org/org-notes-search
+       :desc "Search notes"                "/"          #'+org/org-notes-search
        :desc "Org Roam capture"            "RET"        #'org-roam-capture
-       :desc "Find note"                   "SPC"        #'org-roam-find-file
-       :desc "Switch to buffer"            ","          #'org-roam-switch-to-buffer
-       :desc "Org Roam Insert"             "i"          #'org-roam-insert
-       :desc "Jump to index"               "I"          #'org-roam-jump-to-index
-       :desc "Today's journal"             "j"          #'org-journal-new-entry
-       :desc "Date journal"                "J"          #'org-journal-new-date-entry
-       :desc "Daily Agenda"                "d"          #'eduarbo/daily-agenda
-       :desc "Unscheduled Agenda"          "u"          #'eduarbo/unscheduled-agenda
-       :desc "Search org agenda headlines" "A"          #'+org/org-agenda-headlines
-       :desc "Search org notes headlines"  "S"          #'+org/org-notes-headlines
-       :desc "Open project notes"          "p"          #'+org/find-notes-for-project
-       :desc "Today journal"               "t"          #'org-journal-open-current-journal-file
-       :desc "Todo list"                   "T"          #'org-todo-list)
+       :desc "Find note"                   "SPC"        #'org-roam-node-find
+
+       ;; ;; FIXME
+       ;; :desc "Switch to buffer"            ","          #'org-roam-switch-to-buffer
+       ;; :desc "Org Roam Insert"             "i"          #'org-roam-node-insert
+       ;; ;; FIXME
+       ;; :desc "Jump to index"               "I"          #'org-roam-jump-to-index
+       ;; :desc "Today's journal"             "j"          #'org-journal-new-entry
+       ;; :desc "Date journal"                "J"          #'org-journal-new-date-entry
+       ;; :desc "Daily Agenda"                "d"          #'eduarbo/daily-agenda
+       ;; :desc "Unscheduled Agenda"          "u"          #'eduarbo/unscheduled-agenda
+       ;; :desc "Search org agenda headlines" "A"          #'+org/org-agenda-headlines
+       ;; :desc "Search org notes headlines"  "S"          #'+org/org-notes-headlines
+       ;; :desc "Open project notes"          "p"          #'+org/find-notes-for-project
+       ;; :desc "Today journal"               "t"          #'org-journal-open-current-journal-file
+       ;; :desc "Todo list"                   "T"          #'org-todo-list
+       )
 
       ;;; <leader> o --- open
       (:prefix ("o" . "open")
        :desc "Shell command"                 "s"        #'async-shell-command
-       :desc "Shell command in project root" "S"        #'projectile-run-async-shell-command-in-root)
+       :desc "Shell command in project root" "S"        #'projectile-run-async-shell-command-in-root
+       :desc "Find and focus in project sidebar"  "p"   #'treemacs-select-window
+       :desc "Find in project sidebar"       "P"        #'treemacs-find-file)
 
       ;;; <leader> TAB --- workspace
       (:prefix ("TAB" . "workspace")
@@ -550,6 +385,8 @@
        :desc "Global Line numbers"          "L"         #'global-display-line-numbers-mode
        :desc "Visual fill column mode"      "v"         #'visual-fill-column-mode
        :desc "Subword mode"                 "W"         #'subword-mode
+       :desc "Project sidebar"              "p"         #'treemacs
+       :desc "Org-Tree-Slide mode"          "o"         #'org-tree-slide-mode
        :desc "Frame maximized"              "m"         #'toggle-frame-maximized)
 
       ;;; <leader> w --- window
