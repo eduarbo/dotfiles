@@ -112,7 +112,8 @@
  ;; CMD Shortcuts
 
  "s-a"                #'ace-window
- ;; "s-b"                #'
+ "s-b"                #'consult-bookmark
+ "s-B"                #'bookmark-delete
  "s-e"                #'execute-extended-command
  "s-f"                #'projectile-find-file
  "s-F"                #'+default/find-file-under-here
@@ -124,14 +125,20 @@
  "s-L"                #'+workspace/switch-right
  "s-i"                #'org-capture
  "s-I"                #'org-journal-new-entry
- "s-j"                #'+workspace/switch-to
+ "s-j"                #'evil-switch-to-windows-last-buffer
+ "s-J"                #'+workspace/other
  "s-k"                #'kill-current-buffer
  "s-K"                #'doom/kill-buried-buffers
  "s-m"                nil
- "s-o"                #'+workspace/other
- "s-O"                #'evil-switch-to-windows-last-buffer
- "s-p"                #'treemacs
- "s-P"                #'treemacs-select-window
+ (:map org-mode-map
+  "s-o"               #'+org/insert-item-below
+  "s-O"               #'+org/insert-item-above)
+ (:map prog-mode-map
+  "s-o"               #'+evil/insert-newline-below
+  "s-O"               #'+evil/insert-newline-above)
+ "s-p"                #'projectile-switch-project
+ "s-P"                #'doom/find-file-in-other-project
+ ;; "s-P"                #'+default/search-other-project
  "s-r"                #'+eval/open-repl-other-window
  "s-R"                #'+eval/open-repl-same-window
  "s-u"                #'evil-window-mru
@@ -148,14 +155,15 @@
  "s-{"                #'+workspace/switch-left
  "s-}"                #'+workspace/switch-right
  "s-`"                #'helpful-key
- "s-?"                #'counsel-descbinds
  "s--"                #'doom/decrease-font-size
  "s-+"                #'doom/increase-font-size
  "s-="                #'doom/reset-font-size
  "s-,"                #'doom/find-file-in-private-config
  "s-<"                (λ! (+eduarbo-find-file dotfiles-dir))
- :ginv "s-/"          #'evil-show-marks
- "s-."                #'projectile-switch-project
+ :ginv "s-/"          #'+default/search-buffer
+ "s-?"                #'+default/search-project-for-symbol-at-point
+ "s-."                #'treemacs
+ "s->"                #'treemacs-select-window
 
  [s-up]               #'drag-stuff-up
  [s-down]             #'drag-stuff-down
