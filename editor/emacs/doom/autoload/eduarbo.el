@@ -127,3 +127,16 @@ narrowed."
   "Enable javascript-eslint checker on web-mode but only for svelte files"
   (unless (string= web-mode-engine "svelte")
     (setq-local flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-eslint)))))
+
+;;;###autoload
+(defun eduarbo/get-buffer-path-relative-to-project ()
+  "Get the current buffer's path relative to project."
+  (if-let ((root (doom-project-root))
+           (filename (or (buffer-file-name (buffer-base-buffer))
+                         (bound-and-true-p list-buffers-directory)
+                         (+file-templates-get-short-path))))
+      (abbreviate-file-name
+       (if root
+           (file-relative-name filename root)
+         filename))
+    (+file-templates-get-short-path)))
