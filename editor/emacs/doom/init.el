@@ -217,6 +217,10 @@
 
        :config
        ;;literate
-       (default +bindings +smartparens)
+       (
+        default
+        ;; +bindings
+        +smartparens
+        )
        ;; language             ; google translate
        )
