@@ -140,3 +140,14 @@ narrowed."
            (file-relative-name filename root)
          filename))
     (+file-templates-get-short-path)))
+
+;;;###autoload
+(defun eduarbo/toggle-doom-modeline-buffer-file-name-style ()
+  "Toggle the style used by doom-modeline-buffer-file-name"
+  (interactive)
+  (let* ((current-style doom-modeline-buffer-file-name-style)
+         (styles '(relative-from-project truncate-with-project))
+         (order (cons current-style (remq current-style styles)))
+         (next (car (cdr order))))
+    (setq doom-modeline-buffer-file-name-style next)
+    (message "Switched to %s file name style" (symbol-name next))))
