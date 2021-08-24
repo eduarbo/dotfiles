@@ -151,12 +151,13 @@
  :n     "s-X"           #'doom/switch-to-scratch-buffer
 
  :n     "s-;"           #'doom/reset-font-size
+ :n     "s-:"           #'doom/reset-font-size
  ;; Frame-local font resizing
- :n     "s-["           #'doom/decrease-font-size
- :n     "s-]"           #'doom/increase-font-size
+ :n     "s-["           #'text-scale-decrease
+ :n     "s-]"           #'text-scale-increase
  ;; Buffer-local font resizing
- :n     "s-{"           #'text-scale-decrease
- :n     "s-}"           #'text-scale-increase
+ :n     "s-{"           #'doom/decrease-font-size
+ :n     "s-}"           #'doom/increase-font-size
 
  :n     "s-,"           #'doom/find-file-in-private-config
  :n     "s-<"           (λ! (+eduarbo-find-file dotfiles-dir))
@@ -284,9 +285,14 @@
         ))
 
       (:after with-editor :map with-editor-mode-map
-       "s-s"    #'with-editor-finish
-       "s-k"    #'with-editor-cancel
-       "s-w"    #'with-editor-cancel))
+       :g "s-s"    #'with-editor-finish
+       :g "s-k"    #'with-editor-cancel
+       :g "s-w"    #'with-editor-cancel)
+
+      (:after wgrep :map wgrep-mode-map
+       :g "s-s"    #'wgrep-finish-edit
+       :g "s-k"    #'wgrep-abort-changes
+       :g "s-w"    #'wgrep-abort-changes))
 
 ;;
 ;;; Module keybinds
@@ -570,6 +576,7 @@
          :desc "Outgoing call hierarchy"             "Y"   (cmd!! #'lsp-treemacs-call-hierarchy t)
          :desc "References tree"                     "R"   (cmd!! #'lsp-treemacs-references t)
          :desc "Symbols"                             "S"   #'lsp-treemacs-symbols)
+        ;; TODO extract useful commands for quick access
         :desc "LSP"                                 "l"   #'+default/lsp-command-map
         :desc "LSP Rename"                          "r"   #'lsp-rename)
        (:when (featurep! :tools lsp +eglot)

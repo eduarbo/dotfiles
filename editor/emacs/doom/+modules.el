@@ -1,4 +1,4 @@
-;;; ~/dev/dotfiles/editor/emacs/doom/+modules.el -*- lexical-binding: t; -*-
+;;; editor/emacs/doom/+modules.el -*- lexical-binding: t; -*-
 
 ;; • ▌ ▄ ·.       ·▄▄▄▄  ▄• ▄▌▄▄▌  ▄▄▄ ..▄▄ ·
 ;; ·██ ▐███▪▪     ██▪ ██ █▪██▌██•  ▀▄.▀·▐█ ▀.
@@ -135,8 +135,8 @@
    ;; Given ~/Projects/FOSS/emacs/lisp/comint.el
    ;; truncate-with-project => emacs/l/comint.el
    ;; relative-from-project => emacs/lisp/comint.el
-   ;; doom-modeline-buffer-file-name-style 'relative-from-project
-   doom-modeline-buffer-file-name-style 'truncate-with-project
+   doom-modeline-buffer-file-name-style 'relative-from-project
+   ;; doom-modeline-buffer-file-name-style 'truncate-with-project
    ;; Whether display the buffer encoding
    doom-modeline-buffer-encoding t
    ;; Whether display the modal state icon.

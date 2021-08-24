@@ -1,4 +1,4 @@
-;;; ~/dev/dotfiles/editor/emacs/doom/+defaults.el -*- lexical-binding: t; -*-
+;;; editor/emacs/doom/+defaults.el -*- lexical-binding: t; -*-
 
 ;; ·▄▄▄▄  ▄▄▄ .·▄▄▄ ▄▄▄· ▄• ▄▌▄▄▌  ▄▄▄▄▄.▄▄ ·
 ;; ██▪ ██ ▀▄.▀·▐▄▄·▐█ ▀█ █▪██▌██•  •██  ▐█ ▀.

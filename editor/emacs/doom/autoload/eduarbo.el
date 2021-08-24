@@ -1,4 +1,4 @@
-;;; ~/dev/dotfiles/editor/emacs/doom/autoload/eduarbo.el -*- lexical-binding: t; -*-
+;;; editor/emacs/doom/autoload/eduarbo.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (defvar eduarbo--enlargen-focused-window nil)

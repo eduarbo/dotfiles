@@ -1,4 +1,4 @@
-;;; ~/dev/dotfiles/editor/emacs/doom/+agendas.el -*- lexical-binding: t; -*-
+;;; editor/emacs/doom/+agendas.el -*- lexical-binding: t; -*-
 
 ;;       ▄▄▄   ▄▄ •      ▄▄▄·  ▄▄ • ▄▄▄ . ▐ ▄ ·▄▄▄▄   ▄▄▄·
 ;; ▪     ▀▄ █·▐█ ▀ ▪    ▐█ ▀█ ▐█ ▀ ▪▀▄.▀·•█▌▐███▪ ██ ▐█ ▀█

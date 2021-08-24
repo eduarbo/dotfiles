@@ -1,4 +1,4 @@
-;;; ~/dev/dotfiles/editor/emacs/doom/autoload/org.el -*- lexical-binding: t; -*-
+;;; editor/emacs/doom/autoload/org.el -*- lexical-binding: t; -*-
 
 ;; Remove empty LOGBOOK drawers on clock out, from Michael Englehorn's Emacs
 ;; Configuration
