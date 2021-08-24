@@ -15,7 +15,6 @@
 
 
 (load! "+defaults.el")
-(load! "+evil-bindings.el")
 (load! "+bindings.el")
 (load! "+lang.el")
 (load! "+modules.el")

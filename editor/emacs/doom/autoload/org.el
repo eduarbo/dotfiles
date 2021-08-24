@@ -93,3 +93,14 @@
   (unless (bound-and-true-p +org-default-notes-dir)
     (require 'org))
   (doom-project-find-file +org-default-notes-dir))
+
+;;;###autoload
+(defun +org/toggle-emphasis (&optional arg)
+  "Toggle hiding/showing of org emphasize markers."
+  (interactive "p")
+  (let ((markers org-hide-emphasis-markers))
+    (if markers
+        (setq-local org-hide-emphasis-markers nil)
+      (setq-local org-hide-emphasis-markers t))
+    (when arg
+      (font-lock-fontify-buffer))))
