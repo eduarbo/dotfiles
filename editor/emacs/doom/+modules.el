@@ -132,13 +132,47 @@
 
 (after! doom-modeline
   (setq
-   doom-modeline-buffer-encoding nil
+   ;; Given ~/Projects/FOSS/emacs/lisp/comint.el
+   ;; truncate-with-project => emacs/l/comint.el
+   ;; relative-from-project => emacs/lisp/comint.el
+   ;; doom-modeline-buffer-file-name-style 'relative-from-project
+   doom-modeline-buffer-file-name-style 'truncate-with-project
+   ;; Whether display the buffer encoding
+   doom-modeline-buffer-encoding t
+   ;; Whether display the modal state icon.
+   ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc
+   doom-modeline-modal-icon t
+   ;; Whether display the modification icon for the buffer
    doom-modeline-buffer-modification-icon nil
+   ;; Whether display the icon for `major-mode'
    doom-modeline-major-mode-icon t
-   doom-modeline-vcs-max-length 18)
+   ;; The maximum displayed length of the branch name of version control
+   doom-modeline-vcs-max-length 18
+   ;; Whether display the GitHub notifications. It requires `ghub' package
+   doom-modeline-github t
+   ;; If non-nil, only display one number for checker information if applicable
+   doom-modeline-checker-simple-format t)
 
-  ;; Remove size indicator
-  (remove-hook! doom-modeline-mode #'size-indication-mode))
+  ;; customize modeline segments
+  (doom-modeline-def-segment clean-matches
+    "an alternative to the built-in matches segment without fallback (buffer size indicator)"
+    (concat
+     ;; 1. the currently recording macro
+     (doom-modeline--macro-recording)
+     ;; 2. A current/total for the current search term (with `anzu')
+     (doom-modeline--anzu)
+     (doom-modeline--phi-search)
+     ;; 3. The number of substitutions being conducted with `evil-ex-substitute', and/or
+     (doom-modeline--evil-substitute)
+     ;; 4. The number of active `iedit' regions
+     (doom-modeline--iedit)
+     ;; 5. The current/total for the highlight term (with `symbol-overlay')
+     (doom-modeline--symbol-overlay)
+     ;; 6. The number of active `multiple-cursors'.
+     (doom-modeline--multiple-cursors)))
+  (doom-modeline-def-modeline 'main
+    '(hud modals clean-matches checker buffer-info remote-host buffer-position selection-info)
+    '(misc-info github vcs input-method buffer-encoding buffer-size major-mode process " ")))
 
 
 ;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸
