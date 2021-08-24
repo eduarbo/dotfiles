@@ -45,6 +45,7 @@
 ;; Line numbers are pretty slow all around. The performance boost of disabling them outweighs the
 ;; utility of always keeping them on
 (remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
 
 ;; Hide indent lines
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
