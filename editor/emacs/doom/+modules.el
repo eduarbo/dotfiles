@@ -172,7 +172,7 @@
      (doom-modeline--multiple-cursors)))
   (doom-modeline-def-modeline 'main
     '(hud modals clean-matches checker buffer-info remote-host buffer-position selection-info)
-    '(misc-info github vcs input-method buffer-encoding buffer-size major-mode process " ")))
+    '(misc-info github vcs lsp input-method buffer-encoding buffer-size major-mode process " ")))
 
 
 ;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸

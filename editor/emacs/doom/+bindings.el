@@ -141,15 +141,23 @@
  :n     "s-L"           #'+workspace/switch-right
  :n     "s-p"           #'doom/open-project-scratch-buffer
  :n     "s-P"           #'doom/switch-to-project-scratch-buffer
- :m     "s-r"           #'+eval/open-repl-other-window
- :m     "s-R"           #'+eval/open-repl-same-window
+ :n     "s-r"           #'+eval/open-repl-other-window
+ :n     "s-R"           #'+eval/open-repl-same-window
+ :v     "s-r"           #'+eval:region
+ :v     "s-R"           #'+eval/buffer
  :n     "s-u"           #'evil-window-mru
  :n     "s-U"           #'delete-other-windows
  :n     "s-x"           #'doom/open-scratch-buffer
  :n     "s-X"           #'doom/switch-to-scratch-buffer
+
+ :n     "s-;"           #'doom/reset-font-size
+ ;; Frame-local font resizing
  :n     "s-["           #'doom/decrease-font-size
  :n     "s-]"           #'doom/increase-font-size
- :n     "s-;"           #'doom/reset-font-size
+ ;; Buffer-local font resizing
+ :n     "s-{"           #'text-scale-decrease
+ :n     "s-}"           #'text-scale-increase
+
  :n     "s-,"           #'doom/find-file-in-private-config
  :n     "s-<"           (λ! (+eduarbo-find-file dotfiles-dir))
  :m     [s-up]          #'drag-stuff-up
@@ -195,9 +203,8 @@
 
 
       (:after treemacs :map treemacs-mode-map
-       ;; Free up keys for window navigation
-       :g  "C-h"           nil
-       :g  "C-l"           nil)
+       :g "C-h"           #'evil-window-left
+       :g "C-l"           #'evil-window-right)
       (:after help :map help-mode-map
        :n "o"       #'link-hint-open-link)
       (:after helpful :map helpful-mode-map
@@ -227,8 +234,6 @@
        :nv "j"     #'avy-goto-line-below
        :n  "J"     #'join-line
        :nv "k"     #'avy-goto-line-above
-       ;; FIXME
-       :nv "m"     #'counsel-mark-ring
        :nv "n"     #'+eduarbo/narrow-or-widen-dwim
        :nv "o"     #'avy-goto-char-timer
        :nv "O"     (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
@@ -258,16 +263,6 @@
        :nv "z" #'+multiple-cursors/evil-mc-toggle-cursor-here
        :v  "I" #'evil-mc-make-cursor-in-visual-selection-beg
        :v  "A" #'evil-mc-make-cursor-in-visual-selection-end)
-
-      ;; misc
-      :n "C-S-f"  #'toggle-frame-fullscreen
-      :n "C-+"    #'doom/reset-font-size
-      ;; Buffer-local font resizing
-      :n "C-="    #'text-scale-increase
-      :n "C--"    #'text-scale-decrease
-      ;; Frame-local font resizing
-      :n "M-C-="  #'doom/increase-font-size
-      :n "M-C--"  #'doom/decrease-font-size
 
       (:after evil-snipe
        :n "S"     #'evil-snipe-repeat
@@ -333,55 +328,6 @@
          "C-s"     #'company-filter-candidates
          [escape]  #'company-search-abort)))
 
-      (:when (featurep! :completion ivy)
-       (:after ivy
-        :map ivy-minibuffer-map
-        "C-SPC" #'ivy-call-and-recenter  ; preview file
-        "C-l"   #'ivy-alt-done
-        "C-v"   #'yank)
-       (:after counsel
-        :map counsel-ag-map
-        "C-SPC"    #'ivy-call-and-recenter ; preview
-        "C-l"      #'ivy-done
-        [C-return] #'+ivy/git-grep-other-window-action))
-
-      (:when (featurep! :completion helm)
-       (:after helm :map helm-map
-        [remap next-line]     #'helm-next-line
-        [remap previous-line] #'helm-previous-line
-        [left]     #'left-char
-        [right]    #'right-char
-        "C-S-f"    #'helm-previous-page
-        "C-S-n"    #'helm-next-source
-        "C-S-p"    #'helm-previous-source
-        (:when (featurep! :editor evil +everywhere)
-         "C-j"    #'helm-next-line
-         "C-k"    #'helm-previous-line
-         "C-S-j"  #'helm-next-source
-         "C-S-k"  #'helm-previous-source)
-        "C-u"      #'helm-delete-minibuffer-contents
-        "C-s"      #'helm-minibuffer-history
-        ;; Swap TAB and C-z
-        "TAB"      #'helm-execute-persistent-action
-        [tab]      #'helm-execute-persistent-action
-        "C-z"      #'helm-select-action)
-       (:after helm-ag :map helm-ag-map
-        "C--"      #'+helm-do-ag-decrease-context
-        "C-="      #'+helm-do-ag-increase-context
-        [left]     nil
-        [right]    nil)
-       (:after helm-files :map (helm-find-files-map helm-read-file-map)
-        [C-return] #'helm-ff-run-switch-other-window
-        "C-w"      #'helm-find-files-up-one-level)
-       (:after helm-locate :map helm-generic-files-map
-        [C-return] #'helm-ff-run-switch-other-window)
-       (:after helm-buffers :map helm-buffer-map
-        [C-return] #'helm-buffer-switch-other-window)
-       (:after helm-occur :map helm-occur-map
-        [C-return] #'helm-occur-run-goto-line-ow)
-       (:after helm-grep :map helm-grep-map
-        [C-return] #'helm-grep-run-other-window-action))
-
       (:when (featurep! :completion vertico)
        (:after vertico
         :map vertico-map
@@ -400,31 +346,31 @@
 
 ;;; :ui
 (map!  (:when (featurep! :ui workspaces)
-       :n "C-t"   #'+workspace/new
-       :n "C-S-t" #'+workspace/display
-       :g "M-1"   #'+workspace/switch-to-0
-       :g "M-2"   #'+workspace/switch-to-1
-       :g "M-3"   #'+workspace/switch-to-2
-       :g "M-4"   #'+workspace/switch-to-3
-       :g "M-5"   #'+workspace/switch-to-4
-       :g "M-6"   #'+workspace/switch-to-5
-       :g "M-7"   #'+workspace/switch-to-6
-       :g "M-8"   #'+workspace/switch-to-7
-       :g "M-9"   #'+workspace/switch-to-8
-       :g "M-0"   #'+workspace/switch-to-final
-       (:when IS-MAC
-        :g "s-t"   #'+workspace/new
-        :g "s-T"   #'+workspace/display
-        :n "s-1"   #'+workspace/switch-to-0
-        :n "s-2"   #'+workspace/switch-to-1
-        :n "s-3"   #'+workspace/switch-to-2
-        :n "s-4"   #'+workspace/switch-to-3
-        :n "s-5"   #'+workspace/switch-to-4
-        :n "s-6"   #'+workspace/switch-to-5
-        :n "s-7"   #'+workspace/switch-to-6
-        :n "s-8"   #'+workspace/switch-to-7
-        :n "s-9"   #'+workspace/switch-to-8
-        :n "s-0"   #'+workspace/switch-to-final)))
+        :n "C-t"   #'+workspace/new
+        :n "C-S-t" #'+workspace/display
+        :g "M-1"   #'+workspace/switch-to-0
+        :g "M-2"   #'+workspace/switch-to-1
+        :g "M-3"   #'+workspace/switch-to-2
+        :g "M-4"   #'+workspace/switch-to-3
+        :g "M-5"   #'+workspace/switch-to-4
+        :g "M-6"   #'+workspace/switch-to-5
+        :g "M-7"   #'+workspace/switch-to-6
+        :g "M-8"   #'+workspace/switch-to-7
+        :g "M-9"   #'+workspace/switch-to-8
+        :g "M-0"   #'+workspace/switch-to-final
+        (:when IS-MAC
+         :g "s-t"   #'+workspace/new
+         :g "s-T"   #'+workspace/display
+         :n "s-1"   #'+workspace/switch-to-0
+         :n "s-2"   #'+workspace/switch-to-1
+         :n "s-3"   #'+workspace/switch-to-2
+         :n "s-4"   #'+workspace/switch-to-3
+         :n "s-5"   #'+workspace/switch-to-4
+         :n "s-6"   #'+workspace/switch-to-5
+         :n "s-7"   #'+workspace/switch-to-6
+         :n "s-8"   #'+workspace/switch-to-7
+         :n "s-9"   #'+workspace/switch-to-8
+         :n "s-0"   #'+workspace/switch-to-final)))
 
 ;;; :editor
 (map! (:when (featurep! :editor format)
@@ -466,15 +412,9 @@
        "C-h"         #'yas-prev-field))
 
 ;;; :tools
-(when (featurep! :tools eval)
-  (map! "M-r" #'+eval/buffer))
-
 (map! :after git-timemachine :map git-timemachine-mode-map
-      "s-["     #'git-timemachine-show-previous-revision
-      "s-]"     #'git-timemachine-show-next-revision
-
-      "s-h"     #'git-timemachine-show-previous-revision
-      "s-l"     #'git-timemachine-show-next-revision
+      :n "s-h"     #'git-timemachine-show-previous-revision
+      :n "s-l"     #'git-timemachine-show-next-revision
 
       :n "[["   #'git-timemachine-show-previous-revision
       :n "]]"   #'git-timemachine-show-next-revision)
@@ -578,21 +518,11 @@
         :desc "Rename workspace"          "r"   #'+workspace/rename
         :desc "Restore last session"      "R"   #'+workspace/restore-last-session
         :desc "Next workspace"            "]"   #'+workspace/switch-right
-        :desc "Previous workspace"        "["   #'+workspace/switch-left
-        :desc "Switch to 1st workspace"   "1"   #'+workspace/switch-to-0
-        :desc "Switch to 2nd workspace"   "2"   #'+workspace/switch-to-1
-        :desc "Switch to 3rd workspace"   "3"   #'+workspace/switch-to-2
-        :desc "Switch to 4th workspace"   "4"   #'+workspace/switch-to-3
-        :desc "Switch to 5th workspace"   "5"   #'+workspace/switch-to-4
-        :desc "Switch to 6th workspace"   "6"   #'+workspace/switch-to-5
-        :desc "Switch to 7th workspace"   "7"   #'+workspace/switch-to-6
-        :desc "Switch to 8th workspace"   "8"   #'+workspace/switch-to-7
-        :desc "Switch to 9th workspace"   "9"   #'+workspace/switch-to-8
-        :desc "Switch to final workspace" "0"   #'+workspace/switch-to-final))
+        :desc "Previous workspace"        "["   #'+workspace/switch-left))
 
       ;;; <leader> b --- buffer
       (:prefix-map ("b" . "buffer")
-       :desc "Toggle narrowing"            "-"   #'doom/toggle-narrow-buffer
+       :desc "Toggle narrowing"            "RET" #'+eduarbo/narrow-or-widen-dwim
        :desc "Previous buffer"             "["   #'previous-buffer
        :desc "Next buffer"                 "]"   #'next-buffer
        (:when (featurep! :ui workspaces)
@@ -600,8 +530,6 @@
         :desc "Switch buffer"           "B" #'switch-to-buffer)
        (:unless (featurep! :ui workspaces)
         :desc "Switch buffer"           "b" #'switch-to-buffer)
-       :desc "Clone buffer"                "c"   #'clone-indirect-buffer
-       :desc "Clone buffer other window"   "C"   #'clone-indirect-buffer-other-window
        :desc "Kill buffer"                 "d"   #'kill-current-buffer
        :desc "ibuffer"                     "i"   #'ibuffer
        :desc "Kill buffer"                 "k"   #'kill-current-buffer
@@ -609,10 +537,8 @@
        :desc "Switch to last buffer"       "l"   #'evil-switch-to-windows-last-buffer
        :desc "Set bookmark"                "m"   #'bookmark-set
        :desc "Delete bookmark"             "M"   #'bookmark-delete
-       :desc "Next buffer"                 "n"   #'next-buffer
-       :desc "New empty buffer"            "N"   #'evil-buffer-new
+       :desc "New empty buffer"            "n"   #'evil-buffer-new
        :desc "Kill other buffers"          "O"   #'doom/kill-other-buffers
-       :desc "Previous buffer"             "p"   #'previous-buffer
        :desc "Revert buffer"               "r"   #'revert-buffer
        :desc "Save buffer"                 "s"   #'basic-save-buffer
        :desc "Save all buffers"            "S"   #'evil-write-all
@@ -620,7 +546,9 @@
        :desc "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
        :desc "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
        :desc "Bury buffer"                 "z"   #'bury-buffer
-       :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers)
+       :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers
+       :desc "Next buffer"                 "]"   #'next-buffer
+       :desc "Previous buffer"             "["   #'previous-buffer)
 
       ;;; <leader> c --- code
       (:prefix-map ("c" . "code")
@@ -675,7 +603,6 @@
        :desc "Browse emacs.d"              "E"   #'doom/browse-in-emacsd
        :desc "Find file"                   "f"   #'find-file
        :desc "Find file from here"         "F"   #'+default/find-file-under-here
-       :desc "Locate file"                 "l"   #'locate
        :desc "Find file in private config" "p"   #'doom/find-file-in-private-config
        :desc "Browse private config"       "P"   #'doom/open-private-config
        :desc "Recent files"                "r"   #'recentf-open-files
@@ -684,8 +611,8 @@
        :desc "Save file as..."             "S"   #'write-file
        :desc "Sudo find file"              "u"   #'doom/sudo-find-file
        :desc "Sudo this file"              "U"   #'doom/sudo-this-file
-       :desc "Yank file path"              "y"   #'+default/yank-buffer-path
-       :desc "Yank file path from project" "Y"   #'+default/yank-buffer-path-relative-to-project
+       :desc "Yank file path from project" "y"   #'+default/yank-buffer-path-relative-to-project
+       :desc "Yank file path"              "Y"   #'+default/yank-buffer-path
        :desc "Find file in .dotfiles"      "."   (λ! (+eduarbo-find-file dotfiles-dir)))
 
       ;;; <leader> g --- git/version control
@@ -886,12 +813,12 @@
        :desc "Shell command in project root" "S"        #'projectile-run-async-shell-command-in-root
 
        (:when (featurep! :ui neotree)
-        :desc "Project sidebar"              "p" #'+neotree/open
-        :desc "Find file in project sidebar" "P" #'+neotree/find-this-file)
+        :desc "Project sidebar"                 "p" #'+neotree/open
+        :desc "Find file in project sidebar"    "P" #'+neotree/find-this-file)
        (:when (featurep! :ui treemacs)
-        ;; :desc "Project sidebar" "p" #'+treemacs/toggle
-        :desc "Project sidebar" "p" #'treemacs-select-window
-        :desc "Find in project sidebar"            "P"   #'treemacs-find-file)
+        :desc "Project sidebar"                 "p" #'treemacs
+        ;; :desc "Find in project sidebar"         "P" #'treemacs-find-file
+        :desc "Select in project sidebar"       "P" #'treemacs-select-window)
        (:when (featurep! :term shell)
         :desc "Toggle shell popup"    "t" #'+shell/toggle
         :desc "Open shell here"       "T" #'+shell/here)
@@ -906,12 +833,7 @@
         :desc "Open eshell here"      "E" #'+eshell/here)
        (:when (featurep! :os macos)
         :desc "Reveal in Finder"           "o" #'+macos/reveal-in-finder
-        :desc "Reveal project in Finder"   "O" #'+macos/reveal-project-in-finder
-        :desc "Send to Transmit"           "u" #'+macos/send-to-transmit
-        :desc "Send project to Transmit"   "U" #'+macos/send-project-to-transmit
-        :desc "Send to Launchbar"          "l" #'+macos/send-to-launchbar
-        :desc "Send project to Launchbar"  "L" #'+macos/send-project-to-launchbar
-        :desc "Open in iTerm"              "i" #'+macos/open-in-iterm)
+        :desc "Reveal project in Finder"   "O" #'+macos/reveal-project-in-finder)
        (:when (featurep! :tools docker)
         :desc "Docker" "D" #'docker)
        (:when (featurep! :email mu4e)
@@ -970,24 +892,6 @@
        :desc "Restart & restore Emacs"      "r" #'doom/restart-and-restore
        :desc "Restart Emacs"                "R" #'doom/restart)
 
-      ;;; <leader> r --- remote
-      (:when (featurep! :tools upload)
-       (:prefix-map ("r" . "remote")
-        :desc "Browse remote"              "b" #'ssh-deploy-browse-remote-base-handler
-        :desc "Browse relative"            "B" #'ssh-deploy-browse-remote-handler
-        :desc "Download remote"            "d" #'ssh-deploy-download-handler
-        :desc "Delete local & remote"      "D" #'ssh-deploy-delete-handler
-        :desc "Eshell base terminal"       "e" #'ssh-deploy-remote-terminal-eshell-base-handler
-        :desc "Eshell relative terminal"   "E" #'ssh-deploy-remote-terminal-eshell-handler
-        :desc "Move/rename local & remote" "m" #'ssh-deploy-rename-handler
-        :desc "Open this file on remote"   "o" #'ssh-deploy-open-remote-file-handler
-        :desc "Run deploy script"          "s" #'ssh-deploy-run-deploy-script-handler
-        :desc "Upload local"               "u" #'ssh-deploy-upload-handler
-        :desc "Upload local (force)"       "U" #'ssh-deploy-upload-handler-forced
-        :desc "Diff local & remote"        "x" #'ssh-deploy-diff-handler
-        :desc "Browse remote files"        "." #'ssh-deploy-browse-remote-handler
-        :desc "Detect remote changes"      ">" #'ssh-deploy-remote-changes-handler))
-
       ;;; <leader> s --- search
       (:prefix-map ("s" . "search")
        :desc "Search buffer"                "b"
@@ -1039,6 +943,7 @@
        (:when (featurep! :ui minimap)
         :desc "Minimap"                      "m" #'minimap-mode)
        :desc "Frame maximized"              "M" #'toggle-frame-maximized
+       :desc "Modeline filename style"      "n" #'eduarbo/toggle-doom-modeline-buffer-file-name-style
        (:when (featurep! :lang org +present)
         :desc "org-tree-slide mode"        "o" #'org-tree-slide-mode)
        :desc "Project sidebar"              "p" #'treemacs
@@ -1110,25 +1015,25 @@
    :n "H"          #'org-metaleft
    :n "L"          #'org-metaright)
 
- (:map +org-format-map
-  ;; Basic char syntax:
-  ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
-  "b"   (org-emphasize! +org/bold ?*)
-  "i"   (org-emphasize! +org/italic ?/)
-  "m"   (org-emphasize! +org/monospace ?~)  ;; monospace/code
-  "u"   (org-emphasize! +org/underline ?_)
-  "v"   (org-emphasize! +org/verbose ?=)
-  "s"   (org-emphasize! +org/strike-through ?+)
-  ;; FIXME doesn't work well in normal mode
-  "x"   (org-emphasize! +org/restore-format ? )
-  "r"   #'org-roam-insert
-  "R"   #'org-roam-insert-immediate
-  "c"   #'org-cliplink
-  "d"   #'org-download-yank
-  "D"   #'org-download-clipboard
-  "k"   #'org-insert-link
-  "K"   #'+org/remove-link
-  "n"   #'org-add-note))
+  (:map +org-format-map
+   ;; Basic char syntax:
+   ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Basic-Char-Syntax.html#Basic-Char-Syntax
+   "b"   (org-emphasize! +org/bold ?*)
+   "i"   (org-emphasize! +org/italic ?/)
+   "m"   (org-emphasize! +org/monospace ?~)  ;; monospace/code
+   "u"   (org-emphasize! +org/underline ?_)
+   "v"   (org-emphasize! +org/verbose ?=)
+   "s"   (org-emphasize! +org/strike-through ?+)
+   ;; FIXME doesn't work well in normal mode
+   "x"   (org-emphasize! +org/restore-format ? )
+   "r"   #'org-roam-insert
+   "R"   #'org-roam-insert-immediate
+   "c"   #'org-cliplink
+   "d"   #'org-download-yank
+   "D"   #'org-download-clipboard
+   "k"   #'org-insert-link
+   "K"   #'+org/remove-link
+   "n"   #'org-add-note))
 
  (:after evil-org
   (:map evil-org-mode-map
@@ -1141,8 +1046,6 @@
 
    :g "s-f"     +org-format-map
    :n "C-i"     #'evil-jump-forward
-   :i "C-o"     #'+org/insert-item-below
-   :i "C-S-O"   #'+org/insert-item-above
 
    (:localleader
     :desc "Add note to the current entry"    "n"   #'org-add-note
@@ -1156,12 +1059,4 @@
   (:after evil-org-agenda
    (:map evil-org-agenda-mode-map
     :m "k"      #'org-agenda-previous-item
-    :m "j"      #'org-agenda-next-item)))
-
-
- (:after org-roam
-  :leader
-  (:prefix "t"
-   :desc "Org Roam"                 "r"  #'org-roam)
-  (:localleader :map org-mode-map
-   :desc "Toggle Org Roam"          "R"  #'org-roam)))
+    :m "j"      #'org-agenda-next-item))))
