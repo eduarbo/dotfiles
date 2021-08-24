@@ -79,7 +79,7 @@
 
 ;; A more useful title
 (setq frame-title-format
-   '((:eval (doom-modeline-buffer-file-name)) "   —   " (:eval (+workspace-current-name))))
+   '((:eval (buffer-file-name)) "   —   " (:eval (+workspace-current-name))))
 
 ;; Maximize window on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
