@@ -1,4 +1,4 @@
-;;; ~/dev/dotfiles/editor/emacs/doom/autoload/evil.el -*- lexical-binding: t; -*-
+;;; editor/emacs/doom/autoload/evil.el -*- lexical-binding: t; -*-
 ;;;###if (featurep! :editor evil)
 
 ;;;###autoload (autoload '+evil-multi-next-line "autoload/evil" nil nil)
