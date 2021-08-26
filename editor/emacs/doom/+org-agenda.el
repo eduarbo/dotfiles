@@ -27,6 +27,8 @@
   :after-call org-agenda
   :config
   (setq org-super-agenda-header-separator "\n")
+  ;; Disable bindings for org-super-agenda headers
+  (setq org-super-agenda-header-map nil)
   (org-super-agenda-mode))
 
 

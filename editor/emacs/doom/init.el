@@ -11,13 +11,14 @@
         )
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;; (ivy              ; a search engine for love and life
-       ;;  ;;+fuzzy
-       ;;  +icons
-       ;;  ;;+prescient     ; FIXME I can't escape characters
-       ;;  ;;+childframe
-       ;;  )
-       vertico ; the search engine of the future
+       ;;(ivy              ; a search engine for love and life
+       ;; ;;+fuzzy
+       ;; +icons
+       ;; ;;+prescient     ; FIXME I can't escape characters
+       ;; ;;+childframe
+       ;; )
+       (vertico            ; the search engine of the future
+        +icons)
 
        :ui
        ;;deft              ; notational velocity for Emacs
