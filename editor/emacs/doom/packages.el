@@ -12,3 +12,5 @@
 (package! graphql-mode)
 (package! eslintd-fix)
 (package! prettier-js)
+;; so annoying
+(package! lsp-ui :disable t)
