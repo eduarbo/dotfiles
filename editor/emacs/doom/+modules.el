@@ -76,20 +76,9 @@
 ;; Settings:
 ;;   https://emacs-lsp.github.io/lsp-mode/page/settings/
 
-(after! lsp-ui
-  (setq
-   ;; lsp-ui-sideline is redundant with eldoc and much more invasive, so disable it by default
-   lsp-ui-sideline-enable nil   ; not anymore useful than flycheck
-   lsp-ui-doc-enable nil        ; slow and redundant with K
-
-   lsp-ui-doc-include-signature t
-
-   ;; lsp-ui-doc-use-webkit t
-   lsp-ui-doc-max-width 100
-   lsp-ui-doc-max-height 12)
-  ;; If an LSP server isn't present when I start a prog-mode buffer, you don't need to tell me. I
-  ;; know. On some systems I don't care to have a whole development environment for some ecosystems.
-  +lsp-prompt-to-install-server 'quiet)
+;; If an LSP server isn't present when I start a prog-mode buffer, you don't need to tell me. I
+;; know. On some systems I don't care to have a whole development environment for some ecosystems.
+(setq +lsp-prompt-to-install-server 'quiet)
 
 (after! lsp-mode
   (setq

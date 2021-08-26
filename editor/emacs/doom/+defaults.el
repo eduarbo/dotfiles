@@ -72,8 +72,7 @@
  doom-font (font-spec :family "JetBrains Mono" :size 12 :weight 'light)
  ;; doom-font (font-spec :family "Hack Nerd Font" :size 12)
  ;; doom-variable-pitch-font (font-spec :family "Noto Serif" :size 13)
- doom-variable-pitch-font (font-spec :family "Noto Sans" :size 13)
- ivy-posframe-font (font-spec :family "JetBrains Mono" :size 15))
+ doom-variable-pitch-font (font-spec :family "Noto Sans" :size 13))
 
 
 ;;; Frames/Windows

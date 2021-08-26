@@ -109,6 +109,7 @@
         )
        (lsp              ; M-x vscode
         +binding         ; unbind s-l
+        ;;+peek
         ;;+eglot
         )
        magit             ; a git porcelain for Emacs
