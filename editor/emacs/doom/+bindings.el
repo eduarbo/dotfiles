@@ -340,14 +340,15 @@
         [S-return] #'vertico-exit-input
         "S-SPC" #'+vertico/embark-preview
         [S-tab] #'+vertico/embark-export-write
-        "C-l"   #'vertico-scroll-up
-        "C-h"   #'vertico-scroll-down
+        "C-l"   #'vertico-next-group
+        "C-h"   #'vertico-previous-group
+        "C-d"   #'vertico-scroll-up
+        "C-u"   #'vertico-scroll-down
         "C-j"   #'vertico-next
-        "C-S-j" #'+vertico/next-candidate-preview
-        "C-S-l" #'vertico-next-group
         "C-k"   #'vertico-previous
+        "C-S-j" #'+vertico/next-candidate-preview
         "C-S-k" #'+vertico/previous-candidate-preview
-        "C-S-h" #'vertico-previous-group)))
+        )))
 
 
 ;;; :ui
@@ -446,9 +447,6 @@
       :desc "Find file"             "."    #'find-file
       :desc "Find file from here"   ">"    #'+default/find-file-under-here
       :desc "Switch buffer"         ","    #'switch-to-buffer
-      (:when (featurep! :ui popup)
-       :desc "Toggle last popup"    "d"    #'+popup/toggle
-       :desc "Toggle last popup"    "D"    #'+popup/raise)
       (:when (featurep! :ui workspaces)
        :desc "Switch workspace buffer" "," #'persp-switch-to-buffer
        :desc "Switch buffer"           "<" #'switch-to-buffer)
@@ -459,8 +457,9 @@
             ((featurep! :completion helm)       #'helm-resume))
 
       :desc "Find file in project"  "SPC"  #'projectile-find-file
-      :desc "Switch workspace"      "RET"  #'+workspace/switch-to
-      :desc "Switch to proj buffer" [S-return]  #'projectile-switch-to-buffer
+      (:when (featurep! :ui popup)
+       :desc "Toggle last popup"    "RET"       #'+popup/toggle
+       :desc "Toggle last popup"    [S-return]  #'+popup/raise)
 
       ;;; <leader> w --- window
       ;; TODO remap C-w too
@@ -551,6 +550,7 @@
        :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer
        :desc "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
        :desc "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
+       :desc "Yank buffer name"            "y"   (λ! (kill-new (buffer-name)))
        :desc "Bury buffer"                 "z"   #'bury-buffer
        :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers
        :desc "Next buffer"                 "]"   #'next-buffer
@@ -708,52 +708,38 @@
 
       ;;; <leader> n --- notes
       (:prefix-map ("n" . "notes")
-       :desc "Search notes for symbol"      "*" #'+default/search-notes-for-symbol-at-point
        :desc "Org agenda"                   "a" #'org-agenda
        (:when (featurep! :tools biblio)
-        :desc "Bibliographic entries"        "b"
+        :desc "Bibliographic entries"       "b"
         (cond ((featurep! :completion vertico)  #'bibtex-actions-open-entry)
               ((featurep! :completion ivy)      #'ivy-bibtex)
               ((featurep! :completion helm)     #'helm-bibtex)))
 
        :desc "Toggle last org-clock"        "c" #'+org/toggle-last-clock
        :desc "Cancel current org-clock"     "C" #'org-clock-cancel
-       :desc "Open deft"                    "d" #'deft
+       :desc "Daily Agenda"                 "d" #'eduarbo/daily-agenda
        (:when (featurep! :lang org +noter)
-        :desc "Org noter"                  "e" #'org-noter)
+        :desc "Org noter"                   "e" #'org-noter)
 
        :desc "Find file in notes"           "f" #'+default/find-in-notes
        :desc "Browse notes"                 "F" #'+default/browse-notes
+       :desc "Search notes headlines"       "h" #'+org/org-notes-headlines
        :desc "Org store link"               "l" #'org-store-link
        :desc "Tags search"                  "m" #'org-tags-view
        :desc "Org capture"                  "n" #'org-capture
        :desc "Goto capture"                 "N" #'org-capture-goto-target
        :desc "Active org-clock"             "o" #'org-clock-goto
-       :desc "Todo list"                    "t" #'org-todo-list
-       :desc "Search notes"                 "s" #'+default/org-notes-search
+       ;; NOTE This can be replaced by my own agenda templates
+       ;; :desc "Todo list"                    "t" #'org-todo-list
+       :desc "Search org"                   "s" #'+default/org-notes-search
        :desc "Search org agenda headlines"  "S" #'+default/org-notes-headlines
-       :desc "View search"                  "v" #'org-search-view
-       :desc "Org export to clipboard"        "y" #'+org/export-to-clipboard
-       :desc "Org export to clipboard as RTF" "Y" #'+org/export-to-clipboard-as-rich-text
+       :desc "Unscheduled Agenda"           "u" #'eduarbo/unscheduled-agenda
+       :desc "Org export to md and copy"    "y" (λ! (+org/export-to-clipboard 'md))
+       :desc "Org export to clipboard"      "Y" #'+org/export-to-clipboard
+       :desc "Search notes"                 "/" #'+org/org-notes-search
 
-       :desc "Search notes"                 "/"    #'+org/org-notes-search
        :desc "Org Roam capture"             "RET"  #'org-roam-capture
        :desc "Find note"                    "SPC"  #'org-roam-node-find
-
-       ;; ;; FIXME
-       ;; :desc "Switch to buffer"            ","          #'org-roam-switch-to-buffer
-       ;; :desc "Org Roam Insert"             "i"          #'org-roam-node-insert
-       ;; ;; FIXME
-       ;; :desc "Jump to index"               "I"          #'org-roam-jump-to-index
-       ;; :desc "Today's journal"             "j"          #'org-journal-new-entry
-       ;; :desc "Date journal"                "J"          #'org-journal-new-date-entry
-       ;; :desc "Daily Agenda"                "d"          #'eduarbo/daily-agenda
-       ;; :desc "Unscheduled Agenda"          "u"          #'eduarbo/unscheduled-agenda
-       ;; :desc "Search org agenda headlines" "A"          #'+org/org-agenda-headlines
-       ;; :desc "Search org notes headlines"  "S"          #'+org/org-notes-headlines
-       ;; :desc "Open project notes"          "p"          #'+org/find-notes-for-project
-       ;; :desc "Today journal"               "t"          #'org-journal-open-current-journal-file
-       ;; :desc "Todo list"                   "T"          #'org-todo-list
 
        (:when (featurep! :lang org +roam)
         (:prefix ("r" . "roam")
@@ -776,7 +762,7 @@
          :desc "Find node"                  "f" #'org-roam-node-find
          :desc "Find ref"                   "F" #'org-roam-ref-find
          :desc "Show graph"                 "g" #'org-roam-graph
-         :desc "Insert node"                "i" #'org-roam-node-insert
+         ;; :desc "Insert node"                "i" #'org-roam-node-insert
          :desc "Capture to node"            "n" #'org-roam-capture
          :desc "Toggle roam buffer"         "r" #'org-roam-buffer-toggle
          :desc "Launch roam buffer"         "R" #'org-roam-buffer-display-dedicated
@@ -797,9 +783,10 @@
 
        (:when (featurep! :lang org +journal)
         (:prefix ("j" . "journal")
+         :desc "Date journal"        "d" #'org-journal-new-date-entry
          :desc "New Entry"           "j" #'org-journal-new-entry
-         :desc "New Scheduled Entry" "J" #'org-journal-new-scheduled-entry
-         :desc "Search Forever"      "s" #'org-journal-search-forever)))
+         :desc "New Scheduled Entry" "s" #'org-journal-new-scheduled-entry
+         :desc "Search Forever"      "f" #'org-journal-search-forever)))
 
       ;;; <leader> o --- open
       (:prefix-map ("o" . "open")
@@ -911,7 +898,6 @@
              ((featurep! :completion helm)      #'swiper-all))
        :desc "Search current directory"     "d" #'+default/search-cwd
        :desc "Search other directory"       "D" #'+default/search-other-cwd
-       :desc "Locate file"                  "f" #'locate
        :desc "Jump to symbol"               "i" #'imenu
        :desc "Jump to visible link"         "l" #'link-hint-open-link
        :desc "Jump to link"                 "L" #'ffap-menu
