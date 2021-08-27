@@ -12,6 +12,9 @@
 	prune = true
 [rebase]
 	autosquash = true
+	autoStash = true
+[pull]
+	rebase = true
 [push]
 	default = current
 [merge]
@@ -75,3 +78,7 @@
 	enabled = 1
 [init]
 	defaultBranch = main
+[github]
+	user = eduarbo
+[forge]
+	remote = upstream
