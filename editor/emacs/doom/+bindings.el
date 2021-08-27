@@ -66,7 +66,7 @@
 
       :i    "S-SPC"         #'tab-to-tab-stop
 
-      :nv   [S-return]      #'+eduarbo/narrow-or-widen-dwim)
+      :nv   [S-return]      #'flyspell-correct-at-point)
 
 ;; Text objects
 (map! :gi   [C-backspace]  #'delete-forward-char
@@ -916,12 +916,16 @@
              ((featurep! :completion ivy)       #'swiper-isearch-thing-at-point)
              ((featurep! :completion helm)      #'swiper-isearch-thing-at-point))
        :desc "Dictionary"                   "t" #'+lookup/dictionary-definition
-       :desc "Thesaurus"                    "T" #'+lookup/synonyms)
+       :desc "Thesaurus"                    "T" #'+lookup/synonyms
+       :desc "Correct word at point"        "RET" #'flyspell-correct-at-point
+       :desc "Add word to dictionary"       "w" #'+spell/add-word
+       :desc "Remove word from dictionary"  "W" #'+spell/remove-word)
 
       ;;; <leader> t --- toggle
       (:prefix-map ("t" . "toggle")
        :desc "Big mode"                     "b" #'doom-big-font-mode
        :desc "Fill Column Indicator"        "c" #'global-display-fill-column-indicator-mode
+       :desc "Ispell Dictionary EN/ES"      "d" #'eduarbo/toggle-ispell-dict-en-es
        :desc "Toggle Org emphasis"          "e" #'+org/toggle-emphasis
        :desc "Flymake"                      "f" #'flymake-mode
        (:when (featurep! :checkers syntax)

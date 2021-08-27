@@ -160,3 +160,10 @@ narrowed."
     (when (member upstream remotes) (push upstream remotes))
     (when (member origin remotes) (push origin remotes))
     (delete-dups remotes)))
+
+;;;###autoload
+(defun eduarbo/toggle-ispell-dict-en-es ()
+  "Toggle the language for ispell between english and spanish"
+  (interactive)
+  (ispell-change-dictionary (if (string= ispell-local-dictionary "en") "es" "en"))
+  (message "Switched to %s dictionary" ispell-local-dictionary))

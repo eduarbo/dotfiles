@@ -89,7 +89,8 @@
         )
        (spell            ; tasing you for misspelling mispelling
         +flyspell        ; allow me to use hunspell instead of aspell
-        +hunspell        ; has support for multi dictionaries
+        +aspell
+        ;;+hunspell        ; has support for multi dictionaries
         ;;+everywhere      ; spellcheck comments and strings in the code
         )
        grammar           ; tasing grammar mistake every you make
