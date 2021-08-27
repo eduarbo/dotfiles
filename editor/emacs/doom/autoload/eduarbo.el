@@ -151,3 +151,12 @@ narrowed."
          (next (car (cdr order))))
     (setq doom-modeline-buffer-file-name-style next)
     (message "Switched to %s file name style" (symbol-name next))))
+
+;;;###autoload
+(defun eduarbo--sort-git-remotes-a (remotes)
+  "Move upstream and origin to the top of the list"
+  (let ((upstream "upstream")
+        (origin "origin"))
+    (when (member upstream remotes) (push upstream remotes))
+    (when (member origin remotes) (push origin remotes))
+    (delete-dups remotes)))
