@@ -68,7 +68,6 @@
 ;; ╻  ┏━┓┏━┓
 ;; ┃  ┗━┓┣━┛
 ;; ┗━╸┗━┛╹
-;; lsp
 
 ;; A guide on disabling/enabling lsp-mode features:
 ;;   https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
@@ -102,7 +101,6 @@
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸
 ;; ┃┃┃┣━┫┃╺┓┃ ┃
 ;; ╹ ╹╹ ╹┗━┛╹ ╹
-;; magit
 
 (after! magit
   (setq
@@ -116,7 +114,6 @@
 ;; ┏┳┓┏━┓┏━┓┏━╸╻┏┓╻┏━┓╻  ╻┏━┓
 ;; ┃┃┃┣━┫┣┳┛┃╺┓┃┃┗┫┣━┫┃  ┃┣━┫
 ;; ╹ ╹╹ ╹╹┗╸┗━┛╹╹ ╹╹ ╹┗━╸╹╹ ╹
-;; marginalia
 
 (after! marginalia
   (setq marginalia-truncate-width 800))
@@ -125,7 +122,6 @@
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
 ;; ┃┃┃┃ ┃ ┃┃┣╸ ┃  ┃┃┗┫┣╸
 ;; ╹ ╹┗━┛╺┻┛┗━╸┗━╸╹╹ ╹┗━╸
-;; modeline
 
 (after! doom-modeline
   (setq
