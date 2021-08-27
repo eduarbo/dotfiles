@@ -34,6 +34,11 @@
 
   avy-timeout-seconds 0.3
 
+  ;; Show file path for files with the same base name. For example, the files `/foo/bar/mumble/name'
+  ;; and `/baz/quux/mumble/name' would have the following buffer names:
+  ;; bar/mumble/name    quux/mumble/name
+  uniquify-buffer-name-style 'forward
+
   doom-scratch-initial-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
