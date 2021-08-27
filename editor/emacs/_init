@@ -23,7 +23,7 @@ brew_deps=(
   pyenv
   jq
   black
-  hunspell
+  aspell
   pngpaste # org-download
   trash
   marked
@@ -62,7 +62,6 @@ update() {
 
 link() {
   mklink doom $XDG_CONFIG_HOME
-  mklink dictionaries/* "$HOME/Library/Spelling"
   # TODO: Check if editorconfig supports XDG Base Directory
   mklink editorconfig ~/.editorconfig
 }

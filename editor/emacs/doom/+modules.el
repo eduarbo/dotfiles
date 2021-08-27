@@ -181,18 +181,9 @@
 ;; ┗━┛╹  ┗━╸┗━╸┗━╸
 
 (after! ispell
-  ;; Configure `LANG`, otherwise ispell.el cannot find a 'default dictionary' even though multiple
-  ;; dictionaries will be configured in next line
-  (setenv "LANG" "en_US.UTF-8")
-  (setq ispell-program-name "hunspell")
-  (setq ispell-dictionary "en_GB,en_US,es_ANY")
-  ;; ispell-set-spellchecker-params has to be called before ispell-hunspell-add-multi-dic will work
-  (ispell-set-spellchecker-params)
-  (when (featurep! +hunspell)
-    ;; ispell-set-spellchecker-params has to be called before ispell-hunspell-add-multi-dic
-    (ispell-hunspell-add-multi-dic ispell-dictionary))
-  (setq ispell-personal-dictionary
-        (expand-file-name (concat "personal_dict") doom-etc-dir)))
+  (setq ispell-extra-args '("--sug-mode=ultra" "--run-together" "--camel-case"))
+  (setq ispell-dictionary "en")
+  (setq ispell-personal-dictionary (substitute-in-file-name "$XDG_DATA_HOME/ispell/personal_dict.pws")))
 
 
 ;; ╺┳╸┏━┓┏━╸┏━╸┏┳┓┏━┓┏━╸┏━┓
