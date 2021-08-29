@@ -335,8 +335,8 @@
          "TAB"     #'company-complete-common-or-cycle
          [tab]     #'company-complete-common-or-cycle
          [backtab] #'company-select-previous
-         ;; [S-tab]      #'company-select-previous
-         [escape]     #'company-abort
+         [S-tab]   #'company-select-previous
+         [escape]  #'company-abort
          [f1]      nil)
         (:map company-search-map  ; applies to `company-filter-map' too
          "C-n"     #'company-select-next-or-abort
@@ -1038,11 +1038,10 @@
    "r"   #'org-roam-insert
    "R"   #'org-roam-insert-immediate
    "c"   #'org-cliplink
-   "d"   #'org-download-yank
-   "D"   #'org-download-clipboard
+   "d"   #'org-download-clipboard
+   "D"   #'org-download-yank
    "k"   #'org-insert-link
-   "K"   #'+org/remove-link
-   "n"   #'org-add-note))
+   "K"   #'+org/remove-link))
 
  (:after evil-org
   (:map evil-org-mode-map
