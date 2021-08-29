@@ -26,6 +26,7 @@
   ;; Which-key
   which-key-idle-delay 0.3
   which-key-idle-secondary-delay 0
+  which-key-sort-order 'which-key-prefix-then-key-order
 
   ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
   ;; They're generally unhelpful and only add confusing visual clutter.
