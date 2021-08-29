@@ -10,6 +10,7 @@
 
 (defvar +org-log-buffer-mode-map (make-sparse-keymap))
 (defvar +org-format-map (make-sparse-keymap))
+(defvar +company-omni-completion-map (make-sparse-keymap))
 
 (setq doom-leader-key ","
       doom-localleader-key ", m")
@@ -191,8 +192,8 @@
                       (fboundp 'evil-jump-item)
                       #'evil-jump-item)
 
-      :i [S-tab] (λ! (unless (call-interactively 'yas-expand)
-                       (call-interactively 'company-yasnippet)))
+      :i [S-tab] +company-map
+
       :m [S-tab] (cmds! (and (featurep! :editor snippets)
                              (evil-visual-state-p)
                              (or (eq evil-visual-selection 'line)
@@ -302,6 +303,17 @@
        :i "C-@"    (cmds! (not (minibufferp)) #'company-complete-common)
        :i "C-SPC"  (cmds! (not (minibufferp)) #'company-complete-common)
        (:after company
+        (:map +company-omni-completion-map
+         "l"    #'+company/whole-lines
+         "k"    #'+company/dict-or-keywords
+         "f"    #'company-files
+         "]"    #'company-etags
+         "i"    #'company-ispell
+         "s"    #'company-yasnippet
+         "o"    #'company-capf
+         "n"    #'+company/dabbrev
+         "p"    #'+company/dabbrev-code-previous)
+
         (:map company-active-map
          "C-w"     nil  ; don't interfere with `evil-delete-backward-word'
          "C-e"     #'company-select-last
