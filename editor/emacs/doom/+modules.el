@@ -13,7 +13,7 @@
 
 (after! browse-at-remote
   ;; HACK `browse-at-remote--get-remotes' returns a list of remotes in alphabetical order. Sometimes
-  ;; when I want to copy the url of the current file with `+vc/browse-at-remote-kill' it selects the
+  ;; when I want to copy the URL of the current file with `+vc/browse-at-remote-kill' it selects the
   ;; remote at the top of the list which I don't want. If it can't determine the correct remote it
   ;; should select "origin" as fallback.
   (advice-add 'browse-at-remote--get-remotes :filter-return #'eduarbo--sort-git-remotes-a))
@@ -182,8 +182,29 @@
 
 (after! ispell
   (setq ispell-extra-args '("--sug-mode=ultra" "--run-together" "--camel-case"))
-  (setq ispell-dictionary "en")
-  (setq ispell-personal-dictionary (substitute-in-file-name "$XDG_DATA_HOME/ispell/personal_dict.pws")))
+  (setq ispell-dictionary "english")
+  (setq ispell-personal-dictionary
+        (substitute-in-file-name (expand-file-name (concat "ispell/" ispell-dictionary ".pws") doom-etc-dir))))
+
+(after! (ispell company)
+  (setq company-ispell-dictionary (expand-file-name (concat "ispell/" ispell-dictionary ".dict")
+                                                    doom-etc-dir)))
+
+(add-hook! '(ispell-change-dictionary-hook ispell-minor-mode-hook)
+  (defun +spell-sync-local-personaly-dictionary-h ()
+    "Sync personal dictionary with Ispell's"
+    (when-let (lang (or ispell-local-dictionary ispell-dictionary))
+      (setq-local company-ispell-dictionary (expand-file-name (concat "ispell/" lang ".dict")
+                                                              doom-etc-dir))
+      (setq-local ispell-personal-dictionary (expand-file-name (concat "ispell/" lang ".pws")
+                                                               doom-etc-dir)))))
+
+;; Quickly switch dictionaries
+;; Adapted from DiogoRamos' snippet on https://www.emacswiki.org/emacs/FlySpell#h5o-5
+(let ((langs '("spanish" "english")))
+  (defvar lang-ring (make-ring (length langs))
+    "List of Ispell dictionaries you can switch to using `eduarbo/cycle-ispell-languages'.")
+  (dolist (elem langs) (ring-insert lang-ring elem)))
 
 
 ;; ╺┳╸┏━┓┏━╸┏━╸┏┳┓┏━┓┏━╸┏━┓

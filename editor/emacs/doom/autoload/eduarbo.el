@@ -162,8 +162,9 @@ narrowed."
     (delete-dups remotes)))
 
 ;;;###autoload
-(defun eduarbo/toggle-ispell-dict-en-es ()
-  "Toggle the language for ispell between english and spanish"
+(defun eduarbo/cycle-ispell-languages ()
+  "Switch to the next Ispell dictionary in ‘lang-ring’."
   (interactive)
-  (ispell-change-dictionary (if (string= ispell-local-dictionary "en") "es" "en"))
-  (message "Switched to %s dictionary" ispell-local-dictionary))
+  (let ((lang (ring-ref lang-ring -1)))
+    (ring-insert lang-ring lang)
+    (ispell-change-dictionary lang)))
