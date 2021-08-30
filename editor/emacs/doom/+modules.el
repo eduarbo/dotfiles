@@ -104,6 +104,7 @@
 
 (after! magit
   (setq
+   magit-revision-show-gravatars '("^Author:     " . "^Commit:     ")
    magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))
    ;; Don't restore the wconf after quitting magit, it's jarring
    magit-inhibit-save-previous-winconf t
