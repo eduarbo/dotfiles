@@ -168,7 +168,10 @@
  :m     [s-right]       #'drag-stuff-right)
 
 ;; Smart tab, these will only work in GUI Emacs
-(map! :i [tab] (cmds! (and (bound-and-true-p company-mode)
+(map! :i [tab] (cmds! (and (featurep! :editor snippets)
+                           (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+                      #'yas-expand
+                      (and (bound-and-true-p company-mode)
                            (featurep! :completion company))
                       ;; #'+company/complete)
                       #'company-indent-or-complete-common)
@@ -192,7 +195,7 @@
                       (fboundp 'evil-jump-item)
                       #'evil-jump-item)
 
-      :i [S-tab] +company-map
+      :i [S-tab] +company-omni-completion-map
 
       :m [S-tab] (cmds! (and (featurep! :editor snippets)
                              (evil-visual-state-p)
@@ -304,11 +307,11 @@
        :i "C-SPC"  (cmds! (not (minibufferp)) #'company-complete-common)
        (:after company
         (:map +company-omni-completion-map
-         "l"    #'+company/whole-lines
-         "k"    #'+company/dict-or-keywords
+         "d"    #'company-ispell
          "f"    #'company-files
+         "k"    #'+company/dict-or-keywords
+         "l"    #'+company/whole-lines
          "]"    #'company-etags
-         "i"    #'company-ispell
          "s"    #'company-yasnippet
          "o"    #'company-capf
          "n"    #'+company/dabbrev

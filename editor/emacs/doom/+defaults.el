@@ -43,7 +43,7 @@
   doom-scratch-initial-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
-(global-subword-mode t)
+(add-hook! (prog-mode conf-mode) #'subword-mode)
 
 ;; treat symbols characters as parts of words: e.g., "this_is_a_symbol" counts as one word
 ;; (global-superword-mode t)
