@@ -24,10 +24,10 @@ of the default font based on the given FONT-SIZE"
     (+workspace/switch-to +workspace--last)))
 
 ;;;###autoload
-(defun +eduarbo-find-file (dir)
-  "Open a file somewhere in DIR via a fuzzy filename search."
+(defun +eduarbo/find-file-in-dotfiles ()
+  "Search for a file in `dotfiles-dir'."
   (interactive)
-  (doom-project-find-file (expand-file-name dir)))
+  (doom-project-find-file dotfiles-dir))
 
 ;;;###autoload
 (defun +eduarbo-search-project (dir)
@@ -168,3 +168,10 @@ narrowed."
   (let ((lang (ring-ref lang-ring -1)))
     (ring-insert lang-ring lang)
     (ispell-change-dictionary lang)))
+
+;;;###autoload
+(defun eduarbo/yank-buffer-name ()
+  "Copy the current buffer's path to the kill ring."
+  (interactive)
+  (message "Copied buffer name to clipboard: %s"
+           (kill-new (buffer-name))))
