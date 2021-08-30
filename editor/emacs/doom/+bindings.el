@@ -161,7 +161,7 @@
  :n     "s-}"           #'doom/increase-font-size
 
  :n     "s-,"           #'doom/find-file-in-private-config
- :n     "s-<"           (λ! (+eduarbo-find-file dotfiles-dir))
+ :n     "s-<"           #'+eduarbo/find-file-in-dotfiles
  :m     [s-up]          #'drag-stuff-up
  :m     [s-down]        #'drag-stuff-down
  :m     [s-left]        #'drag-stuff-left
@@ -565,7 +565,7 @@
        :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer
        :desc "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
        :desc "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
-       :desc "Yank buffer name"            "y"   (λ! (kill-new (buffer-name)))
+       :desc "Yank buffer name"            "y"   #'eduarbo/yank-buffer-name
        :desc "Bury buffer"                 "z"   #'bury-buffer
        :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers
        :desc "Next buffer"                 "]"   #'next-buffer
@@ -635,7 +635,7 @@
        :desc "Sudo this file"              "U"   #'doom/sudo-this-file
        :desc "Yank file path from project" "y"   #'+default/yank-buffer-path-relative-to-project
        :desc "Yank file path"              "Y"   #'+default/yank-buffer-path
-       :desc "Find file in .dotfiles"      "."   (λ! (+eduarbo-find-file dotfiles-dir)))
+       :desc "Find file in .dotfiles"      "."   #'+eduarbo/find-file-in-dotfiles)
 
       ;;; <leader> g --- git/version control
       (:prefix-map ("g" . "git")
@@ -749,7 +749,7 @@
        :desc "Search org"                   "s" #'+default/org-notes-search
        :desc "Search org agenda headlines"  "S" #'+default/org-notes-headlines
        :desc "Unscheduled Agenda"           "u" #'eduarbo/unscheduled-agenda
-       :desc "Org export to md and copy"    "y" (λ! (+org/export-to-clipboard 'md))
+       :desc "Org export to md and copy"    "y" (cmd! (+org/export-to-clipboard 'md))
        :desc "Org export to clipboard"      "Y" #'+org/export-to-clipboard
        :desc "Search notes"                 "/" #'+org/org-notes-search
 
@@ -940,7 +940,7 @@
       (:prefix-map ("t" . "toggle")
        :desc "Big mode"                     "b" #'doom-big-font-mode
        :desc "Fill Column Indicator"        "c" #'global-display-fill-column-indicator-mode
-       :desc "Ispell Dictionary EN/ES"      "d" #'eduarbo/toggle-ispell-dict-en-es
+       :desc "Ispell Dictionary EN/ES"      "d" #'eduarbo/cycle-ispell-languages
        :desc "Toggle Org emphasis"          "e" #'+org/toggle-emphasis
        :desc "Flymake"                      "f" #'flymake-mode
        (:when (featurep! :checkers syntax)
