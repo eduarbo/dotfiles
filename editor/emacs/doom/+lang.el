@@ -47,9 +47,13 @@
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
   )
 
-(add-hook! web-mode #'eduarbo/configure-web-mode-flycheck-disable-checkers-based-on-engine)
+(add-hook! 'web-mode-hook
+  (defun my/configure-web-mode-flycheck-disable-checkers-based-on-engine ()
+    "Enable javascript-eslint checker on web-mode but only for svelte files"
+    (unless (string= web-mode-engine "svelte")
+      (setq-local flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-eslint))))))
 
-(add-hook! (js-mode web-mode)
+(add-hook! '(js-mode-hook web-mode-hook)
   (embrace-add-pair ?\` "`" "`")
   (embrace-add-pair ?\$ "${" "}"))
 

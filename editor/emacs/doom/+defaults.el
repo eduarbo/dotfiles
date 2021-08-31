@@ -43,7 +43,7 @@
   doom-scratch-initial-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
-(add-hook! (prog-mode conf-mode) #'subword-mode)
+(add-hook! '(prog-mode-hook conf-mode-hook) #'subword-mode)
 
 ;; treat symbols characters as parts of words: e.g., "this_is_a_symbol" counts as one word
 ;; (global-superword-mode t)
@@ -57,10 +57,10 @@
 (remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
 
 ;; whitespace
-(add-hook! (prog-mode conf-mode) #'doom-enable-show-trailing-whitespace-h)
+(add-hook! '(prog-mode-hook conf-mode-hook) #'doom-enable-show-trailing-whitespace-h)
 
 ;; Enable visual line mode for text-mode
-(add-hook! text-mode #'visual-line-mode)
+(add-hook! 'text-mode-hook #'visual-line-mode)
 
 ;; dired
 (setq dired-use-ls-dired t)

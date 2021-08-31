@@ -161,7 +161,7 @@
  :n     "s-}"           #'doom/increase-font-size
 
  :n     "s-,"           #'doom/find-file-in-private-config
- :n     "s-<"           #'+eduarbo/find-file-in-dotfiles
+ :n     "s-<"           #'my/find-file-in-dotfiles
  :m     [s-up]          #'drag-stuff-up
  :m     [s-down]        #'drag-stuff-down
  :m     [s-left]        #'drag-stuff-left
@@ -239,10 +239,10 @@
        :nv "j"     #'avy-goto-line-below
        :n  "J"     #'join-line
        :nv "k"     #'avy-goto-line-above
-       :nv "n"     #'+eduarbo/narrow-or-widen-dwim
+       :nv "n"     #'my/narrow-or-widen-dwim
        :nv "o"     #'avy-goto-char-timer
        :nv "O"     (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
-       :nv "Q"     #'+eduarbo/unfill-paragraph
+       :nv "Q"     #'my/unfill-paragraph
        :nv "s"     #'evil-snipe-s
        :nv "S"     #'evil-snipe-S
        :nv "w"     #'transpose-words
@@ -542,7 +542,7 @@
 
       ;;; <leader> b --- buffer
       (:prefix-map ("b" . "buffer")
-       :desc "Toggle narrowing"            "RET" #'+eduarbo/narrow-or-widen-dwim
+       :desc "Toggle narrowing"            "RET" #'my/narrow-or-widen-dwim
        :desc "Previous buffer"             "["   #'previous-buffer
        :desc "Next buffer"                 "]"   #'next-buffer
        (:when (featurep! :ui workspaces)
@@ -565,7 +565,7 @@
        :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer
        :desc "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
        :desc "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
-       :desc "Yank buffer name"            "y"   #'eduarbo/yank-buffer-name
+       :desc "Yank buffer name"            "y"   #'my/yank-buffer-name
        :desc "Bury buffer"                 "z"   #'bury-buffer
        :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers
        :desc "Next buffer"                 "]"   #'next-buffer
@@ -635,7 +635,7 @@
        :desc "Sudo this file"              "U"   #'doom/sudo-this-file
        :desc "Yank file path from project" "y"   #'+default/yank-buffer-path-relative-to-project
        :desc "Yank file path"              "Y"   #'+default/yank-buffer-path
-       :desc "Find file in .dotfiles"      "."   #'+eduarbo/find-file-in-dotfiles)
+       :desc "Find file in .dotfiles"      "."   #'my/find-file-in-dotfiles)
 
       ;;; <leader> g --- git/version control
       (:prefix-map ("g" . "git")
@@ -732,7 +732,7 @@
 
        :desc "Toggle last org-clock"        "c" #'+org/toggle-last-clock
        :desc "Cancel current org-clock"     "C" #'org-clock-cancel
-       :desc "Daily Agenda"                 "d" #'eduarbo/daily-agenda
+       :desc "Daily Agenda"                 "d" #'my/daily-agenda
        (:when (featurep! :lang org +noter)
         :desc "Org noter"                   "e" #'org-noter)
 
@@ -748,7 +748,7 @@
        ;; :desc "Todo list"                    "t" #'org-todo-list
        :desc "Search org"                   "s" #'+default/org-notes-search
        :desc "Search org agenda headlines"  "S" #'+default/org-notes-headlines
-       :desc "Unscheduled Agenda"           "u" #'eduarbo/unscheduled-agenda
+       :desc "Unscheduled Agenda"           "u" #'my/unscheduled-agenda
        :desc "Org export to md and copy"    "y" (cmd! (+org/export-to-clipboard 'md))
        :desc "Org export to clipboard"      "Y" #'+org/export-to-clipboard
        :desc "Search notes"                 "/" #'+org/org-notes-search
@@ -940,7 +940,7 @@
       (:prefix-map ("t" . "toggle")
        :desc "Big mode"                     "b" #'doom-big-font-mode
        :desc "Fill Column Indicator"        "c" #'global-display-fill-column-indicator-mode
-       :desc "Ispell Dictionary EN/ES"      "d" #'eduarbo/cycle-ispell-languages
+       :desc "Ispell Dictionary EN/ES"      "d" #'my/cycle-ispell-languages
        :desc "Toggle Org emphasis"          "e" #'+org/toggle-emphasis
        :desc "Flymake"                      "f" #'flymake-mode
        (:when (featurep! :checkers syntax)
@@ -955,7 +955,7 @@
        (:when (featurep! :ui minimap)
         :desc "Minimap"                      "m" #'minimap-mode)
        :desc "Frame maximized"              "M" #'toggle-frame-maximized
-       :desc "Modeline filename style"      "n" #'eduarbo/toggle-doom-modeline-buffer-file-name-style
+       :desc "Modeline filename style"      "n" #'my/toggle-doom-modeline-buffer-file-name-style
        (:when (featurep! :lang org +present)
         :desc "org-tree-slide mode"        "o" #'org-tree-slide-mode)
        :desc "Project sidebar"              "p" #'treemacs
