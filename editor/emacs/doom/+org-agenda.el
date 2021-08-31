@@ -44,7 +44,7 @@
 
 
 ;; Set bigger line-spacing and center text vertically.
-(add-hook! org-agenda-mode
+(add-hook! 'org-agenda-mode-hook
   (setq-local default-text-properties '(line-spacing 0.20 line-height 1.20)))
 
 (after! org
