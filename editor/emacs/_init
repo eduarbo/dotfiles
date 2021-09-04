@@ -45,15 +45,15 @@ install() {
       # Enable Cask of fonts
       brew tap homebrew/cask-fonts
       brew install ${cask_fonts_deps[@]}
-      brew tap d12frosted/emacs-plus
-      brew install emacs-plus --with-mailutils
+      brew tap railwaycat/emacsmacport
+      brew install emacs-mac --with-modules
       ;;
   esac
 
   # Clone and setup doom-emacs
-  _ensure_repo eduarbo/doom-emacs ~/.emacs.d develop
+  _ensure_repo eduarbo/doom-emacs $XDG_CONFIG_HOME/emacs develop
 
-  ~/.emacs.d/bin/doom -y install
+  $XDG_CONFIG_HOME/emacs/bin/doom -y install
 }
 
 update() {
