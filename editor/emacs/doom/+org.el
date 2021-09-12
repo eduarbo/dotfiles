@@ -21,8 +21,8 @@
 (defvar +org-default-archive-dir (expand-file-name "archive" org-directory)
   "Directory of archived files")
 
-(defvar +org-default-agenda-dir (expand-file-name "agenda" +org-default-notes-dir)
-  "Directory of agenda files")
+(defvar +org-default-inbox-file (expand-file-name "inbox.org" +org-default-notes-dir)
+  "New stuff collects in this file")
 
 (defvar +org-notes-search-headlines-depth 1)
 
@@ -30,10 +30,10 @@
 
 (after! org
   (setq
-   org-archive-location (expand-file-name "%s::" +org-default-archive-dir)
-   org-agenda-files (list +org-default-agenda-dir)
+   org-archive-location "::* Archived"
+   org-agenda-files +org-default-inbox-file
 
-   org-log-done 'note
+   org-log-done 'time
    org-log-into-drawer t  ;; Log everything into the LOGBOOK drawer
    org-treat-insert-todo-heading-as-state-change t  ;; insert inactive timestamps on TODO entries
 
@@ -42,7 +42,7 @@
    ;; org-startup-with-inline-images t
 
    org-clone-delete-id t
-   ;; org-hide-emphasis-markers t
+   org-hide-emphasis-markers t
    ;; org-image-actual-width '(600)
    ;; org-imenu-depth 5
    ;; org-pretty-entities t
@@ -67,6 +67,13 @@
 
   (add-to-list 'org-global-properties '("Effort_ALL". "5m 15m 30m 1h 2h 3h 4h 8h")))
 
+;; dynamically build org-agenda-files list to include only files with TODO entries
+;; More info: https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
+(add-hook 'find-file-hook #'vulpea-project-update-tag)
+(add-hook 'before-save-hook #'vulpea-project-update-tag)
+(advice-add 'org-agenda :before #'vulpea-agenda-files-update)
+
+
 (after! ox
   (setq org-export-with-smart-quotes nil
         org-export-with-toc nil))
@@ -85,28 +92,19 @@
   (setq org-habit-graph-column 105)
   (add-to-list 'org-modules 'org-habit t))
 
-(after! org-roam
-  (defun org-roam-reorder-completion-functions ()
-    "Make sure `pcomplete-completions-at-point' loads before `org-roam-complete-at-point' for it to
-    work properly."
-    (remove-hook 'completion-at-point-functions #'pcomplete-completions-at-point t)
-    (add-hook 'completion-at-point-functions #'pcomplete-completions-at-point nil t))
-  (add-hook! 'org-roam-find-file-hook :append #'org-roam-reorder-completion-functions))
-
 
 ;; ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
 ;; ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
 ;; ╹ ╹   ┗━╸   ┗━┛    ╹    ╹ ╹   ┗━╸    ╹    ╹   ┗━╸
 
 (after! org-superstar
-  ;; (setq org-superstar-headline-bullets-list '("𐄙" "𐄚" "𐄛" "𐄜" "𐄝" "𐄞" "𐄟" "𐄠" "𐄡"))
-  (setq org-superstar-headline-bullets-list '(?● ?◯))
-  (setq org-superstar-item-bullet-alist '((?* . ?■)
-                                          (?+ . ?□)
-                                          (?- . ?■))))
+  (setq org-superstar-headline-bullets-list '("●" "■" "⬢" "⬢"))
+  (setq org-superstar-item-bullet-alist '((?* . ?－)
+                                          (?+ . ?＋)
+                                          (?- . ?－))))
 
 (after! org-fancy-priorities
-  (setq org-fancy-priorities-list '("" "" "")))
+  (setq org-fancy-priorities-list '("!" "" "")))
 
 (custom-set-faces!
   '((org-document-info-keyword org-drawer)
@@ -277,6 +275,13 @@
 ;; org-roam
 
 (after! org-roam
+  (defun org-roam-reorder-completion-functions ()
+    "Make sure `pcomplete-completions-at-point' loads before `org-roam-complete-at-point' for it to
+    work properly."
+    (remove-hook 'completion-at-point-functions #'pcomplete-completions-at-point t)
+    (add-hook 'completion-at-point-functions #'pcomplete-completions-at-point nil t))
+  (add-hook! 'org-roam-find-file-hook :append #'org-roam-reorder-completion-functions)
+
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
            "* %?"
@@ -323,6 +328,8 @@
    ;; Context
    ("@work" . ?w)
    ("@home" . ?h)
+   ("@me" . ?m)
+   ("@she" . ?s)
    ("@errand" . ?e)
    ;; Time
    ("15min" . ?<)
@@ -372,7 +379,7 @@
           (sequence
            "TODO(t!)"     ; A task that needs doing & is ready to do
            "NEXT(n!)"     ; Next task to do in an area or project
-           "WAIT(w@/!)"  ; Something is holding up this task; or it is paused
+           "WAIT(w@/!)"   ; Something is holding up this task; or it is paused
            "|")
           (sequence
            "READ(r!)"     ; Read it later

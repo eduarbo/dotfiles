@@ -48,22 +48,19 @@
   (setq-local default-text-properties '(line-spacing 0.20 line-height 1.20)))
 
 (after! org
-  (setq
-    org-agenda-dim-blocked-tasks nil
-    org-agenda-block-separator ?—
-    org-agenda-current-time-string "●—————————————————————————————————————————————————"
-    org-agenda-deadline-leaders '("鬒  " "鬒  in %2d d.   " "鬒 %2d d. ago   ")
-    org-agenda-scheduled-leaders '("  " " %2d d. ago   ")
-    org-agenda-prefix-format
-    '((agenda . " %i %-15c%?-14t%?s%?(+org-get-agenda-project-heading)")
-       (todo . " %i %-15c%?(+org-get-agenda-project-heading)")
-       (tags . " %i %-15c")
-       (search . " %i %-15c"))
-    org-agenda-time-grid '((daily today require-timed)
-                            (800 1000 1200 1400 1600 1800 2000)
-                            "······" "––––––––––––––––––––")
-    )
-  )
+  (setq org-agenda-dim-blocked-tasks nil)
+  (setq org-agenda-block-separator ?—)
+  (setq org-agenda-current-time-string "●—————————————————————————————————————————————————")
+  (setq org-agenda-deadline-leaders '("鬒  " "鬒  in %2d d.   " "鬒 %2d d. ago   "))
+  (setq org-agenda-scheduled-leaders '("  " " %2d d. ago   "))
+  (setq org-agenda-prefix-format
+        '((agenda . " %i %-15T%?-14t%?-16s%?(+org-get-agenda-project-heading)")
+          (todo . " %i %-15T%?(+org-get-agenda-project-heading)")
+          (tags . " %?(+org-get-agenda-project-heading)")
+          (search . " %i %-15T%?(+org-get-agenda-project-heading)")))
+  (setq org-agenda-time-grid '((daily today require-timed)
+                               (800 1000 1200 1400 1600 1800 2000)
+                               "······" "––––––––––––––––––––")))
 
 (custom-set-faces!
   '(org-agenda-structure
