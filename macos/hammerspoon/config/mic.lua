@@ -26,9 +26,12 @@ end
 
 local function updateMicStatus(muted)
     if muted then
-        micMenubar:setIcon("./icons/mic-off.pdf", true)
+        -- micMenubar:setIcon("./icons/mic-mute.pdf", true)
+        micMenubar:setIcon("./icons/mic-filled-mute.pdf", true)
     else
-        micMenubar:setIcon("./icons/mic.pdf", true)
+        -- micMenubar:setIcon("./icons/mic.pdf", true)
+        -- micMenubar:setIcon("./icons/mic-speaking.pdf", true)
+        micMenubar:setIcon("./icons/mic-filled.pdf", true)
     end
 end
 
