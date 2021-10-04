@@ -18,7 +18,7 @@ apps = {
 
 for key, app in pairs(apps) do
     hs.hotkey.bind(
-        "alt",
+        "rightalt",
         key,
         function()
             hs.application.launchOrFocus(app)

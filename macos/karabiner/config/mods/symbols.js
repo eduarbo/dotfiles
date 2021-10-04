@@ -17,10 +17,6 @@ module.exports = {
         // !@#$%^&*()
         ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num.toString(), ['left_shift']]])),
         remapToLayer('tab', [['f13']]),
-        // ¡
-        remapToLayer('open_bracket', [['1', ['left_option']]]),
-        // ¿
-        remapToLayer('right_shift', [['slash', ['left_option', 'left_shift']]]),
 
         // Home row
 
@@ -41,11 +37,9 @@ module.exports = {
         // =
         remapToLayer('v', [['equal_sign']]),
         // ~
-        remapToLayer('b', [['grave_accent_and_tilde', ['left_shift']]]),
-        // ñ tilde
-        remapToLayer('n', [['n', ['left_option']]]),
-        // accent
-        remapToLayer('m', [['e', ['left_option']]]),
+        remapToLayer('n', [['grave_accent_and_tilde', ['left_shift']]]),
+        // `
+        remapToLayer('m', [['grave_accent_and_tilde']]),
 
         // Do not shift these
         remapToLayer('comma', [['comma']]),
