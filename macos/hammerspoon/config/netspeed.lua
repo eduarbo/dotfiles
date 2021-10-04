@@ -11,13 +11,13 @@ local function data_diff()
     if in_diff / 1024 > 1024 then
         speed_in = string.format("%6.2f", in_diff / 1024 / 1024) .. " mb/s"
     else
-        speed_in = string.format("%6.0f", in_diff / 1024) .. " kb/s"
+        speed_in = string.format("%6.2f", in_diff / 1024) .. " kb/s"
     end
 
     if out_diff / 1024 > 1024 then
         speed_out = string.format("%6.2f", out_diff / 1024 / 1024) .. " mb/s"
     else
-        speed_out = string.format("%6.0f", out_diff / 1024) .. " kb/s"
+        speed_out = string.format("%6.2f", out_diff / 1024) .. " kb/s"
     end
 
     local disp_str = speed_out .. " ⬆ " .. speed_in .. " ⬇"

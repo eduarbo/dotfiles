@@ -9,9 +9,9 @@ apps = {
     m = "Mail",
     p = "Spotify",
     q = "Activity Monitor",
-    u = "1Password 7",
     s = "Slack",
     t = "Telegram",
+    u = "1Password 7",
     w = "WhatsApp",
     x = "Firefox Developer Edition"
 }
