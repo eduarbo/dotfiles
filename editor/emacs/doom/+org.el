@@ -69,8 +69,8 @@
 
 ;; dynamically build org-agenda-files list to include only files with TODO entries
 ;; More info: https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
-(add-hook 'find-file-hook #'vulpea-project-update-tag)
-(add-hook 'before-save-hook #'vulpea-project-update-tag)
+(add-hook 'find-file-hook #'vulpea-agenda-update-tag)
+(add-hook 'before-save-hook #'vulpea-agenda-update-tag)
 (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
 
 
@@ -99,12 +99,12 @@
 
 (after! org-superstar
   (setq org-superstar-headline-bullets-list '("●" "■" "⬢" "⬢"))
-  (setq org-superstar-item-bullet-alist '((?* . ?－)
-                                          (?+ . ?＋)
-                                          (?- . ?－))))
+  (setq org-superstar-item-bullet-alist '((?* . ?—)
+                                          (?+ . ?+)
+                                          (?- . ?—))))
 
 (after! org-fancy-priorities
-  (setq org-fancy-priorities-list '("!" "" "")))
+  (setq org-fancy-priorities-list '("⚑" "" "")))
 
 (custom-set-faces!
   '((org-document-info-keyword org-drawer)
@@ -255,7 +255,7 @@
 ;; org-journal
 
 (setq org-journal-dir (expand-file-name "journal/" +org-default-notes-dir))
-(setq +org-default-projects-dir (expand-file-name "projects/" +org-default-notes-dir))
+(setq +org-default-projects-dir +org-default-notes-dir)
 
 (after! org-journal
   (setq
@@ -319,28 +319,11 @@
 ;;  ┃ ┣━┫┃╺┓┃╺┓┃┃┗┫┃╺┓
 ;;  ╹ ╹ ╹┗━┛┗━┛╹╹ ╹┗━┛
 
-(setq
- org-tag-alist
- '(
-   ;; Depth
-   ("@immersive" . ?i) ;; "Deep"
-   ("@process" . ?p) ;; "Shallow"
-   ;; Context
-   ("@work" . ?w)
-   ("@home" . ?h)
-   ("@me" . ?m)
-   ("@she" . ?s)
-   ("@errand" . ?e)
-   ;; Time
-   ("15min" . ?<)
-   ("30min" . ?=)
-   ("1h" . ?>)
-   ;; Energy
-   ("Challenge" . ?1)
-   ("Average" . ?2)
-   ("Easy" . ?3)
-   )
- )
+(setq org-tag-alist
+      '(("@work" . ?w)
+        ("@home" . ?h)
+        ("public" . ?p)
+        ("me" . ?m)))
 
 
 ;; ╺┳╸┏━┓╺┳┓┏━┓   ╻┏ ┏━╸╻ ╻╻ ╻┏━┓┏━┓╺┳┓┏━┓
