@@ -10,24 +10,25 @@ local function data_diff()
   local out_diff = out_seq - netspeed_out_seq
 
   if in_diff/1024 > 1024 then
-    kbin = string.format("%6.2f",in_diff/1024/1024) .. ' mb/s'
+    speed_in = string.format("%6.2f",in_diff/1024/1024) .. ' mb/s'
   else
-    kbin = string.format("%6.2f",in_diff/1024) .. ' kb/s'
+    speed_in = string.format("%6.0f",in_diff/1024) .. ' kb/s'
   end
 
   if out_diff/1024 > 1024 then
-    kbout = string.format("%6.2f",out_diff/1024/1024) .. ' mb/s'
+    speed_out = string.format("%6.2f",out_diff/1024/1024) .. ' mb/s'
   else
-    kbout = string.format("%6.2f",out_diff/1024) .. ' kb/s'
+    speed_out = string.format("%6.0f",out_diff/1024) .. ' kb/s'
   end
 
-  local disp_str = '⬆'..kbout..'\n⬇'..kbin
-  -- local disp_str = '⇡'..kbout..'\n⇣'..kbin
+  local disp_str = speed_out..' ⬆ '..speed_in..' ⬇'
+  -- local disp_str = '↑'..speed_out..'\t↓'..speed_in
+  -- local disp_str = '⇡'..speed_out..'\t⇣'..speed_in
 
   if darkmode_status then
-    styled_disp_str = hs.styledtext.new(disp_str,{font={size=9.0,color=white}})
+    styled_disp_str = hs.styledtext.new(disp_str,{font={name='JetBrains Mono',size=12.0,color=white}})
   else
-    styled_disp_str = hs.styledtext.new(disp_str,{font={size=9.0,color=black}})
+    styled_disp_str = hs.styledtext.new(disp_str,{font={name='JetBrains Mono',size=12.0,color=black}})
   end
 
   netspeed_menubar:setTitle(styled_disp_str)
