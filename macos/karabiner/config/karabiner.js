@@ -4,7 +4,6 @@ const { corneKeyboard } = require('./devices');
 const arrows = require('./mods/arrows');
 const emacs = require('./mods/emacs');
 const fn = require('./mods/fn');
-const launcher = require('./mods/launcher');
 const qwerty = require('./mods/qwerty');
 const symbols = require('./mods/symbols');
 
@@ -14,7 +13,6 @@ const rev3 = [
   fn,
   symbols,
   qwerty,
-  launcher,
 ];
 
 const karabiner = {
@@ -43,7 +41,6 @@ const complexModifications = {
   arrows,
   emacs,
   fn,
-  launcher,
   qwerty,
   symbols,
 };
