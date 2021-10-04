@@ -25,22 +25,36 @@
 (defun +org-clock-heading-reversed-outline-path ()
   "Return the reversed outline path of the currenty entry"
   (org-format-outline-path
-    (reverse (org-get-outline-path t)) nil nil +org-clock-heading-outline-path-separator))
+   (reverse (org-get-outline-path t)) nil nil +org-clock-heading-outline-path-separator))
 
 ;;;###autoload
-(defun +org-get-agenda-project-heading ()
-  "Return the parent heading of the current entry decorated with a prefix and suffix"
-  (let* ((parent (org-format-outline-path (cdr (org-get-outline-path)) 20)))
-    (if (string= parent "")
-      ""
-      (concat +org-agenda-project-heading-prefix parent +org-agenda-project-heading-suffix))))
+(defun +org-get-project-heading-or-file-title ()
+  "Return the parent heading of the current entry if it's a project task, otherwise return the file title"
+  (require 'org-roam)
+  (let* ((column-width 20)
+         ;; FIXME figure out a way to determine if parent heading is a Project
+         ;; (is-project (string= (org-element-property :todo-keyword (org-element-property :parent (org-element-at-point))) "PROJ"))
+         (title (cadr (assoc "TITLE" (org-collect-keywords '("title")) #'string-equal)))
+         (title-formatted (org-format-outline-path
+                           (list title) column-width "■" " ")) ; □
+         (parent (car (last (org-get-outline-path))))
+         (parent-formatted (org-format-outline-path
+                            (list parent) column-width "" " ")))
+    ;; (if (and is-project
+    ;;          (> (length parent) 0))
+    ;;     parent-formatted
+    ;;   title-formatted)
+
+    (if (> (length parent) 0)
+        parent-formatted
+      title-formatted)))
 
 ;;;###autoload
 (defun +org--capture-project-file ()
   "Get the path for the project org file"
   (if (doom-project-root)
-    (let ((filename (doom-project-name)))
-      (expand-file-name (concat filename ".org") +org-default-projects-dir))
+      (let ((filename (doom-project-name)))
+        (expand-file-name (concat filename ".org") +org-default-projects-dir))
     (user-error "Couldn't detect a project")))
 
 ;;;###autoload
@@ -62,7 +76,7 @@
 (defmacro org-emphasize! (fname char)
   "Make function for setting the emphasis in org mode"
   `(defun ,fname () (interactive)
-     (+org/emphasize-dwim ,char)))
+          (+org/emphasize-dwim ,char)))
 
 ;;;###autoload
 (defun +org/org-agenda-headlines ()
