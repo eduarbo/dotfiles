@@ -361,8 +361,6 @@
         "C-u"   #'vertico-scroll-down
         "C-j"   #'vertico-next
         "C-k"   #'vertico-previous
-        "C-S-j" #'+vertico/next-candidate-preview
-        "C-S-k" #'+vertico/previous-candidate-preview
         )))
 
 
@@ -597,7 +595,9 @@
        (:when (featurep! :tools lsp +eglot)
         :desc "LSP Execute code action" "a" #'eglot-code-actions
         :desc "LSP Rename" "r" #'eglot-rename
-        :desc "LSP Find declaration" "j" #'eglot-find-declaration)
+        :desc "LSP Find declaration"                 "j"   #'eglot-find-declaration
+        (:when (featurep! :completion vertico)
+         :desc "Jump to symbol in current workspace" "j"   #'consult-eglot-symbols))
        :desc "Compile"                               "c"   #'compile
        :desc "Recompile"                             "C"   #'recompile
        :desc "Jump to definition"                    "d"   #'+lookup/definition
@@ -611,9 +611,7 @@
        :desc "Find type definition"                  "t"   #'+lookup/type-definition
        :desc "Delete trailing whitespace"            "w"   #'delete-trailing-whitespace
        :desc "Delete trailing newlines"              "W"   #'doom/delete-trailing-newlines
-       :desc "List errors"                           "x"   #'flymake-show-diagnostics-buffer
-       (:when (featurep! :checkers syntax)
-        :desc "List errors"                         "x"   #'flycheck-list-errors))
+       :desc "List errors"                           "x"   #'+default/diagnostics)
 
       ;;; <leader> f --- file
       (:prefix-map ("f" . "file")
@@ -904,7 +902,7 @@
       ;;; <leader> s --- search
       (:prefix-map ("s" . "search")
        :desc "Search buffer"                "b"
-       (cond ((featurep! :completion vertico)   #'consult-line)
+       (cond ((featurep! :completion vertico)   #'+default/search-buffer)
              ((featurep! :completion ivy)       #'swiper)
              ((featurep! :completion helm)      #'swiper))
        :desc "Search all open buffers"      "B"
@@ -913,6 +911,7 @@
              ((featurep! :completion helm)      #'swiper-all))
        :desc "Search current directory"     "d" #'+default/search-cwd
        :desc "Search other directory"       "D" #'+default/search-other-cwd
+       :desc "Search .emacs.d"              "e" #'+default/search-emacsd
        :desc "Jump to symbol"               "i" #'imenu
        :desc "Jump to visible link"         "l" #'link-hint-open-link
        :desc "Jump to link"                 "L" #'ffap-menu
@@ -1013,9 +1012,9 @@
    "s-w"           #'org-capture-kill
    "s-r"           #'org-capture-refile)
 
-  (:map (org-mode-map org-agenda-mode-map)
-   "s-r"           #'org-refile
-   "s-R"           #'+org/refile-to-running-clock
+  (:map org-mode-map
+   :nvi "s-r"      #'org-roam-refile
+   :nvi "s-R"      #'+org/refile-to-running-clock
 
    :n [return]     #'+org/dwim-at-point
 
