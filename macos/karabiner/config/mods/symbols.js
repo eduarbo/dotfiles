@@ -36,10 +36,10 @@ module.exports = {
         remapToLayer('c', [['backslash', ['left_shift']]]),
         // =
         remapToLayer('v', [['equal_sign']]),
-        // ~
-        remapToLayer('n', [['grave_accent_and_tilde', ['left_shift']]]),
-        // `
-        remapToLayer('m', [['grave_accent_and_tilde']]),
+        // emojis
+        remapToLayer('n', [['spacebar', ['control', 'command']]]),
+        // ’
+        remapToLayer('m', [['close_bracket', ['option', 'shift']]]),
 
         // Do not shift these
         remapToLayer('comma', [['comma']]),
