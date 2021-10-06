@@ -1,7 +1,6 @@
 -- Keys used in other apps
 -- hjkl: arrow keys
 -- o: Alfred
--- t: translates selected text with DeepL
 -- u: launches 1Password mini
 -- y: Clipboard history with Alfred
 
@@ -20,6 +19,7 @@ apps = {
     q = "Activity Monitor",
     r = "Telegram",
     s = "Slack",
+    -- t = "",
     -- v = "",
     w = "WhatsApp",
     x = "Firefox Developer Edition",
