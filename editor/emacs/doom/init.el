@@ -114,7 +114,7 @@
         ;;+eglot
         )
        (magit            ; a git porcelain for Emacs
-        +forge
+        ;; +forge
         )
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
