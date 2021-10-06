@@ -48,16 +48,16 @@ tasks."
 
 ;;;###autoload
 (defun vulpea-agenda-files ()
-    "Return a list of note files containing 'agenda' tag." ;
-    (seq-uniq
-     (seq-map
-      #'car
-      (org-roam-db-query
-       [:select [nodes:file]
-        :from tags
-        :left-join nodes
-        :on (= tags:node-id nodes:id)
-        :where (like tag (quote "%\"agenda\"%"))]))))
+  "Return a list of note files containing 'agenda' tag." ;
+  (seq-uniq
+   (seq-map
+    #'car
+    (org-roam-db-query
+     [:select [nodes:file]
+      :from tags
+      :left-join nodes
+      :on (= tags:node-id nodes:id)
+      :where (like tag (quote "%\"agenda\"%"))]))))
 
 ;;;###autoload
 (defun vulpea-agenda-files-update (&rest _)
@@ -70,13 +70,17 @@ tasks."
 ;;;###autoload
 (defun vulpea-buffer-tags-get ()
   "Return filetags value in current buffer."
-  (vulpea-buffer-prop-get-list "filetags" " "))
+  (vulpea-buffer-prop-get-list "filetags" "[ :]"))
 
 ;;;###autoload
 (defun vulpea-buffer-tags-set (&rest tags)
   "Set TAGS in current buffer.
+
 If filetags value is already set, replace it."
-  (vulpea-buffer-prop-set "filetags" (string-join tags " ")))
+  (if tags
+      (vulpea-buffer-prop-set
+       "filetags" (concat ":" (string-join tags ":") ":"))
+    (vulpea-buffer-prop-remove "filetags")))
 
 ;;;###autoload
 (defun vulpea-buffer-tags-add (tag)
@@ -145,3 +149,11 @@ If nil it defaults to `split-string-default-separators', normally
   (let ((value (vulpea-buffer-prop-get name)))
     (when (and value (not (string-empty-p value)))
       (split-string-and-unquote value separators))))
+
+;;;###autoload
+(defun vulpea-buffer-prop-remove (name)
+  "Remove a buffer property called NAME."
+  (org-with-point-at 1
+    (when (re-search-forward (concat "\\(^#\\+" name ":.*\n?\\)")
+                             (point-max) t)
+      (replace-match ""))))
