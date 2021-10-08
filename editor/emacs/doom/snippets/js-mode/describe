@@ -2,6 +2,6 @@
 # name: describe
 # key: des
 # --
-describe('${1:name}', function () {
+describe('${1:name}', () => {
   `%`$0
 });
