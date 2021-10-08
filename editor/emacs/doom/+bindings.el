@@ -49,11 +49,11 @@
     "C-k" #'previous-line-or-history-element))
 
 ;; Easier window navigation
-(map! :map (general-override-mode-map ranger-mode-map magit-mode-map comint-mode-map)
-      :nv  "C-h"           #'evil-window-left
-      :nv  "C-j"           #'evil-window-down
-      :nv  "C-k"           #'evil-window-up
-      :nv  "C-l"           #'evil-window-right)
+(map! :map (general-override-mode-map ranger-mode-map magit-mode-map comint-mode-map org-agenda-keymap)
+      :mnv  "C-h"           #'evil-window-left
+      :mnv  "C-j"           #'evil-window-down
+      :mnv  "C-k"           #'evil-window-up
+      :mnv  "C-l"           #'evil-window-right)
 
 ;; Sane defaults
 (map! :m    ":"             #'execute-extended-command
@@ -61,6 +61,8 @@
 
       :n    "#"             #'evilnc-comment-or-uncomment-lines
       :v    "#"             #'evilnc-comment-operator
+
+      :n    "!"             #'async-shell-command
 
       :nv   "SPC"           #'+default/search-project-for-symbol-at-point
       :nv   "S-SPC"         #'+default/search-project
@@ -77,8 +79,8 @@
 
       :m    "H"            #'sp-backward-symbol
       :m    "L"            #'sp-forward-symbol
-      :gi   "C-h"          #'sp-backward-symbol
-      :gi   "C-l"          #'sp-forward-symbol
+      :gim   "C-h"          #'sp-backward-symbol
+      :gim   "C-l"          #'sp-forward-symbol
 
       :gi   "C-d"          #'evil-delete-line
       :gi   "C-S-d"        #'evil-delete-whole-line
@@ -115,57 +117,59 @@
  :when IS-MAC
 
  :g     "s-e"           #'execute-extended-command
- (:map org-mode-map
-  :g    "s-o"           #'+org/insert-item-below
-  :g    "s-O"           #'+org/insert-item-above)
- (:map prog-mode-map
-  :g    "s-o"           #'+evil/insert-newline-below
-  :g    "s-O"           #'+evil/insert-newline-above)
  :g     "s-y"           #'+default/yank-pop
  :g     "s-`"           #'helpful-key
  :g     "s-."           #'treemacs
  :g     "s->"           #'treemacs-select-window
 
+ (:map org-mode-map
+  :g    "s-o"           #'+org/insert-item-below
+  :g    "s-O"           #'+org/insert-item-above)
+
+ (:map prog-mode-map
+  :gi    "s-o"           #'+default/newline
+  :gi    "s-O"           #'+default/newline-above)
+
  ;; Available keys: bm
- :n     "s-a"           #'other-window
- :n     "s-g"           #'magit-status
- :n     "s-G"           #'magit-status-here
- :n     "s-h"           #'previous-buffer
- :n     "s-H"           #'+workspace/switch-left
- :m     "s-i"           #'org-capture
- :m     "s-I"           #'org-journal-new-entry
- :n     "s-j"           #'evil-switch-to-windows-last-buffer
- :n     "s-J"           #'+workspace/other
- :n     "s-k"           #'kill-current-buffer
- :n     "s-K"           #'doom/kill-buried-buffers
- :n     "s-l"           #'next-buffer
- :n     "s-L"           #'+workspace/switch-right
- :n     "s-p"           #'doom/open-project-scratch-buffer
- :n     "s-P"           #'doom/switch-to-project-scratch-buffer
- :n     "s-r"           #'+eval/open-repl-other-window
- :n     "s-R"           #'+eval/open-repl-same-window
- :v     "s-r"           #'+eval:region
- :v     "s-R"           #'+eval/buffer
- :n     "s-u"           #'evil-window-mru
- :n     "s-U"           #'delete-other-windows
- :n     "s-x"           #'doom/open-scratch-buffer
- :n     "s-X"           #'doom/switch-to-scratch-buffer
+ :gn     "s-a"           #'other-window
+ :gn     "s-g"           #'magit-status
+ :gn     "s-G"           #'magit-status-here
+ :gn     "s-h"           #'previous-buffer
+ :gn     "s-H"           #'+workspace/switch-left
+ :gm     "s-i"           #'org-capture
+ :gm     "s-I"           #'org-journal-new-entry
+ :gn     "s-j"           #'evil-switch-to-windows-last-buffer
+ :gn     "s-J"           #'+workspace/other
+ :gn     "s-k"           #'kill-current-buffer
+ :gn     "s-K"           #'doom/kill-buried-buffers
+ :gn     "s-l"           #'next-buffer
+ :gn     "s-L"           #'+workspace/switch-right
+ :gn     "s-p"           #'doom/open-project-scratch-buffer
+ :gn     "s-P"           #'doom/switch-to-project-scratch-buffer
+ :gn     "s-r"           #'+eval/open-repl-other-window
+ :gn     "s-R"           #'+eval/open-repl-same-window
+ :gv     "s-r"           #'+eval:region
+ :gv     "s-R"           #'+eval/buffer
+ :gn     "s-u"           #'evil-window-mru
+ :gn     "s-U"           #'delete-other-windows
+ :gn     "s-x"           #'doom/open-scratch-buffer
+ :gn     "s-X"           #'doom/switch-to-scratch-buffer
 
- :n     "s-;"           #'doom/reset-font-size
- :n     "s-:"           #'doom/reset-font-size
+ :gn     "s-;"           #'doom/reset-font-size
+ :gn     "s-:"           #'doom/reset-font-size
  ;; Frame-local font resizing
- :n     "s-["           #'text-scale-decrease
- :n     "s-]"           #'text-scale-increase
+ :gn     "s-["           #'text-scale-decrease
+ :gn     "s-]"           #'text-scale-increase
  ;; Buffer-local font resizing
- :n     "s-{"           #'doom/decrease-font-size
- :n     "s-}"           #'doom/increase-font-size
+ :gn     "s-{"           #'doom/decrease-font-size
+ :gn     "s-}"           #'doom/increase-font-size
 
- :n     "s-,"           #'doom/find-file-in-private-config
- :n     "s-<"           #'my/find-file-in-dotfiles
- :m     [s-up]          #'drag-stuff-up
- :m     [s-down]        #'drag-stuff-down
- :m     [s-left]        #'drag-stuff-left
- :m     [s-right]       #'drag-stuff-right)
+ :gn     "s-,"           #'doom/find-file-in-private-config
+ :gn     "s-<"           #'my/find-file-in-dotfiles
+ :gm     [s-up]          #'drag-stuff-up
+ :gm     [s-down]        #'drag-stuff-down
+ :gm     [s-left]        #'drag-stuff-left
+ :gm     [s-right]       #'drag-stuff-right)
 
 ;; Smart tab, these will only work in GUI Emacs
 (map! :i [tab] (cmds! (and (featurep! :editor snippets)
@@ -206,6 +210,11 @@
                              (save-excursion (end-of-line) (invisible-p (point))))
                         #'+fold/toggle)
 
+      ;; Smarter C-a/C-e for both Emacs and Evil. C-a will jump to indentation.
+      ;; Pressing it again will send you to the true bol. Same goes for C-e, except
+      ;; it will ignore comments+trailing whitespace before jumping to eol.
+      :gi "C-a" #'doom/backward-to-bol-or-indent
+      :gi "C-e" #'doom/forward-to-last-non-comment-or-eol
 
       (:after treemacs :map treemacs-mode-map
        :g "C-h"           #'evil-window-left
@@ -418,7 +427,12 @@
       (:when (featurep! :editor snippets)
        ;; auto-yasnippet
        :i  [C-tab] #'aya-expand
-       :nv [C-tab] #'aya-create)
+       :nv [C-tab] #'aya-create
+
+       (:map snippet-mode-map
+        "s-s"           #'yas-load-snippet-buffer-and-close
+        "s-k"           #'+snippet--abort
+        "s-w"           #'+snippet--abort))
 
       (:after yasnippet :map yas-keymap
        ;; Do not interfer with company
