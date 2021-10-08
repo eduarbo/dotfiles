@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: const ... = require('...');
-# key: re
-# uuid: require
-# --
-const ${1:package} = '${2:${1:$(s-dashed-words yas-text)}}';
