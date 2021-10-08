@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: describe
+# uuid: des
+# type: command
+# --
+(doom-snippets-expand :uuid "describe")
