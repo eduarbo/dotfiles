@@ -8,39 +8,39 @@
 
 
 (setq
-  epa-file-encrypt-to user-mail-address
+ epa-file-encrypt-to user-mail-address
 
-  ;; Allow me to insert accents and other symbols
-  mac-option-modifier 'none
+ ;; Allow me to insert accents and other symbols
+ mac-option-modifier 'none
 
-  ;; Get some context when scrolling
-  scroll-margin 10
+ ;; Get some context when scrolling
+ scroll-margin 10
 
-  ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
-  auto-save-visited-interval 20
+ ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
+ auto-save-visited-interval 20
 
-  ;; evil
-  evil-split-window-below t
-  evil-vsplit-window-right t
+ ;; evil
+ evil-split-window-below t
+ evil-vsplit-window-right t
 
-  ;; Which-key
-  which-key-idle-delay 0.3
-  which-key-idle-secondary-delay 0
-  which-key-sort-order 'which-key-prefix-then-key-order
+ ;; Which-key
+ which-key-idle-delay 0.3
+ which-key-idle-secondary-delay 0
+ which-key-sort-order 'which-key-prefix-then-key-order
 
-  ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
-  ;; They're generally unhelpful and only add confusing visual clutter.
-  mode-line-default-help-echo nil
-  show-help-function nil
+ ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
+ ;; They're generally unhelpful and only add confusing visual clutter.
+ mode-line-default-help-echo nil
+ show-help-function nil
 
-  avy-timeout-seconds 0.3
+ avy-timeout-seconds 0.3
 
-  ;; Show file path for files with the same base name. For example, the files `/foo/bar/mumble/name'
-  ;; and `/baz/quux/mumble/name' would have the following buffer names:
-  ;; bar/mumble/name    quux/mumble/name
-  uniquify-buffer-name-style 'forward
+ ;; Show file path for files with the same base name. For example, the files `/foo/bar/mumble/name'
+ ;; and `/baz/quux/mumble/name' would have the following buffer names:
+ ;; bar/mumble/name    quux/mumble/name
+ uniquify-buffer-name-style 'forward
 
-  doom-scratch-initial-major-mode 'org-mode)
+ doom-scratch-initial-major-mode 'org-mode)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
 (add-hook! '(prog-mode-hook conf-mode-hook) #'subword-mode)
@@ -74,9 +74,10 @@
 
 ;;; Frames/Windows
 
+;; FIXME This breaks workspaces
 ;; A more useful title
-(setq frame-title-format
-   '((:eval (buffer-file-name)) "   —   " (:eval (+workspace-current-name))))
+;; (setq frame-title-format
+;;    '((:eval (buffer-file-name)) "   —   " (:eval (+workspace-current-name))))
 
 ;; Maximize window on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
