@@ -1,9 +1,5 @@
 ;;; editor/emacs/doom/+fonts.el -*- lexical-binding: t; -*-
 
-;; (setq doom-font (font-spec :family "JetBrains Mono" :size 12 :weight 'light))
-;; (setq doom-variable-pitch-font (font-spec :family "Noto Serif"))
-;; (setq doom-variable-pitch-font (font-spec :family "ETBembo" :style "RomanOSF"))
-
 ;; make sure that the font exists before using it
 (let ((fn (doom-rpartial #'member (font-family-list))))
   ;; Main font
@@ -19,6 +15,10 @@
   (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
     (setq doom-unicode-font (font-spec :family font)))
 
+  ;; Variable pitch font
+  (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
+    (setq doom-serif-font (font-spec :family font)))
+
   ;; Emojis font 💅
   ;; NOTE I prefer Microsoft emojis but they don't have a fixed width, which breaks monospace column
   ;; alignment 😕
@@ -33,10 +33,10 @@
       (set-fontset-font t '(#x231A . #x231B) font)  ;; ⌚ ⌛
       (set-fontset-font t '(#x23E9 . #x23F3) font)  ;; ⏩ ⏪ ⏫ ⏬ ⏭ ⏮ ⏯ ⏰ ⏱ ⏲ ⏳
       (set-fontset-font t '(#x23F8 . #x23FA) font)  ;; ⏸ ⏹ ⏺
-      (set-fontset-font t '(#x2600 . #x26FF) font)  ;; Miscellaneous Symbols
-      (set-fontset-font t '(#x2700 . #x27BF) font)  ;; Dingbats
-      (set-fontset-font t '(#x1F600 . #x1F64F) font)  ;; Emoticons
-      (set-fontset-font t '(#x1F300 . #x1F5FF) font)  ;; Miscellaneous Symbols and Pictographs
-      (set-fontset-font t '(#x1F900 . #x1F9FF) font)  ;; Supplemental Symbols and Pictographs
-      (set-fontset-font t '(#x1F680 . #x1F6FF) font)  ;; Transport and Map Symbols
+      (set-fontset-font t '(#x2600 . #x26FF) font)  ;; Miscellaneous Symbols ☂
+      (set-fontset-font t '(#x2700 . #x27BF) font)  ;; Dingbats ✊
+      (set-fontset-font t '(#x1F600 . #x1F64F) font)  ;; Emoticons 🙈
+      (set-fontset-font t '(#x1F300 . #x1F5FF) font)  ;; Miscellaneous Symbols and Pictographs 🌶
+      (set-fontset-font t '(#x1F900 . #x1F9FF) font)  ;; Supplemental Symbols and Pictographs 🤪
+      (set-fontset-font t '(#x1F680 . #x1F6FF) font)  ;; Transport and Map Symbols 🛡
       )))
