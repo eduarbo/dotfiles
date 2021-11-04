@@ -1,18 +1,28 @@
+// -- Keys used in other apps
+// -- hjkl: arrow keys
+// -- o: Alfred
+// -- u: launches 1Password mini
+// -- y: Clipboard history with Alfred
+
 const appsMap = {
   a: '/System/Applications/Calendar.app',
+  // b: '',
   c: '/System/Applications/Utilities/Digital Color Meter.app',
-  d: '/Applications/1Password 7.app',
+  d: '/Applications/Deepl.app',
   e: '/Applications/Emacs.app',
   f: '/System/Library/CoreServices/Finder.app',
-  x: '/Applications/Firefox Developer Edition.app',
   g: '/Applications/Google Chrome.app',
   i: '/Applications/kitty.app',
   m: '/System/Applications/Mail.app',
+  // n: '',
   p: '/Applications/Spotify.app',
-  r: '/System/Applications/Utilities/Activity Monitor.app',
+  q: '/System/Applications/Utilities/Activity Monitor.app',
+  r: '/System/Applications/Utilities/Telegram.app',
   s: '/Applications/Slack.app',
-  t: '/Applications/Telegram.app',
+  // t: '',
+  // v: '',
   w: '/Applications/WhatsApp.app',
+  z: '/Applications/1Password 7.app',
 };
 
 const manipulators = Object.entries(appsMap).map(([key, app]) => ({
@@ -24,7 +34,7 @@ const manipulators = Object.entries(appsMap).map(([key, app]) => ({
       optional: ['caps_lock'],
     },
   },
-  to: [{ shell_command: `open '${app}'` }],
+  to: [{ shell_command: `open -a "${app}"` }],
 }));
 
 module.exports = {
