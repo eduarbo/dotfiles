@@ -9,9 +9,9 @@ module.exports = {
     {
       description: 'Thumb cluster',
       manipulators: [
-        modTap(['spacebar'], [['right_command']], [['spacebar']]),
-        remap(['right_command'], [['right_shift']]),
-        remap(['left_command'], [['left_shift']]),
+        modTap(['spacebar'], [['right_command']], [['return_or_enter']]),
+        modTap(['right_command'], [['right_shift']], [['escape']]),
+        modTap(['left_command'], [['left_shift']], [['spacebar']]),
 
         modTap(['right_option'], [['right_option']], [['grave_accent_and_tilde']]),
         modTap(['left_option'], [['right_control']], [['quote']]),
@@ -32,7 +32,7 @@ module.exports = {
       description: 'Custom Qwerty',
       manipulators: [
         // [ -> '
-        remap(['open_bracket'], [['return_or_enter']]),
+        remap(['open_bracket'], [['quote']]),
         // ' -> ]
         remap(['quote'], [['close_bracket']]),
         // CAPS -> [
@@ -40,7 +40,7 @@ module.exports = {
         // LSHFIT -> DEL
         remap(['left_shift'], [['delete_or_backspace']]),
         // RSHIFT -> `
-        remap(['right_shift'], [['escape']]),
+        remap(['right_shift'], [['grave_accent_and_tilde']]),
       ],
     },
   ],
