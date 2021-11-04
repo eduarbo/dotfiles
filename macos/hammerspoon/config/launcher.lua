@@ -22,7 +22,6 @@ apps = {
     -- t = "",
     -- v = "",
     w = "WhatsApp",
-    x = "Firefox Developer Edition",
     z = "1Password 7"
 }
 
