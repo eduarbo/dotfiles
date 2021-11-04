@@ -40,8 +40,6 @@ module.exports = {
         remapToLayer('n', [['n', ['option']]]),
         // ’ (accent)
         remapToLayer('m', [['close_bracket', ['option', 'shift']]]),
-        // emojis
-        remapToLayer('b', [['spacebar', ['control', 'command']]]),
 
         // Do not shift these
         remapToLayer('comma', [['comma']]),
