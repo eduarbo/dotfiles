@@ -3,6 +3,7 @@
 // -- o: Alfred
 // -- u: launches 1Password mini
 // -- y: Clipboard history with Alfred
+// -- x: Emojis
 
 const appsMap = {
   a: '/System/Applications/Calendar.app',
