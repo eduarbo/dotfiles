@@ -15,6 +15,7 @@
 
 
 (load! "+defaults.el")
+(load! "+fonts.el")
 (load! "+bindings.el")
 (load! "+lang.el")
 (load! "+modules.el")

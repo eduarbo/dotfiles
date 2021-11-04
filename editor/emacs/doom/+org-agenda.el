@@ -105,10 +105,10 @@
                  (:name "📝 Log"
                   :log changed
                   :order 7)
-                 (:name "🕓️ Timed"
+                 (:name "🕓 Timed"
                   :time-grid t
                   :order 3)
-                 (:name "⚠️ Due Soon"
+                 (:name "⚠︎ Due Soon"
                   :deadline future
                   :order 5)
                  (:name "📆 Scheduled earlier"
