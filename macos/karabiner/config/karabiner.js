@@ -16,6 +16,7 @@ const rev3 = [
   fn,
   oldSymbols,
   oldQwerty,
+  launcher,
 ];
 
 const rev4 = [
@@ -54,9 +55,9 @@ const complexModifications = {
   arrows,
   emacs,
   fn,
-  launcher,
   symbols,
   qwerty,
+  launcher,
 };
 
 module.exports = {
