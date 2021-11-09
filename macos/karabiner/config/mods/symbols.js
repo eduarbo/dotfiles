@@ -16,6 +16,7 @@ module.exports = {
 
         // !@#$%^&*()
         ...shiftedNumbersRow.map((key, num) => remapToLayer(key, [[num.toString(), ['left_shift']]])),
+        // TODO Replace with locked Hyper
         remapToLayer('tab', [['f13']]),
 
         // Home row
@@ -32,14 +33,16 @@ module.exports = {
         remapToLayer('z', [['hyphen', ['left_shift']]]),
         // \
         remapToLayer('x', [['backslash']]),
-        // |
-        remapToLayer('c', [['backslash', ['left_shift']]]),
         // =
-        remapToLayer('v', [['equal_sign']]),
-        // ~ (tilde)
-        remapToLayer('n', [['n', ['left_option']]]),
-        // ’ (accent)
-        remapToLayer('m', [['e', ['left_option']]]),
+        remapToLayer('c', [['equal_sign']]),
+        // =
+        remapToLayer('v', [['right_shift', ['left_shift']]]),
+        // ñ
+        remapToLayer('n', [['n', ['left_option']], ['n']]),
+        // Ñ
+        remap(['n', [...mandatoryMods, 'right_shift'], optionalMods], [['n', ['left_option']], ['n', ['left_shift']]]),
+        // |
+        remapToLayer('m', [['backslash', ['left_shift']]]),
 
         // Do not shift these
         remapToLayer('comma', [['comma']]),

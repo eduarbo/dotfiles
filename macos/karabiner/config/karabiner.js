@@ -9,6 +9,7 @@ const oldQwerty = require('./mods/old-qwerty');
 const qwerty = require('./mods/qwerty');
 const oldSymbols = require('./mods/old-symbols');
 const symbols = require('./mods/symbols');
+const accents = require('./mods/accents');
 
 const rev3 = [
   arrows,
@@ -26,13 +27,14 @@ const rev4 = [
   symbols,
   qwerty,
   launcher,
+  accents,
 ];
 
 const karabiner = {
   profiles: [
     profile('Clean'),
     profile('eduarbo v3', rev3, {
-      selected: true,
+      // selected: true,
     }),
     profile('eduarbo v3 (Mac kbd OFF if Corne ON)', rev3, {
       devices: [{
@@ -42,7 +44,9 @@ const karabiner = {
         manipulate_caps_lock_led: true,
       }],
     }),
-    profile('eduarbo v4', rev4, {}),
+    profile('eduarbo v4', rev4, {
+      selected: true,
+    }),
   ],
   global: {
     check_for_updates_on_startup: true,
@@ -58,6 +62,7 @@ const complexModifications = {
   symbols,
   qwerty,
   launcher,
+  accents,
 };
 
 module.exports = {

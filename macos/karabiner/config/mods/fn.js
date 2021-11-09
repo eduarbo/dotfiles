@@ -17,7 +17,7 @@ module.exports = {
       description: 'Function keys, movement, brightness, volumen and media controls',
       manipulators: [
         // Volume controls
-        remapToLayer('q', [['mute']]),
+        remapToLayer('t', [['mute']]),
         remapToLayer('w', [['volume_decrement']]),
         remapToLayer('r', [['volume_increment']]),
 
@@ -46,8 +46,10 @@ module.exports = {
         remapToLayer('i', [['page_up']]),
         remapToLayer('u', [['page_down']]),
         // FIXME
-        // remapToLayer('comma', [['home']]),
-        // remapToLayer('m', [['end']]),
+        remapToLayer('o', [['home']]),
+        remapToLayer('p', [['end']]),
+
+        remapToLayer('left_command', [['right_shift', ['left_shift']]]),
       ],
     },
   ],
