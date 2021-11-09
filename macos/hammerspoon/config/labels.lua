@@ -49,13 +49,15 @@ function Label:show(duration)
 
     local bgDisplayFrame = {
         x = right - self.textFrame.w - bgMargin.x * 2,
-        y = bottom - self.textFrame.h - bgMargin.y * 2,
+        y = self.textFrame.h - bgMargin.y * 2,
+        -- y = bottom - self.textFrame.h - bgMargin.y * 2, -- Display at the bottom
         w = self.textFrame.w + bgMargin.x * 2,
         h = self.textFrame.h + bgMargin.y * 2
     }
     local textDisplayFrame = {
         x = right - self.textFrame.w - bgMargin.x,
-        y = bottom - self.textFrame.h - bgMargin.y,
+        y = self.textFrame.h - bgMargin.y, -- Display at the top
+        -- y = bottom - self.textFrame.h - bgMargin.y, -- Display at the bottom
         w = self.textFrame.w,
         h = self.textFrame.h
     }
