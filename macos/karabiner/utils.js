@@ -1,14 +1,16 @@
-const from = (key, mandatory, optional = ['any']) => ({
+const from = (key, mandatory = [], optional = ['any']) => ({
   key_code: key,
-  modifiers: {
-    mandatory,
-    optional,
-  },
+  ...((mandatory.length || optional.length) && {
+    modifiers: {
+      mandatory,
+      optional,
+    },
+  }),
 });
 
 const to = (keys, options = {}) => keys.map(([key, modifiers]) => ({
   key_code: key,
-  modifiers,
+  ...(modifiers && { modifiers }),
   ...options,
 }));
 
@@ -25,50 +27,16 @@ const keyToString = (...args) => args.map(([key, modifiers = []]) => [
   key,
 ].filter(Boolean).join('')).join(' | ');
 
-const remap = (fromKey, toKey, { conditions, ...toOptions } = {}) => ({
+const remap = (fromKey, toKey, { conditions, simultaneous, ...toOptions } = {}) => ({
   description: `${keyToString(fromKey)} to ${keyToString(...toKey)}`,
   type: 'basic',
-  from: from(...fromKey),
+  ...(simultaneous ? {
+    simultaneous: fromKey.map((keys) => from(...keys)),
+  } : {
+    from: from(...fromKey),
+  }),
   to: to(toKey, toOptions),
   conditions,
-});
-
-const sticky = (fromKey, layer, options) => ({
-  type: 'basic',
-  from: from(...fromKey),
-  to: {
-    set_variable: {
-      name: layer,
-      value: 1,
-    },
-  },
-  to_after_key_up: [
-    {
-      set_variable: {
-        name: layer,
-        value: 0,
-      },
-    },
-  ],
-  // to_delayed_action: {
-  //   to_if_invoked: [
-  //     {
-  //       set_variable: {
-  //         name: layer,
-  //         value: 0,
-  //       },
-  //     },
-  //   ],
-  //   // to_if_canceled: [
-  //   //   {
-  //   //     set_variable: {
-  //   //       name: layer,
-  //   //       value: 1,
-  //   //     },
-  //   //   },
-  //   // ],
-  // },
-  ...options,
 });
 
 const modTap = (fromKey, toKey, toKeyOnTap) => ({
@@ -114,6 +82,5 @@ module.exports = {
   modTap,
   profile,
   remap,
-  sticky,
   to,
 };
