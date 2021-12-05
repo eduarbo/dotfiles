@@ -12,60 +12,60 @@ const symbols = require('./mods/symbols');
 const accents = require('./mods/accents');
 
 const rev3 = [
-  arrows,
-  emacs,
-  fn,
-  oldSymbols,
-  oldQwerty,
-  launcher,
+	arrows,
+	emacs,
+	fn,
+	oldSymbols,
+	oldQwerty,
+	launcher,
 ];
 
 const rev4 = [
-  arrows,
-  emacs,
-  fn,
-  symbols,
-  qwerty,
-  launcher,
-  accents,
+	arrows,
+	emacs,
+	fn,
+	symbols,
+	qwerty,
+	launcher,
+	accents,
 ];
 
 const karabiner = {
-  profiles: [
-    profile('Clean'),
-    profile('eduarbo v3', rev3, {
-      // selected: true,
-    }),
-    profile('eduarbo v3 (Mac kbd OFF if Corne ON)', rev3, {
-      devices: [{
-        identifiers: corneKeyboard,
-        disable_built_in_keyboard_if_exists: true,
-        ignore: false,
-        manipulate_caps_lock_led: true,
-      }],
-    }),
-    profile('eduarbo v4', rev4, {
-      selected: true,
-    }),
-  ],
-  global: {
-    check_for_updates_on_startup: true,
-    show_in_menu_bar: true,
-    show_profile_name_in_menu_bar: false,
-  },
+	profiles: [
+		profile('Clean'),
+		profile('eduarbo v3', rev3, {
+			// selected: true,
+		}),
+		profile('eduarbo v3 (Mac kbd OFF if Corne ON)', rev3, {
+			devices: [{
+				identifiers: corneKeyboard,
+				disable_built_in_keyboard_if_exists: true,
+				ignore: false,
+				manipulate_caps_lock_led: true,
+			}],
+		}),
+		profile('eduarbo v4', rev4, {
+			selected: true,
+		}),
+	],
+	global: {
+		check_for_updates_on_startup: true,
+		show_in_menu_bar: true,
+		show_profile_name_in_menu_bar: false,
+	},
 };
 
 const complexModifications = {
-  arrows,
-  emacs,
-  fn,
-  symbols,
-  qwerty,
-  launcher,
-  accents,
+	arrows,
+	emacs,
+	fn,
+	symbols,
+	qwerty,
+	launcher,
+	accents,
 };
 
 module.exports = {
-  karabiner,
-  complexModifications,
+	karabiner,
+	complexModifications,
 };
