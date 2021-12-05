@@ -1,16 +1,13 @@
 local label = require("labels")
 
+-- Output
+
+-- FIXME show it on the top-right corner
+local current_output = hs.audiodevice.defaultOutputDevice()
 local outputArray = {}
 
 outputArray["External Headphones"] = "🎧"
 outputArray["MacBook Pro Speakers"] = "💻"
-
-local inputArray = {}
-
-inputArray["MacBook Pro Microphone"] = "Internal Microphone"
-
-local current_output = hs.audiodevice.defaultOutputDevice()
-local current_input = hs.audiodevice.defaultInputDevice()
 
 function switch_output()
     for _, device in pairs(hs.audiodevice.allOutputDevices()) do
@@ -22,6 +19,13 @@ function switch_output()
         end
     end
 end
+
+-- Input
+
+local current_input = hs.audiodevice.defaultInputDevice()
+local inputArray = {}
+
+inputArray["MacBook Pro Microphone"] = "Internal Microphone"
 
 function switch_input()
     for _, device in pairs(hs.audiodevice.allInputDevices()) do
