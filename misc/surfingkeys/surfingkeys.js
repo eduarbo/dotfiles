@@ -1,3 +1,5 @@
+/* global settings, runtime, Front, Hints, Normal, RUNTIME, mapkey, vmapkey,
+ imapkey, map, unmap, iunmap, removeSearchAliasX, tabOpenLink */
 //
 //                ░█▀▀░█░█░█▀▄░█▀▀░▀█▀░█▀█░█▀▀░█░█░█▀▀░█░█░█▀▀
 //                ░▀▀█░█░█░█▀▄░█▀▀░░█░░█░█░█░█░█▀▄░█▀▀░░█░░▀▀█
@@ -25,23 +27,21 @@
 //
 //                            == W A R N I N G ==
 
-
 // ┏━┓┏━╸╺┳╸╺┳╸╻┏┓╻┏━╸┏━┓
 // ┗━┓┣╸  ┃  ┃ ┃┃┗┫┃╺┓┗━┓
 // ┗━┛┗━╸ ╹  ╹ ╹╹ ╹┗━┛┗━┛
 // Settings
 
 Object.assign(settings, {
-  smoothScroll: false,
-  createHintAlign: 'left',
-  focusFirstCandidate: true,
+	smoothScroll: false,
+	createHintAlign: 'left',
+	focusFirstCandidate: true,
 });
 
 Object.assign(Hints, {
-  // Only left hand keys
-  characters: 'asdfgqwertcvb',
+	// Only left hand keys
+	characters: 'asdfgqwertcvb',
 });
-
 
 // ╻ ╻┏━╸╻  ┏━┓┏━╸┏━┓┏━┓
 // ┣━┫┣╸ ┃  ┣━┛┣╸ ┣┳┛┗━┓
@@ -68,32 +68,32 @@ const INSERT = 15;
 /* eslint-enable no-unused-vars */
 
 function keymap(group, fn) {
-  const bind = (mapkeyFn) => (keys, annotation, cb, options) => {
-    [].concat(keys).forEach((key) => {
-      mapkeyFn(key, `#${group}${annotation}`, cb, options);
-    });
-  };
+	const bind = mapkeyFn => (keys, annotation, cb, options) => {
+		[].concat(keys).forEach(key => {
+			mapkeyFn(key, `#${group}${annotation}`, cb, options);
+		});
+	};
 
-  const helpers = {
-    normal: bind(mapkey),
-    visual: bind(vmapkey),
-    insert: bind(imapkey),
-  };
+	const helpers = {
+		normal: bind(mapkey),
+		visual: bind(vmapkey),
+		insert: bind(imapkey),
+	};
 
-  return fn(helpers);
+	return fn(helpers);
 }
 
 function swap(key1, key2) {
-  // Using underscore as a temporary variable to swap key bindings
-  map('_', key1);
-  map(key1, key2);
-  map(key2, '_');
-  unmap('_');
+	// Using underscore as a temporary variable to swap key bindings
+	map('_', key1);
+	map(key1, key2);
+	map(key2, '_');
+	unmap('_');
 }
 
 function remap(newKey, oldKey) {
-  map(newKey, oldKey);
-  unmap(oldKey);
+	map(newKey, oldKey);
+	unmap(oldKey);
 }
 
 // ╻ ╻┏┓╻╻ ╻┏━┓┏┓╻╺┳╸┏━╸╺┳┓   ┏┓ ╻┏┓╻╺┳┓╻┏┓╻┏━╸┏━┓
@@ -102,15 +102,15 @@ function remap(newKey, oldKey) {
 // Unwanted Bindings
 
 // Bindings that I don't need
-unmap('sp');           // namespace for Proxy bindings
-unmap('cp');           // toggle proxy for current site
-unmap('sfr');          // show failed web requests of current page
-unmap('se');           // edit settings
-unmap('sm');           // preview markdown
+unmap('sp'); // namespace for Proxy bindings
+unmap('cp'); // toggle proxy for current site
+unmap('sfr'); // show failed web requests of current page
+unmap('se'); // edit settings
+unmap('sm'); // preview markdown
 unmap('<Ctrl-Alt-d>'); // settings
-unmap('Z');            // namespace for Session bindings
-unmap('sql');          // show last action
-iunmap(':');           // emoji completion
+unmap('Z'); // namespace for Session bindings
+unmap('sql'); // show last action
+iunmap(':'); // emoji completion
 
 // text navigation is already handled by Karabiner-Elements
 iunmap('<Ctrl-e>');
@@ -124,121 +124,115 @@ iunmap('<Alt-d>');
 removeSearchAliasX('b');
 removeSearchAliasX('w');
 
-
 // ╻ ╻┏━╸╻  ┏━┓
 // ┣━┫┣╸ ┃  ┣━┛
 // ╹ ╹┗━╸┗━╸╹
 
 keymap(HELP, ({ insert }) => {
-  map(',', '<Alt-i>');
-  unmap('<Alt-i>');
+	map(',', '<Alt-i>');
+	unmap('<Alt-i>');
 
-  map('<Ctrl-q>', '<Alt-s>');
-  insert('<Ctrl-q>', 'Toggle SurfingKeys on current site', () => Normal.toggleBlacklist());
-  unmap('<Alt-s>');
+	map('<Ctrl-q>', '<Alt-s>');
+	insert('<Ctrl-q>', 'Toggle SurfingKeys on current site', () => Normal.toggleBlacklist());
+	unmap('<Alt-s>');
 });
-
 
 // ┏━╸╻ ╻┏━┓┏━┓┏┳┓┏━╸
 // ┃  ┣━┫┣┳┛┃ ┃┃┃┃┣╸
 // ┗━╸╹ ╹╹┗╸┗━┛╹ ╹┗━╸
 
 keymap(CHROME, ({ normal }) => {
-  remap('ca', 'ga');
-  remap('cb', 'gb');
-  remap('cc', 'gc');
-  remap('cd', 'gd');
-  remap('ck', 'gk');
-  remap('ce', 'ge');
-  remap('cn', 'gn');
-  remap('ci', 'si');
+	remap('ca', 'ga');
+	remap('cb', 'gb');
+	remap('cc', 'gc');
+	remap('cd', 'gd');
+	remap('ck', 'gk');
+	remap('ce', 'ge');
+	remap('cn', 'gn');
+	remap('ci', 'si');
 
-  normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink('chrome://net-internals/#hsts'));
-  normal('cy', 'Open Chrome History', () => tabOpenLink('chrome://history/'));
+	normal('ch', 'Open Chrome net-internals#hsts', () => tabOpenLink('chrome://net-internals/#hsts'));
+	normal('cy', 'Open Chrome History', () => tabOpenLink('chrome://history/'));
 });
-
 
 // ┏┳┓┏━┓╻ ╻┏━┓┏━╸   ┏━╸╻  ╻┏━╸╻┏
 // ┃┃┃┃ ┃┃ ┃┗━┓┣╸    ┃  ┃  ┃┃  ┣┻┓
 // ╹ ╹┗━┛┗━┛┗━┛┗━╸   ┗━╸┗━╸╹┗━╸╹ ╹
 
 keymap(MOUSE_CLICK, () => {
-  unmap('af');
+	unmap('af');
 
-  // Open multiple links in a new tab
-  remap('F', 'cf');
-  // Mouse out last element
-  remap('gm', ';m');
-  // Mouse over elements
-  remap('gh', '<Ctrl-h>');
-  // Mouse out elements
-  remap('gH', '<Ctrl-j>');
+	// Open multiple links in a new tab
+	remap('F', 'cf');
+	// Mouse out last element
+	remap('gm', ';m');
+	// Mouse over elements
+	remap('gh', '<Ctrl-h>');
+	// Mouse out elements
+	remap('gH', '<Ctrl-j>');
 
-  remap('gq', 'cq');
+	remap('gq', 'cq');
 
-  // FIXME "Go to the first edit box" doesn't work well on some sites
-  swap('i', 'gi');
+	// FIXME "Go to the first edit box" doesn't work well on some sites
+	swap('i', 'gi');
 });
 
 keymap(SCROLL_PAGE, () => {
-  // Scroll page up/down
-  map('K', 'e');
-  map('J', 'd');
+	// Scroll page up/down
+	map('K', 'e');
+	map('J', 'd');
 
-  // Change scroll target
-  remap('gs', 'cs');
+	// Change scroll target
+	remap('gs', 'cs');
 
-  // Reset scroll target
-  remap('gS', 'cS');
+	// Reset scroll target
+	remap('gS', 'cS');
 });
-
 
 // ╺┳╸┏━┓┏┓ ┏━┓
 //  ┃ ┣━┫┣┻┓┗━┓
 //  ╹ ╹ ╹┗━┛┗━┛
 
 keymap(TABS, () => {
-  // Go one tab left
-  map('<Ctrl-h>', 'E');
-  // Go one tab right
-  map('<Ctrl-l>', 'R');
-  unmap('E');
+	// Go one tab left
+	map('<Ctrl-h>', 'E');
+	// Go one tab right
+	map('<Ctrl-l>', 'R');
+	unmap('E');
 
-  // Go back in history
-  remap('H', 'S');
-  // Go forward in history
-  remap('L', 'D');
-  // Go to last used tab
-  remap('`', '<Ctrl-6>');
-  // pin/unpin current tab
-  remap('gp', '<Alt-p>');
-  // mute/unmute current tab
-  remap('gm', '<Alt-m>');
+	// Go back in history
+	remap('H', 'S');
+	// Go forward in history
+	remap('L', 'D');
+	// Go to last used tab
+	remap('`', '<Ctrl-6>');
+	// pin/unpin current tab
+	remap('gp', '<Alt-p>');
+	// mute/unmute current tab
+	remap('gm', '<Alt-m>');
 
-  // Move current tab to left
-  map('<', '<<');
-  // Move current tab to right
-  map('>', '>>');
+	// Move current tab to left
+	map('<', '<<');
+	// Move current tab to right
+	map('>', '>>');
 
-  // Choose a tab
-  map('t', 'T');
-  // Restore closed tab
-  map('T', 'X');
+	// Choose a tab
+	map('t', 'T');
+	// Restore closed tab
+	map('T', 'X');
 });
-
 
 // ┏━┓┏━┓┏━╸┏━╸
 // ┣━┛┣━┫┃╺┓┣╸
 // ╹  ╹ ╹┗━┛┗━╸
 
 keymap(PAGE, ({ normal }) => {
-  normal('R', 'Reload the page without cache', () => RUNTIME('reloadTab', { nocache: true }));
+	normal('R', 'Reload the page without cache', () => RUNTIME('reloadTab', { nocache: true }));
 
-  map('gl', 'sU');
-  remap('gL', 'su');
-  unmap('sU');
+	map('gl', 'sU');
+	remap('gL', 'su');
+	unmap('sU');
 });
-
 
 // ┏┳┓╻┏━┓┏━╸
 // ┃┃┃┃┗━┓┃
@@ -246,148 +240,151 @@ keymap(PAGE, ({ normal }) => {
 
 const firingWallClassName = 'sk_firing_wall';
 keymap(MISC, ({ normal }) => {
-  unmap('b');
-  normal('bd', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
-  normal('ba', 'Bookmark current page to selected folder', () => {
-    const extra = { url: window.location.href, title: document.title };
-    Front.openOmnibar(({ type: 'AddBookmark', extra }));
-  });
+	unmap('b');
+	normal('bd', 'Remove bookmark for current page', () => RUNTIME('removeBookmark'));
+	normal('ba', 'Bookmark current page to selected folder', () => {
+		const extra = { url: window.location.href, title: document.title };
+		Front.openOmnibar({ type: 'AddBookmark', extra });
+	});
 
-  normal('gk', 'Kill element', () => killElement());
-  normal('gK', 'Kill multiple elements', () => killElement({ multipleHits: true }));
-  injectKillElementHintStyle();
+	normal('gk', 'Kill element', () => killElement());
+	normal('gK', 'Kill multiple elements', () => killElement({ multipleHits: true }));
+	injectKillElementHintStyle();
 
-  function createHint(hintOptions) {
-    const { multipleHits } = hintOptions || {};
+	function createHint(hintOptions) {
+		const { multipleHits } = hintOptions || {};
 
-    Hints.create('*', (element) => {
-      element.parentNode.removeChild(element);
+		Hints.create('*', element => {
+			element.parentNode.removeChild(element);
 
-      if (multipleHits) {
-        setTimeout(() => createHint(hintOptions));
-      } else {
-        handleHintsExit();
-      }
-    });
-  }
+			if (multipleHits) {
+				setTimeout(() => createHint(hintOptions));
+			} else {
+				handleHintsExit();
+			}
+		});
+	}
 
-  function killElement(hintOptions) {
-    document.body.classList.add(firingWallClassName);
-    document.addEventListener('keydown', handleEsc);
+	function killElement(hintOptions) {
+		document.body.classList.add(firingWallClassName);
+		document.addEventListener('keydown', handleEsc);
 
-    createHint(hintOptions);
-  }
+		createHint(hintOptions);
+	}
 
-  function handleHintsExit() {
-    document.body.classList.remove(firingWallClassName);
-    document.removeEventListener('keydown', handleEsc);
-  }
+	function handleHintsExit() {
+		document.body.classList.remove(firingWallClassName);
+		document.removeEventListener('keydown', handleEsc);
+	}
 
-  // FIXME there is an existing event listener for keydown that takes place
-  // before this so we need to press ESC twice to restore the styling and exit
-  function handleEsc(event) {
-    if (event.key === 'Escape') handleHintsExit();
-  }
+	// FIXME there is an existing event listener for keydown that takes place
+	// before this so we need to press ESC twice to restore the styling and exit
+	function handleEsc(event) {
+		if (event.key === 'Escape') handleHintsExit();
+	}
 
-  function injectKillElementHintStyle() {
-    const $css = document.createElement('style');
+	function injectKillElementHintStyle() {
+		const $css = document.createElement('style');
 
-    if ($css) {
-      $css.type = 'text/css';
+		if ($css) {
+			$css.type = 'text/css';
 
-      const styles = `.${firingWallClassName} * { outline: 1px dashed red; }`;
-      $css.appendChild(document.createTextNode(styles));
+			const styles = `.${firingWallClassName} * { outline: 1px dashed red; }`;
+			$css.appendChild(document.createTextNode(styles));
 
-      const $head = document.querySelector('head');
-      if ($head) $head.appendChild($css);
-    }
-  }
+			const $head = document.querySelector('head');
+			if ($head) $head.appendChild($css);
+		}
+	}
 });
-
 
 // ╻ ╻╻┏━┓╻ ╻┏━┓╻
 // ┃┏┛┃┗━┓┃ ┃┣━┫┃
 // ┗┛ ╹┗━┛┗━┛╹ ╹┗━╸
 
 keymap(VISUAL, () => {
-  map('gv', 'V'); // Restore visual mode
-  remap('V', 'zv');
+	map('gv', 'V'); // Restore visual mode
+	remap('V', 'zv');
 });
-
 
 // ┏━╸╻  ╻┏━┓┏┓ ┏━┓┏━┓┏━┓╺┳┓
 // ┃  ┃  ┃┣━┛┣┻┓┃ ┃┣━┫┣┳┛ ┃┃
 // ┗━╸┗━╸╹╹  ┗━┛┗━┛╹ ╹╹┗╸╺┻┛
 
 keymap(CLIPBOARD, () => {
-  swap('yf', 'ya');
+	swap('yf', 'ya');
 
-  // Copy multiple link URLs to the clipboard
-  remap('yF', 'yma');
+	// Copy multiple link URLs to the clipboard
+	remap('yF', 'yma');
 
-  // Yank text of multiple elements
-  remap('yV', 'ymv');
+	// Yank text of multiple elements
+	remap('yV', 'ymv');
 
-  // Copy multiple columns of a table
-  remap('yC', 'ymc');
+	// Copy multiple columns of a table
+	remap('yC', 'ymc');
 });
-
 
 // ╻ ╻╻┏┳┓
 // ┃┏┛┃┃┃┃
 // ┗┛ ╹╹ ╹
 
 keymap(VIM, () => {
-  // Duplicate keymap
-  unmap('<Ctrl-\'>');
+	// Duplicate keymap
+	unmap("<Ctrl-'>");
 });
-
 
 // ┏━┓┏┳┓┏┓╻╻┏┓ ┏━┓┏━┓
 // ┃ ┃┃┃┃┃┗┫┃┣┻┓┣━┫┣┳┛
 // ┗━┛╹ ╹╹ ╹╹┗━┛╹ ╹╹┗╸
 
 keymap(OMNIBAR, ({ normal }) => {
-  unmap('o');
+	unmap('o');
 
-  openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites', noPrefix: true });
-  openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed', noPrefix: true });
-  openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs', noPrefix: true });
-  openOmnibar(';', 'Open commands', { type: 'Commands' });
+	openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites', noPrefix: true });
+	openOmnibarCombo('x', 'Open recently closed URL', {
+		type: 'URLs',
+		extra: 'getRecentlyClosed',
+		noPrefix: true,
+	});
+	openOmnibarCombo('u', 'Open URL from tab history', {
+		type: 'URLs',
+		extra: 'getTabURLs',
+		noPrefix: true,
+	});
+	openOmnibar(';', 'Open commands', { type: 'Commands' });
 
-  const keyPrefix = 'o';
+	const keyPrefix = 'o';
 
-  normal(`${keyPrefix}t`, 'Choose a tab with omnibar', () => {
-    Front.openOmnibar({ type: 'Tabs' });
-  });
+	normal(`${keyPrefix}t`, 'Choose a tab with omnibar', () => {
+		Front.openOmnibar({ type: 'Tabs' });
+	});
 
-  openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites' });
-  openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed' });
-  openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs' });
-  openOmnibarCombo('b', 'Open a bookmark', { type: 'Bookmarks' });
-  openOmnibarCombo('m', 'Open URL from vim-like marks', { type: 'VIMarks' });
-  openOmnibarCombo('y', 'Open URL from history', { type: 'History' });
-  normal(`${keyPrefix}i`, 'Open incognito window', () => {
-    runtime.command({ action: 'openIncognito', url: window.location.href });
-  });
+	openOmnibarCombo('a', 'Open a URL', { type: 'URLs', extra: 'getAllSites' });
+	openOmnibarCombo('x', 'Open recently closed URL', { type: 'URLs', extra: 'getRecentlyClosed' });
+	openOmnibarCombo('u', 'Open URL from tab history', { type: 'URLs', extra: 'getTabURLs' });
+	openOmnibarCombo('b', 'Open a bookmark', { type: 'Bookmarks' });
+	openOmnibarCombo('m', 'Open URL from vim-like marks', { type: 'VIMarks' });
+	openOmnibarCombo('y', 'Open URL from history', { type: 'History' });
+	normal(`${keyPrefix}i`, 'Open incognito window', () => {
+		runtime.command({ action: 'openIncognito', url: window.location.href });
+	});
 
-  // Helpers
+	// Helpers
 
-  function openOmnibar(key, annotation, options) {
-    normal(key, annotation, () => {
-      Front.openOmnibar(options);
-    });
-  }
+	function openOmnibar(key, annotation, options) {
+		normal(key, annotation, () => {
+			Front.openOmnibar(options);
+		});
+	}
 
-  function openOmnibarCombo(key, annotation, options) {
-    const { noPrefix, ...opts } = options;
-    const prefix = noPrefix ? '' : keyPrefix;
+	function openOmnibarCombo(key, annotation, options) {
+		const { noPrefix, ...opts } = options;
+		const prefix = noPrefix ? '' : keyPrefix;
 
-    openOmnibar(`${prefix}${key}`, annotation, { ...opts, tabbed: false });
-    openOmnibar(`${prefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
-  }
+		openOmnibar(`${prefix}${key}`, annotation, { ...opts, tabbed: false });
+		openOmnibar(`${prefix}${key.toUpperCase()}`, `${annotation} in new tab`, opts);
+	}
 });
-
 
 // ┏━┓   ┏━╸   ┏━┓   ╺┳╸   ╻ ╻   ┏━╸   ╺┳╸   ╻   ┏━╸
 // ┣━┫   ┣╸    ┗━┓    ┃    ┣━┫   ┣╸     ┃    ┃   ┃
@@ -415,11 +412,14 @@ Hints.style(`
   font-family: ${monospaceFontFamily};
 `);
 
-Hints.style(`
+Hints.style(
+	`
   font-family: ${fontFamily};
   border-color: ${darkGreen};
   background: linear-gradient(0deg, ${green}, ${lightGreen});
-`, 'text');
+`,
+	'text',
+);
 
 settings.theme = `
 .sk_theme {
