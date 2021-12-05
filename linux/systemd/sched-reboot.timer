@@ -1,9 +1,0 @@
-[Unit]
-Description=Reboot system every Sunday at 5AM
-
-[Timer]
-OnCalendar=Sun 05:00
-Unit=reboot.target
-
-[Install]
-WantedBy=timers.target
