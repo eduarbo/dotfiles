@@ -31,12 +31,12 @@
 
 (after! tide
   (setq
-    tide-always-show-documentation nil
-    tide-completion-detailed nil
-    ;; Try to ignore case
-    completion-ignore-case t
-    tide-completion-ignore-case t
-    ))
+   tide-always-show-documentation nil
+   tide-completion-detailed nil
+   ;; Try to ignore case
+   completion-ignore-case t
+   tide-completion-ignore-case t
+   ))
 
 ;; FIXME this slows down the loading of js files (specially R3 files)
 (after! flycheck
@@ -60,8 +60,8 @@
 (use-package! prettier-js
   :commands (prettier-js prettier-js-mode)
   :init
-  (map! :localleader :map (js2-mode-map web-mode-map)
-    :desc "Prettier" "p" #'prettier-js))
+  (map! :localleader :map (js2-mode-map web-mode-map json-mode-map css-mode-map)
+        :desc "Prettier" "p" #'prettier-js))
 
 (use-package! eslintd-fix
   :commands (eslintd-fix eslintd-fix-mode)
