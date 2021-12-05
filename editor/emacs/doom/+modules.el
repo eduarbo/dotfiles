@@ -173,8 +173,7 @@
 ;; ┣━┛┣┳┛┃ ┃  ┃┣╸ ┃   ┃ ┃┃  ┣╸
 ;; ╹  ╹┗╸┗━┛┗━┛┗━╸┗━╸ ╹ ╹┗━╸┗━╸
 
-(after! projectile
-  (setq projectile-project-search-path '("~/dev" "~/work")))
+(setq projectile-project-search-path '("~/dev" "~/work"))
 
 
 ;; ┏━┓┏━┓┏━╸╻  ╻
