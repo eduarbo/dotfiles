@@ -2,10 +2,14 @@ bash-language-server
 dockerfile-language-server-nodejs
 eslint-config-airbnb-base
 eslint-plugin-import
+eslint-plugin-jest
+eslint-config-prettier
+eslint-plugin-prettier
 eslint_d
 lua-fmt
 prettier
 stylelint
+stylelint-prettier
 typescript-language-server
 vscode-css-languageserver-bin
 vscode-html-languageserver-bin
