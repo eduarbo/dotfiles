@@ -57,18 +57,16 @@ install() {
 }
 
 update() {
-  doom upgrade
+  doom -y upgrade
+  doom -y build
 }
 
 link() {
   mklink doom $XDG_CONFIG_HOME
-  # TODO: Check if editorconfig supports XDG Base Directory
-  mklink editorconfig ~/.editorconfig
 }
 
 clean() {
   rm -rfv "$XDG_CONFIG_HOME/doom" "~/.emacs.d"
-  rm -fv ~/.editorconfig
 }
 
 init "$@"

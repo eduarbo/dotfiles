@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+# Dependencies
+
+common_deps=(
+  editorconfig
+)
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]}
+      ;;
+    debian)
+      sudo apt update && sudo apt install -y ${common_deps[@]}
+      ;;
+  esac
+}
+
+# update() {}
+
+link() {
+  # TODO: Check if can move these into the XDG Base Directory
+  mklink editorconfig "$HOME/.editorconfig"
+  mklink prettierrc.js "$HOME/.prettierrc.js"
+  mklink eslintrc.js "$HOME/.eslintrc.js"
+  mklink stylelintrc.js "$HOME/.stylelintrc.js"
+}
+
+clean() {
+  rm -fv $HOME/.{editorconfig,prettierrc.js,eslintrc.js,stylelintrc.js}
+}
+
+init "$@"
