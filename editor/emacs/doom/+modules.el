@@ -105,7 +105,7 @@
 (after! magit
   (setq
    magit-revision-show-gravatars '("^Author:     " . "^Commit:     ")
-   magit-repository-directories '(("~/dev" . 1) ("~/work" . 1))
+   magit-repository-directories '(("~/dev" . 2))
    ;; Don't restore the wconf after quitting magit, it's jarring
    magit-inhibit-save-previous-winconf t
    transient-values '((magit-rebase "--autosquash" "--autostash")
@@ -173,7 +173,7 @@
 ;; ┣━┛┣┳┛┃ ┃  ┃┣╸ ┃   ┃ ┃┃  ┣╸
 ;; ╹  ╹┗╸┗━┛┗━┛┗━╸┗━╸ ╹ ╹┗━╸┗━╸
 
-(setq projectile-project-search-path '("~/dev" "~/work"))
+(setq projectile-project-search-path '(("~/dev" . 2)))
 
 
 ;; ┏━┓┏━┓┏━╸╻  ╻
