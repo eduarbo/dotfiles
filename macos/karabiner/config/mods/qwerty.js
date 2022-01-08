@@ -7,16 +7,16 @@ module.exports = {
 			description: 'Thumb cluster',
 			manipulators: [
 				// SPACE -> CMD on hold, SPACE on tap
-				modTap(['spacebar'], [['right_command']], [['return_or_enter']]),
+				modTap(['spacebar'], [['right_command']], [['return_or_enter']], { lazy: true }),
 				// Righ CMD -> Right SHIFT
-				modTap(['right_command'], [['right_shift']], [['escape']]),
+				modTap(['right_command'], [['right_shift']], [['escape']], { lazy: true }),
 				// Left CMD -> Left SHIFT
-				modTap(['left_command'], [['left_shift']], [['spacebar']]),
+				modTap(['left_command'], [['left_shift']], [['spacebar']], { lazy: true }),
 
 				// Right OPTION -> Right OPTION on hold, BACKTICK on tap
-				modTap(['right_option'], [['right_option']], [['grave_accent_and_tilde']]),
+				modTap(['right_option'], [['right_option']], [['grave_accent_and_tilde']], { lazy: true }),
 				// Left OPTION -> Right CTRL on hold, QUOTE on tap
-				modTap(['left_option'], [['right_control']], [['quote']]),
+				modTap(['left_option'], [['right_control']], [['quote']], { lazy: true }),
 			],
 		},
 		{
