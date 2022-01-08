@@ -20,11 +20,11 @@
 
   ;; Minibuffer
   (map! :map (evil-ex-completion-map evil-ex-search-keymap)
-        "C-a" #'evil-beginning-of-line
-        "C-b" #'evil-backward-char
-        "C-f" #'evil-forward-char
-        :gi "C-j" #'next-complete-history-element
-        :gi "C-k" #'previous-complete-history-element)
+        "C-a"      #'evil-beginning-of-line
+        "C-b"      #'evil-backward-char
+        "C-f"      #'evil-forward-char
+        :gi "C-j"  #'next-complete-history-element
+        :gi "C-k"  #'previous-complete-history-element)
 
   (define-key! :keymaps +default-minibuffer-maps
     [escape] #'abort-recursive-edit
@@ -45,8 +45,8 @@
     "C-j"    #'next-line
     "C-k"    #'previous-line)
   (define-key! read-expression-map
-    "C-j" #'next-line-or-history-element
-    "C-k" #'previous-line-or-history-element))
+    "C-j"    #'next-line-or-history-element
+    "C-k"    #'previous-line-or-history-element))
 
 ;; Easier window navigation
 (map! :map (general-override-mode-map ranger-mode-map magit-mode-map comint-mode-map org-agenda-keymap)
@@ -79,8 +79,8 @@
 
       :m    "H"            #'sp-backward-symbol
       :m    "L"            #'sp-forward-symbol
-      :gim   "C-h"          #'sp-backward-symbol
-      :gim   "C-l"          #'sp-forward-symbol
+      :gim  "C-h"          #'sp-backward-symbol
+      :gim  "C-l"          #'sp-forward-symbol
 
       :gi   "C-d"          #'evil-delete-line
       :gi   "C-S-d"        #'evil-delete-whole-line
@@ -217,8 +217,8 @@
       :gi "C-e" #'doom/forward-to-last-non-comment-or-eol
 
       (:after treemacs :map treemacs-mode-map
-       :g "C-h"           #'evil-window-left
-       :g "C-l"           #'evil-window-right)
+       :g "C-h"     #'evil-window-left
+       :g "C-l"     #'evil-window-right)
       (:after help :map help-mode-map
        :n "o"       #'link-hint-open-link)
       (:after helpful :map helpful-mode-map
@@ -362,7 +362,8 @@
        (:after vertico
         :map vertico-map
         [S-return] #'vertico-exit-input
-        "S-SPC" #'+vertico/embark-preview
+        "TAB"   #'+vertico/embark-preview
+        [tab]   #'+vertico/embark-preview
         [S-tab] #'+vertico/embark-export-write
         "C-l"   #'vertico-next-group
         "C-h"   #'vertico-previous-group
@@ -418,11 +419,10 @@
        :v  "s-D"   #'evil-multiedit-match-and-prev
        :nv "C-M-d" #'evil-multiedit-restore
        (:after evil-multiedit
-        (:map evil-multiedit-state-map
-         "s-d"    #'evil-multiedit-match-and-next
-         "s-D"    #'evil-multiedit-match-and-prev
-         "RET"    #'evil-multiedit-toggle-or-restrict-region
-         [return] #'evil-multiedit-toggle-or-restrict-region)))
+        (:map evil-multiedit-mode-map
+         :nv "M-d" #'evil-multiedit-match-and-next
+         :nv "M-D" #'evil-multiedit-match-and-prev
+         [return]  #'evil-multiedit-toggle-or-restrict-region)))
 
       (:when (featurep! :editor snippets)
        ;; auto-yasnippet
