@@ -44,8 +44,8 @@ const remap = (fromKey, toKey, { conditions, simultaneous, ...toOptions } = {}) 
 	conditions,
 });
 
-const modTap = (fromKey, toKey, toKeyOnTap) => ({
-	...remap(fromKey, toKey),
+const modTap = (fromKey, toKey, toKeyOnTap, toOptions) => ({
+	...remap(fromKey, toKey, toOptions),
 	description: `${keyToString(fromKey)} to ${keyToString(...toKey)}, send ${keyToString(
 		...toKeyOnTap,
 	)} on tap`,
