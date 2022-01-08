@@ -40,5 +40,5 @@ _load_all aliases.zsh
 # ┏━┓╻ ╻┏━╸┏━┓┏━┓╻╺┳┓┏━╸┏━┓
 # ┃ ┃┃┏┛┣╸ ┣┳┛┣┳┛┃ ┃┃┣╸ ┗━┓
 # ┗━┛┗┛ ┗━╸╹┗╸╹┗╸╹╺┻┛┗━╸┗━┛
-_source $ZSH_DATA_HOME/.secrets.zsh
-_source $ZSH_DATA_HOME/.local.zsh
+_source $ZSH_DATA_HOME/secrets.zsh
+_source $ZSH_DATA_HOME/local.zsh
