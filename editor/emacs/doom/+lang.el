@@ -60,7 +60,7 @@
 (use-package! prettier-js
   :commands (prettier-js prettier-js-mode)
   :init
-  (map! :localleader :map (js2-mode-map js-mode-map web-mode-map json-mode-map css-mode-map)
+  (map! :localleader :map (js2-mode-map js-mode-map web-mode-map json-mode-map css-mode-map typescript-mode-map)
         :desc "Prettier" "p" #'prettier-js))
 
 (use-package! eslintd-fix
