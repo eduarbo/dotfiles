@@ -5,9 +5,6 @@
 -- When the mic is muted hold f13 key to talk and release to mute again.
 -- You can toggle mute by double tapping the f13 key
 
-local utils = require("utils")
-local label = require("labels")
-
 local micKey = "F13"
 local doubleTap = false
 local pushToTalk = false
@@ -18,9 +15,9 @@ local darkmode_status =
 
 local function displayStatus()
     if mic:muted() then
-        label.new("🎙 Muted"):show(1)
+        hs.notify.new({ title = "🎙❌ Muted", withdrawAfter = 1 }):send()
     else
-        label.new("🎙 on Air"):show(1)
+        hs.notify.new({ title = "🎙 on Air", withdrawAfter = 1 }):send()
     end
 end
 

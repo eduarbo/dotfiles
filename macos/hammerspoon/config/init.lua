@@ -10,19 +10,9 @@ log.i("Initializing")
 
 -- Reload config on write
 hs.pathwatcher.new(hs.configdir, hs.reload):start()
+hs.notify.new({ title = "Config reloaded 🔨🥄", withdrawAfter = 1 }):send()
 
-local utils = require("utils")
-
-utils.tempNotify(
-    2,
-    hs.notify.new(
-        {
-            title = "🔨🥄 Hammerspoon",
-            subTitle = "Config reloaded"
-        }
-    )
-)
-
+-- Alert styling
 hs.alert.defaultStyle.strokeColor = {white = 0, alpha = 0}
 hs.alert.defaultStyle.fillColor = {white = 0, alpha = 0.75}
 hs.alert.defaultStyle.textStyle = {paragraphStyle = {alignment = "center"}}
