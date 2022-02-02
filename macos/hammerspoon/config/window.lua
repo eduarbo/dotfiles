@@ -3,7 +3,6 @@
 --                 ░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
 
 local prefix = require("prefix")
-local utils = require("utils")
 
 hs.window.animationDuration = 0
 
