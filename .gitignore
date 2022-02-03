@@ -26,6 +26,7 @@ fish_history
 
 # node
 node_modules/
+dist/
 
 # lua
 .luacheckcache

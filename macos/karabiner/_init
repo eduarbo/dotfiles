@@ -14,16 +14,15 @@ brew_deps=(
 
 install() {
   brew install ${brew_deps[@]}
-
-  ./main.js
+  npm install
 }
 
 update() {
-  ./main.js
+  npx tsc && node ./dist/config/karabiner.js > "${KARABINER_CONFIG_DIR}/karabiner.json"
 }
 
 clean() {
-  rm -rfv $KARABINER_CONFIG_DIR
+  rm -rfv "$KARABINER_CONFIG_DIR/karabiner.json"
 }
 
 init "$@"
