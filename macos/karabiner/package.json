@@ -4,9 +4,8 @@
   "description": "",
   "main": "dist/config/karabiner.js",
   "scripts": {
-    "export": "node scripts/cleanup.cjs && tsc && node scripts/export.cjs",
-    "build": "npm run export json",
     "clean": "node scripts/cleanup.cjs",
+    "build": "npm run clean && tsc && node scripts/export.cjs json",
     "lint": "eslint . --ext .js,.jsx,.cjs,.ts,.tsx",
     "prettier": "prettier . --write",
     "test": "echo \"Error: no test specified\" && exit 1"
