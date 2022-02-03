@@ -20,14 +20,14 @@ const rules = [
       // Toggle mic
       keybind('t', [['f13']]),
 
+      // TODO have a copy of all the modifiers in the home row
+
       // Brightness controls
-      // TODO remap to a/g
       keybind('z', [['display_brightness_decrement']]),
-      // FIXME This is broken on the built-in macOS keyboard
+      // FIXME all of the following bindings are broken only on the macbook keyboard and I have no idea
       keybind('b', [['display_brightness_increment']]),
 
       // Music player
-      // TODO remap to s/d/f on tap and modifiers on hold
       keybind('x', [['rewind']]),
       keybind('c', [['play_or_pause']]),
       keybind('v', [['fastforward']]),
@@ -46,15 +46,15 @@ const rules = [
       // Toggle mic
       keybind('y', [['f13']]),
 
-      // FIXME The following bindings are broken on the built-in macOS keyboard
+      // TODO have a copy of all the modifiers in the home row
+
+      // FIXME all of the following bindings are broken only on the macbook keyboard and I have no idea
 
       // Brightness controls
-      // TODO remap to h/semicolon
       keybind('n', [['display_brightness_decrement']]),
       keybind('slash', [['display_brightness_increment']]),
 
       // Music player
-      // TODO remap to j/k/l on tap and modifiers on hold
       keybind('m', [['rewind']]),
       keybind('comma', [['play_or_pause']]),
       keybind('period', [['fastforward']]),
