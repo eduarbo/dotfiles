@@ -7,7 +7,7 @@
     "clean": "node scripts/cleanup.cjs",
     "build": "npm run clean && tsc && node scripts/export.cjs json",
     "lint": "eslint . --ext .js,.jsx,.cjs,.ts,.tsx",
-    "prettier": "prettier . --write",
+    "prettier": "prettier config lib scripts --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

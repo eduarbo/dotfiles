@@ -1,13 +1,8 @@
-import { fromKeyCode, toKeyCode } from '.';
-import type {
-  FromEvent,
-  FromKeyCodeTuple,
-  FromEventCommon,
-  ToEvent,
-  ToEventCommon,
-  ToKeyCodeTuple,
-  Variable,
-} from '.';
+import { fromKeyCode } from './fromEvent';
+import { toKeyCode } from './toEvent';
+
+import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
+import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable } from './toEvent';
 
 interface FrontmostApplicationCondition {
   type: 'frontmost_application_if' | 'frontmost_application_unless';

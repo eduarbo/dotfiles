@@ -1,4 +1,4 @@
-import type { Profile } from '.';
+import type { Profile } from './profile';
 
 export interface GlobalSettings {
   check_for_updates_on_startup?: boolean;
