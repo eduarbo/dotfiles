@@ -9,20 +9,27 @@ brew_deps=(
   karabiner-elements
 )
 
-# link() {
-# }
+# link() {}
 
 install() {
   brew install ${brew_deps[@]}
+
+  if _is_callable nodenv; then
+    echo "Installing required node version"
+    nodenv install < .node-version
+  else
+    echo "Make sure to install the required node version"
+  fi
+
   npm install
 }
 
 update() {
-  npx tsc && node ./dist/config/karabiner.js > "${KARABINER_CONFIG_DIR}/karabiner.json"
+  npm run export "$KARABINER_CONFIG_DIR"
 }
 
 clean() {
-  rm -rfv "$KARABINER_CONFIG_DIR/karabiner.json"
+  rm -rfv "$KARABINER_CONFIG_DIR/{karabiner.json,assets}"
 }
 
 init "$@"

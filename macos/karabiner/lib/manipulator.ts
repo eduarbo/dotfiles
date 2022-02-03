@@ -1,7 +1,13 @@
-import { fromKeyCode } from './fromEvent';
-import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
-import { toKeyCode } from './toEvent';
-import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable } from './toEvent';
+import { fromKeyCode, toKeyCode } from '.';
+import type {
+  FromEvent,
+  FromKeyCodeTuple,
+  FromEventCommon,
+  ToEvent,
+  ToEventCommon,
+  ToKeyCodeTuple,
+  Variable,
+} from '.';
 
 interface FrontmostApplicationCondition {
   type: 'frontmost_application_if' | 'frontmost_application_unless';
@@ -182,7 +188,7 @@ export const lazyModTap = (
     manipulatorOptions,
     toOptions: {
       lazy: true,
-      ...toOptions
+      ...toOptions,
     },
     fromOptions,
   });

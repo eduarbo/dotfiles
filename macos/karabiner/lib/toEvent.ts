@@ -1,4 +1,4 @@
-import type { Modifier, KeyCode, PointingButton, ConsumerKeyCode, StickyModifierState } from './enums';
+import type { Modifier, KeyCode, PointingButton, ConsumerKeyCode, StickyModifierState } from '.';
 
 export interface ToEventCommon {
   modifiers?: Modifier[];

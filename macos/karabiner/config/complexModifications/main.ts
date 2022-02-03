@@ -1,13 +1,18 @@
-import { remap, lazyModTap, complexModifications } from '../../lib';
+import { remap, lazyModTap } from '../../lib';
+import type { ComplexModifications } from '../../lib';
 
-export const main = complexModifications('Main layer', [
+const rules = [
   {
     description: 'Thumb cluster',
     manipulators: [
       // NOTE Do NOT move it! order matters: The more specific the binding, the sooner it should be declared
       // Move Control to the right side to be able to combine it with Shift when both are pressed at the same time
       // L Command + R Option -> L Shift + L Control
-      lazyModTap(['left_command', ['right_option'], ['any']], [['left_shift', ['left_control']]], [['spacebar']]),
+      lazyModTap(
+        ['left_command', ['right_option'], ['any']],
+        [['left_shift', ['left_control']]],
+        [['spacebar']],
+      ),
 
       // Spacebar -> L Command | Return
       lazyModTap(['spacebar', null, ['any']], [['left_command']], [['return_or_enter']]),
@@ -44,4 +49,6 @@ export const main = complexModifications('Main layer', [
       remap(['right_shift', null, ['any']], [['backslash']]),
     ],
   },
-]);
+];
+
+export const main: ComplexModifications = { title: 'Main layer', rules };

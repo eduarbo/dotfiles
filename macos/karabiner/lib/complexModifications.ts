@@ -1,4 +1,4 @@
-import type { Manipulator } from './manipulator';
+import type { Manipulator } from '.';
 
 export interface Rule {
   description: string;
@@ -9,8 +9,3 @@ export interface ComplexModifications {
   title: string;
   rules: Rule[];
 }
-
-export const complexModifications = (title: string, rules: Rule[]): ComplexModifications => ({
-  title,
-  rules,
-});
