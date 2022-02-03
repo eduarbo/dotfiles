@@ -74,8 +74,6 @@
 
 [include]
 	path = secrets
-[includeIf "gitdir:~/dev/transcarent/"]
-	path = ~/dev/transcarent/.gitconfig
 [rerere]
 	enabled = 1
 [init]
