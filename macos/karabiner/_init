@@ -5,11 +5,12 @@ source ${0:A:h}/../../deploy
 [[ $(_os) != macos ]] && exit
 
 brew_deps=(
-  node
   karabiner-elements
 )
 
-# link() {}
+link() {
+  mklink json/{karabiner.json,assets} $KARABINER_CONFIG_DIR/
+}
 
 install() {
   brew install ${brew_deps[@]}
@@ -25,11 +26,11 @@ install() {
 }
 
 update() {
-  npm run export "$KARABINER_CONFIG_DIR"
+  npm run build
 }
 
 clean() {
-  rm -rfv "$KARABINER_CONFIG_DIR/{karabiner.json,assets}"
+  rm -rfv $KARABINER_CONFIG_DIR/{karabiner.json,assets}
 }
 
 init "$@"
