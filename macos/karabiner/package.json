@@ -5,7 +5,7 @@
   "main": "dist/config/karabiner.js",
   "scripts": {
     "export": "node scripts/cleanup.cjs && tsc && node scripts/export.cjs",
-    "build": "npm run export dist/json",
+    "build": "npm run export json",
     "clean": "node scripts/cleanup.cjs",
     "lint": "eslint . --ext .js,.jsx,.cjs,.ts,.tsx",
     "prettier": "prettier . --write",

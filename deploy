@@ -172,8 +172,8 @@ if [[ $ZSH_EVAL_CONTEXT != *:file ]]; then
 Usage: ${0:A:t} [-acdlLit] [TOPIC...]
 
   -a   Target all enabled topics (ignores TOPIC args)
-  -c   Afterwards, remove dead symlinks & empty dot-directories in $HOME.
-       Can be used alone.
+  -c   Afterwards, remove dead symlinks & empty dot-directories in `$HOME`
+       Can be used alone
   -d   Disable & unlink topic(s)
   -f   Force install & link
   -l   Only enable & relink topic(s) (implies -i)
