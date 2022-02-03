@@ -29,11 +29,13 @@ bash <(curl -s https://raw.githubusercontent.com/eduarbo/dotfiles/master/bootstr
 
 The following are the categories and topics available to install:
 
+- `linux/` - Linux compatible utilities
+  - `defaults` - bare essentials for Linux
+
 - `macos/` - macOS compatible utilities
   - `apps` - collection of macOS apps that I use on a daily basis
   - `defaults` - bare essentials for macOS
   - `hammerspoon` - a bunch of lua scripts to boost my productivity
-  - `iterm` - iTerm2, is there a better macOS terminal?
   - `kitty` - well, in fact there is a better macOS terminal
   - `karabiner` - powerful keyboard customizer
 
