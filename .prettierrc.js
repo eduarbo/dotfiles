@@ -1,1 +1,0 @@
-editor/coding-style/prettierrc.js
