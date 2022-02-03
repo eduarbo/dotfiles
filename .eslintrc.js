@@ -1,1 +1,0 @@
-editor/coding-style/eslintrc.js
