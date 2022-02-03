@@ -1,12 +1,12 @@
-import { complexModifications, remap } from '../../lib';
-import type { KeyCode, Modifier, ToKeyCodeTuple } from '../../lib';
+import { remap } from '../../lib';
+import type { KeyCode, Modifier, ToKeyCodeTuple, ComplexModifications } from '../../lib';
 
 const mandatoryMods = ['left_shift', 'right_shift'] as Modifier[];
 
 const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[], optionalMods: Modifier[] = []) =>
   remap([keyCode, mandatoryMods, optionalMods], toTuples);
 
-export const hyper = complexModifications('Hyper layer', [
+const rules = [
   {
     description: 'Function keys for left hand - movement, brightness, volumen and media controls',
     manipulators: [
@@ -60,4 +60,6 @@ export const hyper = complexModifications('Hyper layer', [
       keybind('period', [['fastforward']]),
     ],
   },
-]);
+];
+
+export const hyper: ComplexModifications = { title: 'Hyper layer', rules };

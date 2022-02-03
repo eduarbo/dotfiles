@@ -4,9 +4,7 @@ import type { ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
 const remapToLayer = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
   remap([fromKeyCode, ['right_shift'], ['any']], toTuples);
 
-export const symbols = {
-  title: 'Symbols layer',
-  rules: [
+const rules = [
     {
       description: 'Numpad in left hand, symbols and arrows in right hand',
       manipulators: [
@@ -73,5 +71,6 @@ export const symbols = {
         remapToLayer('right_shift', [['backslash']]),
       ],
     },
-  ],
-} as ComplexModifications;
+  ];
+
+export const symbols: ComplexModifications = { title: 'Symbols layer', rules };

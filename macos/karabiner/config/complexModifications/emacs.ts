@@ -1,9 +1,5 @@
-import {
-  remap,
-  complexModifications,
-  EMACS_KEY_BINDINGS_EXCEPTION,
-} from '../../lib';
-import type { ManipulatorOptions, ToKeyCodeTuple, KeyCode } from '../../lib';
+import { remap, EMACS_KEY_BINDINGS_EXCEPTION } from '../../lib';
+import type { ManipulatorOptions, ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
 
 const keybind = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[], options: ManipulatorOptions) =>
   remap([fromKeyCode, ['control'], ['caps_lock']], toTuples, {
@@ -16,7 +12,7 @@ const keybind = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[], options: Mani
     ...options,
   });
 
-export const emacs = complexModifications('Emacs and shell style key bindings', [
+const rules = [
   {
     description: 'Delete bindings',
     manipulators: [
@@ -46,4 +42,6 @@ export const emacs = complexModifications('Emacs and shell style key bindings', 
       }),
     ],
   },
-]);
+];
+
+export const emacs: ComplexModifications = { title: 'Emacs and shell style key bindings', rules };

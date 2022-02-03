@@ -1,5 +1,5 @@
-import { remap, command, complexModifications } from '../../lib';
-import type { ToKeyCodeTuple, KeyCode } from '../../lib';
+import { remap, command } from '../../lib';
+import type { ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
 
 const remapToLayer = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
   remap([fromKeyCode, ['right_option'], ['caps_lock']], toTuples);
@@ -47,9 +47,11 @@ const manipulators = [
   remapToLayer('backslash', [['backslash', ['option']]]),
 ];
 
-export const launcher = complexModifications('Launcher', [
+const rules = [
   {
     description: 'Launch apps by right option+letters',
     manipulators,
   },
-]);
+];
+
+export const launcher: ComplexModifications = { title: 'Launcher', rules };

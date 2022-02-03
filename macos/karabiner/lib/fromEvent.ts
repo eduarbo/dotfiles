@@ -1,5 +1,13 @@
-import type { Modifier, KeyCode, PointingButton, ConsumerKeyCode, Any, KeyEventOrder, KeyUpWhen } from './enums';
-import type { ToEvent } from './toEvent';
+import type {
+  Modifier,
+  KeyCode,
+  PointingButton,
+  ConsumerKeyCode,
+  Any,
+  KeyEventOrder,
+  KeyUpWhen,
+  ToEvent,
+} from '.';
 
 type FromKeyCodeProp = { key_code: KeyCode };
 type FromConsumerKeyCodeProp = { consumer_key_code: ConsumerKeyCode };
@@ -42,7 +50,7 @@ export type FromEvent =
   | FromPointingButtonEvent
   | FromAnyEvent;
 
-export type FromKeyCodeTuple = [KeyCode, (Modifier[] | null)?, Modifier[]?]
+export type FromKeyCodeTuple = [KeyCode, (Modifier[] | null)?, Modifier[]?];
 
 export const fromKeyCode = (
   [key_code, mandatory, optional]: FromKeyCodeTuple,
