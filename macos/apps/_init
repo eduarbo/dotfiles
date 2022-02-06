@@ -24,8 +24,7 @@ brew_deps=(
   handbrake
   keka
   keycastr
-  licecap
-  nextcloud
+  syncthing
   omnidisksweeper
   prettyping
   provisionql
