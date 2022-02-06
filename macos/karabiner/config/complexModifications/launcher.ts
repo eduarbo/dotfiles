@@ -27,7 +27,7 @@ const manipulators = [
   remapToLayer('k', [['grave_accent_and_tilde', ['left_shift', 'left_command']]]),
   remapToLayer('l', [['tab', ['left_command']]]),
   launch('m', 'open -a "/System/Applications/Mail.app"'),
-  // remapToLayer('n', [['n', ['option']]]),
+  launch('n', 'open -a "/Applications/Obsidian.app"'),
   // remapToLayer('o', [['o', ['option']]]),
   launch('p', 'open -a "/Applications/Spotify.app"'),
   launch('q', 'open -a "/Applications/1Password 7.app"'),
