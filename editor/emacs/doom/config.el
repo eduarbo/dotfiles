@@ -7,7 +7,7 @@
 ;;       ▀▀▀▀▀•  ▀█▄▀▪ ▀█▄▀▪▀▀  █▪▀▀▀    ·▀▀▀  ▀█▄▀▪▀▀ █▪▀▀▀ ▀▀▀·▀▀▀▀
 
 
-(defvar dotfiles-dir "~/dev/dotfiles")
+(defvar dotfiles-dir "~/dev/eduarbo/dotfiles")
 
 ;;; This is me
 (setq user-mail-address "eduarbo@gmail.com"
