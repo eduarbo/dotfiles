@@ -8,9 +8,7 @@ brew_deps=(
   karabiner-elements
 )
 
-link() {
-  mklink json/{karabiner.json,assets} $KARABINER_CONFIG_DIR/
-}
+link() {}
 
 install() {
   brew install ${brew_deps[@]}
@@ -27,6 +25,8 @@ install() {
 
 update() {
   npm run build
+  # copy json files instead of linking them to force karabiner to reload the conf
+  rsync -va --delete json/{karabiner.json,assets} $KARABINER_CONFIG_DIR/
 }
 
 clean() {

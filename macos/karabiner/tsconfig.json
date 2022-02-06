@@ -5,6 +5,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "moduleResolution": "node",
-    "sourceMap": true
+    "sourceMap": true,
+    "incremental": true
   }
 }
