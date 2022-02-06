@@ -1,6 +1,6 @@
 # Dedicated completion key
 # https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion#dedicated-completion-key
-export FZF_COMPLETION_TRIGGER="//"
+export FZF_COMPLETION_TRIGGER="**"
 
 # automatically selects the item if there's only one
 export FZF_DEFAULT_OPTS='

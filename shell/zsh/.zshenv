@@ -15,7 +15,8 @@ export ZINIT_DIR="$XDG_CACHE_HOME/zinit"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 
 local -A ZINIT # initial Zinit's hash definition
-export ZINIT[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump"
+export ZINIT[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump_$ZSH_VERSION"
+export ZINIT[HOME_DIR]="$ZDOTDIR/zinit"
 
 # These 2 variables need to be set in our local machine since they are passed
 # down to the remote host when we connect via SSH. Otherwise, we will be getting
