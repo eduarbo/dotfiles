@@ -69,7 +69,8 @@
 
       :i    "S-SPC"         #'tab-to-tab-stop
 
-      :nv   [S-return]      #'flyspell-correct-at-point)
+      :nv   [S-return]      #'flyspell-correct-at-point
+      :gim  "C-s"           #'save-buffer)
 
 ;; Text objects
 (map! :gi   [C-backspace]  #'delete-forward-char
@@ -96,8 +97,10 @@
 
       :m    "k"            #'evil-previous-visual-line
       :m    "j"            #'evil-next-visual-line
-      :m    [up]           #'+evil-multi-previous-line
-      :m    [down]         #'+evil-multi-next-line
+      :m    [left]         #'previous-buffer
+      :m    [right]        #'next-buffer
+      :m    [up]           #'+workspace/switch-right
+      :m    [down]         #'+workspace/switch-left
 
       :n    "s"            #'evil-surround-edit
       :v    "s"            #'evil-surround-region
