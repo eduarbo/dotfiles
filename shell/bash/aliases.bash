@@ -64,7 +64,14 @@ alias rgg='rg -S --hidden --line-number'
 
 alias cht="cht.sh"
 alias gurl='curl --compressed'
-alias rsyncd='rsync -va --delete'   # Hard sync two directories
+alias rscp='rsync -va --delete'   # Copy files with rsync
+# This preserves as much file-system metadata in the process, such as Hard
+# links, ACLs, eXtended attributes, displays the information in Human readable
+# values, includes the Archive metaflag, stays on it's filesystem, copies
+# Partial (open) files with Progess output, and copies Sparse files as such.
+# Also preserves the numeric ids instead of interpreted user attribute. Also,
+# gives you statistics afterwards.
+alias rscpp='rsync -HAXhaxvPS --numeric-ids --stats'
 
 alias encrypt='gpg --encrypt'
 alias decrypt='gpg --decrypt'

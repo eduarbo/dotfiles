@@ -9,7 +9,7 @@ common_deps=(
 )
 
 zinit_deps=(
-  zdharma/zsh-diff-so-fancy
+  zdharma-continuum/zsh-diff-so-fancy
   tj/git-extras
 )
 

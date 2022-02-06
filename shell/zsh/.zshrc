@@ -24,7 +24,7 @@ _load shell/zsh/keybinds.zsh
 # load configs from enabled topics
 _load_all config.zsh
 
-_load shell/zsh/speedup.zsh
+# _load shell/zsh/speedup.zsh
 
 
 # ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
