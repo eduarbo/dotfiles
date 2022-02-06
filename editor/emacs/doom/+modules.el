@@ -78,24 +78,26 @@
 ;; know. On some systems I don't care to have a whole development environment for some ecosystems.
 (setq +lsp-prompt-to-install-server 'quiet)
 
-(after! lsp-mode
-  (setq
-   lsp-signature-doc-lines 5
-   ;; lsp-signature-render-documentation nil
+;; Follow the instructions to setup ESLint in LSP server https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
+(setq lsp-eslint-server-command
+      `("node" ,(expand-file-name (car (last (file-expand-wildcards "~/.vscode/extensions/dbaeumer.vscode-eslint-*/server/out/eslintServer.js")))) "--stdio"))
+(setq
+ lsp-signature-doc-lines 5
+ ;; lsp-signature-render-documentation nil
 
-   ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
-   ;; limiting the number of lines to display in eldoc
-   lsp-eldoc-enable-hover nil
+ ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
+ ;; limiting the number of lines to display in eldoc
+ lsp-eldoc-enable-hover nil
 
-   ;; Disable lsp checker b/c annoying
-   lsp-diagnostics-provider :none
+ ;; Disable lsp checker b/c annoying
+ ;; lsp-diagnostics-provider :none
 
-   lsp-enable-indentation nil
-   ;; lsp-enable-symbol-highlighting nil
-   ;; lsp-enable-file-watchers nil
+ lsp-enable-indentation nil
+ ;; lsp-enable-symbol-highlighting nil
+ ;; lsp-enable-file-watchers nil
 
-   lsp-modeline-diagnostics-enable nil
-   lsp-modeline-code-actions-enable nil))
+ lsp-modeline-diagnostics-enable nil
+ lsp-modeline-code-actions-enable nil)
 
 
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸
