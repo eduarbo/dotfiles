@@ -17,13 +17,13 @@ minimum `$HOME` presence (adhering to XDG standards where possible).
 ## Quick start
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/eduarbo/dotfiles/master/bootstrap.sh)
+git clone https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
 ```
 
 ## Dependencies
+- [Homebrew](https://brew.sh/)
 - git
 - zsh
-- python
 
 ## What does it include?
 
