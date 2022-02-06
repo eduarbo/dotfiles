@@ -29,7 +29,7 @@ export FIGLET_FONTDIR="$ZDOTDIR/figlet-fonts"
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
-path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
+path=( /opt/homebrew/bin /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
