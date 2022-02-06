@@ -4,7 +4,7 @@ alias p='pbpaste'
 alias b='brew'
 alias bi='brew install'
 alias br='brew remove'
-alias bu='brew update && brew upgrade && brew cleanup'
+alias bu='brew update && brew outdated && brew upgrade && brew cleanup'
 
 alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
