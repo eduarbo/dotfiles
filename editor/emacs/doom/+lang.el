@@ -82,6 +82,11 @@
 (set-repl-handler! '(rjsx-mode web-mode) #'+javascript/open-repl)
 
 
+(after! markdown-mode
+ ;; continue lists when RET is pressed
+ (setq markdown-indent-on-enter 'indent-and-new-item))
+
+
 ;; ┏┓╻┏━╸╻┏┓╻╻ ╻
 ;; ┃┗┫┃╺┓┃┃┗┫┏╋┛
 ;; ╹ ╹┗━┛╹╹ ╹╹ ╹

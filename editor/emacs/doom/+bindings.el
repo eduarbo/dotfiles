@@ -10,6 +10,7 @@
 
 (defvar +org-log-buffer-mode-map (make-sparse-keymap))
 (defvar +org-format-map (make-sparse-keymap))
+(defvar +markdown-format-map (make-sparse-keymap))
 (defvar +company-omni-completion-map (make-sparse-keymap))
 
 (setq doom-leader-key ","
@@ -1087,3 +1088,23 @@
    (:map evil-org-agenda-mode-map
     :m "k"      #'org-agenda-previous-item
     :m "j"      #'org-agenda-next-item))))
+
+;;
+;;; markdown
+
+(map!
+ (:after markdown-mode
+  (:map +markdown-format-map
+   "b"   #'markdown-insert-bold
+   "h"   #'markdown-insert-header-dwim
+   "i"   #'markdown-insert-image
+   "i"   #'markdown-insert-italic
+   "k"   #'markdown-insert-link
+   "K"   #'markdown-insert-kbd
+   "m"   #'markdown-insert-code
+   "q"   #'markdown-insert-blockquote
+   "s"   #'markdown-insert-strike-through
+   "v"   #'markdown-insert-pre))
+
+ (:map markdown-mode-map
+  :g "s-f"     +markdown-format-map))
