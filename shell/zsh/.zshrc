@@ -24,6 +24,7 @@ _load shell/zsh/keybinds.zsh
 # load configs from enabled topics
 _load_all config.zsh
 
+# TODO Revisit, maybe I don't need this anymore
 # _load shell/zsh/speedup.zsh
 
 
