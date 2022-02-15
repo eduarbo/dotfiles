@@ -51,6 +51,7 @@ install() {
   local zsh="$(command -v zsh)"
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
   sudo tee $zshenv <<<"export ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
+  mkdir -p "$XDG_DATA_HOME/zsh"
 
   exec $zsh
 }
