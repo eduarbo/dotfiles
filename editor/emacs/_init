@@ -8,7 +8,6 @@ common_deps=(
   ripgrep
   sqlite
   zstd
-  fd
   editorconfig
 )
 
@@ -29,6 +28,7 @@ brew_deps=(
   marked
   shellcheck
   graphviz # graph visualizator - org-roam dep
+  fd
 )
 
 cask_fonts_deps=(
