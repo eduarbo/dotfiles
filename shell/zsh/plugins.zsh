@@ -14,8 +14,10 @@ zinit light zdharma-continuum/history-search-multi-word
 zinit light djui/alias-tips
 zinit ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zinit light junegunn/fzf
 
-zinit ice mv=":cht.sh -> cht.sh" atclone="chmod +x cht.sh" as="program"
-zinit snippet https://cht.sh/:cht.sh
+# https://github.com/mustaqimM/dotfiles/blob/8dbe45b1dbe29fc4686dc025d824a84024916d4e/.zsh/.zshrc
+zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)ch*]} ]]' lucid as"program" mv"*cht.sh -> cht.sh"
+zinit snippet "https://cht.sh/:cht.sh"
+
 zinit ice mv=":zsh -> _cht" as="completion"
 zinit snippet https://cheat.sh/:zsh
 
