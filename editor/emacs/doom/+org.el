@@ -13,13 +13,10 @@
 ;;  ┃┃┣╸ ┣╸ ┣━┫┃ ┃┃   ┃ ┗━┓
 ;; ╺┻┛┗━╸╹  ╹ ╹┗━┛┗━╸ ╹ ┗━┛
 
-(setq org-directory (expand-file-name "~/Syncthing/org"))
+(setq org-directory (expand-file-name "~/Documents/Docs personales/org"))
 
 (defvar +org-default-notes-dir (expand-file-name "notes" org-directory)
   "Directory of notes")
-
-(defvar +org-default-archive-dir (expand-file-name "archive" org-directory)
-  "Directory of archived files")
 
 (defvar +org-default-inbox-file (expand-file-name "inbox.org" +org-default-notes-dir)
   "New stuff collects in this file")
@@ -30,7 +27,7 @@
 
 (after! org
   (setq
-   org-archive-location "::* Archived"
+   org-archive-location "%s_archive::" ;; This is the default
    org-agenda-files +org-default-inbox-file
 
    org-log-done 'time
