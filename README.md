@@ -94,6 +94,10 @@ else
 fi
 ```
 
+## Best practices
+
+- Generate one key per client device with `ssh-keygen -t ed25519 -C "your_email@example.com"` and protect it with a strong passphrase
+
 ## Troubleshooting
 
 ### Signing Git commit with GPG ask passphrase everytime
@@ -103,6 +107,11 @@ Make sure the GPG key ID is correct. You can get a list of GPG keys with
 `git config --global user.signingkey [GPG-key-ID]`.
 
 More details in [Telling Git about your GPG key](https://help.github.com/articles/telling-git-about-your-gpg-key/).
+
+### git@github.com: Permission denied (publickey)
+
+Just [add your SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) to your GitHub account
+
 
 ## Relevant projects/resources
 
