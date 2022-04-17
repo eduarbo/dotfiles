@@ -313,10 +313,10 @@
           },
           "to": [
             {
-              "shell_command": "open -a \"/System/Applications/Utilities/Telegram.app\""
+              "shell_command": "open -a \"/System/Volumes/Data/Applications/Telegram.app\""
             }
           ],
-          "description": "from right_option+r to shell command \"open -a \"/System/Applications/Utilities/Telegram.app\"\""
+          "description": "from right_option+r to shell command \"open -a \"/System/Volumes/Data/Applications/Telegram.app\"\""
         },
         {
           "type": "basic",
@@ -337,6 +337,26 @@
             }
           ],
           "description": "from right_option+s to shell command \"open -a \"/Applications/Slack.app\"\""
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "right_option"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open -a \"/System/Volumes/Data/Applications/Microsoft To Do.app\""
+            }
+          ],
+          "description": "from right_option+t to shell command \"open -a \"/System/Volumes/Data/Applications/Microsoft To Do.app\"\""
         },
         {
           "type": "basic",
