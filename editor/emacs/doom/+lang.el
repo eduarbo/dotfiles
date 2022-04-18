@@ -7,11 +7,23 @@
 ;; .▀▀▀  ▀  ▀ ▀▀ █▪·▀▀▀▀  ▀▀▀  ▀  ▀ ·▀▀▀▀  ▀▀▀  ▀▀▀▀
 
 
+;; ┏━╸┏━┓┏┓╻┏━╸
+;; ┃  ┃ ┃┃┗┫┣╸
+;; ┗━╸┗━┛╹ ╹╹
+;;; conf/ini/properties files
+
+(add-to-list 'auto-mode-alist '("crontab" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.service\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.service\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
+
+
 ;; ┏━╸┏━┓┏━┓┏━┓╻ ╻┏━┓╻
 ;; ┃╺┓┣┳┛┣━┫┣━┛┣━┫┃┓┃┃
 ;; ┗━┛╹┗╸╹ ╹╹  ╹ ╹┗┻┛┗━╸
 ;;; GraphQL
-
 
 (use-package! graphql-mode
   :mode "\\.g\\(?:raph\\)?ql$"
@@ -94,17 +106,6 @@
 
 (use-package! nginx-mode
   :mode "/nginx/sites-\\(?:available\\|enabled\\)/")
-
-
-;; ┏━┓╻ ╻┏━┓╺┳╸┏━╸┏┳┓╺┳┓
-;; ┗━┓┗┳┛┗━┓ ┃ ┣╸ ┃┃┃ ┃┃
-;; ┗━┛ ╹ ┗━┛ ╹ ┗━╸╹ ╹╺┻┛
-;;; Systemd
-
-(add-to-list 'auto-mode-alist '("\\.service\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
 
 
 ;; ╻ ╻╻┏┳┓╻
