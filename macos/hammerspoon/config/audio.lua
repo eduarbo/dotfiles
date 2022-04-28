@@ -1,41 +1,69 @@
+local log = require("log")
+
 -- Output
 
-local current_output = hs.audiodevice.defaultOutputDevice()
-local outputArray = {}
+function findDeviceInMap(findFn, deviceMap, currentDevice)
+    local currentOutput = hs.audiodevice.defaultOutputDevice()
+    local hasFoundCurrentDeviceOnMap = false
+    local nextDevice
 
-outputArray["External Headphones"] = "🎧 Headphones"
-outputArray["MacBook Pro Speakers"] = "💻 MacBook"
-outputArray["LG HDR QHD"] = "🔊 Speakers"
+    for _, item in ipairs(deviceMap) do
+        local name = item[1]
+        local label = item[2]
+        local isCurrentDevice = name == currentOutput:name()
+        local device = findFn(name)
 
-function switch_output()
-    for _, device in pairs(hs.audiodevice.allOutputDevices()) do
-        if device and device ~= current_output and outputArray[device:name()] then
-            hs.notify.new({ title = "Audio output: " .. outputArray[device:name()], withdrawAfter = 1 }):send()
-            current_output = device
-            device:setDefaultOutputDevice()
-            break
+        if isCurrentDevice then
+            hasFoundCurrentDeviceOnMap = true
+        elseif device and (not nextDevice or hasFoundCurrentDeviceOnMap) then
+            nextDevice = {}
+            nextDevice['name'] = item[1]
+            nextDevice['label'] = item[2]
+            nextDevice['device'] = device
+
+            if hasFoundCurrentDeviceOnMap then
+                break
+            end
         end
+    end
+
+    return nextDevice
+end
+
+function switchOutput()
+    local outputMap = {
+        {"External Headphones", "🎧 Headphones"},
+        {"MacBook Pro Speakers", "💻 MacBook"},
+        {"LG HDR QHD", "🔊 Speakers"}
+    }
+    local currentDevice = hs.audiodevice.defaultOutputDevice()
+    local nextDevice = findDeviceInMap(hs.audiodevice.findOutputByName, outputMap, currentDevice)
+
+    if nextDevice then
+        nextDevice.device:setDefaultOutputDevice()
+        hs.notify.new({ title = "Audio out: " .. nextDevice.label, withdrawAfter = 1 }):send()
     end
 end
 
 local audioOutputKey = "F14"
-hs.hotkey.bind({}, audioOutputKey, switch_output)
+hs.hotkey.bind({}, audioOutputKey, switchOutput)
 
 
 -- Input
 
-local current_input = hs.audiodevice.defaultInputDevice()
 local inputArray = {}
 
 inputArray["MacBook Pro Microphone"] = "Internal Microphone"
 
 function switch_input()
-    for _, device in pairs(hs.audiodevice.allInputDevices()) do
-        if device and device ~= current and inputArray[device:name()] then
-            hs.notify.new({ title = "Audio in: " .. inputArray[device:name()], withdrawAfter = 1 }):send()
-            current = device
-            device:setDefaultInputDevice()
-            break
-        end
+    local inputMap = {
+        {"MacBook Pro Microphone", "💻 Internal Microphone"},
+    }
+    local currentDevice = hs.audiodevice.defaultInputDevice()
+    local nextDevice = findDeviceInMap(hs.audiodevice.findInputByName, inputMap, currentDevice)
+
+    if nextDevice then
+        nextDevice.device:setDefaultOutputDevice()
+        hs.notify.new({ title = "Audio in: " .. nextDevice.label, withdrawAfter = 1 }):send()
     end
 end

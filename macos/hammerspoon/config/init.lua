@@ -2,10 +2,11 @@
 --                ░█▀█░█▀█░█░█░█░█░█▀▀░█▀▄░▀▀█░█▀▀░█░█░█░█░█░█
 --                ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░░▀▀▀░▀▀▀░▀░▀
 
+local log = require("log")
+
 -- adjust hotkey logging... info as the default is too much.
 hs.hotkey.setLogLevel("warning")
 hs.logger.historySize(1000)
-log = hs.logger.new("init", "debug")
 log.i("Initializing")
 
 -- Reload config on write
