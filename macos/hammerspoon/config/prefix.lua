@@ -12,7 +12,7 @@ function Prefix:new()
         return Prefix
     end
 
-    local modal = hs.hotkey.modal.new("alt", ",")
+    local modal = hs.hotkey.modal.new("option", ",")
     setmetatable({__index = Prefix}, Prefix)
 
     Prefix.instance = modal
