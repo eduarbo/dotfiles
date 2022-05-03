@@ -11,7 +11,7 @@ log.i("Initializing")
 
 -- Reload config on write
 hs.pathwatcher.new(hs.configdir, hs.reload):start()
-hs.notify.new({ title = "Config reloaded 🔨🥄", withdrawAfter = 1 }):send()
+hs.notify.new({title = "Config reloaded 🔨🥄", withdrawAfter = 1}):send()
 
 -- Alert styling
 hs.alert.defaultStyle.strokeColor = {white = 0, alpha = 0}
@@ -53,14 +53,14 @@ quitModal:bind(
 -----------------------------------------------
 -- Lock system
 -----------------------------------------------
-hs.hotkey.bind({"rightalt"}, "`", hs.toggleConsole)
+hs.hotkey.bind({"option"}, "'", hs.toggleConsole)
 
 -----------------------------------------------
 -- Modules
 -----------------------------------------------
 
 require("prefix")
-require("date-battery")
+-- require("date-battery")
 require("mic")
 require("netspeed")
 require("window")

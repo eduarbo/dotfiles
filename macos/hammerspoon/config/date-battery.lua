@@ -68,4 +68,4 @@ end
 
 hs.battery.watcher.new(batteryChangedCallback):start()
 
-hs.hotkey.bind("rightalt", ".", showStatus)
+hs.hotkey.bind("option", ".", showStatus)
