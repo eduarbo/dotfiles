@@ -18,6 +18,7 @@
 (add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\editorconfig\\'" . editorconfig-conf-mode))
 
 
 ;; ┏━╸┏━┓┏━┓┏━┓╻ ╻┏━┓╻
