@@ -82,4 +82,4 @@ const rules = [
   },
 ];
 
-export const symbols: ComplexModifications = { title: 'Symbols layer', rules };
+export const symnav: ComplexModifications = { title: 'Symbols layer', rules };

@@ -14,6 +14,1706 @@
       }
     },
     {
+      "name": "Minimal",
+      "devices": [],
+      "complex_modifications": {
+        "parameters": {
+          "basic.simultaneous_threshold_milliseconds": 50,
+          "basic.to_delayed_action_delay_milliseconds": 500,
+          "basic.to_if_alone_timeout_milliseconds": 500,
+          "basic.to_if_held_down_threshold_milliseconds": 500
+        },
+        "rules": [
+          {
+            "description": "Delete bindings",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "u",
+                  "modifiers": {
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow",
+                    "modifiers": [
+                      "control",
+                      "left_shift"
+                    ]
+                  },
+                  {
+                    "key_code": "delete_or_backspace"
+                  },
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "description": "Ctrl + U to delete backward from point to the beginning of line.",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^org\\.gnu\\.Emacs$",
+                      "^org\\.gnu\\.AquamacsEmacs$",
+                      "^org\\.gnu\\.Aquamacs$",
+                      "^org\\.pqrs\\.unknownapp.conkeror$",
+                      "^com\\.microsoft\\.rdc$",
+                      "^com\\.microsoft\\.rdc\\.mac$",
+                      "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+                      "^net\\.sf\\.cord$",
+                      "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^com\\.itap-mobile\\.qmote$",
+                      "^com\\.nulana\\.remotixmac$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer\\.web$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.2X\\.Client\\.Mac$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^net.kovidgoyal.kitty$",
+                      "^org\\.vim\\.",
+                      "^com\\.vmware\\.fusion$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.vmware\\.view$",
+                      "^com\\.parallels\\.desktop$",
+                      "^com\\.parallels\\.vm$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.vmware\\.proxyApp\\.",
+                      "^com\\.parallels\\.winapp\\.",
+                      "^org\\.x\\.X11$",
+                      "^com\\.apple\\.x11$",
+                      "^org\\.macosforge\\.xquartz\\.X11$",
+                      "^org\\.macports\\.X11$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace",
+                    "modifiers": [
+                      "option"
+                    ]
+                  }
+                ],
+                "description": "Ctrl + W to delete word behind point",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^org\\.gnu\\.Emacs$",
+                      "^org\\.gnu\\.AquamacsEmacs$",
+                      "^org\\.gnu\\.Aquamacs$",
+                      "^org\\.pqrs\\.unknownapp.conkeror$",
+                      "^com\\.microsoft\\.rdc$",
+                      "^com\\.microsoft\\.rdc\\.mac$",
+                      "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+                      "^net\\.sf\\.cord$",
+                      "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^com\\.itap-mobile\\.qmote$",
+                      "^com\\.nulana\\.remotixmac$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer\\.web$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.2X\\.Client\\.Mac$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^net.kovidgoyal.kitty$",
+                      "^org\\.vim\\.",
+                      "^com\\.vmware\\.fusion$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.vmware\\.view$",
+                      "^com\\.parallels\\.desktop$",
+                      "^com\\.parallels\\.vm$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.vmware\\.proxyApp\\.",
+                      "^com\\.parallels\\.winapp\\.",
+                      "^org\\.x\\.X11$",
+                      "^com\\.apple\\.x11$",
+                      "^org\\.macosforge\\.xquartz\\.X11$",
+                      "^org\\.macports\\.X11$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_forward"
+                  }
+                ],
+                "description": "Ctrl + D to forward delete",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^org\\.gnu\\.Emacs$",
+                      "^org\\.gnu\\.AquamacsEmacs$",
+                      "^org\\.gnu\\.Aquamacs$",
+                      "^org\\.pqrs\\.unknownapp.conkeror$",
+                      "^com\\.microsoft\\.rdc$",
+                      "^com\\.microsoft\\.rdc\\.mac$",
+                      "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+                      "^net\\.sf\\.cord$",
+                      "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^com\\.itap-mobile\\.qmote$",
+                      "^com\\.nulana\\.remotixmac$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer\\.web$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.2X\\.Client\\.Mac$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^net.kovidgoyal.kitty$",
+                      "^org\\.vim\\.",
+                      "^com\\.vmware\\.fusion$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.vmware\\.view$",
+                      "^com\\.parallels\\.desktop$",
+                      "^com\\.parallels\\.vm$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.vmware\\.proxyApp\\.",
+                      "^com\\.parallels\\.winapp\\.",
+                      "^org\\.x\\.X11$",
+                      "^com\\.apple\\.x11$",
+                      "^org\\.macosforge\\.xquartz\\.X11$",
+                      "^org\\.macports\\.X11$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Ctrl + B/F to move between words",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow",
+                    "modifiers": [
+                      "option"
+                    ]
+                  }
+                ],
+                "description": "Ctrl + W to delete word behind point",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^org\\.gnu\\.Emacs$",
+                      "^org\\.gnu\\.AquamacsEmacs$",
+                      "^org\\.gnu\\.Aquamacs$",
+                      "^org\\.pqrs\\.unknownapp.conkeror$",
+                      "^com\\.microsoft\\.rdc$",
+                      "^com\\.microsoft\\.rdc\\.mac$",
+                      "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+                      "^net\\.sf\\.cord$",
+                      "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^com\\.itap-mobile\\.qmote$",
+                      "^com\\.nulana\\.remotixmac$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer\\.web$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.2X\\.Client\\.Mac$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^net.kovidgoyal.kitty$",
+                      "^org\\.vim\\.",
+                      "^com\\.vmware\\.fusion$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.vmware\\.view$",
+                      "^com\\.parallels\\.desktop$",
+                      "^com\\.parallels\\.vm$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.vmware\\.proxyApp\\.",
+                      "^com\\.parallels\\.winapp\\.",
+                      "^org\\.x\\.X11$",
+                      "^com\\.apple\\.x11$",
+                      "^org\\.macosforge\\.xquartz\\.X11$",
+                      "^org\\.macports\\.X11$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [
+                      "control"
+                    ],
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow",
+                    "modifiers": [
+                      "option"
+                    ]
+                  }
+                ],
+                "description": "Ctrl + W to delete word behind point",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^org\\.gnu\\.Emacs$",
+                      "^org\\.gnu\\.AquamacsEmacs$",
+                      "^org\\.gnu\\.Aquamacs$",
+                      "^org\\.pqrs\\.unknownapp.conkeror$",
+                      "^com\\.microsoft\\.rdc$",
+                      "^com\\.microsoft\\.rdc\\.mac$",
+                      "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+                      "^net\\.sf\\.cord$",
+                      "^com\\.thinomenon\\.RemoteDesktopConnection$",
+                      "^com\\.itap-mobile\\.qmote$",
+                      "^com\\.nulana\\.remotixmac$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer$",
+                      "^com\\.p5sys\\.jump\\.mac\\.viewer\\.web$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.2X\\.Client\\.Mac$",
+                      "^com\\.apple\\.Terminal$",
+                      "^com\\.googlecode\\.iterm2$",
+                      "^co\\.zeit\\.hyperterm$",
+                      "^co\\.zeit\\.hyper$",
+                      "^net.kovidgoyal.kitty$",
+                      "^org\\.vim\\.",
+                      "^com\\.vmware\\.fusion$",
+                      "^com\\.vmware\\.horizon$",
+                      "^com\\.vmware\\.view$",
+                      "^com\\.parallels\\.desktop$",
+                      "^com\\.parallels\\.vm$",
+                      "^com\\.parallels\\.desktop\\.console$",
+                      "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+                      "^com\\.vmware\\.proxyApp\\.",
+                      "^com\\.parallels\\.winapp\\.",
+                      "^org\\.x\\.X11$",
+                      "^com\\.apple\\.x11$",
+                      "^org\\.macosforge\\.xquartz\\.X11$",
+                      "^org\\.macports\\.X11$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Numpad in left hand, symbols and arrows in right hand",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "7"
+                  }
+                ],
+                "description": "from right_shift+w to 7",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "8"
+                  }
+                ],
+                "description": "from right_shift+e to 8",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "r",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "9"
+                  }
+                ],
+                "description": "from right_shift+r to 9",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "4"
+                  }
+                ],
+                "description": "from right_shift+s to 4",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "5"
+                  }
+                ],
+                "description": "from right_shift+d to 5",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "6"
+                  }
+                ],
+                "description": "from right_shift+f to 6",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "x",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "1"
+                  }
+                ],
+                "description": "from right_shift+x to 1",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "description": "from right_shift+c to 2",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "3"
+                  }
+                ],
+                "description": "from right_shift+v to 3",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "t",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "0"
+                  }
+                ],
+                "description": "from right_shift+t to 0",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "y",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "1",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+y to shift+1",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "u",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "2",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+u to shift+2",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "3",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+i to shift+3",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "o",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "4",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+o to shift+4",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "p",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "5",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+p to shift+5",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "6",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+open_bracket to shift+6",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "7",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+n to shift+7",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "m",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "8",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+m to shift+8",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "9",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+caps_lock to shift+9",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "0",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+quote to shift+0",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "equal_sign",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+q to shift+equal_sign",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "equal_sign"
+                  }
+                ],
+                "description": "from right_shift+g to equal_sign",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "hyphen"
+                  }
+                ],
+                "description": "from right_shift+a to hyphen",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "z",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "hyphen",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from right_shift+z to shift+hyphen",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
+                  }
+                ],
+                "description": "from right_shift+h to left_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "down_arrow"
+                  }
+                ],
+                "description": "from right_shift+j to down_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "up_arrow"
+                  }
+                ],
+                "description": "from right_shift+k to up_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ],
+                "description": "from right_shift+l to right_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "comma",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "comma"
+                  }
+                ],
+                "description": "from right_shift+comma to comma",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "period",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "period"
+                  }
+                ],
+                "description": "from right_shift+period to period",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "slash",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "slash"
+                  }
+                ],
+                "description": "from right_shift+slash to slash",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_shift",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "backslash"
+                  }
+                ],
+                "description": "from right_shift+right_shift to backslash",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Thumb cluster",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_option"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": [
+                      "left_control"
+                    ],
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar"
+                  }
+                ],
+                "description": "right_option+left_command to left_control+left_shift, send spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "sticky_modifier": {
+                      "left_shift": "toggle"
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "description": "from spacebar to sticky left_shift",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar"
+                  }
+                ],
+                "description": "left_command to left_shift, send spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_shift",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "escape"
+                  }
+                ],
+                "description": "right_command to right_shift, send escape on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_option",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_control",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "quote"
+                  }
+                ],
+                "description": "left_option to left_control, send quote on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_option",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_option",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "grave_accent_and_tilde"
+                  }
+                ],
+                "description": "right_option to right_option, send grave_accent_and_tilde on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Custom Qwerty",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "e",
+                    "modifiers": [
+                      "left_option"
+                    ]
+                  }
+                ],
+                "description": "from open_bracket to left_option+e",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket"
+                  }
+                ],
+                "description": "from quote to close_bracket",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket"
+                  }
+                ],
+                "description": "from caps_lock to open_bracket",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_shift",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "description": "from left_shift to delete_or_backspace",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_shift",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "backslash"
+                  }
+                ],
+                "description": "from right_shift to backslash",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "name": "Default",
       "devices": [],
       "selected": true,
@@ -379,7 +2079,17 @@
                     "key_code": "mute"
                   }
                 ],
-                "description": "from left_shift+right_shift+e to mute"
+                "description": "from left_shift+right_shift+e to mute",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -398,7 +2108,17 @@
                     "key_code": "volume_decrement"
                   }
                 ],
-                "description": "from left_shift+right_shift+w to volume_decrement"
+                "description": "from left_shift+right_shift+w to volume_decrement",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -417,7 +2137,17 @@
                     "key_code": "volume_increment"
                   }
                 ],
-                "description": "from left_shift+right_shift+r to volume_increment"
+                "description": "from left_shift+right_shift+r to volume_increment",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -436,7 +2166,17 @@
                     "key_code": "f14"
                   }
                 ],
-                "description": "from left_shift+right_shift+q to f14"
+                "description": "from left_shift+right_shift+q to f14",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -455,7 +2195,17 @@
                     "key_code": "f13"
                   }
                 ],
-                "description": "from left_shift+right_shift+t to f13"
+                "description": "from left_shift+right_shift+t to f13",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -474,7 +2224,17 @@
                     "key_code": "display_brightness_decrement"
                   }
                 ],
-                "description": "from left_shift+right_shift+z to display_brightness_decrement"
+                "description": "from left_shift+right_shift+z to display_brightness_decrement",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -493,7 +2253,17 @@
                     "key_code": "display_brightness_increment"
                   }
                 ],
-                "description": "from left_shift+right_shift+b to display_brightness_increment"
+                "description": "from left_shift+right_shift+b to display_brightness_increment",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -512,7 +2282,17 @@
                     "key_code": "rewind"
                   }
                 ],
-                "description": "from left_shift+right_shift+x to rewind"
+                "description": "from left_shift+right_shift+x to rewind",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -531,7 +2311,17 @@
                     "key_code": "play_or_pause"
                   }
                 ],
-                "description": "from left_shift+right_shift+c to play_or_pause"
+                "description": "from left_shift+right_shift+c to play_or_pause",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -550,7 +2340,17 @@
                     "key_code": "fastforward"
                   }
                 ],
-                "description": "from left_shift+right_shift+v to fastforward"
+                "description": "from left_shift+right_shift+v to fastforward",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -574,7 +2374,17 @@
                     "key_code": "mute"
                   }
                 ],
-                "description": "from left_shift+right_shift+i to mute"
+                "description": "from left_shift+right_shift+i to mute",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -593,7 +2403,17 @@
                     "key_code": "volume_decrement"
                   }
                 ],
-                "description": "from left_shift+right_shift+u to volume_decrement"
+                "description": "from left_shift+right_shift+u to volume_decrement",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -612,7 +2432,17 @@
                     "key_code": "volume_increment"
                   }
                 ],
-                "description": "from left_shift+right_shift+o to volume_increment"
+                "description": "from left_shift+right_shift+o to volume_increment",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -631,7 +2461,17 @@
                     "key_code": "f14"
                   }
                 ],
-                "description": "from left_shift+right_shift+p to f14"
+                "description": "from left_shift+right_shift+p to f14",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -650,7 +2490,17 @@
                     "key_code": "f13"
                   }
                 ],
-                "description": "from left_shift+right_shift+y to f13"
+                "description": "from left_shift+right_shift+y to f13",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -669,7 +2519,17 @@
                     "key_code": "display_brightness_decrement"
                   }
                 ],
-                "description": "from left_shift+right_shift+n to display_brightness_decrement"
+                "description": "from left_shift+right_shift+n to display_brightness_decrement",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -688,7 +2548,17 @@
                     "key_code": "display_brightness_increment"
                   }
                 ],
-                "description": "from left_shift+right_shift+slash to display_brightness_increment"
+                "description": "from left_shift+right_shift+slash to display_brightness_increment",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -707,7 +2577,17 @@
                     "key_code": "rewind"
                   }
                 ],
-                "description": "from left_shift+right_shift+m to rewind"
+                "description": "from left_shift+right_shift+m to rewind",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -726,7 +2606,17 @@
                     "key_code": "play_or_pause"
                   }
                 ],
-                "description": "from left_shift+right_shift+comma to play_or_pause"
+                "description": "from left_shift+right_shift+comma to play_or_pause",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -745,7 +2635,17 @@
                     "key_code": "fastforward"
                   }
                 ],
-                "description": "from left_shift+right_shift+period to fastforward"
+                "description": "from left_shift+right_shift+period to fastforward",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -770,7 +2670,17 @@
                     "key_code": "7"
                   }
                 ],
-                "description": "from right_shift+w to 7"
+                "description": "from right_shift+w to 7",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -790,7 +2700,17 @@
                     "key_code": "8"
                   }
                 ],
-                "description": "from right_shift+e to 8"
+                "description": "from right_shift+e to 8",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -810,7 +2730,17 @@
                     "key_code": "9"
                   }
                 ],
-                "description": "from right_shift+r to 9"
+                "description": "from right_shift+r to 9",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -830,7 +2760,17 @@
                     "key_code": "4"
                   }
                 ],
-                "description": "from right_shift+s to 4"
+                "description": "from right_shift+s to 4",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -850,7 +2790,17 @@
                     "key_code": "5"
                   }
                 ],
-                "description": "from right_shift+d to 5"
+                "description": "from right_shift+d to 5",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -870,7 +2820,17 @@
                     "key_code": "6"
                   }
                 ],
-                "description": "from right_shift+f to 6"
+                "description": "from right_shift+f to 6",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -890,7 +2850,17 @@
                     "key_code": "1"
                   }
                 ],
-                "description": "from right_shift+x to 1"
+                "description": "from right_shift+x to 1",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -910,7 +2880,17 @@
                     "key_code": "2"
                   }
                 ],
-                "description": "from right_shift+c to 2"
+                "description": "from right_shift+c to 2",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -930,7 +2910,17 @@
                     "key_code": "3"
                   }
                 ],
-                "description": "from right_shift+v to 3"
+                "description": "from right_shift+v to 3",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -950,7 +2940,17 @@
                     "key_code": "0"
                   }
                 ],
-                "description": "from right_shift+t to 0"
+                "description": "from right_shift+t to 0",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -973,7 +2973,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+y to shift+1"
+                "description": "from right_shift+y to shift+1",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -996,7 +3006,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+u to shift+2"
+                "description": "from right_shift+u to shift+2",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1019,7 +3039,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+i to shift+3"
+                "description": "from right_shift+i to shift+3",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1042,7 +3072,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+o to shift+4"
+                "description": "from right_shift+o to shift+4",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1065,7 +3105,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+p to shift+5"
+                "description": "from right_shift+p to shift+5",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1088,7 +3138,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+open_bracket to shift+6"
+                "description": "from right_shift+open_bracket to shift+6",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1111,7 +3171,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+n to shift+7"
+                "description": "from right_shift+n to shift+7",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1134,7 +3204,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+m to shift+8"
+                "description": "from right_shift+m to shift+8",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1157,7 +3237,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+caps_lock to shift+9"
+                "description": "from right_shift+caps_lock to shift+9",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1180,7 +3270,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+quote to shift+0"
+                "description": "from right_shift+quote to shift+0",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1203,7 +3303,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+q to shift+equal_sign"
+                "description": "from right_shift+q to shift+equal_sign",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1223,7 +3333,17 @@
                     "key_code": "equal_sign"
                   }
                 ],
-                "description": "from right_shift+g to equal_sign"
+                "description": "from right_shift+g to equal_sign",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1243,7 +3363,17 @@
                     "key_code": "hyphen"
                   }
                 ],
-                "description": "from right_shift+a to hyphen"
+                "description": "from right_shift+a to hyphen",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1266,7 +3396,17 @@
                     ]
                   }
                 ],
-                "description": "from right_shift+z to shift+hyphen"
+                "description": "from right_shift+z to shift+hyphen",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1286,7 +3426,17 @@
                     "key_code": "left_arrow"
                   }
                 ],
-                "description": "from right_shift+h to left_arrow"
+                "description": "from right_shift+h to left_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1306,7 +3456,17 @@
                     "key_code": "down_arrow"
                   }
                 ],
-                "description": "from right_shift+j to down_arrow"
+                "description": "from right_shift+j to down_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1326,7 +3486,17 @@
                     "key_code": "up_arrow"
                   }
                 ],
-                "description": "from right_shift+k to up_arrow"
+                "description": "from right_shift+k to up_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1346,7 +3516,17 @@
                     "key_code": "right_arrow"
                   }
                 ],
-                "description": "from right_shift+l to right_arrow"
+                "description": "from right_shift+l to right_arrow",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1366,7 +3546,17 @@
                     "key_code": "comma"
                   }
                 ],
-                "description": "from right_shift+comma to comma"
+                "description": "from right_shift+comma to comma",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1386,7 +3576,17 @@
                     "key_code": "period"
                   }
                 ],
-                "description": "from right_shift+period to period"
+                "description": "from right_shift+period to period",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1406,7 +3606,17 @@
                     "key_code": "slash"
                   }
                 ],
-                "description": "from right_shift+slash to slash"
+                "description": "from right_shift+slash to slash",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1426,7 +3636,17 @@
                     "key_code": "backslash"
                   }
                 ],
-                "description": "from right_shift+right_shift to backslash"
+                "description": "from right_shift+right_shift to backslash",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -1722,10 +3942,10 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a \"/Applications/1Password 7.app\""
+                    "shell_command": "open -a \"/Applications/1Password.app\""
                   }
                 ],
-                "description": "from right_option+q to shell command \"open -a \"/Applications/1Password 7.app\"\""
+                "description": "from right_option+q to shell command \"open -a \"/Applications/1Password.app\"\""
               },
               {
                 "type": "basic",
@@ -1994,7 +4214,17 @@
                     "key_code": "spacebar"
                   }
                 ],
-                "description": "right_option+left_command to left_control+left_shift, send spacebar on tap"
+                "description": "right_option+left_command to left_control+left_shift, send spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2017,7 +4247,17 @@
                     "key_code": "return_or_enter"
                   }
                 ],
-                "description": "spacebar to left_command, send return_or_enter on tap"
+                "description": "spacebar to left_command, send return_or_enter on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2040,7 +4280,17 @@
                     "key_code": "spacebar"
                   }
                 ],
-                "description": "left_command to left_shift, send spacebar on tap"
+                "description": "left_command to left_shift, send spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2063,7 +4313,17 @@
                     "key_code": "escape"
                   }
                 ],
-                "description": "right_command to right_shift, send escape on tap"
+                "description": "right_command to right_shift, send escape on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2086,7 +4346,17 @@
                     "key_code": "quote"
                   }
                 ],
-                "description": "left_option to left_control, send quote on tap"
+                "description": "left_option to left_control, send quote on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2109,7 +4379,17 @@
                     "key_code": "grave_accent_and_tilde"
                   }
                 ],
-                "description": "right_option to right_option, send grave_accent_and_tilde on tap"
+                "description": "right_option to right_option, send grave_accent_and_tilde on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -2134,7 +4414,17 @@
                     ]
                   }
                 ],
-                "description": "from open_bracket to left_option+e"
+                "description": "from open_bracket to left_option+e",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2151,7 +4441,17 @@
                     "key_code": "close_bracket"
                   }
                 ],
-                "description": "from quote to close_bracket"
+                "description": "from quote to close_bracket",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2168,7 +4468,17 @@
                     "key_code": "open_bracket"
                   }
                 ],
-                "description": "from caps_lock to open_bracket"
+                "description": "from caps_lock to open_bracket",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2185,7 +4495,17 @@
                     "key_code": "delete_or_backspace"
                   }
                 ],
-                "description": "from left_shift to delete_or_backspace"
+                "description": "from left_shift to delete_or_backspace",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -2202,7 +4522,17 @@
                     "key_code": "backslash"
                   }
                 ],
-                "description": "from right_shift to backslash"
+                "description": "from right_shift to backslash",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
