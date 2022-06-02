@@ -12,7 +12,8 @@ function Prefix:new()
         return Prefix
     end
 
-    local modal = hs.hotkey.modal.new("option", ",")
+    -- TODO Replace prefix with direct binds to super+hjkl
+    local modal = hs.hotkey.modal.new({ "cmd", "ctrl", "alt" }, ",")
     setmetatable({__index = Prefix}, Prefix)
 
     Prefix.instance = modal
