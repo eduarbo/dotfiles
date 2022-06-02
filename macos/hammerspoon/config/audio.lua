@@ -1,5 +1,7 @@
 local log = require("log")
 
+local audioOutputKey = "F14"
+
 -- Output
 
 function findDeviceInMap(findFn, deviceMap, currentDevice)
@@ -46,7 +48,6 @@ function switchOutput()
     end
 end
 
-local audioOutputKey = "F14"
 hs.hotkey.bind({}, audioOutputKey, switchOutput)
 
 

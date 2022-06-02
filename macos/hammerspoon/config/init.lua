@@ -4,6 +4,10 @@
 
 local log = require("log")
 
+-- Manage Spoons
+hs.loadSpoon("SpoonInstall")
+spoon.SpoonInstall.use_syncinstall = true
+
 -- adjust hotkey logging... info as the default is too much.
 hs.hotkey.setLogLevel("warning")
 hs.logger.historySize(1000)
@@ -53,7 +57,7 @@ quitModal:bind(
 -----------------------------------------------
 -- Lock system
 -----------------------------------------------
-hs.hotkey.bind({"option"}, "'", hs.toggleConsole)
+hs.hotkey.bind({ "cmd", "ctrl", "alt", "shift" }, "'", hs.toggleConsole)
 
 -----------------------------------------------
 -- Modules
@@ -65,3 +69,4 @@ require("mic")
 require("netspeed")
 require("window")
 require("audio")
+require("launcher")
