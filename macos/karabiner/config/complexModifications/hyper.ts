@@ -4,7 +4,16 @@ import type { KeyCode, Modifier, ToKeyCodeTuple, ComplexModifications } from '..
 const mandatoryMods = ['left_shift', 'right_shift'] as Modifier[];
 
 const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[], optionalMods: Modifier[] = []) =>
-  remap([keyCode, mandatoryMods, optionalMods], toTuples);
+  remap([keyCode, mandatoryMods, optionalMods], toTuples, {
+    conditions: [
+      {
+        type: 'device_unless',
+        identifiers: [{
+          vendor_id: 18003
+        }]
+      },
+    ],
+  });
 
 const rules = [
   {

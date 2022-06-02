@@ -41,8 +41,8 @@ const rules = [
         [['spacebar']],
       ),
 
-      // Spacebar -> L Command | Return
-      lazyModTap(['spacebar', null, ['any']], [['left_command']], [['return_or_enter']]),
+      // Spacebar -> Sticky Shift
+      lib.remapToStickyModifier(['spacebar', null, ['any']], 'left_shift', manipulatorOptions),
 
       // L Command -> L Shift | Spacebar
       lazyModTap(['left_command', null, ['any']], [['left_shift']], [['spacebar']]),
@@ -78,4 +78,4 @@ const rules = [
   },
 ];
 
-export const main: ComplexModifications = { title: 'Main layer', rules };
+export const base: ComplexModifications = { title: 'Main layer', rules };

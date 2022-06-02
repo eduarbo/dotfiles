@@ -55,16 +55,15 @@
           },
           "to": [
             {
-              "key_code": "left_command",
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [
+              "sticky_modifier": {
+                "left_shift": "toggle"
+              }
+            },
             {
-              "key_code": "return_or_enter"
+              "key_code": "left_shift"
             }
           ],
-          "description": "spacebar to left_command, send return_or_enter on tap",
+          "description": "from spacebar to sticky left_shift",
           "conditions": [
             {
               "type": "device_unless",

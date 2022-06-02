@@ -30,7 +30,7 @@ const manipulators = [
   launch('n', 'open -a "/Applications/Obsidian.app"'),
   // remapToLayer('o', [['o', ['option']]]),
   launch('p', 'open -a "/Applications/Spotify.app"'),
-  launch('q', 'open -a "/Applications/1Password 7.app"'),
+  launch('q', 'open -a "/Applications/1Password.app"'),
   launch('r', 'open -a "/System/Volumes/Data/Applications/Telegram.app"'),
   launch('s', 'open -a "/Applications/Slack.app"'),
   launch('t', 'open -a "/System/Volumes/Data/Applications/Microsoft To Do.app"'),

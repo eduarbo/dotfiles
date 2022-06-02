@@ -3,6 +3,7 @@ import { toKeyCode } from './toEvent';
 
 import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
 import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable } from './toEvent';
+import type { Modifier, KeyCode } from './enums';
 
 interface FrontmostApplicationCondition {
   type: 'frontmost_application_if' | 'frontmost_application_unless';
@@ -121,6 +122,29 @@ export const remap = (
     from: fromKeyCode(fromTuple),
     to: toTuples.map((toTuple) => toKeyCode(toTuple)),
     description: fromKeyText && toKeyText && `from ${fromKeyText} to ${toKeyText}`,
+    ...options,
+  };
+};
+
+export const remapToStickyModifier = (
+  fromTuple: FromKeyCodeTuple,
+  toModifier: Modifier,
+  options?: ManipulatorOptions,
+): Manipulator => {
+  const fromKeyText = keyToString(fromTuple);
+
+  return {
+    type: 'basic',
+    from: fromKeyCode(fromTuple),
+    to: [
+      {
+        sticky_modifier: {
+          [toModifier]: 'toggle',
+        },
+      },
+      { key_code: toModifier as KeyCode },
+    ],
+    description: fromKeyText && toModifier && `from ${fromKeyText} to sticky ${toModifier}`,
     ...options,
   };
 };

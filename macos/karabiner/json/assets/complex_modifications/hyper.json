@@ -21,7 +21,17 @@
               "key_code": "mute"
             }
           ],
-          "description": "from left_shift+right_shift+e to mute"
+          "description": "from left_shift+right_shift+e to mute",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -40,7 +50,17 @@
               "key_code": "volume_decrement"
             }
           ],
-          "description": "from left_shift+right_shift+w to volume_decrement"
+          "description": "from left_shift+right_shift+w to volume_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -59,7 +79,17 @@
               "key_code": "volume_increment"
             }
           ],
-          "description": "from left_shift+right_shift+r to volume_increment"
+          "description": "from left_shift+right_shift+r to volume_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -78,7 +108,17 @@
               "key_code": "f14"
             }
           ],
-          "description": "from left_shift+right_shift+q to f14"
+          "description": "from left_shift+right_shift+q to f14",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -97,7 +137,17 @@
               "key_code": "f13"
             }
           ],
-          "description": "from left_shift+right_shift+t to f13"
+          "description": "from left_shift+right_shift+t to f13",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -116,7 +166,17 @@
               "key_code": "display_brightness_decrement"
             }
           ],
-          "description": "from left_shift+right_shift+z to display_brightness_decrement"
+          "description": "from left_shift+right_shift+z to display_brightness_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -135,7 +195,17 @@
               "key_code": "display_brightness_increment"
             }
           ],
-          "description": "from left_shift+right_shift+b to display_brightness_increment"
+          "description": "from left_shift+right_shift+b to display_brightness_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -154,7 +224,17 @@
               "key_code": "rewind"
             }
           ],
-          "description": "from left_shift+right_shift+x to rewind"
+          "description": "from left_shift+right_shift+x to rewind",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -173,7 +253,17 @@
               "key_code": "play_or_pause"
             }
           ],
-          "description": "from left_shift+right_shift+c to play_or_pause"
+          "description": "from left_shift+right_shift+c to play_or_pause",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -192,7 +282,17 @@
               "key_code": "fastforward"
             }
           ],
-          "description": "from left_shift+right_shift+v to fastforward"
+          "description": "from left_shift+right_shift+v to fastforward",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -216,7 +316,17 @@
               "key_code": "mute"
             }
           ],
-          "description": "from left_shift+right_shift+i to mute"
+          "description": "from left_shift+right_shift+i to mute",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -235,7 +345,17 @@
               "key_code": "volume_decrement"
             }
           ],
-          "description": "from left_shift+right_shift+u to volume_decrement"
+          "description": "from left_shift+right_shift+u to volume_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -254,7 +374,17 @@
               "key_code": "volume_increment"
             }
           ],
-          "description": "from left_shift+right_shift+o to volume_increment"
+          "description": "from left_shift+right_shift+o to volume_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -273,7 +403,17 @@
               "key_code": "f14"
             }
           ],
-          "description": "from left_shift+right_shift+p to f14"
+          "description": "from left_shift+right_shift+p to f14",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -292,7 +432,17 @@
               "key_code": "f13"
             }
           ],
-          "description": "from left_shift+right_shift+y to f13"
+          "description": "from left_shift+right_shift+y to f13",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -311,7 +461,17 @@
               "key_code": "display_brightness_decrement"
             }
           ],
-          "description": "from left_shift+right_shift+n to display_brightness_decrement"
+          "description": "from left_shift+right_shift+n to display_brightness_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -330,7 +490,17 @@
               "key_code": "display_brightness_increment"
             }
           ],
-          "description": "from left_shift+right_shift+slash to display_brightness_increment"
+          "description": "from left_shift+right_shift+slash to display_brightness_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -349,7 +519,17 @@
               "key_code": "rewind"
             }
           ],
-          "description": "from left_shift+right_shift+m to rewind"
+          "description": "from left_shift+right_shift+m to rewind",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -368,7 +548,17 @@
               "key_code": "play_or_pause"
             }
           ],
-          "description": "from left_shift+right_shift+comma to play_or_pause"
+          "description": "from left_shift+right_shift+comma to play_or_pause",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -387,7 +577,17 @@
               "key_code": "fastforward"
             }
           ],
-          "description": "from left_shift+right_shift+period to fastforward"
+          "description": "from left_shift+right_shift+period to fastforward",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         }
       ]
     }
