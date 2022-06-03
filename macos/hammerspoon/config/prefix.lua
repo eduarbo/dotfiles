@@ -40,8 +40,6 @@ function Prefix:new()
     Prefix.bind("", "escape", Prefix.exit)
     Prefix.bind("ctrl", "space", Prefix.exit)
 
-    Prefix.bind("", "r", hs.reload)
-
     return Prefix
 end
 
