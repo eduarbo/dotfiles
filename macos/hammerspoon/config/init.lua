@@ -55,18 +55,19 @@ quitModal:bind(
 )
 
 -----------------------------------------------
--- Lock system
+-- Bindings for debugging
 -----------------------------------------------
-hs.hotkey.bind({ "cmd", "ctrl", "alt", "shift" }, "'", hs.toggleConsole)
+hs.hotkey.bind({ "cmd", "ctrl", "alt", "shift" }, ".", hs.toggleConsole)
+hs.hotkey.bind({ "cmd", "ctrl", "alt", "shift" }, "`", hs.reload)
 
 -----------------------------------------------
 -- Modules
 -----------------------------------------------
 
-require("prefix")
+-- require("prefix")
 -- require("date-battery")
 require("mic")
 require("netspeed")
-require("window")
+-- require("window")
 require("audio")
 require("launcher")
