@@ -1,6 +1,6 @@
 import { profile } from '../lib';
 import type { KarabinerConfig } from '../lib';
-import { hyper, emacs, launcher, symbols, symnav, main, base } from './complexModifications';
+import { hyper, meh, emacs, launcher, symbols, symnav, main, base } from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
 const defaultProfile = [
@@ -14,8 +14,7 @@ const defaultProfile = [
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
 const minimalProfile = [
   emacs,
-  // TODO Rebind super to left opt and hyper to mod-tap v/m
-  // super,
+  meh,
   symnav,
   base,
 ];
@@ -23,10 +22,10 @@ const minimalProfile = [
 const profiles = [
   profile('Empty'),
   profile('Minimal', minimalProfile, {
-    // selected: true,
+    selected: true,
   }),
   profile('Default', defaultProfile, {
-    selected: true,
+    // selected: true,
   }),
 ];
 
