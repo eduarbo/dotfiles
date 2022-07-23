@@ -5,7 +5,9 @@
 -- When the mic is muted hold f13 key to talk and release to mute again.
 -- You can toggle mute by double tapping the f13 key
 
-local micKey = "r"
+local mods = require("modifiers")
+
+local micKey = "v"
 local doubleTap = false
 local pushToTalk = false
 local recentlyTapped = false
@@ -74,7 +76,7 @@ local function onKeyUp(event)
     end
 end
 
-hs.hotkey.bind({ "cmd", "ctrl", "alt" }, micKey, onKeyDown, onKeyUp)
+hs.hotkey.bind(mods.super, micKey, onKeyDown, onKeyUp)
 
 if not micMenubar then
     micMenubar = hs.menubar.new()
