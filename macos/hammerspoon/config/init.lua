@@ -3,14 +3,12 @@
 --                ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░░▀▀▀░▀▀▀░▀░▀
 
 local log = require("log")
+local mods = require("modifiers")
 
 -- Manage Spoons
 hs.loadSpoon("SpoonInstall")
 spoon.SpoonInstall.use_syncinstall = true
 
--- adjust hotkey logging... info as the default is too much.
-hs.hotkey.setLogLevel("warning")
-hs.logger.historySize(1000)
 log.i("Initializing")
 
 -- Reload config on write
@@ -23,51 +21,21 @@ hs.alert.defaultStyle.fillColor = {white = 0, alpha = 0.75}
 hs.alert.defaultStyle.textStyle = {paragraphStyle = {alignment = "center"}}
 hs.alert.defaultStyle.textSize = 25
 
------------------------------------------------
--- Press Cmd+Q twice to quit
------------------------------------------------
-
-local quitModal = hs.hotkey.modal.new("cmd", "q")
-
-function quitModal:entered()
-    hs.alert.closeAll()
-    hs.alert.show("Press Cmd+Q again to quit", 1)
-    hs.timer.doAfter(
-        1,
-        function()
-            quitModal:exit()
-        end
-    )
-end
-
-local function doQuit()
-    hs.application.frontmostApplication():kill()
-    quitModal:exit()
-end
-
-quitModal:bind("cmd", "q", doQuit)
-quitModal:bind(
-    "",
-    "escape",
-    function()
-        quitModal:exit()
-    end
-)
-
------------------------------------------------
+--------------{ "cmd", "ctrl", "alt" }---------------------------------
 -- Bindings for debugging
 -----------------------------------------------
-hs.hotkey.bind({ "cmd", "ctrl", "alt", "shift" }, ".", hs.toggleConsole)
-hs.hotkey.bind({ "cmd", "ctrl", "alt", "shift" }, "`", hs.reload)
+hs.hotkey.bind(mods.meh, "/", hs.toggleConsole)
+hs.hotkey.bind(mods.meh, ".", hs.reload)
 
 -----------------------------------------------
 -- Modules
 -----------------------------------------------
 
--- require("prefix")
 -- require("date-battery")
+require("press-twice-to-quit")
 require("mic")
 require("netspeed")
--- require("window")
+require("window")
 require("audio")
 require("launcher")
+-- require("cheatsheet")
