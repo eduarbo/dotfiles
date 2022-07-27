@@ -1,6 +1,6 @@
 local mods = require("modifiers")
 
-local audioOutputKey = "p"
+local audioOutputKey = "h"
 
 -- Output
 
