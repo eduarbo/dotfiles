@@ -7,7 +7,7 @@
 
 local mods = require("modifiers")
 
-local micKey = "v"
+local micKey = "g"
 local doubleTap = false
 local pushToTalk = false
 local recentlyTapped = false

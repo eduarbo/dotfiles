@@ -30,6 +30,6 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     z = "zoom.us",
   },
   config = {
-    modifiers = mods.meh
+    modifiers = mods.hyper
   }
 })

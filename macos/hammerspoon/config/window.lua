@@ -28,23 +28,23 @@ hs.grid.HINTS={
     {'H','J','K','L',';'},
     {'N','M',',','.','/'}
 }
-hs.hotkey.bind(mods.super, "y", hs.grid.show)
+hs.hotkey.bind(mods.meh, "a", hs.grid.show)
 
 -- ┏━┓┏━╸┏━┓╻╺━┓┏━╸   ┏┓     ┏┳┓┏━┓╻ ╻┏━╸
 -- ┣┳┛┣╸ ┗━┓┃┏━┛┣╸    ┃╺╋╸   ┃┃┃┃ ┃┃┏┛┣╸
 -- ╹┗╸┗━╸┗━┛╹┗━╸┗━╸   ┗━┛    ╹ ╹┗━┛┗┛ ┗━╸
 -- Resize and move
 
-local arrowKeys = {"h", "j", "k", "l"}
+local arrowKeys = {"s", "d", "f", "g"}
 local rectMap = {
-    ["h"] = {0, 0, 0.5, 1}, -- left half
-    ["l"] = {0.5, 0, 0.5, 1}, -- right half
-    ["j"] = {0, 0, 1 / 3, 1}, -- left one third
-    ["k"] = {2 / 3, 0, 1 / 3, 1}, -- right one third
-    ["hj"] = {0, 0, 2 / 3, 1}, -- left two thirds
-    ["kl"] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
-    ["hl"] = {0, 0, 1, 1}, -- full screen
-    ["jk"] = "center" -- center on screen
+    ["s"] = {0, 0, 0.5, 1}, -- left half
+    ["g"] = {0.5, 0, 0.5, 1}, -- right half
+    ["d"] = {0, 0, 1 / 3, 1}, -- left one third
+    ["f"] = {2 / 3, 0, 1 / 3, 1}, -- right one third
+    ["sd"] = {0, 0, 2 / 3, 1}, -- left two thirds
+    ["fg"] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
+    ["sg"] = {0, 0, 1, 1}, -- full screen
+    ["df"] = "center" -- center on screen
 }
 local wasPressed = {false, false, false, false}
 local pressed = {false, false, false, false}
@@ -85,7 +85,7 @@ for i = 1, #arrowKeys do
         pressed[i] = false
         resizeWindow()
     end
-    hs.hotkey.bind(mods.super, arrowKeys[i], pressedFn, releasedFn, nil)
+    hs.hotkey.bind(mods.meh, arrowKeys[i], pressedFn, releasedFn, nil)
 end
 
 -- meh + n -> move window to the next screen
@@ -111,7 +111,7 @@ local function moveToNextScreen()
     end
 end
 
-hs.hotkey.bind(mods.super, "n", moveToNextScreen)
+hs.hotkey.bind(mods.meh, "b", moveToNextScreen)
 
 -- -- super + hjkl -> move window
 
