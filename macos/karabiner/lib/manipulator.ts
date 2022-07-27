@@ -1,8 +1,15 @@
 import { fromKeyCode } from './fromEvent';
-import { toKeyCode } from './toEvent';
+import { toKeyCode, toSetVariable } from './toEvent';
 
 import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
-import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable } from './toEvent';
+import type {
+  ToEvent,
+  ToEventCommon,
+  ToKeyCodeTuple,
+  Variable,
+  SetVariableTuple,
+} from './toEvent';
+import type { KeyCode, Modifier, VariableType } from './enums';
 
 interface FrontmostApplicationCondition {
   type: 'frontmost_application_if' | 'frontmost_application_unless';
@@ -20,7 +27,7 @@ export interface Identifier {
   is_touch_bar?: boolean;
 }
 
-interface DeviceCondition {
+export interface DeviceCondition {
   type: 'device_if' | 'device_unless';
   identifiers: Identifier[];
   description?: string;
@@ -43,8 +50,8 @@ interface InputSourceCondition {
   description?: string;
 }
 
-interface VariableCondition extends Variable {
-  type: 'variable_if' | 'variable_unless';
+export interface VariableCondition extends Variable {
+  type: VariableType;
   description?: string;
 }
 
@@ -111,17 +118,84 @@ export const manipulator = (
 export const remap = (
   fromTuple: FromKeyCodeTuple,
   toTuples: ToKeyCodeTuple[],
-  options?: ManipulatorOptions,
+  options: RemapOptions = {},
 ): Manipulator => {
   const fromKeyText = keyToString(fromTuple);
   const toKeyText = keyToString(...toTuples);
+  const { manipulatorOptions, fromOptions, toOptions } = options;
 
   return {
     type: 'basic',
-    from: fromKeyCode(fromTuple),
-    to: toTuples.map((toTuple) => toKeyCode(toTuple)),
+    from: fromKeyCode(fromTuple, fromOptions),
+    to: toTuples.map((toTuple) => toKeyCode(toTuple, toOptions)),
     description: fromKeyText && toKeyText && `from ${fromKeyText} to ${toKeyText}`,
-    ...options,
+    ...manipulatorOptions,
+  };
+};
+
+export const remapToLayer = (
+  fromTuple: FromKeyCodeTuple,
+  layer: string,
+  options: RemapOptions = {},
+): Manipulator => {
+  const fromKeyText = keyToString(fromTuple);
+  const { manipulatorOptions, fromOptions } = options;
+
+  return {
+    type: 'basic',
+    from: fromKeyCode(fromTuple, fromOptions),
+    to: [
+      {
+        set_variable: {
+          name: layer,
+          value: true,
+        },
+      },
+    ],
+    to_after_key_up: [
+      {
+        set_variable: {
+          name: layer,
+          value: false,
+        },
+      },
+    ],
+    description: `from ${fromKeyText} to layer ${layer}`,
+    ...manipulatorOptions,
+  };
+};
+
+export interface RemapOptions {
+  manipulatorOptions?: ManipulatorOptions;
+  toOptions?: ToEventCommon;
+  setVariables?: SetVariableTuple[];
+  fromOptions?: FromEventCommon;
+}
+
+export const remapToStickyModifier = (
+  fromTuple: FromKeyCodeTuple,
+  toModifiers: Modifier[],
+  options: RemapOptions = {},
+): Manipulator => {
+  const fromKeyText = keyToString(fromTuple);
+  const { manipulatorOptions, fromOptions, toOptions, setVariables = [] } = options;
+
+  return {
+    type: 'basic',
+    from: fromKeyCode(fromTuple, fromOptions),
+    to: [
+      ...setVariables.map((tuple) => toSetVariable(tuple)),
+      toKeyCode([toModifiers[0] as KeyCode, toModifiers.slice(1) as Modifier[]], {
+        ...toOptions,
+      }),
+    ],
+    to_if_alone: toModifiers.map((toModifier) => ({
+      sticky_modifier: {
+        [toModifier]: 'toggle',
+      },
+    })),
+    description: `from ${fromKeyText} to sticky ${toModifiers.join(', ')}`,
+    ...manipulatorOptions,
   };
 };
 
@@ -147,11 +221,7 @@ export const modTap = (
   fromTuple: FromKeyCodeTuple,
   toTuples: ToKeyCodeTuple[],
   toTuplesOnTap: ToKeyCodeTuple[],
-  options: {
-    manipulatorOptions?: ManipulatorOptions;
-    toOptions?: ToEventCommon;
-    fromOptions?: FromEventCommon;
-  } = {},
+  options: RemapOptions = {},
 ): Manipulator => {
   const fromKeyText = keyToString(fromTuple);
   const toKeyText = keyToString(...toTuples);
@@ -172,11 +242,7 @@ export const lazyModTap = (
   fromTuple: FromKeyCodeTuple,
   toTuples: ToKeyCodeTuple[],
   toTuplesOnTap: ToKeyCodeTuple[],
-  options: {
-    manipulatorOptions?: ManipulatorOptions;
-    toOptions?: ToEventCommon;
-    fromOptions?: FromEventCommon;
-  } = {},
+  options: RemapOptions = {},
 ) => {
   const { manipulatorOptions, toOptions, fromOptions } = options;
   return modTap(fromTuple, toTuples, toTuplesOnTap, {

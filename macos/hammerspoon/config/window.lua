@@ -2,7 +2,7 @@
 --                 ░█▄█░░█░░█░█░░░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█▀▄
 --                 ░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
 
-local prefix = require("prefix")
+local mods = require("modifiers")
 
 hs.window.animationDuration = 0
 
@@ -19,44 +19,32 @@ hs.window.filter.ignoreAlways["FirefoxCP WebExtensions"] = true
 -- ┗━┛╹┗╸╹╺┻┛
 -- Grid
 
-hs.grid.setGrid("6x4", nil, nil)
+hs.grid.setGrid("5x3", nil, nil)
 hs.grid.setMargins({0, 0})
-prefix.bind(
-    "",
-    "g",
-    function()
-        hs.grid.show()
-    end
-)
+hs.grid.HINTS={
+    {'f6','f7','f8','f9','f10'},
+    {'6','7','8','9','0'},
+    {'Y','U','I','O','P'},
+    {'H','J','K','L',';'},
+    {'N','M',',','.','/'}
+}
+hs.hotkey.bind(mods.meh, "a", hs.grid.show)
 
 -- ┏━┓┏━╸┏━┓╻╺━┓┏━╸   ┏┓     ┏┳┓┏━┓╻ ╻┏━╸
 -- ┣┳┛┣╸ ┗━┓┃┏━┛┣╸    ┃╺╋╸   ┃┃┃┃ ┃┃┏┛┣╸
 -- ╹┗╸┗━╸┗━┛╹┗━╸┗━╸   ┗━┛    ╹ ╹┗━┛┗┛ ┗━╸
 -- Resize and move
 
--- prefix + h -> left half
--- prefix + j -> bottom half
--- prefix + k -> top half
--- prefix + l -> right half
--- prefix + hj -> bottom left quarter
--- prefix + hk -> top left quarter
--- prefix + jl -> top right quarter
--- prefix + kl -> top bottom quarter
--- prefix + lj -> top bottom quarter
--- prefix + jk -> center
--- prefix + hl -> full screen
-
-local arrowKeys = {"h", "j", "k", "l"}
+local arrowKeys = {"s", "d", "f", "g"}
 local rectMap = {
-    ["h"] = {0, 0, 0.5, 1},
-    ["j"] = {0, 0.5, 1, 0.5},
-    ["k"] = {0, 0, 1, 0.5},
-    ["l"] = {0.5, 0, 0.5, 1},
-    ["hj"] = {0, 0.5, 0.5, 0.5},
-    ["hk"] = {0, 0, 0.5, 0.5},
-    ["jl"] = {0.5, 0.5, 0.5, 0.5},
-    ["kl"] = {0.5, 0, 0.5, 0.5},
-    ["hl"] = {0, 0, 1, 1}
+    ["s"] = {0, 0, 0.5, 1}, -- left half
+    ["g"] = {0.5, 0, 0.5, 1}, -- right half
+    ["d"] = {0, 0, 1 / 3, 1}, -- left one third
+    ["f"] = {2 / 3, 0, 1 / 3, 1}, -- right one third
+    ["sd"] = {0, 0, 2 / 3, 1}, -- left two thirds
+    ["fg"] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
+    ["sg"] = {0, 0, 1, 1}, -- full screen
+    ["df"] = "center" -- center on screen
 }
 local wasPressed = {false, false, false, false}
 local pressed = {false, false, false, false}
@@ -79,12 +67,13 @@ local function resizeWindow()
         end
         local rect = rectMap[keys]
         if rect ~= nil then
-            win:move(rect)
-        elseif keys == "jk" then
-            win:centerOnScreen()
+            if rect == "center" then
+                win:centerOnScreen()
+            else
+                win:move(rect)
+            end
         end
     end
-    prefix.exit()
 end
 
 for i = 1, #arrowKeys do
@@ -96,55 +85,10 @@ for i = 1, #arrowKeys do
         pressed[i] = false
         resizeWindow()
     end
-    prefix.bindMultiple("", arrowKeys[i], pressedFn, releasedFn, nil)
+    hs.hotkey.bind(mods.meh, arrowKeys[i], pressedFn, releasedFn, nil)
 end
 
--- prefix + ctrl-h -> left one third
--- prefix + ctrl-j -> left two thirds
--- prefix + ctrl-k -> right two thirds
--- prefix + ctrl-l -> right one third
-
-local rectMapCtrl = {
-    ["h"] = {0, 0, 1 / 3, 1},
-    ["j"] = {0, 0, 2 / 3, 1},
-    ["k"] = {1 / 3, 0, 2 / 3, 1},
-    ["l"] = {2 / 3, 0, 1 / 3, 1}
-}
-
-for k, v in pairs(rectMapCtrl) do
-    local fn = function()
-        win = hs.window.focusedWindow()
-        if win ~= nil then
-            win:move(v)
-        end
-    end
-    prefix.bind("ctrl", k, fn)
-end
-
--- prefix + shift-hjkl -> move window
-
-local DX = {-1, 0, 0, 1}
-local DY = {0, 1, -1, 0}
-local DELTA = 20
-
-for i = 1, 4 do
-    local function moveWin()
-        local win = hs.window.focusedWindow()
-        if win ~= nil then
-            local p = win:topLeft()
-            p.x = p.x + DX[i] * DELTA
-            p.y = p.y + DY[i] * DELTA
-            win:setTopLeft(p)
-        end
-    end
-    local function pressedFn()
-        prefix.cancelTimeout()
-        moveWin()
-    end
-    prefix.bindMultiple("shift", arrowKeys[i], pressedFn, nil, moveWin)
-end
-
--- prefix + tab -> move window to the next screen
+-- meh + n -> move window to the next screen
 
 local function getNextScreen(s)
     all = hs.screen.allScreens()
@@ -167,92 +111,112 @@ local function moveToNextScreen()
     end
 end
 
-prefix.bind("", "tab", moveToNextScreen)
+hs.hotkey.bind(mods.meh, "b", moveToNextScreen)
 
--- ┏━┓╻ ╻┏━┓╻┏┓╻╻┏     ╻   ┏━╸╻ ╻┏━┓┏━┓┏┓╻╺┳┓   ┏━╸┏━┓┏━┓┏┳┓┏━╸
--- ┗━┓┣━┫┣┳┛┃┃┗┫┣┻┓   ┏┛   ┣╸ ┏╋┛┣━┛┣━┫┃┗┫ ┃┃   ┣╸ ┣┳┛┣━┫┃┃┃┣╸
--- ┗━┛╹ ╹╹┗╸╹╹ ╹╹ ╹   ╹    ┗━╸╹ ╹╹  ╹ ╹╹ ╹╺┻┛   ╹  ╹┗╸╹ ╹╹ ╹┗━╸
--- Shrink/Expand frame
+-- -- super + hjkl -> move window
 
--- prefix + - -> shrink window frame
--- prefix + = -> expand window frame
+-- local DX = {-1, 0, 0, 1}
+-- local DY = {0, 1, -1, 0}
+-- local DELTA = 20
 
-local function expandWin(ratio)
-    local win = hs.window.focusedWindow()
-    if win == nil then
-        return
-    end
-    frame = win:frame()
-    local cx = frame.x + frame.w / 2
-    local cy = frame.y + frame.h / 2
-    local nw = frame.w * ratio
-    local nh = frame.h * ratio
-    local nx = cx - nw / 2
-    local ny = cy - nh / 2
-    win:setFrame(hs.geometry.rect(nx, ny, nw, nh))
-end
+-- for i = 1, 4 do
+--     local function moveWin()
+--         local win = hs.window.focusedWindow()
+--         if win ~= nil then
+--             local p = win:topLeft()
+--             p.x = p.x + DX[i] * DELTA
+--             p.y = p.y + DY[i] * DELTA
+--             win:setTopLeft(p)
+--         end
+--     end
+--     local function pressedFn()
+--         moveWin()
+--     end
+--     hs.hotkey.bind(mods.hyper, arrowKeys[i], pressedFn, nil, moveWin)
+-- end
 
-local function bindExpandWin(ratio)
-    return function()
-        expandWin(ratio)
-    end
-end
+-- -- ┏━┓╻ ╻┏━┓╻┏┓╻╻┏     ╻   ┏━╸╻ ╻┏━┓┏━┓┏┓╻╺┳┓   ┏━╸┏━┓┏━┓┏┳┓┏━╸
+-- -- ┗━┓┣━┫┣┳┛┃┃┗┫┣┻┓   ┏┛   ┣╸ ┏╋┛┣━┛┣━┫┃┗┫ ┃┃   ┣╸ ┣┳┛┣━┫┃┃┃┣╸
+-- -- ┗━┛╹ ╹╹┗╸╹╹ ╹╹ ╹   ╹    ┗━╸╹ ╹╹  ╹ ╹╹ ╹╺┻┛   ╹  ╹┗╸╹ ╹╹ ╹┗━╸
+-- -- Shrink/Expand frame
 
-local function pressedExpandWin(ratio)
-    return function()
-        prefix.cancelTimeout()
-        expandWin(ratio)
-    end
-end
+-- -- meh + , -> shrink window frame
+-- -- meh + . -> expand window frame
 
-prefix.bindMultiple("", "-", pressedExpandWin(0.9), nil, bindExpandWin(0.9))
-prefix.bindMultiple("", "=", pressedExpandWin(1.1), nil, bindExpandWin(1.1))
+-- local function expandWin(ratio)
+--     local win = hs.window.focusedWindow()
+--     if win == nil then
+--         return
+--     end
+--     frame = win:frame()
+--     local cx = frame.x + frame.w / 2
+--     local cy = frame.y + frame.h / 2
+--     local nw = frame.w * ratio
+--     local nh = frame.h * ratio
+--     local nx = cx - nw / 2
+--     local ny = cy - nh / 2
+--     win:setFrame(hs.geometry.rect(nx, ny, nw, nh))
+-- end
 
--- ┏━┓╻ ╻┏━┓╻┏┓╻╻┏     ╻   ┏━╸╻ ╻┏━┓┏━┓┏┓╻╺┳┓   ┏━╸╺┳┓┏━╸┏━╸┏━┓
--- ┗━┓┣━┫┣┳┛┃┃┗┫┣┻┓   ┏┛   ┣╸ ┏╋┛┣━┛┣━┫┃┗┫ ┃┃   ┣╸  ┃┃┃╺┓┣╸ ┗━┓
--- ┗━┛╹ ╹╹┗╸╹╹ ╹╹ ╹   ╹    ┗━╸╹ ╹╹  ╹ ╹╹ ╹╺┻┛   ┗━╸╺┻┛┗━┛┗━╸┗━┛
--- Shrink/Expand Edges
+-- local function bindExpandWin(ratio)
+--     return function()
+--         expandWin(ratio)
+--     end
+-- end
 
--- prefix + cmd-hjkl -> expand window edges
--- prefix + cmd-shift-hjkl -> shrink window edges
+-- local function pressedExpandWin(ratio)
+--     return function()
+--         expandWin(ratio)
+--     end
+-- end
 
-local function expandEdge(edge, ratio)
-    local win = hs.window.focusedWindow()
-    if win == nil then
-        return
-    end
-    frame = win:frame()
-    local x, y, w, h = frame.x, frame.y, frame.w, frame.h
-    if edge == "h" then
-        w = frame.w * ratio
-        x = frame.x + frame.w - w
-    elseif edge == "j" then
-        h = frame.h * ratio
-    elseif edge == "k" then
-        h = frame.h * ratio
-        y = frame.y + frame.h - h
-    elseif edge == "l" then
-        w = frame.w * ratio
-    else
-        return
-    end
-    win:setFrame(hs.geometry.rect(x, y, w, h))
-end
+-- hs.hotkey.bind(mods.meh, ",", pressedExpandWin(0.9), nil, bindExpandWin(0.9))
+-- hs.hotkey.bind(mods.meh, ".", pressedExpandWin(1.1), nil, bindExpandWin(1.1))
 
-local edges = {"h", "j", "k", "l"}
-local ratios = {0.9, 1.111111}
+-- -- ┏━┓╻ ╻┏━┓╻┏┓╻╻┏     ╻   ┏━╸╻ ╻┏━┓┏━┓┏┓╻╺┳┓   ┏━╸╺┳┓┏━╸┏━╸┏━┓
+-- -- ┗━┓┣━┫┣┳┛┃┃┗┫┣┻┓   ┏┛   ┣╸ ┏╋┛┣━┛┣━┫┃┗┫ ┃┃   ┣╸  ┃┃┃╺┓┣╸ ┗━┓
+-- -- ┗━┛╹ ╹╹┗╸╹╹ ╹╹ ╹   ╹    ┗━╸╹ ╹╹  ╹ ╹╹ ╹╺┻┛   ┗━╸╺┻┛┗━┛┗━╸┗━┛
+-- -- Shrink/Expand Edges
 
-for i = 1, #edges do
-    local edge = edges[i]
-    for j = 1, #ratios do
-        local mod = (ratios[j] > 1) and "cmd" or "cmd+shift"
-        local function fn()
-            expandEdge(edge, ratios[j])
-        end
-        local function pressedFn()
-            prefix.cancelTimeout()
-            fn()
-        end
-        prefix.bindMultiple(mod, edge, pressedFn, nil, fn)
-    end
-end
+-- -- super + hjkl -> expand window edges
+-- -- hyper + hjkl -> shrink window edges
+
+-- local function expandEdge(edge, ratio)
+--     local win = hs.window.focusedWindow()
+--     if win == nil then
+--         return
+--     end
+--     frame = win:frame()
+--     local x, y, w, h = frame.x, frame.y, frame.w, frame.h
+--     if edge == "h" then
+--         w = frame.w * ratio
+--         x = frame.x + frame.w - w
+--     elseif edge == "j" then
+--         h = frame.h * ratio
+--     elseif edge == "k" then
+--         h = frame.h * ratio
+--         y = frame.y + frame.h - h
+--     elseif edge == "l" then
+--         w = frame.w * ratio
+--     else
+--         return
+--     end
+--     win:setFrame(hs.geometry.rect(x, y, w, h))
+-- end
+
+-- local edges = {"h", "j", "k", "l"}
+-- local ratios = {0.9, 1.111111}
+
+-- for i = 1, #edges do
+--     local edge = edges[i]
+--     for j = 1, #ratios do
+--         local mod = (ratios[j] > 1) and mods.super or mods.hyper
+--         local function fn()
+--             expandEdge(edge, ratios[j])
+--         end
+--         local function pressedFn()
+--             fn()
+--         end
+--         hs.hotkey.bind(mod, edge, pressedFn, nil, fn)
+--     end
+-- end

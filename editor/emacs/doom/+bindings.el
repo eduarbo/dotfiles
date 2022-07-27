@@ -98,10 +98,10 @@
 
       :m    "k"            #'evil-previous-visual-line
       :m    "j"            #'evil-next-visual-line
-      :m    [left]         #'previous-buffer
-      :m    [right]        #'next-buffer
-      :m    [up]           #'+workspace/switch-right
-      :m    [down]         #'+workspace/switch-left
+      :m    [down]         #'previous-buffer
+      :m    [up]           #'next-buffer
+      :m    [right]        #'+workspace/switch-right
+      :m    [left]         #'+workspace/switch-left
 
       :n    "s"            #'evil-surround-edit
       :v    "s"            #'evil-surround-region
@@ -656,6 +656,7 @@
       ;;; <leader> g --- git/version control
       (:prefix-map ("g" . "git")
        :desc "Revert file"                 "R"   #'vc-revert
+       ;; TODO replace it with git-link package
        :desc "Copy link to remote"         "y"   #'+vc/browse-at-remote-kill
        :desc "Copy link to homepage"       "Y"   #'+vc/browse-at-remote-kill-homepage
        (:when (featurep! :ui hydra)
@@ -672,11 +673,11 @@
         :desc "Magit dispatch"            "/"   #'magit-dispatch
         :desc "Magit file dispatch"       "."   #'magit-file-dispatch
         :desc "Forge dispatch"            "'"   #'forge-dispatch
-        :desc "Magit switch branch"       "b"   #'magit-branch-checkout
+        :desc "Magit blame"               "b"   #'magit-blame-addition
         :desc "Magit status"              "g"   #'magit-status
         :desc "Magit status here"         "G"   #'magit-status-here
         :desc "Magit file delete"         "D"   #'magit-file-delete
-        :desc "Magit blame"               "B"   #'magit-blame-addition
+        :desc "Magit switch branch"       "B"   #'magit-branch-checkout
         :desc "Magit clone"               "C"   #'magit-clone
         :desc "Magit fetch"               "F"   #'magit-fetch
         :desc "Magit buffer log"          "L"   #'magit-log-buffer-file

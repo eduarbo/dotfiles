@@ -5,3 +5,4 @@ export * from './toEvent';
 export * from './profile';
 export * from './karabinerConfig';
 export * from './manipulator';
+export * from './conditions';

@@ -42,7 +42,7 @@
         )
        ;;tabs              ; a tab bar for Emacs
        treemacs          ; a project drawer, like neotree but cooler
-       tree-sitter
+       ;; tree-sitter
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -86,7 +86,7 @@
 
        :checkers
        (syntax           ; tasing you for every semicolon you forget
-        ;;+childframe    ; FIXME popup persists on the buffer
+        +childframe    ; FIXME popup persists on the buffer
         )
        (spell            ; tasing you for misspelling mispelling
         +flyspell        ; allow me to use hunspell instead of aspell
