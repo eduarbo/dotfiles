@@ -1,83 +1,72 @@
-import { remap } from '../../lib';
-import type { ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
+import * as lib from '../../lib';
+import { lazyModTap } from '../../lib';
+import type { ToKeyCodeTuple, Modifier, KeyCode, ComplexModifications } from '../../lib';
 
-const remapToLayer = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
-  remap([fromKeyCode, ['right_shift'], ['any']], toTuples, {
-    conditions: [
-      {
-        type: 'device_unless',
-        identifiers: [{
-          vendor_id: 18003
-        }]
-      },
-    ],
-  });
+const mandatoryModifiers: Modifier[] = ['left_shift'];
+
+const remap = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
+  lib.remap([fromKeyCode, mandatoryModifiers, ['any']], toTuples);
 
 const rules = [
   {
-    description: 'Numpad in left hand, symbols and arrows in right hand',
+    description: 'Numpad in left hand',
     manipulators: [
-      // Numbers
-      remapToLayer('w', [['7']]),
-      remapToLayer('e', [['8']]),
-      remapToLayer('r', [['9']]),
-      remapToLayer('s', [['4']]),
-      remapToLayer('d', [['5']]),
-      remapToLayer('f', [['6']]),
-      remapToLayer('x', [['1']]),
-      remapToLayer('c', [['2']]),
-      remapToLayer('v', [['3']]),
-      remapToLayer('t', [['0']]),
+      /// Top Row
+      remap('q', [['backslash']]), // \
+      remap('w', [['7']]),
+      remap('e', [['8']]),
+      remap('r', [['9']]),
+      remap('t', [['0']]),
 
-      // Shifted numbers
-      // !
-      remapToLayer('y', [['1', ['shift']]]),
-      // @
-      remapToLayer('u', [['2', ['shift']]]),
-      // #
-      remapToLayer('i', [['3', ['shift']]]),
-      // $
-      remapToLayer('o', [['4', ['shift']]]),
-      // %
-      remapToLayer('p', [['5', ['shift']]]),
-      // ^
-      remapToLayer('open_bracket', [['6', ['shift']]]),
-      // &
-      remapToLayer('n', [['7', ['shift']]]),
-      // *
-      remapToLayer('m', [['8', ['shift']]]),
-      // (
-      remapToLayer('caps_lock', [['9', ['shift']]]),
-      // )
-      remapToLayer('quote', [['0', ['shift']]]),
-      // +
-      remapToLayer('q', [['equal_sign', ['shift']]]),
-      // =
-      remapToLayer('g', [['equal_sign']]),
-      // -
-      remapToLayer('a', [['hyphen']]),
-      // _
-      remapToLayer('z', [['hyphen', ['shift']]]),
-      // TODO
-      // remapToLayer('b', [[]]),
-      // TODO FN Layer maybe?
-      // remapToLayer('semicolon', [[]]),
+      /// Home Row
+      remap('a', [['hyphen']]), // -
+      remap('s', [['4']]),
+      remap('d', [['5']]),
+      remap('f', [['6']]),
+      remap('g', [['equal_sign']]), // =
 
-      // Arrows
-      // ←
-      remapToLayer('h', [['left_arrow']]),
-      // ↓
-      remapToLayer('j', [['down_arrow']]),
-      // ↑
-      remapToLayer('k', [['up_arrow']]),
-      // →
-      remapToLayer('l', [['right_arrow']]),
+      /// Bottom Row
+      remap('z', [['open_bracket']]), // [
+      remap('x', [['1']]),
+      remap('c', [['2']]),
+      remap('v', [['3']]),
+      remap('b', [['close_bracket']]), // ]
 
-      // Do not shift these
-      remapToLayer('comma', [['comma']]),
-      remapToLayer('period', [['period']]),
-      remapToLayer('slash', [['slash']]),
-      remapToLayer('right_shift', [['backslash']]),
+      /// Thumbs
+      // Spacebar -> HYPER | F13
+      lazyModTap(
+        ['spacebar', mandatoryModifiers, []],
+        [['right_shift', ['right_option', 'right_control', 'right_command']]],
+        [['f13']],
+      ), // F13 is reserved for Alfred's Clipboard History
+    ],
+  },
+  {
+    description: 'Symbols and arrows in right hand',
+    manipulators: [
+      /// Top Row
+      remap('y', [['quote']]), // '
+      remap('u', [['grave_accent_and_tilde']]), // `
+      remap('i', [['return_or_enter']]), // RET
+      remap('o', [['tab']]), // TAB
+      // FIXME Find out a way to port the X-Case functionality from QMK to Karabiner
+      remap('p', [['vk_none']]), // P key: reserverd for XCase in my crkbd
+
+      /// Home Row
+      remap('h', [['left_arrow']]), // ←
+      remap('j', [['down_arrow']]), // ↓
+      remap('k', [['up_arrow']]), // ↑
+      remap('l', [['right_arrow']]), // →
+      // FIXME Find out a way to port the CapsWord functionality from QMK to Karabiner
+      remap('semicolon', [['caps_lock']]), // using CAPS_LOCK as fallback
+
+      /// Bottom Row
+      remap('n', [['e', ['right_option']]]),
+      remap('m', [['delete_or_backspace']]), // ⌫
+      // Do not shift these, I want them to be available in the same layer as the numpad
+      remap('comma', [['comma']]),
+      remap('period', [['period']]),
+      remap('slash', [['slash']]),
     ],
   },
 ];

@@ -2,65 +2,57 @@
   "title": "Hyper layer",
   "rules": [
     {
-      "description": "Function keys for left hand - movement, brightness, volumen and media controls",
+      "description": "Hyper keys for quick access to the bindings I use most often",
       "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "e",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "mute"
-            }
-          ],
-          "description": "from left_shift+right_shift+e to mute",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
         {
           "type": "basic",
           "from": {
             "key_code": "w",
             "modifiers": {
               "mandatory": [
-                "left_shift",
-                "right_shift"
+                "command",
+                "option",
+                "control",
+                "shift"
               ],
               "optional": []
             }
           },
           "to": [
             {
-              "key_code": "volume_decrement"
-            }
-          ],
-          "description": "from left_shift+right_shift+w to volume_decrement",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
+              "key_code": "m",
+              "modifiers": [
+                "right_shift",
+                "right_command"
               ]
             }
-          ]
+          ],
+          "description": "from command+option+control+shift+w to right_shift+right_command+m"
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "option",
+                "control",
+                "shift"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "i",
+              "modifiers": [
+                "right_alt",
+                "right_command"
+              ]
+            }
+          ],
+          "description": "from command+option+control+shift+e to right_alt+right_command+i"
         },
         {
           "type": "basic",
@@ -68,144 +60,24 @@
             "key_code": "r",
             "modifiers": {
               "mandatory": [
-                "left_shift",
-                "right_shift"
+                "command",
+                "option",
+                "control",
+                "shift"
               ],
               "optional": []
             }
           },
           "to": [
             {
-              "key_code": "volume_increment"
-            }
-          ],
-          "description": "from left_shift+right_shift+r to volume_increment",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
+              "key_code": "c",
+              "modifiers": [
+                "right_shift",
+                "right_command"
               ]
             }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "q",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "f14"
-            }
           ],
-          "description": "from left_shift+right_shift+q to f14",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "t",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "f13"
-            }
-          ],
-          "description": "from left_shift+right_shift+t to f13",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "z",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "display_brightness_decrement"
-            }
-          ],
-          "description": "from left_shift+right_shift+z to display_brightness_decrement",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "b",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "display_brightness_increment"
-            }
-          ],
-          "description": "from left_shift+right_shift+b to display_brightness_increment",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
+          "description": "from command+option+control+shift+r to right_shift+right_command+c"
         },
         {
           "type": "basic",
@@ -213,28 +85,24 @@
             "key_code": "x",
             "modifiers": {
               "mandatory": [
-                "left_shift",
-                "right_shift"
+                "command",
+                "option",
+                "control",
+                "shift"
               ],
               "optional": []
             }
           },
           "to": [
             {
-              "key_code": "rewind"
-            }
-          ],
-          "description": "from left_shift+right_shift+x to rewind",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
+              "key_code": "3",
+              "modifiers": [
+                "right_shift",
+                "right_command"
               ]
             }
-          ]
+          ],
+          "description": "from command+option+control+shift+x to right_shift+right_command+3"
         },
         {
           "type": "basic",
@@ -242,28 +110,24 @@
             "key_code": "c",
             "modifiers": {
               "mandatory": [
-                "left_shift",
-                "right_shift"
+                "command",
+                "option",
+                "control",
+                "shift"
               ],
               "optional": []
             }
           },
           "to": [
             {
-              "key_code": "play_or_pause"
-            }
-          ],
-          "description": "from left_shift+right_shift+c to play_or_pause",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
+              "key_code": "4",
+              "modifiers": [
+                "right_shift",
+                "right_command"
               ]
             }
-          ]
+          ],
+          "description": "from command+option+control+shift+c to right_shift+right_command+4"
         },
         {
           "type": "basic",
@@ -271,323 +135,24 @@
             "key_code": "v",
             "modifiers": {
               "mandatory": [
-                "left_shift",
-                "right_shift"
+                "command",
+                "option",
+                "control",
+                "shift"
               ],
               "optional": []
             }
           },
           "to": [
             {
-              "key_code": "fastforward"
-            }
-          ],
-          "description": "from left_shift+right_shift+v to fastforward",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
+              "key_code": "5",
+              "modifiers": [
+                "right_shift",
+                "right_command"
               ]
             }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "Function keys for right hand - movement, brightness, volumen and media controls",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "i",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "mute"
-            }
           ],
-          "description": "from left_shift+right_shift+i to mute",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "u",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "volume_decrement"
-            }
-          ],
-          "description": "from left_shift+right_shift+u to volume_decrement",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "o",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "volume_increment"
-            }
-          ],
-          "description": "from left_shift+right_shift+o to volume_increment",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "p",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "f14"
-            }
-          ],
-          "description": "from left_shift+right_shift+p to f14",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "y",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "f13"
-            }
-          ],
-          "description": "from left_shift+right_shift+y to f13",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "n",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "display_brightness_decrement"
-            }
-          ],
-          "description": "from left_shift+right_shift+n to display_brightness_decrement",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "slash",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "display_brightness_increment"
-            }
-          ],
-          "description": "from left_shift+right_shift+slash to display_brightness_increment",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "m",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "rewind"
-            }
-          ],
-          "description": "from left_shift+right_shift+m to rewind",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "comma",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "play_or_pause"
-            }
-          ],
-          "description": "from left_shift+right_shift+comma to play_or_pause",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "period",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "fastforward"
-            }
-          ],
-          "description": "from left_shift+right_shift+period to fastforward",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            }
-          ]
+          "description": "from command+option+control+shift+v to right_shift+right_command+5"
         }
       ]
     }

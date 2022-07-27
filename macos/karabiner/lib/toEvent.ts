@@ -40,9 +40,13 @@ type ToSelectInputSourceEvent = ToEventCommon & {
   select_input_source: SelectInputSource;
 };
 
+export type VariableName = string;
+
+export type VariableValue = string | number | boolean;
+
 export interface Variable {
-  name: string;
-  value: string | number;
+  name: VariableName;
+  value: VariableValue;
 }
 
 type ToSetVariableEvent = ToEventCommon & {
@@ -78,6 +82,8 @@ export type ToEvent =
   | ToStickyModifierEvent;
 
 export type ToKeyCodeTuple = [KeyCode, Modifier[]?];
+
+export type SetVariableTuple = [VariableName, VariableValue];
 
 export const toKeyCode = (
   [key_code, modifiers]: ToKeyCodeTuple,
@@ -123,10 +129,13 @@ export const toSelectInputSource = (
 });
 
 export const toSetVariable = (
-  set_variable: Variable,
+  [name, value]: SetVariableTuple,
   options: ToEventCommon = {},
 ): ToSetVariableEvent => ({
-  set_variable,
+  set_variable: {
+    name,
+    value,
+  },
   ...options,
 });
 

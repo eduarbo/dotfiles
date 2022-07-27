@@ -1,0 +1,1046 @@
+{
+  "title": "Super layer",
+  "rules": [
+    {
+      "description": "SUPER keys for Sticky Mods and quick access to the bindings I use most often in left hand",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "a",
+              "modifiers": [
+                "right_command",
+                "right_shift"
+              ]
+            }
+          ],
+          "description": "from q to right_command+right_shift+a",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "open_bracket",
+              "modifiers": [
+                "right_command",
+                "right_shift"
+              ]
+            }
+          ],
+          "description": "from w to right_command+right_shift+open_bracket",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "open_bracket",
+              "modifiers": [
+                "right_command"
+              ]
+            }
+          ],
+          "description": "from e to right_command+open_bracket",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket",
+              "modifiers": [
+                "right_command"
+              ]
+            }
+          ],
+          "description": "from r to right_command+close_bracket",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket",
+              "modifiers": [
+                "right_command",
+                "right_shift"
+              ]
+            }
+          ],
+          "description": "from t to right_command+right_shift+close_bracket",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "a",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from a to option+command+control+a",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "left_option",
+                "value": true
+              }
+            },
+            {
+              "key_code": "left_option",
+              "modifiers": []
+            }
+          ],
+          "to_if_alone": [
+            {
+              "sticky_modifier": {
+                "left_option": "toggle"
+              }
+            }
+          ],
+          "description": "from s to sticky left_option",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_option",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_control",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_command",
+              "value": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "left_option",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "left_command",
+                "value": true
+              }
+            },
+            {
+              "key_code": "left_command",
+              "modifiers": []
+            }
+          ],
+          "to_if_alone": [
+            {
+              "sticky_modifier": {
+                "left_command": "toggle"
+              }
+            }
+          ],
+          "description": "from d to sticky left_command",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_option",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_control",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_command",
+              "value": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "left_command",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "left_control",
+                "value": true
+              }
+            },
+            {
+              "key_code": "left_control",
+              "modifiers": []
+            }
+          ],
+          "to_if_alone": [
+            {
+              "sticky_modifier": {
+                "left_control": "toggle"
+              }
+            }
+          ],
+          "description": "from f to sticky left_control",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_option",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_control",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "right_command",
+              "value": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "left_control",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "g",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from g to option+command+control+g",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "z",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow",
+              "modifiers": [
+                "control"
+              ]
+            }
+          ],
+          "description": "from z to control+up_arrow",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "x",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "command",
+                "shift"
+              ]
+            }
+          ],
+          "description": "from x to command+shift+tab",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow",
+              "modifiers": [
+                "control"
+              ]
+            }
+          ],
+          "description": "from c to control+down_arrow",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "grave_accent_and_tilde",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "description": "from v to command+grave_accent_and_tilde",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": [
+                "command"
+              ]
+            }
+          ],
+          "description": "from b to command+tab",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "SUPER keys for Sticky Mods and quick access to the bindings I use most often in right hand",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "right_control",
+                "right_command"
+              ]
+            }
+          ],
+          "description": "from y to right_control+right_command+spacebar",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "u",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from u to option+command+control+u",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "i",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from i to option+command+control+i",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "o",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from o to option+command+control+o",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "p",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from p to option+command+control+p",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "h",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from h to option+command+control+h",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "right_control",
+                "value": true
+              }
+            },
+            {
+              "key_code": "right_control",
+              "modifiers": []
+            }
+          ],
+          "to_if_alone": [
+            {
+              "sticky_modifier": {
+                "right_control": "toggle"
+              }
+            }
+          ],
+          "description": "from j to sticky right_control",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_option",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_control",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_command",
+              "value": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "right_control",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "right_command",
+                "value": true
+              }
+            },
+            {
+              "key_code": "right_command",
+              "modifiers": []
+            }
+          ],
+          "to_if_alone": [
+            {
+              "sticky_modifier": {
+                "right_command": "toggle"
+              }
+            }
+          ],
+          "description": "from k to sticky right_command",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_option",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_control",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_command",
+              "value": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "right_command",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "right_option",
+                "value": true
+              }
+            },
+            {
+              "key_code": "right_option",
+              "modifiers": []
+            }
+          ],
+          "to_if_alone": [
+            {
+              "sticky_modifier": {
+                "right_option": "toggle"
+              }
+            }
+          ],
+          "description": "from l to sticky right_option",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_option",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_control",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "left_command",
+              "value": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "right_option",
+                "value": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "semicolon",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from semicolon to option+command+control+semicolon",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "home"
+            }
+          ],
+          "description": "from n to home",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_down"
+            }
+          ],
+          "description": "from m to page_down",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_up"
+            }
+          ],
+          "description": "from comma to page_up",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "end"
+            }
+          ],
+          "description": "from period to end",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "slash",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from slash to option+command+control+slash",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_shift",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from right_command to option+command+control+right_shift",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_shift",
+              "modifiers": [
+                "option",
+                "command",
+                "control"
+              ]
+            }
+          ],
+          "description": "from left_command to option+command+control+right_shift",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SUPER",
+              "value": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

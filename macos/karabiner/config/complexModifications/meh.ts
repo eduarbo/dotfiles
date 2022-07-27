@@ -1,35 +1,81 @@
 import { remap } from '../../lib';
 import type { KeyCode, Modifier, ToKeyCodeTuple, ComplexModifications } from '../../lib';
 
-const mandatoryMods: Modifier[] = ['control', 'option', 'command'];
+const mehMods: Modifier[] = ['shift', 'option', 'control'];
 
-const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[], optionalMods: Modifier[] = []) =>
-  remap([keyCode, mandatoryMods, optionalMods], toTuples);
+const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[], optionalMods: Modifier[] = ['any']) =>
+  remap([keyCode, null, optionalMods], toTuples, {
+    manipulatorOptions: {
+      conditions: [
+        {
+          type: 'variable_if',
+          name: 'MEH',
+          value: true,
+        },
+      ],
+    },
+  });
 
 const rules = [
   {
-    description: 'Meh keys for quick access to the bindings I use most often',
+    description: 'Quick access to frequently used bindings in left hand',
     manipulators: [
-      // Go Back/Forward
-      keybind('q', [['open_bracket', ['command']]]),
-      keybind('t', [['close_bracket', ['command']]]),
+      /// Top Row - Dev Tools
+      keybind('q', [['j', ['right_shift', 'right_command']]]),
+      keybind('w', [['m', ['right_shift', 'right_command']]]),
+      keybind('e', [['i', ['right_shift', 'right_command']]]),
+      keybind('r', [['c', ['right_shift', 'right_command']]]),
+      keybind('t', [['backslash', ['right_shift', 'right_command']]]),
 
-      // Previous/Next Tab
-      keybind('a', [['open_bracket', ['command', 'shift']]]),
-      keybind('g', [['close_bracket', ['command', 'shift']]]),
+      /// Home Row - Reserved to manage windows with HammerSpoon 🔨🥄
+      keybind('a', [['a', mehMods]]),
+      keybind('s', [['s', mehMods]]),
+      keybind('d', [['d', mehMods]]),
+      keybind('f', [['f', mehMods]]),
+      keybind('g', [['g', mehMods]]),
 
-      // Previous/Next Tab
-      keybind('s', [['tab', ['command', 'shift']]]),
-      keybind('f', [['tab', ['command']]]),
-      keybind('d', [['grave_accent_and_tilde', ['command']]]),
-      keybind('e', [['grave_accent_and_tilde', ['command', 'shift']]]),
+      /// Bottom Row - Screenshots
+      // Z key: available
+      keybind('z', [['z', mehMods]]),
+      keybind('x', [['3', ['right_shift', 'right_command']]]),
+      keybind('c', [['4', ['right_shift', 'right_command']]]),
+      keybind('v', [['5', ['right_shift', 'right_command']]]),
+      // B key: reserved to move window to next screen with HammerSpoon 🔨🥄
+      keybind('b', [['b', mehMods]]),
+    ],
+  },
+  {
+    description: 'Function keys in right hand',
+    manipulators: [
+      /// Top Row
+      keybind('y', [['volume_increment']]),
+      // keybind('y', [['f12']]),
+      keybind('u', [['rewind']]),
+      // keybind('u', [['f7']]),
+      keybind('i', [['play_or_pause']]),
+      // keybind('i', [['f8']]),
+      keybind('o', [['fastforward']]),
+      // keybind('o', [['f9']]),
+      keybind('p', [['print_screen']]),
 
-      // Toggle audio output
-      keybind('z', [['z', ['command']]]),
-      keybind('x', [['x', ['command']]]),
-      keybind('c', [['c', ['command']]]),
-      keybind('v', [['v', ['command']]]),
-      keybind('b', [['b', ['command', 'shift']]]),
+      /// Home Row
+      keybind('h', [['volume_decrement']]),
+      // keybind('h', [['f11']]),
+      keybind('j', [['f4']]),
+      keybind('k', [['f5']]),
+      keybind('l', [['f6']]),
+      keybind('semicolon', [['scroll_lock']]),
+
+      /// Bottom Row
+      keybind('n', [['mute']]),
+      // keybind('n', [['f10']]),
+      keybind('m', [['display_brightness_decrement']]),
+      // keybind('m', [['f1']]),
+      keybind('comma', [['display_brightness_increment']]),
+      // keybind('comma', [['f2']]),
+      keybind('period', [['mission_control']]),
+      // keybind('period', [['f3']]),
+      keybind('slash', [['pause']]),
     ],
   },
 ];

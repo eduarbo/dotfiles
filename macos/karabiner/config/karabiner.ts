@@ -1,31 +1,20 @@
 import { profile } from '../lib';
 import type { KarabinerConfig } from '../lib';
-import { hyper, meh, emacs, launcher, symbols, symnav, main, base } from './complexModifications';
+import { supr, emacs, symbols, meh, base } from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
 const defaultProfile = [
   emacs,
-  hyper,
-  symbols,
-  launcher,
-  main,
-];
-
-// NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
-const minimalProfile = [
-  emacs,
   meh,
-  symnav,
+  supr,
+  symbols,
   base,
 ];
 
 const profiles = [
   profile('Empty'),
-  profile('Minimal', minimalProfile, {
-    selected: true,
-  }),
   profile('Default', defaultProfile, {
-    // selected: true,
+    selected: true,
   }),
 ];
 
@@ -33,6 +22,7 @@ const globalSettings = {
   check_for_updates_on_startup: true,
   show_in_menu_bar: true,
   show_profile_name_in_menu_bar: false,
+  indicate_sticky_modifier_keys_state: true,
 };
 
 export const karabiner: KarabinerConfig = {
