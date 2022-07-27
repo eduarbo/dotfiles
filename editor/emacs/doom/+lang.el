@@ -18,6 +18,8 @@
 (add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.prettierrc\\'" . json-mode))
+(add-to-list 'auto-mode-alist '("\\editorconfig\\'" . editorconfig-conf-mode))
 
 
 ;; ┏━╸┏━┓┏━┓┏━┓╻ ╻┏━┓╻
@@ -62,8 +64,7 @@
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   ;; Workaround for eslint loading slow
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
-  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
-  )
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
 (add-hook! 'web-mode-hook
   (defun my/configure-web-mode-flycheck-disable-checkers-based-on-engine ()
@@ -71,7 +72,7 @@
     (unless (string= web-mode-engine "svelte")
       (setq-local flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-eslint))))))
 
-(add-hook! '(js-mode-hook web-mode-hook)
+(add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook)
   (embrace-add-pair ?\` "`" "`")
   (embrace-add-pair ?\$ "${" "}"))
 
@@ -94,9 +95,14 @@
 (set-repl-handler! '(rjsx-mode web-mode) #'+javascript/open-repl)
 
 
+;; ┏┳┓┏━┓┏━┓╻┏ ╺┳┓┏━┓╻ ╻┏┓╻
+;; ┃┃┃┣━┫┣┳┛┣┻┓ ┃┃┃ ┃┃╻┃┃┗┫
+;; ╹ ╹╹ ╹╹┗╸╹ ╹╺┻┛┗━┛┗┻┛╹ ╹
+;;; Markdown
+
 (after! markdown-mode
- ;; continue lists when RET is pressed
- (setq markdown-indent-on-enter 'indent-and-new-item))
+  ;; continue lists when RET is pressed
+  (setq markdown-indent-on-enter 'indent-and-new-item))
 
 
 ;; ┏┓╻┏━╸╻┏┓╻╻ ╻

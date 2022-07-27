@@ -5,12 +5,22 @@ HAMMERSPOON_DIR="$XDG_CONFIG_HOME/hammerspoon"
 # only for macOS
 [[ $(_os) != macos ]] && exit
 
+# Dependencies
+
+brew_deps=(
+  unzip
+  hammerspoon
+)
+
 install() {
-  brew install hammerspoon
+  brew install ${brew_deps[@]}
   defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HAMMERSPOON_DIR/init.lua"
   defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -int 0
   defaults write org.hammerspoon.Hammerspoon MJShowMenuIconKey -int 0
   defaults write org.hammerspoon.Hammerspoon MJSkipDockMenuIconProblemAlertKey -int 1
+
+  # Download and extract SpoonInstall
+  curl -o spoon.zip https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/SpoonInstall.spoon.zip && unzip -qo -d config/Spoons spoon.zip && rm -rf spoon.zip
 }
 
 # update() {}

@@ -1,4 +1,6 @@
-local log = require("log")
+local mods = require("modifiers")
+
+local audioOutputKey = "h"
 
 -- Output
 
@@ -46,8 +48,7 @@ function switchOutput()
     end
 end
 
-local audioOutputKey = "F14"
-hs.hotkey.bind({}, audioOutputKey, switchOutput)
+hs.hotkey.bind(mods.super, audioOutputKey, switchOutput)
 
 
 -- Input

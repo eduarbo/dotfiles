@@ -31,7 +31,17 @@
               "key_code": "spacebar"
             }
           ],
-          "description": "right_option+left_command to left_control+left_shift, send spacebar on tap"
+          "description": "right_option+left_command to left_control+left_shift, send spacebar on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -54,7 +64,17 @@
               "key_code": "return_or_enter"
             }
           ],
-          "description": "spacebar to left_command, send return_or_enter on tap"
+          "description": "spacebar to left_command, send return_or_enter on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -77,7 +97,17 @@
               "key_code": "spacebar"
             }
           ],
-          "description": "left_command to left_shift, send spacebar on tap"
+          "description": "left_command to left_shift, send spacebar on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -100,7 +130,17 @@
               "key_code": "escape"
             }
           ],
-          "description": "right_command to right_shift, send escape on tap"
+          "description": "right_command to right_shift, send escape on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -123,7 +163,17 @@
               "key_code": "quote"
             }
           ],
-          "description": "left_option to left_control, send quote on tap"
+          "description": "left_option to left_control, send quote on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -146,7 +196,17 @@
               "key_code": "grave_accent_and_tilde"
             }
           ],
-          "description": "right_option to right_option, send grave_accent_and_tilde on tap"
+          "description": "right_option to right_option, send grave_accent_and_tilde on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -171,7 +231,17 @@
               ]
             }
           ],
-          "description": "from open_bracket to left_option+e"
+          "description": "from open_bracket to left_option+e",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -188,7 +258,17 @@
               "key_code": "close_bracket"
             }
           ],
-          "description": "from quote to close_bracket"
+          "description": "from quote to close_bracket",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -205,7 +285,17 @@
               "key_code": "open_bracket"
             }
           ],
-          "description": "from caps_lock to open_bracket"
+          "description": "from caps_lock to open_bracket",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -222,7 +312,17 @@
               "key_code": "delete_or_backspace"
             }
           ],
-          "description": "from left_shift to delete_or_backspace"
+          "description": "from left_shift to delete_or_backspace",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "basic",
@@ -239,7 +339,17 @@
               "key_code": "backslash"
             }
           ],
-          "description": "from right_shift to backslash"
+          "description": "from right_shift to backslash",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            }
+          ]
         }
       ]
     }

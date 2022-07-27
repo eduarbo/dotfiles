@@ -1,15 +1,21 @@
 import { remap, EMACS_KEY_BINDINGS_EXCEPTION } from '../../lib';
 import type { ManipulatorOptions, ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
 
-const keybind = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[], options: ManipulatorOptions) =>
+const keybind = (
+  fromKeyCode: KeyCode,
+  toTuples: ToKeyCodeTuple[],
+  manipulatorOptions: ManipulatorOptions,
+) =>
   remap([fromKeyCode, ['control'], ['caps_lock']], toTuples, {
-    conditions: [
-      {
-        type: 'frontmost_application_unless',
-        bundle_identifiers: EMACS_KEY_BINDINGS_EXCEPTION,
-      },
-    ],
-    ...options,
+    manipulatorOptions: {
+      conditions: [
+        {
+          type: 'frontmost_application_unless',
+          bundle_identifiers: EMACS_KEY_BINDINGS_EXCEPTION,
+        },
+      ],
+      ...manipulatorOptions,
+    },
   });
 
 const rules = [

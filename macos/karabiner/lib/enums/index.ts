@@ -7,4 +7,5 @@ export * from './Any';
 export * from './KeyEventOrder';
 export * from './KeyUpWhen';
 export * from './StickyModifierState';
-export * from './appIdentifiers';
+export * from './identifiers';
+export * from './VariableType';

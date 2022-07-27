@@ -78,26 +78,41 @@
 ;; know. On some systems I don't care to have a whole development environment for some ecosystems.
 (setq +lsp-prompt-to-install-server 'quiet)
 
-;; Follow the instructions to setup ESLint in LSP server https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
+;; Follow the instructions to setup ESLint in LSP server:
+;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
 (setq lsp-eslint-server-command
       `("node" ,(expand-file-name (car (last (file-expand-wildcards "~/.vscode/extensions/dbaeumer.vscode-eslint-*/server/out/eslintServer.js")))) "--stdio"))
+
+;; A guide on disabling/enabling lsp-mode features:
+;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 (setq
+ ;; lsp-diagnostics-provider :none
+
  lsp-signature-doc-lines 5
  ;; lsp-signature-render-documentation nil
 
  ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
  ;; limiting the number of lines to display in eldoc
- lsp-eldoc-enable-hover nil
+ ;; lsp-eldoc-enable-hover nil
 
- ;; Disable lsp checker b/c annoying
- ;; lsp-diagnostics-provider :none
-
- lsp-enable-indentation nil
  ;; lsp-enable-symbol-highlighting nil
  ;; lsp-enable-file-watchers nil
 
+ lsp-auto-execute-action nil
+
  lsp-modeline-diagnostics-enable nil
  lsp-modeline-code-actions-enable nil)
+
+;; If you are in a buffer with `lsp-mode' enabled and a server that supports
+;; `textDocument/formatting', it will be used instead of `format-all's
+;; formatter. Unfortunately typescript does not seem to be respecting my
+;; settings, and is slower than format-all so I prefer to disable it
+;; universally.
+
+(setq +format-with-lsp nil)
+
+;; To disable this behavior in one mode use:
+;; (setq-hook! 'typescript-tsx-mode-hook +format-with-lsp nil)
 
 
 ;; ┏┳┓┏━┓┏━╸╻╺┳╸
@@ -119,7 +134,7 @@
 ;; ╹ ╹╹ ╹╹┗╸┗━┛╹╹ ╹╹ ╹┗━╸╹╹ ╹
 
 (after! marginalia
-  (setq marginalia-truncate-width 800))
+  (setq marginalia-field-width 800))
 
 
 ;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
