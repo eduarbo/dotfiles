@@ -18,12 +18,12 @@
             {
               "key_code": "j",
               "modifiers": [
-                "right_shift",
+                "right_option",
                 "right_command"
               ]
             }
           ],
-          "description": "from q to right_shift+right_command+j",
+          "description": "from q to right_option+right_command+j",
           "conditions": [
             {
               "type": "variable_if",
@@ -74,12 +74,12 @@
             {
               "key_code": "i",
               "modifiers": [
-                "right_shift",
+                "right_option",
                 "right_command"
               ]
             }
           ],
-          "description": "from e to right_shift+right_command+i",
+          "description": "from e to right_option+right_command+i",
           "conditions": [
             {
               "type": "variable_if",
@@ -130,12 +130,11 @@
             {
               "key_code": "backslash",
               "modifiers": [
-                "right_shift",
                 "right_command"
               ]
             }
           ],
-          "description": "from t to right_shift+right_command+backslash",
+          "description": "from t to right_command+backslash",
           "conditions": [
             {
               "type": "variable_if",
