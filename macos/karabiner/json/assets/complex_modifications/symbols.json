@@ -9,9 +9,6 @@
           "from": {
             "key_code": "q",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -22,16 +19,25 @@
               "key_code": "backslash"
             }
           ],
-          "description": "from left_shift+q to backslash"
+          "description": "from q to backslash",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "w",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -42,16 +48,25 @@
               "key_code": "7"
             }
           ],
-          "description": "from left_shift+w to 7"
+          "description": "from w to 7",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "e",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -62,16 +77,25 @@
               "key_code": "8"
             }
           ],
-          "description": "from left_shift+e to 8"
+          "description": "from e to 8",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "r",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -82,16 +106,25 @@
               "key_code": "9"
             }
           ],
-          "description": "from left_shift+r to 9"
+          "description": "from r to 9",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "t",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -102,16 +135,25 @@
               "key_code": "0"
             }
           ],
-          "description": "from left_shift+t to 0"
+          "description": "from t to 0",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "a",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -122,16 +164,25 @@
               "key_code": "hyphen"
             }
           ],
-          "description": "from left_shift+a to hyphen"
+          "description": "from a to hyphen",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "s",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -142,16 +193,25 @@
               "key_code": "4"
             }
           ],
-          "description": "from left_shift+s to 4"
+          "description": "from s to 4",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "d",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -162,16 +222,25 @@
               "key_code": "5"
             }
           ],
-          "description": "from left_shift+d to 5"
+          "description": "from d to 5",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "f",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -182,16 +251,25 @@
               "key_code": "6"
             }
           ],
-          "description": "from left_shift+f to 6"
+          "description": "from f to 6",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "g",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -202,16 +280,25 @@
               "key_code": "equal_sign"
             }
           ],
-          "description": "from left_shift+g to equal_sign"
+          "description": "from g to equal_sign",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "z",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -222,16 +309,25 @@
               "key_code": "open_bracket"
             }
           ],
-          "description": "from left_shift+z to open_bracket"
+          "description": "from z to open_bracket",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "x",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -242,16 +338,25 @@
               "key_code": "1"
             }
           ],
-          "description": "from left_shift+x to 1"
+          "description": "from x to 1",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "c",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -262,16 +367,25 @@
               "key_code": "2"
             }
           ],
-          "description": "from left_shift+c to 2"
+          "description": "from c to 2",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "v",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -282,16 +396,25 @@
               "key_code": "3"
             }
           ],
-          "description": "from left_shift+v to 3"
+          "description": "from v to 3",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "b",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -302,36 +425,19 @@
               "key_code": "close_bracket"
             }
           ],
-          "description": "from left_shift+b to close_bracket"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "spacebar",
-            "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
+          "description": "from b to close_bracket",
+          "conditions": [
             {
-              "key_code": "right_shift",
-              "modifiers": [
-                "right_option",
-                "right_control",
-                "right_command"
-              ],
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
             {
-              "key_code": "f13"
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
             }
-          ],
-          "description": "left_shift+spacebar to right_option+right_control+right_command+right_shift, send f13 on tap"
+          ]
         }
       ]
     },
@@ -343,9 +449,6 @@
           "from": {
             "key_code": "y",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -356,16 +459,25 @@
               "key_code": "quote"
             }
           ],
-          "description": "from left_shift+y to quote"
+          "description": "from y to quote",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "u",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -376,16 +488,25 @@
               "key_code": "grave_accent_and_tilde"
             }
           ],
-          "description": "from left_shift+u to grave_accent_and_tilde"
+          "description": "from u to grave_accent_and_tilde",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "i",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -396,16 +517,25 @@
               "key_code": "return_or_enter"
             }
           ],
-          "description": "from left_shift+i to return_or_enter"
+          "description": "from i to return_or_enter",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "o",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -416,16 +546,25 @@
               "key_code": "tab"
             }
           ],
-          "description": "from left_shift+o to tab"
+          "description": "from o to tab",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "p",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -436,16 +575,25 @@
               "key_code": "vk_none"
             }
           ],
-          "description": "from left_shift+p to vk_none"
+          "description": "from p to vk_none",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "h",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -456,16 +604,25 @@
               "key_code": "left_arrow"
             }
           ],
-          "description": "from left_shift+h to left_arrow"
+          "description": "from h to left_arrow",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "j",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -476,16 +633,25 @@
               "key_code": "down_arrow"
             }
           ],
-          "description": "from left_shift+j to down_arrow"
+          "description": "from j to down_arrow",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "k",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -496,16 +662,25 @@
               "key_code": "up_arrow"
             }
           ],
-          "description": "from left_shift+k to up_arrow"
+          "description": "from k to up_arrow",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "l",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -516,16 +691,25 @@
               "key_code": "right_arrow"
             }
           ],
-          "description": "from left_shift+l to right_arrow"
+          "description": "from l to right_arrow",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "semicolon",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -536,16 +720,25 @@
               "key_code": "caps_lock"
             }
           ],
-          "description": "from left_shift+semicolon to caps_lock"
+          "description": "from semicolon to caps_lock",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "n",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -553,22 +746,28 @@
           },
           "to": [
             {
-              "key_code": "e",
-              "modifiers": [
-                "right_option"
-              ]
+              "key_code": "delete_forward"
             }
           ],
-          "description": "from left_shift+n to right_option+e"
+          "description": "from n to delete_forward",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "m",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -579,16 +778,25 @@
               "key_code": "delete_or_backspace"
             }
           ],
-          "description": "from left_shift+m to delete_or_backspace"
+          "description": "from m to delete_or_backspace",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "comma",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -599,16 +807,25 @@
               "key_code": "comma"
             }
           ],
-          "description": "from left_shift+comma to comma"
+          "description": "from comma to comma",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "period",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -619,16 +836,25 @@
               "key_code": "period"
             }
           ],
-          "description": "from left_shift+period to period"
+          "description": "from period to period",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         },
         {
           "type": "basic",
           "from": {
             "key_code": "slash",
             "modifiers": {
-              "mandatory": [
-                "left_shift"
-              ],
               "optional": [
                 "any"
               ]
@@ -639,7 +865,19 @@
               "key_code": "slash"
             }
           ],
-          "description": "from left_shift+slash to slash"
+          "description": "from slash to slash",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
         }
       ]
     }

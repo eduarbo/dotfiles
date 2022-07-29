@@ -2,13 +2,7 @@ import { fromKeyCode } from './fromEvent';
 import { toKeyCode, toSetVariable } from './toEvent';
 
 import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
-import type {
-  ToEvent,
-  ToEventCommon,
-  ToKeyCodeTuple,
-  Variable,
-  SetVariableTuple,
-} from './toEvent';
+import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable, SetVariables } from './toEvent';
 import type { KeyCode, Modifier, VariableType } from './enums';
 
 interface FrontmostApplicationCondition {
@@ -115,6 +109,31 @@ export const manipulator = (
   ...options,
 });
 
+const getVariables = (setVariables: SetVariables = {}) => {
+  return Object.entries(setVariables).reduce(
+    (col: any, [name, { to, to_after_key_up, to_if_alone, to_if_held_down }]) => {
+      if (to !== undefined) {
+        col.toVariables.push(toSetVariable([name, to]));
+      }
+      if (to_after_key_up !== undefined) {
+        col.toAfterKeyUpVariables.push(toSetVariable([name, to_after_key_up]));
+      }
+      if (to_if_alone !== undefined) {
+        col.toIfAloneVariables.push(toSetVariable([name, to_if_alone]));
+      }
+      if (to_if_held_down !== undefined) {
+        col.toIfHeldDownVariables.push(toSetVariable([name, to_if_held_down]));
+      }
+      return col;
+    },
+    {
+      toVariables: [],
+      toAfterKeyUpVariables: [],
+      toIfAloneVariables: [],
+      toIfHeldDownVariables: [],
+    },
+  );
+};
 export const remap = (
   fromTuple: FromKeyCodeTuple,
   toTuples: ToKeyCodeTuple[],
@@ -122,45 +141,34 @@ export const remap = (
 ): Manipulator => {
   const fromKeyText = keyToString(fromTuple);
   const toKeyText = keyToString(...toTuples);
-  const { manipulatorOptions, fromOptions, toOptions } = options;
+  const { manipulatorOptions, fromOptions, toOptions, setVariables = {} } = options;
+  const {
+    toVariables = [],
+    toAfterKeyUpVariables = [],
+    toIfAloneVariables = [],
+    toIfHeldDownVariables = [],
+  } = getVariables(setVariables);
 
   return {
     type: 'basic',
     from: fromKeyCode(fromTuple, fromOptions),
-    to: toTuples.map((toTuple) => toKeyCode(toTuple, toOptions)),
+    to: [...toVariables, ...toTuples.map((toTuple) => toKeyCode(toTuple, toOptions))],
+    ...(toAfterKeyUpVariables.length
+      ? {
+          to_after_key_up: toAfterKeyUpVariables,
+        }
+      : null),
+    ...(toIfAloneVariables.length
+      ? {
+          to_if_alone: toIfAloneVariables,
+        }
+      : null),
+    ...(toIfHeldDownVariables.length
+      ? {
+          to_if_held_down: toIfHeldDownVariables,
+        }
+      : null),
     description: fromKeyText && toKeyText && `from ${fromKeyText} to ${toKeyText}`,
-    ...manipulatorOptions,
-  };
-};
-
-export const remapToLayer = (
-  fromTuple: FromKeyCodeTuple,
-  layer: string,
-  options: RemapOptions = {},
-): Manipulator => {
-  const fromKeyText = keyToString(fromTuple);
-  const { manipulatorOptions, fromOptions } = options;
-
-  return {
-    type: 'basic',
-    from: fromKeyCode(fromTuple, fromOptions),
-    to: [
-      {
-        set_variable: {
-          name: layer,
-          value: true,
-        },
-      },
-    ],
-    to_after_key_up: [
-      {
-        set_variable: {
-          name: layer,
-          value: false,
-        },
-      },
-    ],
-    description: `from ${fromKeyText} to layer ${layer}`,
     ...manipulatorOptions,
   };
 };
@@ -168,7 +176,7 @@ export const remapToLayer = (
 export interface RemapOptions {
   manipulatorOptions?: ManipulatorOptions;
   toOptions?: ToEventCommon;
-  setVariables?: SetVariableTuple[];
+  setVariables?: SetVariables;
   fromOptions?: FromEventCommon;
 }
 
@@ -178,22 +186,39 @@ export const remapToStickyModifier = (
   options: RemapOptions = {},
 ): Manipulator => {
   const fromKeyText = keyToString(fromTuple);
-  const { manipulatorOptions, fromOptions, toOptions, setVariables = [] } = options;
+  const { manipulatorOptions, fromOptions, toOptions, setVariables = {} } = options;
+  const {
+    toVariables = [],
+    toAfterKeyUpVariables = [],
+    toIfAloneVariables = [],
+    toIfHeldDownVariables = [],
+  } = getVariables(setVariables);
 
   return {
     type: 'basic',
     from: fromKeyCode(fromTuple, fromOptions),
     to: [
-      ...setVariables.map((tuple) => toSetVariable(tuple)),
-      toKeyCode([toModifiers[0] as KeyCode, toModifiers.slice(1) as Modifier[]], {
-        ...toOptions,
-      }),
+      ...toVariables,
+      toKeyCode([toModifiers[0] as KeyCode, toModifiers.slice(1) as Modifier[]], toOptions),
     ],
-    to_if_alone: toModifiers.map((toModifier) => ({
-      sticky_modifier: {
-        [toModifier]: 'toggle',
-      },
-    })),
+    ...(toAfterKeyUpVariables.length
+      ? {
+          to_after_key_up: toAfterKeyUpVariables,
+        }
+      : null),
+    to_if_alone: [
+      ...toIfAloneVariables,
+      ...toModifiers.map((toModifier) => ({
+        sticky_modifier: {
+          [toModifier]: 'toggle',
+        },
+      })),
+    ],
+    ...(toIfHeldDownVariables.length
+      ? {
+          to_if_held_down: toIfHeldDownVariables,
+        }
+      : null),
     description: `from ${fromKeyText} to sticky ${toModifiers.join(', ')}`,
     ...manipulatorOptions,
   };
@@ -226,13 +251,32 @@ export const modTap = (
   const fromKeyText = keyToString(fromTuple);
   const toKeyText = keyToString(...toTuples);
   const toKeyOnTapText = keyToString(...toTuplesOnTap);
-  const { manipulatorOptions, toOptions, fromOptions } = options;
+  const { manipulatorOptions, toOptions, fromOptions, setVariables = {} } = options;
+  const {
+    toVariables = [],
+    toAfterKeyUpVariables = [],
+    toIfAloneVariables = [],
+    toIfHeldDownVariables = [],
+  } = getVariables(setVariables);
 
   return {
     type: 'basic',
     from: fromKeyCode(fromTuple, fromOptions),
-    to: toTuples.map((toTuple) => toKeyCode(toTuple, toOptions)),
-    to_if_alone: toTuplesOnTap.map((toTupleOnTap) => toKeyCode(toTupleOnTap)),
+    to: [...toVariables, ...toTuples.map((toTuple) => toKeyCode(toTuple, toOptions))],
+    ...(toAfterKeyUpVariables.length
+      ? {
+          to_after_key_up: toAfterKeyUpVariables,
+        }
+      : null),
+    to_if_alone: [
+      ...toIfAloneVariables,
+      ...toTuplesOnTap.map((toTupleOnTap) => toKeyCode(toTupleOnTap)),
+    ],
+    ...(toIfHeldDownVariables.length
+      ? {
+          to_if_held_down: toIfHeldDownVariables,
+        }
+      : null),
     description: `${fromKeyText} to ${toKeyText}, send ${toKeyOnTapText} on tap`,
     ...manipulatorOptions,
   };

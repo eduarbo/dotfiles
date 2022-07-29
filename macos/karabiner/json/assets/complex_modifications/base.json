@@ -7,58 +7,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "left_command",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "right_shift",
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "spacebar"
-            }
-          ],
-          "description": "left_command to right_shift, send spacebar on tap"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "right_command",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_shift",
-              "lazy": true
-            }
-          ],
-          "to_if_alone": [
-            {
-              "key_code": "escape"
-            }
-          ],
-          "description": "right_command to left_shift, send escape on tap"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "spacebar",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
+            "key_code": "spacebar"
           },
           "to": [
             {
@@ -74,9 +23,96 @@
                 "name": "SUPER",
                 "value": false
               }
+            },
+            {
+              "set_variable": {
+                "name": "HYPER",
+                "value": false
+              }
             }
           ],
-          "description": "from spacebar to layer SUPER"
+          "description": ""
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "SHIFT",
+                "value": true
+              }
+            },
+            {
+              "key_code": "left_shift"
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "SHIFT",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "HYPER",
+                "value": false
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ],
+          "description": "left_command to left_shift, send spacebar on tap"
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "SYMBOLS",
+                "value": true
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "SYMBOLS",
+                "value": false
+              }
+            },
+            {
+              "set_variable": {
+                "name": "HYPER",
+                "value": false
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "description": "right_command to , send escape on tap"
         },
         {
           "type": "basic",
@@ -104,7 +140,7 @@
               }
             }
           ],
-          "description": "from left_option to layer MEH"
+          "description": ""
         },
         {
           "type": "basic",
@@ -132,7 +168,7 @@
               }
             }
           ],
-          "description": "from right_option to layer MEH"
+          "description": ""
         }
       ]
     }

@@ -1,11 +1,23 @@
 import * as lib from '../../lib';
-import { lazyModTap } from '../../lib';
-import type { ToKeyCodeTuple, Modifier, KeyCode, ComplexModifications } from '../../lib';
-
-const mandatoryModifiers: Modifier[] = ['left_shift'];
+import type { ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
 
 const remap = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
-  lib.remap([fromKeyCode, mandatoryModifiers, ['any']], toTuples);
+  lib.remap([fromKeyCode, null, ['any']], toTuples, {
+    manipulatorOptions: {
+      conditions: [
+        {
+          type: 'variable_if',
+          name: 'SYMBOLS',
+          value: true,
+        },
+        {
+          type: 'variable_unless',
+          name: 'HYPER',
+          value: true,
+        },
+      ],
+    },
+  });
 
 const rules = [
   {
@@ -31,14 +43,6 @@ const rules = [
       remap('c', [['2']]),
       remap('v', [['3']]),
       remap('b', [['close_bracket']]), // ]
-
-      /// Thumbs
-      // Spacebar -> HYPER | F13
-      lazyModTap(
-        ['spacebar', mandatoryModifiers, []],
-        [['right_shift', ['right_option', 'right_control', 'right_command']]],
-        [['f13']],
-      ), // F13 is reserved for Alfred's Clipboard History
     ],
   },
   {
@@ -61,7 +65,7 @@ const rules = [
       remap('semicolon', [['caps_lock']]), // using CAPS_LOCK as fallback
 
       /// Bottom Row
-      remap('n', [['e', ['right_option']]]),
+      remap('n', [['delete_forward']]), // ⌦
       remap('m', [['delete_or_backspace']]), // ⌫
       // Do not shift these, I want them to be available in the same layer as the numpad
       remap('comma', [['comma']]),
