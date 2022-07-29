@@ -1153,6 +1153,30 @@
                     "value": true
                   }
                 ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_shift"
+                  }
+                ],
+                "description": "from right_command to right_shift",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "MEH",
+                    "value": true
+                  }
+                ]
               }
             ]
           },
@@ -1170,6 +1194,12 @@
                 "to": [
                   {
                     "set_variable": {
+                      "name": "SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
                       "name": "HYPER",
                       "value": true
                     }
@@ -1180,11 +1210,16 @@
                       "option",
                       "command",
                       "control"
-                    ],
-                    "lazy": true
+                    ]
                   }
                 ],
                 "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": false
+                    }
+                  },
                   {
                     "set_variable": {
                       "name": "HYPER",
@@ -1206,6 +1241,11 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
                   }
                 ]
               },
@@ -1220,6 +1260,12 @@
                 "to": [
                   {
                     "set_variable": {
+                      "name": "SYMBOLS",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
                       "name": "HYPER",
                       "value": true
                     }
@@ -1230,11 +1276,16 @@
                       "option",
                       "command",
                       "control"
-                    ],
-                    "lazy": true
+                    ]
                   }
                 ],
                 "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SYMBOLS",
+                      "value": false
+                    }
+                  },
                   {
                     "set_variable": {
                       "name": "HYPER",
@@ -1255,6 +1306,11 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   }
                 ]
@@ -1314,7 +1370,14 @@
                     ]
                   }
                 ],
-                "description": "left_shift+spacebar to option+command+control+right_shift, send right_option+e on tap"
+                "description": "left_shift+spacebar to option+command+control+right_shift, send right_option+e on tap",
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -1367,6 +1430,11 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   }
                 ]
@@ -1496,15 +1564,21 @@
                 },
                 "to": [
                   {
-                    "key_code": "a",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": true
+                    }
                   }
                 ],
-                "description": "from a to option+command+control+a",
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": false
+                    }
+                  }
+                ],
+                "description": "",
                 "conditions": [
                   {
                     "type": "variable_if",
@@ -1560,6 +1634,11 @@
                   {
                     "type": "variable_unless",
                     "name": "HYPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   },
                   {
@@ -1630,6 +1709,11 @@
                   },
                   {
                     "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
                     "name": "RIGHT_OPTION",
                     "value": true
                   },
@@ -1692,6 +1776,11 @@
                   {
                     "type": "variable_unless",
                     "name": "HYPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   },
                   {
@@ -2045,6 +2134,11 @@
                   },
                   {
                     "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
                     "name": "LEFT_OPTION",
                     "value": true
                   },
@@ -2107,6 +2201,11 @@
                   {
                     "type": "variable_unless",
                     "name": "HYPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   },
                   {
@@ -2177,6 +2276,11 @@
                   },
                   {
                     "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
                     "name": "LEFT_OPTION",
                     "value": true
                   },
@@ -2199,15 +2303,21 @@
                 },
                 "to": [
                   {
-                    "key_code": "semicolon",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": true
+                    }
                   }
                 ],
-                "description": "from semicolon to option+command+control+semicolon",
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": false
+                    }
+                  }
+                ],
+                "description": "",
                 "conditions": [
                   {
                     "type": "variable_if",

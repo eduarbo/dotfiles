@@ -76,6 +76,8 @@ const rules = [
       keybind('period', [['mission_control']]),
       // keybind('period', [['f3']]),
       keybind('slash', [['pause']]),
+
+      keybind('right_command', [['right_shift']]),
     ],
   },
 ];
