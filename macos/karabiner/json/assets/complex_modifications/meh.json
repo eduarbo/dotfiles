@@ -795,6 +795,30 @@
               "value": true
             }
           ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_shift"
+            }
+          ],
+          "description": "from right_command to right_shift",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "MEH",
+              "value": true
+            }
+          ]
         }
       ]
     }

@@ -281,20 +281,3 @@ export const modTap = (
     ...manipulatorOptions,
   };
 };
-
-export const lazyModTap = (
-  fromTuple: FromKeyCodeTuple,
-  toTuples: ToKeyCodeTuple[],
-  toTuplesOnTap: ToKeyCodeTuple[],
-  options: RemapOptions = {},
-) => {
-  const { manipulatorOptions, toOptions, fromOptions } = options;
-  return modTap(fromTuple, toTuples, toTuplesOnTap, {
-    manipulatorOptions,
-    toOptions: {
-      lazy: true,
-      ...toOptions,
-    },
-    fromOptions,
-  });
-};

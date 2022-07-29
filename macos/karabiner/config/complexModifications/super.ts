@@ -34,6 +34,11 @@ const remapToStickyModifier = (
           name: 'HYPER',
           value: true,
         },
+        {
+          type: 'variable_unless',
+          name: 'MEH',
+          value: true,
+        },
         ...['option', 'control', 'command'].map(
           (mod): VariableCondition => ({
             type: 'variable_unless',
@@ -70,9 +75,20 @@ const rules = [
         [toHyperKeyCodeTuple],
         [['left_arrow', ['right_control']]],
         {
-          ...defaultOpts,
-          setVariables: { HYPER: { to: true, to_after_key_up: false } },
-          toOptions: { lazy: true },
+          manipulatorOptions: {
+            conditions: [
+              ifSuperOn,
+              {
+                type: 'variable_unless',
+                name: 'MEH',
+                value: true,
+              },
+            ],
+          },
+          setVariables: {
+            SHIFT: { to: true, to_after_key_up: false },
+            HYPER: { to: true, to_after_key_up: false },
+          },
         },
       ),
 
@@ -82,9 +98,20 @@ const rules = [
         [toHyperKeyCodeTuple],
         [['right_arrow', ['right_control']]],
         {
-          ...defaultOpts,
-          setVariables: { HYPER: { to: true, to_after_key_up: false } },
-          toOptions: { lazy: true },
+          manipulatorOptions: {
+            conditions: [
+              ifSuperOn,
+              {
+                type: 'variable_unless',
+                name: 'MEH',
+                value: true,
+              },
+            ],
+          },
+          setVariables: {
+            SYMBOLS: { to: true, to_after_key_up: false },
+            HYPER: { to: true, to_after_key_up: false },
+          },
         },
       ),
 
@@ -93,6 +120,15 @@ const rules = [
         setVariables: {
           SUPER: { to: true, to_after_key_up: false },
           HYPER: { to: true, to_after_key_up: false },
+        },
+        manipulatorOptions: {
+          conditions: [
+            {
+              type: 'variable_unless',
+              name: 'MEH',
+              value: true,
+            },
+          ],
         },
       }),
 
@@ -107,6 +143,11 @@ const rules = [
             {
               type: 'variable_if',
               name: 'SYMBOLS',
+              value: true,
+            },
+            {
+              type: 'variable_unless',
+              name: 'MEH',
               value: true,
             },
           ],
@@ -126,8 +167,7 @@ const rules = [
       remap(['t'], [['close_bracket', ['right_command', 'right_shift']]]),
 
       /// Home Row - Mods
-      // A key: available
-      remap(['a'], [['a', superMods]]),
+      remap(['a'], [], { setVariables: { MEH: { to: true, to_after_key_up: false } } }),
       remapToStickyModifier('s', 'option', false),
       remapToStickyModifier('d', 'command', false),
       remapToStickyModifier('f', 'control', false),
@@ -163,8 +203,7 @@ const rules = [
       remapToStickyModifier('j', 'control', true),
       remapToStickyModifier('k', 'command', true),
       remapToStickyModifier('l', 'option', true),
-      // ; key: available
-      remap(['semicolon'], [['semicolon', superMods]]),
+      remap(['semicolon'], [], { setVariables: { MEH: { to: true, to_after_key_up: false } } }),
 
       /// Bottom Row
       remap(['n'], [['home']]),
