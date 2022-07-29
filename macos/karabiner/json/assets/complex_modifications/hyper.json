@@ -1,158 +1,39 @@
 {
-  "title": "Hyper layer",
+  "title": "Main layer",
   "rules": [
     {
-      "description": "Hyper keys for quick access to the bindings I use most often",
+      "description": "HYPER layer",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "w",
+            "key_code": "spacebar",
             "modifiers": {
               "mandatory": [
-                "command",
-                "option",
-                "control",
-                "shift"
+                "left_command"
               ],
               "optional": []
             }
           },
           "to": [
             {
-              "key_code": "m",
+              "key_code": "right_shift",
               "modifiers": [
-                "right_shift",
-                "right_command"
-              ]
-            }
-          ],
-          "description": "from command+option+control+shift+w to right_shift+right_command+m"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "e",
-            "modifiers": {
-              "mandatory": [
-                "command",
                 "option",
-                "control",
-                "shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "i",
-              "modifiers": [
-                "right_alt",
-                "right_command"
-              ]
-            }
-          ],
-          "description": "from command+option+control+shift+e to right_alt+right_command+i"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "r",
-            "modifiers": {
-              "mandatory": [
                 "command",
-                "option",
-                "control",
-                "shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "c",
-              "modifiers": [
-                "right_shift",
-                "right_command"
+                "control"
               ]
             }
           ],
-          "description": "from command+option+control+shift+r to right_shift+right_command+c"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "x",
-            "modifiers": {
-              "mandatory": [
-                "command",
-                "option",
-                "control",
-                "shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
+          "to_if_alone": [
             {
-              "key_code": "3",
+              "key_code": "e",
               "modifiers": [
-                "right_shift",
-                "right_command"
+                "right_option"
               ]
             }
           ],
-          "description": "from command+option+control+shift+x to right_shift+right_command+3"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "c",
-            "modifiers": {
-              "mandatory": [
-                "command",
-                "option",
-                "control",
-                "shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "4",
-              "modifiers": [
-                "right_shift",
-                "right_command"
-              ]
-            }
-          ],
-          "description": "from command+option+control+shift+c to right_shift+right_command+4"
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "v",
-            "modifiers": {
-              "mandatory": [
-                "command",
-                "option",
-                "control",
-                "shift"
-              ],
-              "optional": []
-            }
-          },
-          "to": [
-            {
-              "key_code": "5",
-              "modifiers": [
-                "right_shift",
-                "right_command"
-              ]
-            }
-          ],
-          "description": "from command+option+control+shift+v to right_shift+right_command+5"
+          "description": "left_command+spacebar to option+command+control+right_shift, send right_option+e on tap"
         }
       ]
     }

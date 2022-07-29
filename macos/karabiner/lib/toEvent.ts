@@ -83,7 +83,14 @@ export type ToEvent =
 
 export type ToKeyCodeTuple = [KeyCode, Modifier[]?];
 
-export type SetVariableTuple = [VariableName, VariableValue];
+export type VariableEvents = {
+  to?: VariableValue;
+  to_after_key_up?: VariableValue;
+  to_if_alone?: VariableValue;
+  to_if_held_down?: VariableValue;
+};
+export type SetVariables = { [name: string]: VariableEvents };
+export type ToSetVariableTuple = [VariableName, VariableValue];
 
 export const toKeyCode = (
   [key_code, modifiers]: ToKeyCodeTuple,
@@ -129,7 +136,7 @@ export const toSelectInputSource = (
 });
 
 export const toSetVariable = (
-  [name, value]: SetVariableTuple,
+  [name, value]: ToSetVariableTuple,
   options: ToEventCommon = {},
 ): ToSetVariableEvent => ({
   set_variable: {
@@ -151,5 +158,14 @@ export const toStickyModifier = (
   sticky_modifier,
   ...options,
 });
+
+export const toHyperKeyCodeTuple: ToKeyCodeTuple = [
+  'right_shift',
+  ['option', 'command', 'control'],
+];
+
+export const toMehKeyCodeTuple: ToKeyCodeTuple = ['right_shift', ['option', 'control']];
+
+export const toSuperKeyCodeTuple: ToKeyCodeTuple = ['right_command', ['option', 'control']];
 
 // TODO software_function

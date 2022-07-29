@@ -1,5 +1,5 @@
 import * as lib from '../../lib';
-import { remap } from '../../lib';
+import { modTap, toHyperKeyCodeTuple } from '../../lib';
 import type {
   ComplexModifications,
   KeyCode,
@@ -7,7 +7,15 @@ import type {
   ToKeyCodeTuple,
   Manipulator,
   VariableCondition,
+  RemapOptions,
+  FromKeyCodeTuple,
 } from '../../lib';
+
+const ifSuperOn = {
+  type: 'variable_if',
+  name: 'SUPER',
+  value: true,
+};
 
 const remapToStickyModifier = (
   fromKeyCode: KeyCode,
@@ -16,81 +24,122 @@ const remapToStickyModifier = (
 ): Manipulator => {
   const toKeyCode: KeyCode = `${isRightSide ? 'right' : 'left'}_${toModifier}`;
 
-  const modification = lib.remapToStickyModifier([fromKeyCode, null, ['any']], [toKeyCode], {
-    setVariables: [[toKeyCode, true]],
+  return lib.remapToStickyModifier([fromKeyCode, null, ['any']], [toKeyCode], {
+    setVariables: { [toKeyCode.toUpperCase()]: { to: true, to_after_key_up: false } },
     manipulatorOptions: {
       conditions: [
+        ifSuperOn,
         {
-          type: 'variable_if',
-          name: 'SUPER',
+          type: 'variable_unless',
+          name: 'HYPER',
           value: true,
         },
         ...['option', 'control', 'command'].map(
           (mod): VariableCondition => ({
             type: 'variable_unless',
-            name: `${isRightSide ? 'left' : 'right'}_${mod}`,
+            name: `${isRightSide ? 'left' : 'right'}_${mod}`.toUpperCase(),
             value: true,
           }),
         ),
       ],
     },
   });
-
-  return {
-    ...modification,
-    to_after_key_up: [
-      {
-        set_variable: {
-          name: toKeyCode,
-          value: false,
-        },
-      },
-    ],
-  };
 };
 
-const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[], optionalMods: Modifier[] = []) =>
-  remap([keyCode, null, optionalMods], toTuples, {
-    manipulatorOptions: {
-      conditions: [
-        {
-          type: 'variable_if',
-          name: 'SUPER',
-          value: true,
-        },
-      ],
-    },
-  });
+const defaultOpts = {
+  manipulatorOptions: {
+    conditions: [ifSuperOn],
+  },
+};
+
+const remap = (
+  fromTuple: FromKeyCodeTuple,
+  toTuples: ToKeyCodeTuple[],
+  options: RemapOptions = {},
+): Manipulator => lib.remap(fromTuple, toTuples, { ...defaultOpts, ...options });
 
 const superMods: Modifier[] = ['option', 'command', 'control'];
 
 const rules = [
   {
+    description: 'SUPER Thumbs',
+    manipulators: [
+      // L Command -> HYPER | Move to Right Desktop
+      modTap(
+        ['left_command', null, []],
+        [toHyperKeyCodeTuple],
+        [['left_arrow', ['right_control']]],
+        {
+          ...defaultOpts,
+          setVariables: { HYPER: { to: true, to_after_key_up: false } },
+          toOptions: { lazy: true },
+        },
+      ),
+
+      // R Command -> HYPER | Move to Left Desktop
+      modTap(
+        ['right_command', null, []],
+        [toHyperKeyCodeTuple],
+        [['right_arrow', ['right_control']]],
+        {
+          ...defaultOpts,
+          setVariables: { HYPER: { to: true, to_after_key_up: false } },
+          toOptions: { lazy: true },
+        },
+      ),
+
+      // Spacebar + L Command -> HYPER | accent
+      modTap(['spacebar', ['left_shift'], []], [toHyperKeyCodeTuple], [['e', ['right_option']]], {
+        setVariables: {
+          SUPER: { to: true, to_after_key_up: false },
+          HYPER: { to: true, to_after_key_up: false },
+        },
+      }),
+
+      // Spacebar + R Command -> HYPER | clipboard history
+      modTap(['spacebar'], [toHyperKeyCodeTuple], [['f13']], {
+        setVariables: {
+          SUPER: { to: true, to_after_key_up: false },
+          HYPER: { to: true, to_after_key_up: false },
+        },
+        manipulatorOptions: {
+          conditions: [
+            {
+              type: 'variable_if',
+              name: 'SYMBOLS',
+              value: true,
+            },
+          ],
+        },
+      }),
+    ],
+  },
+  {
     description:
       'SUPER keys for Sticky Mods and quick access to the bindings I use most often in left hand',
     manipulators: [
       /// Top Row - Nav
-      keybind('q', [['a', ['right_command', 'right_shift']]]),
-      keybind('w', [['open_bracket', ['right_command', 'right_shift']]]),
-      keybind('e', [['open_bracket', ['right_command']]]),
-      keybind('r', [['close_bracket', ['right_command']]]),
-      keybind('t', [['close_bracket', ['right_command', 'right_shift']]]),
+      remap(['q'], [['a', ['right_command', 'right_shift']]]),
+      remap(['w'], [['open_bracket', ['right_command', 'right_shift']]]),
+      remap(['e'], [['open_bracket', ['right_command']]]),
+      remap(['r'], [['close_bracket', ['right_command']]]),
+      remap(['t'], [['close_bracket', ['right_command', 'right_shift']]]),
 
       /// Home Row - Mods
       // A key: available
-      keybind('a', [['a', superMods]]),
+      remap(['a'], [['a', superMods]]),
       remapToStickyModifier('s', 'option', false),
       remapToStickyModifier('d', 'command', false),
       remapToStickyModifier('f', 'control', false),
       // G key: reserved to toggle Mic with HammerSpoon 🔨🥄
-      keybind('g', [['g', superMods]]),
+      remap(['g'], [['g', superMods]]),
 
       /// Bottom Row
-      keybind('z', [['up_arrow', ['control']]]),
-      keybind('x', [['tab', ['command', 'shift']]]),
-      keybind('c', [['down_arrow', ['control']]]),
-      keybind('v', [['grave_accent_and_tilde', ['command']]]),
-      keybind('b', [['tab', ['command']]]),
+      remap(['z'], [['up_arrow', ['control']]]),
+      remap(['x'], [['tab', ['command', 'shift']]]),
+      remap(['c'], [['down_arrow', ['control']]]),
+      remap(['v'], [['grave_accent_and_tilde', ['command']]]),
+      remap(['b'], [['tab', ['command']]]),
     ],
   },
   {
@@ -98,37 +147,32 @@ const rules = [
       'SUPER keys for Sticky Mods and quick access to the bindings I use most often in right hand',
     manipulators: [
       /// Top Row
-      keybind('y', [['spacebar', ['right_control', 'right_command']]]), // 👾
+      remap(['y'], [['spacebar', ['right_control', 'right_command']]]), // 👾
       // U key: reserved to launch 1p quick access
-      keybind('u', [['u', superMods]]),
+      remap(['u'], [['u', superMods]]),
       // I key: reserved to launch Alfred
-      keybind('i', [['i', superMods]]),
+      remap(['i'], [['i', superMods]]),
       // O key: reserved for Alfred's snippets
-      keybind('o', [['o', superMods]]),
+      remap(['o'], [['o', superMods]]),
       // P key: reserved for Alfred's Universal Access
-      keybind('p', [['p', superMods]]),
+      remap(['p'], [['p', superMods]]),
 
       /// Home Row - Mods
       // H key: reserved to switch the sound output
-      keybind('h', [['h', superMods]]),
+      remap(['h'], [['h', superMods]]),
       remapToStickyModifier('j', 'control', true),
       remapToStickyModifier('k', 'command', true),
       remapToStickyModifier('l', 'option', true),
       // ; key: available
-      keybind('semicolon', [['semicolon', superMods]]),
+      remap(['semicolon'], [['semicolon', superMods]]),
 
       /// Bottom Row
-      keybind('n', [['home']]),
-      keybind('m', [['page_down']]),
-      keybind('comma', [['page_up']]),
-      keybind('period', [['end']]),
+      remap(['n'], [['home']]),
+      remap(['m'], [['page_down']]),
+      remap(['comma'], [['page_up']]),
+      remap(['period'], [['end']]),
       // / key: available
-      keybind('slash', [['slash', superMods]]),
-
-      // SYMBOLS -> HYPER
-      keybind('right_command', [['right_shift', superMods]]),
-      // SHIFT -> HYPER
-      keybind('left_command', [['right_shift', superMods]]),
+      remap(['slash'], [['slash', superMods]]),
     ],
   },
 ];
