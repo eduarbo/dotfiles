@@ -21,11 +21,11 @@ const rules = [
     description: 'Quick access to frequently used bindings in left hand',
     manipulators: [
       /// Top Row - Dev Tools
-      keybind('q', [['j', ['right_shift', 'right_command']]]),
+      keybind('q', [['j', ['right_option', 'right_command']]]),
       keybind('w', [['m', ['right_shift', 'right_command']]]),
-      keybind('e', [['i', ['right_shift', 'right_command']]]),
+      keybind('e', [['i', ['right_option', 'right_command']]]),
       keybind('r', [['c', ['right_shift', 'right_command']]]),
-      keybind('t', [['backslash', ['right_shift', 'right_command']]]),
+      keybind('t', [['backslash', ['right_command']]]),
 
       /// Home Row - Reserved to manage windows with HammerSpoon 🔨🥄
       keybind('a', [['a', mehMods]]),
