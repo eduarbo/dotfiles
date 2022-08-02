@@ -1363,13 +1363,14 @@
                 ],
                 "to_if_alone": [
                   {
-                    "key_code": "e",
+                    "key_code": "spacebar",
                     "modifiers": [
-                      "right_option"
+                      "right_control",
+                      "right_command"
                     ]
                   }
                 ],
-                "description": "left_shift+spacebar to option+command+control+right_shift, send right_option+e on tap",
+                "description": "left_shift+spacebar to option+command+control+right_shift, send right_control+right_command+spacebar on tap",
                 "conditions": [
                   {
                     "type": "variable_unless",
@@ -1946,14 +1947,15 @@
                 },
                 "to": [
                   {
-                    "key_code": "spacebar",
+                    "key_code": "y",
                     "modifiers": [
-                      "right_control",
-                      "right_command"
+                      "option",
+                      "command",
+                      "control"
                     ]
                   }
                 ],
-                "description": "from y to right_control+right_command+spacebar",
+                "description": "from y to option+command+control+y",
                 "conditions": [
                   {
                     "type": "variable_if",
@@ -2421,6 +2423,43 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Thumbs cluster",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "from left_command to shift+spacebar",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2998,10 +3037,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "vk_none"
+                    "key_code": "delete_forward"
                   }
                 ],
-                "description": "from p to vk_none",
+                "description": "from p to delete_forward",
                 "conditions": [
                   {
                     "type": "variable_if",
@@ -3172,10 +3211,13 @@
                 },
                 "to": [
                   {
-                    "key_code": "delete_forward"
+                    "key_code": "e",
+                    "modifiers": [
+                      "right_option"
+                    ]
                   }
                 ],
-                "description": "from n to delete_forward",
+                "description": "from n to right_option+e",
                 "conditions": [
                   {
                     "type": "variable_if",

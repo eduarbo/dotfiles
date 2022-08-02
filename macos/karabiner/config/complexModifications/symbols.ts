@@ -19,8 +19,14 @@ const remap = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
     },
   });
 
+
 const rules = [
   {
+    description: 'Thumbs cluster',
+    manipulators: [
+      remap('left_command', [['spacebar', ['shift']]]), // ]
+    ],
+  },{
     description: 'Numpad in left hand',
     manipulators: [
       /// Top Row
@@ -54,7 +60,7 @@ const rules = [
       remap('i', [['return_or_enter']]), // RET
       remap('o', [['tab']]), // TAB
       // FIXME Find out a way to port the X-Case functionality from QMK to Karabiner
-      remap('p', [['vk_none']]), // P key: reserverd for XCase in my crkbd
+      remap('p', [['delete_forward']]), // using ⌦ as fallback
 
       /// Home Row
       remap('h', [['left_arrow']]), // ←
@@ -65,7 +71,7 @@ const rules = [
       remap('semicolon', [['caps_lock']]), // using CAPS_LOCK as fallback
 
       /// Bottom Row
-      remap('n', [['delete_forward']]), // ⌦
+      remap('n', [['e', ['right_option']]]), // accent
       remap('m', [['delete_or_backspace']]), // ⌫
       // Do not shift these, I want them to be available in the same layer as the numpad
       remap('comma', [['comma']]),

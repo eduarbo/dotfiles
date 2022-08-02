@@ -115,8 +115,8 @@ const rules = [
         },
       ),
 
-      // Spacebar + L Command -> HYPER | accent
-      modTap(['spacebar', ['left_shift'], []], [toHyperKeyCodeTuple], [['e', ['right_option']]], {
+      // Spacebar + L Command -> HYPER | 👾
+      modTap(['spacebar', ['left_shift'], []], [toHyperKeyCodeTuple], [['spacebar', ['right_control', 'right_command']]], {
         setVariables: {
           SUPER: { to: true, to_after_key_up: false },
           HYPER: { to: true, to_after_key_up: false },
@@ -187,14 +187,15 @@ const rules = [
       'SUPER keys for Sticky Mods and quick access to the bindings I use most often in right hand',
     manipulators: [
       /// Top Row
-      remap(['y'], [['spacebar', ['right_control', 'right_command']]]), // 👾
+      // P key: reserved for Alfred's Universal Access
+      remap(['y'], [['y', superMods]]),
       // U key: reserved to launch 1p quick access
       remap(['u'], [['u', superMods]]),
       // I key: reserved to launch Alfred
       remap(['i'], [['i', superMods]]),
       // O key: reserved for Alfred's snippets
       remap(['o'], [['o', superMods]]),
-      // P key: reserved for Alfred's Universal Access
+      // P key: avalilable
       remap(['p'], [['p', superMods]]),
 
       /// Home Row - Mods

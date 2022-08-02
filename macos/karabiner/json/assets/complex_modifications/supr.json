@@ -185,13 +185,14 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "e",
+              "key_code": "spacebar",
               "modifiers": [
-                "right_option"
+                "right_control",
+                "right_command"
               ]
             }
           ],
-          "description": "left_shift+spacebar to option+command+control+right_shift, send right_option+e on tap",
+          "description": "left_shift+spacebar to option+command+control+right_shift, send right_control+right_command+spacebar on tap",
           "conditions": [
             {
               "type": "variable_unless",
@@ -768,14 +769,15 @@
           },
           "to": [
             {
-              "key_code": "spacebar",
+              "key_code": "y",
               "modifiers": [
-                "right_control",
-                "right_command"
+                "option",
+                "command",
+                "control"
               ]
             }
           ],
-          "description": "from y to right_control+right_command+spacebar",
+          "description": "from y to option+command+control+y",
           "conditions": [
             {
               "type": "variable_if",
