@@ -56,8 +56,6 @@ export const x11 = [
   '^org\\.macports\\.X11$',
 ];
 
-export const crkbdId = 18003;
-
 export const EMACS_KEY_BINDINGS_EXCEPTION = [
   ...emacs,
   ...remoteDesktop,

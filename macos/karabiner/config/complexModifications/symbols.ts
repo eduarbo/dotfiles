@@ -19,14 +19,8 @@ const remap = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
     },
   });
 
-
 const rules = [
   {
-    description: 'Thumbs cluster',
-    manipulators: [
-      remap('left_command', [['spacebar', ['shift']]]), // ]
-    ],
-  },{
     description: 'Numpad in left hand',
     manipulators: [
       /// Top Row

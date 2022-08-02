@@ -2430,43 +2430,6 @@
             ]
           },
           {
-            "description": "Thumbs cluster",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "left_command",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "spacebar",
-                    "modifiers": [
-                      "shift"
-                    ]
-                  }
-                ],
-                "description": "from left_command to shift+spacebar",
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  }
-                ]
-              }
-            ]
-          },
-          {
             "description": "Numpad in left hand",
             "manipulators": [
               {

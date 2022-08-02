@@ -3,13 +3,7 @@ import type { KarabinerConfig } from '../lib';
 import { supr, emacs, symbols, meh, base } from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
-const defaultProfile = [
-  emacs,
-  meh,
-  supr,
-  symbols,
-  base,
-];
+const defaultProfile = [emacs, meh, supr, symbols, base];
 
 const profiles = [
   profile('Empty'),
