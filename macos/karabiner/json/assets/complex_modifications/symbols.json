@@ -2,6 +2,43 @@
   "title": "Symbols layer",
   "rules": [
     {
+      "description": "Thumbs cluster",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "shift"
+              ]
+            }
+          ],
+          "description": "from left_command to shift+spacebar",
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "SYMBOLS",
+              "value": true
+            },
+            {
+              "type": "variable_unless",
+              "name": "HYPER",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
       "description": "Numpad in left hand",
       "manipulators": [
         {
@@ -572,10 +609,10 @@
           },
           "to": [
             {
-              "key_code": "vk_none"
+              "key_code": "delete_forward"
             }
           ],
-          "description": "from p to vk_none",
+          "description": "from p to delete_forward",
           "conditions": [
             {
               "type": "variable_if",
@@ -746,10 +783,13 @@
           },
           "to": [
             {
-              "key_code": "delete_forward"
+              "key_code": "e",
+              "modifiers": [
+                "right_option"
+              ]
             }
           ],
-          "description": "from n to delete_forward",
+          "description": "from n to right_option+e",
           "conditions": [
             {
               "type": "variable_if",

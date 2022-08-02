@@ -15,7 +15,6 @@ const rules = [
       }),
 
       // L Command -> Sticky L Shift
-      // remapToStickyModifier(['left_command', null, ['any']], ['right_shift']),
       modTap(['left_command', null, ['any']], [['left_shift']], [['spacebar']], {
         setVariables: {
           SHIFT: { to: true, to_after_key_up: false },
