@@ -1,4 +1,4 @@
-import { profile } from '../lib';
+import { profile, crkbd } from '../lib';
 import type { KarabinerConfig } from '../lib';
 import { supr, emacs, symbols, meh, base } from './complexModifications';
 
@@ -9,6 +9,16 @@ const profiles = [
   profile('Empty'),
   profile('Default', defaultProfile, {
     selected: true,
+  }),
+  profile('Default (disable built-in kbd when crkbd is connected)', defaultProfile, {
+    devices: [
+      {
+        identifiers: crkbd,
+        disable_built_in_keyboard_if_exists: true,
+        ignore: false,
+        manipulate_caps_lock_led: true,
+      },
+    ],
   }),
 ];
 
