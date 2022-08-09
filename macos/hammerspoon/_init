@@ -10,6 +10,7 @@ HAMMERSPOON_DIR="$XDG_CONFIG_HOME/hammerspoon"
 brew_deps=(
   unzip
   hammerspoon
+  font-jetbrains-mono
 )
 
 install() {
