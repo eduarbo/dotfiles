@@ -1198,30 +1198,13 @@
                     }
                   },
                   {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
+                    "key_code": "left_shift"
                   }
                 ],
                 "to_after_key_up": [
                   {
                     "set_variable": {
                       "name": "SHIFT",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -1234,7 +1217,7 @@
                     ]
                   }
                 ],
-                "description": "left_command to option+command+control+right_shift, send right_control+left_arrow on tap",
+                "description": "left_command to left_shift, send right_control+left_arrow on tap",
                 "conditions": [
                   {
                     "type": "variable_if",
@@ -1262,32 +1245,12 @@
                       "name": "SYMBOLS",
                       "value": true
                     }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
                   }
                 ],
                 "to_after_key_up": [
                   {
                     "set_variable": {
                       "name": "SYMBOLS",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -1300,136 +1263,11 @@
                     ]
                   }
                 ],
-                "description": "right_command to option+command+control+right_shift, send right_control+right_arrow on tap",
+                "description": "right_command to , send right_control+right_arrow on tap",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "MEH",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "spacebar",
-                  "modifiers": {
-                    "mandatory": [
-                      "left_shift"
-                    ],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": false
-                    }
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "spacebar",
-                    "modifiers": [
-                      "right_control",
-                      "right_command"
-                    ]
-                  }
-                ],
-                "description": "left_shift+spacebar to option+command+control+right_shift, send right_control+right_command+spacebar on tap",
-                "conditions": [
-                  {
-                    "type": "variable_unless",
-                    "name": "MEH",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "spacebar"
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": false
-                    }
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "f13"
-                  }
-                ],
-                "description": "spacebar to option+command+control+right_shift, send f13 on tap",
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "SYMBOLS",
                     "value": true
                   },
                   {
@@ -1451,18 +1289,34 @@
                 },
                 "to": [
                   {
-                    "key_code": "a",
+                    "key_code": "q",
                     "modifiers": [
-                      "right_command",
-                      "right_shift"
+                      "option",
+                      "command",
+                      "control"
                     ]
                   }
                 ],
-                "description": "from q to right_command+right_shift+a",
+                "description": "from q to option+command+control+q",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1487,6 +1341,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -1508,6 +1377,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1531,6 +1415,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -1553,6 +1452,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1583,6 +1497,59 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": false
+                    }
+                  }
+                ],
+                "description": "from a to left_shift",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
                     "value": true
                   }
                 ]
@@ -1629,11 +1596,6 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   },
                   {
@@ -1704,11 +1666,6 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
                     "name": "MEH",
                     "value": true
                   },
@@ -1775,7 +1732,123 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "RIGHT_OPTION",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "RIGHT_CONTROL",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "RIGHT_COMMAND",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "LEFT_SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_OPTION",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_COMMAND",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_CONTROL",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": [
+                      "left_option",
+                      "left_command",
+                      "left_control"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "LEFT_SHIFT",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_OPTION",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_COMMAND",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_CONTROL",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "sticky_modifier": {
+                      "left_shift": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "left_option": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "left_command": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "left_control": "toggle"
+                    }
+                  }
+                ],
+                "description": "from g to sticky left_shift, left_option, left_command, left_control",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SUPER",
                     "value": true
                   },
                   {
@@ -1803,11 +1876,11 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "g"
+                  "key_code": "z"
                 },
                 "to": [
                   {
-                    "key_code": "g",
+                    "key_code": "z",
                     "modifiers": [
                       "option",
                       "command",
@@ -1815,33 +1888,26 @@
                     ]
                   }
                 ],
-                "description": "from g to option+command+control+g",
+                "description": "from z to option+command+control+z",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "z"
-                },
-                "to": [
+                  },
                   {
-                    "key_code": "up_arrow",
-                    "modifiers": [
-                      "control"
-                    ]
-                  }
-                ],
-                "description": "from z to control+up_arrow",
-                "conditions": [
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
                   {
-                    "type": "variable_if",
-                    "name": "SUPER",
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1853,18 +1919,32 @@
                 },
                 "to": [
                   {
-                    "key_code": "tab",
+                    "key_code": "up_arrow",
                     "modifiers": [
-                      "command",
-                      "shift"
+                      "control"
                     ]
                   }
                 ],
-                "description": "from x to command+shift+tab",
+                "description": "from x to control+up_arrow",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1876,17 +1956,32 @@
                 },
                 "to": [
                   {
-                    "key_code": "down_arrow",
+                    "key_code": "grave_accent_and_tilde",
                     "modifiers": [
-                      "control"
+                      "command"
                     ]
                   }
                 ],
-                "description": "from c to control+down_arrow",
+                "description": "from c to command+grave_accent_and_tilde",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1898,17 +1993,65 @@
                 },
                 "to": [
                   {
-                    "key_code": "grave_accent_and_tilde",
+                    "key_code": "tab",
+                    "modifiers": [
+                      "shift",
+                      "command"
+                    ]
+                  }
+                ],
+                "description": "from v to shift+command+tab",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v"
+                },
+                "to": [
+                  {
+                    "key_code": "tab",
                     "modifiers": [
                       "command"
                     ]
                   }
                 ],
-                "description": "from v to command+grave_accent_and_tilde",
+                "description": "from v to command+tab",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1920,17 +2063,32 @@
                 },
                 "to": [
                   {
-                    "key_code": "tab",
+                    "key_code": "down_arrow",
                     "modifiers": [
-                      "command"
+                      "control"
                     ]
                   }
                 ],
-                "description": "from b to command+tab",
+                "description": "from b to control+down_arrow",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -1961,6 +2119,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -1984,6 +2157,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -2009,6 +2197,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -2032,6 +2235,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -2057,29 +2275,141 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "h"
+                  "key_code": "h",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
                 },
                 "to": [
                   {
-                    "key_code": "h",
+                    "set_variable": {
+                      "name": "RIGHT_SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_OPTION",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_COMMAND",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_CONTROL",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "right_shift",
                     "modifiers": [
-                      "option",
-                      "command",
-                      "control"
+                      "right_option",
+                      "right_command",
+                      "right_control"
                     ]
                   }
                 ],
-                "description": "from h to option+command+control+h",
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_SHIFT",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_OPTION",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_COMMAND",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_CONTROL",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "sticky_modifier": {
+                      "right_shift": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "right_option": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "right_command": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "right_control": "toggle"
+                    }
+                  }
+                ],
+                "description": "from h to sticky right_shift, right_option, right_command, right_control",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "LEFT_OPTION",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "LEFT_CONTROL",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "LEFT_COMMAND",
                     "value": true
                   }
                 ]
@@ -2126,11 +2456,6 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   },
                   {
@@ -2201,11 +2526,6 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
                     "name": "MEH",
                     "value": true
                   },
@@ -2272,11 +2592,6 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
                     "name": "MEH",
                     "value": true
                   },
@@ -2324,6 +2639,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -2342,6 +2672,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -2362,6 +2707,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -2381,6 +2741,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -2399,6 +2774,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -2423,6 +2813,112 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Shift alone to Shift + Spacebar",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "left_command to left_shift, send shift+spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": true
+                    }
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f13"
+                  }
+                ],
+                "description": "spacebar to , send f13 on tap",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   }
                 ]
@@ -2453,11 +2949,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2481,11 +2972,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2511,11 +2997,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2539,11 +3020,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2569,11 +3045,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2597,11 +3068,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2627,11 +3093,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2655,11 +3116,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2685,11 +3141,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2713,11 +3164,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2743,11 +3189,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2771,11 +3212,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2801,11 +3237,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2830,11 +3261,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2858,11 +3284,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2893,11 +3314,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2921,11 +3337,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -2951,11 +3362,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -2979,11 +3385,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -3009,11 +3410,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -3037,11 +3433,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -3067,11 +3458,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -3095,11 +3481,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -3125,11 +3506,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -3153,11 +3529,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -3186,11 +3557,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -3214,11 +3580,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -3244,11 +3605,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -3273,11 +3629,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -3301,11 +3652,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -3332,12 +3678,6 @@
                   {
                     "set_variable": {
                       "name": "SUPER",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -3371,12 +3711,6 @@
                       "name": "SHIFT",
                       "value": false
                     }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": false
-                    }
                   }
                 ],
                 "to_if_alone": [
@@ -3385,6 +3719,66 @@
                   }
                 ],
                 "description": "left_command to left_shift, send spacebar on tap"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_shift"
+                    ],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "right_control",
+                      "right_command"
+                    ]
+                  }
+                ],
+                "description": "left_shift+spacebar to left_shift, send right_control+right_command+spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -3408,12 +3802,6 @@
                   {
                     "set_variable": {
                       "name": "SYMBOLS",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -4682,30 +5070,13 @@
                     }
                   },
                   {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
+                    "key_code": "left_shift"
                   }
                 ],
                 "to_after_key_up": [
                   {
                     "set_variable": {
                       "name": "SHIFT",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -4718,7 +5089,7 @@
                     ]
                   }
                 ],
-                "description": "left_command to option+command+control+right_shift, send right_control+left_arrow on tap",
+                "description": "left_command to left_shift, send right_control+left_arrow on tap",
                 "conditions": [
                   {
                     "type": "variable_if",
@@ -4746,32 +5117,12 @@
                       "name": "SYMBOLS",
                       "value": true
                     }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
                   }
                 ],
                 "to_after_key_up": [
                   {
                     "set_variable": {
                       "name": "SYMBOLS",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -4784,136 +5135,11 @@
                     ]
                   }
                 ],
-                "description": "right_command to option+command+control+right_shift, send right_control+right_arrow on tap",
+                "description": "right_command to , send right_control+right_arrow on tap",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "MEH",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "spacebar",
-                  "modifiers": {
-                    "mandatory": [
-                      "left_shift"
-                    ],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": false
-                    }
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "spacebar",
-                    "modifiers": [
-                      "right_control",
-                      "right_command"
-                    ]
-                  }
-                ],
-                "description": "left_shift+spacebar to option+command+control+right_shift, send right_control+right_command+spacebar on tap",
-                "conditions": [
-                  {
-                    "type": "variable_unless",
-                    "name": "MEH",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "spacebar"
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": true
-                    }
-                  },
-                  {
-                    "key_code": "right_shift",
-                    "modifiers": [
-                      "option",
-                      "command",
-                      "control"
-                    ]
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "SUPER",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": false
-                    }
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "f13"
-                  }
-                ],
-                "description": "spacebar to option+command+control+right_shift, send f13 on tap",
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "SYMBOLS",
                     "value": true
                   },
                   {
@@ -4935,18 +5161,34 @@
                 },
                 "to": [
                   {
-                    "key_code": "a",
+                    "key_code": "q",
                     "modifiers": [
-                      "right_command",
-                      "right_shift"
+                      "option",
+                      "command",
+                      "control"
                     ]
                   }
                 ],
-                "description": "from q to right_command+right_shift+a",
+                "description": "from q to option+command+control+q",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -4971,6 +5213,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -4992,6 +5249,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5015,6 +5287,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -5037,6 +5324,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5067,6 +5369,59 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "MEH",
+                      "value": false
+                    }
+                  }
+                ],
+                "description": "from a to left_shift",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
                     "value": true
                   }
                 ]
@@ -5113,11 +5468,6 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   },
                   {
@@ -5188,11 +5538,6 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
                     "name": "MEH",
                     "value": true
                   },
@@ -5259,7 +5604,123 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "RIGHT_OPTION",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "RIGHT_CONTROL",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "RIGHT_COMMAND",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "LEFT_SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_OPTION",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_COMMAND",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_CONTROL",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": [
+                      "left_option",
+                      "left_command",
+                      "left_control"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "LEFT_SHIFT",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_OPTION",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_COMMAND",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "LEFT_CONTROL",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "sticky_modifier": {
+                      "left_shift": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "left_option": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "left_command": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "left_control": "toggle"
+                    }
+                  }
+                ],
+                "description": "from g to sticky left_shift, left_option, left_command, left_control",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SUPER",
                     "value": true
                   },
                   {
@@ -5287,11 +5748,11 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "g"
+                  "key_code": "z"
                 },
                 "to": [
                   {
-                    "key_code": "g",
+                    "key_code": "z",
                     "modifiers": [
                       "option",
                       "command",
@@ -5299,33 +5760,26 @@
                     ]
                   }
                 ],
-                "description": "from g to option+command+control+g",
+                "description": "from z to option+command+control+z",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "z"
-                },
-                "to": [
+                  },
                   {
-                    "key_code": "up_arrow",
-                    "modifiers": [
-                      "control"
-                    ]
-                  }
-                ],
-                "description": "from z to control+up_arrow",
-                "conditions": [
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
                   {
-                    "type": "variable_if",
-                    "name": "SUPER",
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5337,18 +5791,32 @@
                 },
                 "to": [
                   {
-                    "key_code": "tab",
+                    "key_code": "up_arrow",
                     "modifiers": [
-                      "command",
-                      "shift"
+                      "control"
                     ]
                   }
                 ],
-                "description": "from x to command+shift+tab",
+                "description": "from x to control+up_arrow",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5360,17 +5828,32 @@
                 },
                 "to": [
                   {
-                    "key_code": "down_arrow",
+                    "key_code": "grave_accent_and_tilde",
                     "modifiers": [
-                      "control"
+                      "command"
                     ]
                   }
                 ],
-                "description": "from c to control+down_arrow",
+                "description": "from c to command+grave_accent_and_tilde",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5382,17 +5865,65 @@
                 },
                 "to": [
                   {
-                    "key_code": "grave_accent_and_tilde",
+                    "key_code": "tab",
+                    "modifiers": [
+                      "shift",
+                      "command"
+                    ]
+                  }
+                ],
+                "description": "from v to shift+command+tab",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v"
+                },
+                "to": [
+                  {
+                    "key_code": "tab",
                     "modifiers": [
                       "command"
                     ]
                   }
                 ],
-                "description": "from v to command+grave_accent_and_tilde",
+                "description": "from v to command+tab",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5404,17 +5935,32 @@
                 },
                 "to": [
                   {
-                    "key_code": "tab",
+                    "key_code": "down_arrow",
                     "modifiers": [
-                      "command"
+                      "control"
                     ]
                   }
                 ],
-                "description": "from b to command+tab",
+                "description": "from b to control+down_arrow",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5445,6 +5991,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -5468,6 +6029,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5493,6 +6069,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -5516,6 +6107,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5541,29 +6147,141 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "h"
+                  "key_code": "h",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
                 },
                 "to": [
                   {
-                    "key_code": "h",
+                    "set_variable": {
+                      "name": "RIGHT_SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_OPTION",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_COMMAND",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_CONTROL",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "right_shift",
                     "modifiers": [
-                      "option",
-                      "command",
-                      "control"
+                      "right_option",
+                      "right_command",
+                      "right_control"
                     ]
                   }
                 ],
-                "description": "from h to option+command+control+h",
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_SHIFT",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_OPTION",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_COMMAND",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "RIGHT_CONTROL",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "sticky_modifier": {
+                      "right_shift": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "right_option": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "right_command": "toggle"
+                    }
+                  },
+                  {
+                    "sticky_modifier": {
+                      "right_control": "toggle"
+                    }
+                  }
+                ],
+                "description": "from h to sticky right_shift, right_option, right_command, right_control",
                 "conditions": [
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "LEFT_OPTION",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "LEFT_CONTROL",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "LEFT_COMMAND",
                     "value": true
                   }
                 ]
@@ -5610,11 +6328,6 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   },
                   {
@@ -5685,11 +6398,6 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
                     "name": "MEH",
                     "value": true
                   },
@@ -5756,11 +6464,6 @@
                   },
                   {
                     "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
                     "name": "MEH",
                     "value": true
                   },
@@ -5808,6 +6511,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -5826,6 +6544,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5846,6 +6579,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -5865,6 +6613,21 @@
                     "type": "variable_if",
                     "name": "SUPER",
                     "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
                   }
                 ]
               },
@@ -5883,6 +6646,21 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
                     "value": true
                   }
                 ]
@@ -5907,6 +6685,112 @@
                   {
                     "type": "variable_if",
                     "name": "SUPER",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "SHIFT",
+                    "value": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Shift alone to Shift + Spacebar",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "left_command to left_shift, send shift+spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": true
+                    }
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f13"
+                  }
+                ],
+                "description": "spacebar to , send f13 on tap",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "SYMBOLS",
+                    "value": true
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
                     "value": true
                   }
                 ]
@@ -5937,11 +6821,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -5965,11 +6844,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -5995,11 +6869,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6023,11 +6892,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6053,11 +6917,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6081,11 +6940,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6111,11 +6965,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6139,11 +6988,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6169,11 +7013,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6197,11 +7036,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6227,11 +7061,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6255,11 +7084,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6285,11 +7109,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6314,11 +7133,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6342,11 +7156,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6377,11 +7186,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6405,11 +7209,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6435,11 +7234,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6463,11 +7257,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6493,11 +7282,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6521,11 +7305,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6551,11 +7330,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6579,11 +7353,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6609,11 +7378,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6637,11 +7401,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6670,11 +7429,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6698,11 +7452,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6728,11 +7477,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6757,11 +7501,6 @@
                     "type": "variable_if",
                     "name": "SYMBOLS",
                     "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
-                    "value": true
                   }
                 ]
               },
@@ -6785,11 +7524,6 @@
                   {
                     "type": "variable_if",
                     "name": "SYMBOLS",
-                    "value": true
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "HYPER",
                     "value": true
                   }
                 ]
@@ -6816,12 +7550,6 @@
                   {
                     "set_variable": {
                       "name": "SUPER",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }
@@ -6855,12 +7583,6 @@
                       "name": "SHIFT",
                       "value": false
                     }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
-                      "value": false
-                    }
                   }
                 ],
                 "to_if_alone": [
@@ -6869,6 +7591,66 @@
                   }
                 ],
                 "description": "left_command to left_shift, send spacebar on tap"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_shift"
+                    ],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": true
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": true
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "SHIFT",
+                      "value": false
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "SUPER",
+                      "value": false
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "right_control",
+                      "right_command"
+                    ]
+                  }
+                ],
+                "description": "left_shift+spacebar to left_shift, send right_control+right_command+spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "MEH",
+                    "value": true
+                  }
+                ]
               },
               {
                 "type": "basic",
@@ -6892,12 +7674,6 @@
                   {
                     "set_variable": {
                       "name": "SYMBOLS",
-                      "value": false
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "HYPER",
                       "value": false
                     }
                   }

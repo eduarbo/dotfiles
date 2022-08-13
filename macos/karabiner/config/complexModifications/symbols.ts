@@ -1,25 +1,56 @@
 import * as lib from '../../lib';
+import { modTap } from '../../lib';
 import type { ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
 
+const layerOptions = {
+  manipulatorOptions: {
+    conditions: [
+      {
+        type: 'variable_if',
+        name: 'SYMBOLS',
+        value: true,
+      },
+    ],
+  },
+};
+
 const remap = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
-  lib.remap([fromKeyCode, null, ['any']], toTuples, {
-    manipulatorOptions: {
-      conditions: [
-        {
-          type: 'variable_if',
-          name: 'SYMBOLS',
-          value: true,
-        },
-        {
-          type: 'variable_unless',
-          name: 'HYPER',
-          value: true,
-        },
-      ],
-    },
-  });
+  lib.remap([fromKeyCode, null, ['any']], toTuples, layerOptions);
 
 const rules = [
+  {
+    description: 'Shift alone to Shift + Spacebar',
+    manipulators: [
+      // L Command -> Shift + Spacebar
+      modTap(['left_command', null, ['any']], [['left_shift']], [['spacebar', ['shift']]], {
+        ...layerOptions,
+        setVariables: {
+          SHIFT: { to: true, to_after_key_up: false },
+        },
+      }),
+
+      // Spacebar -> clipboard history
+      modTap(['spacebar'], [], [['f13']], {
+        setVariables: {
+          SUPER: { to: true, to_after_key_up: false },
+        },
+        manipulatorOptions: {
+          conditions: [
+            {
+              type: 'variable_if',
+              name: 'SYMBOLS',
+              value: true,
+            },
+            {
+              type: 'variable_unless',
+              name: 'MEH',
+              value: true,
+            },
+          ],
+        },
+      }),
+    ],
+  },
   {
     description: 'Numpad in left hand',
     manipulators: [

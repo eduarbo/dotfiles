@@ -1,5 +1,5 @@
 import * as lib from '../../lib';
-import { modTap, toHyperKeyCodeTuple } from '../../lib';
+import { modTap } from '../../lib';
 import type {
   ComplexModifications,
   KeyCode,
@@ -11,57 +11,81 @@ import type {
   FromKeyCodeTuple,
 } from '../../lib';
 
-const ifSuperOn = {
+const ifSuper = {
   type: 'variable_if',
   name: 'SUPER',
   value: true,
 };
 
-const remapToStickyModifier = (
-  fromKeyCode: KeyCode,
-  toModifier: 'command' | 'option' | 'control' | 'shift',
-  isRightSide: boolean,
-): Manipulator => {
-  const toKeyCode: KeyCode = `${isRightSide ? 'right' : 'left'}_${toModifier}`;
-
-  return lib.remapToStickyModifier([fromKeyCode, null, ['any']], [toKeyCode], {
-    setVariables: { [toKeyCode.toUpperCase()]: { to: true, to_after_key_up: false } },
-    manipulatorOptions: {
-      conditions: [
-        ifSuperOn,
-        {
-          type: 'variable_unless',
-          name: 'HYPER',
-          value: true,
-        },
-        {
-          type: 'variable_unless',
-          name: 'MEH',
-          value: true,
-        },
-        ...['option', 'control', 'command'].map(
-          (mod): VariableCondition => ({
-            type: 'variable_unless',
-            name: `${isRightSide ? 'left' : 'right'}_${mod}`.toUpperCase(),
-            value: true,
-          }),
-        ),
-      ],
-    },
-  });
+const unlessMeh = {
+  type: 'variable_unless',
+  name: 'MEH',
+  value: true,
 };
 
-const defaultOpts = {
-  manipulatorOptions: {
-    conditions: [ifSuperOn],
-  },
+const ifSymbols = {
+  type: 'variable_if',
+  name: 'SYMBOLS',
+  value: true,
+};
+
+const unlessSymbols = {
+  type: 'variable_unless',
+  name: 'SYMBOLS',
+  value: true,
+};
+
+const unlessShift = {
+  type: 'variable_unless',
+  name: 'SHIFT',
+  value: true,
 };
 
 const remap = (
   fromTuple: FromKeyCodeTuple,
   toTuples: ToKeyCodeTuple[],
   options: RemapOptions = {},
-): Manipulator => lib.remap(fromTuple, toTuples, { ...defaultOpts, ...options });
+): Manipulator =>
+  lib.remap(fromTuple, toTuples, {
+    manipulatorOptions: {
+      conditions: [ifSuper, unlessMeh, unlessSymbols, unlessShift],
+    },
+    ...options,
+  });
+
+type StickyModifier = 'command' | 'option' | 'control' | 'shift';
+
+const remapToStickyModifier = (
+  fromKeyCode: KeyCode,
+  toStickyModifiers: StickyModifier[],
+  isRightSide: boolean,
+): Manipulator => {
+  const toModifiers = toStickyModifiers.map(
+    (mod): Modifier => `${isRightSide ? 'right' : 'left'}_${mod}`,
+  );
+  const setVariables = toModifiers.reduce(
+    (acc, mod) => ({
+      ...acc,
+      [mod.toUpperCase()]: { to: true, to_after_key_up: false },
+    }),
+    {},
+  );
+
+  const unlessOppositeMods = ['option', 'control', 'command'].map(
+    (mod): VariableCondition => ({
+      type: 'variable_unless',
+      name: `${isRightSide ? 'left' : 'right'}_${mod}`.toUpperCase(),
+      value: true,
+    }),
+  );
+
+  return lib.remapToStickyModifier([fromKeyCode, null, ['any']], toModifiers, {
+    setVariables,
+    manipulatorOptions: {
+      conditions: [ifSuper, unlessMeh, ...unlessOppositeMods],
+    },
+  });
+};
 
 const superMods: Modifier[] = ['option', 'command', 'control'];
 
@@ -69,88 +93,23 @@ const rules = [
   {
     description: 'SUPER Thumbs',
     manipulators: [
-      // L Command -> HYPER | Move to Right Desktop
-      modTap(
-        ['left_command', null, []],
-        [toHyperKeyCodeTuple],
-        [['left_arrow', ['right_control']]],
-        {
-          manipulatorOptions: {
-            conditions: [
-              ifSuperOn,
-              {
-                type: 'variable_unless',
-                name: 'MEH',
-                value: true,
-              },
-            ],
-          },
-          setVariables: {
-            SHIFT: { to: true, to_after_key_up: false },
-            HYPER: { to: true, to_after_key_up: false },
-          },
-        },
-      ),
-
-      // R Command -> HYPER | Move to Left Desktop
-      modTap(
-        ['right_command', null, []],
-        [toHyperKeyCodeTuple],
-        [['right_arrow', ['right_control']]],
-        {
-          manipulatorOptions: {
-            conditions: [
-              ifSuperOn,
-              {
-                type: 'variable_unless',
-                name: 'MEH',
-                value: true,
-              },
-            ],
-          },
-          setVariables: {
-            SYMBOLS: { to: true, to_after_key_up: false },
-            HYPER: { to: true, to_after_key_up: false },
-          },
-        },
-      ),
-
-      // Spacebar + L Command -> HYPER | 👾
-      modTap(['spacebar', ['left_shift'], []], [toHyperKeyCodeTuple], [['spacebar', ['right_control', 'right_command']]], {
-        setVariables: {
-          SUPER: { to: true, to_after_key_up: false },
-          HYPER: { to: true, to_after_key_up: false },
-        },
+      // L Command -> Move to Right Desktop
+      modTap(['left_command', null, []], [['left_shift']], [['left_arrow', ['right_control']]], {
         manipulatorOptions: {
-          conditions: [
-            {
-              type: 'variable_unless',
-              name: 'MEH',
-              value: true,
-            },
-          ],
+          conditions: [ifSuper, unlessMeh],
+        },
+        setVariables: {
+          SHIFT: { to: true, to_after_key_up: false },
         },
       }),
 
-      // Spacebar + R Command -> HYPER | clipboard history
-      modTap(['spacebar'], [toHyperKeyCodeTuple], [['f13']], {
-        setVariables: {
-          SUPER: { to: true, to_after_key_up: false },
-          HYPER: { to: true, to_after_key_up: false },
-        },
+      // R Command -> Move to Left Desktop
+      modTap(['right_command', null, []], [], [['right_arrow', ['right_control']]], {
         manipulatorOptions: {
-          conditions: [
-            {
-              type: 'variable_if',
-              name: 'SYMBOLS',
-              value: true,
-            },
-            {
-              type: 'variable_unless',
-              name: 'MEH',
-              value: true,
-            },
-          ],
+          conditions: [ifSuper, unlessMeh],
+        },
+        setVariables: {
+          SYMBOLS: { to: true, to_after_key_up: false },
         },
       }),
     ],
@@ -160,26 +119,43 @@ const rules = [
       'SUPER keys for Sticky Mods and quick access to the bindings I use most often in left hand',
     manipulators: [
       /// Top Row - Nav
-      remap(['q'], [['a', ['right_command', 'right_shift']]]),
+      // Q key: reserved to switch the sound output
+      remap(['q'], [['q', superMods]]),
       remap(['w'], [['open_bracket', ['right_command', 'right_shift']]]),
       remap(['e'], [['open_bracket', ['right_command']]]),
       remap(['r'], [['close_bracket', ['right_command']]]),
       remap(['t'], [['close_bracket', ['right_command', 'right_shift']]]),
 
       /// Home Row - Mods
-      remap(['a'], [], { setVariables: { MEH: { to: true, to_after_key_up: false } } }),
-      remapToStickyModifier('s', 'option', false),
-      remapToStickyModifier('d', 'command', false),
-      remapToStickyModifier('f', 'control', false),
-      // G key: reserved to toggle Mic with HammerSpoon 🔨🥄
-      remap(['g'], [['g', superMods]]),
+      remap(['a'], [], {
+        setVariables: { MEH: { to: true, to_after_key_up: false } },
+        manipulatorOptions: {
+          conditions: [ifSuper, unlessMeh, unlessSymbols],
+        },
+      }),
+      remap(['a'], [['left_shift']], {
+        setVariables: { MEH: { to: true, to_after_key_up: false } },
+        manipulatorOptions: {
+          conditions: [ifSuper, unlessMeh, ifSymbols],
+        },
+      }),
+      remapToStickyModifier('s', ['option'], false),
+      remapToStickyModifier('d', ['command'], false),
+      remapToStickyModifier('f', ['control'], false),
+      remapToStickyModifier('g', ['shift', 'option', 'command', 'control'], false),
 
       /// Bottom Row
-      remap(['z'], [['up_arrow', ['control']]]),
-      remap(['x'], [['tab', ['command', 'shift']]]),
-      remap(['c'], [['down_arrow', ['control']]]),
-      remap(['v'], [['grave_accent_and_tilde', ['command']]]),
-      remap(['b'], [['tab', ['command']]]),
+      // Z key: reserved to toggle Mic with HammerSpoon 🔨🥄
+      remap(['z'], [['z', superMods]]),
+      remap(['x'], [['up_arrow', ['control']]]),
+      remap(['c'], [['grave_accent_and_tilde', ['command']]]),
+      remap(['v'], [['tab', ['shift', 'command']]], {
+        manipulatorOptions: {
+          conditions: [ifSuper, unlessMeh, ifSymbols],
+        },
+      }),
+      remap(['v'], [['tab', ['command']]]),
+      remap(['b'], [['down_arrow', ['control']]]),
     ],
   },
   {
@@ -199,11 +175,10 @@ const rules = [
       remap(['p'], [['p', superMods]]),
 
       /// Home Row - Mods
-      // H key: reserved to switch the sound output
-      remap(['h'], [['h', superMods]]),
-      remapToStickyModifier('j', 'control', true),
-      remapToStickyModifier('k', 'command', true),
-      remapToStickyModifier('l', 'option', true),
+      remapToStickyModifier('h', ['shift', 'option', 'command', 'control'], true),
+      remapToStickyModifier('j', ['control'], true),
+      remapToStickyModifier('k', ['command'], true),
+      remapToStickyModifier('l', ['option'], true),
       remap(['semicolon'], [], { setVariables: { MEH: { to: true, to_after_key_up: false } } }),
 
       /// Bottom Row

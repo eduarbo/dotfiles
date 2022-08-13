@@ -10,23 +10,42 @@ const rules = [
       remap(['spacebar'], [], {
         setVariables: {
           SUPER: { to: true, to_after_key_up: false },
-          HYPER: { to_after_key_up: false },
         },
       }),
 
-      // L Command -> Sticky L Shift
+      // L Command -> L Shift
       modTap(['left_command', null, ['any']], [['left_shift']], [['spacebar']], {
         setVariables: {
           SHIFT: { to: true, to_after_key_up: false },
-          HYPER: { to_after_key_up: false },
         },
       }),
 
-      // R Command -> Sticky R Shift
+      // L Command + Spacebar -> 👾
+      modTap(
+        ['spacebar', ['left_shift'], []],
+        [['left_shift']],
+        [['spacebar', ['right_control', 'right_command']]],
+        {
+          setVariables: {
+            SHIFT: { to: true, to_after_key_up: false },
+            SUPER: { to: true, to_after_key_up: false },
+          },
+          manipulatorOptions: {
+            conditions: [
+              {
+                type: 'variable_unless',
+                name: 'MEH',
+                value: true,
+              },
+            ],
+          },
+        },
+      ),
+
+      // R Command -> R Shift
       modTap(['right_command', null, ['any']], [], [['escape']], {
         setVariables: {
           SYMBOLS: { to: true, to_after_key_up: false },
-          HYPER: { to_after_key_up: false },
         },
       }),
 
