@@ -36,3 +36,6 @@ dist/
 
 !.gitkeep
 Spoons/
+
+# Karabiner-Elements
+macos/karabiner/json/

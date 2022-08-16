@@ -109,8 +109,8 @@ export const manipulator = (
   ...options,
 });
 
-const getVariables = (setVariables: SetVariables = {}) => {
-  return Object.entries(setVariables).reduce(
+const getVariables = (setVariables: SetVariables = {}) =>
+  Object.entries(setVariables).reduce(
     (col: any, [name, { to, to_after_key_up, to_if_alone, to_if_held_down }]) => {
       if (to !== undefined) {
         col.toVariables.push(toSetVariable([name, to]));
@@ -133,7 +133,7 @@ const getVariables = (setVariables: SetVariables = {}) => {
       toIfHeldDownVariables: [],
     },
   );
-};
+
 export const remap = (
   fromTuple: FromKeyCodeTuple,
   toTuples: ToKeyCodeTuple[],

@@ -76,7 +76,7 @@ local function onKeyUp(event)
     end
 end
 
-hs.hotkey.bind(mods.super, micKey, onKeyDown, onKeyUp)
+hs.hotkey.bind(mods.meh, micKey, onKeyDown, onKeyUp)
 
 if not micMenubar then
     micMenubar = hs.menubar.new()

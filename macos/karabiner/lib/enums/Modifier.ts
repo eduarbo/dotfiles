@@ -1,4 +1,11 @@
-const MODIFIER = [
+export const BASE_MODIFIERS = [
+  'command',
+  'option',
+  'control',
+  'shift',
+] as const;
+
+export const MODIFIERS = [
   'caps_lock',
   'left_command',
   'left_control',
@@ -20,4 +27,6 @@ const MODIFIER = [
   'any',
 ] as const;
 
-export type Modifier = typeof MODIFIER[number];
+export type Modifier = typeof MODIFIERS[number];
+
+export type BaseModifier = typeof BASE_MODIFIERS[number];

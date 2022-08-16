@@ -1,9 +1,15 @@
 import { profile, crkbd } from '../lib';
 import type { KarabinerConfig } from '../lib';
-import { supr, emacs, symbols, meh, base } from './complexModifications';
+import {
+  modsNavLayer,
+  emacsKeybindings,
+  symbolsLayer,
+  fnLayer,
+  baseLayer,
+} from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
-const defaultProfile = [emacs, meh, supr, symbols, base];
+const defaultProfile = [emacsKeybindings, fnLayer, modsNavLayer, symbolsLayer, baseLayer];
 
 const profiles = [
   profile('Empty'),

@@ -48,7 +48,7 @@ function switchOutput()
     end
 end
 
-hs.hotkey.bind(mods.super, audioOutputKey, switchOutput)
+hs.hotkey.bind(mods.meh, audioOutputKey, switchOutput)
 
 
 -- Input
