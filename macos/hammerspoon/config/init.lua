@@ -3,7 +3,6 @@
 --                ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░░▀▀▀░▀▀▀░▀░▀
 
 local log = require("log")
-local mods = require("modifiers")
 
 -- Manage Spoons
 hs.loadSpoon("SpoonInstall")
@@ -21,17 +20,10 @@ hs.alert.defaultStyle.fillColor = {white = 0, alpha = 0.75}
 hs.alert.defaultStyle.textStyle = {paragraphStyle = {alignment = "center"}}
 hs.alert.defaultStyle.textSize = 25
 
---------------{ "cmd", "ctrl", "alt" }---------------------------------
--- Bindings for debugging
------------------------------------------------
-hs.hotkey.bind(mods.meh, "/", hs.toggleConsole)
-hs.hotkey.bind(mods.meh, ".", hs.reload)
-
 -----------------------------------------------
 -- Modules
 -----------------------------------------------
 
--- require("date-battery")
 require("press-twice-to-quit")
 require("mic")
 require("netspeed")

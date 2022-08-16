@@ -20,7 +20,7 @@ const keybind = (
 
 const rules = [
   {
-    description: 'Delete bindings',
+    description: 'Emacs keybindings: Delete',
     manipulators: [
       keybind(
         'u',
@@ -38,7 +38,7 @@ const rules = [
     ],
   },
   {
-    description: 'Ctrl + B/F to move between words',
+    description: 'Emacs keybindings: Word nav - Ctrl + B/F to move between words',
     manipulators: [
       keybind('b', [['left_arrow', ['option']]], {
         description: 'Ctrl + W to delete word behind point',
@@ -50,4 +50,7 @@ const rules = [
   },
 ];
 
-export const emacs: ComplexModifications = { title: 'Emacs and shell style key bindings', rules };
+export const emacsKeybindings: ComplexModifications = {
+  title: 'Emacs and shell style key bindings',
+  rules,
+};
