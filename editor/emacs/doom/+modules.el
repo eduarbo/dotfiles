@@ -202,16 +202,16 @@
   (setq ispell-dictionary "english")
   (setq ispell-personal-dictionary
         (substitute-in-file-name (expand-file-name (concat "ispell/" ispell-dictionary ".pws")
-                                                   doom-etc-dir))))
+                                                   doom-data-dir))))
 
 (add-hook! '(ispell-change-dictionary-hook flyspell-mode-hook)
   (defun +spell-sync-local-personaly-dictionary-h ()
     "Sync personal dictionary with Ispell's"
     (when-let (lang (or ispell-local-dictionary ispell-dictionary))
       (setq-local ispell-personal-dictionary (expand-file-name (concat "ispell/" lang ".pws")
-                                                               doom-etc-dir))
+                                                               doom-data-dir))
       (setq-local ispell-complete-word-dict (expand-file-name (concat "ispell/" lang ".dict")
-                                                              doom-etc-dir)))))
+                                                              doom-data-dir)))))
 
 ;; Quickly switch dictionaries
 ;; Adapted from DiogoRamos' snippet on https://www.emacswiki.org/emacs/FlySpell#h5o-5

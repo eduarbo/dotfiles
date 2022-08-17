@@ -1,5 +1,5 @@
 ;;; editor/emacs/doom/autoload/evil.el -*- lexical-binding: t; -*-
-;;;###if (featurep! :editor evil)
+;;;###if (modulep! :editor evil)
 
 ;;;###autoload (autoload '+evil-multi-next-line "autoload/evil" nil nil)
 (evil-define-motion +evil-multi-next-line (count)

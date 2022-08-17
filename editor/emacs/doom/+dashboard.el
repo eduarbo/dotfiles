@@ -49,7 +49,7 @@
   (condition-case _
       (with-temp-buffer
         (insert-file-contents
-         (concat doom-private-dir "banners/" (format "%s.txt" (+mi--dashboard-get-random-banner))))
+         (concat doom-user-dir "banners/" (format "%s.txt" (+mi--dashboard-get-random-banner))))
         (buffer-string))
     (file-error "")))
 

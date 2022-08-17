@@ -2,5 +2,5 @@
 ;;; config/language/packages.el
 
 (package! google-translate)
-(when (featurep! :lang org)
+(when (modulep! :lang org)
   (package! ob-translate))
