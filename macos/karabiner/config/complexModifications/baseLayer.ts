@@ -9,7 +9,7 @@ const rules = [
     manipulators: [
       // Spacebar -> MODS_NAV | Spacebar
       // TODO Make it sticky
-      remap(['spacebar'], [], {
+      remap(['spacebar', null, ['any']], [], {
         setVariables: {
           MODS_NAV: { to: true, to_after_key_up: false },
         },
