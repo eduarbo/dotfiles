@@ -75,7 +75,7 @@
   (setq org-export-with-smart-quotes nil
         org-export-with-toc nil))
 
-(when (featurep! :editor file-templates)
+(when (modulep! :editor file-templates)
   (set-file-template! "\\.el$" :when '+file-templates-in-emacs-dirs-p :trigger "__module" :mode 'emacs-lisp-mode))
 
 ;; (use-package! org-id ; built-in

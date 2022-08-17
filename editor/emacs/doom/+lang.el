@@ -41,7 +41,7 @@
 ;; Normalize indentation level
 (set-editorconfig-indent-var! '(rjsx-mode js-indent-level sgml-basic-offset))
 
-(when (featurep! :editor file-templates)
+(when (modulep! :editor file-templates)
   (set-file-template! "\\.stylelintrc.js$" :trigger "__stylelintrc.js" :mode 'js-mode)
   (set-file-template! "\\.eslintrc.js$" :trigger "__eslintrc.js" :mode 'js-mode)
   (set-file-template! "\\.prettierrc.js$" :trigger "__prettierrc.js" :mode 'js-mode)
