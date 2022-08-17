@@ -7,18 +7,6 @@
 ;; ▀▀  █▪▀▀▀ ▀█▄▀▪▀▀▀▀▀•  ▀▀▀ .▀▀▀  ▀▀▀  ▀▀▀▀
 
 
-;; ┏┓ ┏━┓┏━┓╻ ╻┏━┓┏━╸   ┏━┓╺┳╸   ┏━┓┏━╸┏┳┓┏━┓╺┳╸┏━╸
-;; ┣┻┓┣┳┛┃ ┃┃╻┃┗━┓┣╸ ╺━╸┣━┫ ┃ ╺━╸┣┳┛┣╸ ┃┃┃┃ ┃ ┃ ┣╸
-;; ┗━┛╹┗╸┗━┛┗┻┛┗━┛┗━╸   ╹ ╹ ╹    ╹┗╸┗━╸╹ ╹┗━┛ ╹ ┗━╸
-
-(after! browse-at-remote
-  ;; HACK `browse-at-remote--get-remotes' returns a list of remotes in alphabetical order. Sometimes
-  ;; when I want to copy the URL of the current file with `+vc/browse-at-remote-kill' it selects the
-  ;; remote at the top of the list which I don't want. If it can't determine the correct remote it
-  ;; should select "origin" as fallback.
-  (advice-add 'browse-at-remote--get-remotes :filter-return #'my--sort-git-remotes-a))
-
-
 ;; ┏━╸┏━┓┏┳┓┏━┓┏━┓┏┓╻╻ ╻
 ;; ┃  ┃ ┃┃┃┃┣━┛┣━┫┃┗┫┗┳┛
 ;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
