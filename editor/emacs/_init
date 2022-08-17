@@ -45,8 +45,8 @@ install() {
       # Enable Cask of fonts
       brew tap homebrew/cask-fonts
       brew install ${cask_fonts_deps[@]}
-      brew tap railwaycat/emacsmacport
-      brew install emacs-mac --with-modules
+      brew tap d12frosted/emacs-plus
+      brew install emacs-plus@28 --with-native-comp --with-modern-doom3-icon
       ;;
   esac
 

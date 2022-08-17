@@ -72,8 +72,6 @@
 	gpgsign = true
 	template = ~/.config/git/message
 
-[include]
-	path = secrets
 [rerere]
 	enabled = 1
 [init]
@@ -82,3 +80,6 @@
 	user = eduarbo
 [forge]
 	remote = upstream
+
+[include]
+	path = ~/dev/.gitconfig
