@@ -66,7 +66,7 @@
 
 ;; dynamically build org-agenda-files list to include only files with TODO entries
 ;; More info: https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
-(add-hook 'find-file-hook #'vulpea-agenda-update-tag)
+;; (add-hook 'find-file-hook #'vulpea-agenda-update-tag)
 (add-hook 'before-save-hook #'vulpea-agenda-update-tag)
 (advice-add 'org-agenda :before #'vulpea-agenda-files-update)
 
@@ -125,86 +125,73 @@
 ;; ┃  ┣━┫┣━┛ ┃ ┃ ┃┣┳┛┣╸     ┃ ┣╸ ┃┃┃┣━┛┃  ┣━┫ ┃ ┣╸ ┗━┓
 ;; ┗━╸╹ ╹╹   ╹ ┗━┛╹┗╸┗━╸    ╹ ┗━╸╹ ╹╹  ┗━╸╹ ╹ ╹ ┗━╸┗━┛
 
-(defvar +org-default-inbox-file (expand-file-name "inbox.org" +org-default-agenda-dir)
-  "New stuff collects in this file")
-
 (after! org
   (setq
-   +org-capture-notes-file "inbox.org"
-   ;; org-capture-templates
-   ;; '(
-   ;;   ("t" "Task" entry
-   ;;    (file +org-default-inbox-file)
-   ;;    (file "templates/new-task.org") :prepend t)
-   ;;   ("T" "Task From" entry
-   ;;    (file +org-default-inbox-file)
-   ;;    (file "templates/new-task-from.org") :prepend t)
-   ;;   ("n" "Note" entry
-   ;;    (file +org-default-inbox-file)
-   ;;    (file "templates/new-note.org") :prepend t)
-   ;;   ("N" "Note From" entry
-   ;;    (file +org-default-inbox-file)
-   ;;    (file "templates/new-note-from.org") :prepend t)
-   ;;   ("k" "Cliplink" entry
-   ;;    (file +org-default-inbox-file)
-   ;;    (file "templates/new-cliplink.org") :prepend t)
+   +org-capture-notes-file +org-default-inbox-file
+   org-capture-templates
+   '(
+     ("t" "Task" entry
+      (file +org-default-inbox-file)
+      (file "templates/new-task.org") :prepend t)
+     ("T" "Task From" entry
+      (file +org-default-inbox-file)
+      (file "templates/new-task-from.org") :prepend t)
+     ("n" "Note" entry
+      (file +org-default-inbox-file)
+      (file "templates/new-note.org") :prepend t)
+     ("N" "Note From" entry
+      (file +org-default-inbox-file)
+      (file "templates/new-note-from.org") :prepend t)
+     ("k" "Cliplink" entry
+      (file +org-default-inbox-file)
+      (file "templates/new-cliplink.org") :prepend t)
 
-   ;;   ;; Will use {org-directory}/{+org-capture-projects-file} and store
-   ;;   ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
-   ;;   ;; support `:parents' to specify what headings to put them under, e.g.
-   ;;   ;; :parents ("Projects")
-   ;;   ("o" "Centralized templates for projects")
-   ;;   ("ot" "Project todo" entry
-   ;;    (function +org-capture-central-project-todo-file)
-   ;;    "* TODO %?\n %i\n %a"
-   ;;    :heading "Tasks"
-   ;;    :prepend nil)
-   ;;   ("on" "Project notes" entry
-   ;;    (function +org-capture-central-project-notes-file)
-   ;;    "* %U %?\n %i\n %a"
-   ;;    :heading "Notes"
-   ;;    :prepend t)
-   ;;   ("oc" "Project changelog" entry
-   ;;    (function +org-capture-central-project-changelog-file)
-   ;;    "* %U %?\n %i\n %a"
-   ;;    :heading "Changelog"
-   ;;    :prepend t))
+     ;; Will use {org-directory}/{+org-capture-projects-file} and store
+     ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
+     ;; support `:parents' to specify what headings to put them under, e.g.
+     ;; :parents ("Projects")
+     ("o" "Centralized templates for projects")
+     ("ot" "Project todo" entry
+      (function +org-capture-central-project-todo-file)
+      "* TODO %?\n %i\n %a"
+      :heading "Tasks"
+      :prepend nil)
+     ("on" "Project notes" entry
+      (function +org-capture-central-project-notes-file)
+      "* %U %?\n %i\n %a"
+      :heading "Notes"
+      :prepend t)
+     ("oc" "Project changelog" entry
+      (function +org-capture-central-project-changelog-file)
+      "* %U %?\n %i\n %a"
+      :heading "Changelog"
+      :prepend t)
 
-   ;; ;;    ("pn" "Protocol Note" entry
-   ;; ;;      (file +org-default-inbox-file)
-   ;; ;;      "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
-   ;; ;;      :prepend t)
-   ;; ;;    ("pl" "Protocol Link" entry
-   ;; ;;      (file +org-default-inbox-file)
-   ;; ;;      "* %? [[%:link][%:description]] \nCaptured On: %U"
-   ;; ;;      :prepend t)
-
-   ;; ;;    ;; ;; Will use {org-default-projects-dir}/{project-root}.org
-   ;; ;;    ;; ("p" "Templates for projects")
-   ;; ;;    ;; ("pn" "Note" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Notes")
-   ;; ;;    ;;   (file "templates/new-note.org") :prepend t)
-   ;; ;;    ;; ("pn" "Note From" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Notes")
-   ;; ;;    ;;   (file "templates/new-note-from.org") :prepend t)
-   ;; ;;    ;; ("pt" "Task" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Tasks")
-   ;; ;;    ;;   (file "templates/new-task.org") :prepend t)
-   ;; ;;    ;; ("pT" "Task From" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Tasks")
-   ;; ;;    ;;   (file "templates/new-task-from.org") :prepend t)
-   ;; ;;    ;; ("pl" "Log" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Log")
-   ;; ;;    ;;   (file "templates/new-log.org") :prepend t)
-   ;; ;;    ;; ("pL" "Log From" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Log")
-   ;; ;;    ;;   (file "templates/new-log-from.org") :prepend t)
-   ;; ;;    ;; ("pk" "Cliplink" entry
-   ;; ;;    ;;   (file+headline +org-org-capture-project-file "Resources")
-   ;; ;;    ;;   (file "templates/new-cliplink.org") :prepend t)
-   ;; ;;    ))
-   )
-  )
+   ;;    ;; ;; Will use {org-default-projects-dir}/{project-root}.org
+   ;;    ;; ("p" "Templates for projects")
+   ;;    ;; ("pn" "Note" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Notes")
+   ;;    ;;   (file "templates/new-note.org") :prepend t)
+   ;;    ;; ("pn" "Note From" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Notes")
+   ;;    ;;   (file "templates/new-note-from.org") :prepend t)
+   ;;    ;; ("pt" "Task" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Tasks")
+   ;;    ;;   (file "templates/new-task.org") :prepend t)
+   ;;    ;; ("pT" "Task From" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Tasks")
+   ;;    ;;   (file "templates/new-task-from.org") :prepend t)
+   ;;    ;; ("pl" "Log" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Log")
+   ;;    ;;   (file "templates/new-log.org") :prepend t)
+   ;;    ;; ("pL" "Log From" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Log")
+   ;;    ;;   (file "templates/new-log-from.org") :prepend t)
+   ;;    ;; ("pk" "Cliplink" entry
+   ;;    ;;   (file+headline +org-org-capture-project-file "Resources")
+   ;;    ;;   (file "templates/new-cliplink.org") :prepend t)
+   ;;    ))
+      )))
 
 
 ;; ┏━╸╻  ┏━┓┏━╸╻┏ ╻┏┓╻┏━╸
@@ -319,7 +306,8 @@
 (setq org-tag-alist
       '(("@work" . ?w)
         ("@home" . ?h)
-        ("public" . ?p)
+        ("public" . ?P)
+        ("she" . ?s)
         ("me" . ?m)))
 
 
