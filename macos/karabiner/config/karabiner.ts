@@ -1,10 +1,10 @@
 import { profile, crkbd } from '../lib';
 import type { KarabinerConfig } from '../lib';
 import {
-  modsNavLayer,
   emacsKeybindings,
   symbolsLayer,
   fnLayer,
+  modsNavLayer,
   baseLayer,
 } from './complexModifications';
 
