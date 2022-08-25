@@ -7,6 +7,18 @@ const rules = [
   {
     description: `${LAYER} layer: Thumbs cluster`,
     manipulators: [
+      // L Command + Spacebar -> emojis 👾
+      modTap(
+        ['spacebar', ['left_shift'], []],
+        [['left_shift']],
+        [['spacebar', ['right_control', 'right_command']]],
+        {
+          setVariables: {
+            MODS_NAV: { to: true, to_after_key_up: false },
+          },
+        },
+      ),
+
       // Spacebar -> MODS_NAV | Spacebar
       // TODO Make it sticky
       remap(['spacebar', null, ['any']], [], {
@@ -21,18 +33,6 @@ const rules = [
           LEFT_SHIFT: { to: true, to_after_key_up: false },
         },
       }),
-
-      // L Command + Spacebar -> emojis 👾
-      modTap(
-        ['spacebar', ['left_shift'], []],
-        [['left_shift']],
-        [['spacebar', ['right_control', 'right_command']]],
-        {
-          setVariables: {
-            MODS_NAV: { to: true, to_after_key_up: false },
-          },
-        },
-      ),
 
       // R Command -> R Shift
       modTap(['right_command', null, ['any']], [['right_shift']], [['escape']], {
