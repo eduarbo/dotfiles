@@ -1,5 +1,5 @@
 local mods = require("modifiers")
-local layerMods = mods.super
+local layerMods = mods.hyper
 
 -- Bindings for debugging
 hs.hotkey.bind(layerMods, "/", hs.toggleConsole)
@@ -9,27 +9,27 @@ hs.hotkey.bind(layerMods, ".", hs.reload)
 spoon.SpoonInstall:andUse("AppLauncher", {
   hotkeys = {
     a = "Activity Monitor",
-    b = "Finder",
+    -- b = "",
     c = "Calendar",
     d = "Deepl",
     e = "Emacs",
-    f = "Firefox Developer Edition",
+    f = "Finder",
     g = "Google Chrome",
     -- h = "",
     i = "kitty",
     -- j = "",
     -- k = "",
-    -- l = "",
+    l = "Logseq",
     m = "Mail",
     n = "Obsidian",
-    -- o = ""
+    -- o = "",
     p = "Spotify",
     -- q = "",
-    r = "Telegram",
+    -- r = "",
     s = "Slack",
     t = "Microsoft To Do",
     u = "1Password",
-    v = "Visual Studio Code",
+    -- v = "Visual Studio Code",
     w = "WhatsApp",
     -- x = "",
     -- y = "",

@@ -110,18 +110,28 @@ const rules = [
       /// Top Row - Nav
       // Q key: reserved to switch the sound output
       keybind('q', [['q', toLayerMods]]),
+      // Prev
       keybind('w', [['open_bracket', ['command', 'shift']]]),
+      // Back
       keybind('e', [['open_bracket', ['command']]]),
+      // Forward
       keybind('r', [['close_bracket', ['command']]]),
+      // Next
       keybind('t', [['close_bracket', ['command', 'shift']]]),
+
+      /// Home Row - Reserverd for Mods
 
       /// Bottom Row
       // Z key: reserved to toggle Mic with HammerSpoon 🔨🥄
       keybind('z', [['z', toLayerMods]]),
-      keybind('x', [['up_arrow', ['control']]]),
+      // Show all windows of the front app
+      keybind('x', [['down_arrow', ['control']]]),
+      // Switch back to prev window | go backwards in the application switcher
       keybind('c', [['grave_accent_and_tilde', ['command']]]),
+      // Application switcher
       keybind('v', [['tab', ['command']]]),
-      keybind('b', [['down_arrow', ['control']]]),
+      // Show all openwindows
+      keybind('b', [['up_arrow', ['control']]]),
     ],
   },
   {
@@ -139,12 +149,14 @@ const rules = [
       // P key: avalilable
       keybind('p', [['p', toLayerMods]]),
 
-      /// Bottom Row
-      keybind('n', [['home']]),
-      keybind('m', [['page_down']]),
-      keybind('comma', [['page_up']]),
-      keybind('period', [['end']]),
-      // / key: available
+      /// Home Row - Reserverd for Mods
+
+      /// Bottom Row - Reserved to manage windows with HammerSpoon 🔨🥄
+      keybind('n', [['n', toLayerMods]]),
+      keybind('m', [['m', toLayerMods]]),
+      keybind('comma', [['comma', toLayerMods]]),
+      keybind('period', [['period', toLayerMods]]),
+      // TODO Show shortcuts cheatsheet
       keybind('slash', [['slash', toLayerMods]]),
     ],
   },
