@@ -3,7 +3,6 @@
 --                 ░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
 
 local mods = require("modifiers")
-local layerMods = mods.hyper
 
 hs.window.animationDuration = 0
 
@@ -22,30 +21,30 @@ hs.window.filter.ignoreAlways["FirefoxCP WebExtensions"] = true
 
 hs.grid.setGrid("5x3", nil, nil)
 hs.grid.setMargins({0, 0})
-hs.grid.HINTS={
-    {'f6','f7','f8','f9','f10'},
-    {'6','7','8','9','0'},
-    {'Y','U','I','O','P'},
-    {'H','J','K','L',';'},
-    {'N','M',',','.','/'}
-}
-hs.hotkey.bind(layerMods, "a", hs.grid.show)
+-- hs.grid.HINTS={
+--     {'f1','f2','f3','f4','f5'},
+--     {'1','2','3','4','5'},
+--     {'Q','W','E','R','T'},
+--     {'A','S','D','F','G'},
+--     {'Z','X','C','V','B'}
+-- }
+hs.hotkey.bind(mods.super, "z", hs.grid.show)
 
 -- ┏━┓┏━╸┏━┓╻╺━┓┏━╸   ┏┓     ┏┳┓┏━┓╻ ╻┏━╸
 -- ┣┳┛┣╸ ┗━┓┃┏━┛┣╸    ┃╺╋╸   ┃┃┃┃ ┃┃┏┛┣╸
 -- ╹┗╸┗━╸┗━┛╹┗━╸┗━╸   ┗━┛    ╹ ╹┗━┛┗┛ ┗━╸
 -- Resize and move
 
-local arrowKeys = {"s", "d", "f", "g"}
+local arrowKeys = {"n", "m", ",", "."}
 local rectMap = {
-    ["s"] = {0, 0, 0.5, 1}, -- left half
-    ["g"] = {0.5, 0, 0.5, 1}, -- right half
-    ["d"] = {0, 0, 1 / 3, 1}, -- left one third
-    ["f"] = {2 / 3, 0, 1 / 3, 1}, -- right one third
-    ["sd"] = {0, 0, 2 / 3, 1}, -- left two thirds
-    ["fg"] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
-    ["sg"] = {0, 0, 1, 1}, -- full screen
-    ["df"] = "center" -- center on screen
+    ["n"] = {0, 0, 0.5, 1}, -- left half
+    ["."] = {0.5, 0, 0.5, 1}, -- right half
+    ["m"] = {0, 0, 1 / 3, 1}, -- left one third
+    [","] = {2 / 3, 0, 1 / 3, 1}, -- right one third
+    ["nm"] = {0, 0, 2 / 3, 1}, -- left two thirds
+    [",."] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
+    ["n."] = {0, 0, 1, 1}, -- full screen
+    ["m,"] = "center" -- center on screen
 }
 local wasPressed = {false, false, false, false}
 local pressed = {false, false, false, false}
@@ -86,7 +85,7 @@ for i = 1, #arrowKeys do
         pressed[i] = false
         resizeWindow()
     end
-    hs.hotkey.bind(layerMods, arrowKeys[i], pressedFn, releasedFn, nil)
+    hs.hotkey.bind(mods.meh, arrowKeys[i], pressedFn, releasedFn, nil)
 end
 
 -- meh + n -> move window to the next screen
@@ -112,4 +111,4 @@ local function moveToNextScreen()
     end
 end
 
-hs.hotkey.bind(layerMods, "b", moveToNextScreen)
+hs.hotkey.bind(mods.super, "b", moveToNextScreen)

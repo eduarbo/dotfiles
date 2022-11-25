@@ -2,8 +2,8 @@ import { remap, modTap } from '../../lib';
 import type { KeyCode, Modifier, ToKeyCodeTuple, ComplexModifications } from '../../lib';
 
 const LAYER = 'FN';
-const layerMods: Modifier[] = ['shift', 'option', 'command', 'control'];
-const optionalMods: Modifier[] = ['shift'];
+const layerMods: Modifier[] = ['option', 'command', 'control'];
+const optionalMods: Modifier[] = [];
 
 const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
   remap([keyCode, layerMods, optionalMods], toTuples);
@@ -12,47 +12,58 @@ const rules = [
   {
     description: `${LAYER} layer: Thumbs cluster`,
     manipulators: [
+      // L COMMAND: SPACE on tap | HYPER on hold
       modTap(
-        ['left_command', ['option', 'command', 'control'], optionalMods],
-        [['left_shift', ['option', 'command', 'control']]],
+        ['left_command', layerMods, optionalMods],
+        [['left_shift', layerMods]],
         [['spacebar']],
       ),
+      // R COMMAND: ESC on tap | HYPER on hold
       modTap(
-        ['right_command', ['option', 'command', 'control'], optionalMods],
-        [['right_shift', ['option', 'command', 'control']]],
+        ['right_command', layerMods, optionalMods],
+        [['left_shift', layerMods]],
         [['escape']],
       ),
     ],
   },
   {
-    description: `${LAYER} layer: Right hand - dev tools, screenshots and window manager`,
+    description: `${LAYER} layer: Left hand - dev tools, screenshots and window manager`,
     manipulators: [
       /// Top Row - Dev Tools
+      // Toggle JS Console
       keybind('q', [['j', ['option', 'command']]]),
-      keybind('w', [['m', ['shift', 'command']]]),
+      // Toggle breakpoints
+      keybind('w', [['f8', ['shift', 'command']]]),
+      // Toggle DevTools
       keybind('e', [['i', ['option', 'command']]]),
+      // Inspect element
       keybind('r', [['c', ['shift', 'command']]]),
+      // Toggle script execution
       keybind('t', [['backslash', ['command']]]),
 
-      /// Home Row - Reserved to manage windows with HammerSpoon 🔨🥄
+      /// Page Nav
+      // A key: available
       keybind('a', [['a', layerMods]]),
-      keybind('s', [['s', layerMods]]),
-      keybind('d', [['d', layerMods]]),
-      keybind('f', [['f', layerMods]]),
-      keybind('g', [['g', layerMods]]),
+      keybind('s', [['home']]),
+      keybind('d', [['page_down']]),
+      keybind('f', [['page_up']]),
+      keybind('g', [['end']]),
 
       /// Bottom Row - Screenshots
-      // Z key: available
+      // Z key: reserved to resize window with HammerSpoon 🔨🥄
       keybind('z', [['z', layerMods]]),
+      // screenshot
       keybind('x', [['3', ['shift', 'command']]]),
+      // capture a portion of the screen
       keybind('c', [['4', ['shift', 'command']]]),
+      // record screen
       keybind('v', [['5', ['shift', 'command']]]),
       // B key: reserved to move window to next screen with HammerSpoon 🔨🥄
       keybind('b', [['b', layerMods]]),
     ],
   },
   {
-    description: `${LAYER} layer: Left hand - media controls`,
+    description: `${LAYER} layer: Right hand - media controls`,
     manipulators: [
       /// Top Row
       keybind('y', [['volume_increment']]),

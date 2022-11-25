@@ -34,7 +34,7 @@ const rules = [
         },
       }),
 
-      // R Command -> R Shift
+      // R Command -> R Shift (SYMBOLS)
       modTap(['right_command', null, ['any']], [['right_shift']], [['escape']], {
         setVariables: {
           RIGHT_SHIFT: { to: true, to_after_key_up: false },
@@ -42,10 +42,14 @@ const rules = [
       }),
 
       // L Option -> SUPER
-      remap(['left_option', null, ['any']], [['left_option', ['command', 'control']]]),
+      remap(['left_option'], [['left_option', ['command', 'control']]]),
 
-      // R Option -> HYPER
-      remap(['right_option', null, ['any']], [['right_option', ['shift', 'command', 'control']]]),
+      // R Option -> SUPER
+      remap(['right_option'], [['right_option', ['command', 'control']]]),
+
+      // L+R Option -> HYPER
+      remap(['right_option', ['option', 'command', 'control']], [['left_shift', ['option', 'command', 'control']]]),
+      remap(['left_option', ['option', 'command', 'control']], [['left_shift', ['option', 'command', 'control']]]),
     ],
   },
 ];
