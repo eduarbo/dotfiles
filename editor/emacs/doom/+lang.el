@@ -27,9 +27,7 @@
 ;; ┗━┛╹┗╸╹ ╹╹  ╹ ╹┗┻┛┗━╸
 ;;; GraphQL
 
-(use-package! graphql-mode
-  :mode "\\.g\\(?:raph\\)?ql$"
-  :config
+(after! graphql-mode
   (set-editorconfig-indent-var! '(graphql-mode graphql-indent-level)))
 
 
@@ -38,16 +36,11 @@
 ;; ┗━┛╹ ╹┗┛ ╹ ╹┗━┛┗━╸╹┗╸╹╹   ╹
 ;;; javascript
 
-;; Normalize indentation level
-(set-editorconfig-indent-var! '(rjsx-mode js-indent-level sgml-basic-offset))
-
 (when (modulep! :editor file-templates)
   (set-file-template! "\\.stylelintrc.js$" :trigger "__stylelintrc.js" :mode 'js-mode)
   (set-file-template! "\\.eslintrc.js$" :trigger "__eslintrc.js" :mode 'js-mode)
   (set-file-template! "\\.prettierrc.js$" :trigger "__prettierrc.js" :mode 'js-mode)
   (set-file-template! "\\.editorconfig$" :trigger "__editorconfig" :mode 'conf-mode))
-
-(after! js2-mode (setq js-chain-indent nil))
 
 (after! tide
   (setq
@@ -66,8 +59,36 @@
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
+(after! editorconfig
+  ;; Override editorconfig defaults for web-mode to fix indentation
+  (setcdr (assq 'web-mode editorconfig-indentation-alist)
+          '((web-mode-indent-style lambda (size) 2)
+            ;; I prefer the web mode attr indent behavior when it's set to nil
+            ;;
+            ;; <a href="http://google.com"
+            ;;    target="_blank">See how the attributes line up vertically?</a>
+            ;;
+            ;; web-mode-attr-indent-offset
+            ;; web-mode-attr-value-indent-offset
+
+            web-mode-code-indent-offset
+            web-mode-css-indent-offset
+            web-mode-markup-indent-offset
+            web-mode-sql-indent-offset
+            web-mode-block-padding
+            web-mode-script-padding
+            web-mode-style-padding
+            standard-indent)))
+
+(after! web-mode
+  ;; Disable auto-indentation as it slows down Emacs when pasting
+  ;; (setq web-mode-enable-auto-indentation nil)
+
+  ;; TODO Figure out a way to use block comments for JSX blocks and single-line comments for the rest
+  (add-to-list 'web-mode-comment-formats '("jsx" . "//" )))
+
 (add-hook! 'web-mode-hook
-  (defun my/configure-web-mode-flycheck-disable-checkers-based-on-engine ()
+  (defun my/configure-web-mode-flycheck-disable-checkers-based-on-engine-h ()
     "Enable javascript-eslint checker on web-mode but only for svelte files"
     (unless (string= web-mode-engine "svelte")
       (setq-local flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-eslint))))))
@@ -75,12 +96,6 @@
 (add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook)
   (embrace-add-pair ?\` "`" "`")
   (embrace-add-pair ?\$ "${" "}"))
-
-(use-package! prettier-js
-  :commands (prettier-js prettier-js-mode)
-  :init
-  (map! :localleader :map (js2-mode-map js-mode-map web-mode-map json-mode-map css-mode-map typescript-mode-map)
-        :desc "Prettier" "p" #'prettier-js))
 
 (use-package! eslintd-fix
   :commands (eslintd-fix eslintd-fix-mode)

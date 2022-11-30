@@ -6,11 +6,8 @@
 (package! nginx-mode)
 (package! org-randomnote)
 (package! org-super-agenda)
-(package! org-cliplink)
 (package! vimrc-mode)
 (package! figlet)
-(package! graphql-mode)
 (package! eslintd-fix)
-(package! prettier-js)
 ;; so annoying
 (package! lsp-ui :disable t)
