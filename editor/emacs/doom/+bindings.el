@@ -58,8 +58,9 @@
 
 ;; Sane defaults
 (map! :m    ":"             #'execute-extended-command
-      :m    ";"             #'evil-ex
+      :n    ";"             #'evil-ex
 
+      ;; :nv   "#"             #'comment-dwim
       :n    "#"             #'evilnc-comment-or-uncomment-lines
       :v    "#"             #'evilnc-comment-operator
 
@@ -344,9 +345,7 @@
          "C-d"     #'company-next-page
          "C-l"     #'company-next-page
          "C-s"     #'company-filter-candidates
-         "C-S-s"   (cond ((modulep! :completion vertico)  #'completion-at-point)
-                         ((modulep! :completion ivy)      #'counsel-company)
-                         ((modulep! :completion helm)     #'helm-company))
+         "C-S-s"   #'+company/completing-read
          "C-SPC"   #'company-complete-common
          "TAB"     #'company-complete-common-or-cycle
          [tab]     #'company-complete-common-or-cycle
@@ -361,6 +360,57 @@
          "C-k"     #'company-select-previous-or-abort
          "C-s"     #'company-filter-candidates
          [escape]  #'company-search-abort)))
+
+      (:when (modulep! :completion ivy)
+       (:after ivy
+        :map ivy-minibuffer-map
+        "C-SPC" #'ivy-call-and-recenter  ; preview file
+        "C-l"   #'ivy-alt-done
+        "C-v"   #'yank)
+       (:after counsel
+        :map counsel-ag-map
+        "C-SPC"    #'ivy-call-and-recenter ; preview
+        "C-l"      #'ivy-done
+        [C-return] #'+ivy/git-grep-other-window-action))
+      (:when (modulep! :completion helm)
+       (:after helm :map helm-map
+        [remap next-line]     #'helm-next-line
+        [remap previous-line] #'helm-previous-line
+        [left]     #'left-char
+        [right]    #'right-char
+        "C-S-f"    #'helm-previous-page
+        "C-S-n"    #'helm-next-source
+        "C-S-p"    #'helm-previous-source
+        (:when (modulep! :editor evil +everywhere)
+         "C-j"    #'helm-next-line
+         "C-k"    #'helm-previous-line
+         "C-S-j"  #'helm-next-source
+         "C-S-k"  #'helm-previous-source)
+        "C-u"      #'helm-delete-minibuffer-contents
+        "C-s"      #'helm-minibuffer-history
+        ;; Swap TAB and C-z
+        "TAB"      #'helm-execute-persistent-action
+        [tab]      #'helm-execute-persistent-action
+        "C-z"      #'helm-select-action)
+       (:after helm-ag :map helm-ag-map
+        "C--"      #'+helm-do-ag-decrease-context
+        "C-="      #'+helm-do-ag-increase-context
+        [left]     nil
+        [right]    nil)
+       (:after helm-files :map (helm-find-files-map helm-read-file-map)
+        [C-return] #'helm-ff-run-switch-other-window
+        "C-w"      #'helm-find-files-up-one-level
+        (:when (modulep! :editor evil +everywhere)
+         "C-h"    #'helm-find-files-up-one-level
+         "C-l"    #'helm-execute-persistent-action))
+       (:after helm-locate :map helm-generic-files-map
+        [C-return] #'helm-ff-run-switch-other-window)
+       (:after helm-buffers :map helm-buffer-map
+        [C-return] #'helm-buffer-switch-other-window)
+       (:after helm-occur :map helm-occur-map
+        [C-return] #'helm-occur-run-goto-line-ow)
+       (:after helm-grep :map helm-grep-map
+        [C-return] #'helm-grep-run-other-window-action))
 
       (:when (modulep! :completion vertico)
        (:after vertico
@@ -744,8 +794,8 @@
       (:prefix-map ("n" . "notes")
        :desc "Org agenda"                   "a" #'org-agenda
        (:when (modulep! :tools biblio)
-        :desc "Bibliographic entries"       "b"
-        (cond ((modulep! :completion vertico)  #'citar-open-entry)
+        :desc "Bibliographic notes"         "b"
+        (cond ((modulep! :completion vertico)  #'citar-open-notes)
               ((modulep! :completion ivy)      #'ivy-bibtex)
               ((modulep! :completion helm)     #'helm-bibtex)))
 
@@ -994,7 +1044,8 @@
         :desc "Spell checker"              "s" #'flyspell-mode)
        (:when (modulep! :lang org +pomodoro)
         :desc "Pomodoro timer"             "t" #'org-pomodoro)
-       :desc "Visual fill column mode"      "v" #'visual-fill-column-mode
+       :desc "Visible mode"                 "v" #'visible-mode
+       :desc "Visual fill column mode"      "V" #'visual-fill-column-mode
        :desc "Soft line wrapping"           "w" #'visual-line-mode
        :desc "Subword mode"                 "W" #'subword-mode
        (:when (modulep! :editor word-wrap)
