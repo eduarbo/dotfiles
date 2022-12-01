@@ -11,23 +11,16 @@
 ;; ┃  ┃ ┃┃┃┃┣━┛┣━┫┃┗┫┗┳┛
 ;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
 
-(after! company
-  ;; This slows down company
-  ;; (setq company-box-doc-enable nil)
+;; (after! company
+;;   ;; This slows down company
+;;   ;; (setq company-box-doc-enable nil)
 
-  ;; On-demand code completion
-  (setq company-idle-delay nil)
-  ;; Sort by occurrence and group by backend (very useful for file completion)
-  (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance)))
+;;   ;; On-demand code completion
+;;   (setq company-idle-delay nil)
 
-
-;; ┏━╸┏┳┓┏┳┓┏━╸╺┳╸
-;; ┣╸ ┃┃┃┃┃┃┣╸  ┃
-;; ┗━╸╹ ╹╹ ╹┗━╸ ╹
-
-(after! emmet-mode
-  ;; Company is more useful than emmet in these modes, so... fuck off!
-  (remove-hook! '(rjsx-mode-hook css-mode-hook) #'emmet-mode))
+;;   ;; Sort by occurrence and group by backend (very useful for file completion)
+;;   ;; (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance))
+;;   )
 
 
 ;; ┏━╸╻ ╻╻╻     ┏━┓┏┓╻╻┏━┓┏━╸
@@ -66,38 +59,40 @@
 ;; know. On some systems I don't care to have a whole development environment for some ecosystems.
 (setq +lsp-prompt-to-install-server 'quiet)
 
-;; Follow the instructions to setup ESLint in LSP server:
-;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
-(setq lsp-eslint-server-command
-      `("node" ,(expand-file-name (car (last (file-expand-wildcards "~/.vscode/extensions/dbaeumer.vscode-eslint-*/server/out/eslintServer.js")))) "--stdio"))
+(after! lsp-mode
+  (setq
+   ;; Follow the instructions to setup ESLint in LSP server:
+   ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
+   lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
+   lsp-enable-symbol-highlighting nil
+   lsp-lens-enable nil
+   lsp-headerline-breadcrumb-enable nil
+   ;; lsp-modeline-code-actions-enable nil
+   ;; lsp-diagnostics-provider :none
+   ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
+   ;; limiting the number of lines to display in eldoc
+   lsp-eldoc-enable-hover nil
+   ;; lsp-modeline-diagnostics-enable nil
+   lsp-signature-auto-activate nil ;; you could manually request them via `lsp-signature-activate`
+   lsp-signature-render-documentation nil
+   ;; lsp-completion-provider :none
+   ;; lsp-completion-show-detail nil
+   ;; lsp-completion-show-kind nil
 
-;; A guide on disabling/enabling lsp-mode features:
-;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-(setq
- ;; lsp-diagnostics-provider :none
-
- lsp-signature-doc-lines 5
- ;; lsp-signature-render-documentation nil
-
- ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
- ;; limiting the number of lines to display in eldoc
- ;; lsp-eldoc-enable-hover nil
-
- ;; lsp-enable-symbol-highlighting nil
- ;; lsp-enable-file-watchers nil
-
- lsp-auto-execute-action nil
-
- lsp-modeline-diagnostics-enable nil
- lsp-modeline-code-actions-enable nil)
+   lsp-enable-snippet nil
+   ;; lsp-modeline-diagnostics-scope :file
+   ;; lsp-signature-doc-lines 5
+   lsp-enable-file-watchers nil
+   ;; lsp-auto-execute-action nil
+   ))
 
 ;; If you are in a buffer with `lsp-mode' enabled and a server that supports
 ;; `textDocument/formatting', it will be used instead of `format-all's
 ;; formatter. Unfortunately typescript does not seem to be respecting my
 ;; settings, and is slower than format-all so I prefer to disable it
 ;; universally.
-
-(setq +format-with-lsp nil)
+(after! format-all
+  (setq +format-with-lsp nil))
 
 ;; To disable this behavior in one mode use:
 ;; (setq-hook! 'typescript-tsx-mode-hook +format-with-lsp nil)
