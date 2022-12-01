@@ -58,7 +58,7 @@
 
 ;; Sane defaults
 (map! :m    ":"             #'execute-extended-command
-      :n    ";"             #'evil-ex
+      :nv   ";"             #'evil-ex
 
       ;; :nv   "#"             #'comment-dwim
       :n    "#"             #'evilnc-comment-or-uncomment-lines
@@ -99,10 +99,10 @@
 
       :m    "k"            #'evil-previous-visual-line
       :m    "j"            #'evil-next-visual-line
-      :m    [down]         #'previous-buffer
-      :m    [up]           #'next-buffer
-      :m    [right]        #'+workspace/switch-right
-      :m    [left]         #'+workspace/switch-left
+      :m    [down]         #'evil-window-down
+      :m    [up]           #'evil-window-up
+      :m    [right]        #'evil-window-right
+      :m    [left]         #'evil-window-left
 
       :n    "s"            #'evil-surround-edit
       :v    "s"            #'evil-surround-region
@@ -160,14 +160,12 @@
  :gn     "s-x"           #'doom/open-scratch-buffer
  :gn     "s-X"           #'doom/switch-to-scratch-buffer
 
- :gn     "s-;"           #'doom/reset-font-size
- :gn     "s-:"           #'doom/reset-font-size
- ;; Frame-local font resizing
- :gn     "s-["           #'text-scale-decrease
- :gn     "s-]"           #'text-scale-increase
- ;; Buffer-local font resizing
- :gn     "s-{"           #'doom/decrease-font-size
- :gn     "s-}"           #'doom/increase-font-size
+ :gn     "s-;"           #'execute-extended-command
+ :gn     "s-:"           #'pp-eval-expression
+ :gn     "s-["           #'previous-buffer
+ :gn     "s-]"           #'next-buffer
+ :gn     "s-{"           #'+workspace/switch-left
+ :gn     "s-}"           #'+workspace/switch-right
 
  :gn     "s-,"           #'doom/find-file-in-private-config
  :gn     "s-<"           #'my/find-file-in-dotfiles
@@ -177,17 +175,11 @@
  :gm     [s-right]       #'drag-stuff-right)
 
 ;; Smart tab, these will only work in GUI Emacs
-(map! :i [tab] (cmds! (and (modulep! :editor snippets)
-                           (yas-maybe-expand-abbrev-key-filter 'yas-expand))
-                      #'yas-expand
-                      (and (bound-and-true-p company-mode)
-                           (modulep! :completion company))
-                      ;; #'+company/complete)
-                      #'company-indent-or-complete-common)
-
-      :m [tab] (cmds! (and (modulep! :editor fold)
-                           (save-excursion (end-of-line) (invisible-p (point))))
-                      #'+fold/toggle
+(map! :m [tab] (cmds! (and (modulep! :editor snippets)
+                           (evil-visual-state-p)
+                           (or (eq evil-visual-selection 'line)
+                               (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
+                      #'yas-insert-snippet
                       ;; Fixes #4548: without this, this tab keybind overrides
                       ;; mode-local ones for modes that don't have an evil
                       ;; keybinding scheme or users who don't have :editor (evil
@@ -204,16 +196,11 @@
                       (fboundp 'evil-jump-item)
                       #'evil-jump-item)
 
-      :i [S-tab] +company-omni-completion-map
+      :i [tab]         #'company-indent-or-complete-common
 
-      :m [S-tab] (cmds! (and (modulep! :editor snippets)
-                             (evil-visual-state-p)
-                             (or (eq evil-visual-selection 'line)
-                                 (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
-                        #'yas-insert-snippet
-                        (and (modulep! :editor fold)
-                             (save-excursion (end-of-line) (invisible-p (point))))
-                        #'+fold/toggle)
+      :i "<backtab>" #'yas-expand
+
+      :m "<backtab>" #'+fold/toggle
 
       ;; Smarter C-a/C-e for both Emacs and Evil. C-a will jump to indentation.
       ;; Pressing it again will send you to the true bol. Same goes for C-e, except
@@ -269,6 +256,10 @@
        :prefix "gz"
        :nv "d" #'evil-mc-make-and-goto-next-match
        :nv "D" #'evil-mc-make-and-goto-prev-match
+       :nv "s" #'evil-mc-skip-and-goto-next-match
+       :nv "S" #'evil-mc-skip-and-goto-prev-match
+       :nv "c" #'evil-mc-skip-and-goto-next-cursor
+       :nv "C" #'evil-mc-skip-and-goto-prev-cursor
        :nv "j" #'evil-mc-make-cursor-move-next-line
        :nv "k" #'evil-mc-make-cursor-move-prev-line
        :nv "m" #'evil-mc-make-all-cursors
@@ -282,6 +273,16 @@
        :nv "z" #'+multiple-cursors/evil-mc-toggle-cursor-here
        :v  "I" #'evil-mc-make-cursor-in-visual-selection-beg
        :v  "A" #'evil-mc-make-cursor-in-visual-selection-end)
+
+      ;; misc
+      :n "C-S-f"  #'toggle-frame-fullscreen
+      :n "C-+"    #'doom/reset-font-size
+      ;; Buffer-local font resizing
+      :n "C-="    #'text-scale-increase
+      :n "C--"    #'text-scale-decrease
+      ;; Frame-local font resizing
+      :n "M-C-="  #'doom/increase-font-size
+      :n "M-C--"  #'doom/decrease-font-size
 
       (:after evil-snipe
        :n "S"     #'evil-snipe-repeat
@@ -513,8 +514,8 @@
 
 (map! :leader
       ;; NOTE available keys: klrvyz
-      :desc "Eval expression"       ";"    #'pp-eval-expression
-      :desc "M-x"                   ":"    #'execute-extended-command
+      :desc "Eval expression"       ";"    #'execute-extended-command
+      :desc "M-x"                   ":"    #'pp-eval-expression
       :desc "Pop up scratch buffer" "x"    #'doom/open-scratch-buffer
       :desc "Switch to scratch buffer"     "X"  #'doom/switch-to-scratch-buffer
       :desc "Org Captur[e]"         "e"    #'org-capture
@@ -681,7 +682,8 @@
        :desc "Find type definition"                  "t"   #'+lookup/type-definition
        :desc "Delete trailing whitespace"            "w"   #'delete-trailing-whitespace
        :desc "Delete trailing newlines"              "W"   #'doom/delete-trailing-newlines
-       :desc "List errors"                           "x"   #'+default/diagnostics)
+       :desc "List errors"                           "x"   #'consult-flycheck
+       :desc "List errors for current project"       "X"   #'+default/diagnostics)
 
       ;;; <leader> f --- file
       (:prefix-map ("f" . "file")

@@ -51,15 +51,13 @@
    tide-completion-ignore-case t
    ))
 
-;; FIXME this slows down the loading of js files (specially R3 files)
 (after! flycheck
-  (setq-default flycheck-disabled-checkers '(javascript-tide eglot))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
   ;; Workaround for eslint loading slow
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
 (after! editorconfig
+  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level))
   ;; Override editorconfig defaults for web-mode to fix indentation
   (setcdr (assq 'web-mode editorconfig-indentation-alist)
           '((web-mode-indent-style lambda (size) 2)
@@ -71,11 +69,11 @@
             ;; web-mode-attr-indent-offset
             ;; web-mode-attr-value-indent-offset
 
+            ;; web-mode-block-padding
             web-mode-code-indent-offset
             web-mode-css-indent-offset
             web-mode-markup-indent-offset
             web-mode-sql-indent-offset
-            web-mode-block-padding
             web-mode-script-padding
             web-mode-style-padding
             standard-indent)))
@@ -86,12 +84,6 @@
 
   ;; TODO Figure out a way to use block comments for JSX blocks and single-line comments for the rest
   (add-to-list 'web-mode-comment-formats '("jsx" . "//" )))
-
-(add-hook! 'web-mode-hook
-  (defun my/configure-web-mode-flycheck-disable-checkers-based-on-engine-h ()
-    "Enable javascript-eslint checker on web-mode but only for svelte files"
-    (unless (string= web-mode-engine "svelte")
-      (setq-local flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-eslint))))))
 
 (add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook)
   (embrace-add-pair ?\` "`" "`")

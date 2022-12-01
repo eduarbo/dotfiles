@@ -67,8 +67,8 @@ const rules = [
     description: `${LAYER} layer: Home Row - Sticky Mods`,
     manipulators: [
       /// Left Mods
-      stickyMod('a', ['shift'], false),
-      stickyMod('s', ['option'], false),
+      stickyMod('a', ['option'], false),
+      stickyMod('s', ['shift'], false),
       stickyMod('d', ['command'], false),
       stickyMod('f', ['control'], false),
       stickyMod('g', ['option', 'command', 'control'], false),
@@ -77,8 +77,8 @@ const rules = [
       stickyMod('h', ['option', 'command', 'control'], true),
       stickyMod('j', ['control'], true),
       stickyMod('k', ['command'], true),
-      stickyMod('l', ['option'], true),
-      stickyMod('semicolon', ['shift'], true),
+      stickyMod('l', ['shift'], true),
+      stickyMod('semicolon', ['option'], true),
     ],
   },
   {
