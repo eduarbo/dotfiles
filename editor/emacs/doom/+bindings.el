@@ -49,13 +49,6 @@
     "C-j"    #'next-line-or-history-element
     "C-k"    #'previous-line-or-history-element))
 
-;; Easier window navigation
-(map! :map (general-override-mode-map ranger-mode-map magit-mode-map comint-mode-map org-agenda-keymap)
-      :mnv  "C-h"           #'evil-window-left
-      :mnv  "C-j"           #'evil-window-down
-      :mnv  "C-k"           #'evil-window-up
-      :mnv  "C-l"           #'evil-window-right)
-
 ;; Sane defaults
 (map! :m    ":"             #'execute-extended-command
       :nv   ";"             #'evil-ex
@@ -85,7 +78,8 @@
       :gim  "C-h"          #'sp-backward-symbol
       :gim  "C-l"          #'sp-forward-symbol
 
-      :gi   "C-d"          #'evil-delete-line
+      :gi   "C-d"          #'sp-delete-word
+      :gi   "C-k"          #'evil-delete-line
       :gi   "C-S-d"        #'evil-delete-whole-line
       :gi   "C-S-u"        #'evil-change-whole-line
       :gi   "C-S-w"        #'backward-kill-sexp
@@ -99,10 +93,16 @@
 
       :m    "k"            #'evil-previous-visual-line
       :m    "j"            #'evil-next-visual-line
+
       :m    [down]         #'evil-window-down
       :m    [up]           #'evil-window-up
       :m    [right]        #'evil-window-right
       :m    [left]         #'evil-window-left
+
+      :m    [S-down]       #'+evil/window-move-down
+      :m    [S-up]         #'+evil/window-move-up
+      :m    [S-right]      #'+evil/window-move-right
+      :m    [S-left]       #'+evil/window-move-left
 
       :n    "s"            #'evil-surround-edit
       :v    "s"            #'evil-surround-region
