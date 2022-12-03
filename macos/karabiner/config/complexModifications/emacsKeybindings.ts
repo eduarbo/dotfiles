@@ -22,18 +22,14 @@ const rules = [
   {
     description: 'Emacs keybindings: Delete',
     manipulators: [
-      keybind(
-        'u',
-        [['left_arrow', ['control', 'left_shift']], ['delete_or_backspace'], ['vk_none']],
-        {
-          description: 'Ctrl + U to delete backward from point to the beginning of line.',
-        },
-      ),
-      keybind('w', [['delete_or_backspace', ['option']]], {
-        description: 'Ctrl + W to delete word behind point',
+      keybind('u', [['delete_or_backspace', ['command']]], {
+        description: 'Ctrl + U to delete text behind the cursor',
       }),
-      keybind('d', [['delete_forward']], {
-        description: 'Ctrl + D to forward delete',
+      keybind('w', [['delete_or_backspace', ['option']]], {
+        description: 'Ctrl + W to delete word behind the cursor',
+      }),
+      keybind('d', [['delete_forward', ['option']]], {
+        description: 'Ctrl + D to delete word in front of the cursor',
       }),
     ],
   },
@@ -41,10 +37,10 @@ const rules = [
     description: 'Emacs keybindings: Word nav - Ctrl + B/F to move between words',
     manipulators: [
       keybind('b', [['left_arrow', ['option']]], {
-        description: 'Ctrl + W to delete word behind point',
+        description: 'Ctrl + B to move backward a word',
       }),
       keybind('f', [['right_arrow', ['option']]], {
-        description: 'Ctrl + W to delete word behind point',
+        description: 'Ctrl + F to move forward a word',
       }),
     ],
   },
