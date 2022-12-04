@@ -1,4 +1,4 @@
-import { remap, modTap, remapToStickyModifier, BASE_MODIFIERS } from '../../lib';
+import { remap, modTap, remapToStickyModifier } from '../../lib';
 import type {
   ComplexModifications,
   KeyCode,
@@ -6,7 +6,6 @@ import type {
   ToKeyCodeTuple,
   Manipulator,
   RemapOptions,
-  BaseModifier,
 } from '../../lib';
 
 const LAYER = 'MODS_NAV';
@@ -32,17 +31,13 @@ const keybind = (
     ...options,
   });
 
-const stickyMod = (
-  fromKeyCode: KeyCode,
-  toStickyModifiers: BaseModifier[],
-  isRightSide: boolean,
-): Manipulator => {
-  const remainingBaseMods = BASE_MODIFIERS.filter((mod) => toStickyModifiers.indexOf(mod) < 0);
+const stickyMod = (fromKeyCode: KeyCode, toStickyModifiers: Modifier[]): Manipulator => {
+  const isLeft = toStickyModifiers[0].indexOf('left_') === 0;
+  const LEFT_MODS = ['left_option', 'left_command', 'left_control'] as Modifier[];
+  const RIGHT_MODS = ['right_option', 'right_command', 'right_control'] as Modifier[];
+  const baseModifiers = isLeft ? LEFT_MODS : RIGHT_MODS;
 
-  const getSideMods = (mods: BaseModifier[]) =>
-    mods.map((mod) => `${isRightSide ? 'right' : 'left'}_${mod}` as Modifier);
-  const toModifiers: Modifier[] = getSideMods(toStickyModifiers);
-  const setVariables = toModifiers.reduce(
+  const setVariables = toStickyModifiers.reduce(
     (acc, mod) => ({
       ...acc,
       [mod.toUpperCase()]: { to: true, to_after_key_up: false },
@@ -50,16 +45,12 @@ const stickyMod = (
     {},
   );
 
-  return remapToStickyModifier(
-    [fromKeyCode, null, getSideMods(remainingBaseMods)],
-    toModifiers,
-    {
-      setVariables,
-      manipulatorOptions: {
-        conditions: [ifLayer],
-      },
+  return remapToStickyModifier([fromKeyCode, null, baseModifiers], toStickyModifiers, {
+    setVariables,
+    manipulatorOptions: {
+      conditions: [ifLayer],
     },
-  );
+  });
 };
 
 const rules = [
@@ -67,18 +58,18 @@ const rules = [
     description: `${LAYER} layer: Home Row - Sticky Mods`,
     manipulators: [
       /// Left Mods
-      stickyMod('a', ['option'], false),
-      stickyMod('s', ['shift'], false),
-      stickyMod('d', ['command'], false),
-      stickyMod('f', ['control'], false),
-      stickyMod('g', ['option', 'command', 'control'], false),
+      stickyMod('a', ['left_option', 'left_command', 'left_control']),
+      stickyMod('s', ['left_option']),
+      stickyMod('d', ['left_command']),
+      stickyMod('f', ['left_control']),
+      stickyMod('g', ['left_option', 'left_command', 'left_control', 'left_shift']),
 
       /// Right Mods
-      stickyMod('h', ['option', 'command', 'control'], true),
-      stickyMod('j', ['control'], true),
-      stickyMod('k', ['command'], true),
-      stickyMod('l', ['shift'], true),
-      stickyMod('semicolon', ['option'], true),
+      stickyMod('h', ['right_option', 'right_command', 'right_control', 'left_shift']),
+      stickyMod('j', ['right_control']),
+      stickyMod('k', ['right_command']),
+      stickyMod('l', ['right_option']),
+      stickyMod('semicolon', ['right_option', 'right_command', 'right_control']),
     ],
   },
   {
