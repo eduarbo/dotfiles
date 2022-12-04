@@ -1,4 +1,4 @@
-import { modTap, remap } from '../../lib';
+import { modTap, remap, remapToStickyModifier } from '../../lib';
 import type { ComplexModifications } from '../../lib';
 
 const LAYER = 'BASE';
@@ -19,11 +19,10 @@ const rules = [
         },
       ),
 
-      // Spacebar -> MODS_NAV | Spacebar
-      // TODO Make it sticky
-      remap(['spacebar', null, ['any']], [], {
-        setVariables: {
-          MODS_NAV: { to: true, to_after_key_up: false },
+      // Spacebar -> Sticky fn
+      remapToStickyModifier(['spacebar', null, ['any']], ['fn'], {
+        toOptions: {
+          lazy: true,
         },
       }),
 
@@ -48,8 +47,14 @@ const rules = [
       remap(['right_option'], [['right_option', ['command', 'control']]]),
 
       // L+R Option -> HYPER
-      remap(['right_option', ['option', 'command', 'control']], [['left_shift', ['option', 'command', 'control']]]),
-      remap(['left_option', ['option', 'command', 'control']], [['left_shift', ['option', 'command', 'control']]]),
+      remap(
+        ['right_option', ['option', 'command', 'control']],
+        [['left_shift', ['option', 'command', 'control']]],
+      ),
+      remap(
+        ['left_option', ['option', 'command', 'control']],
+        [['left_shift', ['option', 'command', 'control']]],
+      ),
     ],
   },
 ];

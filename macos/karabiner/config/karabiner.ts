@@ -3,13 +3,13 @@ import type { KarabinerConfig } from '../lib';
 import {
   emacsKeybindings,
   symbolsLayer,
+  superLayer,
   fnLayer,
-  modsNavLayer,
   baseLayer,
 } from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
-const defaultProfile = [emacsKeybindings, fnLayer, modsNavLayer, symbolsLayer, baseLayer];
+const defaultProfile = [emacsKeybindings, superLayer, fnLayer, symbolsLayer, baseLayer];
 
 const profiles = [
   profile('Empty'),
