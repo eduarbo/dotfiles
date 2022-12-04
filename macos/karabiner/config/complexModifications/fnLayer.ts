@@ -1,99 +1,134 @@
-import { remap, modTap } from '../../lib';
-import type { KeyCode, Modifier, ToKeyCodeTuple, ComplexModifications } from '../../lib';
+import { remap, modTap, remapToStickyModifier } from '../../lib';
+import type {
+  ComplexModifications,
+  KeyCode,
+  Modifier,
+  ToKeyCodeTuple,
+  Manipulator,
+  RemapOptions,
+} from '../../lib';
 
 const LAYER = 'FN';
-const layerMods: Modifier[] = ['option', 'command', 'control'];
+const layerMods: Modifier[] = ['fn'];
+const toLayerMods: Modifier[] = ['shift', 'option', 'control'];
 const optionalMods: Modifier[] = [];
 
-const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
-  remap([keyCode, layerMods, optionalMods], toTuples);
+const keybind = (
+  keyCode: KeyCode,
+  toTuples: ToKeyCodeTuple[],
+  options: RemapOptions = {},
+): Manipulator => remap([keyCode, layerMods, optionalMods], toTuples, options);
+
+const stickyMod = (fromKeyCode: KeyCode, toStickyModifiers: Modifier[]): Manipulator => {
+  const isLeft = toStickyModifiers[0].indexOf('left_') === 0;
+  const LEFT_MODS = ['left_option', 'left_command', 'left_control'] as Modifier[];
+  const RIGHT_MODS = ['right_option', 'right_command', 'right_control'] as Modifier[];
+  const baseModifiers = isLeft ? LEFT_MODS : RIGHT_MODS;
+
+  const setVariables = toStickyModifiers.reduce(
+    (acc, mod) => ({
+      ...acc,
+      [mod.toUpperCase()]: { to: true, to_after_key_up: false },
+    }),
+    {},
+  );
+
+  return remapToStickyModifier([fromKeyCode, layerMods, baseModifiers], toStickyModifiers, {
+    setVariables,
+  });
+};
 
 const rules = [
   {
+    description: `${LAYER} layer: Home Row - Sticky Mods`,
+    manipulators: [
+      /// Left Mods
+      stickyMod('a', ['left_option', 'left_command', 'left_control']),
+      stickyMod('s', ['left_option']),
+      stickyMod('d', ['left_command']),
+      stickyMod('f', ['left_control']),
+      stickyMod('g', ['left_option', 'left_command', 'left_control', 'left_shift']),
+
+      /// Right Mods
+      stickyMod('h', ['right_option', 'right_command', 'right_control', 'left_shift']),
+      stickyMod('j', ['right_control']),
+      stickyMod('k', ['right_command']),
+      stickyMod('l', ['right_option']),
+      stickyMod('semicolon', ['right_option', 'right_command', 'right_control']),
+    ],
+  },
+  {
     description: `${LAYER} layer: Thumbs cluster`,
     manipulators: [
-      // L COMMAND: SPACE on tap | HYPER on hold
+      // L Command -> Move to Right Desktop
       modTap(
-        ['left_command', layerMods, optionalMods],
-        [['left_shift', layerMods]],
-        [['spacebar']],
+        ['left_command', layerMods, ['shift']],
+        [['left_shift']],
+        [['left_arrow', ['control']]],
       ),
-      // R COMMAND: ESC on tap | HYPER on hold
+
+      // R Command -> Move to Left Desktop
       modTap(
-        ['right_command', layerMods, optionalMods],
-        [['left_shift', layerMods]],
-        [['escape']],
+        ['right_command', layerMods, ['shift']],
+        [['right_shift']],
+        [['right_arrow', ['control']]],
       ),
     ],
   },
   {
-    description: `${LAYER} layer: Left hand - dev tools, screenshots and window manager`,
+    description: `${LAYER} layer: Left hand - Sticky Mods and Window/App Nav`,
     manipulators: [
-      /// Top Row - Dev Tools
-      // Toggle JS Console
-      keybind('q', [['j', ['option', 'command']]]),
-      // Toggle breakpoints
-      keybind('w', [['f8', ['shift', 'command']]]),
-      // Toggle DevTools
-      keybind('e', [['i', ['option', 'command']]]),
-      // Inspect element
-      keybind('r', [['c', ['shift', 'command']]]),
-      // Toggle script execution
-      keybind('t', [['backslash', ['command']]]),
+      /// Top Row - Nav
+      // Q key: reserved to switch the sound output
+      keybind('q', [['q', toLayerMods]]),
+      // Prev
+      keybind('w', [['open_bracket', ['command', 'shift']]]),
+      // Back
+      keybind('e', [['open_bracket', ['command']]]),
+      // Forward
+      keybind('r', [['close_bracket', ['command']]]),
+      // Next
+      keybind('t', [['close_bracket', ['command', 'shift']]]),
 
-      /// Page Nav
-      // A key: available
-      keybind('a', [['a', layerMods]]),
-      keybind('s', [['home']]),
-      keybind('d', [['page_down']]),
-      keybind('f', [['page_up']]),
-      keybind('g', [['end']]),
-
-      /// Bottom Row - Screenshots
-      // Z key: reserved to resize window with HammerSpoon 🔨🥄
-      keybind('z', [['z', layerMods]]),
-      // screenshot
-      keybind('x', [['3', ['shift', 'command']]]),
-      // capture a portion of the screen
-      keybind('c', [['4', ['shift', 'command']]]),
-      // record screen
-      keybind('v', [['5', ['shift', 'command']]]),
-      // B key: reserved to move window to next screen with HammerSpoon 🔨🥄
-      keybind('b', [['b', layerMods]]),
-    ],
-  },
-  {
-    description: `${LAYER} layer: Right hand - media controls`,
-    manipulators: [
-      /// Top Row
-      keybind('y', [['volume_increment']]),
-      // keybind('y', [['f12']]),
-      keybind('u', [['rewind']]),
-      // keybind('u', [['f7']]),
-      keybind('i', [['play_or_pause']]),
-      // keybind('i', [['f8']]),
-      keybind('o', [['fastforward']]),
-      // keybind('o', [['f9']]),
-      keybind('p', [['print_screen']]),
-
-      /// Home Row
-      keybind('h', [['volume_decrement']]),
-      // keybind('h', [['f11']]),
-      keybind('j', [['f4']]),
-      keybind('k', [['f5']]),
-      keybind('l', [['f6']]),
-      keybind('semicolon', [['scroll_lock']]),
+      /// Home Row - Reserverd for Mods
 
       /// Bottom Row
-      keybind('n', [['mute']]),
-      // keybind('n', [['f10']]),
-      keybind('m', [['display_brightness_decrement']]),
-      // keybind('m', [['f1']]),
-      keybind('comma', [['display_brightness_increment']]),
-      // keybind('comma', [['f2']]),
-      keybind('period', [['mission_control']]),
-      // keybind('period', [['f3']]),
-      keybind('slash', [['pause']]),
+      // Z key: reserved to toggle Mic with HammerSpoon 🔨🥄
+      keybind('z', [['z', toLayerMods]]),
+      // Show all windows of the front app
+      keybind('x', [['down_arrow', ['control']]]),
+      // Switch back to prev window | go backwards in the application switcher
+      keybind('c', [['grave_accent_and_tilde', ['command']]]),
+      // Application switcher
+      keybind('v', [['tab', ['command']]]),
+      // Show all openwindows
+      keybind('b', [['up_arrow', ['control']]]),
+    ],
+  },
+  {
+    description: `${LAYER} layer: Right hand - Sticky Mods, alfred features, and page nav`,
+    manipulators: [
+      /// Top Row
+      // P key: reserved for Alfred's Universal Access
+      keybind('y', [['y', toLayerMods]]),
+      // U key: reserved to launch 1p quick access
+      keybind('u', [['u', toLayerMods]]),
+      // I key: reserved to launch Alfred
+      keybind('i', [['i', toLayerMods]]),
+      // O key: reserved for Alfred's snippets
+      keybind('o', [['o', toLayerMods]]),
+      // P key: avalilable
+      keybind('p', [['p', toLayerMods]]),
+
+      /// Home Row - Reserverd for Mods
+
+      /// Bottom Row - Reserved to manage windows with HammerSpoon 🔨🥄
+      keybind('n', [['n', toLayerMods]]),
+      keybind('m', [['m', toLayerMods]]),
+      keybind('comma', [['comma', toLayerMods]]),
+      keybind('period', [['period', toLayerMods]]),
+      // TODO Show shortcuts cheatsheet
+      keybind('slash', [['slash', toLayerMods]]),
     ],
   },
 ];
