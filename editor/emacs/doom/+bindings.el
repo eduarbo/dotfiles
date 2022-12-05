@@ -351,8 +351,7 @@
          "TAB"     #'company-complete-common-or-cycle
          [tab]     #'company-complete-common-or-cycle
          [backtab] #'company-select-previous
-         [S-tab]   #'company-select-previous
-         [escape]  #'company-abort
+         ;; [escape]  #'company-abort
          [f1]      nil)
         (:map company-search-map  ; applies to `company-filter-map' too
          "C-n"     #'company-select-next-or-abort
@@ -590,12 +589,12 @@
        :desc "Split horizontally & focus" "S"       #'+evil/window-split-and-follow
        :desc "Split vertically & focus"   "V"       #'+evil/window-vsplit-and-follow)
 
-      ;;; <leader> TAB --- workspace
+      ;;; <leader> l --- workspace
       (:when (modulep! :ui workspaces)
-       (:prefix-map ("TAB" . "workspace")
-        :desc "Display tab bar"           "TAB" #'+workspace/display
+       (:prefix-map ("l" . "workspace")
+        :desc "Display tab bar"           "l"   #'+workspace/display
         :desc "Switch workspace"          "."   #'+workspace/switch-to
-        :desc "Switch to last workspace"  "`"   #'+workspace/other
+        :desc "Switch to last workspace"  "o"   #'+workspace/other
         :desc "New workspace"             "n"   #'+workspace/new
         :desc "New named workspace"       "N"   #'+workspace/new-named
         :desc "Load workspace from file"  "l"   #'+workspace/load
@@ -1127,10 +1126,10 @@
 
  (:after evil-org
   (:map evil-org-mode-map
-   :n "gk" (cmd! (if (org-on-heading-p)
+   :n "gk" (cmd! (if (org-at-heading-p)
                      (org-backward-element)
                    (evil-previous-visual-line)))
-   :n "gj" (cmd! (if (org-on-heading-p)
+   :n "gj" (cmd! (if (org-at-heading-p)
                      (org-forward-element)
                    (evil-next-visual-line)))
 
