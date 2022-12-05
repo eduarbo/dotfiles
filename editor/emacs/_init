@@ -38,6 +38,10 @@ cask_fonts_deps=(
   font-noto-serif
 )
 
+pip_deps=(
+  grip
+)
+
 install() {
   case $(_os) in
     macos)
@@ -47,6 +51,7 @@ install() {
       brew install ${cask_fonts_deps[@]}
       brew tap d12frosted/emacs-plus
       brew install emacs-plus@28 --with-native-comp --with-modern-doom3-icon
+      pip3 install ${pip_deps[@]}
       ;;
   esac
 
