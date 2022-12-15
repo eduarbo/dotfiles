@@ -9,22 +9,30 @@ function findDeviceInMap(findFn, deviceMap, currentDevice)
     local hasFoundCurrentDeviceOnMap = false
     local nextDevice
 
-    for _, item in ipairs(deviceMap) do
-        local name = item[1]
-        local label = item[2]
-        local isCurrentDevice = name == currentOutput:name()
-        local device = findFn(name)
+    for _, group in ipairs(deviceMap) do
+        if nextDevice then
+            break
+        end
 
-        if isCurrentDevice then
-            hasFoundCurrentDeviceOnMap = true
-        elseif device and (not nextDevice or hasFoundCurrentDeviceOnMap) then
-            nextDevice = {}
-            nextDevice['name'] = item[1]
-            nextDevice['label'] = item[2]
-            nextDevice['device'] = device
+        for _, item in ipairs(group) do
+            local name = item[1]
+            local label = item[2]
+            local device = findFn(name)
+            local isCurrentDevice = name == currentOutput:name()
 
-            if hasFoundCurrentDeviceOnMap then
+            -- if current device is found in this group go to the next one
+            if isCurrentDevice then
+                hasFoundCurrentDeviceOnMap = true
                 break
+            elseif device and (not nextDevice or hasFoundCurrentDeviceOnMap) then
+                nextDevice = {}
+                nextDevice["name"] = name
+                nextDevice["label"] = label
+                nextDevice["device"] = device
+
+                if hasFoundCurrentDeviceOnMap then
+                    break
+                end
             end
         end
     end
@@ -34,22 +42,19 @@ end
 
 function switchOutput()
     local outputMap = {
-        {"External Headphones", "🎧 Headphones"},
-        {"MacBook Pro Speakers", "💻 MacBook"},
-        {"LG HDR QHD", "🔊 Speakers"},
-        {"NS- 20G", "🔊 Speakers Bluetooth"}
+        {{"AirPods Pro de Eduardo", "🎧 AirPods Pro"}, {"External Headphones", "🎧 Headphones"}},
+        {{"NS- 20G", "🔊 Speakers Bluetooth"}, {"LG HDR QHD", "🔊 Speakers"}, {"MacBook Pro Speakers", "💻 MacBook"}}
     }
     local currentDevice = hs.audiodevice.defaultOutputDevice()
     local nextDevice = findDeviceInMap(hs.audiodevice.findOutputByName, outputMap, currentDevice)
 
     if nextDevice then
         nextDevice.device:setDefaultOutputDevice()
-        hs.notify.new({ title = "Audio out: " .. nextDevice.label, withdrawAfter = 1 }):send()
+        hs.notify.new({title = "Audio out: " .. nextDevice.label, withdrawAfter = 1}):send()
     end
 end
 
 hs.hotkey.bind(mods.meh, audioOutputKey, switchOutput)
-
 
 -- Input
 
@@ -59,13 +64,13 @@ inputArray["MacBook Pro Microphone"] = "Internal Microphone"
 
 function switch_input()
     local inputMap = {
-        {"MacBook Pro Microphone", "💻 Internal Microphone"},
+        {"MacBook Pro Microphone", "💻 Internal Microphone"}
     }
     local currentDevice = hs.audiodevice.defaultInputDevice()
     local nextDevice = findDeviceInMap(hs.audiodevice.findInputByName, inputMap, currentDevice)
 
     if nextDevice then
         nextDevice.device:setDefaultOutputDevice()
-        hs.notify.new({ title = "Audio in: " .. nextDevice.label, withdrawAfter = 1 }):send()
+        hs.notify.new({title = "Audio in: " .. nextDevice.label, withdrawAfter = 1}):send()
     end
 end
