@@ -57,7 +57,7 @@
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
 (after! editorconfig
-  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level))
+  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level web-mode-code-indent-offset))
   ;; Override editorconfig defaults for web-mode to fix indentation
   (setcdr (assq 'web-mode editorconfig-indentation-alist)
           '((web-mode-indent-style lambda (size) 2)
