@@ -40,6 +40,21 @@ const rules = [
         },
       }),
 
+      // FIXME My corne kbd switches CTRL and CMD keys for no apparent reason, could be an issue with QMK
+      // L Command -> L Shift
+      modTap(['left_control', null, ['any']], [['left_shift']], [['spacebar']], {
+        setVariables: {
+          LEFT_SHIFT: { to: true, to_after_key_up: false },
+        },
+      }),
+
+      // R Command -> R Shift (SYMBOLS)
+      modTap(['right_control', null, ['any']], [['right_shift']], [['escape']], {
+        setVariables: {
+          RIGHT_SHIFT: { to: true, to_after_key_up: false },
+        },
+      }),
+
       // L Option -> SUPER
       remap(['left_option'], [['left_option', ['command', 'control']]]),
 
