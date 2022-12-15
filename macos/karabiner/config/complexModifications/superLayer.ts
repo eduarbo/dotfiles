@@ -30,16 +30,16 @@ const rules = [
     description: `${LAYER} layer: Left hand - dev tools, screenshots and window manager`,
     manipulators: [
       /// Top Row - Dev Tools
-      // Toggle JS Console
-      keybind('q', [['j', ['option', 'command']]]),
       // Toggle breakpoints
-      keybind('w', [['f8', ['shift', 'command']]]),
+      keybind('q', [['f8', ['shift', 'command']]]),
+      // Toggle script execution
+      keybind('w', [['backslash', ['command']]]),
       // Toggle DevTools
       keybind('e', [['i', ['option', 'command']]]),
       // Inspect element
       keybind('r', [['c', ['shift', 'command']]]),
-      // Toggle script execution
-      keybind('t', [['backslash', ['command']]]),
+      // Search Tabs on Chrome
+      keybind('t', [['a', ['shift', 'command']]]),
 
       /// Page Nav
       // A key: available
