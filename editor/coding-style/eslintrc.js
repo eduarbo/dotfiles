@@ -8,8 +8,8 @@ module.exports = {
 		// jest: true,
 	},
 	extends: [
-		// 'airbnb', // If you need React
-		'airbnb-base', // If you don't need React
+		'airbnb', // If you need React
+		// 'airbnb-base', // If you don't need React
 		// 'plugin:jest/recommended',
 		'prettier',
 	],

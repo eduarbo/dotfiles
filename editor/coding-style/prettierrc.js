@@ -4,5 +4,6 @@ module.exports = {
 	trailingComma: 'all',
 	printWidth: 100,
 	bracketSpacing: true,
-	useTabs: true,
+	semi: false,
+	proseWrap: 'always',
 };
