@@ -11,16 +11,13 @@
 ;; ┃  ┃ ┃┃┃┃┣━┛┣━┫┃┗┫┗┳┛
 ;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
 
-;; (after! company
-;;   ;; This slows down company
-;;   ;; (setq company-box-doc-enable nil)
+(after! company
+  ;; On-demand code completion
+  (setq company-idle-delay nil)
 
-;;   ;; On-demand code completion
-;;   (setq company-idle-delay nil)
-
-;;   ;; Sort by occurrence and group by backend (very useful for file completion)
-;;   ;; (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance))
-;;   )
+  ;; Sort by occurrence and group by backend (very useful for file completion)
+  ;; (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance))
+  )
 
 
 ;; ┏━╸╻ ╻╻╻     ┏━┓┏┓╻╻┏━┓┏━╸
