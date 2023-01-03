@@ -22,7 +22,7 @@ const rules = [
       // Spacebar -> clipboard history
       modTap(['spacebar', layerMods, optionalMods], [], [['f13']], {
         setVariables: {
-          MODS_NAV: { to: true, to_after_key_up: false },
+          FN: { to: true, to_after_key_up: false },
         },
       }),
     ],
