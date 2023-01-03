@@ -6,10 +6,18 @@ import {
   superLayer,
   fnLayer,
   baseLayer,
+  gamingLayer,
 } from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
-const defaultProfile = [emacsKeybindings, superLayer, fnLayer, symbolsLayer, baseLayer];
+const defaultProfile = [
+  emacsKeybindings,
+  superLayer,
+  fnLayer,
+  symbolsLayer,
+  baseLayer,
+  gamingLayer,
+];
 
 const profiles = [
   profile('Empty'),
