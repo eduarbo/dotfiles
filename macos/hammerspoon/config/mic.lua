@@ -11,19 +11,23 @@ local micKey = "z"
 local doubleTap = false
 local pushToTalk = false
 local recentlyTapped = false
-local mic = hs.audiodevice.defaultInputDevice()
 local darkmode_status =
     hs.osascript.applescript('tell application "System Events"\nreturn dark mode of appearance preferences\nend tell')
 
 local function displayStatus()
+    local mic = hs.audiodevice.defaultInputDevice()
+
     if mic:muted() then
-        hs.notify.new({ title = "🎙❌ Muted", withdrawAfter = 1 }):send()
+        hs.notify.new({title = "🎙❌ Muted", withdrawAfter = 1}):send()
     else
-        hs.notify.new({ title = "🎙 on Air", withdrawAfter = 1 }):send()
+        hs.notify.new({title = "🎙 on Air", withdrawAfter = 1}):send()
     end
 end
 
 local function updateMicStatus(muted)
+    local mic = hs.audiodevice.defaultInputDevice()
+    local muted = mic:muted()
+
     if muted then
         -- micMenubar:setIcon("./icons/mic-mute.pdf", true)
         micMenubar:setIcon("./icons/mic-filled-mute.pdf", true)
@@ -35,9 +39,9 @@ local function updateMicStatus(muted)
 end
 
 local function toggleMic()
-    local muted = not mic:muted()
-    mic:setMuted(muted)
-    updateMicStatus(muted)
+    local mic = hs.audiodevice.defaultInputDevice()
+    mic:setMuted(not mic:muted())
+    updateMicStatus()
 end
 
 local doubleTapTimer =
@@ -81,5 +85,6 @@ hs.hotkey.bind(mods.meh, micKey, onKeyDown, onKeyUp)
 if not micMenubar then
     micMenubar = hs.menubar.new()
 end
+
 micMenubar:setClickCallback(toggleMic)
-updateMicStatus(mic:muted())
+updateMicStatus()
