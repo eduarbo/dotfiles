@@ -2,8 +2,9 @@ local mods = require("modifiers")
 local layerMods = mods.hyper
 
 -- Bindings for debugging
-hs.hotkey.bind(layerMods, "/", hs.toggleConsole)
-hs.hotkey.bind(layerMods, ".", hs.reload)
+-- FIXME I tried to map these to "." and "," but it never worked
+hs.hotkey.bind(layerMods, "h", hs.toggleConsole)
+hs.hotkey.bind(layerMods, "r", hs.reload)
 
 -- Appps launcher
 spoon.SpoonInstall:andUse("AppLauncher", {
@@ -15,7 +16,6 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     e = "Emacs",
     f = "Finder",
     g = "Google Chrome",
-    -- h = "",
     i = "kitty",
     -- j = "",
     -- k = "",
@@ -25,7 +25,6 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     -- o = "",
     p = "Spotify",
     -- q = "",
-    -- r = "",
     s = "Slack",
     t = "Microsoft To Do",
     u = "1Password",

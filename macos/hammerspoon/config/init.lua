@@ -26,8 +26,7 @@ hs.alert.defaultStyle.textSize = 25
 
 require("press-twice-to-quit")
 require("mic")
-require("netspeed")
+-- require("netspeed")
 require("window")
 require("audio")
 require("launcher")
--- require("cheatsheet")
