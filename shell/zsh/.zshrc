@@ -4,7 +4,12 @@
 
 
 # let's make Tramp behave appropriately
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+if [[ "$TERM" == "dumb" ]]; then
+    unsetopt zle
+    PS1='$ '
+    HISTFILE=~/.tramp-histfile
+    return
+fi
 
 
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
