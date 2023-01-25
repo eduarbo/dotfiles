@@ -3,6 +3,10 @@
 #                             ░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀
 
 
+# let's make Tramp behave appropriately
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
+
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
 bindkey -v
 
