@@ -9,22 +9,22 @@ hs.hotkey.bind(layerMods, "r", hs.reload)
 -- Appps launcher
 spoon.SpoonInstall:andUse("AppLauncher", {
   hotkeys = {
-    a = "Activity Monitor",
+    a = "Figma",
     -- b = "",
     c = "Calendar",
     d = "Deepl",
     e = "Emacs",
     f = "Finder",
     g = "Google Chrome",
-    i = "kitty",
+    -- i = "", Reserved for Spotlight
     -- j = "",
-    -- k = "",
+    k = "kitty",
     l = "Logseq",
     m = "Mail",
     n = "Obsidian",
-    -- o = "",
-    p = "Spotify",
-    -- q = "",
+    o = "Spotify",
+    p = "Preview",
+    q = "Activity Monitor",
     s = "Slack",
     t = "Microsoft To Do",
     u = "1Password",
