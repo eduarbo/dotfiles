@@ -164,8 +164,8 @@
  :gn     "s-:"           #'pp-eval-expression
  :gn     "s-["           #'previous-buffer
  :gn     "s-]"           #'next-buffer
- :gn     "s-{"           #'+workspace/switch-left
- :gn     "s-}"           #'+workspace/switch-right
+ :mi     "s-{"           #'+workspace/switch-left
+ :mi     "s-}"           #'+workspace/switch-right
 
  :gn     "s-,"           #'doom/find-file-in-private-config
  :gn     "s-<"           #'my/find-file-in-dotfiles
