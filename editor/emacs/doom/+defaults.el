@@ -92,3 +92,7 @@
 
 (with-no-warnings
   (custom-declare-face 'vertico-group-title '((t (:inherit font-lock-comment-face))) ""))
+
+;; HACK Fix the coloring of the output in the REPL
+;; https://github.com/emacs-ess/ESS/issues/1193#issuecomment-1144182009
+(add-hook 'comint-mode-hook #'ansi-color-for-comint-mode-filter 'append)
