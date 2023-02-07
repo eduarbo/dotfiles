@@ -70,13 +70,7 @@ update() {
 
 link() {
   mkdir -p "$ZSH_CACHE"
-  mklink {.zsh*,functions,figlet-fonts} $ZDOTDIR/
-
-  case $(_os) in
-    macos)
-      mklink .zshenv ~/.zshenv
-      ;;
-  esac
+  mklink {.z*,functions,figlet-fonts} $ZDOTDIR/
 }
 
 clean() {
