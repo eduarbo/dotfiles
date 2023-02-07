@@ -40,8 +40,5 @@ function _load_all {
   done
 }
 
-# Load SSH on boot
-[[ $(_os) == macos ]] && ssh-add --apple-load-keychain
-
 # initialize enabled topics
 _load_all env.bash
