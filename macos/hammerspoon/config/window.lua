@@ -4,6 +4,8 @@
 
 local mods = require("modifiers")
 
+local window = {}
+
 hs.window.animationDuration = 0
 
 -- Ignore the misbehaving apps to supress warnings
@@ -28,28 +30,32 @@ hs.grid.setMargins({0, 0})
 --     {'A','S','D','F','G'},
 --     {'Z','X','C','V','B'}
 -- }
-hs.hotkey.bind(mods.super, "z", hs.grid.show)
 
 -- ┏━┓┏━╸┏━┓╻╺━┓┏━╸   ┏┓     ┏┳┓┏━┓╻ ╻┏━╸
 -- ┣┳┛┣╸ ┗━┓┃┏━┛┣╸    ┃╺╋╸   ┃┃┃┃ ┃┃┏┛┣╸
 -- ╹┗╸┗━╸┗━┛╹┗━╸┗━╸   ┗━┛    ╹ ╹┗━┛┗┛ ┗━╸
 -- Resize and move
 
-local arrowKeys = {"n", "m", ",", "."}
-local rectMap = {
-    ["n"] = {0, 0, 0.5, 1}, -- left half
-    ["."] = {0.5, 0, 0.5, 1}, -- right half
-    ["m"] = {0, 0, 1 / 3, 1}, -- left one third
-    [","] = {2 / 3, 0, 1 / 3, 1}, -- right one third
-    ["nm"] = {0, 0, 2 / 3, 1}, -- left two thirds
-    [",."] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
-    ["n."] = {0, 0, 1, 1}, -- full screen
-    ["m,"] = "center" -- center on screen
-}
 local wasPressed = {false, false, false, false}
 local pressed = {false, false, false, false}
 
-local function resizeWindow()
+local function resizeWindow(arrowKeys)
+    local leftHalf = arrowKeys[1]
+    local leftThird = arrowKeys[2]
+    local rightThird = arrowKeys[3]
+    local rightHalf = arrowKeys[4]
+
+    local rectMap = {
+        [leftHalf] = {0, 0, 0.5, 1}, -- left half
+        [rightHalf] = {0.5, 0, 0.5, 1}, -- right half
+        [leftThird] = {0, 0, 1 / 3, 1}, -- left one third
+        [rightThird] = {2 / 3, 0, 1 / 3, 1}, -- right one third
+        [leftHalf .. rightThird] = {0, 0, 2 / 3, 1}, -- left two thirds
+        [rightHalf .. leftThird] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
+        [leftHalf .. rightHalf] = {0, 0, 1, 1}, -- full screen
+        [leftThird .. rightThird] = "center" -- center on screen
+    }
+
     for i = 1, #pressed do
         if pressed[i] then
             return
@@ -76,19 +82,19 @@ local function resizeWindow()
     end
 end
 
-for i = 1, #arrowKeys do
-    local function pressedFn()
-        wasPressed[i] = true
-        pressed[i] = true
+function window.bindResize(layerMods, arrowKeys)
+    for i = 1, #arrowKeys do
+        local function pressedFn()
+            wasPressed[i] = true
+            pressed[i] = true
+        end
+        local function releasedFn()
+            pressed[i] = false
+            resizeWindow(arrowKeys)
+        end
+        hs.hotkey.bind(layerMods, arrowKeys[i], pressedFn, releasedFn, nil)
     end
-    local function releasedFn()
-        pressed[i] = false
-        resizeWindow()
-    end
-    hs.hotkey.bind(mods.meh, arrowKeys[i], pressedFn, releasedFn, nil)
 end
-
--- meh + n -> move window to the next screen
 
 local function getNextScreen(s)
     all = hs.screen.allScreens()
@@ -100,7 +106,7 @@ local function getNextScreen(s)
     return nil
 end
 
-local function moveToNextScreen()
+function window.moveToNextScreen()
     local win = hs.window.focusedWindow()
     if win ~= nil then
         currentScreen = win:screen()
@@ -111,4 +117,4 @@ local function moveToNextScreen()
     end
 end
 
-hs.hotkey.bind(mods.super, "b", moveToNextScreen)
+return window
