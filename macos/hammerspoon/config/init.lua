@@ -24,9 +24,8 @@ hs.alert.defaultStyle.textSize = 25
 -- Modules
 -----------------------------------------------
 
+require("bindings")
 require("press-twice-to-quit")
-require("mic")
 -- require("netspeed")
-require("window")
-require("audio")
 require("launcher")
+-- require("awesome-keys")

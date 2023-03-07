@@ -1,6 +1,4 @@
-local mods = require("modifiers")
-
-local audioOutputKey = "q"
+local audio = {}
 
 -- Output
 
@@ -54,8 +52,6 @@ function switchOutput()
     end
 end
 
-hs.hotkey.bind(mods.meh, audioOutputKey, switchOutput)
-
 -- Input
 
 local inputArray = {}
@@ -74,3 +70,9 @@ function switch_input()
         hs.notify.new({title = "Audio in: " .. nextDevice.label, withdrawAfter = 1}):send()
     end
 end
+
+function audio.bind(mods, key)
+    hs.hotkey.bind(mods, key, switchOutput)
+end
+
+return audio

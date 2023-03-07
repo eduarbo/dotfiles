@@ -7,7 +7,8 @@
 
 local mods = require("modifiers")
 
-local micKey = "z"
+local mic = {}
+local micKey = "b"
 local doubleTap = false
 local pushToTalk = false
 local recentlyTapped = false
@@ -80,11 +81,15 @@ local function onKeyUp(event)
     end
 end
 
-hs.hotkey.bind(mods.meh, micKey, onKeyDown, onKeyUp)
-
 if not micMenubar then
     micMenubar = hs.menubar.new()
 end
 
+function mic.bind(mods, key)
+    hs.hotkey.bind(mods, key, onKeyDown, onKeyUp)
+end
+
 micMenubar:setClickCallback(toggleMic)
 updateMicStatus()
+
+return mic

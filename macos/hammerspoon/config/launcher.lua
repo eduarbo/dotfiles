@@ -16,7 +16,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     e = "Emacs",
     f = "Finder",
     g = "Google Chrome",
-    -- i = "", Reserved for Spotlight
+    -- i = "",
     -- j = "",
     k = "kitty",
     l = "Logseq",
