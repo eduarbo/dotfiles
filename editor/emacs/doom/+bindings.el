@@ -16,6 +16,12 @@
 (setq doom-leader-key ","
       doom-localleader-key ", m")
 
+(map! :map general-override-mode-map
+      :in    "C-j"          #'evil-window-down
+      :in    "C-k"          #'evil-window-up
+      :in    "C-l"          #'evil-window-right
+      :in    "C-h"          #'evil-window-left)
+
 (when (modulep! :editor evil +everywhere)
   ;; NOTE SPC u replaces C-u as the universal argument.
 
@@ -40,11 +46,15 @@
     "C-j"    #'next-line
     "C-k"    #'previous-line
     "C-S-j"  #'scroll-up-command
-    "C-S-k"  #'scroll-down-command)
+    "C-S-k"  #'scroll-down-command
+    [S-up]   #'scroll-down-command
+    [S-down] #'scroll-up-command)
   ;; For folks with `evil-collection-setup-minibuffer' enabled
   (define-key! :states 'insert :keymaps +default-minibuffer-maps
     "C-j"    #'next-line
-    "C-k"    #'previous-line)
+    "C-k"    #'previous-line
+    [S-up]   #'scroll-down-command
+    [S-down] #'scroll-up-command)
   (define-key! read-expression-map
     "C-j"    #'next-line-or-history-element
     "C-k"    #'previous-line-or-history-element))
@@ -73,13 +83,18 @@
       :gi   "C-f"          #'forward-word
       :gi   "C-b"          #'backward-word
 
-      :m    "H"            #'sp-backward-symbol
-      :m    "L"            #'sp-forward-symbol
-      :gim  "C-h"          #'sp-backward-symbol
-      :gim  "C-l"          #'sp-forward-symbol
+      :m    [S-up]         #'drag-stuff-up
+      :m    [S-down]       #'drag-stuff-down
+      :m    [S-left]       #'drag-stuff-left
+      :m    [S-right]      #'drag-stuff-right
+
+      :m    [left]         #'evil-goto-last-change
+      :m    [right]        #'evil-goto-last-change-reverse
+
+      :m    [up]           (λ! (evil-previous-visual-line 5))
+      :m    [down]         (λ! (evil-next-visual-line 5))
 
       :gi   "C-d"          #'sp-delete-word
-      :gi   "C-k"          #'evil-delete-line
       :gi   "C-S-d"        #'evil-delete-whole-line
       :gi   "C-S-u"        #'evil-change-whole-line
       :gi   "C-S-w"        #'backward-kill-sexp
@@ -94,15 +109,10 @@
       :m    "k"            #'evil-previous-visual-line
       :m    "j"            #'evil-next-visual-line
 
-      :m    [down]         #'evil-window-down
-      :m    [up]           #'evil-window-up
-      :m    [right]        #'evil-window-right
-      :m    [left]         #'evil-window-left
-
-      :m    [S-down]       #'+evil/window-move-down
-      :m    [S-up]         #'+evil/window-move-up
-      :m    [S-right]      #'+evil/window-move-right
-      :m    [S-left]       #'+evil/window-move-left
+      :in    "S-C-j"       #'+evil/window-move-down
+      :in    "S-C-k"       #'+evil/window-move-up
+      :in    "S-C-l"       #'+evil/window-move-right
+      :in    "S-C-h"       #'+evil/window-move-left
 
       :n    "s"            #'evil-surround-edit
       :v    "s"            #'evil-surround-region
@@ -168,11 +178,7 @@
  :mi     "s-}"           #'+workspace/switch-right
 
  :gn     "s-,"           #'doom/find-file-in-private-config
- :gn     "s-<"           #'my/find-file-in-dotfiles
- :gm     [s-up]          #'drag-stuff-up
- :gm     [s-down]        #'drag-stuff-down
- :gm     [s-left]        #'drag-stuff-left
- :gm     [s-right]       #'drag-stuff-right)
+ :gn     "s-<"           #'my/find-file-in-dotfiles)
 
 ;; Smart tab, these will only work in GUI Emacs
 (map! :m [tab] (cmds! (and (modulep! :editor snippets)
@@ -285,18 +291,21 @@
       :n "M-C--"  #'doom/decrease-font-size
 
       (:after evil-snipe
-       :n "S"     #'evil-snipe-repeat
+       :nv "H"    #'evil-snipe-repeat-reverse
+       :nv "L"    #'evil-snipe-repeat
+
+       :nv "S"    (λ! (require 'evil-easymotion)
+                      (call-interactively
+                       (evilem-create (list 'evil-snipe-repeat
+                                            'evil-snipe-repeat-reverse)
+                                      :bind ((evil-snipe-scope 'whole-buffer)
+                                             (evil-snipe-enable-highlight)
+                                             (evil-snipe-enable-incremental-highlight)))))
+
        (:map evil-snipe-parent-transient-map
         :n "o"    #'link-hint-open-link
-        "L"       #'evil-snipe-repeat
         "H"       #'evil-snipe-repeat-reverse
-
-        "S" (λ! (require 'evil-easymotion)
-                (call-interactively
-                 (evilem-create 'evil-snipe-repeat
-                                :bind ((evil-snipe-scope 'whole-buffer)
-                                       (evil-snipe-enable-highlight)
-                                       (evil-snipe-enable-incremental-highlight)))))
+        "L"       #'evil-snipe-repeat
 
         ;; Don't interfere with my bindings
         ";"  nil
@@ -351,6 +360,8 @@
          "TAB"     #'company-complete-common-or-cycle
          [tab]     #'company-complete-common-or-cycle
          [backtab] #'company-select-previous
+         [S-up]    #'company-previous-page
+         [S-down]  #'company-next-page
          ;; [escape]  #'company-abort
          [f1]      nil)
         (:map company-search-map  ; applies to `company-filter-map' too
@@ -497,7 +508,9 @@
        "C-n"         #'yas-next-field
        "C-l"         #'yas-next-field
        "C-p"         #'yas-prev-field
-       "C-h"         #'yas-prev-field))
+       "C-h"         #'yas-prev-field
+       [right]       #'yas-next-field
+       [left]        #'yas-prev-field))
 
 ;;; :tools
 (map! :after git-timemachine :map git-timemachine-mode-map
