@@ -10,12 +10,12 @@ hs.hotkey.bind(layerMods, "r", hs.reload)
 spoon.SpoonInstall:andUse("AppLauncher", {
   hotkeys = {
     a = "Figma",
-    -- b = "",
+    b = "Google Chrome",
     c = "Calendar",
     d = "Deepl",
     e = "Emacs",
     f = "Finder",
-    g = "Google Chrome",
+    g = "Microsoft Edge Dev",
     -- i = "",
     -- j = "",
     k = "kitty",
@@ -28,7 +28,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     s = "Slack",
     t = "Microsoft To Do",
     u = "1Password",
-    -- v = "Visual Studio Code",
+    v = "Visual Studio Code",
     w = "WhatsApp",
     -- x = "",
     -- y = "",

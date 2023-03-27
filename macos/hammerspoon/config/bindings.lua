@@ -14,7 +14,7 @@ hs.hotkey.bind(layerMods, "n", window.moveToNextScreen)
 hs.hotkey.bind({"shift"}, "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
 
 -- Audio output switcher
-audio.bind(layerMods, ",")
+audio.bind(layerMods, "y")
 
 -- Mic toggle
-mic.bind(layerMods, "m")
+mic.bind(layerMods, "t")

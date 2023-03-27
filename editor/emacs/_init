@@ -29,6 +29,7 @@ brew_deps=(
   shellcheck
   graphviz # graph visualizator - org-roam dep
   fd
+  libgit2 # improves Emacs' magit speed
 )
 
 cask_fonts_deps=(
