@@ -37,6 +37,10 @@ set ignorecase
 set smartcase
 set incsearch
 set iskeyword+=-
+set scrolloff=10
+set ignorecase           " case insensitive search
+set smartcase            " case sensitive when uc present
+set nostartofline
 
 " highlighting selection on yank
 au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
@@ -87,6 +91,9 @@ nmap ss <Plug>Yssurround
 nmap s  <Plug>Ysurround
 nmap ds  <Plug>Dsurround
 nmap cs  <Plug>Csurround
+
+nnoremap <down> 10j
+nnoremap <up> 10k
 
 if exists('g:vscode')
     " VSCode extension
