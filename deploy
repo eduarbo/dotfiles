@@ -12,11 +12,13 @@ SEP='.'
 
 # helpers
 function echo-debug { echo "$@" | sed -e "s%$HOME%~%g" -e "s%$DOTFILES%.%g"; }
-function echo-info  { printf "\r\033[2K\033[0;34m[ .. ]\033[0m %s\n" "$*"; }
-function echo-skip  { printf "\r\033[2K\033[38;05;240m[SKIP]\033[0m %s\n" "$*"; }
-function echo-ok    { printf "\r\033[2K\033[0;32m[ OK ]\033[0m %s\n" "$*"; }
-function echo-fail  { printf "\r\033[2K\033[0;31m[FAIL]\033[0m %s\n" "$*"; }
-function echo-note  { printf "\r\033[2K\033[0;36m[NOTE]\033[0m\033[1m %s\033[0m\n" "$*"; }
+function echo-list  { printf "\r\033[2K🔸 \033[0;35m\033[1m%s\033[0m\n" "$*"; }
+function echo-note  { printf "\r\033[2K👉 \033[0;35m\033[1m%s\033[0m\n" "$*"; }
+function echo-ask   { printf "\r\033[2K☝️ \033[0;36m\033[1m%s\033[0m" "$*"; }
+function echo-alert { printf "\r\033[2K⚠️ \033[0;33m\033[1m%s\033[0m\n" "$*"; }
+function echo-info  { printf "\r\033[2Kℹ️ \033[0;34m%s\033[0m\n" "$*"; }
+function echo-ok    { printf "\r\033[2K✅ \033[0;32m%s\033[0m\n" "$*"; }
+function echo-fail  { printf "\r\033[2K❌ \033[0;31m%s\033[0m\n" "$*"; }
 
 function _exec { ${DRYRUN:+echo-debug} $@; return ${DRYRUN:+1}; }
 function _topic-do {
