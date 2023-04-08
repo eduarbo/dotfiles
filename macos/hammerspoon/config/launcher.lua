@@ -30,7 +30,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     u = "1Password",
     v = "Visual Studio Code",
     w = "WhatsApp",
-    -- x = "",
+    x = "Telegram",
     -- y = "",
     z = "zoom.us",
   },
