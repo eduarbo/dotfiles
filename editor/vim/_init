@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.bash
 
+VIMDOTDIR="$XDG_CONFIG_HOME/vim"
+
 install() {
   case $(_os) in
     macos)  brew install vim ;;
