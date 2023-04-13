@@ -1,6 +1,13 @@
 alias py='python'
-_is_callable python2 && alias py2='python2'
-_is_callable python3 && alias py3='python3'
+
+if _is_callable python3; then
+    alias python='python3'
+    alias py3='python3'
+fi
+
+if _is_callable python2; then
+    alias py2='python2'
+fi
 
 alias pye='pyenv'
 alias ipy='ipython'
