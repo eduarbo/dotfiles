@@ -1,8 +1,3 @@
-function! Cond(cond, ...)
-    let opts = get(a:000, 0, {})
-    return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
-
 " Run PlugInstall if there are missing plugins
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
     \| PlugInstall --sync | source $MYVIMRC
@@ -31,7 +26,7 @@ let maplocalleader = 'm'
 
 let g:surround_no_mappings= 1
 " this allows me to select envirionent variables
-let g:wordmotion_uppercase_spaces = ['=']
+let g:wordmotion_uppercase_spaces = ['=[]{}()']
 
 set ignorecase
 set smartcase
@@ -71,6 +66,14 @@ vnoremap y "+y
 nmap ; :
 nmap # gcc
 vmap # gc
+
+"  nnoremap <S-r> :%s/<C-R><C-W>//g<Left><Left>
+"  "  xnoremap <S-r> '"zy<Esc>:%s/<C-R>z//g<Left><Left>
+"  vnoremap <S-r> :s/"/'/g<CR>
+
+" replace the current search
+nnoremap <S-r> :%s///g<left><left>
+vnoremap <S-r> :s///g<left><left>
 
 nnoremap j gj
 nnoremap k gk
