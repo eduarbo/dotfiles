@@ -17,7 +17,7 @@ update() {
 }
 
 link() {
-  mklink {*.conf,zoom_toggle.py} "$KITTY_DIR/"
+  mklink {*.conf,kittens/*} "$KITTY_DIR/"
 }
 
 clean() {
