@@ -26,7 +26,7 @@ let maplocalleader = 'm'
 
 let g:surround_no_mappings= 1
 " this allows me to select envirionent variables
-let g:wordmotion_uppercase_spaces = ['=[]{}()']
+let g:wordmotion_uppercase_spaces = ['=', '[', ']', '[', ']', '{', '}', '(', ')', '<', '>', "'", '"', '.', ',', ':', '/', '\', '|', '#', '$', '%', '*', '+', '!']
 
 set ignorecase
 set smartcase
@@ -64,6 +64,7 @@ au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
 vnoremap y "+y
 
 nmap ; :
+vmap ; :
 nmap # gcc
 vmap # gc
 
@@ -109,7 +110,8 @@ if exists('g:vscode')
     noremap <leader>wv <Cmd>call VSCodeNotify('workbench.action.splitEditor')<CR>
     noremap <leader>ws <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
     noremap <leader>, <Cmd>call VSCodeNotify('workbench.action.showAllEditorsByMostRecentlyUsed')<CR>
-    noremap <leader>. <Cmd>call VSCodeNotify('relative-path-navigation.showFilesInRelativePath')<CR>
+    noremap <leader>< <Cmd>call VSCodeNotify('workbench.action.openPreviousEditorFromHistory')<CR>
+    noremap <leader>. <Cmd>call VSCodeNotify('relativeFileNavigator.open')<CR>
     noremap <leader>= <Cmd>call VSCodeNotify('editor.action.formatDocument')<CR>
     noremap <leader><space> <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
     noremap <leader><tab> <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>
