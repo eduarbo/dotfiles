@@ -1,7 +1,6 @@
 --                 ░█░█░▀█▀░█▀█░░░█▄█░█▀█░█▀█░█▀█░█▀▀░█▀▀░█▀▄
 --                 ░█▄█░░█░░█░█░░░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█▀▄
 --                 ░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
-
 local mods = require("modifiers")
 
 local window = {}
@@ -23,13 +22,21 @@ hs.window.filter.ignoreAlways["FirefoxCP WebExtensions"] = true
 
 hs.grid.setGrid("5x3", nil, nil)
 hs.grid.setMargins({0, 0})
--- hs.grid.HINTS={
---     {'f1','f2','f3','f4','f5'},
---     {'1','2','3','4','5'},
---     {'Q','W','E','R','T'},
---     {'A','S','D','F','G'},
---     {'Z','X','C','V','B'}
--- }
+-- For the full list of keycodes look at:
+    -- https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/keycodes/keycodes.lua
+    -- https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/utf8/utf8.lua#L247-L294
+hs.keycodes.map['␡'] = 0x232B
+hs.grid.HINTS = {
+    {'f6', 'f7', 'f8', 'f9', 'f10'},
+    {'6', '7', '8', '9', '0'},
+    {'Y', 'U', 'I', 'O', 'P'},
+    {'H', 'J', 'K', 'L', ';'},
+    {'N', 'M', ',', '.', '␡'}
+}
+
+-- UI options: https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/grid/grid.lua#L650
+hs.grid.ui.textSize = 200
+hs.grid.ui.fontName = 'PT Sans Caption'
 
 -- ┏━┓┏━╸┏━┓╻╺━┓┏━╸   ┏┓     ┏┳┓┏━┓╻ ╻┏━╸
 -- ┣┳┛┣╸ ┗━┓┃┏━┛┣╸    ┃╺╋╸   ┃┃┃┃ ┃┃┏┛┣╸
@@ -41,19 +48,12 @@ local pressed = {false, false, false, false}
 
 local function resizeWindow(arrowKeys)
     local leftHalf = arrowKeys[1]
-    local leftThird = arrowKeys[2]
-    local rightThird = arrowKeys[3]
-    local rightHalf = arrowKeys[4]
+    local rightHalf = arrowKeys[2]
 
     local rectMap = {
         [leftHalf] = {0, 0, 0.5, 1}, -- left half
         [rightHalf] = {0.5, 0, 0.5, 1}, -- right half
-        [leftThird] = {0, 0, 1 / 3, 1}, -- left one third
-        [rightThird] = {2 / 3, 0, 1 / 3, 1}, -- right one third
-        [leftHalf .. rightThird] = {0, 0, 2 / 3, 1}, -- left two thirds
-        [rightHalf .. leftThird] = {1 / 3, 0, 2 / 3, 1}, -- right two thirds
-        [leftHalf .. rightHalf] = {0, 0, 1, 1}, -- full screen
-        [leftThird .. rightThird] = "center" -- center on screen
+        [leftHalf .. rightHalf] = {0, 0, 1, 1} -- full screen
     }
 
     for i = 1, #pressed do
