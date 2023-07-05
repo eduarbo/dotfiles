@@ -3,6 +3,10 @@
 --                ░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░░▀▀▀░▀▀▀░▀░▀
 
 local log = require("log")
+local mods = require("modifiers")
+local mic = require("mic")
+local audio = require("audio")
+local window = require("window")
 
 -- Manage Spoons
 hs.loadSpoon("SpoonInstall")
@@ -21,11 +25,86 @@ hs.alert.defaultStyle.textStyle = {paragraphStyle = {alignment = "center"}}
 hs.alert.defaultStyle.textSize = 25
 
 -----------------------------------------------
--- Modules
+-- Bindings
 -----------------------------------------------
 
-require("bindings")
+-- Sane defaults
+-----------------------------------------------
+
 require("press-twice-to-quit")
--- require("netspeed")
-require("launcher")
--- require("awesome-keys")
+
+
+-- Symbols layer
+-----------------------------------------------
+
+-- Emojis
+hs.hotkey.bind({"shift"}, "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
+
+
+-- Super layer
+-----------------------------------------------
+
+-- Mic toggle
+mic.bind(mods.super, "t")
+
+-- Audio output switcher
+audio.bind(mods.super, "y")
+
+-- U: Taken by 1Password mini
+-- I: Taken by Alfred (Snippets)
+-- O: Taken by Alfred
+
+-- Window Nav
+hs.hotkey.bind(mods.super, "k", hs.grid.show)
+window.bindResize(mods.super, {"h", "l"})
+hs.hotkey.bind(mods.super, "j", window.moveToNextScreen)
+
+-- M: Taken by MacGPT
+-- Comma: Taken by Alfred (Universal Action)
+
+-- Lock screen
+hs.hotkey.bind(mods.super, ".", hs.caffeinate.lockScreen)
+
+
+-- Hyper layer: Launcher
+-----------------------------------------------
+
+-- FIXME I tried to map "." and "," but it never worked for the hyper layer
+
+hs.hotkey.bind(mods.hyper, "h", hs.reload)
+
+-- Appps launcher
+spoon.SpoonInstall:andUse("AppLauncher", {
+    hotkeys = {
+        a = "Figma",
+        b = "Google Chrome",
+        c = "Calendar",
+        d = "Deepl",
+        e = "Emacs",
+        f = "Finder",
+        g = "Microsoft Edge Dev",
+        -- h = hs.reload,
+        -- h = "", -- already bound to reload 🔨🥄
+        -- i = "",
+        -- j = "",
+        k = "kitty",
+        -- l = "",
+        m = "Mail",
+        n = "Obsidian",
+        -- o = "", -- Taken by Spotlight
+        p = "Preview",
+        q = "Activity Monitor",
+        r = "Reminders",
+        s = "Slack",
+        t = "Microsoft To Do",
+        u = "1Password",
+        v = "Visual Studio Code",
+        w = "WhatsApp",
+        x = "Telegram",
+        y = "Spotify",
+        z = "zoom.us",
+    },
+    config = {
+        modifiers = mods.hyper
+    }
+})
