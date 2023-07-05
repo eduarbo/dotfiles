@@ -17,7 +17,8 @@ update() {
 }
 
 link() {
-  mklink {*.conf,kittens/*} "$KITTY_DIR/"
+  find "$KITTY_DIR" -maxdepth 1 -type l -delete
+  mklink config/* "$KITTY_DIR"
 }
 
 clean() {
