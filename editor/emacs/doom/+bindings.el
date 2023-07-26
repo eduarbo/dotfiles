@@ -11,7 +11,7 @@
       :v    [S-return]      #'evilnc-comment-operator
       :n    [S-return]      #'evilnc-comment-or-uncomment-lines
 
-      :n    "RET"           #'+fold/toggle
+      :m    "RET"           #'evil-jump-item
 
       :nv   ";"             #'evil-ex
       :nv   ":"             #'pp-eval-expression
@@ -71,17 +71,14 @@
       (:map evil-markdown-mode-map
        :gi   "C-d"           #'kill-line)
 
-      :in   "C-j"           #'evil-window-down
-      :in   "C-k"           #'evil-window-up
-      :in   "C-l"           #'evil-window-right
-      :in   "C-h"           #'evil-window-left
-      (:map Info-mode-map
+      ;; Window navigation
+      (:map general-override-mode-map
        :in   "C-j"           #'evil-window-down
        :in   "C-k"           #'evil-window-up
        :in   "C-l"           #'evil-window-right
        :in   "C-h"           #'evil-window-left)
 
-      ;; Leaving Emacs state unbound. I feel like a mouse in a maze in there!
+      ;; Leaving Emacs state unbound, my accidental visits always turn into a quest for an escape route!
       :im    "C-z"          nil
       (:map magit-mode-map
             "C-z" nil))
@@ -91,12 +88,15 @@
 (map! :when IS-MAC
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
-      (:map (helpful-mode-map)
+      (:map helpful-mode-map
        :gn    "s-["           #'help-go-back
        :gn    "s-]"           #'help-go-forward)
       (:map Info-mode-map
        :gn    "s-["           #'Info-history-back
        :gn    "s-]"           #'Info-history-forward)
+      (:map git-timemachine-mode-map
+       :gn    "s-["           #'git-timemachine-show-previous-revision
+       :gn    "s-]"           #'git-timemachine-show-next-revision)
 
       :mi    "s-{"           #'+workspace/switch-left
       :mi    "s-}"           #'+workspace/switch-right
@@ -116,8 +116,9 @@
       :g     "s-i"           #'+format/region-or-buffer
       :g     "s-j"           #'evil-switch-to-windows-last-buffer
       :g     "s-k"           #'kill-current-buffer
+      :g     "s-l"           #'avy-goto-line
       :g     "s-o"           #'projectile-switch-project
-      :g     "s-p"           #'treemacs
+      :g     "s-p"           #'+treemacs/toggle
       :n     "s-r"           #'+eval/open-repl-other-window
       :v     "s-r"           #'+eval:region
       :g     "s-u"           #'evil-window-mru
@@ -127,7 +128,7 @@
 ;; -- Smart tab: these will only work in GUI Emacs
 
 (map! :i [tab]     #'company-indent-or-complete-common
-      :m [tab]     #'evil-jump-item
+      :m [tab]     #'+fold/toggle
 
       :i [backtab] (cmds! (and (modulep! :editor snippets)
                                (yas-maybe-expand-abbrev-key-filter 'yas-expand))
@@ -158,11 +159,32 @@
 ;; -- Leader
 
 (map! :leader
+      :desc "Switch workspace"                  "TAB"           #'persp-switch
+      :desc "Yank buffer name"                  "b y"           #'my/yank-buffer-name
+      :desc "Yank buffer"                       "b Y"           #'+default/yank-buffer-contents
+      :desc "Window Enlargen mode"              "t e"           #'my/window-enlargen-mode
+      :desc "Enlargen mode"                     "w e"           #'my/window-enlargen-mode
       :desc "Select a window"                   "w w"           #'ace-window
-      :desc "Kill this workspace"               "TAB k"         #'+workspace/delete
       :desc "M-x"                               ";"             #'execute-extended-command
       :desc "Find file in project"              "SPC"           #'projectile-find-file
-      :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer)
+      :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer
+
+      (:when (modulep! :ui workspaces)
+        (:prefix-map ("k" . "workspace")
+         :desc "Display tab bar"           "TAB" #'+workspace/display
+         :desc "Switch workspace"          "."   #'+workspace/switch-to
+         :desc "Switch to last workspace"  "`"   #'+workspace/other
+         :desc "Kill this workspace"       "k"   #'+workspace/delete
+         :desc "New workspace"             "n"   #'+workspace/new
+         :desc "New named workspace"       "N"   #'+workspace/new-named
+         :desc "Load workspace from file"  "l"   #'+workspace/load
+         :desc "Save workspace to file"    "s"   #'+workspace/save
+         :desc "Delete session"            "x"   #'+workspace/kill-session
+         :desc "Delete this workspace"     "d"   #'+workspace/delete
+         :desc "Rename workspace"          "r"   #'+workspace/rename
+         :desc "Restore last session"      "R"   #'+workspace/restore-last-session
+         :desc "Next workspace"            "]"   #'+workspace/switch-right
+         :desc "Previous workspace"        "["   #'+workspace/switch-left)))
 
 
 ;; -- [g]o-to prefix

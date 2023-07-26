@@ -53,3 +53,51 @@ narrowed."
         (delete-region beg end)
         (apply orig-fun args))
     (apply orig-fun args)))
+
+
+;; -- minor mode to enlarge the active window
+
+;;;###autoload
+(defun my/yank-buffer-name ()
+  "Copy the current buffer's path to the kill ring."
+  (interactive)
+  (message "Copied buffer name to clipboard: %s"
+           (kill-new (buffer-name))))
+
+(defvar my--window-enlargen-active-p nil
+  "Whether or not `my/window-enlargen-mode' is active.")
+
+(defun my--enlarge-active-window (&rest _)
+  "Enlarge the active window."
+  (when (and my--window-enlargen-active-p
+             (not (window-parameter (selected-window) 'popup)))
+    (let* ((window (selected-window))
+           (dedicated-p (window-dedicated-p window))
+           (preserved-p (window-parameter window 'window-preserved-size))
+           (ignore-window-parameters t)
+           (window-resize-pixelwise nil)
+           (frame-resize-pixelwise nil))
+      (unwind-protect
+          (progn
+            (when dedicated-p
+              (set-window-dedicated-p window nil))
+            (when preserved-p
+              (set-window-parameter window 'window-preserved-size nil))
+            (maximize-window window))
+        (set-window-dedicated-p window dedicated-p)
+        (when preserved-p
+          (set-window-parameter window 'window-preserved-size preserved-p))))))
+
+;;;###autoload
+(define-minor-mode my/window-enlargen-mode
+  "A mode to automatically enlarge the active window."
+  :init-value nil
+  :global t
+  (if my/window-enlargen-mode
+      (progn
+        (setq my--window-enlargen-active-p t)
+        (add-hook 'window-selection-change-functions 'my--enlarge-active-window)
+        (my--enlarge-active-window))
+    (setq my--window-enlargen-active-p nil)
+    (remove-hook 'window-selection-change-functions 'my--enlarge-active-window)
+    (balance-windows)))

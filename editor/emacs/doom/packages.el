@@ -55,3 +55,5 @@
 ;; so annoying
 (package! lsp-ui :disable t)
 (package! emmet-mode :disable t)
+
+(package! vimrc-mode)
