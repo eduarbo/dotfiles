@@ -53,6 +53,9 @@ Plug 'terryma/vim-expand-region'
 Plug 'numToStr/Comment.nvim'
 " Turns off search highlighting post-search and reactivates it for the next search
 Plug 'romainl/vim-cool'
+" Allow seamless navigation between vim and kitty splits.
+" Use in conjunction with the kittens `pass_keys.py` and `neighboring_window.py`
+Plug 'knubie/vim-kitty-navigator'
 call plug#end()
 
 
@@ -263,7 +266,7 @@ if exists('g:vscode')
     " Search and Replace in all files
     nnoremap gr <Cmd>call VSCodeNotify('workbench.action.replaceInFiles', { 'query': expand('<cword>')})<CR>
     xnoremap gr <Cmd>call VSCodeNotifyVisual('workbench.action.replaceInFiles', 0)<CR>
-    
+
     " Search in all files
     nnoremap gs <Cmd>call VSCodeNotify('search.action.openNewEditor', { 'query': expand('<cword>')})<CR>
     xnoremap gs <Cmd>call VSCodeNotifyVisual('search.action.openNewEditor', 0)<CR>
@@ -280,10 +283,10 @@ else
     nnoremap <Leader>wv <C-w>v
 
     " Navigation between window
-    nnoremap <C-h> <C-w>h
-    nnoremap <C-j> <C-w>j
-    nnoremap <C-k> <C-w>k
-    nnoremap <C-l> <C-w>l
+    " nnoremap <C-h> <C-w>h
+    " nnoremap <C-j> <C-w>j
+    " nnoremap <C-k> <C-w>k
+    " nnoremap <C-l> <C-w>l
 
     " FIXME Doesn't work in kitty
     map <D-S-[> :bprevious<CR>
