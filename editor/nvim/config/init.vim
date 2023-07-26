@@ -1,46 +1,137 @@
+" Sane defaults
+" ------------------------------------------------------------------------------
+
+set clipboard=unnamed           " Yank to system clipboard
+set iskeyword+=-                " Treat hyphens as part of the word
+set nostartofline               " Make j/k respect the columns
+set scrolloff=10                " Start scrolling n lines before horizontal border of window
+set gdefault                    " RegExp global by default
+set magic                       " Enable extended regexes.
+set hlsearch                    " highlight searches
+set incsearch                   " show the `best match so far' astyped
+set ignorecase                  " case-insensitive search
+set smartcase                   " case-sensitive when upper-case letters are present
+
+
+" Plugins
+" ------------------------------------------------------------------------------
+
 " Run PlugInstall if there are missing plugins
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
     \| PlugInstall --sync | source $MYVIMRC
   \| endif
 
 call plug#begin()
+" -- Tim Pope essentials
+" Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
+" Delete/change/add parentheses/quotes/XML-tags/much more with ease
 Plug 'tpope/vim-surround'
+" Repeat last change with `.`
 Plug 'tpope/vim-repeat'
-Plug 'andymass/vim-matchup'
-Plug 'wellle/targets.vim'
-Plug 'numToStr/Comment.nvim'
-Plug 'terryma/vim-expand-region'
+" Toggle the casing of the word under the cursor
+Plug 'tpope/vim-abolish'
+
+" -- Motions
+" Jump to any spot on-screen with a 2-char search
+Plug 'ggandor/leap.nvim'
+" enhanced f/t motions
+Plug 'ggandor/flit.nvim'
+" Easy text exchange operator
 Plug 'tommcdo/vim-exchange'
-Plug 'tpope/vim-surround'
-Plug 'chaoren/vim-wordmotion'
+" extends vim's % key to language-specific words instead of just single characters
+Plug 'andymass/vim-matchup'
+" Better word navigation
+Plug 'chaoren/vim-wordmotion' " something.cool[][0].CamelCaseACRONYMWords_unders-core1234()
+" Additional text objects
+Plug 'wellle/targets.vim'
+" Expand text selection incrementally using the same key
+Plug 'terryma/vim-expand-region'
+
+" -- Utils
+" Smart and Powerful commenting plugin
+Plug 'numToStr/Comment.nvim'
+" Turns off search highlighting post-search and reactivates it for the next search
 Plug 'romainl/vim-cool'
 call plug#end()
+
+
+" Plugins settings
+" ------------------------------------------------------------------------------
 
 if &rtp =~ 'plugged/Comment'
     lua require('Comment').setup()
 endif
 
-let mapleader = ','
-let maplocalleader = 'm'
+if &rtp =~ 'plugged/leap'
+    lua require('leap').add_repeat_mappings('<Right>', '<Left>', { relative_directions = false })
+    lua require('leap').opts.special_keys.prev_target = '<Left>'
+    lua require('leap').opts.special_keys.next_target = '<Right>'
 
-let g:surround_no_mappings= 1
-" this allows me to select envirionent variables
-let g:wordmotion_uppercase_spaces = ['=', '[', ']', '[', ']', '{', '}', '(', ')', '<', '>', "'", '"', '.', ',', ':', '/', '\', '|', '#', '$', '%', '*', '+', '!']
+    nmap <Space>   <Plug>(leap-forward-to)
+    nmap <S-Space> <Plug>(leap-backward-to)
+    xmap <Space>   <Plug>(leap-forward-to)
+    xmap <S-Space> <Plug>(leap-backward-to)
+    omap <Space>   <Plug>(leap-forward-to)
+    omap <S-Space> <Plug>(leap-backward-to)
+endif
 
-set ignorecase
-set smartcase
-set incsearch
-set iskeyword+=-
-set scrolloff=10
-set ignorecase           " case insensitive search
-set smartcase            " case sensitive when uc present
-set nostartofline
+if &rtp =~ 'plugged/flit'
+    lua require('flit').setup()
+endif
 
-" highlighting selection on yank
-au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+if &rtp =~ 'plugged/vim-exchange'
+    " Exchange the current line
+    xmap gx   <Plug>(Exchange)
+    nmap gx   cxx
+endif
+
+" if &rtp =~ 'plugged/vim-wordmotion'
+"     " Move SubWord mode to uppercase bindings
+"     let g:wordmotion_mappings = {
+"         \ 'w': 'W',
+"         \ 'b': 'B',
+"         \ 'e': 'E',
+"         \ 'ge': 'gE',
+"         \ 'aw': 'aW',
+"         \ 'iw': 'iW',
+"         \ 'W': '',
+"         \ 'B': '',
+"         \ 'E': '',
+"         \ 'gE': '',
+"         \ 'aW': '',
+"         \ 'iW': ''
+"     \ }
+" endif
+
+if &rtp =~ 'plugged/vim-surround'
+    " Disable default mappings
+    let g:surround_no_mappings= 1
+    let g:surround_no_insert_mappings= 1
+
+    xmap s   <Plug>VSurround
+    xmap S   <Plug>VgSurround
+    nmap ds  <Plug>Dsurround
+    nmap cs  <Plug>Csurround
+    nmap cS  <Plug>CSurround
+    nmap ys  <Plug>Ysurround
+    nmap yS  <Plug>YSurround
+    nmap ySs <Plug>YSsurround
+    nmap ySS <Plug>YSsurround
+    nmap yss <Plug>Yssurround
+endif
+
+if &rtp =~ 'plugged/vim-expand-region'
+    vmap v <Plug>(expand_region_expand)
+    vmap V <Plug>(expand_region_shrink)
+endif
+
 
 " Bindings
+" ------------------------------------------------------------------------------
+
+let mapleader = ','
+let maplocalleader = 'm'
 
 " <S-...>  shift-key                      shift <S-
 " <C-...>  control-key                    control ctrl <C-
@@ -61,43 +152,76 @@ au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
 " c - command-line mode
 " o - operator pending mode
 
-vnoremap y "+y
+" Ex Commands
+noremap ; :
 
-nmap ; :
-vmap ; :
-nmap # gcc
-vmap # gc
+" pattern matching without jumping
+nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
+nnoremap <silent> # :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 
-"  nnoremap <S-r> :%s/<C-R><C-W>//g<Left><Left>
-"  "  xnoremap <S-r> '"zy<Esc>:%s/<C-R>z//g<Left><Left>
-"  vnoremap <S-r> :s/"/'/g<CR>
+" Comments
+nmap <CR>   gcc
+vmap <CR>   gc
+vmap <S-CR> gb
 
-" replace the current search
-nnoremap <S-r> :%s///g<left><left>
-vnoremap <S-r> :s///g<left><left>
+" Have j and k navigate visual lines rather than logical ones
+noremap j gj
+noremap k gk
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
+" Beginning/End of line
+noremap H ^
+noremap L $
+
+" Jump to matching bracket
+noremap <tab> %
+
+" maintains the selection region when indenting/outdenting
+vnoremap < <gv
+vnoremap > >gv
+nnoremap < <<
+nnoremap > >>
+
+"binds K to opposite of J
+nnoremap K i<CR><ESC>k$
+
+" Basic cursor movement and deletion keybindings from emacs
+
+" Start of Line
+inoremap <C-a> <C-o>^
+" End of Line
+inoremap <C-e> <C-o>$
+" back one word
+inoremap <C-b> <C-o>b
+" forward one word
+inoremap <C-f> <C-o>w
+" delete to end of line
+inoremap <C-d>  <C-o><S-d>
+
+" Start of Line
+cnoremap <C-a> <Home>
+" End of Line
+cnoremap <C-e> <End>
+" back one word
+cnoremap <C-b> <S-Left>
+" forward one word
+cnoremap <C-f> <S-Right>
+" Open command-line window in normal mode
+cnoremap <C-o> <C-f>
+
+" FIXME <C-o> doesn't work in command-line mode and there doesn't seem to be
+" any other way to support this 🙁
+" delete to end of line
+" cnoremap <C-d> <C-o><S-d>
+
+nnoremap <Down> 10gj
+nnoremap <Up> 10gk
+vnoremap <Down> 10gj
+vnoremap <Up> 10gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
-vmap v <Plug>(expand_region_expand)
-vmap V <Plug>(expand_region_shrink)
-
-xmap s <Plug>VSurround
-nmap ss <Plug>Yssurround
-nmap s  <Plug>Ysurround
-nmap ds  <Plug>Dsurround
-nmap cs  <Plug>Csurround
-
-nnoremap <down> 10j
-nnoremap <up> 10k
+" VSCode settings
+" ------------------------------------------------------------------------------
 
 if exists('g:vscode')
     " VSCode extension
@@ -106,6 +230,10 @@ if exists('g:vscode')
     nmap gc  <Plug>VSCodeCommentary
     omap gc  <Plug>VSCodeCommentary
     nmap gcc <Plug>VSCodeCommentaryLine
+
+    xmap gb <Cmd>call VSCodeNotifyVisual('editor.action.blockComment', 0)<CR>
+    nmap gb <Cmd>call VSCodeNotify('editor.action.blockComment')<CR>
+    nmap gbb <Cmd>call VSCodeNotifyRange('editor.action.blockComment', line("."), line("."), 0)<CR>
 
     noremap <leader>wv <Cmd>call VSCodeNotify('workbench.action.splitEditor')<CR>
     noremap <leader>ws <Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>
@@ -130,10 +258,20 @@ if exists('g:vscode')
 
     " Files
     noremap <leader>fy <Cmd>call VSCodeNotify('copyRelativeFilePath')<CR>
-        noremap <leader>ff <Cmd>call VSCodeNotify('editor.action.formatDocument.none')<CR>
+    noremap <leader>ff <Cmd>call VSCodeNotify('editor.action.formatDocument.none')<CR>
 
-    nnoremap <space> <Cmd>call VSCodeNotify('search.action.openNewEditor')<CR>
-    xnoremap <space> <Cmd>call VSCodeNotifyVisual('search.action.openNewEditor', 0)<CR>
+    " Search and Replace in all files
+    nnoremap gr <Cmd>call VSCodeNotify('workbench.action.replaceInFiles', { 'query': expand('<cword>')})<CR>
+    xnoremap gr <Cmd>call VSCodeNotifyVisual('workbench.action.replaceInFiles', 0)<CR>
+    
+    " Search in all files
+    nnoremap gs <Cmd>call VSCodeNotify('search.action.openNewEditor', { 'query': expand('<cword>')})<CR>
+    xnoremap gs <Cmd>call VSCodeNotifyVisual('search.action.openNewEditor', 0)<CR>
+
+    " Replace
+    " FIXME `<cword>` doesn't work for `editor.action.startFindReplaceAction`
+    nnoremap <M-r> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction', { 'query': expand('<cword>')})<CR>
+    xnoremap <M-r> <Cmd>call VSCodeNotifyVisual('editor.action.startFindReplaceAction', 0)<CR>
 else
     " ordinary Neovim
 
@@ -151,3 +289,10 @@ else
     map <D-S-[> :bprevious<CR>
     map <D-S-]> :bnext<CR>
 endif
+
+
+" Misc
+" ------------------------------------------------------------------------------
+
+" highlighting selection on yank
+au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
