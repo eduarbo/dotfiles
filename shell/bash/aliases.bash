@@ -51,11 +51,6 @@ alias cp='cp -i'
 alias shred='shred -zuvn5'
 alias vanish='shred'
 
-# Always enable colored `grep` output
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
 alias agg='ag -S --hidden --line-number'
 alias rgg='rg -S --hidden --line-number'
 
