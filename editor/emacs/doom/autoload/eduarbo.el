@@ -1,19 +1,4 @@
-;;; editor/emacs/doom/autoload/eduarbo.el -*- lexical-binding: t; -*-
-
-;;;###autoload
-(defun my/find-file-in-dotfiles ()
-  "Search for a file in `dotfiles-dir'."
-  (interactive)
-  (doom-project-find-file dotfiles-dir))
-
-;;;###autoload
-(defun my/unfill-paragraph (&optional region)
-  "Takes a multi-line paragraph and makes it into a single line of text."
-  (interactive (progn
-                 (barf-if-buffer-read-only)
-                 (list t)))
-  (let ((fill-column (point-max)))
-    (fill-paragraph nil region)))
+;;; autoload/eduarbo.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (defun my/narrow-or-widen-dwim (p)
@@ -42,49 +27,29 @@ narrowed."
           (t (error "Please select a region to narrow to")))))
 
 ;;;###autoload
-(defun my-get-buffer-path-relative-to-project ()
-  "Get the current buffer's path relative to project."
-  (if-let ((root (doom-project-root))
-           (filename (or (buffer-file-name (buffer-base-buffer))
-                         (bound-and-true-p list-buffers-directory)
-                         (+file-templates-get-short-path))))
-      (abbreviate-file-name
-       (if root
-           (file-relative-name filename root)
-         filename))
-    (+file-templates-get-short-path)))
+(defun my/evil-ex-start-word-search-advice (orig-fun &rest args)
+  "Advise `evil-ex-start-word-search' to stay at the original position."
+  (apply orig-fun args)
+  (evil-ex-search-previous))
 
 ;;;###autoload
-(defun my/toggle-doom-modeline-buffer-file-name-style ()
-  "Toggle the style used by doom-modeline-buffer-file-name"
-  (interactive)
-  (let* ((current-style doom-modeline-buffer-file-name-style)
-         (styles '(relative-from-project truncate-with-project))
-         (order (cons current-style (remq current-style styles)))
-         (next (car (cdr order))))
-    (setq doom-modeline-buffer-file-name-style next)
-    (message "Switched to %s file name style" (symbol-name next))))
+(defun my/evil-visualstar-begin-search-advice (orig-fun &rest args)
+  "Advise `evil-visualstar/begin-search' to stay at the original position."
+  (let ((orig-pos (point)))
+    (apply orig-fun args)
+    (goto-char orig-pos)))
 
 ;;;###autoload
-(defun my--sort-git-remotes-a (remotes)
-  "Move upstream and origin to the top of the list"
-  (let ((upstream "upstream")
-        (origin "origin"))
-    (when (member upstream remotes) (push upstream remotes))
-    (when (member origin remotes) (push origin remotes))
-    (delete-dups remotes)))
+(defun my/embrace-js-mode-hook-h ()
+  (embrace-add-pair ?$ "${" "}"))
 
 ;;;###autoload
-(defun my/cycle-ispell-languages ()
-  "Switch to the next Ispell dictionary in ‘lang-ring’."
-  (interactive)
-  (let ((lang (ring-ref lang-ring -1)))
-    (ring-insert lang-ring lang)
-    (ispell-change-dictionary lang)))
-
-;;;###autoload
-(defun my/yank-buffer-name ()
-  "Copy the current buffer's path to the kill ring."
-  (interactive)
-  (message "Copied buffer name to clipboard: %s"
-           (kill-new (buffer-name))))
+(defun my/consult-yank-pop-replace-region (orig-fun &rest args)
+  "If the region is active and in visual state, delete it before yanking."
+  (if (and (evil-visual-state-p)
+           (region-active-p))
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (delete-region beg end)
+        (apply orig-fun args))
+    (apply orig-fun args)))

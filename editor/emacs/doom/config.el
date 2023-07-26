@@ -1,24 +1,13 @@
-;;; editor/emacs/doom/config.el -*- lexical-binding: t; -*-
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;;       ·▄▄▄▄              • ▌ ▄ ·.      ▄▄·        ▐ ▄ ·▄▄▄▪   ▄▄ •
-;;       ██▪ ██ ▪     ▪     ·██ ▐███▪    ▐█ ▌▪▪     •█▌▐█▐▄▄·██ ▐█ ▀ ▪
-;;       ▐█· ▐█▌ ▄█▀▄  ▄█▀▄ ▐█ ▌▐▌▐█·    ██ ▄▄ ▄█▀▄ ▐█▐▐▌██▪ ▐█·▄█ ▀█▄
-;;       ██. ██ ▐█▌.▐▌▐█▌.▐▌██ ██▌▐█▌    ▐███▌▐█▌.▐▌██▐█▌██▌.▐█▌▐█▄▪▐█
-;;       ▀▀▀▀▀•  ▀█▄▀▪ ▀█▄▀▪▀▀  █▪▀▀▀    ·▀▀▀  ▀█▄▀▪▀▀ █▪▀▀▀ ▀▀▀·▀▀▀▀
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
 
-
-(defvar dotfiles-dir "~/dev/eduarbo/dotfiles")
-
-;;; This is me
-(setq user-mail-address "eduarbo@gmail.com"
-      user-full-name    "Eduardo Ruiz Macias")
-
+;; Some functionality uses this to identify you, e.g. GPG configuration, email
+;; clients, file templates and snippets. It is optional.
+(setq user-full-name "Eduardo Ruiz"
+      user-mail-address "eduarbo@gmail.com")
 
 (load! "+defaults.el")
-(load! "+fonts.el")
-(load! "+bindings.el")
-(load! "+lang.el")
 (load! "+modules.el")
-(load! "+org.el")
-(load! "+org-agenda.el")
-(load! "+dashboard.el")
+(load! "+bindings.el")

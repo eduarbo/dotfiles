@@ -1,98 +1,91 @@
-;;; editor/emacs/doom/+defaults.el -*- lexical-binding: t; -*-
+;;; +defaults.el -*- lexical-binding: t; -*-
 
-;; ·▄▄▄▄  ▄▄▄ .·▄▄▄ ▄▄▄· ▄• ▄▌▄▄▌  ▄▄▄▄▄.▄▄ ·
-;; ██▪ ██ ▀▄.▀·▐▄▄·▐█ ▀█ █▪██▌██•  •██  ▐█ ▀.
-;; ▐█· ▐█▌▐▀▀▪▄██▪ ▄█▀▀█ █▌▐█▌██▪   ▐█.▪▄▀▀▀█▄
-;; ██. ██ ▐█▄▄▌██▌.▐█ ▪▐▌▐█▄█▌▐█▌▐▌ ▐█▌·▐█▄▪▐█
-;; ▀▀▀▀▀•  ▀▀▀ ▀▀▀  ▀  ▀  ▀▀▀ .▀▀▀  ▀▀▀  ▀▀▀▀
+;; -- Fonts
+
+;; make sure that the font exists before using it
+(let ((fn (doom-rpartial #'member (font-family-list))))
+  ;; the primary font to use
+  (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
+    (setq doom-font (font-spec :family font :size 14 :weight 'light)))
+
+  ;; used for `doom-big-font-mode'; use this for presentations or streaming
+  (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
+    (setq doom-big-font (font-spec :family font :size 20 :weight 'light)))
+
+  ;; a non-monospace font (where applicable)
+  (when-let (font (cl-find-if fn '("PT Sans" "Noto Serif" "ETBembo")))
+    (setq doom-variable-pitch-font (font-spec :family font)))
+
+  (setq doom-symbol-fallback-font-families '("Fira Code" "Segoe UI Symbol" "Apple Symbols"))
+
+  ;; for unicode glyphs
+  (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
+    (setq doom-unicode-font (font-spec :family font)))
+
+  ;; for the `fixed-pitch-serif' face
+  (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
+    (setq doom-serif-font (font-spec :family font)))
+  )
+
+;; Emojis font 💅
+;; NOTE I prefer Microsoft emojis but they don't have a fixed width, which breaks monospace column
+;; alignment 😕
+(setq doom-emoji-fallback-font-families '("Segoe UI Emoji" "Apple Color Emoji" "Noto Color Emoji" "Noto Emoji"))
 
 
-(setq
- epa-file-encrypt-to user-mail-address
+;; -- Theme
 
- ;; Allow me to insert accents and other symbols
- mac-option-modifier 'none
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+;; (setq doom-theme 'doom-moonlight)
+(setq doom-theme 'doom-oceanic-next)
 
- ;; Get some context when scrolling
- scroll-margin 10
 
- ;; Protecting me from data loss. Save every 20 chars typed (this is the minimum)
- auto-save-visited-interval 20
+;; -- Sane defaults
 
- ;; evil
- evil-split-window-below t
- evil-vsplit-window-right t
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory (expand-file-name "~/Documents/Docs personales/org"))
 
- ;; Which-key
- which-key-idle-delay 0.3
- which-key-idle-secondary-delay 0
- which-key-sort-order 'which-key-prefix-then-key-order
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type nil)
 
- ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
- ;; They're generally unhelpful and only add confusing visual clutter.
- mode-line-default-help-echo nil
- show-help-function nil
-
- avy-timeout-seconds 0.3
-
- ;; Show file path for files with the same base name. For example, the files `/foo/bar/mumble/name'
- ;; and `/baz/quux/mumble/name' would have the following buffer names:
- ;; bar/mumble/name    quux/mumble/name
- uniquify-buffer-name-style 'forward
-
- doom-scratch-initial-major-mode 'org-mode)
+;; Show file path for files with the same base name. For example, the files `/foo/bar/mumble/name'
+;; and `/baz/quux/mumble/name' would have the following buffer names:
+;; bar/mumble/name    quux/mumble/name
+(setq uniquify-buffer-name-style 'forward)
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
+(after! subword-mode)
+(setq global-subword-mode t)
 (add-hook! '(prog-mode-hook conf-mode-hook) #'subword-mode)
 
-;; treat symbols characters as parts of words: e.g., "this_is_a_symbol" counts as one word
-;; (global-superword-mode t)
+;; evil
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
 
-;; Line numbers are pretty slow all around. The performance boost of disabling them outweighs the
-;; utility of always keeping them on
-(remove-hook! (prog-mode text-mode conf-mode) #'display-line-numbers-mode)
-(setq display-line-numbers-type t)
-
-;; Hide indent lines
-(remove-hook! (prog-mode text-mode conf-mode) #'highlight-indent-guides-mode)
+;; Get some context when scrolling
+(setq scroll-margin 10)
 
 ;; whitespace
 (add-hook! '(prog-mode-hook conf-mode-hook) #'doom-enable-show-trailing-whitespace-h)
 
-;; Enable visual line mode for text-mode
-(add-hook! 'text-mode-hook #'visual-line-mode)
-
-;; dired
-(setq dired-use-ls-dired t)
-(when IS-MAC
-  ;; use gnu ls to allow dired to sort directories
-  (setq insert-directory-program "gls"))
-
-;; let me bind CMD-h please!
-(setq mac-pass-command-to-system nil)
-
-
-;;; Frames/Windows
-
-;; FIXME This breaks workspaces
-;; A more useful title
-;; (setq frame-title-format
-;;    '((:eval (buffer-file-name)) "   —   " (:eval (+workspace-current-name))))
+;; Allow me to insert accents and other symbols
+(setq mac-option-modifier 'none)
 
 ;; Maximize window on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+;; Hide the menu for as minimalistic a startup screen as possible.
+(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
-;;; Theme customization
+(setq +evil-repeat-keys (cons [right] [left]))
 
-(setq doom-theme 'doom-moonlight)
+;; pattern matching without jumping
+(advice-add 'evil-ex-start-word-search :around #'my/evil-ex-start-word-search-advice)
+(advice-add 'evil-visualstar/begin-search :around #'my/evil-visualstar-begin-search-advice)
 
-;; prevent blinking at startup
-(add-to-list 'default-frame-alist '(background-color . "#21242B"))
-
-(with-no-warnings
-  (custom-declare-face 'vertico-group-title '((t (:inherit font-lock-comment-face))) ""))
-
-;; HACK Fix the coloring of the output in the REPL
-;; https://github.com/emacs-ess/ESS/issues/1193#issuecomment-1144182009
-(add-hook 'comint-mode-hook #'ansi-color-for-comint-mode-filter 'append)
+;; Insert or Replace the active visual region with a yanked entry
+(advice-add 'consult-yank-pop :around #'my/consult-yank-pop-replace-region)

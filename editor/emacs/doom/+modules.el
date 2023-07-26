@@ -1,28 +1,48 @@
-;;; editor/emacs/doom/+modules.el -*- lexical-binding: t; -*-
+;;; +modules.el -*- lexical-binding: t; -*-
 
-;; • ▌ ▄ ·.       ·▄▄▄▄  ▄• ▄▌▄▄▌  ▄▄▄ ..▄▄ ·
-;; ·██ ▐███▪▪     ██▪ ██ █▪██▌██•  ▀▄.▀·▐█ ▀.
-;; ▐█ ▌▐▌▐█· ▄█▀▄ ▐█· ▐█▌█▌▐█▌██▪  ▐▀▀▪▄▄▀▀▀█▄
-;; ██ ██▌▐█▌▐█▌.▐▌██. ██ ▐█▄█▌▐█▌▐▌▐█▄▄▌▐█▄▪▐█
-;; ▀▀  █▪▀▀▀ ▀█▄▀▪▀▀▀▀▀•  ▀▀▀ .▀▀▀  ▀▀▀  ▀▀▀▀
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
+;; To get information about any of these functions/macros, move the cursor over the highlighted symbol at press 'K' (non-evil users must press 'C-c c k'). This will open documentation for it, including demos of how they are used. Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
 
 
-;; ┏━╸┏━┓┏┳┓┏━┓┏━┓┏┓╻╻ ╻
-;; ┃  ┃ ┃┃┃┃┣━┛┣━┫┃┗┫┗┳┛
-;; ┗━╸┗━┛╹ ╹╹  ╹ ╹╹ ╹ ╹
+;; -- Word wrap
 
-(after! company
-  ;; On-demand code completion
-  (setq company-idle-delay nil)
-
-  ;; Sort by occurrence and group by backend (very useful for file completion)
-  ;; (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance))
-  )
+;; enable word-wrap (almost) everywhere
+(+global-word-wrap-mode +1)
 
 
-;; ┏━╸╻ ╻╻╻     ┏━┓┏┓╻╻┏━┓┏━╸
-;; ┣╸ ┃┏┛┃┃  ╺━╸┗━┓┃┗┫┃┣━┛┣╸
-;; ┗━╸┗┛ ╹┗━╸   ┗━┛╹ ╹╹╹  ┗━╸
+;; -- Evil Snipe
 
 ;; Do not override my bindings!
 (setq
@@ -34,92 +54,12 @@
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 
-;; ┏━╸╻┏━╸╻  ┏━╸╺┳╸
-;; ┣╸ ┃┃╺┓┃  ┣╸  ┃
-;; ╹  ╹┗━┛┗━╸┗━╸ ╹
+;; -- Projectile
 
-(use-package! figlet
-  :config
-  (setq figlet-default-font "Future"))
+(setq projectile-project-search-path '(("~/dev" . 2)))
 
 
-;; ╻  ┏━┓┏━┓
-;; ┃  ┗━┓┣━┛
-;; ┗━╸┗━┛╹
-
-;; A guide on disabling/enabling lsp-mode features:
-;;   https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-;; Settings:
-;;   https://emacs-lsp.github.io/lsp-mode/page/settings/
-
-;; If an LSP server isn't present when I start a prog-mode buffer, you don't need to tell me. I
-;; know. On some systems I don't care to have a whole development environment for some ecosystems.
-(setq +lsp-prompt-to-install-server 'quiet)
-
-(after! lsp-mode
-  (setq
-   ;; Follow the instructions to setup ESLint in LSP server:
-   ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
-   lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
-   lsp-enable-symbol-highlighting nil
-   lsp-lens-enable nil
-   lsp-headerline-breadcrumb-enable nil
-   ;; lsp-modeline-code-actions-enable nil
-   ;; lsp-diagnostics-provider :none
-   ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
-   ;; limiting the number of lines to display in eldoc
-   lsp-eldoc-enable-hover nil
-   ;; lsp-modeline-diagnostics-enable nil
-   lsp-signature-auto-activate nil ;; you could manually request them via `lsp-signature-activate`
-   lsp-signature-render-documentation nil
-   ;; lsp-completion-provider :none
-   ;; lsp-completion-show-detail nil
-   ;; lsp-completion-show-kind nil
-
-   lsp-enable-snippet nil
-   ;; lsp-modeline-diagnostics-scope :file
-   ;; lsp-signature-doc-lines 5
-   lsp-enable-file-watchers nil
-   ;; lsp-auto-execute-action nil
-   ))
-
-;; If you are in a buffer with `lsp-mode' enabled and a server that supports
-;; `textDocument/formatting', it will be used instead of `format-all's
-;; formatter. Unfortunately typescript does not seem to be respecting my
-;; settings, and is slower than format-all so I prefer to disable it
-;; universally.
-(after! format-all
-  (setq +format-with-lsp nil))
-
-;; To disable this behavior in one mode use:
-;; (setq-hook! 'typescript-tsx-mode-hook +format-with-lsp nil)
-
-
-;; ┏┳┓┏━┓┏━╸╻╺┳╸
-;; ┃┃┃┣━┫┃╺┓┃ ┃
-;; ╹ ╹╹ ╹┗━┛╹ ╹
-
-(after! magit
-  (setq
-   magit-revision-show-gravatars '("^Author:     " . "^Commit:     ")
-   magit-repository-directories '(("~/dev" . 2))
-   ;; Don't restore the wconf after quitting magit, it's jarring
-   magit-inhibit-save-previous-winconf t
-   transient-values '((magit-rebase "--autosquash" "--autostash")
-                      (magit-pull "--rebase" "--autostash"))))
-
-
-;; ┏┳┓┏━┓┏━┓┏━╸╻┏┓╻┏━┓╻  ╻┏━┓
-;; ┃┃┃┣━┫┣┳┛┃╺┓┃┃┗┫┣━┫┃  ┃┣━┫
-;; ╹ ╹╹ ╹╹┗╸┗━┛╹╹ ╹╹ ╹┗━╸╹╹ ╹
-
-(after! marginalia
-  (setq marginalia-field-width 800))
-
-
-;; ┏┳┓┏━┓╺┳┓┏━╸╻  ╻┏┓╻┏━╸
-;; ┃┃┃┃ ┃ ┃┃┣╸ ┃  ┃┃┗┫┣╸
-;; ╹ ╹┗━┛╺┻┛┗━╸┗━╸╹╹ ╹┗━╸
+;; -- Modeline
 
 (after! doom-modeline
   (setq
@@ -166,74 +106,62 @@
     '(misc-info github vcs lsp input-method buffer-encoding buffer-size major-mode process " ")))
 
 
-;; ┏━┓┏━┓┏━┓ ┏┓┏━╸┏━╸╺┳╸╻╻  ┏━╸
-;; ┣━┛┣┳┛┃ ┃  ┃┣╸ ┃   ┃ ┃┃  ┣╸
-;; ╹  ╹┗╸┗━┛┗━┛┗━╸┗━╸ ╹ ╹┗━╸┗━╸
+;; -- LSP
 
-(setq projectile-project-search-path '(("~/dev" . 2)))
+(after! lsp-mode
+  (setq
+   ;; Follow the instructions to setup ESLint in LSP server:
+   ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
+   lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
+   lsp-enable-symbol-highlighting nil
+   lsp-lens-enable nil
+   lsp-headerline-breadcrumb-enable nil
+   ;; lsp-modeline-code-actions-enable nil
+   ;; lsp-diagnostics-provider :none
+   ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
+   ;; limiting the number of lines to display in eldoc
+   lsp-eldoc-enable-hover nil
+   ;; lsp-modeline-diagnostics-enable nil
+   lsp-signature-auto-activate nil ;; you could manually request them via `lsp-signature-activate`
+   lsp-signature-render-documentation nil
+   ;; lsp-completion-provider :none
+   ;; lsp-completion-show-detail nil
+   ;; lsp-completion-show-kind nil
 
+   lsp-enable-snippet nil
+   ;; lsp-modeline-diagnostics-scope :file
+   ;; lsp-signature-doc-lines 5
+   lsp-enable-file-watchers nil
+   ;; lsp-auto-execute-action nil
+   lsp-use-plists t
+   ))
 
-;; ┏━┓┏━┓┏━╸╻  ╻
-;; ┗━┓┣━┛┣╸ ┃  ┃
-;; ┗━┛╹  ┗━╸┗━╸┗━╸
-
-(after! ispell
-  (setq ispell-extra-args '("--sug-mode=ultra" "--run-together" "--camel-case"))
-  (setq ispell-dictionary "english")
-  (setq ispell-personal-dictionary
-        (substitute-in-file-name (expand-file-name (concat "ispell/" ispell-dictionary ".pws")
-                                                   doom-data-dir))))
-
-(add-hook! '(ispell-change-dictionary-hook flyspell-mode-hook)
-  (defun +spell-sync-local-personaly-dictionary-h ()
-    "Sync personal dictionary with Ispell's"
-    (when-let (lang (or ispell-local-dictionary ispell-dictionary))
-      (setq-local ispell-personal-dictionary (expand-file-name (concat "ispell/" lang ".pws")
-                                                               doom-data-dir))
-      (setq-local ispell-complete-word-dict (expand-file-name (concat "ispell/" lang ".dict")
-                                                              doom-data-dir)))))
-
-;; Quickly switch dictionaries
-;; Adapted from DiogoRamos' snippet on https://www.emacswiki.org/emacs/FlySpell#h5o-5
-(let ((langs '("spanish" "english")))
-  (defvar lang-ring (make-ring (length langs))
-    "List of Ispell dictionaries you can switch to using `my/cycle-ispell-languages'.")
-  (dolist (elem langs) (ring-insert lang-ring elem)))
-
-
-;; ╺┳╸┏━┓┏━╸┏━╸┏┳┓┏━┓┏━╸┏━┓
-;;  ┃ ┣┳┛┣╸ ┣╸ ┃┃┃┣━┫┃  ┗━┓
-;;  ╹ ╹┗╸┗━╸┗━╸╹ ╹╹ ╹┗━╸┗━┛
-
-(after! treemacs
-  ;; Prefer a monospace font for treemacs
-  (setq doom-themes-treemacs-enable-variable-pitch nil))
+;; If you are in a buffer with `lsp-mode' enabled and a server that supports
+;; `textDocument/formatting', it will be used instead of `format-all's
+;; formatter. Unfortunately typescript does not seem to be respecting my
+;; settings, and is slower than format-all so I prefer to disable it
+;; universally.
+(after! format-all
+  (setq +format-with-lsp nil))
 
 
-;; ╺━┓┏━╸┏┓╻
-;; ┏━┛┣╸ ┃┗┫
-;; ┗━╸┗━╸╹ ╹
+;; -- Company
 
-(setq +zen-text-scale 3)
+(after! company
+  ;; On-demand code completion
+  (setq company-idle-delay nil)
 
-(add-hook! 'writeroom-mode-hook
-  (defun +zen-better-line-spacing-mode-h ()
-    "Set bigger line-spacing and center text vertically"
-    (setq-local default-text-properties (if writeroom-mode '(line-spacing 0.6 line-height 1.6) nil)))
+  ;; Sort by occurrence and group by backend (very useful for file completion)
+  ;; (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance))
+  )
 
-  (defun +zen-fix-mixed-pitch-mode-h ()
-    "`solaire-mode' and make `mixed-pitch-mode' are incompatible since both
-     remaps faces. To fix that disable `solaire-mode' when enabling `mixed-pitch-mode'"
-    ;; https://www.reddit.com/r/DoomEmacs/comments/l9jy0h/how_does_variablepitchmode_work_and_why_does_it/gljibj9
-    (solaire-mode (if writeroom-mode -1 +1))))
 
-(after! mixed-pitch
-  (pushnew! mixed-pitch-fixed-pitch-faces
-            'org-hide
-            'org-drawer
-            'org-done
-            'org-ellipsis
-            'hl-todo
-            'warning
-            'success
-            'error))
+;; -- Evil Surround/Embrace
+
+(add-hook! '(js-mode-hook web-mode-hook) 'my/embrace-js-mode-hook-h)
+(setq evil-embrace-evil-surround-keys '(?\( ?\[ ?\{ ?\) ?\] ?\} ?\" ?\' ?< ?> ?b ?B ?t ?\C-\[ ?w ?W ?s ?p ?`))
+
+
+;; -- Ace window
+
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))

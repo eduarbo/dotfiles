@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: describe
-# key: describe
-# uuid: describe
-# --
-describe('${1:name}', () => {
-  `%`$0
-});
