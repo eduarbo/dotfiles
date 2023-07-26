@@ -57,9 +57,6 @@
       :n    ">"             #'evil-shift-right-line
       :n    "<"             #'evil-shift-left-line
 
-      :gi   "C-a"           #'forward-word
-      :gi   "C-a"           #'forward-qword
-
       :nv   "C-a"           #'evil-numbers/inc-at-pt
       :nv   "C-x"           #'evil-numbers/dec-at-pt
 
