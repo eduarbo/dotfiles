@@ -43,10 +43,14 @@ pip_deps=(
   grip
 )
 
+# NPM packages:
+# - vscode-langservers-extracted for LSP
+
 install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
+      xcode-select --install
       # Enable Cask of fonts
       brew tap homebrew/cask-fonts
       brew install ${cask_fonts_deps[@]}
@@ -56,15 +60,15 @@ install() {
       ;;
   esac
 
-  # Clone and setup doom-emacs
-  _ensure_repo eduarbo/doom-emacs $XDG_CONFIG_HOME/emacs develop
+  # Clone and setup doomemacs
+  _ensure_repo eduarbo/doomemacs $XDG_CONFIG_HOME/emacs master
 
-  $XDG_CONFIG_HOME/emacs/bin/doom -y install
+  $XDG_CONFIG_HOME/emacs/bin/doom install
 }
 
 update() {
-  doom -y upgrade
-  doom -y build
+  doom upgrade
+  doom build
 }
 
 link() {
