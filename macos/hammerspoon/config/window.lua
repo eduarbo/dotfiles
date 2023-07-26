@@ -20,18 +20,17 @@ hs.window.filter.ignoreAlways["FirefoxCP WebExtensions"] = true
 -- ┗━┛╹┗╸╹╺┻┛
 -- Grid
 
-hs.grid.setGrid("5x3", nil, nil)
+hs.grid.setGrid("3x3", nil, nil)
 hs.grid.setMargins({0, 0})
 -- For the full list of keycodes look at:
     -- https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/keycodes/keycodes.lua
     -- https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/utf8/utf8.lua#L247-L294
-hs.keycodes.map['␡'] = 0x232B
-hs.grid.HINTS = {
-    {'f6', 'f7', 'f8', 'f9', 'f10'},
-    {'6', '7', '8', '9', '0'},
-    {'Y', 'U', 'I', 'O', 'P'},
-    {'H', 'J', 'K', 'L', ';'},
-    {'N', 'M', ',', '.', '␡'}
+hs.grid.HINTS={
+    {'f7', 'f8', 'f9'},
+    {'7' , '8' , '9' },
+    {'U' , 'I' , 'O' },
+    {'J' , 'K' , 'L' },
+    {'M' , ',' , '.' }
 }
 
 -- UI options: https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/grid/grid.lua#L650
@@ -51,8 +50,8 @@ local function resizeWindow(arrowKeys)
     local rightHalf = arrowKeys[2]
 
     local rectMap = {
-        [leftHalf] = {0, 0, 0.5, 1}, -- left half
-        [rightHalf] = {0.5, 0, 0.5, 1}, -- right half
+        [leftHalf] = {0, 0, 0.5, 1},
+        [rightHalf] = {0.5, 0, 0.5, 1},
         [leftHalf .. rightHalf] = {0, 0, 1, 1} -- full screen
     }
 

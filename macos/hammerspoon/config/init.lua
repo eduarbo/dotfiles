@@ -83,7 +83,6 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         e = "Emacs",
         f = "Finder",
         g = "Microsoft Edge Dev",
-        -- h = hs.reload,
         -- h = "", -- already bound to reload 🔨🥄
         -- i = "",
         -- j = "",
