@@ -90,3 +90,7 @@
 
 ;; Insert or Replace the active visual region with a yanked entry
 (advice-add 'consult-yank-pop :around #'my/consult-yank-pop-replace-region)
+
+;; Cycle through results using "flycheck-next-error" & "flycheck-previous-error"
+(advice-add 'flycheck-next-error :around #'my/flycheck-next-error-wrapper)
+(advice-add 'flycheck-previous-error :around #'my/flycheck-previous-error-wrapper)

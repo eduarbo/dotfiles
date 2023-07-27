@@ -101,3 +101,17 @@ narrowed."
     (setq my--window-enlargen-active-p nil)
     (remove-hook 'window-selection-change-functions 'my--enlarge-active-window)
     (balance-windows)))
+
+;;;###autoload
+(defun my/flycheck-next-error-wrapper (orig-fun &rest args)
+  "Wrap `flycheck-next-error' to make it cycle."
+  (condition-case err
+      (apply orig-fun args)
+    (user-error (apply orig-fun '(1 reset)))))
+
+;;;###autoload
+(defun my/flycheck-previous-error-wrapper (orig-fun &rest args)
+  "Wrap `flycheck-previous-error' to make it cycle."
+  (condition-case err
+      (apply orig-fun args)
+    (user-error (apply orig-fun '(-1 reset)))))
