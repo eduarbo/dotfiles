@@ -42,11 +42,6 @@
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 
-;; -- Projectile
-
-(setq projectile-project-search-path '(("~/dev" . 2)))
-
-
 ;; -- Modeline
 
 (after! doom-modeline
