@@ -67,16 +67,16 @@ if &rtp =~ 'plugged/Comment'
 endif
 
 if &rtp =~ 'plugged/leap'
-    lua require('leap').add_repeat_mappings('<Right>', '<Left>', { relative_directions = false })
-    lua require('leap').opts.special_keys.prev_target = '<Left>'
-    lua require('leap').opts.special_keys.next_target = '<Right>'
+    lua require('leap').add_repeat_mappings('<C-.>', '<C-,>', { relative_directions = false })
+    lua require('leap').opts.special_keys.prev_target = '<C-.>'
+    lua require('leap').opts.special_keys.next_target = '<C-.>'
 
-    nmap <Space>   <Plug>(leap-forward-to)
-    nmap <S-Space> <Plug>(leap-backward-to)
-    xmap <Space>   <Plug>(leap-forward-to)
-    xmap <S-Space> <Plug>(leap-backward-to)
-    omap <Space>   <Plug>(leap-forward-to)
-    omap <S-Space> <Plug>(leap-backward-to)
+    nmap gs <Plug>(leap-forward-to)
+    nmap gS <Plug>(leap-backward-to)
+    xmap gs <Plug>(leap-forward-to)
+    xmap gS <Plug>(leap-backward-to)
+    omap gs <Plug>(leap-forward-to)
+    omap gS <Plug>(leap-backward-to)
 endif
 
 if &rtp =~ 'plugged/flit'
@@ -117,11 +117,11 @@ if &rtp =~ 'plugged/vim-surround'
     nmap ds  <Plug>Dsurround
     nmap cs  <Plug>Csurround
     nmap cS  <Plug>CSurround
-    nmap ys  <Plug>Ysurround
-    nmap yS  <Plug>YSurround
-    nmap ySs <Plug>YSsurround
-    nmap ySS <Plug>YSsurround
-    nmap yss <Plug>Yssurround
+    nmap s   <Plug>Ysurround
+    nmap S   <Plug>YSurround
+    nmap Ss  <Plug>YSsurround
+    nmap SS  <Plug>YSsurround
+    nmap ss  <Plug>Yssurround
 endif
 
 if &rtp =~ 'plugged/vim-expand-region'
@@ -159,24 +159,40 @@ let maplocalleader = 'm'
 noremap ; :
 
 " pattern matching without jumping
+" TODO add support to visual mode
 nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> # :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 
+" Jump to matching bracket
+vnoremap <CR> %
+
 " Comments
-nmap <CR>   gcc
-vmap <CR>   gc
-vmap <S-CR> gb
+nmap <S-CR>   gcc
+vmap <S-CR>   gc
+" Block comment
+" vmap <S-CR>   gb
+
+" Insert line above
+imap <S-CR>   <C-o>O
+
+" Visualstar
+map <space> *
+
+" Indent
+inoremap <S-space> <tab>
+
+" Toggle fold
+nnoremap <tab> za
+onoremap <tab> <C-C>za
+vnoremap <tab> zf
 
 " Have j and k navigate visual lines rather than logical ones
 noremap j gj
 noremap k gk
 
 " Beginning/End of line
-noremap H ^
-noremap L $
-
-" Jump to matching bracket
-noremap <tab> %
+noremap <Left>  ^
+noremap <Right> $
 
 " maintains the selection region when indenting/outdenting
 vnoremap < <gv
@@ -185,7 +201,8 @@ nnoremap < <<
 nnoremap > >>
 
 "binds K to opposite of J
-nnoremap K i<CR><ESC>k$
+nnoremap <S-BS> i<CR><ESC>k$
+" nnoremap <S-DEL> i<CR><ESC>k$
 
 " Basic cursor movement and deletion keybindings from emacs
 
@@ -281,12 +298,6 @@ else
     " Split windows
     nnoremap <Leader>ws <C-w>s
     nnoremap <Leader>wv <C-w>v
-
-    " Navigation between window
-    " nnoremap <C-h> <C-w>h
-    " nnoremap <C-j> <C-w>j
-    " nnoremap <C-k> <C-w>k
-    " nnoremap <C-l> <C-w>l
 
     " FIXME Doesn't work in kitty
     map <D-S-[> :bprevious<CR>
