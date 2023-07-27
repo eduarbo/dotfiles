@@ -1,5 +1,8 @@
 ;;; +bindings.el -*- lexical-binding: t; -*-
 
+;; rebind default repeating keys to ← → keys
+(setq +evil-repeat-keys (cons [right] [left]))
+
 (map! :i    [S-return]      #'+default/newline-above
       :i    "S-SPC"         #'indent-for-tab-command
 

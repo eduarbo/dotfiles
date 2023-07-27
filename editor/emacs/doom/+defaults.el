@@ -70,7 +70,7 @@
 ;; Get some context when scrolling
 (setq scroll-margin 10)
 
-;; whitespace
+;; Show whitespace
 (add-hook! '(prog-mode-hook conf-mode-hook) #'doom-enable-show-trailing-whitespace-h)
 
 ;; Allow me to insert accents and other symbols
@@ -82,7 +82,8 @@
 ;; Hide the menu for as minimalistic a startup screen as possible.
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
-(setq +evil-repeat-keys (cons [right] [left]))
+;; Set
+(setq projectile-project-search-path '(("~/dev" . 2) ("~/Library/Mobile Documents/iCloud~md~obsidian/Documents" . 2)))
 
 ;; pattern matching without jumping
 (advice-add 'evil-ex-start-word-search :around #'my/evil-ex-start-word-search-advice)
@@ -90,7 +91,3 @@
 
 ;; Insert or Replace the active visual region with a yanked entry
 (advice-add 'consult-yank-pop :around #'my/consult-yank-pop-replace-region)
-
-;; Cycle through results using "flycheck-next-error" & "flycheck-previous-error"
-(advice-add 'flycheck-next-error :around #'my/flycheck-next-error-wrapper)
-(advice-add 'flycheck-previous-error :around #'my/flycheck-previous-error-wrapper)
