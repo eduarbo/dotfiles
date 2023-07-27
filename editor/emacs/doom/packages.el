@@ -51,7 +51,7 @@
 
 ;; ESC key is easily reachable in my custom kbd layout
 (package! evil-escape :disable t)
-(package! docker-tramp :disable t)
+
 ;; so annoying
 (package! lsp-ui :disable t)
 (package! emmet-mode :disable t)

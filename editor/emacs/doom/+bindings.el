@@ -7,29 +7,27 @@
       :v    "SPC"           #'evil-visualstar/begin-search-forward
       :nv   "S-SPC"         #'+default/search-project
       ;; :nv   "S-SPC"         #'+default/search-project-for-symbol-at-point
+      :nv   "C-SPC"         #'lsp-rename
 
       :v    [S-return]      #'evilnc-comment-operator
       :n    [S-return]      #'evilnc-comment-or-uncomment-lines
+      :in   [C-return]      #'lsp-execute-code-action
 
       :m    "RET"           #'evil-jump-item
 
       :nv   ";"             #'evil-ex
       :nv   ":"             #'pp-eval-expression
 
-      ;; :nv   [left]          #'
-      ;; :nv   [right]         #'
-
-      :inv  "C-,"           #'evil-snipe-repeat-reverse
-      :inv  "C-."           #'evil-snipe-repeat
-
       :m    "k"             #'evil-previous-visual-line
       :m    "j"             #'evil-next-visual-line
 
-      :nv   "H"             #'evil-first-non-blank-of-visual-line
-      :nv   "L"             #'evil-end-of-line-or-visual-line
+      :nv   "H"             #'flycheck-previous-error
+      :nv   "L"             #'flycheck-next-error
 
       :nv   [up]            (λ! (evil-previous-visual-line 10))
       :nv   [down]          (λ! (evil-next-visual-line 10))
+      :nv   [left]          #'evil-first-non-blank-of-visual-line
+      :nv   [right]         #'evil-end-of-line-or-visual-line
 
       :m    [S-up]          #'drag-stuff-up
       :m    [S-down]        #'drag-stuff-down
@@ -49,13 +47,20 @@
                               'evil-visual-char)
       :v    "V"             #'er/contract-region
 
-      :nv   "X"             #'doom/open-project-scratch-buffer
+      :nv   "X"             #'consult-flycheck
 
       :n    "="             #'indent-according-to-mode
       :v    "="             #'evil-indent
 
       :n    ">"             #'evil-shift-right-line
       :n    "<"             #'evil-shift-left-line
+
+      :inv  "C-,"           #'evil-snipe-repeat-reverse
+      :inv  "C-."           #'evil-snipe-repeat
+      (:map magit-mode-map
+       :inv  "C-,"          #'magit-section-backward-sibling
+       :inv  "C-."          #'magit-section-forward-sibling)
+
 
       :nv   "C-a"           #'evil-numbers/inc-at-pt
       :nv   "C-x"           #'evil-numbers/dec-at-pt
@@ -86,14 +91,14 @@
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
       (:map helpful-mode-map
-       :gn    "s-["           #'help-go-back
-       :gn    "s-]"           #'help-go-forward)
+       :gn   "s-["           #'help-go-back
+       :gn   "s-]"           #'help-go-forward)
       (:map Info-mode-map
-       :gn    "s-["           #'Info-history-back
-       :gn    "s-]"           #'Info-history-forward)
+       :gn   "s-["           #'Info-history-back
+       :gn   "s-]"           #'Info-history-forward)
       (:map git-timemachine-mode-map
-       :gn    "s-["           #'git-timemachine-show-previous-revision
-       :gn    "s-]"           #'git-timemachine-show-next-revision)
+       :gn   "s-["           #'git-timemachine-show-previous-revision
+       :gn   "s-]"           #'git-timemachine-show-next-revision)
 
       :mi    "s-{"           #'+workspace/switch-left
       :mi    "s-}"           #'+workspace/switch-right
@@ -107,7 +112,7 @@
       ;; tries to have precedence over most other keymaps (including minor
       ;; modes’), so it doesn’t get overwritten by a careless package/minor mode
       (:map general-override-mode-map
-       :g     "s-e"           #'execute-extended-command)
+       :g    "s-e"           #'execute-extended-command)
 
       :g     "s-g"           #'magit-status
       :g     "s-i"           #'+format/region-or-buffer
@@ -119,7 +124,20 @@
       :n     "s-r"           #'+eval/open-repl-other-window
       :v     "s-r"           #'+eval:region
       :g     "s-u"           #'evil-window-mru
-      :g     "s-y"           #'+default/yank-pop)
+      :g     "s-y"           #'+default/yank-pop
+
+      (:map with-editor-mode-map
+       :g    "s-s"    #'with-editor-finish
+       :g    "s-k"    #'with-editor-cancel
+       :g    "s-w"    #'with-editor-cancel)
+      (:map (wgrep-mode-map grep-mode-map)
+       :g    "s-s"    #'wgrep-finish-edit
+       :g    "s-k"    #'wgrep-abort-changes
+       :g    "s-w"    #'wgrep-abort-changes)
+      (:map snippet-mode-map
+       :g    "s-s"    #'yas-load-snippet-buffer-and-close
+       :g    "s-k"    #'+snippet--abort
+       :g    "s-w"    #'+snippet--abort))
 
 
 ;; -- Smart tab: these will only work in GUI Emacs
@@ -159,9 +177,11 @@
       :desc "Switch workspace"                  "TAB"           #'persp-switch
       :desc "Yank buffer name"                  "b y"           #'my/yank-buffer-name
       :desc "Yank buffer"                       "b Y"           #'+default/yank-buffer-contents
+      :desc "List errors in buffer"             "c x"           #'consult-flycheck
+      :desc "List errors in buffer/project"     "c X"           #'+default/diagnostics
       :desc "Window Enlargen mode"              "t e"           #'my/window-enlargen-mode
       :desc "Enlargen mode"                     "w e"           #'my/window-enlargen-mode
-      :desc "Select a window"                   "w w"           #'ace-window
+      :desc "Select a window"                   "w w"           #'switch-window
       :desc "M-x"                               ";"             #'execute-extended-command
       :desc "Find file in project"              "SPC"           #'projectile-find-file
       :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer
@@ -221,3 +241,39 @@
 
       "C-."     #'yas-next-field
       "C-,"     #'yas-prev-field)
+
+(map! :localleader :map markdown-mode-map
+      :desc "Bold"              "b" #'markdown-insert-bold
+      :desc "Inline code"       "c" #'markdown-insert-code
+      :desc "Code block"        "C" #'markdown-insert-gfm-code-block
+      :desc "Footnote"          "f" #'markdown-insert-footnote
+      :desc "Header dwim"       "h" #'markdown-insert-header-dwim
+      :desc "<hr>"              "H" #'markdown-insert-hr
+      :desc "Italic"            "i" #'markdown-insert-italic
+      :desc "Image"             "I" #'markdown-insert-image
+      :desc "Link"              "k" #'markdown-insert-link
+      :desc "Kbd"               "K" #'markdown-insert-kbd
+      :desc "Wiki link"         "l" #'markdown-insert-wiki-link
+      :desc "Table Of Content"  "o" #'markdown-toc-generate-toc
+      :desc "Pre"               "P" #'markdown-insert-pre
+      :desc "New blockquote"    "q" #'markdown-insert-blockquote
+      :desc "Blockquote region" "Q" #'markdown-blockquote-region
+      :desc "Strike through"    "s" #'markdown-insert-strike-through
+      :desc "Table"             "T" #'markdown-insert-table
+      :desc "Checkbox"          "x" #'markdown-insert-gfm-checkbox
+      :desc "Heading 1"         "1" #'markdown-insert-header-atx-1
+      :desc "Heading 2"         "2" #'markdown-insert-header-atx-2
+      :desc "Heading 3"         "3" #'markdown-insert-header-atx-3
+      :desc "Heading 4"         "4" #'markdown-insert-header-atx-4
+      :desc "Heading 5"         "5" #'markdown-insert-header-atx-5
+      :desc "Heading 6"         "6" #'markdown-insert-header-atx-6)
+
+(map! :after vertico :map vertico-map
+      "S-SPC"    #'+vertico/embark-export-write
+      [S-return] #'+vertico/embark-export-write
+      "TAB"      #'vertico-next-group
+      [backtab]  #'vertico-previous-group
+      "C-."      #'vertico-next-group
+      "C-,"      #'vertico-previous-group
+      "C-l"      #'vertico-scroll-up
+      "C-h"      #'vertico-scroll-down)

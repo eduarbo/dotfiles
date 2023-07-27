@@ -23,18 +23,6 @@
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
 ;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-;; To get information about any of these functions/macros, move the cursor over the highlighted symbol at press 'K' (non-evil users must press 'C-c c k'). This will open documentation for it, including demos of how they are used. Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-
 
 ;; -- Word wrap
 
@@ -121,7 +109,8 @@
    ;; FIXME Disabled until figure out why `lsp-signature-doc-lines' is not
    ;; limiting the number of lines to display in eldoc
    lsp-eldoc-enable-hover nil
-   ;; lsp-modeline-diagnostics-enable nil
+   lsp-modeline-diagnostics-enable nil
+   lsp-modeline-diagnostics-scope :file
    lsp-signature-auto-activate nil ;; you could manually request them via `lsp-signature-activate`
    lsp-signature-render-documentation nil
    ;; lsp-completion-provider :none
@@ -129,12 +118,22 @@
    ;; lsp-completion-show-kind nil
 
    lsp-enable-snippet nil
-   ;; lsp-modeline-diagnostics-scope :file
    ;; lsp-signature-doc-lines 5
    lsp-enable-file-watchers nil
    ;; lsp-auto-execute-action nil
-   lsp-use-plists t
-   ))
+   lsp-use-plists t))
+
+;; FIXME Disabling lsp-eslint until figure out why LSP is not reporting eslint errors
+(after! lsp-mode
+  (setq lsp-eslint-enable nil))
+(add-hook! 'lsp-after-initialize-hook
+  (defun my/js--run-lsp-checker-after-eslint-h ()
+    "make sure to run lsp checker (slower) after eslint (faster)"
+    (flycheck-add-next-checker 'javascript-eslint 'lsp)))
+(add-hook! '(js-mode-hook web-mode-hook)
+  (defun my/js--fix-eslint-checker2-h ()
+    "set eslint as the default checker"
+    (setq flycheck-checker 'javascript-eslint)))
 
 ;; If you are in a buffer with `lsp-mode' enabled and a server that supports
 ;; `textDocument/formatting', it will be used instead of `format-all's
@@ -167,7 +166,3 @@
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
 
 
-;;; -- VimL
-
-(use-package! vimrc-mode
-  :mode "\\.?vim\\(rc\\)?")
