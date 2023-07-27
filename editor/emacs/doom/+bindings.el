@@ -180,6 +180,7 @@
       :desc "List errors in buffer"             "c x"           #'consult-flycheck
       :desc "List errors in buffer/project"     "c X"           #'+default/diagnostics
       :desc "Window Enlargen mode"              "t e"           #'my/window-enlargen-mode
+      :desc "Line numbers mode"                 "t l"           #'display-line-numbers-mode
       :desc "Enlargen mode"                     "w e"           #'my/window-enlargen-mode
       :desc "Select a window"                   "w w"           #'switch-window
       :desc "M-x"                               ";"             #'execute-extended-command
