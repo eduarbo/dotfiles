@@ -48,9 +48,10 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory (expand-file-name "~/Documents/Docs personales/org"))
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type nil)
+;; Line numbers are pretty slow all around. The performance boost of disabling them outweighs the
+;; utility of always keeping them on
+(remove-hook! '(prog-mode-hook text-mode-hook conf-mode-hook) #'display-line-numbers-mode)
+(setq display-line-numbers-type t)
 
 ;; Show file path for files with the same base name. For example, the files `/foo/bar/mumble/name'
 ;; and `/baz/quux/mumble/name' would have the following buffer names:
