@@ -15,9 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (setq doom-leader-key ",")
-(setq doom-leader-alt-key "s-,")
-(setq doom-localleader-key ", m")
-(setq doom-localleader-alt-key "s-, m")
+(setq doom-localleader-key "s-m")
 
 (doom! :input
        ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
@@ -27,6 +25,7 @@
 
        :completion
        (company          ; the ultimate code completion backend
+        +childframe
         ;; +tng
         )
        ;;helm              ; the *other* search engine for love and life
@@ -58,7 +57,8 @@
        ;;unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       ;;window-select     ; visually switch windows
+       (window-select    ; visually switch windows
+        +switch-window)
        workspaces        ; tab emulation, persistence & separate workspaces
        zen               ; distraction-free coding or writing
 
@@ -95,7 +95,7 @@
        ;;vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
+       syntax            ; tasing you for every semicolon you forget
        ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
@@ -105,7 +105,7 @@
        ;;collab            ; buffers with friends
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
-       ;; docker
+       docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -154,11 +154,11 @@
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        (go +lsp)         ; the hipster dialect
-       ;;(graphql +lsp)    ; Give queries a REST
+       (graphql +lsp)    ; Give queries a REST
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
-       json              ; At least it ain't XML
+       (json +lsp)       ; At least it ain't XML
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        (javascript       ; all(hope(abandon(ye(who(enter(here))))))
         +lsp)
