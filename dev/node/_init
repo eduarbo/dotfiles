@@ -69,7 +69,6 @@ install_latest_node_version_as_global() {
       esac
     done
   fi
-  
 }
 
 uninstall_orphan_node_versions() {
