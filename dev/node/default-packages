@@ -1,6 +1,7 @@
 bash-language-server
 dockerfile-language-server-nodejs
 eslint-config-airbnb-base
+eslint-config-airbnb
 eslint-config-prettier
 eslint-plugin-import
 eslint-plugin-jest
