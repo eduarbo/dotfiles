@@ -5,3 +5,5 @@ path=( $XDG_CONFIG_HOME/emacs/bin "${path[@]}" )
 # For better perfomance use plists for deserialization
 # https://emacs-lsp.github.io/lsp-mode/page/performance/#use-plists-for-deserialization
 export LSP_USE_PLISTS=true
+
+export DOOMDIR="$XDG_CONFIG_HOME/doom/"
