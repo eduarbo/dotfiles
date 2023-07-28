@@ -24,69 +24,17 @@
 ;; - `map!' for binding new keys
 ;;
 
-;; -- Word wrap
-
-;; enable word-wrap (almost) everywhere
-(+global-word-wrap-mode +1)
-
-
 ;; -- Evil Snipe
 
 ;; Do not override my bindings!
-(setq
- evil-snipe-repeat-keys nil
- evil-snipe-enable-incremental-highlight nil
- evil-snipe-override-evil-repeat-keys nil)
-
-;; Unbind evil-snipe-S
-(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-
-
-;; -- Modeline
-
-(after! doom-modeline
+(after! evil-snipe
   (setq
-   ;; Given ~/Projects/FOSS/emacs/lisp/comint.el
-   ;; truncate-with-project => emacs/l/comint.el
-   ;; relative-from-project => emacs/lisp/comint.el
-   doom-modeline-buffer-file-name-style 'relative-from-project
-   ;; doom-modeline-buffer-file-name-style 'truncate-with-project
-   ;; Whether display the buffer encoding
-   doom-modeline-buffer-encoding t
-   ;; Whether display the modal state icon.
-   ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc
-   doom-modeline-modal-icon t
-   ;; Whether display the modification icon for the buffer
-   doom-modeline-buffer-modification-icon nil
-   ;; Whether display the icon for `major-mode'
-   doom-modeline-major-mode-icon t
-   ;; The maximum displayed length of the branch name of version control
-   doom-modeline-vcs-max-length 18
-   ;; Whether display the GitHub notifications. It requires `ghub' package
-   doom-modeline-github t
-   ;; If non-nil, only display one number for checker information if applicable
-   doom-modeline-checker-simple-format t)
+   evil-snipe-repeat-keys nil
+   evil-snipe-enable-incremental-highlight nil
+   evil-snipe-override-evil-repeat-keys nil))
 
-  ;; customize modeline segments
-  (doom-modeline-def-segment clean-matches
-    "an alternative to the built-in matches segment without fallback (buffer size indicator)"
-    (concat
-     ;; 1. the currently recording macro
-     (doom-modeline--macro-recording)
-     ;; 2. A current/total for the current search term (with `anzu')
-     (doom-modeline--anzu)
-     (doom-modeline--phi-search)
-     ;; 3. The number of substitutions being conducted with `evil-ex-substitute', and/or
-     (doom-modeline--evil-substitute)
-     ;; 4. The number of active `iedit' regions
-     (doom-modeline--iedit)
-     ;; 5. The current/total for the highlight term (with `symbol-overlay')
-     (doom-modeline--symbol-overlay)
-     ;; 6. The number of active `multiple-cursors'.
-     (doom-modeline--multiple-cursors)))
-  (doom-modeline-def-modeline 'main
-    '(hud modals clean-matches checker buffer-info remote-host buffer-position selection-info)
-    '(misc-info github vcs lsp input-method buffer-encoding buffer-size major-mode process " ")))
+;; Unbind default mapping for evil-snipe-S
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 
 ;; -- LSP
@@ -118,7 +66,7 @@
    ;; lsp-auto-execute-action nil
    lsp-use-plists t))
 
-;; FIXME Disabling lsp-eslint until figure out why LSP is not reporting eslint errors
+;; FIXME Disabling `lsp-eslint' until figure out why LSP is not reporting eslint errors
 (after! lsp-mode
   (setq lsp-eslint-enable nil))
 (add-hook! 'lsp-after-initialize-hook
@@ -130,11 +78,9 @@
     "set eslint as the default checker"
     (setq flycheck-checker 'javascript-eslint)))
 
-;; If you are in a buffer with `lsp-mode' enabled and a server that supports
-;; `textDocument/formatting', it will be used instead of `format-all's
-;; formatter. Unfortunately typescript does not seem to be respecting my
-;; settings, and is slower than format-all so I prefer to disable it
-;; universally.
+;; If you are in a buffer with `lsp-mode' enabled and a server that supports `textDocument/formatting', it will be used
+;; instead of `format-all's formatter. Unfortunately typescript does not seem to be respecting my settings, and is
+;; slower than format-all so I prefer to disable it universally.
 (after! format-all
   (setq +format-with-lsp nil))
 
@@ -150,14 +96,57 @@
   )
 
 
+;; -- Flycheck
+
+(after! flycheck
+  ;; The following advice is a workaround for a performance issue when opening files, particularly JavaScript files,
+  ;; where the existence check of eslint configuration is causing noticeable delays.  By overriding
+  ;; `flycheck-eslint-config-exists-p' to always return true, we bypass the file existence check, thus significantly
+  ;; improving file opening times.
+  ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
+
+
+;; -- Editorconfig
+
+(after! editorconfig
+  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level web-mode-code-indent-offset))
+  ;; Override editorconfig defaults for web-mode to fix indentation
+  (setcdr (assq 'web-mode editorconfig-indentation-alist)
+          '((web-mode-indent-style lambda (size) 2)
+            ;; I prefer the web mode attr indent behavior when it's set to nil
+            ;;
+            ;; <a href="http://google.com"
+            ;;    target="_blank">See how the attributes line up vertically?</a>
+            ;;
+            ;; web-mode-attr-indent-offset
+            ;; web-mode-attr-value-indent-offset
+
+            ;; web-mode-block-padding
+            web-mode-code-indent-offset
+            web-mode-css-indent-offset
+            web-mode-markup-indent-offset
+            web-mode-sql-indent-offset
+            web-mode-script-padding
+            web-mode-style-padding
+            standard-indent)))
+
+
 ;; -- Evil Surround/Embrace
 
-(add-hook! '(js-mode-hook web-mode-hook) 'my/embrace-js-mode-hook-h)
-(setq evil-embrace-evil-surround-keys '(?\( ?\[ ?\{ ?\) ?\] ?\} ?\" ?\' ?< ?> ?b ?B ?t ?\C-\[ ?w ?W ?s ?p ?`))
+(after! evil-embrace
+  ;; allow the use of backtick as a surround char in all modes by default
+  (add-to-list 'evil-embrace-evil-surround-keys ?`)
+
+  ;; Temporarily disables the backtick surround for emacs-lisp-mode to avoid overriding the emacs-lisp-mode specific
+  ;; embrace pair that's setup in this hook
+  (advice-add 'embrace-emacs-lisp-mode-hook :around #'my/embrace-emacs-lisp-mode-hook-advice))
+
+(add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook) 'my/embrace-js-mode-h)
 
 
-;; -- Ace window
+;; -- REPL
 
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
-
+;; Set a default REPL for all the js-related modes
+(set-repl-handler! '(rjsx-mode web-mode typescript-mode) #'+javascript/open-repl)
 

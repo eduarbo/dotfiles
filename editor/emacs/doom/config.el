@@ -9,5 +9,6 @@
       user-mail-address "eduarbo@gmail.com")
 
 (load! "+defaults.el")
+(load! "+ui.el")
 (load! "+modules.el")
 (load! "+bindings.el")

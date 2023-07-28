@@ -184,7 +184,8 @@
       :desc "List errors in buffer/project"     "c X"           #'+default/diagnostics
       :desc "Window Enlargen mode"              "t e"           #'my/window-enlargen-mode
       :desc "Line numbers mode"                 "t l"           #'display-line-numbers-mode
-      :desc "Enlargen mode"                     "w e"           #'my/window-enlargen-mode
+      :desc "Enlargen mode"                     "w o"           #'my/window-enlargen-mode
+      :desc "Enlarge window"                    "w O"           #'doom/window-enlargen
       :desc "Select a window"                   "w w"           #'switch-window
       :desc "M-x"                               ";"             #'execute-extended-command
       :desc "Find file in project"              "SPC"           #'projectile-find-file
