@@ -110,7 +110,7 @@
 |     `Z` | nv   | --                                                        |
 |     `/` | nv   | Start a forward search                                    |
 |     `;` | nv   | Ex command                                                |
-|     `:` | nv   | Evaluate EXPRESSION                                       |
+|     `:` | nv   | Eval                                                      |
 |     `~` | nv   | Invert case of character                                  |
 |     `'` | nv   | Go to the line of the marker specified by CHAR            |
 | `` ` `` | nv   | Go to the marker specified by CHAR                        |
@@ -125,7 +125,7 @@
 |   `BSP` | n    | Join line to previous                                     |
 | `S-BSP` | n    | Split line                                                |
 
-## `g`o-to prefix
+## Goto prefix
 
 |      key | mode | description                                                             |
 |---------:|:----:|:------------------------------------------------------------------------|
@@ -165,59 +165,59 @@
 |     `gz` | nv   | Additional multiple cursors bindings                                    |
 |     `g~` | nv   | Swap case                                                               |
 |     `g?` | nv   | Caesar cipher rotate                                                    |
-|     `g;` | nv   | Go to last change                                                       |
+|     `g;` | nv   | Eval                                                                    |
 |     `g,` | nv   | Go to last change backwards                                             |
-|     `g.` | -    | -                                                                       |
+|     `g.` | nv   | Go to last change                                                       |
 
 ## Control
 
-|   key | mode       | description                                              |
-|------:|:----------:|----------------------------------------------------------|
-| `C-a` | nv         | Decrement number                                         |
-| `C-a` | i          | Start of line _(after whitespace)_                       |
-| `C-b` | m          | Scroll up in the window                                  |
-| `C-b` | i          | Previous word                                            |
-| `C-c` |            |                                                          |
-| `C-d` | m          | Scroll down in the window                                |
-| `C-d` | i          | Delete to end of line                                    |
-| `C-e` | m          | Scroll window one line up                                |
-| `C-e` | i          | End of line                                              |
-| `C-f` | m          | Scroll down one screen                                   |
-| `C-f` | i          | Next word                                                |
-| `C-g` | g          | Cancel                                                   |
-| `C-h` | inv        | Move to left window                                      |
-| `C-i` | nv         | Jump forward                                             |
-| `C-i` | i          | Same as TAB                                              |
-| `C-j` | inv        | Move to lower window                                     |
-| `C-k` | inv        | Move to upper window                                     |
-| `C-l` | inv        | Move to right window                                     |
-| `C-m` | invc       | Same as Enter                                            |
-| `C-n` | nv         | Switch to next kill-ring entry after pasting             |
-| `C-n` | ic         | Auto-complete next match                                 |
-| `C-o` | nv         | Jump backward                                            |
-| `C-o` | i          | Execute one command, return to Insert mode               |
-| `C-p` | nv         | Switch to previous kill-ring entry after pasting         |
-| `C-p` | ic         | Auto-complete previous match                             |
-| `C-q` | inv        | **CAN REBIND** Insert CTRL character                     |
-| `C-r` | inv        | Redo                                                     |
-| `C-s` | inv        | **CAN REBIND** Incremental search forward                |
-| `C-t` | nv         | **CAN REBIND** Create a new workspace                    |
-| `C-t` | i          | Shift the current line COUNT times to the right          |
-| `C-u` | nv         | Scroll half-page up                                      |
-| `C-u` | i          | Delete to start of line                                  |
-| `C-v` | nv         | Visual block mode                                        |
-| `C-v` | i          | **CAN REBIND** Insert CTRL character                     |
-| `C-w` | nv         | Additional window bindings                               |
-| `C-w` | i          | Delete word backward                                     |
-| `C-x` | i          | Additional bindings                                      |
-| `C-x` | nv         | Decrement number                                         |
-| `C-y` | nv         | Scroll window one line down                              |
-| `C-y` | i          | Copies the text of the same column from the line above   |
-| `C-z` | inv        | Suspend frame                                            |
-| `C-;` | g          | Open an `embark-act` menu to chose a useful action       |
-| `C-;` | evil-snipe | Quickly hop into avy/evil-easymotion right after a snipe |
-| `C-.` | inv        | Repeat the last evil-snipe                               |
-| `C-,` | inv        | Repeat the inverse of the last evil-snipe                |
+|   key | mode       | description                                            |
+|------:|:----------:|--------------------------------------------------------|
+| `C-a` | nv         | Decrement number                                       |
+| `C-a` | i          | Start of line _(after whitespace)_                     |
+| `C-b` | m          | Scroll up in the window                                |
+| `C-b` | i          | Previous word                                          |
+| `C-c` |            |                                                        |
+| `C-d` | m          | Scroll down in the window                              |
+| `C-d` | i          | Delete to end of line                                  |
+| `C-e` | m          | Scroll window one line up                              |
+| `C-e` | i          | End of line                                            |
+| `C-f` | m          | Scroll down one screen                                 |
+| `C-f` | i          | Next word                                              |
+| `C-g` | g          | Cancel                                                 |
+| `C-h` | inv        | Move to left window                                    |
+| `C-i` | nv         | Jump forward                                           |
+| `C-i` | i          | Same as TAB                                            |
+| `C-j` | inv        | Move to lower window                                   |
+| `C-k` | inv        | Move to upper window                                   |
+| `C-l` | inv        | Move to right window                                   |
+| `C-m` | invc       | Same as Enter                                          |
+| `C-n` | nv         | Switch to next kill-ring entry after pasting           |
+| `C-n` | ic         | Auto-complete next match                               |
+| `C-o` | nv         | Jump backward                                          |
+| `C-o` | i          | Execute one command, return to Insert mode             |
+| `C-p` | nv         | Switch to previous kill-ring entry after pasting       |
+| `C-p` | ic         | Auto-complete previous match                           |
+| `C-q` | inv        | **CAN REBIND** Insert CTRL character                   |
+| `C-r` | inv        | Redo                                                   |
+| `C-s` | inv        | **CAN REBIND** Incremental search forward              |
+| `C-t` | nv         | **CAN REBIND** Create a new workspace                  |
+| `C-t` | i          | Shift the current line COUNT times to the right        |
+| `C-u` | nv         | Scroll half-page up                                    |
+| `C-u` | i          | Delete to start of line                                |
+| `C-v` | nv         | Visual block mode                                      |
+| `C-v` | i          | **CAN REBIND** Insert CTRL character                   |
+| `C-w` | nv         | Additional window bindings                             |
+| `C-w` | i          | Delete word backward                                   |
+| `C-x` | i          | Additional bindings                                    |
+| `C-x` | nv         | Decrement number                                       |
+| `C-y` | nv         | Scroll window one line down                            |
+| `C-y` | i          | Copies the text of the same column from the line above |
+| `C-z` | inv        | Suspend frame                                          |
+| `C-;` | g          | Open an `embark-act` menu to chose a useful action     |
+| `C-;` | evil-snipe | Quickly hop into `evil-easymotion` right after a snipe |
+| `C-.` | inv        | Repeat the last evil-snipe                             |
+| `C-,` | inv        | Repeat the inverse of the last evil-snipe              |
 
 ## Command
 
