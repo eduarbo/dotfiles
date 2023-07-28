@@ -40,7 +40,7 @@ narrowed."
     (goto-char orig-pos)))
 
 ;;;###autoload
-(defun my/embrace-js-mode-hook-h ()
+(defun my/embrace-js-mode-h ()
   (embrace-add-pair ?$ "${" "}"))
 
 ;;;###autoload
@@ -101,3 +101,9 @@ narrowed."
     (setq my--window-enlargen-active-p nil)
     (remove-hook 'window-selection-change-functions 'my--enlarge-active-window)
     (balance-windows)))
+
+;;;###autoload
+(defun my/embrace-emacs-lisp-mode-hook-advice (orig-fun &rest args)
+  "Remove the backtick from `evil-embrace-evil-surround-keys' in `emacs-lisp-mode.'"
+  (let ((evil-embrace-evil-surround-keys (delq ?` evil-embrace-evil-surround-keys)))
+    (apply orig-fun args)))
