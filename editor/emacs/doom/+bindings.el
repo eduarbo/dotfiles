@@ -31,6 +31,9 @@
       :nv   [down]          (λ! (evil-next-visual-line 10))
       :nv   [left]          #'evil-first-non-blank-of-visual-line
       :nv   [right]         #'evil-end-of-line-or-visual-line
+      (:map magit-mode-map
+       :g   [left]         #'magit-section-backward-sibling
+       :g   [right]        #'magit-section-forward-sibling)
 
       :m    [S-up]          #'drag-stuff-up
       :m    [S-down]        #'drag-stuff-down
@@ -61,8 +64,8 @@
       :inv  "C-,"           #'evil-snipe-repeat-reverse
       :inv  "C-."           #'evil-snipe-repeat
       (:map magit-mode-map
-       :inv  "C-,"          #'magit-section-backward-sibling
-       :inv  "C-."          #'magit-section-forward-sibling)
+       :g    "C-,"          #'magit-section-backward
+       :g    "C-."          #'magit-section-forward)
 
 
       :nv   "C-a"           #'evil-numbers/inc-at-pt
@@ -90,6 +93,7 @@
 
 
 ;; -- macOS shortcuts
+
 (map! :when IS-MAC
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
@@ -209,7 +213,7 @@
          :desc "Previous workspace"        "["   #'+workspace/switch-left)))
 
 
-;; -- [g]o-to prefix
+;; -- goto prefix
 
 (map! :prefix "g"
       :nv "j"     #'avy-goto-line-below
@@ -219,7 +223,9 @@
       :nv "O"     (λ! (let ((avy-all-windows t)) (avy-goto-char-timer)))
       :nv "s"     #'evil-snipe-s
       :nv "S"     #'evil-snipe-S
-      :nv "w"     #'transpose-words)
+      :nv "w"     #'transpose-words
+      :nv "."     #'evil-goto-last-change
+      :nv ";"     #'pp-eval-expression)
 
 
 ;; -- Modules
