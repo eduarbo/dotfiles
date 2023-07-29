@@ -6,25 +6,31 @@
 (let ((fn (doom-rpartial #'member (font-family-list))))
   ;; the primary font to use
   (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
-    (setq doom-font (font-spec :family font :size 14 :weight 'light)))
+    (setq doom-font (font-spec :family font :size 14 :weight 'light))
+    (setq doom-big-font (font-spec :family font :size 20 :weight 'light))
+    (setq doom-unicode-font (font-spec :family font))
+    (setq doom-serif-font (font-spec :family font)))
 
-  ;; used for `doom-big-font-mode'; use this for presentations or streaming
-  (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
-    (setq doom-big-font (font-spec :family font :size 20 :weight 'light)))
+  ;; (when-let (font (cl-find-if fn '("JuliaMono" "JetBrains Mono" "Hack")))
+  ;;   (setq doom-font (font-spec :family font :size 14 :weight 'light)))
+
+  ;; ;; used for `doom-big-font-mode'; use this for presentations or streaming
+  ;; (when-let (font (cl-find-if fn '("JuliaMono" "JetBrains Mono" "Hack")))
+  ;;   (setq doom-big-font (font-spec :family font :size 20 :weight 'light)))
 
   ;; a non-monospace font (where applicable)
   (when-let (font (cl-find-if fn '("PT Sans" "Noto Serif" "ETBembo")))
     (setq doom-variable-pitch-font (font-spec :family font)))
 
-  (setq doom-symbol-fallback-font-families '("Fira Code" "Segoe UI Symbol" "Apple Symbols"))
+  ;; (setq doom-symbol-fallback-font-families '("JuliaMono" "Fira Code" "Segoe UI Symbol" "Apple Symbols"))
 
-  ;; for unicode glyphs
-  (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
-    (setq doom-unicode-font (font-spec :family font)))
+  ;; ;; for unicode glyphs
+  ;; (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
+  ;;   (setq doom-unicode-font (font-spec :family font)))
 
-  ;; for the `fixed-pitch-serif' face
-  (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
-    (setq doom-serif-font (font-spec :family font)))
+  ;; ;; for the `fixed-pitch-serif' face
+  ;; (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
+  ;;   (setq doom-serif-font (font-spec :family font)))
   )
 
 ;; Emojis font 💅
@@ -35,15 +41,15 @@
 
 ;; -- Theme
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-moonlight)
 (setq doom-theme 'doom-oceanic-next)
 
-;; HACK Fix the coloring of the output in the REPL
+;; HACK Fix the output color in the REPL
 ;; https://github.com/emacs-ess/ESS/issues/1193#issuecomment-1144182009
 (add-hook 'comint-mode-hook #'ansi-color-for-comint-mode-filter 'append)
+
+(blink-cursor-mode 1)
+
+(setq doom-themes-treemacs-theme "doom-colors")
 
 
 ;; -- Modeline

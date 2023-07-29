@@ -80,10 +80,10 @@
 
       ;; Window navigation
       (:map general-override-mode-map
-       :g   "C-j"           #'evil-window-down
-       :g   "C-k"           #'evil-window-up
-       :g   "C-l"           #'evil-window-right
-       :g   "C-h"           #'evil-window-left)
+       :gnvi "C-j"          #'evil-window-down
+       :gnvi "C-k"          #'evil-window-up
+       :gnvi "C-l"          #'evil-window-right
+       :gnvi "C-h"          #'evil-window-left)
 
       ;; Leaving Emacs state unbound, my accidental visits always turn into a quest for an escape route!
       :im    "C-z"          nil
@@ -187,6 +187,7 @@
       :desc "List errors in buffer/project"     "c X"           #'+default/diagnostics
       :desc "Window Enlargen mode"              "t e"           #'my/window-enlargen-mode
       :desc "Line numbers mode"                 "t l"           #'display-line-numbers-mode
+      :desc "Balance windows"                   "w b"           #'balance-windows
       :desc "Enlargen mode"                     "w o"           #'my/window-enlargen-mode
       :desc "Enlarge window"                    "w O"           #'doom/window-enlargen
       :desc "Select a window"                   "w w"           #'switch-window
@@ -292,11 +293,15 @@
       :desc "Heading 6"         "6" #'markdown-insert-header-atx-6)
 
 (map! :after vertico :map vertico-map
-      "S-SPC"    #'+vertico/embark-export-write
+      "S-SPC"    #'+vertico/embark-preview
       [S-return] #'+vertico/embark-export-write
-      "TAB"      #'vertico-next-group
-      [backtab]  #'vertico-previous-group
+      "TAB"      #'vertico-insert
+      [backtab]  #'vertico-directory-up
       "C-."      #'vertico-next-group
       "C-,"      #'vertico-previous-group
       "C-l"      #'vertico-scroll-up
       "C-h"      #'vertico-scroll-down)
+
+(map! :after embark :map minibuffer-local-map
+      "C-SPC"    #'embark-act
+      [C-return] #'embark-export)
