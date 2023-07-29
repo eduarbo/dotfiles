@@ -3,9 +3,9 @@
 A tidy `$HOME` is a tidy mind.
 
 
-![Neofetch - Aug-2018 Screenshot of macOS High Sierra](assets/neofetch.png)
+![Kitty and Emacs - Jul-2023 Screenshot of macOS Ventura](assets/kitty-emacs.png)
 
-![Workflow - Aug-2018 Screenshot of macOS High Sierra](assets/workflow.png)
+![Doom Emacs - Jul-2023 Screenshot of macOS Ventura](assets/doom-emacs.png)
 
 These are my dotfiles, designed primarily for macOS and *Debian (well... it has
 only been tested on Ubuntu Server 20.04 ¯\\\_(ツ)\_/¯), heavily inspired by
@@ -115,7 +115,6 @@ Just [add your SSH Key](https://docs.github.com/en/authentication/connecting-to-
 
 ## Relevant projects/resources
 
-+ [Wallpapers](https://drive.google.com/drive/folders/1FRy0ZOvau2A1Rp7hU8GE0dM8O_cIKhf-) (pulled by `shell/zsh`)
-+ [DOOM Emacs](https://github.com/hlissner/doom-emacs) (pulled by `editor/emacs`)
++ [DOOM Emacs](https://github.com/doomemacs/doomemacs) (pulled by `editor/emacs`)
 + [Pacmux Tmux theme](https://github.com/eduarbo/pacmux) (pulled by `shell/tmux`)
 + [Simpl ZSH prompt](https://github.com/eduarbo/simpl) (pulled by `shell/zsh`)
