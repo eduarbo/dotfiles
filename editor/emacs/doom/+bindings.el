@@ -76,14 +76,14 @@
       ;; :gi   "C-d"           #'sp-delete-word
       :gi   "C-d"           #'kill-line
       (:map evil-markdown-mode-map
-       :gi   "C-d"           #'kill-line)
+       :gi   "C-d"          #'kill-line)
 
       ;; Window navigation
       (:map general-override-mode-map
-       :in   "C-j"           #'evil-window-down
-       :in   "C-k"           #'evil-window-up
-       :in   "C-l"           #'evil-window-right
-       :in   "C-h"           #'evil-window-left)
+       :g   "C-j"           #'evil-window-down
+       :g   "C-k"           #'evil-window-up
+       :g   "C-l"           #'evil-window-right
+       :g   "C-h"           #'evil-window-left)
 
       ;; Leaving Emacs state unbound, my accidental visits always turn into a quest for an escape route!
       :im    "C-z"          nil
