@@ -67,7 +67,6 @@
        :g    "C-,"          #'magit-section-backward
        :g    "C-."          #'magit-section-forward)
 
-
       :nv   "C-a"           #'evil-numbers/inc-at-pt
       :nv   "C-x"           #'evil-numbers/dec-at-pt
 
@@ -191,12 +190,25 @@
       :desc "Enlargen mode"                     "w o"           #'my/window-enlargen-mode
       :desc "Enlarge window"                    "w O"           #'doom/window-enlargen
       :desc "Select a window"                   "w w"           #'switch-window
+                                                ":"             nil
       :desc "M-x"                               ";"             #'execute-extended-command
       :desc "Find file in project"              "SPC"           #'projectile-find-file
       :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer
 
+      ;;; <leader> d --- delete
       (:when (modulep! :ui workspaces)
-        (:prefix-map ("k" . "workspace")
+        (:prefix-map ("d" . "delete")
+         :desc "Buffer"                 "b"   #'kill-current-buffer
+         :desc "Kill buried buffers"    "k"   #'doom/kill-buried-buffers
+         :desc "Workspace"              "l"   #'+workspace/delete
+         :desc "Bookmark"               "m"   #'bookmark-delete
+         :desc "Other buffers"          "o"   #'doom/kill-other-buffers
+         :desc "Window or workspace"    "w"   #'+workspace/close-window-or-workspace
+         :desc "Session"                "x"   #'+workspace/kill-session))
+
+      ;;; <leader> l --- workspace (mnemonic for layer)
+      (:when (modulep! :ui workspaces)
+        (:prefix-map ("l" . "workspace")
          :desc "Display tab bar"           "TAB" #'+workspace/display
          :desc "Switch workspace"          "."   #'+workspace/switch-to
          :desc "Switch to last workspace"  "`"   #'+workspace/other
