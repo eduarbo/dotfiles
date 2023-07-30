@@ -4,42 +4,37 @@
 
 ;; make sure that the font exists before using it
 (let ((fn (doom-rpartial #'member (font-family-list))))
-  ;; the primary font to use
   (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
+    ;; the primary font to use
     (setq doom-font (font-spec :family font :size 14 :weight 'light))
     (setq doom-big-font (font-spec :family font :size 20 :weight 'light))
-    (setq doom-unicode-font (font-spec :family font))
+
+    ;; Fallback font for Unicode glyphs
+    (setq doom-unicode-font (font-spec :family font :weight 'light)))
+
+  ;; a monospace serif font (where applicable)
+  (when-let (font (cl-find-if fn '("IBM Plex Mono" "Fira Code")))
     (setq doom-serif-font (font-spec :family font)))
-
-  ;; (when-let (font (cl-find-if fn '("JuliaMono" "JetBrains Mono" "Hack")))
-  ;;   (setq doom-font (font-spec :family font :size 14 :weight 'light)))
-
-  ;; ;; used for `doom-big-font-mode'; use this for presentations or streaming
-  ;; (when-let (font (cl-find-if fn '("JuliaMono" "JetBrains Mono" "Hack")))
-  ;;   (setq doom-big-font (font-spec :family font :size 20 :weight 'light)))
 
   ;; a non-monospace font (where applicable)
   (when-let (font (cl-find-if fn '("PT Sans" "Noto Serif" "ETBembo")))
-    (setq doom-variable-pitch-font (font-spec :family font)))
-
-  ;; (setq doom-symbol-fallback-font-families '("JuliaMono" "Fira Code" "Segoe UI Symbol" "Apple Symbols"))
-
-  ;; ;; for unicode glyphs
-  ;; (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
-  ;;   (setq doom-unicode-font (font-spec :family font)))
-
-  ;; ;; for the `fixed-pitch-serif' face
-  ;; (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
-  ;;   (setq doom-serif-font (font-spec :family font)))
-  )
+    (setq doom-variable-pitch-font (font-spec :family font))))
 
 ;; Emojis font 💅
-;; NOTE I prefer Microsoft emojis but they don't have a fixed width, which breaks monospace column
-;; alignment 😕
+;; NOTE I prefer Microsoft emojis but they don't have a fixed width, which breaks monospace column alignment 😕
 (setq doom-emoji-fallback-font-families '("Segoe UI Emoji" "Apple Color Emoji" "Noto Color Emoji" "Noto Emoji"))
 
-
 ;; -- Theme
+
+;; Workaround to ensure that nothing else gets in front of my `custom-theme-directory' after initialization. Doom's core
+;; is supposed to handle this, but it isn't working correctly, so I've mimicked its approach within a hook
+
+(add-hook! 'doom-init-ui-hook
+  (defun my/prioritize-custom-theme-directory-h ()
+    "Prioritize my custom them path over all other themes"
+    (setq custom-theme-load-path
+          (cons custom-theme-directory
+                (delq 'custom-theme-directory custom-theme-load-path)))))
 
 (setq doom-theme 'doom-oceanic-next)
 
