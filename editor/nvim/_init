@@ -4,6 +4,7 @@ source ${0:A:h}/../../deploy
 NVIM_CONFIG_DIR="$XDG_CONFIG_HOME/nvim"
 NVIM_DATA_DIR="$XDG_DATA_HOME/nvim"
 NVIM_CACHE_DIR="$XDG_CACHE_HOME/nvim"
+PLUGDIR="$NVIM_DATA_DIR/site/autoload/plug.vim"
 
 brew_deps=(
   neovim
@@ -15,9 +16,7 @@ install() {
     macos)  brew install ${brew_deps[@]} ;;
   esac
 
-  PLUGDIR="$NVIM_DATA_DIR/site/autoload/plug.vim"
-
-	[ -f "$PLUGDIR" ] || curl -fLo $PLUGDIR --create-dirs \
+  [ -f "$PLUGDIR" ] || curl -fLo $PLUGDIR --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   nvim --headless +PlugInstall +qall
 }

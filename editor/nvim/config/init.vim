@@ -164,7 +164,7 @@ nnoremap <silent> * :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 nnoremap <silent> # :let @/= '\<' . expand('<cword>') . '\>' <bar> set hls <cr>
 
 " Jump to matching bracket
-vnoremap <CR> %
+map <CR> %
 
 " Comments
 nmap <S-CR>   gcc

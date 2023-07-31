@@ -36,15 +36,20 @@ The following are the categories and topics available to install:
   - `apps` - collection of macOS apps that I use on a daily basis
   - `defaults` - bare essentials for macOS
   - `hammerspoon` - a bunch of lua scripts to boost my productivity
-  - `kitty` - well, in fact there is a better macOS terminal
+    - window manager
+    - quick app launcher
+    - push-to-talk mic
+    - audio output switcher
+  - `kitty` - A purr-fectly powerful and feature-rich terminal
   - `karabiner` - powerful keyboard customizer
 
 - `misc/` - Very handy apps & tools
-  - `surfingkeys` - vim-like bindings for Google Chrome & Firefox
+  - `surfingkeys` - bringing the power of Vim to the browser
 
 - `editor/` - Configuration for my text editors
   - `emacs` - the best of Emacs and Vim in one place
-  - `vim` - for quick file editing
+  - `nvim` - for quick file editing
+  - `coding-style` - Tools to enforce coding style because consistency is king
 
 - `shell/` - Shell utilities
   - `bash` - not my default shell but doesn't hurt to have a basic config
