@@ -93,6 +93,21 @@
     '(hud modals clean-matches checker buffer-info remote-host buffer-position selection-info)
     '(misc-info github vcs lsp input-method buffer-encoding buffer-size major-mode process " ")))
 
+(custom-set-faces!
+  '(bold
+    :weight semibold)
+  '(doom-modeline-project-dir
+    :weight regular
+    :inherit font-lock-string-face)
+  '(doom-modeline-buffer-path
+    :weight regular
+    :inherit doom-modeline-emphasis)
+  '(doom-modeline-buffer-file
+    :weight bold)
+  '(doom-modeline-buffer-modified
+    :weight bold
+    :inherit error))
+
 
 ;; -- Frame
 
