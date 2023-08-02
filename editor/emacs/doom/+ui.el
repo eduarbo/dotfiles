@@ -6,7 +6,7 @@
 (let ((fn (doom-rpartial #'member (font-family-list))))
   (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
     ;; the primary font to use
-    (setq doom-font (font-spec :family font :size 14 :weight 'light))
+    (setq doom-font (font-spec :family font :size 16 :weight 'light))
     (setq doom-big-font (font-spec :family font :size 20 :weight 'light))
 
     ;; Fallback font for Unicode glyphs
