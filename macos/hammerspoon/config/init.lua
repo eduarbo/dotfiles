@@ -59,17 +59,22 @@ hs.hotkey.bind(mods.super, "k", hs.grid.show)
 window.bindResize(mods.super, {"h", "l"})
 hs.hotkey.bind(mods.super, "j", window.moveToNextScreen)
 
+hs.hotkey.bind(
+  mods.super, "n",
+  function()
+    hs.application.launchOrFocus("MacGPT")
+  end
+)
 -- M: Taken by MacGPT
 -- Comma: Taken by Alfred (Universal Action)
 
 -- Lock screen
-hs.hotkey.bind(mods.super, ".", hs.caffeinate.lockScreen)
+hs.hotkey.bind(mods.super, ";", hs.caffeinate.lockScreen)
 
 
 -- Hyper layer: Launcher
 -----------------------------------------------
-
--- FIXME I tried to map "." and "," but it never worked for the hyper layer
+-- NOTE Cannot map `,` and `.` because they are already bound to sysdiagnose at system level
 
 hs.hotkey.bind(mods.hyper, "h", hs.reload)
 
