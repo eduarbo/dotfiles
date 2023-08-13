@@ -105,3 +105,29 @@ function _cache {
 function _cache_clear {
   command rm -rfv $XDG_CACHE_HOME/${SHELL##*/}/*;
 }
+
+_backup() {
+  delete_after_backup=false
+  BASE_BACKUP_DIR="${TMPDIR}/dotfiles"
+
+  # Check if the first argument is the delete flag
+  if [[ "$1" == "-d" || "$1" == "--delete" ]]; then
+    delete_after_backup=true
+    shift # Shift arguments to remove the flag
+  fi
+
+  mkdir -p "$BASE_BACKUP_DIR"
+  for file in "$@"; do
+    # Check if the file exists and is not a symlink
+    if [[ -e $file && ! -L $file ]]; then
+      dest="$BASE_BACKUP_DIR/$(basename "$file").$(date +%Y%m%d%H%M%S)"
+      cp -r "$file" "$dest"
+      if $delete_after_backup; then
+        rm -rf "$file"
+        echo "$file deleted, you can find a backup in $dest"
+      else
+        echo "Backup of $file made in $dest"
+      fi
+    fi
+  done
+}
