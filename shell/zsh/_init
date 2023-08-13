@@ -47,13 +47,17 @@ install() {
       ;;
   esac
 
-  [[ $SHELL == */zsh ]] || sudo chsh -s $(which zsh) $(whoami)
-
   local zsh="$(command -v zsh)"
+
+  echo "Please enter your sudo password to set ZSH as the default shell:"
+  sudo -v
+
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
   sudo tee $zshenv <<<"export ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
+
   mkdir -p "$XDG_DATA_HOME/zsh"
 
+  sudo chsh -s $zsh $(whoami)
   exec $zsh
 }
 
@@ -66,35 +70,25 @@ update() {
     zinit compile --all
   fi
 
-  _upgrade
-}
-
-link() {
-  mkdir -p "$ZSH_CACHE"
-  mklink {.z*,functions,figlet-fonts} $ZDOTDIR/
-}
-
-clean() {
-  rm -rfv "$ZDOTDIR" "$ZSH_CACHE/*";
-
-  case $(_os) in
-    macos)
-      rm -f "~/.zshenv"
-      ;;
-  esac
-
-  # Go back to bash
-  sudo chsh -s $(command -v bash) $(whoami)
-  exec bash
-}
-
-_upgrade() {
   case $(_os) in
     macos)
       brew upgrade ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
+      ;;
+  esac
+}
+
+link() {
+  mkdir -p "$ZSH_CACHE"
+  mklink {.z*,functions,figlet-fonts,p10k.zsh} $ZDOTDIR/
+}
+
+clean() {
+  case $(_os) in
+    macos)
+      _backup --delete "~/.zshenv"
       ;;
   esac
 }

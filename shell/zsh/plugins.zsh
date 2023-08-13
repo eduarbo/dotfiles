@@ -24,37 +24,13 @@ zinit snippet https://cheat.sh/:zsh
 zinit ice wait"2" lucid as"program" pick"bin/git-dsf"; zinit light zdharma-continuum/zsh-diff-so-fancy
 zinit ice wait"2" lucid as"program" pick"bin/git-*"; zinit light tj/git-extras
 
-# # NOTE this async lib and the one used by zsh-autosuggestions spawns a new zsh process
-zinit light mafredri/zsh-async # Required by simpl
-
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-zinit light zsh-users/zsh-autosuggestions
-
-typeset -gA SIMPL_HOST_SYMBOL_MAP
-SIMPL_HOST_SYMBOL_MAP=(
-  lavos "⑀"
-  htpc "Ħ"
-  GLaDOS "ᛟ"
-)
-
-SIMPL_HOST_SYMBOL_COLOR="%B%F{3}"
-# SIMPL_USER_COLOR="%F{10}"
-SIMPL_USER_COLOR="%F{11}"
-SIMPL_ENABLE_RPROMPT=0
-SIMPL_ALWAYS_SHOW_USER_AND_HOST=0
-
-zinit light eduarbo/simpl
+# Load powerlevel10k theme
+zinit ice depth"1" # git clone depth
+zinit light romkatv/powerlevel10k
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/p10k.zsh
+_source ~/.config/zsh/p10k.zsh
 
 # This should be loaded after plugins that are issuing compdefs
-# zinit wait lucid for \
-#  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-#     zdharma-continuum/fast-syntax-highlighting \
-#  blockf \
-#     zsh-users/zsh-completions \
-#  atload"!_zsh_autosuggest_start" \
-#     zsh-users/zsh-autosuggestions
-
 zinit wait lucid light-mode for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
       zdharma-continuum/fast-syntax-highlighting \
