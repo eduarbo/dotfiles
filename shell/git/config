@@ -3,6 +3,8 @@
 	whitespace = trailing-space
 	autocrlf = input
 	ignorecase = false
+	fsmonitor = true
+	untrackedCache = true
 [color]
 	ui = auto
 [fetch]
