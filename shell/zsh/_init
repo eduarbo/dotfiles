@@ -49,7 +49,7 @@ install() {
 
   local zsh="$(command -v zsh)"
 
-  echo "Please enter your sudo password to set ZSH as the default shell:"
+  echo-note "Please enter your sudo password to set ZSH as the default shell"
   sudo -v
 
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
@@ -58,6 +58,7 @@ install() {
   mkdir -p "$XDG_DATA_HOME/zsh"
 
   sudo chsh -s $zsh $(whoami)
+  echo-info "Restart the terminal if it continues using a different shell."
   exec $zsh
 }
 
