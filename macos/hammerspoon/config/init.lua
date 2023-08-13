@@ -87,7 +87,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         d = "Deepl",
         e = "Emacs",
         f = "Finder",
-        g = "Microsoft Edge Dev",
+        g = "Microsoft Edge",
         -- h = "", -- already bound to reload 🔨🥄
         -- i = "",
         -- j = "",
@@ -102,7 +102,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         s = "Slack",
         t = "Microsoft To Do",
         u = "1Password",
-        v = "Visual Studio Code",
+        -- v = "",
         w = "WhatsApp",
         x = "Telegram",
         y = "Spotify",
