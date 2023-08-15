@@ -41,7 +41,7 @@ end
 function switchOutput()
     local outputMap = {
         {{"AirPods Pro de Eduardo", "🎧 AirPods Pro"}, {"External Headphones", "🎧 Headphones"}},
-        {{"NS- 20G", "🔊 Speakers Bluetooth"}, {"LG HDR QHD", "🔊 Speakers"}, {"MacBook Pro Speakers", "💻 MacBook"}}
+        {{"NS- 20G", "🔊 Speakers Bluetooth"}, {"SWITCH", "🔊 Speakers"}, {"LG HDR QHD", "🔊 Speakers"}, {"MacBook Pro Speakers", "💻 MacBook"}}
     }
     local currentDevice = hs.audiodevice.defaultOutputDevice()
     local nextDevice = findDeviceInMap(hs.audiodevice.findOutputByName, outputMap, currentDevice)
