@@ -55,7 +55,7 @@ install() {
       brew tap homebrew/cask-fonts
       brew install ${cask_fonts_deps[@]}
       brew tap d12frosted/emacs-plus
-      brew install emacs-plus@28 --with-native-comp --with-modern-doom3-icon
+      brew install emacs-plus --with-native-comp --with-modern-doom3-icon
       pip3 install ${pip_deps[@]}
       ;;
   esac
