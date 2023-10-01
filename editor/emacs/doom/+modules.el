@@ -66,23 +66,11 @@
    ;; lsp-auto-execute-action nil
    lsp-use-plists t))
 
-;; FIXME Disabling `lsp-eslint' until figure out why LSP is not reporting eslint errors
-(after! lsp-mode
-  (setq lsp-eslint-enable nil))
-(add-hook! 'lsp-after-initialize-hook
-  (defun my/js--run-lsp-checker-after-eslint-h ()
-    "make sure to run lsp checker (slower) after eslint (faster)"
-    (flycheck-add-next-checker 'javascript-eslint 'lsp)))
-(add-hook! '(js-mode-hook web-mode-hook)
-  (defun my/js--fix-eslint-checker2-h ()
-    "set eslint as the default checker"
-    (setq flycheck-checker 'javascript-eslint)))
 
 ;; If you are in a buffer with `lsp-mode' enabled and a server that supports `textDocument/formatting', it will be used
 ;; instead of `format-all's formatter. Unfortunately typescript does not seem to be respecting my settings, and is
 ;; slower than format-all so I prefer to disable it universally.
-(after! format-all
-  (setq +format-with-lsp nil))
+(setq +format-with-lsp nil)
 
 
 ;; -- Company
