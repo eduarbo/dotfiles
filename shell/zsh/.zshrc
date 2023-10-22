@@ -36,6 +36,15 @@ _load_all config.zsh
 # TODO Revisit, maybe I don't need this anymore
 # _load shell/zsh/speedup.zsh
 
+function _set_terminal_title() {
+    local title="$(basename "$PWD")"
+    if [[ -n $SSH_CONNECTION ]]; then
+        title="$title \xE2\x80\x94 $HOSTNAME"
+    fi
+    echo -ne "\033]0;$title\007"
+}
+add-zsh-hook precmd _set_terminal_title
+
 
 # ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
 # ┣━┫┃  ┃┣━┫┗━┓┣╸ ┗━┓
