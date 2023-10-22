@@ -57,3 +57,5 @@
 (package! emmet-mode :disable t)
 
 (package! vimrc-mode)
+
+(package! obsidian)
