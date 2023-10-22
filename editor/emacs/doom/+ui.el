@@ -17,12 +17,8 @@
     (setq doom-serif-font (font-spec :family font)))
 
   ;; a non-monospace font (where applicable)
-  (when-let (font (cl-find-if fn '("PT Sans" "Noto Serif" "ETBembo")))
-    (setq doom-variable-pitch-font (font-spec :family font))))
-
-;; Emojis font 💅
-;; NOTE I prefer Microsoft emojis but they don't have a fixed width, which breaks monospace column alignment 😕
-(setq doom-emoji-fallback-font-families '("Segoe UI Emoji" "Apple Color Emoji" "Noto Color Emoji" "Noto Emoji"))
+  (when-let (font (cl-find-if fn '("Noto Sans" "PT Sans")))
+    (setq doom-variable-pitch-font (font-spec :family font :weight 'light))))
 
 ;; -- Theme
 
@@ -129,3 +125,16 @@
 
 ;; Hide the menu for as minimalistic a startup screen as possible.
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+
+
+;; -- Markdown
+
+;; get headings of sizes relative to their level
+(setq markdown-header-scaling t)
+
+(custom-set-faces!
+  `(markdown-header-face :foreground ,(doom-color 'teal))
+  `(markdown-list-face :foreground ,(doom-color 'blue)))
+
+;; better than `markdown-toggle-markup-hiding
+(add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
