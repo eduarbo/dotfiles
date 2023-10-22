@@ -109,10 +109,13 @@
       :mi    "s-{"           #'+workspace/switch-left
       :mi    "s-}"           #'+workspace/switch-right
 
+      :g     "s-;"           #'pp-eval-expression
+
+      :g     "s-h"           #'helpful-key
+
       :g     "s-,"           #'vertico-repeat
       :g     "s-."           #'+popup/toggle
       :g     [s-backspace]   #'+popup/raise
-      :g     "s-h"           #'helpful-key
 
       ;; map M-x to `general-override-mode-map', which is a special keymap that
       ;; tries to have precedence over most other keymaps (including minor
@@ -191,7 +194,7 @@
       :desc "Enlargen mode"                     "w o"           #'my/window-enlargen-mode
       :desc "Enlarge window"                    "w O"           #'doom/window-enlargen
       :desc "Select a window"                   "w w"           #'switch-window
-                                                ":"             nil
+      :desc "Eval expression"                   ":"             #'pp-eval-expression
       :desc "M-x"                               ";"             #'execute-extended-command
       :desc "Find file in project"              "SPC"           #'projectile-find-file
       :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer
@@ -237,8 +240,7 @@
       :nv "s"     #'evil-snipe-s
       :nv "S"     #'evil-snipe-S
       :nv "w"     #'transpose-words
-      :nv "."     #'evil-goto-last-change
-      :nv ";"     #'pp-eval-expression)
+      :nv "."     #'evil-goto-last-change)
 
 
 ;; -- Modules
