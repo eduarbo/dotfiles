@@ -133,8 +133,8 @@
 (setq markdown-header-scaling t)
 
 (custom-set-faces!
-  `(markdown-header-face :foreground ,(doom-color 'teal))
-  `(markdown-list-face :foreground ,(doom-color 'blue)))
+  '(markdown-header-face :inherit nil)
+  `(markdown-list-face :foreground ,(doom-color 'teal)))
 
 ;; better than `markdown-toggle-markup-hiding
 (add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
