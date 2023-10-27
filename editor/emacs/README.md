@@ -129,7 +129,7 @@
 
 |      key | mode | description                                                             |
 |---------:|:----:|:------------------------------------------------------------------------|
-| `g<SPC>` | nv   | --                                                                      |
+| `g<SPC>` | nv   | Convert case                                                            |
 | `g<RET>` | nv   | --                                                                      |
 | `g<TAB>` | nv   | --                                                                      |
 |     `ga` | nv   | Print info on cursor position                                           |

@@ -150,9 +150,38 @@
   ;; This directory will be used for `obsidian-capture' if set.
   (obsidian-inbox-directory "notas")
   :bind (:map obsidian-mode-map
-  ;; Replace C-c C-o with Obsidian.el's implementation. It's ok to use another key binding.
-  ("C-c C-o" . obsidian-follow-link-at-point)
-  ;; Jump to backlinks
-  ("C-c C-b" . obsidian-backlink-jump)
-  ;; If you prefer you can use `obsidian-insert-link'
-  ("C-c C-l" . obsidian-insert-wikilink)))
+              ;; Replace C-c C-o with Obsidian.el's implementation. It's ok to use another key binding.
+              ("C-c C-o" . obsidian-follow-link-at-point)
+              ;; Jump to backlinks
+              ("C-c C-b" . obsidian-backlink-jump)
+              ;; If you prefer you can use `obsidian-insert-link'
+              ("C-c C-l" . obsidian-insert-wikilink)))
+
+
+;; -- String inflection: underscore -> UPCASE -> CamelCase conversion of names
+;; https://github.com/akicho8/string-inflection
+
+(use-package! string-inflection
+  :commands (string-inflection-all-cycle
+             string-inflection-toggle
+             string-inflection-java-style-cycle
+             string-inflection-python-style-cycle
+             string-inflection-elixir-style-cycle
+             string-inflection-ruby-style-cycle
+             string-inflection-camelcase
+             string-inflection-lower-camelcase
+             string-inflection-underscore
+             string-inflection-capital-underscore
+             string-inflection-upcase
+             string-inflection-kebab-case)
+
+  :init
+  (map! :prefix ("g SPC" . "Convert case")
+        :desc "cycle"              :nv "n"     #'string-inflection-all-cycle
+        :desc "toggle"             :nv "t"     #'string-inflection-toggle
+        :desc "PascalCase"         :nv "p"     #'string-inflection-camelcase
+        :desc "camelCase"          :nv "c"     #'string-inflection-lower-camelcase
+        :desc "kebab-case"         :nv "k"     #'string-inflection-kebab-case
+        :desc "snake_case"         :nv "s"     #'string-inflection-underscore
+        :desc "Capital_Snake_Case" :nv "S"     #'string-inflection-capital-underscore
+        :desc "UP_CASE"            :nv "u"     #'string-inflection-upcase))

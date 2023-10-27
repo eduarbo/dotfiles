@@ -59,3 +59,4 @@
 (package! vimrc-mode)
 
 (package! obsidian)
+(package! string-inflection)
