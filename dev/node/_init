@@ -4,7 +4,7 @@ source env.bash
 
 # TODO Install latest stable node version to be set as global
 install() {
-  [[ $(_os) == macos ]] && brew install node
+  [[ $(_os) == macos ]] && brew install node pnpm
 }
 
 link() {
