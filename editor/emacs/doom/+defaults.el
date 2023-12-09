@@ -39,3 +39,6 @@
 
 ;; Insert or Replace the active visual region with a yanked entry
 (advice-add 'consult-yank-pop :around #'my/consult-yank-pop-replace-region)
+
+(after! markdown-mode
+  (setq markdown-list-indent-width 4))
