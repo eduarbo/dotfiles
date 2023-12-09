@@ -226,7 +226,11 @@
          :desc "Rename workspace"          "r"   #'+workspace/rename
          :desc "Restore last session"      "R"   #'+workspace/restore-last-session
          :desc "Next workspace"            "]"   #'+workspace/switch-right
-         :desc "Previous workspace"        "["   #'+workspace/switch-left)))
+         :desc "Previous workspace"        "["   #'+workspace/switch-left))
+
+      ;;; <leader> n --- notes
+      (:prefix-map ("n" . "notes")
+       :desc "Obsidian notes"         "SPC" #'obsidian-jump))
 
 
 ;; -- goto prefix
