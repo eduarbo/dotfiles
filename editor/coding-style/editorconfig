@@ -16,4 +16,5 @@ indent_style = tab
 indent_size = 4
 
 [*.{md,org}]
+indent_size = 4
 trim_trailing_whitespace = false
