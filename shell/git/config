@@ -78,3 +78,5 @@
 	remote = upstream
 [include]
 	path = ~/Documents/config/git/gitconfig-personal
+[branch]
+	autoSetupMerge = always
