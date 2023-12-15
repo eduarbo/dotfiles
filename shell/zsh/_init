@@ -83,7 +83,7 @@ update() {
 
 link() {
   mkdir -p "$ZSH_CACHE"
-  mklink {.z*,functions,figlet-fonts,p10k.zsh} $ZDOTDIR/
+  mklink config "$ZDOTDIR"
 }
 
 clean() {
@@ -92,6 +92,8 @@ clean() {
       _backup --delete "~/.zshenv"
       ;;
   esac
+
+  rm -rfv "$ZDOTDIR" "$ZSH_CACHE"
 }
 
 init "$@"
