@@ -60,7 +60,7 @@ window.bindResize(mods.super, {"h", "l"})
 hs.hotkey.bind(mods.super, "j", window.moveToNextScreen)
 
 hs.hotkey.bind(
-  mods.super, "n",
+  mods.super, "m",
   function()
     hs.application.launchOrFocus("MacGPT")
   end
@@ -98,7 +98,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- o = "", -- Taken by Spotlight
         p = "Preview",
         q = "Activity Monitor",
-        r = "Reminders",
+        -- r = "",
         s = "Slack",
         t = "Microsoft To Do",
         u = "1Password",
