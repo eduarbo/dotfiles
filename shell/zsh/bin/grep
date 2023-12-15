@@ -1,4 +1,0 @@
-#!/bin/sh
-# Replacing GNU grep shell script with my own version to suppress the annoying
-# obsolescence warning that started to appear in version 3.8
-exec ggrep "$@"
