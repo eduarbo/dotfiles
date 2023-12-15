@@ -30,7 +30,7 @@ link() {
 }
 
 clean() {
-  rm -rfv $NVIM_CONFIG_DIR "$NVIM_DATA_DIR" "$NVIM_CACHE_DIR"
+  rm -rfv "$NVIM_CONFIG_DIR" "$NVIM_DATA_DIR" "$NVIM_CACHE_DIR"
 }
 
 init "$@"
