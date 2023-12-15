@@ -24,11 +24,11 @@ zinit snippet https://cheat.sh/:zsh
 zinit ice wait"2" lucid as"program" pick"bin/git-dsf"; zinit light zdharma-continuum/zsh-diff-so-fancy
 zinit ice wait"2" lucid as"program" pick"bin/git-*"; zinit light tj/git-extras
 
+# To customize prompt edit this file or run `p10k configure`
+_load shell/zsh/config/p10k.zsh
 # Load powerlevel10k theme
 zinit ice depth"1" # git clone depth
 zinit light romkatv/powerlevel10k
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/p10k.zsh
-_source ~/.config/zsh/p10k.zsh
 
 # This should be loaded after plugins that are issuing compdefs
 zinit wait lucid light-mode for \

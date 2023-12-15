@@ -21,20 +21,20 @@ bindkey -v
 # ┗━╸┗━┛╹ ╹╹  ╹┗━┛┗━┛
 # Configs
 
-_load shell/zsh/plugins.zsh
+_load shell/zsh/config/plugins.zsh
 
 # ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
 # qualifiers
-_load shell/zsh/config.zsh
+_load shell/zsh/config/config.zsh
 
-_load shell/zsh/completion.zsh
-_load shell/zsh/keybinds.zsh
+_load shell/zsh/config/completion.zsh
+_load shell/zsh/config/keybinds.zsh
 
 # load configs from enabled topics
 _load_all config.zsh
 
 # TODO Revisit, maybe I don't need this anymore
-# _load shell/zsh/speedup.zsh
+# _load shell/zsh/config/speedup.zsh
 
 function _set_terminal_title() {
     local title="$(basename "$PWD")"
