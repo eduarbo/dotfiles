@@ -33,7 +33,7 @@ typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 
 path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-path=( $(brew --prefix coreutils)/libexec/gnubin $path )
+[[ $(_os) == macos ]] && path=( $(brew --prefix coreutils)/libexec/gnubin $path )
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
