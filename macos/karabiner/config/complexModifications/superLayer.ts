@@ -1,4 +1,4 @@
-import { remap, modTap } from '../../lib';
+import { remap } from '../../lib';
 import type { KeyCode, Modifier, ToKeyCodeTuple, ComplexModifications } from '../../lib';
 
 const LAYER = 'SUPER';
@@ -10,90 +10,69 @@ const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
 
 const rules = [
   {
-    description: `${LAYER} layer: Thumbs cluster`,
-    manipulators: [
-      // L COMMAND: SPACE on tap | HYPER on hold
-      modTap(
-        ['left_command', layerMods, optionalMods],
-        [['left_shift', layerMods]],
-        [['spacebar']],
-      ),
-      // R COMMAND: ESC on tap | HYPER on hold
-      modTap(
-        ['right_command', layerMods, optionalMods],
-        [['left_shift', layerMods]],
-        [['escape']],
-      ),
-    ],
-  },
-  {
-    description: `${LAYER} layer: Left hand - dev tools, screenshots and window manager`,
+    description: `${LAYER} layer: Left hand - dev tools, screenshots and tab/history navigation`,
     manipulators: [
       /// Top Row - Dev Tools
-      // Toggle breakpoints
-      keybind('q', [['f8', ['shift', 'command']]]),
       // Toggle script execution
       keybind('w', [['backslash', ['command']]]),
       // Toggle DevTools
       keybind('e', [['i', ['option', 'command']]]),
       // Inspect element
       keybind('r', [['c', ['shift', 'command']]]),
-      // Search Tabs on Chrome
-      keybind('t', [['a', ['shift', 'command']]]),
+      // NOTE T - Toggle Mic (With Hammerspoon)
 
-      /// Page Nav
-      // A key: available
-      keybind('a', [['a', layerMods]]),
-      keybind('s', [['home']]),
-      keybind('d', [['page_down']]),
-      keybind('f', [['page_up']]),
-      keybind('g', [['end']]),
+      /// Home Row - Nav
+      // Prev
+      keybind('s', [['open_bracket', ['command', 'shift']]]),
+      // Back
+      keybind('d', [['open_bracket', ['command']]]),
+      // Forward
+      keybind('f', [['close_bracket', ['command']]]),
+      // Next
+      keybind('g', [['close_bracket', ['command', 'shift']]]),
 
-      /// Bottom Row - Screenshots
-      // Z key: reserved to resize window with HammerSpoon 🔨🥄
-      keybind('z', [['z', layerMods]]),
+      /// Bottom Row
+      // Show all windows of the front app
+      keybind('x', [['down_arrow', ['control']]]),
+      // Switch back to prev window | go backwards in the application switcher
+      keybind('c', [['grave_accent_and_tilde', ['command']]]),
+      // Application switcher
+      keybind('v', [['tab', ['command']]]),
+      // Show all openwindows
+      keybind('b', [['up_arrow', ['control']]]),
+
+      /// Pinkies - Screenshots
       // screenshot
-      keybind('x', [['3', ['shift', 'command']]]),
+      keybind('q', [['3', ['shift', 'command']]]),
       // capture a portion of the screen
-      keybind('c', [['4', ['shift', 'command']]]),
+      keybind('a', [['4', ['shift', 'command']]]),
       // record screen
-      keybind('v', [['5', ['shift', 'command']]]),
-      // B key: reserved to move window to next screen with HammerSpoon 🔨🥄
-      keybind('b', [['b', layerMods]]),
+      keybind('z', [['5', ['shift', 'command']]]),
     ],
   },
   {
-    description: `${LAYER} layer: Right hand - media controls`,
+    description: `${LAYER} layer: Right hand - Window manager and shortcuts`,
     manipulators: [
       /// Top Row
-      keybind('y', [['volume_increment']]),
-      // keybind('y', [['f12']]),
-      keybind('u', [['rewind']]),
-      // keybind('u', [['f7']]),
-      keybind('i', [['play_or_pause']]),
-      // keybind('i', [['f8']]),
-      keybind('o', [['fastforward']]),
-      // keybind('o', [['f9']]),
-      keybind('p', [['print_screen']]),
+      // NOTE Y - Switch Audio output (With Hammerspoon)
+      // NOTE U - 1P Quick Access
+      // NOTE I - Autofill 1P
+      // NOTE O - Alfred's snippets
+      // NOTE P - Alfred's Universal Access
 
-      /// Home Row
-      keybind('h', [['volume_decrement']]),
-      // keybind('h', [['f11']]),
-      keybind('j', [['f4']]),
-      keybind('k', [['f5']]),
-      keybind('l', [['f6']]),
-      keybind('semicolon', [['scroll_lock']]),
+      /// Home Row (HammerSpoon bindings)
+      // NOTE H - moves window to the left half of the screen
+      // NOTE J - moves window to the left third of the screen
+      // NOTE K - moves window to the right third of the screen
+      // NOTE L - moves window to the right half of the screen
+      // NOTE ; - Lock screen
 
       /// Bottom Row
-      keybind('n', [['mute']]),
-      // keybind('n', [['f10']]),
-      keybind('m', [['display_brightness_decrement']]),
-      // keybind('m', [['f1']]),
-      keybind('comma', [['display_brightness_increment']]),
-      // keybind('comma', [['f2']]),
-      keybind('period', [['mission_control']]),
-      // keybind('period', [['f3']]),
-      keybind('slash', [['pause']]),
+      keybind('n', [['a', ['shift', 'command']]]),
+      // NOTE M - MacGPT
+      // NOTE , - not bound
+      // NOTE . - not bound
+      // NOTE ⌫ - not bound
     ],
   },
 ];

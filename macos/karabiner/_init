@@ -26,7 +26,12 @@ install() {
 update() {
   npm run build
   # copy json files instead of linking them to force karabiner to reload the conf
+  echo-info "copy json files and reload the conf"
   rsync -va --delete json/{karabiner.json,assets} $KARABINER_CONFIG_DIR/
+
+  echo
+  echo-info "Profile names"
+  '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --list-profile-names
 }
 
 clean() {

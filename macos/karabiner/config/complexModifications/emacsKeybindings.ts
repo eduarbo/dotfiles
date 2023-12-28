@@ -22,14 +22,17 @@ const rules = [
   {
     description: 'Emacs keybindings: Delete',
     manipulators: [
-      keybind('u', [['delete_or_backspace', ['command']]], {
-        description: 'Ctrl + U to delete text behind the cursor',
+      keybind('delete_or_backspace', [['delete_forward']], {
+        description: 'Ctrl + DELETE to delete forward',
       }),
       keybind('w', [['delete_or_backspace', ['option']]], {
-        description: 'Ctrl + W to delete word behind the cursor',
+        description: 'Ctrl + W to delete word backward',
       }),
-      keybind('d', [['delete_forward', ['option']]], {
-        description: 'Ctrl + D to delete word in front of the cursor',
+      keybind('u', [['delete_or_backspace', ['command']]], {
+        description: 'Ctrl + U to delete to Start of Line',
+      }),
+      keybind('d', [['end', ['shift']],['delete_forward']], {
+        description: 'Ctrl + D to delete to End of Line',
       }),
     ],
   },

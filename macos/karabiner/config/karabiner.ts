@@ -1,12 +1,11 @@
-import { profile, crkbd } from '../lib';
-import type { KarabinerConfig } from '../lib';
+import { profile, crkbd, beekeeb, type KarabinerConfig } from '../lib';
 import {
   emacsKeybindings,
   symbolsLayer,
   superLayer,
   fnLayer,
   baseLayer,
-  gamingLayer,
+  // gamingLayer,
 } from './complexModifications';
 
 // NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
@@ -16,18 +15,25 @@ const defaultProfile = [
   fnLayer,
   symbolsLayer,
   baseLayer,
-  gamingLayer,
+  // gamingLayer,
 ];
 
 const profiles = [
   profile('Empty'),
   profile('Default', defaultProfile, {
-    selected: true,
+    // selected: true,
   }),
   profile('Default (disable built-in kbd when crkbd is connected)', defaultProfile, {
+    selected: true,
     devices: [
       {
         identifiers: crkbd,
+        disable_built_in_keyboard_if_exists: true,
+        ignore: false,
+        manipulate_caps_lock_led: true,
+      },
+      {
+        identifiers: beekeeb,
         disable_built_in_keyboard_if_exists: true,
         ignore: false,
         manipulate_caps_lock_led: true,
