@@ -11,6 +11,10 @@ export const emacs = [
   '^org\\.pqrs\\.unknownapp.conkeror$',
 ];
 
+export const vscode = [
+  '^com.microsoft.VSCode$',
+];
+
 export const remoteDesktop = [
   '^com\\.microsoft\\.rdc$',
   '^com\\.microsoft\\.rdc\\.mac$',
@@ -62,6 +66,7 @@ export const games = [
 
 export const EMACS_KEY_BINDINGS_EXCEPTION = [
   ...emacs,
+  ...vscode,
   ...remoteDesktop,
   ...terminal,
   ...vi,

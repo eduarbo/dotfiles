@@ -5,7 +5,7 @@ import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
 import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable, SetVariables } from './toEvent';
 import type { KeyCode, Modifier, VariableType } from './enums';
 
-interface FrontmostApplicationCondition {
+export interface FrontmostApplicationCondition {
   type: 'frontmost_application_if' | 'frontmost_application_unless';
   bundle_identifiers?: string[];
   file_paths?: string[];
@@ -55,7 +55,7 @@ interface EventChangedCondition {
   description?: string;
 }
 
-type Conditions =
+export type Conditions =
   | FrontmostApplicationCondition
   | DeviceCondition
   | KeyboardTypeCondition

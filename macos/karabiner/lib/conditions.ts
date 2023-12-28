@@ -1,7 +1,7 @@
-import { crkbd } from './devices';
-import type { DeviceCondition } from '.';
+import { beekeeb, crkbd } from './devices';
+import { games, type Conditions } from '.';
 
-export const ignoreCrkbd: DeviceCondition = {
+export const ignoreCrkbd: Conditions = {
   type: 'device_unless',
   identifiers: [
     {
@@ -9,3 +9,15 @@ export const ignoreCrkbd: DeviceCondition = {
     },
   ],
 };
+
+export const ignoreBeekeb: Conditions = {
+  type: 'device_unless',
+  identifiers: [beekeeb],
+};
+
+export const ignoreGames: Conditions = {
+  type: 'frontmost_application_unless',
+  bundle_identifiers: games,
+};
+
+export const ignoreKeebs: Conditions[] = [ignoreCrkbd, ignoreBeekeb];
