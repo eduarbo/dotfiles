@@ -44,20 +44,24 @@ hs.hotkey.bind({"shift"}, "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"
 -- Super layer
 -----------------------------------------------
 
--- Mic toggle
+-- Toggle Mic
 mic.bind(mods.super, "t")
 
--- Audio output switcher
+-- Switch Audio output
 audio.bind(mods.super, "y")
 
 -- U: Taken by 1Password mini
 -- I: Taken by Alfred (Snippets)
 -- O: Taken by Alfred
+-- P: Taken by Alfred (Universal Action)
 
 -- Window Nav
 hs.hotkey.bind(mods.super, "k", hs.grid.show)
 window.bindResize(mods.super, {"h", "l"})
 hs.hotkey.bind(mods.super, "j", window.moveToNextScreen)
+
+-- Lock screen
+hs.hotkey.bind(mods.super, ";", hs.caffeinate.lockScreen)
 
 hs.hotkey.bind(
   mods.super, "m",
@@ -65,11 +69,6 @@ hs.hotkey.bind(
     hs.application.launchOrFocus("MacGPT")
   end
 )
--- M: Taken by MacGPT
--- Comma: Taken by Alfred (Universal Action)
-
--- Lock screen
-hs.hotkey.bind(mods.super, ";", hs.caffeinate.lockScreen)
 
 
 -- Hyper layer: Launcher
