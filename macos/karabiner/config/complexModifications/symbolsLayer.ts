@@ -33,7 +33,7 @@ const rules = [
       keybind('g', [['equal_sign']]), // =
 
       /// Bottom Row
-      keybind('z', [['f13']]),
+      keybind('z', [['e', ['option']]]),
       keybind('x', [['1']]),
       keybind('c', [['2']]),
       keybind('v', [['3']]),

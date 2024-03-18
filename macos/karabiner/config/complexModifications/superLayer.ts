@@ -50,31 +50,6 @@ const rules = [
       keybind('z', [['5', ['shift', 'command']]]),
     ],
   },
-  {
-    description: `${LAYER} layer: Right hand - Window manager and shortcuts`,
-    manipulators: [
-      /// Top Row
-      // NOTE Y - Switch Audio output (With Hammerspoon)
-      // NOTE U - 1P Quick Access
-      // NOTE I - Autofill 1P
-      // NOTE O - Alfred's snippets
-      // NOTE P - Alfred's Universal Access
-
-      /// Home Row (HammerSpoon bindings)
-      // NOTE H - moves window to the left half of the screen
-      // NOTE J - moves window to the left third of the screen
-      // NOTE K - moves window to the right third of the screen
-      // NOTE L - moves window to the right half of the screen
-      // NOTE ; - Lock screen
-
-      /// Bottom Row
-      keybind('n', [['a', ['shift', 'command']]]),
-      // NOTE M - MacGPT
-      // NOTE , - not bound
-      // NOTE . - not bound
-      // NOTE ⌫ - not bound
-    ],
-  },
 ];
 
 export const superLayer: ComplexModifications = { title: `${LAYER} layer`, rules };
