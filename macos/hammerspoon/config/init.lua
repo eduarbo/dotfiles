@@ -38,7 +38,7 @@ require("press-twice-to-quit")
 -----------------------------------------------
 
 -- Emojis
-hs.hotkey.bind({"shift"}, "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
+hs.hotkey.bind(mods.super, "n", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
 
 
 -- Super layer
