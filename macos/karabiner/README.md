@@ -63,7 +63,7 @@ Karabiner-Elements operates on a "first match, first served" basis. During scann
 | `⏎`       | enter             | `⎋`       | escape      |
 | `▲`       | page up           | `▼`       | page down   |
 | `⇞`       | home              | `⇟`       | end         |
-| `⇧` + `´` | CAPS_LOCK         |           |             |
+| `⇧` + `´` | CAPS_LOCK         | <kbd>F8</kbd>          |             |
 
 BASE: Standard QWERTY layout, with the delete key replacing the slash key, modifiers set as mod-tap, and central modifiers treated as one. This allows replication of the layout on a MacBook keyboard using the space key in place of the central modifiers.
 WINUX: Swaps Ctrl and Gui keys for non-Mac systems
@@ -85,7 +85,7 @@ Standard QWERTY layout, with the delete key replacing the slash key, modifiers s
 │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ ⌫ │
 └───┴───┴──┬┴──┬┴──┬┴──┐ ┌──┴┬──┴┬──┴┬──┴───┴───┘
            │ ⎋ │ ␣ │ ⏎ │ │ ⏎ │ ⇥ │F13│ ⮜ on tap
-           │ 𝕊 │ ⇧ │ ⌘ │ │ ⌘ │ ⇪ │ ⌃ │ ⮜ on hold
+           │ 𝕤 │ ⇧ │ ⌘ │ │ ⌘ │ ⇪ │ ⌃ │ ⮜ on hold
            └───┴───┴───┘ └───┴───┴───┘
 ```
 
@@ -117,7 +117,7 @@ Swaps Ctrl and Gui keys for non-Mac systems.
 │ ´ │ 1 │ 2 │ 3 │ - │       │ ` │ ' │   │   │   │
 └───┴───┴──┬┴──┬┴──┬┴──┐ ┌──┴┬──┴┬──┴┬──┴───┴───┘
            │⇧+⎋│⇧+␣│⇧+⏎│ │   │   │   │ ⮜ on tap
-           │ ℍ │ ⇧ │ ⌘ │ │   │   │   │ ⮜ on hold
+           │ 𝕙 │ ⇧ │ ⌘ │ │   │   │   │ ⮜ on hold
            └───┴───┴───┘ └───┴───┴───┘
 ```
 
