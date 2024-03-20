@@ -1,9 +1,15 @@
 import { remap, ignoreKeebs } from '../../lib';
-import type { Modifier, ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
+import type {
+  Modifier,
+  ModifierOptional,
+  ToKeyCodeTuple,
+  KeyCode,
+  ComplexModifications,
+} from '../../lib';
 
 const LAYER = 'SYMBOLS';
 const layerMods: Modifier[] = ['right_shift'];
-const optionalMods: Modifier[] = ['left_shift', 'right_command', 'right_control'];
+const optionalMods: ModifierOptional[] = ['left_shift', 'right_command', 'right_control'];
 
 const manipulatorOptions = {
   conditions: ignoreKeebs,
@@ -33,7 +39,8 @@ const rules = [
       keybind('g', [['equal_sign']]), // =
 
       /// Bottom Row
-      keybind('z', [['e', ['option']]]),
+      remap(['z', layerMods, ['right_command', 'right_control']], [['e', ['option']]], { manipulatorOptions }), // accent
+      remap(['z', [...layerMods, 'left_shift'], ['caps_lock']], [['caps_lock']], { manipulatorOptions }), // CAPS_LOCK
       keybind('x', [['1']]),
       keybind('c', [['2']]),
       keybind('v', [['3']]),

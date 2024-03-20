@@ -1,6 +1,7 @@
 import type { KeyCode, FunctionKeyCode } from './enums';
 import type { ComplexModifications, Rule } from './complexModifications';
-import type { Identifier, ManipulatorParameters } from './manipulator';
+import type { ManipulatorParameters } from './manipulator';
+import type { Identifier } from './conditions';
 
 interface SimpleModification {
   from: {

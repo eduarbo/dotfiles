@@ -1,4 +1,4 @@
-import { remap, games } from '../../lib';
+import { remap, GAMES } from '../../lib';
 import type { ComplexModifications, ManipulatorOptions } from '../../lib';
 
 const LAYER = 'GAMING';
@@ -7,7 +7,7 @@ const manipulatorOptions: ManipulatorOptions = {
   conditions: [
     {
       type: 'frontmost_application_if',
-      bundle_identifiers: games,
+      bundle_identifiers: GAMES,
     },
   ],
 };

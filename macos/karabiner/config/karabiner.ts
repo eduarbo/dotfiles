@@ -1,4 +1,4 @@
-import { profile, crkbd, beekeeb, type KarabinerConfig } from '../lib';
+import { profile, CRKBD, BEEKEEB, type KarabinerConfig } from '../lib';
 import {
   emacsKeybindings,
   symbolsLayer,
@@ -23,17 +23,17 @@ const profiles = [
   profile('Default', defaultProfile, {
     // selected: true,
   }),
-  profile('Default (disable built-in kbd when crkbd is connected)', defaultProfile, {
+  profile('Default (disable built-in kbd when CRKBD is connected)', defaultProfile, {
     selected: true,
     devices: [
       {
-        identifiers: crkbd,
+        identifiers: CRKBD,
         disable_built_in_keyboard_if_exists: true,
         ignore: false,
         manipulate_caps_lock_led: true,
       },
       {
-        identifiers: beekeeb,
+        identifiers: BEEKEEB,
         disable_built_in_keyboard_if_exists: true,
         ignore: false,
         manipulate_caps_lock_led: true,

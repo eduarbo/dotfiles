@@ -1,67 +1,9 @@
 import { fromKeyCode } from './fromEvent';
 import { toKeyCode, toSetVariable } from './toEvent';
+import type { Conditions } from './conditions';
 
 import type { FromEvent, FromKeyCodeTuple, FromEventCommon } from './fromEvent';
-import type { ToEvent, ToEventCommon, ToKeyCodeTuple, Variable, SetVariables } from './toEvent';
-import type { KeyCode, Modifier, VariableType } from './enums';
-
-export interface FrontmostApplicationCondition {
-  type: 'frontmost_application_if' | 'frontmost_application_unless';
-  bundle_identifiers?: string[];
-  file_paths?: string[];
-  description?: string;
-}
-
-export interface Identifier {
-  vendor_id?: number;
-  product_id?: number;
-  location_id?: number;
-  is_keyboard?: boolean;
-  is_pointing_device?: boolean;
-  is_touch_bar?: boolean;
-}
-
-export interface DeviceCondition {
-  type: 'device_if' | 'device_unless';
-  identifiers: Identifier[];
-  description?: string;
-}
-
-interface KeyboardTypeCondition {
-  type: 'keyboard_type_if' | 'keyboard_type_unless';
-  // keyboard_types are joined by "or"
-  keyboard_types: ['ansi' | 'iso' | 'jis'];
-  description?: string;
-}
-
-interface InputSourceCondition {
-  type: 'input_source_if' | 'input_source_unless';
-  input_sources: {
-    language?: string;
-    input_source_id?: string;
-    input_mode_id?: string;
-  }[];
-  description?: string;
-}
-
-export interface VariableCondition extends Variable {
-  type: VariableType;
-  description?: string;
-}
-
-interface EventChangedCondition {
-  type: 'event_changed_if' | 'event_changed_unless';
-  value: boolean;
-  description?: string;
-}
-
-export type Conditions =
-  | FrontmostApplicationCondition
-  | DeviceCondition
-  | KeyboardTypeCondition
-  | InputSourceCondition
-  | VariableCondition
-  | EventChangedCondition;
+import type { ToEvent, ToEventCommon, ToKeyCodeTuple, SetVariables } from './toEvent';
 
 export interface ManipulatorParameters {
   'basic.simultaneous_threshold_milliseconds': number;
@@ -180,49 +122,53 @@ export interface RemapOptions {
   fromOptions?: FromEventCommon;
 }
 
-export const remapToStickyModifier = (
-  fromTuple: FromKeyCodeTuple,
-  toModifiers: Modifier[],
-  options: RemapOptions = {},
-): Manipulator => {
-  const fromKeyText = keyToString(fromTuple);
-  const { manipulatorOptions, fromOptions, toOptions, setVariables = {} } = options;
-  const {
-    toVariables = [],
-    toAfterKeyUpVariables = [],
-    toIfAloneVariables = [],
-    toIfHeldDownVariables = [],
-  } = getVariables(setVariables);
+// TODO Revisit
+// export const remapToStickyModifier = (
+//   fromTuple: FromKeyCodeTuple,
+//   toModifiers: Modifier[],
+//   options: RemapOptions = {},
+// ): Manipulator => {
+//   const fromKeyText = keyToString(fromTuple);
+//   const { manipulatorOptions, fromOptions, toOptions, setVariables = {} } = options;
+//   const {
+//     toVariables = [],
+//     toAfterKeyUpVariables = [],
+//     toIfAloneVariables = [],
+//     toIfHeldDownVariables = [],
+//   } = getVariables(setVariables);
 
-  return {
-    type: 'basic',
-    from: fromKeyCode(fromTuple, fromOptions),
-    to: [
-      ...toVariables,
-      toKeyCode([toModifiers[0] as KeyCode, toModifiers.slice(1) as Modifier[]], toOptions),
-    ],
-    ...(toAfterKeyUpVariables.length
-      ? {
-          to_after_key_up: toAfterKeyUpVariables,
-        }
-      : null),
-    to_if_alone: [
-      ...toIfAloneVariables,
-      ...toModifiers.map((toModifier) => ({
-        sticky_modifier: {
-          [toModifier]: 'toggle',
-        },
-      })),
-    ],
-    ...(toIfHeldDownVariables.length
-      ? {
-          to_if_held_down: toIfHeldDownVariables,
-        }
-      : null),
-    description: `from ${fromKeyText} to sticky ${toModifiers.join(', ')}`,
-    ...manipulatorOptions,
-  };
-};
+//   return {
+//     type: 'basic',
+//     from: fromKeyCode(fromTuple, fromOptions),
+//     to: [
+//       ...toVariables,
+//       toKeyCode(
+//         [toModifiers[0] as KeyCode, toModifiers.slice(1) as Modifier[]],
+//         toOptions,
+//       ),
+//     ],
+//     ...(toAfterKeyUpVariables.length
+//       ? {
+//           to_after_key_up: toAfterKeyUpVariables,
+//         }
+//       : null),
+//     to_if_alone: [
+//       ...toIfAloneVariables,
+//       ...toModifiers.map((toModifier) => ({
+//         sticky_modifier: {
+//           [toModifier]: 'toggle',
+//         },
+//       })),
+//     ],
+//     ...(toIfHeldDownVariables.length
+//       ? {
+//           to_if_held_down: toIfHeldDownVariables,
+//         }
+//       : null),
+//     description: `from ${fromKeyText} to sticky ${toModifiers.join(', ')}`,
+//     ...manipulatorOptions,
+//   };
+// };
 
 export const command = (fromTuple: FromKeyCodeTuple, shell_command: string): Manipulator => {
   const fromKeyText = keyToString(fromTuple);

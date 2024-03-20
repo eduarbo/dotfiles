@@ -1,5 +1,6 @@
 import type {
   Modifier,
+  ModifierOptional,
   KeyCode,
   PointingButton,
   ConsumerKeyCode,
@@ -17,7 +18,7 @@ type FromAnyProp = { any: Any };
 type ModifiersProps = {
   modifiers?: {
     mandatory?: Modifier[];
-    optional?: Modifier[];
+    optional?: ModifierOptional[];
   };
 };
 
@@ -50,7 +51,7 @@ export type FromEvent =
   | FromPointingButtonEvent
   | FromAnyEvent;
 
-export type FromKeyCodeTuple = [KeyCode, (Modifier[] | null)?, Modifier[]?];
+export type FromKeyCodeTuple = [KeyCode, (Modifier[] | null)?, ModifierOptional[]?];
 
 export const fromKeyCode = (
   [key_code, mandatory, optional]: FromKeyCodeTuple,
@@ -67,7 +68,7 @@ export const fromKeyCode = (
 });
 
 export const fromConsumerKeyCode = (
-  [consumer_key_code, mandatory, optional]: [ConsumerKeyCode, Modifier[]?, Modifier[]?],
+  [consumer_key_code, mandatory, optional]: [ConsumerKeyCode, Modifier[]?, ModifierOptional[]?],
   options: SimultaneousProps = {},
 ): FromConsumerKeyCodeEvent => ({
   consumer_key_code,
@@ -81,7 +82,7 @@ export const fromConsumerKeyCode = (
 });
 
 export const fromPointingButton = (
-  [pointing_button, mandatory, optional]: [PointingButton, Modifier[]?, Modifier[]?],
+  [pointing_button, mandatory, optional]: [PointingButton, Modifier[]?, ModifierOptional[]?],
   options: SimultaneousProps = {},
 ): FromPointingButtonEvent => ({
   pointing_button,
@@ -95,7 +96,7 @@ export const fromPointingButton = (
 });
 
 export const fromAny = (
-  [any, mandatory, optional]: [Any, Modifier[]?, Modifier[]?],
+  [any, mandatory, optional]: [Any, Modifier[]?, ModifierOptional[]?],
   options: SimultaneousProps = {},
 ): FromAnyEvent => ({
   any,
