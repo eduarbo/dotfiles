@@ -8,6 +8,9 @@
 (setq user-full-name "Eduardo Ruiz"
       user-mail-address "eduarbo@gmail.com")
 
+(setq doom-leader-key ",")
+(setq doom-localleader-key "s-m")
+
 (load! "+defaults.el")
 (load! "+ui.el")
 (load! "+modules.el")

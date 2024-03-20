@@ -14,9 +14,6 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-(setq doom-leader-key ",")
-(setq doom-localleader-key "s-m")
-
 (doom! :input
        ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
        ;;chinese
@@ -24,11 +21,13 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company          ; the ultimate code completion backend
-        +childframe
-        ;; +tng
-        )
-       ;;(corfu +orderless); complete with cap(f), cape and a flying feather!
+       ;; (company          ; the ultimate code completion backend
+       ;;  +childframe
+       ;;  ;; +tng
+       ;;  )
+       (corfu            ; complete with cap(f), cape and a flying feather!
+         +icons
+         +orderless)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life

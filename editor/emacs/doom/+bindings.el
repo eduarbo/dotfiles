@@ -151,7 +151,8 @@
 
 ;; -- Smart tab: these will only work in GUI Emacs
 
-(map! :i [tab]     #'company-indent-or-complete-common
+(map! ;; :i [tab]     #'company-indent-or-complete-common
+      :i [tab]     #'completion-at-point
       :m [tab]     #'+fold/toggle
 
       :i [backtab] (cmds! (and (modulep! :editor snippets)
