@@ -67,8 +67,7 @@ install() {
 }
 
 update() {
-  doom upgrade
-  doom build
+  doom upgrade && doom build
 }
 
 link() {

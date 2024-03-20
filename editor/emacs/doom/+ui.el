@@ -7,10 +7,7 @@
   (when-let (font (cl-find-if fn '("JetBrains Mono" "Hack")))
     ;; the primary font to use
     (setq doom-font (font-spec :family font :size 16 :weight 'light))
-    (setq doom-big-font (font-spec :family font :size 20 :weight 'light))
-
-    ;; Fallback font for Unicode glyphs
-    (setq doom-unicode-font (font-spec :family font :weight 'light)))
+    (setq doom-big-font (font-spec :family font :size 20 :weight 'light)))
 
   ;; a monospace serif font (where applicable)
   (when-let (font (cl-find-if fn '("IBM Plex Mono" "Fira Code")))

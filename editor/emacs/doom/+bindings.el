@@ -93,7 +93,7 @@
 
 ;; -- macOS shortcuts
 
-(map! :when IS-MAC
+(map! :when (featurep :system 'macos)
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
       (:map helpful-mode-map
