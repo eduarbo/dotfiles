@@ -38,7 +38,7 @@ require("press-twice-to-quit")
 -----------------------------------------------
 
 -- Emojis
-hs.hotkey.bind(mods.super, "n", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
+hs.hotkey.bind("shift", "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
 
 
 -- Super layer
@@ -52,7 +52,7 @@ audio.bind(mods.super, "y")
 
 -- U: Taken by 1Password mini
 -- I: Taken by Alfred (Snippets)
--- O: Taken by Alfred
+-- O: Taken by Alfred (Clipboard History)
 -- P: Taken by Alfred (Universal Action)
 
 -- Window Nav
@@ -94,7 +94,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- l = "",
         m = "Mail",
         n = "Obsidian",
-        -- o = "", -- Taken by Spotlight
+        -- o = "",
         p = "Preview",
         q = "Activity Monitor",
         -- r = "",

@@ -101,8 +101,8 @@ Swaps Ctrl and Gui keys for non-Mac systems.
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
 │   │   │   │   │   │       │   │   │   │   │   │
 └───┴───┴──┬┴──┬┴──┬┴──┐ ┌──┴┬──┴┬──┴┬──┴───┴───┘
-       Tap │   │   │ ⏎ │ │ ⏎ │   │F13│ ⮜ on tap
-       Mod │   │   │ ⌃ │ │ ⌃ │   │ ⌥ │ ⮜ on hold
+           │   │   │ ⏎ │ │ ⏎ │   │F13│ ⮜ on tap
+           │   │   │ ⌃ │ │ ⌃ │   │ ⌥ │ ⮜ on hold
            └───┴───┴───┘ └───┴───┴───┘
 ```
 
@@ -121,9 +121,9 @@ Swaps Ctrl and Gui keys for non-Mac systems.
            └───┴───┴───┘ └───┴───┴───┘
 ```
 
-| Symbol | description | Symbol      | description   |
-|--------|-------------|-------------|---------------|
-| `F13`  | Alfred      | `⇧` + `F13` | Alfred Emojis |
+| Symbol | description | Symbol      | description | Symbol      | description |
+|--------|-------------|-------------|-------------|-------------|-------------|
+| `F13`  | Alfred      | `⇧` + `F13` | Emojis      | `⌘` + `F13` | Spotlight   |
 
 ### Super
 
@@ -157,7 +157,7 @@ W→½: moves window to the right half of the screen
 LCK: Lock screen
 
 **Bottom Row**
-EMJ: Emojis
+EMJ: Alfred Emojis
 GPT: MacGPT
 
 #### Left side
