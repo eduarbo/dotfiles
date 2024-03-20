@@ -42,3 +42,6 @@
 
 (after! markdown-mode
   (setq markdown-list-indent-width 4))
+
+(add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode) 'append)
+

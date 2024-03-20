@@ -1,29 +1,127 @@
 ;;; autoload/eduarbo.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
+(defvar my/original-major-mode nil
+  "Variable to store the original major mode before narrowing.")
+
+;;;###autoload
+(defvar my/markdown-lang-to-mode-alist
+  '(("js" . js2-mode)
+    ;; Add more mappings here
+    )
+  "Alist mapping markdown code block languages to their Emacs major modes.")
+
+;; HACK prevent the cursor from ending outside the code block
+;;;###autoload
+(defun my/markdown-forward-block (&optional arg)
+  "Move forward to the next end of a Markdown block.
+Moves across complete code blocks, list items, and blockquotes,
+but otherwise stops at blank lines, headers, and horizontal
+rules.  With argument ARG, do it ARG times; a negative argument
+ARG = -N means move backward N blocks."
+  (interactive "^p")
+  (or arg (setq arg 1))
+  (if (< arg 0)
+      (markdown-backward-block (- arg))
+    (dotimes (_ arg)
+      ;; Skip over whitespace in between blocks when moving forward.
+      (if (markdown-cur-line-blank-p)
+          (skip-syntax-forward "-")
+        (beginning-of-line))
+      ;; Proceed forward based on the type of block.
+      (cond
+       ;; Code blocks
+       ((markdown-code-block-at-point-p)
+        (forward-line)
+        (while (and (markdown-code-block-at-point-p) (not (eobp)))
+          (forward-line)))
+       ;; Headings
+       ((looking-at markdown-regex-header)
+        (goto-char (or (match-end 4) (match-end 2) (match-end 3)))
+        (forward-line))
+       ;; Horizontal rules
+       ((looking-at markdown-regex-hr)
+        (forward-line))
+       ;; Blockquotes
+       ((looking-at markdown-regex-blockquote)
+        (forward-line)
+        (while (and (looking-at markdown-regex-blockquote) (not (eobp)))
+          (forward-line)))
+       ;; List items
+       ((markdown-cur-list-item-bounds)
+        (markdown-end-of-list)
+        (forward-line))
+       ;; Other
+       (t (markdown-forward-paragraph))))
+    (skip-syntax-backward "-")
+    nil))
+
+;;;###autoload
+(defun my/markdown-narrow-to-code-block-content ()
+  "Narrow the buffer to the content of the current Markdown fenced code
+ block, excluding the delimiters."
+  (interactive)
+  (save-excursion
+    (let (block-start block-end)
+      ;; Find the start of the code block
+      (markdown-backward-block)
+      (when (markdown-code-block-at-point-p)
+        ;; Move forward to skip the start delimiter of the block
+        (forward-line 1)
+        (setq block-start (point)))
+      ;; Find the end of the code block
+      (my/markdown-forward-block)
+      (when (markdown-code-block-at-point-p)
+        ;; Move backward to skip the end delimiter of the block
+        (forward-line -1)
+        (setq block-end (point)))
+      ;; Narrow to the region if valid block start and end points are found
+      (print block-end)
+      (if (and block-start block-end)
+          (narrow-to-region block-start block-end)
+        (error "Not inside a Markdown fenced code block")))))
+
+;;;###autoload
 (defun my/narrow-or-widen-dwim (p)
   "If the buffer is narrowed, it widens. Otherwise, it narrows
-intelligently.  Intelligently means: region, org-src-block,
-org-subtree, or defun, whichever applies first.  Narrowing to
-org-src-block actually calls `org-edit-src-code'.
+intelligently. Intelligently means: region, org-src-block,
+org-subtree, markdown block, or defun, whichever applies first.
+Narrowing to org-src-block actually calls `org-edit-src-code'.
 
 With prefix P, don't widen, just narrow even if buffer is already
 narrowed."
   (interactive "P")
   (declare (interactive-only))
   (let ((org-src-window-setup 'current-window))
-    (cond ((and (buffer-narrowed-p) (not p)) (widen))
+    (cond ((and (buffer-narrowed-p) (not p))
+           (widen)
+           (when my/original-major-mode
+             (funcall my/original-major-mode)
+             (setq my/original-major-mode nil)))
           ((and (boundp 'org-src-mode) org-src-mode (not p))
            (org-edit-src-exit))
           ((region-active-p)
+           (setq my/original-major-mode major-mode)
            (narrow-to-region (region-beginning) (region-end))
            (deactivate-mark))
           ((derived-mode-p 'org-mode)
+           (setq my/original-major-mode major-mode)
            (cond ((ignore-errors (org-edit-src-code)))
                  ((org-at-block-p)
                   (org-narrow-to-block))
                  (t (org-narrow-to-subtree))))
-          ((derived-mode-p 'prog-mode) (narrow-to-defun))
+          ((derived-mode-p 'markdown-mode)
+           (let ((lang (markdown-code-block-lang)))
+             (setq my/original-major-mode major-mode)
+             (my/markdown-narrow-to-code-block-content)
+             (let ((mode-fn (cdr (assoc lang my/markdown-lang-to-mode-alist))))
+               (if (and mode-fn (functionp mode-fn))
+                   (funcall mode-fn)
+                 (when (and lang (functionp (intern-soft (concat lang "-mode"))))
+                   (funcall (intern (concat lang "-mode"))))))))
+          ((derived-mode-p 'prog-mode)
+           (setq my/original-major-mode major-mode)
+           (narrow-to-defun))
           (t (error "Please select a region to narrow to")))))
 
 ;;;###autoload
