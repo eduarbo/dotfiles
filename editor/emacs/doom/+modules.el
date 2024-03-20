@@ -77,11 +77,15 @@
 
 (after! company
   ;; On-demand code completion
-  (setq company-idle-delay nil)
+  (setq company-idle-delay nil))
 
-  ;; Sort by occurrence and group by backend (very useful for file completion)
-  ;; (setq company-transformers '(company-sort-by-occurrence company-sort-by-backend-importance))
-  )
+
+;; -- Corfu
+
+(after! corfu
+  (setq corfu-preselect 'valid)
+  ;; On-demand code completion
+  (setq corfu-auto-delay nil))
 
 
 ;; -- Flycheck
