@@ -45,7 +45,7 @@ Karabiner-Elements operates on a "first match, first served" basis. During scann
 |--------|---------------|--------|----------------|
 | `⌘`    | command       | `⌥`    | option         |
 | `⌃`    | control       | `⇧`    | shift          |
-| `𝕊`    | super (`⌘⌥⌃`) | `𝕙`    | hyper (`⇧⌘⌥⌃`) |
+| `𝕊`    | super (`⌘⌥⌃`) | `ℍ`    | hyper (`⇧⌘⌥⌃`) |
 
 #### Layers
 
@@ -63,7 +63,7 @@ Karabiner-Elements operates on a "first match, first served" basis. During scann
 | `⏎`       | enter             | `⎋`       | escape      |
 | `▲`       | page up           | `▼`       | page down   |
 | `⇞`       | home              | `⇟`       | end         |
-| `⇧` + `´` | CAPS_WORD         |           |             |
+| `⇧` + `´` | CAPS_LOCK         |           |             |
 
 BASE: Standard QWERTY layout, with the delete key replacing the slash key, modifiers set as mod-tap, and central modifiers treated as one. This allows replication of the layout on a MacBook keyboard using the space key in place of the central modifiers.
 WINUX: Swaps Ctrl and Gui keys for non-Mac systems
@@ -136,7 +136,7 @@ Swaps Ctrl and Gui keys for non-Mac systems.
 │⇧⌘5│⌃↓ │⌘` │⌘⇥ │⌃↑ │       │EMJ│GPT│ ✗ │ ✗ │ ✗ │
 └───┴───┴──┬┴──┬┴──┬┴──┐ ┌──┴┬──┴┬──┴┬──┴───┴───┘
            │   │   │   │ │ ⌘ │ ⌥ │ ⌃ │ ⮜ on tap (sticky)
-           │   │   │   │ │ ≡ │ 𝕙 │ ƒ │ ⮜ on hold
+           │   │   │   │ │ ≡ │ ℍ │ ƒ │ ⮜ on hold
            └───┴───┴───┘ └───┴───┴───┘
 ```
 
