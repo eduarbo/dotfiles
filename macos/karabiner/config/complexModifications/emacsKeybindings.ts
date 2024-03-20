@@ -31,7 +31,7 @@ const rules = [
       keybind('u', [['delete_or_backspace', ['command']]], {
         description: 'Ctrl + U to delete to Start of Line',
       }),
-      keybind('d', [['end', ['shift']],['delete_forward']], {
+      keybind('d', [['end', ['shift']], ['delete_forward']], {
         description: 'Ctrl + D to delete to End of Line',
       }),
     ],

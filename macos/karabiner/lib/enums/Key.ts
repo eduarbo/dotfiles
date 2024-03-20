@@ -1,13 +1,43 @@
-const KEY_CODE = [
+export const BASE_MODIFIER_KEY_CODE = [
+  'command',
+  'option',
+  'control',
+  'shift',
+] as const;
+
+export const MODIFIER_KEY_CODE = [
   'caps_lock',
-  'left_control',
-  'left_shift',
-  'left_option',
   'left_command',
-  'right_control',
-  'right_shift',
-  'right_option',
+  'left_control',
+  'left_option',
+  'left_shift',
   'right_command',
+  'right_control',
+  'right_option',
+  'right_shift',
+  'fn',
+  'left_alt',
+  'left_gui',
+  'right_alt',
+  'right_gui',
+] as const;
+
+const FUNCTION_KEY_CODE = [
+  'f1',
+  'f2',
+  'f3',
+  'f4',
+  'f5',
+  'f6',
+  'f7',
+  'f8',
+  'f9',
+  'f10',
+  'f11',
+  'f12',
+] as const;
+
+const KEY_CODE = [
   'return_or_enter',
   'escape',
   'delete_or_backspace',
@@ -71,18 +101,6 @@ const KEY_CODE = [
   '8',
   '9',
   '0',
-  'f1',
-  'f2',
-  'f3',
-  'f4',
-  'f5',
-  'f6',
-  'f7',
-  'f8',
-  'f9',
-  'f10',
-  'f11',
-  'f12',
   'f13',
   'f14',
   'f15',
@@ -171,10 +189,6 @@ const KEY_CODE = [
   'clear_or_again',
   'cr_sel_or_props',
   'ex_sel',
-  'left_alt',
-  'left_gui',
-  'right_alt',
-  'right_gui',
   'vk_consumer_brightness_down',
   'vk_consumer_brightness_up',
   'vk_mission_control',
@@ -200,11 +214,15 @@ const KEY_CODE = [
   'dashboard',
   'launchpad',
   'mission_control',
-  'fn',
   'apple_top_case_display_brightness_decrement',
   'apple_top_case_display_brightness_increment',
   'illumination_decrement',
   'illumination_increment',
 ] as const;
 
-export type KeyCode = typeof KEY_CODE[number];
+export type BaseModifierKeyCode = typeof BASE_MODIFIER_KEY_CODE[number];
+export type ModifierKeyCode = typeof MODIFIER_KEY_CODE[number];
+export type FunctionKeyCode = typeof FUNCTION_KEY_CODE[number];
+export type KeyCode = typeof KEY_CODE[number] | ModifierKeyCode | FunctionKeyCode;
+export type Modifier = ModifierKeyCode | BaseModifierKeyCode
+export type ModifierOptional = Modifier | 'any'

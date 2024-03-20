@@ -1,11 +1,11 @@
-export const crkbd = {
+export const CRKBD = {
   is_keyboard: true,
   is_pointing_device: false,
   vendor_id: 18003,
   product_id: 1,
 };
 
-export const beekeeb = {
+export const BEEKEEB = {
   is_keyboard: true,
   is_pointing_device: false,
   vendor_id: 48875,
