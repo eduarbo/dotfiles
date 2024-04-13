@@ -43,5 +43,14 @@
 (after! markdown-mode
   (setq markdown-list-indent-width 4))
 
-(add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode) 'append)
+(add-to-list 'auto-mode-alist '("\\editorconfig\\'" . editorconfig-conf-mode))
 
+;; Nunjucks template files
+(add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
+
+;; Arduino Sketches
+(add-to-list 'auto-mode-alist '("\\.ino\\'" . cpp-mode))
+
+;; Treats the `=' as punctuation for all modes
+(add-hook! 'after-change-major-mode-hook
+  (modify-syntax-entry ?= "."))
