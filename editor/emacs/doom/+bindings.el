@@ -31,9 +31,6 @@
       :nv   [down]          (λ! (evil-next-visual-line 10))
       :nv   [left]          #'evil-first-non-blank-of-visual-line
       :nv   [right]         #'evil-end-of-line-or-visual-line
-      (:map magit-mode-map
-       :g   [left]         #'magit-section-backward-sibling
-       :g   [right]        #'magit-section-forward-sibling)
 
       :m    [S-up]          #'drag-stuff-up
       :m    [S-down]        #'drag-stuff-down
@@ -63,9 +60,6 @@
 
       :inv  "C-,"           #'evil-snipe-repeat-reverse
       :inv  "C-."           #'evil-snipe-repeat
-      (:map magit-mode-map
-       :g    "C-,"          #'magit-section-backward
-       :g    "C-."          #'magit-section-forward)
 
       :nv   "C-a"           #'evil-numbers/inc-at-pt
       :nv   "C-x"           #'evil-numbers/dec-at-pt
@@ -152,11 +146,11 @@
 ;; -- Smart tab: these will only work in GUI Emacs
 
 (map! :i [tab]     (cmds! (and (bound-and-true-p company-mode)
-                           (modulep! :completion company))
-                      #'company-indent-or-complete-common
-                      (and (bound-and-true-p corfu-mode)
-                           (modulep! :completion corfu))
-                      #'completion-at-point)
+                               (modulep! :completion company))
+                          #'company-indent-or-complete-common
+                          (and (bound-and-true-p corfu-mode)
+                               (modulep! :completion corfu))
+                          #'completion-at-point)
       :m [tab]     #'+fold/toggle
 
       :i [backtab] (cmds! (and (modulep! :editor snippets)
@@ -183,6 +177,17 @@
                                (list (evil-get-auxiliary-keymap (current-local-map) evil-state)))
                               (doom-lookup-key (kbd "TAB") (list (current-local-map))))
                           it))
+
+
+;; -- Magit mode
+
+(map! :map magit-mode-map
+      :g   "C-,"           #'magit-section-backward
+      :g   "C-."           #'magit-section-forward
+      :g   [up]            #'magit-section-backward
+      :g   [down]          #'magit-section-forward
+      :g   [left]          #'magit-section-backward-sibling
+      :g   [right]         #'magit-section-forward-sibling)
 
 
 ;; -- Leader
