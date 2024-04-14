@@ -178,16 +178,36 @@
                               (doom-lookup-key (kbd "TAB") (list (current-local-map))))
                           it))
 
-
-;; -- Magit mode
-
-(map! :map magit-mode-map
-      :g   "C-,"           #'magit-section-backward
-      :g   "C-."           #'magit-section-forward
-      :g   [up]            #'magit-section-backward
-      :g   [down]          #'magit-section-forward
-      :g   [left]          #'magit-section-backward-sibling
-      :g   [right]         #'magit-section-forward-sibling)
+;;; :completion (in-buffer)
+;; (map! (:when (modulep! :completion corfu)
+;;        (:after corfu
+;;         (:map corfu-mode-map
+;;          :i "C-SPC" #'completion-at-point
+;;          :n "C-SPC" (cmd! (call-interactively #'evil-insert-state)
+;;                           (call-interactively #'completion-at-point))
+;;          :v "C-SPC" (cmd! (call-interactively #'evil-change)
+;;                           (call-interactively #'completion-at-point)))
+;;         (:map corfu-map
+;;          :i "C-SPC" #'corfu-insert-separator
+;;          "C-k" #'corfu-previous
+;;          "C-j" #'corfu-next
+;;          "C-u" (cmd! (let (corfu-cycle)
+;;                        (funcall-interactively #'corfu-next (- corfu-count))))
+;;          "C-d" (cmd! (let (corfu-cycle)
+;;                        (funcall-interactively #'corfu-next corfu-count)))))
+;;        (:after corfu-popupinfo
+;;         :map corfu-popupinfo-map
+;;         "C-h"      #'corfu-popupinfo-toggle
+;;         ;; Reversed because popupinfo assumes opposite of what feels intuitive
+;;         ;; with evil.
+;;         "C-S-k"    #'corfu-popupinfo-scroll-down
+;;         "C-S-j"    #'corfu-popupinfo-scroll-up
+;;         "C-<up>"   #'corfu-popupinfo-scroll-down
+;;         "C-<down>" #'corfu-popupinfo-scroll-up
+;;         "C-S-p"    #'corfu-popupinfo-scroll-down
+;;         "C-S-n"    #'corfu-popupinfo-scroll-up
+;;         "C-S-u"    (cmd!! #'corfu-popupinfo-scroll-down nil corfu-popupinfo-min-height)
+;;         "C-S-d"    (cmd!! #'corfu-popupinfo-scroll-up nil corfu-popupinfo-min-height))))
 
 
 ;; -- Leader
@@ -210,37 +230,40 @@
       :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer
 
       ;;; <leader> d --- delete
-      (:when (modulep! :ui workspaces)
-        (:prefix-map ("d" . "delete")
-         :desc "Buffer"                 "b"   #'kill-current-buffer
-         :desc "Kill buried buffers"    "k"   #'doom/kill-buried-buffers
-         :desc "Workspace"              "l"   #'+workspace/delete
-         :desc "Bookmark"               "m"   #'bookmark-delete
-         :desc "Other buffers"          "o"   #'doom/kill-other-buffers
-         :desc "Window or workspace"    "w"   #'+workspace/close-window-or-workspace
-         :desc "Session"                "x"   #'+workspace/kill-session))
+      (:prefix-map ("d" . "delete") :when (modulep! :ui workspaces)
+       :desc "Buffer"                    "b"   #'kill-current-buffer
+       :desc "Kill buried buffers"       "k"   #'doom/kill-buried-buffers
+       :desc "Workspace"                 "l"   #'+workspace/delete
+       :desc "Bookmark"                  "m"   #'bookmark-delete
+       :desc "Other buffers"             "o"   #'doom/kill-other-buffers
+       :desc "Window or workspace"       "w"   #'+workspace/close-window-or-workspace
+       :desc "Session"                   "x"   #'+workspace/kill-session)
+
+      ;;; <leader> g --- git
+      (:prefix-map ("g" . "git") :when (modulep! :tools magit)
+       :desc "Magit switch branch"       "B"   #'magit-branch-checkout
+       :desc "Magit blame"               "b"   #'magit-blame-addition)
 
       ;;; <leader> l --- workspace (mnemonic for layer)
-      (:when (modulep! :ui workspaces)
-        (:prefix-map ("l" . "workspace")
-         :desc "Display tab bar"           "TAB" #'+workspace/display
-         :desc "Switch workspace"          "."   #'+workspace/switch-to
-         :desc "Switch to last workspace"  "`"   #'+workspace/other
-         :desc "Kill this workspace"       "k"   #'+workspace/delete
-         :desc "New workspace"             "n"   #'+workspace/new
-         :desc "New named workspace"       "N"   #'+workspace/new-named
-         :desc "Load workspace from file"  "l"   #'+workspace/load
-         :desc "Save workspace to file"    "s"   #'+workspace/save
-         :desc "Delete session"            "x"   #'+workspace/kill-session
-         :desc "Delete this workspace"     "d"   #'+workspace/delete
-         :desc "Rename workspace"          "r"   #'+workspace/rename
-         :desc "Restore last session"      "R"   #'+workspace/restore-last-session
-         :desc "Next workspace"            "]"   #'+workspace/switch-right
-         :desc "Previous workspace"        "["   #'+workspace/switch-left))
+      (:prefix-map ("l" . "workspace") :when (modulep! :ui workspaces)
+       :desc "Display tab bar"           "TAB" #'+workspace/display
+       :desc "Switch workspace"          "."   #'+workspace/switch-to
+       :desc "Switch to last workspace"  "`"   #'+workspace/other
+       :desc "Kill this workspace"       "k"   #'+workspace/delete
+       :desc "New workspace"             "n"   #'+workspace/new
+       :desc "New named workspace"       "N"   #'+workspace/new-named
+       :desc "Load workspace from file"  "l"   #'+workspace/load
+       :desc "Save workspace to file"    "s"   #'+workspace/save
+       :desc "Delete session"            "x"   #'+workspace/kill-session
+       :desc "Delete this workspace"     "d"   #'+workspace/delete
+       :desc "Rename workspace"          "r"   #'+workspace/rename
+       :desc "Restore last session"      "R"   #'+workspace/restore-last-session
+       :desc "Next workspace"            "]"   #'+workspace/switch-right
+       :desc "Previous workspace"        "["   #'+workspace/switch-left)
 
       ;;; <leader> n --- notes
       (:prefix-map ("n" . "notes")
-       :desc "Obsidian notes"         "SPC" #'obsidian-jump))
+       :desc "Obsidian notes"            "SPC" #'obsidian-jump))
 
 
 ;; -- goto prefix
@@ -258,6 +281,30 @@
 
 
 ;; -- Modules
+
+(map! :after magit :map magit-mode-map
+      :mnv   "v"             #'evil-visual-char
+      :mnv   "V"             #'evil-visual-line
+
+      :mnv   "k"             #'evil-previous-line
+      :mnv   "j"             #'evil-next-line
+      :mnv   "h"             #'evil-backward-char
+      :mnv   "l"             #'evil-forward-char
+
+      :mnv   "0"             #'magit-diff-default-context
+      :mnv   "="             #'magit-diff-more-context
+      :mnv   "-"             #'magit-diff-less-context
+
+      :mnv   "."             #'magit-reverse
+      :mnv   [backspace]     #'magit-revert
+
+      :mnv   [left]          #'magit-section-backward-sibling
+      :mnv   [down]          #'magit-section-forward
+      :mnv   [up]            #'magit-section-backward
+      :mnv   [right]         #'magit-section-forward-sibling
+
+      :mnv   "C-,"           #'magit-section-backward
+      :mnv   "C-."           #'magit-section-forward)
 
 (map! :after evil-snipe
       :inv "C-,"     #'evil-snipe-repeat-reverse
