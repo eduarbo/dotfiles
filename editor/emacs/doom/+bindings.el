@@ -4,7 +4,7 @@
 (setq +evil-repeat-keys (cons [right] [left]))
 
 (map! :i    [S-return]      #'+default/newline-above
-      :i    "S-SPC"         #'indent-for-tab-command
+      :i    "S-SPC"         #'tab-to-tab-stop
 
       :n    "SPC"           #'evil-ex-search-word-forward
       :v    "SPC"           #'evil-visualstar/begin-search-forward
@@ -150,7 +150,7 @@
                           #'company-indent-or-complete-common
                           (and (bound-and-true-p corfu-mode)
                                (modulep! :completion corfu))
-                          #'completion-at-point)
+                          #'indent-for-tab-command)
       :m [tab]     #'+fold/toggle
 
       :i [backtab] (cmds! (and (modulep! :editor snippets)
@@ -178,36 +178,32 @@
                               (doom-lookup-key (kbd "TAB") (list (current-local-map))))
                           it))
 
-;;; :completion (in-buffer)
-;; (map! (:when (modulep! :completion corfu)
-;;        (:after corfu
-;;         (:map corfu-mode-map
-;;          :i "C-SPC" #'completion-at-point
-;;          :n "C-SPC" (cmd! (call-interactively #'evil-insert-state)
-;;                           (call-interactively #'completion-at-point))
-;;          :v "C-SPC" (cmd! (call-interactively #'evil-change)
-;;                           (call-interactively #'completion-at-point)))
-;;         (:map corfu-map
-;;          :i "C-SPC" #'corfu-insert-separator
-;;          "C-k" #'corfu-previous
-;;          "C-j" #'corfu-next
-;;          "C-u" (cmd! (let (corfu-cycle)
-;;                        (funcall-interactively #'corfu-next (- corfu-count))))
-;;          "C-d" (cmd! (let (corfu-cycle)
-;;                        (funcall-interactively #'corfu-next corfu-count)))))
-;;        (:after corfu-popupinfo
-;;         :map corfu-popupinfo-map
-;;         "C-h"      #'corfu-popupinfo-toggle
-;;         ;; Reversed because popupinfo assumes opposite of what feels intuitive
-;;         ;; with evil.
-;;         "C-S-k"    #'corfu-popupinfo-scroll-down
-;;         "C-S-j"    #'corfu-popupinfo-scroll-up
-;;         "C-<up>"   #'corfu-popupinfo-scroll-down
-;;         "C-<down>" #'corfu-popupinfo-scroll-up
-;;         "C-S-p"    #'corfu-popupinfo-scroll-down
-;;         "C-S-n"    #'corfu-popupinfo-scroll-up
-;;         "C-S-u"    (cmd!! #'corfu-popupinfo-scroll-down nil corfu-popupinfo-min-height)
-;;         "C-S-d"    (cmd!! #'corfu-popupinfo-scroll-up nil corfu-popupinfo-min-height))))
+;; :completion (in-buffer)
+(map! (:when (modulep! :completion corfu)
+        (:after corfu
+                (:map corfu-mode-map
+                 :i "C-SPC" #'completion-at-point
+                 :n "C-SPC" (cmd! (call-interactively #'evil-insert-state)
+                                  (call-interactively #'completion-at-point))
+                 :v "C-SPC" (cmd! (call-interactively #'evil-change)
+                                  (call-interactively #'completion-at-point)))
+                (:map corfu-map
+                 :i "C-SPC" #'corfu-insert-separator
+                 :i "S-SPC" #'corfu-insert-separator
+
+                 "C-u" (cmd! (let (corfu-cycle)
+                               (funcall-interactively #'corfu-next (- corfu-count))))
+                 "C-d" (cmd! (let (corfu-cycle)
+                               (funcall-interactively #'corfu-next corfu-count)))))
+        (:after corfu-popupinfo :map (corfu-popupinfo-map corfu-map)
+                "C-h"      #'corfu-popupinfo-toggle
+
+                ;; Reversed because popupinfo assumes opposite of what feels intuitive
+                ;; with evil.
+                "S-<up>"    (cmd!! #'corfu-popupinfo-scroll-down nil (/ corfu-popupinfo-max-height 2))
+                "S-<down>"  (cmd!! #'corfu-popupinfo-scroll-up nil (/ corfu-popupinfo-max-height 2))
+                "C-k"       (cmd!! #'corfu-popupinfo-scroll-down nil (/ corfu-popupinfo-max-height 2))
+                "C-j"       (cmd!! #'corfu-popupinfo-scroll-up nil (/ corfu-popupinfo-max-height 2)))))
 
 
 ;; -- Leader
