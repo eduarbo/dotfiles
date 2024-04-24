@@ -89,7 +89,7 @@ alias dc='docker-compose'
 # .gitattributes | map dirname
 alias map='xargs -n1'
 
-alias dush='du -csh * | sort -h'
+alias dush='du -cshx * | sort -h'
 
 alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr en1'

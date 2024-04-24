@@ -35,8 +35,34 @@ alias grc='git rebase --continue'
 alias grk='git rebase --skip'
 
 # checkout
-alias gco='git checkout'
 alias gcoo='git checkout --'
+
+gco() {
+  if ! _is_callable fzf || [ $# -gt 0 ]; then
+    git checkout "$@"
+    return $?
+  fi
+
+  # checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+    branch=$(echo "$branches" |
+      fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# Create branch and checkout.
+# If the argument is a url, extract everything after the last slash to use it as
+# branch name. Very useful for JIRA tickets :)
+gcob() {
+  local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]\.[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
+  if [[ "$1" =~ $url_regex ]]; then
+    local branch=${1##*/}
+    git checkout -b "$branch"
+  else
+    git checkout -b "$1"
+  fi
+}
 
 # commit
 alias gc='git commit -S'
@@ -70,9 +96,23 @@ alias gbb='git branch -v'
 alias gbd='git branch -D'
 
 # log
-alias gl='git log --graph --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'
-alias gll='git log --pretty="format:%C(yellow)%h%Creset %C(red)%G?%Creset%C(green)%d%Creset %s %Cblue(%cr) %C(bold blue)<%aN>%Creset"'
+alias gll='git log --graph --color=always --format="%C(auto)%h%d %s %C(8)%cr %C(0)by %C(italic 8)%aN%C(reset)"'
 alias gL='gl --stat'
+
+if _is_callable fzf; then
+  gl() {
+    git log --color=always \
+        --format="%C(auto)%h%d %s %C(8)%cr %C(0)by %C(italic 8)%aN%C(reset)" "$@" |
+    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+        --bind "ctrl-m:execute:
+                  (grep -o '[a-f0-9]\{7\}' | head -1 |
+                  xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                  {}
+  FZF-EOF"
+  }
+else
+  alias gl='git log --color=always --format="%C(auto)%h%d %s %C(8)%cr %C(0)by %C(italic 8)%aN%C(reset)"'
+fi
 
 # tag
 alias gt='git tag --sort=v:refname'
@@ -81,38 +121,3 @@ alias gta='gt -a'
 
 # do not get VCS status (much faster)
 alias k='k -Ah --no-vcs'
-
-# Create branch and checkout.
-# If the argument is a url, extract everything after the last slash to use it as
-# branch name. Very useful for JIRA tickets :)
-gcob() {
-  local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]\.[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
-  if [[ "$1" =~ $url_regex ]]; then
-    local branch=${1##*/}
-    git checkout -b "$branch"
-  else
-    git checkout -b "$1"
-  fi
-}
-
-# checkout git branch (including remote branches), sorted by most recent commit,
-# limit 30 last branches
-_is_callable fzf && fco() {
-  local branches branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
-
-# git commit browser
-_is_callable fzf && fshow() {
-  git log --color=always \
-      --format="%C(auto)%h%d %s %C(8)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-FZF-EOF"
-}
