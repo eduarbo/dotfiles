@@ -74,10 +74,15 @@
 
       ;; Window navigation
       (:map general-override-mode-map
-       :gnvi "C-j"          #'evil-window-down
-       :gnvi "C-k"          #'evil-window-up
-       :gnvi "C-l"          #'evil-window-right
-       :gnvi "C-h"          #'evil-window-left)
+       :nvi "C-j"          #'evil-window-down
+       :nvi "C-k"          #'evil-window-up
+       :nvi "C-l"          #'evil-window-right
+       :nvi "C-h"          #'evil-window-left)
+      ;; (:map general-override-mode-map
+      ;;  :gnvi "C-j"          #'evil-window-down
+      ;;  :gnvi "C-k"          #'evil-window-up
+      ;;  :gnvi "C-l"          #'evil-window-right
+      ;;  :gnvi "C-h"          #'evil-window-left)
 
       ;; Leaving Emacs state unbound, my accidental visits always turn into a quest for an escape route!
       :im    "C-z"          nil

@@ -84,6 +84,7 @@ update() {
 link() {
   mkdir -p "$ZSH_CACHE"
   mklink config "$ZDOTDIR"
+  mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
 }
 
 clean() {
