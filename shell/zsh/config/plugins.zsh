@@ -21,8 +21,8 @@ zinit snippet "https://cht.sh/:cht.sh"
 zinit ice mv=":zsh -> _cht" as="completion"
 zinit snippet https://cheat.sh/:zsh
 
-zinit ice wait"2" lucid as"program" pick"bin/git-dsf"; zinit light zdharma-continuum/zsh-diff-so-fancy
-zinit ice wait"2" lucid as"program" pick"bin/git-*"; zinit light tj/git-extras
+zinit ice lucid as"program" pick"bin/git-dsf"; zinit load so-fancy/diff-so-fancy
+zinit ice lucid as"program" pick"bin/git-*"; zinit light tj/git-extras
 
 # To customize prompt edit this file or run `p10k configure`
 _load shell/zsh/config/p10k.zsh

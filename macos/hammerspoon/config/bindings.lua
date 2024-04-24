@@ -54,12 +54,12 @@ hs.hotkey.bind(mods.hyper, "h", hs.reload)
 spoon.SpoonInstall:andUse("AppLauncher", {
     hotkeys = {
         a = "Figma",
-        b = "Microsoft Edge",
+        b = "Arc",
         c = "Calendar",
         d = "Deepl",
         e = "Emacs",
         f = "Finder",
-        g = "Arc",
+        g = "Microsoft Edge",
         -- h = "", -- already bound to reload 🔨🥄
         -- i = "",
         -- j = "",
