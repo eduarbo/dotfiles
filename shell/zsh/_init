@@ -85,6 +85,7 @@ link() {
   mkdir -p "$ZSH_CACHE"
   mklink config "$ZDOTDIR"
   mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
+  touch $ZSH_DATA_HOME/local.zsh
 }
 
 clean() {
@@ -94,7 +95,7 @@ clean() {
       ;;
   esac
 
-  rm -rfv "$ZDOTDIR" "$ZSH_CACHE"
+  rm -rfv "$ZDOTDIR" "$ZSH_CACHE" "$ZSH_DATA_HOME"
 }
 
 init "$@"
