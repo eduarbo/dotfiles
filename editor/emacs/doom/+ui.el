@@ -82,9 +82,12 @@
      (doom-modeline--symbol-overlay)
      ;; 6. The number of active `multiple-cursors'.
      (doom-modeline--multiple-cursors)))
-  (doom-modeline-def-modeline 'main
-    '(hud modals clean-matches checker buffer-info remote-host buffer-position selection-info)
-    '(misc-info github vcs lsp input-method buffer-encoding buffer-size major-mode process " ")))
+
+  ;; FIXME Freezes Emacs
+  ;; (doom-modeline-def-modeline 'main
+  ;;   '(hud modals clean-matches checker buffer-info remote-host buffer-position selection-info)
+  ;;   '(misc-info github vcs lsp input-method buffer-encoding buffer-size major-mode process " "))
+  )
 
 (custom-set-faces!
   '(bold
