@@ -241,3 +241,17 @@ narrowed."
   (markdown-toggle-markup-hiding 'toggle)
   (font-lock-add-keywords nil '((nb/unhide-current-line)) t)
   (add-hook 'post-command-hook #'nb/refontify-on-linemove nil t))
+
+;;;###autoload
+(defun my/magit-toggle-diff-buffers-or-quit ()
+  "Closes Magit diff/revision buffers, or calls `+magit/quit` if none."
+  (interactive)
+  (let ((found-and-closed nil))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (or (eq major-mode 'magit-diff-mode)
+                  (eq major-mode 'magit-revision-mode))
+          (setq found-and-closed t)
+          (kill-buffer buffer))))
+    (unless found-and-closed
+      (+magit/quit))))
