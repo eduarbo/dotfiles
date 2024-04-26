@@ -13,5 +13,6 @@
 
 (load! "+defaults.el")
 (load! "+ui.el")
+(load! "+magit.el")
 (load! "+modules.el")
 (load! "+bindings.el")
