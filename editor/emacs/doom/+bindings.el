@@ -264,7 +264,11 @@
 
       ;;; <leader> n --- notes
       (:prefix-map ("n" . "notes")
-       :desc "Obsidian notes"            "SPC" #'obsidian-jump))
+       :desc "Obsidian notes"            "SPC" #'obsidian-jump)
+
+      ;;; <leader> q --- quit/session
+      (:prefix-map ("q" . "quit/session")
+        :desc "Start new Emacs"          "n"   #'restart-emacs-start-new-emacs))
 
 
 ;; -- goto prefix
@@ -283,29 +287,33 @@
 
 ;; -- Modules
 
-(map! :after magit :map magit-mode-map
-      :mnv   "v"             #'evil-visual-char
-      :mnv   "V"             #'evil-visual-line
+(map! :after evil-collection-magit :map magit-mode-map
+      :nv   "v"      nil
+      :nv   "V"      nil
+      :nv   "h"      nil
+      :nv   "l"      nil
+      :nv   "X"      nil
+      :nv   "o"      nil
+      :nv   "O"      nil
+      :nv   "Q"      nil
+      :nv   "H"      #'magit-describe-section
+      :nv   "J"      #'magit-status-jump
+      :nv   "L"      #'magit-log-refresh
+      :nv   "<"      #'magit-git-command
+      :nv   ">"      #'magit-run
+      :nv   "."      #'magit-display-repository-buffer
 
-      :mnv   "k"             #'evil-previous-line
-      :mnv   "j"             #'evil-next-line
-      :mnv   "h"             #'evil-backward-char
-      :mnv   "l"             #'evil-forward-char
+      :nv   "0"      #'magit-diff-default-context
+      :nv   "="      #'magit-diff-more-context
+      :nv   "-"      #'magit-diff-less-context
 
-      :mnv   "0"             #'magit-diff-default-context
-      :mnv   "="             #'magit-diff-more-context
-      :mnv   "-"             #'magit-diff-less-context
+      :nv   [left]   #'magit-section-backward-sibling
+      :nv   [down]   #'magit-section-forward
+      :nv   [up]     #'magit-section-backward
+      :nv   [right]  #'magit-section-forward-sibling
 
-      :mnv   "."             #'magit-reverse
-      :mnv   [backspace]     #'magit-revert
-
-      :mnv   [left]          #'magit-section-backward-sibling
-      :mnv   [down]          #'magit-section-forward
-      :mnv   [up]            #'magit-section-backward
-      :mnv   [right]         #'magit-section-forward-sibling
-
-      :mnv   "C-,"           #'magit-section-backward
-      :mnv   "C-."           #'magit-section-forward)
+      :nv   "C-,"    #'magit-section-backward
+      :nv   "C-."    #'magit-section-forward)
 
 (map! :after evil-snipe
       :inv "C-,"     #'evil-snipe-repeat-reverse
