@@ -287,34 +287,6 @@
 
 ;; -- Modules
 
-(map! :after evil-collection-magit :map magit-mode-map
-      :nv   "v"      nil
-      :nv   "V"      nil
-      :nv   "h"      nil
-      :nv   "l"      nil
-      :nv   "X"      nil
-      :nv   "o"      nil
-      :nv   "O"      nil
-      :nv   "Q"      nil
-      :nv   "H"      #'magit-describe-section
-      :nv   "J"      #'magit-status-jump
-      :nv   "L"      #'magit-log-refresh
-      :nv   "<"      #'magit-git-command
-      :nv   ">"      #'magit-run
-      :nv   "."      #'magit-display-repository-buffer
-
-      :nv   "0"      #'magit-diff-default-context
-      :nv   "="      #'magit-diff-more-context
-      :nv   "-"      #'magit-diff-less-context
-
-      :nv   [left]   #'magit-section-backward-sibling
-      :nv   [down]   #'magit-section-forward
-      :nv   [up]     #'magit-section-backward
-      :nv   [right]  #'magit-section-forward-sibling
-
-      :nv   "C-,"    #'magit-section-backward
-      :nv   "C-."    #'magit-section-forward)
-
 (map! :after evil-snipe
       :inv "C-,"     #'evil-snipe-repeat-reverse
       :inv "C-."     #'evil-snipe-repeat
