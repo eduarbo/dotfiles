@@ -97,8 +97,8 @@
       ("<tab>" "   Toggle section at point"  magit-section-toggle)
       ("<return>" "Visit thing at point"     magit-visit-thing)]])
 
-  ;; Align bindings in magit mode with the transient's
   (map! :map magit-mode-map
+        ;; Align bindings in magit mode with the transient's
         :nv   "o"      #'magit-reverse
         :nv   "O"      #'magit-revert
         :nv   "X"      #'magit-reset
@@ -114,7 +114,11 @@
         :nv   [up]     #'magit-section-backward-sibling
         :nv   [down]   #'magit-section-forward-sibling
         :nv   [left]   #'magit-section-backward
-        :nv   [right]  #'magit-section-forward))
+        :nv   [right]  #'magit-section-forward
+
+        ;; Convenient bindings
+        :nv   "q"      'my/magit-toggle-diff-buffers-or-quit
+        [escape]       'my/magit-toggle-diff-buffers-or-quit))
 
 ;; Override other transients to align them with the help popup
 (setq evil-collection-magit-popup-changes
