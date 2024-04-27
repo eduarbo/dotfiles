@@ -100,10 +100,10 @@ function _os {
 function _cache {
   local cache_dir="$XDG_CACHE_HOME/${SHELL##*/}"
   local cache="$cache_dir/$1"
-  if [[ "$(_is_callable $1)" && (! -f $cache || ! -s $cache) ]]; then
+
+  if [[ ! -f $cache || ! -s $cache ]]; then
     echo "Caching $1"
-    mkdir -p $cache_dir
-    "$@" >$cache
+    "$@" >| $cache
   fi
   source $cache
 }
