@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
-source ${0:A:h}/../../deploy
 source config/.zprofile
+source ${0:A:h}/../../deploy
 
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 ZPROFILE="$HOME/.zprofile"
