@@ -6,7 +6,6 @@ source config/.zshenv
 
 common_deps=(
   zsh
-  fasd
   figlet
   fzf
   toilet

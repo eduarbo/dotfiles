@@ -24,6 +24,8 @@ zinit snippet https://cheat.sh/:zsh
 zinit ice lucid as"program" pick"bin/git-dsf"; zinit load so-fancy/diff-so-fancy
 zinit ice lucid as"program" pick"bin/git-*"; zinit light tj/git-extras
 
+zinit light whjvenyl/fasd
+
 # To customize prompt edit this file or run `p10k configure`
 _load shell/zsh/config/p10k.zsh
 # Load powerlevel10k theme
@@ -39,6 +41,5 @@ zinit wait lucid light-mode for \
   blockf atpull'zinit creinstall -q .' \
       zsh-users/zsh-completions
 
-export _FASD_DATA="$XDG_DATA_HOME/fasd"
-export _FASD_VIMINFO="$XDG_DATA_HOME/viminfo"
+export _FASD_DATA="$XDG_CACHE_HOME/zsh/fasd"
 _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
