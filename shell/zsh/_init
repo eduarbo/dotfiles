@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
-source config/.zshenv
+source config/.zprofile
 
 # Dependencies
 
@@ -37,25 +37,23 @@ install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
-
-      zshenv="$HOME/.zshenv"
       ;;
     debian)
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
-
-      zshenv=/etc/zsh/zshenv
       ;;
   esac
 
+  local zprofile="$HOME/.zprofile"
   local zsh="$(command -v zsh)"
 
   echo-note "Please enter your sudo password to set ZSH as the default shell"
   sudo -v
 
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
-  tee $zshenv <<<"ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
 
-  mkdir -p "$XDG_DATA_HOME/zsh"
+  ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+  echo-note "Move ZDOTDIR from $HOME to reduce dotfile pollution."
+  tee $zprofile <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zprofile"'
 
   sudo chsh -s $zsh $(whoami)
 }
@@ -81,8 +79,11 @@ update() {
 
 link() {
   mkdir -p "$ZSH_CACHE"
+  mkdir -p "$ZSH_DATA_HOME"
+
   mklink config "$ZDOTDIR"
   mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
+
   touch $ZSH_DATA_HOME/local.zsh
 
   echo-info "Restart the terminal if it continues using a different shell."
@@ -92,14 +93,14 @@ link() {
 clean() {
   case $(_os) in
     macos)
-      _backup --delete "~/.zshenv"
+      _backup --delete "~/.zprofile"
       ;;
   esac
 
   rm -rfv "$ZDOTDIR" "$ZSH_CACHE" "$ZSH_DATA_HOME"
 
   # Stop Zsh from displaying messages about missing startup files
-  touch $ZDOTDIR/.zshrc
+  touch "$ZDOTDIR/.zshrc"
 }
 
 init "$@"

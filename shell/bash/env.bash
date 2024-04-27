@@ -7,7 +7,6 @@ export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu
 export PAGER=less
 export LESS='-R -i -w -M -z-4'
 export LESSHISTFILE="$XDG_DATA_HOME/lesshst"
-export ZSH_DATA_HOME="$XDG_DATA_HOME/zsh"
 
 # Changing pinentry for SSH logins
 
