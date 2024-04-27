@@ -61,7 +61,7 @@ install() {
   sudo chsh -s $ZSH $(whoami)
 
   echo-info "Restart the terminal if it continues using a different shell."
-  exec "$ZSH"
+  exec "$ZSH -l"
 }
 
 update() {
