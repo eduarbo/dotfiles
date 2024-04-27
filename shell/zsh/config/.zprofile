@@ -5,7 +5,7 @@
 
 # This great article explains what `path_helper` does in more detail: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#choosing-the-right-init-file
 
-# unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
+unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
 source $(cd ${${(%):-%x}:A:h}/../../.. && pwd -P)/env
 
 export ZSH_DATA_HOME="$XDG_DATA_HOME/zsh"
