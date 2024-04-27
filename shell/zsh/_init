@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source config/.zprofile
 
+ZPROFILE="$HOME/.zprofile"
+
 # Dependencies
 
 common_deps=(
@@ -43,7 +45,6 @@ install() {
       ;;
   esac
 
-  local zprofile="$HOME/.zprofile"
   local zsh="$(command -v zsh)"
 
   echo-note "Please enter your sudo password to set ZSH as the default shell"
@@ -53,7 +54,7 @@ install() {
 
   ZDOTDIR="$XDG_CONFIG_HOME/zsh"
   echo-note "Move ZDOTDIR from $HOME to reduce dotfile pollution."
-  tee $zprofile <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zprofile"'
+  tee $ZPROFILE <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zprofile"'
 
   sudo chsh -s $zsh $(whoami)
 }
@@ -93,14 +94,14 @@ link() {
 clean() {
   case $(_os) in
     macos)
-      _backup --delete "~/.zprofile"
+      _backup --delete "$ZPROFILE"
       ;;
   esac
 
   rm -rfv "$ZDOTDIR" "$ZSH_CACHE" "$ZSH_DATA_HOME"
 
   # Stop Zsh from displaying messages about missing startup files
-  touch "$ZDOTDIR/.zshrc"
+  touch "$HOME/.zshrc"
 }
 
 init "$@"
