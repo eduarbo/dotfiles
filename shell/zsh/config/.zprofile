@@ -1,16 +1,14 @@
-#                           ░▀▀█░█▀▀░█░█░█▀▀░█▀█░█░█
-#                           ░▄▀░░▀▀█░█▀█░█▀▀░█░█░▀▄▀
-#                           ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░▀░
-#
 # This file is sourced by all instances of Zsh, and thus, it should be kept as
 # small as possible and should only define environment variables.
 
+# I opted for `.zprofile` over the commonly suggested `.zshenv` due to macOS's quirks. Turns out, `/usr/libexec/path_helper` reorders the `$PATH` between loading `.zshenv` and `.zprofile`. What a great "helper", right?
 
-unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
+# This great article explains what `path_helper` does in more detail: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#choosing-the-right-init-file
+
+# unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
 source $(cd ${${(%):-%x}:A:h}/../../.. && pwd -P)/env
 
-# Move ZDOTDIR from $HOME to reduce dotfile pollution.
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZSH_DATA_HOME="$XDG_DATA_HOME/zsh"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 export ZINIT_DIR="$ZSH_CACHE/zinit"
 
@@ -32,12 +30,12 @@ export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 
-path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-
 BREW_PATH="/opt/homebrew/bin/brew"
+# NOTE this reorders the PATH, make sure to update the PATH after homebrew init
 [[ -f "$BREW_PATH" ]] && eval "$($BREW_PATH shellenv)"
 
-# [[ $(_os) == macos ]] && path=($(brew --prefix coreutils/libexec/gnubin 2>/dev/null) $path)
+path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
+
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
