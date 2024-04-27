@@ -32,8 +32,8 @@ export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 
-path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-[[ $(_os) == macos ]] && path=( $(brew --prefix coreutils)/libexec/gnubin $path )
+path=( /otp/homebrew/bin /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
+[[ $(_os) == macos ]] && path=($(brew --prefix coreutils/libexec/gnubin 2>/dev/null) $path)
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
