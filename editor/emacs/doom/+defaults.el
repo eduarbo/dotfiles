@@ -45,6 +45,8 @@
 
 (add-to-list 'auto-mode-alist '("\\editorconfig\\'" . editorconfig-conf-mode))
 
+(add-to-list 'auto-mode-alist '("gitconfig" . gitconfig-mode))
+
 ;; Nunjucks template files
 (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
 
