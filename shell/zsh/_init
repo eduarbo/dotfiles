@@ -58,8 +58,6 @@ install() {
   mkdir -p "$XDG_DATA_HOME/zsh"
 
   sudo chsh -s $zsh $(whoami)
-  echo-info "Restart the terminal if it continues using a different shell."
-  exec $zsh
 }
 
 update() {
@@ -86,6 +84,9 @@ link() {
   mklink config "$ZDOTDIR"
   mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
   touch $ZSH_DATA_HOME/local.zsh
+
+  echo-info "Restart the terminal if it continues using a different shell."
+  exec "$(command -v zsh)"
 }
 
 clean() {
