@@ -50,7 +50,6 @@ install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
-      xcode-select --install
       # Enable Cask of fonts
       brew tap homebrew/cask-fonts
       brew install ${cask_fonts_deps[@]}
