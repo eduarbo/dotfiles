@@ -63,8 +63,8 @@
       ("z" "Stash"          magit-stash)
       ("Z" "Worktree"       magit-worktree)
       ("." "Display buffer" magit-display-repository-buffer)
-      ("`" "Command"        magit-git-command)
-      ("~" "Run"            magit-run)
+      ("~" "Command"        magit-git-command)
+      ("!" "Run"            magit-run)
       ("'" "Submodule"      magit-submodule)
       ("\"" "Subtree"       magit-subtree)
       ("<" "Less context"   magit-diff-less-context)
@@ -105,8 +105,8 @@
         :nv   "J"      #'magit-status-jump
 
         :nv   "."      #'magit-display-repository-buffer
-        :nv   "`"      #'magit-git-command
-        :nv   "~"      #'magit-run
+        :nv   "~"      #'magit-git-command
+        :nv   "!"      #'magit-run
         :nv   "<"      #'magit-diff-less-context
         :nv   ">"      #'magit-diff-more-context
         :nv   "="      #'magit-diff-default-context
