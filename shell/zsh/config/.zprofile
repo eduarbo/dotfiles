@@ -34,7 +34,7 @@ BREW_PATH="/opt/homebrew/bin/brew"
 # NOTE this reorders the PATH, make sure to update the PATH after homebrew init
 [[ -f "$BREW_PATH" ]] && eval "$($BREW_PATH shellenv)"
 
-path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
+path=( $path /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
 
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
