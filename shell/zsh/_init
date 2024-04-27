@@ -20,6 +20,7 @@ common_deps=(
 
 brew_deps=(
   coreutils
+  grep # GNU grep is not part of coreutils
   findutils
   zsh-history-substring-search
   fd # for find: It's find with fewer options, but good defaults for typical uses
