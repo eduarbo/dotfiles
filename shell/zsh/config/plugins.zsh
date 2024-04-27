@@ -12,7 +12,9 @@ zinit lucid wait for zsh-users/zsh-history-substring-search
 zinit light zdharma-continuum/history-search-multi-word
 
 zinit light djui/alias-tips
-zinit ice multisrc"shell/{key-bindings,completion}.zsh" pick""; zinit light junegunn/fzf
+
+zinit ice wait lucid multisrc"shell/*.zsh"
+zinit light junegunn/fzf
 
 # https://github.com/mustaqimM/dotfiles/blob/8dbe45b1dbe29fc4686dc025d824a84024916d4e/.zsh/.zshrc
 zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)ch*]} ]]' lucid as"program" mv"*cht.sh -> cht.sh"
@@ -21,9 +23,14 @@ zinit snippet "https://cht.sh/:cht.sh"
 zinit ice mv=":zsh -> _cht" as="completion"
 zinit snippet https://cheat.sh/:zsh
 
-zinit ice lucid as"program" pick"bin/git-dsf"; zinit load so-fancy/diff-so-fancy
-zinit ice lucid as"program" pick"bin/git-*"; zinit light tj/git-extras
+zinit ice lucid as"program" pick"bin/git-dsf"
+zinit load so-fancy/diff-so-fancy
 
+zinit ice lucid as"program" pick"bin/git-*"
+zinit light tj/git-extras
+
+# fasd is archived and unavailable for brew
+# https://github.com/Homebrew/homebrew-core/pull/112791
 zinit light whjvenyl/fasd
 
 # To customize prompt edit this file or run `p10k configure`
@@ -40,6 +47,3 @@ zinit wait lucid light-mode for \
       zsh-users/zsh-autosuggestions \
   blockf atpull'zinit creinstall -q .' \
       zsh-users/zsh-completions
-
-export _FASD_DATA="$XDG_CACHE_HOME/zsh/fasd"
-_cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}

@@ -15,6 +15,7 @@ brew_deps=(
   pandoc
   markdown
   coreutils
+  grep # GNU grep is not part of coreutils
   gnu-tar
   llvm
   cmake
