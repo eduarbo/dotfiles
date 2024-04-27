@@ -38,7 +38,7 @@ install() {
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
 
-      zshenv=/etc/zshenv
+      zshenv="$HOME/.zshenv"
       ;;
     debian)
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
@@ -53,7 +53,7 @@ install() {
   sudo -v
 
   grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
-  sudo tee $zshenv <<<"export ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
+  tee $zshenv <<<"ZDOTDIR=\"${ZDOTDIR/$HOME/\$HOME}\""
 
   mkdir -p "$XDG_DATA_HOME/zsh"
 
