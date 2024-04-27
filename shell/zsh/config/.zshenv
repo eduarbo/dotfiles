@@ -32,7 +32,7 @@ export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 
-path=( /otp/homebrew/bin /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
+path=( /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
 
 BREW_PATH="/opt/homebrew/bin/brew"
 [[ -f "$BREW_PATH" ]] && eval "$($BREW_PATH shellenv)"
@@ -41,12 +41,6 @@ BREW_PATH="/opt/homebrew/bin/brew"
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
-
-function _load_all {
-  for file in "$DOTFILES_DATA"/*.topic/"$1"(N); do
-    [[ -e $file ]] && source "$file"
-  done
-}
 
 # initialize enabled topics
 _load_all env.bash
