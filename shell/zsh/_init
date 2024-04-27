@@ -59,6 +59,9 @@ install() {
   tee $ZPROFILE <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zprofile"'
 
   sudo chsh -s $ZSH $(whoami)
+
+  echo-info "Restart the terminal if it continues using a different shell."
+  exec "$ZSH"
 }
 
 update() {
@@ -93,9 +96,6 @@ link() {
 
   echo-info "touch $ZSH_DATA_HOME/local.zsh"
   touch $ZSH_DATA_HOME/local.zsh
-
-  echo-info "Restart the terminal if it continues using a different shell."
-  exec "$ZSH"
 }
 
 clean() {
