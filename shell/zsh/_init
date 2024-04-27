@@ -38,6 +38,7 @@ debian_deps=(
 )
 
 install() {
+  echo-info "INSTALLING"
   case $(_os) in
     macos)
       echo-info "brew install"
