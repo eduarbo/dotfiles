@@ -1,11 +1,9 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
+source config/.zprofile
 
-ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 ZPROFILE="$HOME/.zprofile"
 ZSH="$(command -v zsh)"
-
-source config/.zprofile
 
 # Dependencies
 

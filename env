@@ -2,6 +2,7 @@
 # env -- envvars & standard library for dotfiles; don't symlink me!
 # Can be sourced by zsh/bash scripts
 
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export XDG_CACHE_HOME=~/.cache
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
