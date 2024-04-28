@@ -3,7 +3,6 @@ source ${0:A:h}/../../deploy
 source config/.zprofile
 
 ZPROFILE="$HOME/.zprofile"
-ZSH="$(command -v zsh)"
 
 # Dependencies
 
@@ -51,15 +50,16 @@ install() {
   echo-note "Please enter your sudo password to set ZSH as the default shell"
   sudo -v
 
-  grep $ZSH /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$ZSH
+  local zsh="$(command -v zsh)"
+  grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
 
   echo-note "Move ZDOTDIR from $HOME to reduce dotfile pollution."
   tee $ZPROFILE <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zprofile"'
 
-  sudo chsh -s $ZSH $(whoami)
+  sudo chsh -s $zsh $(whoami)
 
   echo-info "Restart the terminal if it continues using a different shell."
-  exec "$ZSH -l"
+  exec $zsh -l
 }
 
 update() {
