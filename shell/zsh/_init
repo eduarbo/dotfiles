@@ -3,6 +3,7 @@ source ${0:A:h}/../../deploy
 source config/.zprofile
 
 ZPROFILE="$HOME/.zprofile"
+ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # Dependencies
 
