@@ -5,11 +5,17 @@ KITTY_DIR="$XDG_CONFIG_HOME/kitty"
 # only for macOS
 [[ $(_os) != macos ]] && exit
 
+brew_deps=(
+  font-hack
+  kitty
+  font-jetbrains-mono
+)
+
 install() {
-  brew install kitty
   # Enable Cask of fonts
   brew tap homebrew/cask-fonts
-  brew install font-hack
+
+  brew install ${brew_deps[@]}
 }
 
 update() {
