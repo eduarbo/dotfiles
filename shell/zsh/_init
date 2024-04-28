@@ -37,10 +37,8 @@ debian_deps=(
 )
 
 install() {
-  echo-info "INSTALLING"
   case $(_os) in
     macos)
-      echo-info "brew install"
       brew install ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
@@ -83,26 +81,19 @@ update() {
 }
 
 link() {
-  echo-info "mkdir -p "$ZSH_CACHE""
   mkdir -p "$ZSH_CACHE"
-  echo-info "mkdir -p "$ZSH_DATA_HOME""
   mkdir -p "$ZSH_DATA_HOME"
 
-  echo-info "mklink config "$ZDOTDIR""
   mklink config "$ZDOTDIR"
-  echo-info "mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME"
   mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
 
-  echo-info "touch $ZSH_DATA_HOME/local.zsh"
   touch $ZSH_DATA_HOME/local.zsh
 }
 
 clean() {
-  echo-info "Remove dirs: $ZPROFILE, $ZDOTDIR, $ZSH_CACHE, $ZSH_DATA_HOME"
   rm -rfv "$ZPROFILE" "$ZDOTDIR" "$ZSH_CACHE" "$ZSH_DATA_HOME"
 
   # Stop Zsh from displaying messages about missing startup files
-  echo-info "touch $HOME/.zshrc"
   touch "$HOME/.zshrc"
 }
 
