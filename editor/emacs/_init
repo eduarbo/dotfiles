@@ -34,8 +34,9 @@ brew_deps=(
 )
 
 cask_fonts_deps=(
+  font-jetbrains-mono
+  font-ibm-plex-mono
   font-hack
-  font-hack-nerd-font
   font-noto-sans
   font-noto-serif
 )
