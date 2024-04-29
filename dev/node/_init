@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
-source env.bash
+source env.zsh
 
 link() {
   mklink prettierrc.js "$HOME/.prettierrc.js"

@@ -29,4 +29,4 @@ elif _is_callable xsel; then
   alias p='xsel -o --clipboard'
 fi
 
-[[ $(_os) == debian ]] && _load linux/defaults/aliases.debian.bash
+[[ $(_os) == debian ]] && _load linux/defaults/aliases.debian.zsh

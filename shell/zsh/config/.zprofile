@@ -41,4 +41,4 @@ path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
 
 # initialize enabled topics
-_load_all env.bash
+_load_all env.zsh
