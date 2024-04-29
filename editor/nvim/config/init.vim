@@ -17,9 +17,9 @@ set smartcase                   " case-sensitive when upper-case letters are pre
 " ------------------------------------------------------------------------------
 
 " Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-    \| PlugInstall --sync | source $MYVIMRC
-  \| endif
+" autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+"     \| PlugInstall --sync | source $MYVIMRC
+" \| endif
 
 call plug#begin()
 " -- Tim Pope essentials
@@ -62,73 +62,76 @@ call plug#end()
 " Plugins settings
 " ------------------------------------------------------------------------------
 
-if &rtp =~ 'plugged/Comment'
-    lua require('Comment').setup()
-endif
+function! SetupPlugins()
+    if &rtp =~ 'plugged/Comment'
+        lua require('Comment').setup()
+    endif
 
-if &rtp =~ 'plugged/leap'
-    lua require('leap').add_repeat_mappings('<C-.>', '<C-,>', { relative_directions = false })
-    lua require('leap').opts.special_keys.prev_target = '<C-.>'
-    lua require('leap').opts.special_keys.next_target = '<C-.>'
+    if &rtp =~ 'plugged/leap'
+        lua require('leap').add_repeat_mappings('<C-.>', '<C-,>', { relative_directions = false })
+        lua require('leap').opts.special_keys.prev_target = '<C-.>'
+        lua require('leap').opts.special_keys.next_target = '<C-.>'
 
-    nmap gs <Plug>(leap-forward-to)
-    nmap gS <Plug>(leap-backward-to)
-    xmap gs <Plug>(leap-forward-to)
-    xmap gS <Plug>(leap-backward-to)
-    omap gs <Plug>(leap-forward-to)
-    omap gS <Plug>(leap-backward-to)
-endif
+        nmap gs <Plug>(leap-forward-to)
+        nmap gS <Plug>(leap-backward-to)
+        xmap gs <Plug>(leap-forward-to)
+        xmap gS <Plug>(leap-backward-to)
+        omap gs <Plug>(leap-forward-to)
+        omap gS <Plug>(leap-backward-to)
+    endif
 
-if &rtp =~ 'plugged/flit'
-    lua require('flit').setup()
-endif
+    if &rtp =~ 'plugged/flit'
+        lua require('flit').setup()
+    endif
 
-if &rtp =~ 'plugged/vim-exchange'
-    " Exchange the current line
-    xmap gx   <Plug>(Exchange)
-    nmap gx   cxx
-endif
+    if &rtp =~ 'plugged/vim-exchange'
+        " Exchange the current line
+        xmap gx   <Plug>(Exchange)
+        nmap gx   cxx
+    endif
 
-" if &rtp =~ 'plugged/vim-wordmotion'
-"     " Move SubWord mode to uppercase bindings
-"     let g:wordmotion_mappings = {
-"         \ 'w': 'W',
-"         \ 'b': 'B',
-"         \ 'e': 'E',
-"         \ 'ge': 'gE',
-"         \ 'aw': 'aW',
-"         \ 'iw': 'iW',
-"         \ 'W': '',
-"         \ 'B': '',
-"         \ 'E': '',
-"         \ 'gE': '',
-"         \ 'aW': '',
-"         \ 'iW': ''
-"     \ }
-" endif
+    if &rtp =~ 'plugged/vim-wordmotion'
+        " Move SubWord mode to uppercase bindings
+        let g:wordmotion_mappings = {
+            \ 'w': 'W',
+            \ 'b': 'B',
+            \ 'e': 'E',
+            \ 'ge': 'gE',
+            \ 'aw': 'aW',
+            \ 'iw': 'iW',
+            \ 'W': '',
+            \ 'B': '',
+            \ 'E': '',
+            \ 'gE': '',
+            \ 'aW': '',
+            \ 'iW': ''
+        \ }
+    endif
 
-if &rtp =~ 'plugged/vim-surround'
-    " Disable default mappings
-    let g:surround_no_mappings= 1
-    let g:surround_no_insert_mappings= 1
+    if &rtp =~ 'plugged/vim-surround'
+        " Disable default mappings
+        let g:surround_no_mappings= 1
+        let g:surround_no_insert_mappings= 1
 
-    xmap s   <Plug>VSurround
-    xmap S   <Plug>VgSurround
-    nmap ds  <Plug>Dsurround
-    nmap cs  <Plug>Csurround
-    nmap cS  <Plug>CSurround
-    nmap s   <Plug>Ysurround
-    nmap S   <Plug>YSurround
-    nmap Ss  <Plug>YSsurround
-    nmap SS  <Plug>YSsurround
-    nmap ss  <Plug>Yssurround
-endif
+        xmap s   <Plug>VSurround
+        xmap S   <Plug>VgSurround
+        nmap ds  <Plug>Dsurround
+        nmap cs  <Plug>Csurround
+        nmap cS  <Plug>CSurround
+        nmap s   <Plug>Ysurround
+        nmap S   <Plug>YSurround
+        nmap Ss  <Plug>YSsurround
+        nmap SS  <Plug>YSsurround
+        nmap ss  <Plug>Yssurround
+    endif
 
-if &rtp =~ 'plugged/vim-expand-region'
-    vmap v <Plug>(expand_region_expand)
-    vmap V <Plug>(expand_region_shrink)
-endif
+    if &rtp =~ 'plugged/vim-expand-region'
+        vmap v <Plug>(expand_region_expand)
+        vmap V <Plug>(expand_region_shrink)
+    endif
+endfunction
 
+autocmd VimEnter * call SetupPlugins()
 
 " Bindings
 " ------------------------------------------------------------------------------
