@@ -11,6 +11,10 @@ brew_deps=(
   shfmt
 )
 
+link() {
+  mklink config $NVIM_CONFIG_DIR
+}
+
 install() {
   case $(_os) in
     macos)  brew install ${brew_deps[@]} ;;
@@ -23,10 +27,6 @@ install() {
 
 update() {
   nvim --headless +PlugUpdate +qall
-}
-
-link() {
-  mklink config $NVIM_CONFIG_DIR
 }
 
 clean() {

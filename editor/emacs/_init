@@ -47,6 +47,10 @@ pip_deps=(
 # NPM packages:
 # - vscode-langservers-extracted for LSP
 
+link() {
+  mklink doom $XDG_CONFIG_HOME
+}
+
 install() {
   case $(_os) in
     macos)
@@ -68,10 +72,6 @@ install() {
 
 update() {
   doom upgrade && doom build
-}
-
-link() {
-  mklink doom $XDG_CONFIG_HOME
 }
 
 clean() {

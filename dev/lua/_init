@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.bash
 
+# link() {}
+
 install() {
   _ensure_repo cehoffman/luaenv     $LUAENV_ROOT
   _ensure_repo cehoffman/lua-build  $LUAENV_ROOT/plugins/lua-build
@@ -16,8 +18,6 @@ update() {
     done
   fi
 }
-
-# link() {}
 
 # clean() {}
 
