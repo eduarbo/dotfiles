@@ -21,10 +21,8 @@ brew_deps=(
   ffmpeg
   ffms2
   grandperspective
-  handbrake
   keka
   keycastr
-  syncthing
   omnidisksweeper
   prettyping
   provisionql
@@ -47,6 +45,8 @@ brew_deps=(
   deepl
   bruno
   skim
+  --cask handbrake
+  --cask syncthing
 )
 
 # link() {}
