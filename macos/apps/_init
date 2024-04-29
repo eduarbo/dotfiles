@@ -41,14 +41,12 @@ brew_deps=(
   slack
   spotify
   suspicious-package
-  tor-browser
-  --cask transmission
   visual-studio-code
   vlc
   webpquicklook
-  --cask wireshark
   deepl
   bruno
+  skim
 )
 
 # link() {}
