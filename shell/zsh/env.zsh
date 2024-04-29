@@ -1,7 +1,3 @@
-# NOTE This script is also sourced in the zsh module
-[[ -n "$_DOTFILES_COMMON_ENV_LOADED" ]] && return
-_DOTFILES_COMMON_ENV_LOADED=1
-
 export LANG=${LANG:-en_US.UTF-8}
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 export PAGER=less
@@ -16,3 +12,5 @@ export GPG_TTY
 if [[ -n "$SSH_CONNECTION" ]] ;then
   export PINENTRY_USER_DATA="USE_CURSES=1"
 fi
+
+# autoload -U zmv

@@ -52,7 +52,6 @@ add-zsh-hook precmd _set_terminal_title
 # Load aliases from enabled topics
 
 # source them after compinit to be able to use compdef
-_load_all aliases.bash
 _load_all aliases.zsh
 
 

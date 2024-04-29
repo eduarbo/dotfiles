@@ -52,7 +52,6 @@ The following are the categories and topics available to install:
   - `coding-style` - Tools to enforce coding style because consistency is king
 
 - `shell/` - Shell utilities
-  - `bash` - not my default shell but doesn't hurt to have a basic config
   - `git` - nice aliases and zsh plugins
   - `tmux` - window manager within the terminal + nice plugins
   - `zsh` - my shell of choice, fast, powerful and with a nice prompt

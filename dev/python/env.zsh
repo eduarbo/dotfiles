@@ -7,4 +7,4 @@ export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export PYENV_ROOT="$HOME/.pyenv"
 
 command -v pyenv >/dev/null || path=( "$PYENV_ROOT/bin" "${path[@]}" )
-eval "$(pyenv init - --no-rehash)"
+_cache pyenv init - --no-rehash
