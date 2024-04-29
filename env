@@ -101,11 +101,11 @@ function _cache {
   local cache_dir="$XDG_CACHE_HOME/${SHELL##*/}"
   local cache="$cache_dir/$1"
 
-  if [[ ! -f $cache || ! -s $cache ]]; then
+  if _is_callable "$1" && [[ ! -f "$cache" || ! -s "$cache" ]]; then
     echo "Caching $1"
     "$@" >| $cache
   fi
-  source $cache
+  _source $cache
 }
 
 function _cache_clear {

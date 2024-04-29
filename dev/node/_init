@@ -2,15 +2,13 @@
 source ${0:A:h}/../../deploy
 source env.bash
 
-# TODO Install latest stable node version to be set as global
-install() {
-  [[ $(_os) == macos ]] && brew install node pnpm
+link() {
+  mklink prettierrc.js "$HOME/.prettierrc.js"
 }
 
-link() {
-  # List of default packages that will be installed on every new version of Node
-  mklink default-packages "$NODENV_ROOT/default-packages"
-  mklink prettierrc.js "$HOME/.prettierrc.js"
+install() {
+  fetch_nodenv_and_plugins
+  install_latest_node_version_as_global
 }
 
 update() {
@@ -27,16 +25,21 @@ clean() {
 ## Helpers
 
 fetch_nodenv_and_plugins() {
-  # NOTE plugins extend the commands available for `nodenv`
   local NODENV_PLUGINS=$NODENV_ROOT/plugins
 
+  # Install nodenv
   _ensure_repo nodenv/nodenv                     $NODENV_ROOT
+
+  # NOTE All plugins should be placed in `$(nodenv root)/plugins`
+
   # allow me to install virtually any version of Node
   _ensure_repo nodenv/node-build                 $NODENV_PLUGINS/node-build
   # update nodenv as well as all installed nodenv plugins
   _ensure_repo nodenv/nodenv-update              $NODENV_PLUGINS/node-update
   # automatically install npm packages every time you install a new version of Node
+  # NOTE it reads from $(nodenv root)/default-packages as well as nodenv/default-packages under all XDG config directories
   _ensure_repo nodenv/nodenv-default-packages    $NODENV_PLUGINS/nodenv-default-packages
+  mklink default-packages "$NODENV_ROOT/default-packages"
   # installer/updater and doctor scripts for nodenv
   _ensure_repo nodenv/nodenv-installer           $NODENV_PLUGINS/nodenv-installer
   # never run `nodenv rehash` again
