@@ -36,6 +36,16 @@ debian_deps=(
   fd-find
 )
 
+link() {
+  mkdir -p "$ZSH_CACHE"
+  mkdir -p "$ZSH_DATA_HOME"
+
+  mklink config "$ZDOTDIR"
+  mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
+
+  touch $ZSH_DATA_HOME/local.zsh
+}
+
 install() {
   case $(_os) in
     macos)
@@ -78,16 +88,6 @@ update() {
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
       ;;
   esac
-}
-
-link() {
-  mkdir -p "$ZSH_CACHE"
-  mkdir -p "$ZSH_DATA_HOME"
-
-  mklink config "$ZDOTDIR"
-  mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
-
-  touch $ZSH_DATA_HOME/local.zsh
 }
 
 clean() {

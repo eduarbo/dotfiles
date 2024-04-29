@@ -2,6 +2,8 @@
 
 source ${0:A:h}/../../deploy
 
+# link() {}
+
 install() {
   ./bin/macosdefaults
 }
@@ -10,8 +12,6 @@ update() {
   # Apply new macOS defaults
   ./bin/macosdefaults
 }
-
-# link() {}
 
 # clean() {}
 

@@ -2,6 +2,8 @@
 
 source ${0:A:h}/../../deploy
 
+# link() {}
+
 # install() {}
 
 update() {
@@ -11,8 +13,6 @@ update() {
       ;;
   esac
 }
-
-# link() {}
 
 # clean() {}
 

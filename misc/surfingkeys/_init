@@ -3,10 +3,6 @@ source ${0:A:h}/../../deploy
 
 SURFINGKEYS_CONF_PATH="$XDG_CONFIG_HOME/surfingkeys.js"
 
-# install() {}
-
-# update() {}
-
 link() {
   mklink surfingkeys.js $XDG_CONFIG_HOME
 
@@ -31,6 +27,10 @@ link() {
   echo "- Click Save and refresh your tabs to apply changes"
   echo
 }
+
+# install() {}
+
+# update() {}
 
 clean() {
   rm -fv "$SURFINGKEYS_CONF_PATH"

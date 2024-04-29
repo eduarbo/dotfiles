@@ -2,15 +2,15 @@
 source ${0:A:h}/../../deploy
 source env.bash
 
+link() {
+  mklink config/flake8 $XDG_CONFIG_HOME
+}
+
 install() {
   [[ $(_os) == macos ]] && brew install pyenv
 }
 
 # update() {}
-
-link() {
-  mklink config/flake8 $XDG_CONFIG_HOME
-}
 
 clean() {
   rm -fv $XDG_CONFIG_HOME/flake8

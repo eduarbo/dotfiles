@@ -13,6 +13,10 @@ brew_deps=(
   font-jetbrains-mono
 )
 
+link() {
+  mklink config $HAMMERSPOON_DIR
+}
+
 install() {
   brew install ${brew_deps[@]}
   defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HAMMERSPOON_DIR/init.lua"
@@ -25,10 +29,6 @@ install() {
 }
 
 # update() {}
-
-link() {
-  mklink config $HAMMERSPOON_DIR
-}
 
 clean() {
   rm -fv $HAMMERSPOON_DIR

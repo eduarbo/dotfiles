@@ -12,6 +12,10 @@ brew_deps=(
  reattach-to-user-namespace
 )
 
+link() {
+  mklink *.conf     $TMUX_HOME/
+}
+
 install() {
   case $(_os) in
     macos)
@@ -40,10 +44,6 @@ update() {
   if [[ -d $TMUXIFIER ]]; then
     cd $TMUXIFIER && git pull --rebase
   fi
-}
-
-link() {
-  mklink *.conf     $TMUX_HOME/
 }
 
 clean() {

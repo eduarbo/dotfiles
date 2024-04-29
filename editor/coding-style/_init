@@ -7,6 +7,14 @@ common_deps=(
   editorconfig
 )
 
+link() {
+  # TODO: Check if can move these into the XDG Base Directory
+  mklink editorconfig "$HOME/.editorconfig"
+  mklink prettierrc.js "$HOME/.prettierrc.js"
+  mklink eslintrc.js "$HOME/.eslintrc.js"
+  mklink stylelintrc.js "$HOME/.stylelintrc.js"
+}
+
 install() {
   case $(_os) in
     macos)
@@ -19,14 +27,6 @@ install() {
 }
 
 # update() {}
-
-link() {
-  # TODO: Check if can move these into the XDG Base Directory
-  mklink editorconfig "$HOME/.editorconfig"
-  mklink prettierrc.js "$HOME/.prettierrc.js"
-  mklink eslintrc.js "$HOME/.eslintrc.js"
-  mklink stylelintrc.js "$HOME/.stylelintrc.js"
-}
 
 clean() {
   rm -fv $HOME/.{editorconfig,prettierrc.js,eslintrc.js,stylelintrc.js}
