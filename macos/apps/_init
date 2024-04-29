@@ -44,8 +44,11 @@ brew_deps=(
   visual-studio-code
   vlc
   webpquicklook
-  # --cask handbrake
-  # --cask syncthing
+)
+
+cask_deps=(
+  handbrake
+  syncthing
 )
 
 # link() {}
@@ -54,6 +57,7 @@ install() {
   case $(_os) in
     macos)
       brew install ${brew_deps[@]}
+      brew install --cask ${cask_deps[@]}
       brew tap cjbassi/gotop
       brew install gotop
       brew tap teamookla/speedtest
