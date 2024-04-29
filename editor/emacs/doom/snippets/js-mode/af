@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: arrow function
+# key: af
+# type: command
+# --
+(doom-snippets-expand :uuid "=>")
