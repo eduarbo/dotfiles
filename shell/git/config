@@ -82,4 +82,5 @@
 [forge]
 	remote = upstream
 [include]
-	path = ~/Documents/config/git/gitconfig-personal
+	# Here goes my personal configuration
+	path = ~/.config/git/personal.gitconfig
