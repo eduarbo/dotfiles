@@ -1,0 +1,1305 @@
+{
+  "title": "FN layer",
+  "rules": [
+    {
+      "description": "FN layer: Left hand - Sticky Mods and Window/App Nav",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_increment",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+q to volume_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "rewind",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+w to rewind",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "play_or_pause",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+e to play_or_pause",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "fastforward",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+r to fastforward",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "print_screen",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+t to print_screen",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_decrement",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+a to volume_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_decrement",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+s to volume_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "mute",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+d to mute",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_increment",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+f to volume_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "locking_scroll_lock",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+g to locking_scroll_lock",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "z",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "mute",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+z to mute",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "x",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "display_brightness_decrement",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+x to display_brightness_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "display_brightness_increment",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+c to display_brightness_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "mission_control",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+v to mission_control",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "pause",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+b to pause",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "FN layer: Right hand - Sticky Mods, alfred features, and page nav",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_increment",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+y to volume_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "rewind",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+u to rewind",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "play_or_pause",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+i to play_or_pause",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "fastforward",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+o to fastforward",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "print_screen",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+p to print_screen",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_decrement",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+h to volume_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_decrement",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+j to volume_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "mute",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+k to mute",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "volume_increment",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+l to volume_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "locking_scroll_lock",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+semicolon to locking_scroll_lock",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "mute",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+n to mute",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "display_brightness_decrement",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+m to display_brightness_decrement",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "display_brightness_increment",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+comma to display_brightness_increment",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "mission_control",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+period to mission_control",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "mandatory": [
+                "left_command",
+                "left_control",
+                "left_option",
+                "right_control"
+              ],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "pause",
+              "lazy": true
+            }
+          ],
+          "description": "from left_command+left_control+left_option+right_control+slash to pause",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "title": "BASE layer",
+  "rules": [
+    {
+      "description": "BASE layer: Thumbs cluster",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_shift",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ],
+          "description": "left_command to left_shift, send spacebar on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_shift",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "description": "right_command to right_shift, send tab on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_command",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ],
+          "description": "spacebar to right_command, send return_or_enter on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_option",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_option",
+              "modifiers": [
+                "left_command",
+                "left_control"
+              ],
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "description": "left_option to left_command+left_control+left_option, send escape on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_option",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_control",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "f13"
+            }
+          ],
+          "description": "right_option to right_control, send f13 on tap",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "BASE layer: Custom QWERTY",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "slash"
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ],
+          "description": "from slash to delete_or_backspace",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

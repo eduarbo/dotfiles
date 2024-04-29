@@ -1,0 +1,1349 @@
+{
+  "title": "SYMBOLS layer",
+  "rules": [
+    {
+      "description": "SYMBOLS layer: Left hand - Numpad",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "home"
+            }
+          ],
+          "description": "from right_shift+q to home",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "7"
+            }
+          ],
+          "description": "from right_shift+w to 7",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "8"
+            }
+          ],
+          "description": "from right_shift+e to 8",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "9"
+            }
+          ],
+          "description": "from right_shift+r to 9",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "0"
+            }
+          ],
+          "description": "from right_shift+t to 0",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "end"
+            }
+          ],
+          "description": "from right_shift+a to end",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "4"
+            }
+          ],
+          "description": "from right_shift+s to 4",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "5"
+            }
+          ],
+          "description": "from right_shift+d to 5",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "6"
+            }
+          ],
+          "description": "from right_shift+f to 6",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "equal_sign"
+            }
+          ],
+          "description": "from right_shift+g to equal_sign",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "z",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "e",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ],
+          "description": "from right_shift+z to option+e",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "z",
+            "modifiers": {
+              "mandatory": [
+                "right_shift",
+                "left_shift"
+              ],
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "caps_lock"
+            }
+          ],
+          "description": "from right_shift+left_shift+z to caps_lock",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "x",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "1"
+            }
+          ],
+          "description": "from right_shift+x to 1",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "2"
+            }
+          ],
+          "description": "from right_shift+c to 2",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "3"
+            }
+          ],
+          "description": "from right_shift+v to 3",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "hyphen"
+            }
+          ],
+          "description": "from right_shift+b to hyphen",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "SYMBOLS layer: Right hand - Symbols and arrows",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "backslash"
+            }
+          ],
+          "description": "from right_shift+y to backslash",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "open_bracket"
+            }
+          ],
+          "description": "from right_shift+u to open_bracket",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket"
+            }
+          ],
+          "description": "from right_shift+i to close_bracket",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "slash"
+            }
+          ],
+          "description": "from right_shift+o to slash",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_up"
+            }
+          ],
+          "description": "from right_shift+p to page_up",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ],
+          "description": "from right_shift+h to left_arrow",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ],
+          "description": "from right_shift+j to down_arrow",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ],
+          "description": "from right_shift+k to up_arrow",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ],
+          "description": "from right_shift+l to right_arrow",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_down"
+            }
+          ],
+          "description": "from right_shift+semicolon to page_down",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "grave_accent_and_tilde"
+            }
+          ],
+          "description": "from right_shift+n to grave_accent_and_tilde",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "quote"
+            }
+          ],
+          "description": "from right_shift+m to quote",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "comma"
+            }
+          ],
+          "description": "from right_shift+comma to comma",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "period"
+            }
+          ],
+          "description": "from right_shift+period to period",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "slash"
+            }
+          ],
+          "description": "from right_shift+slash to slash",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
