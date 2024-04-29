@@ -44,8 +44,8 @@ brew_deps=(
   visual-studio-code
   vlc
   webpquicklook
-  --cask handbrake
-  --cask syncthing
+  # --cask handbrake
+  # --cask syncthing
 )
 
 # link() {}
