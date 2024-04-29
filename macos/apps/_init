@@ -17,7 +17,9 @@ brew_deps=(
   alfred
   android-file-transfer
   appcleaner
+  bruno
   calibre
+  deepl
   ffmpeg
   ffms2
   grandperspective
@@ -33,18 +35,15 @@ brew_deps=(
   qlstephen
   qlvideo
   quicklook-json
-  quicklook-pat
   quicklookapk
   quicklookase
+  skim
   slack
   spotify
   suspicious-package
   visual-studio-code
   vlc
   webpquicklook
-  deepl
-  bruno
-  skim
   --cask handbrake
   --cask syncthing
 )
