@@ -1,5 +1,3 @@
-bash-language-server
-dockerfile-language-server-nodejs
 eslint-config-airbnb-base
 eslint-config-airbnb
 eslint-config-prettier
@@ -14,7 +12,15 @@ prettier
 stylelint
 stylelint-prettier
 typescript
-typescript-language-server
-vscode-langservers-extracted
-yaml-language-server
 yarn
+js-beautify
+typescript-language-server
+vscode-json-languageserver
+vscode-css-languageservice
+vscode-html-languageservice
+graphql-language-service-cli
+bash-language-server
+unified-language-server
+vim-language-server
+yaml-language-server
+dockerfile-language-server-nodejs

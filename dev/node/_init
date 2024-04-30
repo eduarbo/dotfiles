@@ -2,8 +2,13 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+NODENV_CONFIG="$XDG_CONFIG_HOME/nodenv"
+
 link() {
   mklink prettierrc.js "$HOME/.prettierrc.js"
+  # NOTE the default-packages plugin reads the file from $(nodenv root)/default-packages
+  # as well as nodenv/default-packages under all XDG config directories
+  mklink default-packages "$NODENV_CONFIG/default-packages"
 }
 
 install() {
@@ -19,14 +24,12 @@ update() {
 }
 
 clean() {
-  rm -rfv $NODENV_ROOT "$HOME/.prettierrc.js"
+  rm -rfv $NODENV_ROOT $NODENV_CONFIG "$HOME/.prettierrc.js"
 }
 
 ## Helpers
 
 fetch_nodenv_and_plugins() {
-  local NODENV_PLUGINS=$NODENV_ROOT/plugins
-
   # Install nodenv
   _ensure_repo nodenv/nodenv                     $NODENV_ROOT
 
@@ -37,16 +40,12 @@ fetch_nodenv_and_plugins() {
   # update nodenv as well as all installed nodenv plugins
   _ensure_repo nodenv/nodenv-update              $NODENV_PLUGINS/node-update
   # automatically install npm packages every time you install a new version of Node
-  # NOTE it reads from $(nodenv root)/default-packages as well as nodenv/default-packages under all XDG config directories
   _ensure_repo nodenv/nodenv-default-packages    $NODENV_PLUGINS/nodenv-default-packages
-  mklink default-packages "$NODENV_ROOT/default-packages"
   # installer/updater and doctor scripts for nodenv
   _ensure_repo nodenv/nodenv-installer           $NODENV_PLUGINS/nodenv-installer
-  # never run `nodenv rehash` again
-  _ensure_repo nodenv/nodenv-package-rehash      $NODENV_PLUGINS/nodenv-package-rehash
   # detects the Node version based on the engines field of the current tree's package.json file
   _ensure_repo nodenv/nodenv-package-json-engine $NODENV_PLUGINS/nodenv-package-json-engine
-  # detects the node version based on .nvmrc
+  # detects the Node version based on .nvmrc
   _ensure_repo ouchxp/nodenv-nvmrc               $NODENV_PLUGINS/nodenv-nvmrc
 }
 
