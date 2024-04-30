@@ -2,9 +2,19 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+brew_deps=(
+  lua-language-server
+)
+
 # link() {}
 
 install() {
+  case $(_os) in
+    macos)
+      brew install ${brew_deps[@]}
+      ;;
+  esac
+
   _ensure_repo cehoffman/luaenv     $LUAENV_ROOT
   _ensure_repo cehoffman/lua-build  $LUAENV_ROOT/plugins/lua-build
   _ensure_repo xpol/luaenv-luarocks $LUAENV_ROOT/plugins/luaenv-luarocks
@@ -19,6 +29,8 @@ update() {
   fi
 }
 
-# clean() {}
+clean() {
+  rm -rfv $LUAENV_ROOT
+}
 
 init "$@"
