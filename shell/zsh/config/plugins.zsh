@@ -49,4 +49,4 @@ zinit wait lucid light-mode for \
       zsh-users/zsh-completions
 
 export _FASD_DATA="$XDG_DATA_HOME/zsh/fasd"
-_cache fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install
+_cache fasd --init auto
