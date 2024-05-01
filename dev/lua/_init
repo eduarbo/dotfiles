@@ -30,7 +30,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$LUAENV_ROOT"
+  rm -rfv "$LUAENV_ROOT" "$XDG_CACHE_HOME/zsh/luaenv"
 }
 
 init "$@"
