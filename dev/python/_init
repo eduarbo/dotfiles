@@ -2,19 +2,43 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+pip_deps=(
+  pyflakes
+  isort
+  pipenv
+  pytest
+  setuptools
+)
+
 link() {
   mklink config/flake8 $XDG_CONFIG_HOME
 }
 
 install() {
+  # Install pyenv
+  echo-note "Install pyenv"
   curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+  eval "$(pyenv init -)"
+
+  echo-note "Install latest Python version as global"
+  local python_latest="3"
+  pyenv install $python_latest
+  pyenv global $python_latest
+
+  echo-note "Setup development tools"
+  pip3 install ${pip_deps[@]}
+  # Install pyright using node, not pip, which annoyingly insists on adding nodeenv just for this package! (゜-゜)
   topic-enabled-p dev/node || _dot dev/node
   npm install -g pyright
   nodenv rehash
+
+  exec "$SHELL" -l
 }
 
 update() {
   pyenv update
+  npm install -g --force pyright # install or update
+  nodenv rehash
 }
 
 clean() {
