@@ -45,9 +45,6 @@ pip_deps=(
   grip
 )
 
-# NPM packages:
-# - vscode-langservers-extracted for LSP
-
 link() {
   mklink doom $XDG_CONFIG_HOME
 }
