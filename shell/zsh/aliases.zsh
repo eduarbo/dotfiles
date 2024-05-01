@@ -181,13 +181,3 @@ fkill() {
         echo $pid | xargs kill -${1:-9}
     fi
 }
-
-# Replacing GNU grep shell script with my own version to suppress the annoying
-# obsolescence warning that started to appear in version 3.8 in MacOS
-grep() {
-  if [[ $(_os) == macos ]]; then
-    ggrep "$@"
-  else
-    command grep "$@"
-  fi
-}
