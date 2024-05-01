@@ -7,13 +7,18 @@ link() {
 }
 
 install() {
-  [[ $(_os) == macos ]] && brew install pyenv
+  curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+  topic-enabled-p dev/node || _dot dev/node
+  npm install -g pyright
+  nodenv rehash
 }
 
-# update() {}
+update() {
+  pyenv update
+}
 
 clean() {
-  rm -fv $XDG_CONFIG_HOME/flake8
+  rm -rfv "$XDG_CONFIG_HOME/flake8" "$PYENV_ROOT" "$XDG_CACHE_HOME/zsh/pyenv"
 }
 
 init "$@"

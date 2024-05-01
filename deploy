@@ -171,9 +171,7 @@ function clean {
   fi
 }
 
-
-## Bootstrap
-if [[ $ZSH_EVAL_CONTEXT != *:file ]]; then
+function _dot {
   while getopts acdefhlLit opt; do
     case $opt in
       a) TARGETS=( $(_topics) );;
@@ -216,4 +214,9 @@ EOL
     [[ -n $CLEAN ]] && clean
     popd -q
   fi
+}
+
+## Bootstrap
+if [[ $ZSH_EVAL_CONTEXT != *:file ]]; then
+  _dot "$@"
 fi
