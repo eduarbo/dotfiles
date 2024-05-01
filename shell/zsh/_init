@@ -25,7 +25,6 @@ brew_deps=(
   coreutils
   grep # GNU grep is not part of coreutils
   findutils
-  zsh-history-substring-search
   fd # for find: It's find with fewer options, but good defaults for typical uses
   lsd # for ls
   gnutls
@@ -41,9 +40,9 @@ link() {
   mkdir -p "$ZSH_DATA_HOME"
 
   mklink config "$ZDOTDIR"
-  mklink $HOME/Documents/config/zsh $ZSH_DATA_HOME
 
-  touch $ZSH_DATA_HOME/local.zsh
+  touch $ZDOTDIR/zshrc.local
+  touch $ZDOTDIR/zprofile.local
 }
 
 install() {

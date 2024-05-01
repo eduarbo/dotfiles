@@ -33,7 +33,7 @@ install() {
 update() {}
 
 clean() {
-  rm -rfv $KARABINER_CONFIG_DIR/{karabiner.json,assets}
+  rm -rfv "$KARABINER_CONFIG_DIR"/{karabiner.json,assets}
 }
 
 build() {

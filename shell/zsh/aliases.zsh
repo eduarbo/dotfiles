@@ -59,7 +59,6 @@ alias rgg='rg -S --hidden --line-number'
 
 ## Misc
 
-alias cht="cht.sh"
 alias gurl='curl --compressed'
 alias rscp='rsync -va --delete'   # Copy files with rsync
 # This preserves as much file-system metadata in the process, such as Hard
