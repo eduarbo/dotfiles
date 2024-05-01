@@ -1,2 +1,2 @@
-# _cache pyenv init - --no-rehash
+_cache pyenv init - --no-rehash
 # eval "$(pyenv init - --no-rehash)"
