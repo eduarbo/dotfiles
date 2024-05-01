@@ -24,7 +24,7 @@ update() {
 }
 
 clean() {
-  rm -rfv $NODENV_ROOT $NODENV_CONFIG "$HOME/.prettierrc.js"
+  rm -rfv "$NODENV_ROOT" "$NODENV_CONFIG" "$HOME/.prettierrc.js"
 }
 
 ## Helpers

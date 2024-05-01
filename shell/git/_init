@@ -46,7 +46,7 @@ update() {
 }
 
 clean() {
-  rm -rfv $GIT_DIR
+  rm -rfv "$GIT_DIR"
 
   if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
     source ${ZINIT[BIN_DIR]}/zinit.zsh

@@ -11,30 +11,25 @@ if [[ "$TERM" == "dumb" ]]; then
     return
 fi
 
-
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
 bindkey -v
 
-
-# ┏━╸┏━┓┏┓╻┏━╸╻┏━╸┏━┓
-# ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓┗━┓
-# ┗━╸┗━┛╹ ╹╹  ╹┗━┛┗━┛
-# Configs
-
-_load shell/zsh/config/plugins.zsh
-
-# ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
+# NOTE ensure EXTENDED_GLOB is set before looking for expired zcompdump with glob
 # qualifiers
-_load shell/zsh/config/config.zsh
+_load $ZDOTDIR/config.zsh
+_load $ZDOTDIR/plugins.zsh
 
-_load shell/zsh/config/completion.zsh
-_load shell/zsh/config/keybinds.zsh
+# NOTE: Ensure to source the following files after invoking compinit (done in
+# plugins.zsh after loading the last completion-related plugin)
+_load $ZDOTDIR/completion.zsh
+_load $ZDOTDIR/keybinds.zsh
 
-# load configs from enabled topics
+# load configs and aliases from enabled topics
 _load_all config.zsh
+_load_all aliases.zsh
 
-# TODO Revisit, maybe I don't need this anymore
-# _load shell/zsh/config/speedup.zsh
+# If you have host-local configuration, put it here
+_source $ZDOTDIR/zshrc.local
 
 function _set_terminal_title() {
     local title="$(basename "$PWD")"
@@ -44,18 +39,3 @@ function _set_terminal_title() {
     echo -ne "\033]0;$title\007"
 }
 add-zsh-hook precmd _set_terminal_title
-
-
-# ┏━┓╻  ╻┏━┓┏━┓┏━╸┏━┓
-# ┣━┫┃  ┃┣━┫┗━┓┣╸ ┗━┓
-# ╹ ╹┗━╸╹╹ ╹┗━┛┗━╸┗━┛
-# Load aliases from enabled topics
-
-# source them after compinit to be able to use compdef
-_load_all aliases.zsh
-
-
-# ┏━┓╻ ╻┏━╸┏━┓┏━┓╻╺┳┓┏━╸┏━┓
-# ┃ ┃┃┏┛┣╸ ┣┳┛┣┳┛┃ ┃┃┣╸ ┗━┓
-# ┗━┛┗┛ ┗━╸╹┗╸╹┗╸╹╺┻┛┗━╸┗━┛
-_source $ZSH_DATA_HOME/local.zsh

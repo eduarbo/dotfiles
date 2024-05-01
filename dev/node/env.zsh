@@ -4,5 +4,3 @@ export NODENV_ROOT=$XDG_DATA_HOME/nodenv
 export NODENV_PLUGINS=$NODENV_ROOT/plugins
 
 path=( $NODENV_ROOT/bin $path )
-
-eval "$(nodenv init -)"
