@@ -9,6 +9,7 @@ common_deps=(
   sqlite
   zstd
   editorconfig
+  clang-format
 )
 
 brew_deps=(

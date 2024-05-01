@@ -48,13 +48,17 @@ export _FASD_DATA="$XDG_DATA_HOME/zsh/fasd"
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
 
-BREW_ROOT="/opt/homebrew"
-BREW_PATH="$BREW_ROOT/bin/brew"
-# NOTE this reorders the PATH, make sure to update the PATH after homebrew init
-[[ -f "$BREW_PATH" ]] && eval "$($BREW_PATH shellenv)"
+BREW_PATH=$( [ -x /opt/homebrew/bin/brew ] && echo /opt/homebrew/bin/brew || echo /usr/local/bin/brew )
+
+if [ -x "$BREW_PATH" ]; then
+  # NOTE this reorders the PATH, make sure to update the PATH after homebrew init
+  eval "$($BREW_PATH shellenv)"
+else
+  echo-warning "Homebrew no está instalado"
+fi
 
 path=( $path /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-path=( $BREW_ROOT/opt/grep/libexec/gnubin $path )
+path=( $HOMEBREW_PREFIX/opt/grep/libexec/gnubin $path )
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
