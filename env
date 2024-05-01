@@ -12,14 +12,6 @@ export DOTFILES
 export DOTFILES_DATA="$XDG_DATA_HOME/dotfiles"
 export DOTFILES_ASSETS="$DOTFILES/assets"
 
-if [[ -n "${BASH_VERSION}" ]]; then
-  CURRENT_SHELL=$(command -v bash)
-elif [[ -n "${ZSH_VERSION}" ]]; then
-  CURRENT_SHELL=$(command -v zsh)
-fi
-
-export CURRENT_SHELL
-
 for dir in "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_BIN_HOME" "$DOTFILES_DATA"; do
   [[ -d $dir ]] || mkdir -p "$dir"
 done

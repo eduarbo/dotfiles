@@ -109,7 +109,7 @@ alias server='python -m SimpleHTTPServer'
 alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 
 # Reload the current shell
-alias reload='exec $CURRENT_SHELL -l'
+alias reload='exec $SHELL -l'
 alias rl='reload'
 
 # Reload the current shell and return the load time
@@ -119,7 +119,7 @@ loadtime() {
 
   for _ in $(seq 1 "$times"); do
     # FIXME wrong format in linux
-    /usr/bin/time "$CURRENT_SHELL" -lic exit;
+    /usr/bin/time "$SHELL" -lic exit;
   done
   unset DISABLE_LOAD_TIME
 }
