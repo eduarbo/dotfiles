@@ -99,7 +99,17 @@ alias ipinfo="curl ipinfo.io/json"
 
 # FIXME make it work on Debian/Linux
 # Copy my public key to my clipboard
-alias pubkey='more ~/.ssh/id_rsa.pub | pbcopy | echo "=> Public key copied to pasteboard"'
+function pubkey() {
+    if [ -f ~/.ssh/id_ed25519.pub ]; then
+        cat ~/.ssh/id_ed25519.pub | pbcopy
+        echo "=> id_ed25519 public key copied"
+    elif [ -f ~/.ssh/id_rsa.pub ]; then
+        cat ~/.ssh/id_rsa.pub | pbcopy
+        echo "=> id_rsa public key copied"
+    else
+        echo "No public key found"
+    fi
+}
 
 # quick way to serve a directory, very handy
 alias server='python -m SimpleHTTPServer'
