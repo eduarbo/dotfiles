@@ -46,6 +46,7 @@
 (add-to-list 'auto-mode-alist '("\\editorconfig\\'" . editorconfig-conf-mode))
 
 (add-to-list 'auto-mode-alist '("gitconfig" . gitconfig-mode))
+(add-to-list 'auto-mode-alist '("\\.env" . conf-mode))
 
 ;; Nunjucks template files
 (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
@@ -53,9 +54,15 @@
 ;; Arduino Sketches
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . cpp-mode))
 
-;; Treats the `=' as punctuation for all modes
+;; Treats the `=', `<' and `>' as punctuation for all modes
 (add-hook! 'after-change-major-mode-hook
-  (modify-syntax-entry ?= "."))
+  (defun my-global-word-delimiters-h ()
+    (modify-syntax-entry ?= ".")
+    (modify-syntax-entry ?< ".")
+    (modify-syntax-entry ?> ".")))
+
+
+(add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 
 (setq evil-collection-magit-want-horizontal-movement t)
 (setq evil-collection-magit-use-y-for-yank t)
