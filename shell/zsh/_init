@@ -90,7 +90,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$ZPROFILE" "$ZDOTDIR" "$ZSH_CACHE" "$ZSH_DATA_HOME"
+  rm -rfv "$ZPROFILE" "$ZDOTDIR" "$ZSH_CACHE"
 
   # Stop Zsh from displaying messages about missing startup files
   touch "$HOME/.zshrc"
