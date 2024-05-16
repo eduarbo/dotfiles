@@ -7,7 +7,6 @@ brew_deps=(
   gtypist
   highlight
   mvtools
-  neofetch
   p7zip
   rsync
   tree
@@ -35,7 +34,6 @@ brew_deps=(
   qlstephen
   qlvideo
   quicklook-json
-  quicklookapk
   quicklookase
   skim
   slack

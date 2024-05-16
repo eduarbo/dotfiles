@@ -13,13 +13,13 @@ const rules = [
     description: `${LAYER} layer: Left hand - dev tools, screenshots and tab/history navigation`,
     manipulators: [
       /// Top Row - Dev Tools
-      // Toggle script execution
-      keybind('w', [['backslash', ['command']]]),
+      // NOTE W - Toggle Mic (With Hammerspoon)
       // Toggle DevTools
       keybind('e', [['i', ['option', 'command']]]),
       // Inspect element
       keybind('r', [['c', ['shift', 'command']]]),
-      // NOTE T - Toggle Mic (With Hammerspoon)
+      // Toggle script execution
+      keybind('t', [['backslash', ['command']]]),
 
       /// Home Row - Nav
       // Prev
