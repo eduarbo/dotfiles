@@ -55,7 +55,7 @@ Standard QWERTY layout, with the delete key replacing the slash key. Modifiers a
 │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ ⌫ │
 ╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
            │ ⎋ │ ␣ │ ⏎ │ │ ⏎ │ ⇥ │F13│ ← on tap
-           │ 𝕊 │ ⇧ │ ⌘ │ │ ⌘ │ ⇪ │ ⌃ │ ← on hold
+           │ 𐊖 │ ⇧ │ ⌘ │ │ ⌘ │ ⇪ │ ⌃ │ ← on hold
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
 
@@ -76,13 +76,15 @@ Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retain
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
 
-| Symbol | description | Symbol      | description | Symbol      | description |
-|--------|-------------|-------------|-------------|-------------|-------------|
-| `F13`  | Alfred      | `⇧` + `F13` | Emojis      | `⌘` + `F13` | Spotlight   |
+| Symbol      | description | Symbol    | description |
+|-------------|-------------|-----------|-------------|
+| `F13`       | Alfred      | `⌘` + `␣` | Spotlight   |
+| `⌘` + `F13` | Lock Mac    | `⌘` + `⎋` | Lock Mac    |
+| `⇧` + `F13` | Emojis      |           |             |
 
 ### Super
 
-Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackpad or eating Cheetos
+Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackpad or eating Cheetos.
 
 ```text
 ╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
