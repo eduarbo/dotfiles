@@ -123,29 +123,27 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 
 - `MIC`: Toggle Mic
 
-##### Screenshots
+**Screenshots**
+- `⇧⌘3`: Entire screen
+- `⇧⌘4`: Section or window
+- `⇧⌘5`: Record screen
 
-| <kbd>⇧⌘3</kbd> | <kbd>⇧⌘4</kbd>    | <kbd>⇧⌘5</kbd> |
-| -------------- | ----------------- | -------------- |
-| entire screen  | section or window | record screen  |
+**Debugger**
+- `⌥⌘I`: Toggle DevTools
+- `⇧⌘C`: Inspect element
+- `F8`: Pause/Resume script
 
-##### Debugger
+**Browser navigation**
+- `⇧⌘[` : Previous tab
+- `⌘[` : Back
+- `⌘]` : Forward
+- `⇧⌘]`: Next tab
 
-| <kbd>F8</kbd>       | <kbd>⌥⌘I</kbd>  | <kbd>⇧⌘C</kbd>  |
-| ------------------- | --------------- | --------------- |
-| pause/resume script | toggle DevTools | inspect element |
-
-##### Browser navigation
-
-| <kbd>⇧⌘[</kbd> | <kbd>⌘[</kbd> | <kbd>⌘]</kbd> | <kbd>⇧⌘]</kbd> |
-| -------------- | ------------- | ------------- | -------------- |
-| previous tab   | back          | forward       | next tab       |
-
-##### App navigation
-
-| <kbd>⌃↓</kbd> | <kbd>⌘`</kbd>                              | <kbd>⌘⇥</kbd>   | <kbd>⌃↑</kbd>   |
-| ------------- | ------------------------------------------ | --------------- | --------------- |
-| app windows   | switch window app<br />switch previous app | switch next app | mission control |
+**App navigation**
+- `⌃↓`: App windows
+- `` ⌘\` ``: Switch window app / Switch previous app
+- `⌘⇥`: Switch next app
+- `⌃↑`: Mission control
 
 ### F-Keys
 
