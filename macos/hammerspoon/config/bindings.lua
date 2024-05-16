@@ -18,31 +18,30 @@ hs.hotkey.bind("shift", "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"},
 -----------------------------------------------
 
 -- Toggle Mic
-mic.bind(mods.super, "t")
+mic.bind(mods.super, "w")
 
 -- Switch Audio output
 audio.bind(mods.super, "y")
 
 -- U: Taken by 1Password mini
--- I: Taken by Alfred (Snippets)
+-- I: Taken by ChatGPT
 -- O: Taken by Alfred (Clipboard History)
--- P: Taken by Alfred (Universal Action)
 
 -- Window Nav
-hs.hotkey.bind(mods.super, "k", hs.grid.show)
-window.bindResize(mods.super, {"h", "l"})
 hs.hotkey.bind(mods.super, "j", window.moveToNextScreen)
+hs.hotkey.bind(mods.super, "k", window.toggleMaximize)
+hs.hotkey.bind(mods.super, "h", window.toggleLeftSize)
+hs.hotkey.bind(mods.super, "l", window.toggleRightSize)
+
+hs.hotkey.bind(mods.super, ";", hs.grid.show)
+
+-- M: Taken by Alfred to search for emojis
+-- ,: Taken by Alfred (Snippets)
+-- .: Taken by Alfred (Universal Action)
 
 -- Lock screen
-hs.hotkey.bind(mods.super, ";", hs.caffeinate.lockScreen)
-
-hs.hotkey.bind(
-  mods.super, "m",
-  function()
-    hs.application.launchOrFocus("MacGPT")
-  end
-)
-
+hs.hotkey.bind("cmd", "f13", hs.caffeinate.lockScreen)
+hs.hotkey.bind("cmd", "escape", hs.caffeinate.lockScreen)
 
 -- Hyper layer: Launcher
 -----------------------------------------------
@@ -61,7 +60,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         f = "Finder",
         g = "Microsoft Edge",
         -- h = "", -- already bound to reload 🔨🥄
-        -- i = "",
+        i = "ChatGPT",
         -- j = "",
         k = "kitty",
         -- l = "",
@@ -75,7 +74,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         t = "Microsoft To Do",
         u = "1Password",
         -- v = "",
-        -- w = "",
+        w = "WhatsApp",
         x = "Telegram",
         y = "Spotify",
         z = "zoom.us",
