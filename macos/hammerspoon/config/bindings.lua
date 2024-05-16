@@ -28,11 +28,10 @@ audio.bind(mods.super, "y")
 -- O: Taken by Alfred (Clipboard History)
 
 -- Window Nav
+hs.hotkey.bind(mods.super, "h", window.toggleLeftSize)
 hs.hotkey.bind(mods.super, "j", window.moveToNextScreen)
 hs.hotkey.bind(mods.super, "k", window.toggleMaximize)
-hs.hotkey.bind(mods.super, "h", window.toggleLeftSize)
 hs.hotkey.bind(mods.super, "l", window.toggleRightSize)
-
 hs.hotkey.bind(mods.super, ";", hs.grid.show)
 
 -- M: Taken by Alfred to search for emojis
