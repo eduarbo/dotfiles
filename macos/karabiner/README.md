@@ -14,33 +14,41 @@ npm run build
 
 This layout is designed to match the QMK layout of my main keyboard, a 36-key Piantor Pro. The two central keys in the thumb cluster represent the spacebar on the MacBook keyboard. My goal is to seamlessly switch between the two keyboards, as I don't always carry my mechanical keyboard with me 😞
 
+### Why this layout distribuition?
+
+- Super Mod: Frequently used shortcuts. Placed on the left hand for ease of use with the mouse in the right hand.
+- Shift: Positioned on the left to be used with modifiers on the opposite side and with the mouse.
+- Symbols Layer: For all symbols that didn’t fit on the base layer. Positioned on the right to use the arrow keys (hjkl) with one hand.
+- Command: Placed on both sides since, like the Shift key, it is often used with other modifiers. This placement maintains consistency with the integrated keyboard, where the spacebar can be used with any modifier on either side.
+- Alt/Option: This modifier is less used in macOS, so I prioritized the Super key in the thumbs cluster.
+- Space: Placed in the most accessible positions, such as the Shift or Symbols keys, which are the most used modifiers when typing.
+- Enter: Positioned on both the left and right sides to facilitate copying, pasting, and pressing Enter while using the mouse. Keeping Enter on the left side prevents the need to move the right hand from the mouse to the keyboard.
+- Sticky mods (CMD, CTRL, ALT): Available when holding the Super key for the rare occasions when I need to combine mods.
+- Avoid placing Enter on the Shift or Symbols keys to prevent accidental presses while typing.
+
 ### Symbols chart
 
 #### Modifiers
 
-| Symbol | description   | Symbol | description    |
-|--------|---------------|--------|----------------|
-| `⌘`    | command       | `⌥`    | option         |
-| `⌃`    | control       | `⇧`    | shift          |
-| `≡`    | super (`⌘⌥⌃`) | `≢`    | hyper (`⇧⌘⌥⌃`) |
+| Symbol | description | Symbol | description   | Symbol | description    |
+|--------|-------------|--------|---------------|--------|----------------|
+| `⌘`    | command     | `⌃`    | control       | `⇧`    | shift          |
+| `⌥`    | option      | `≡`    | super (`⌘⌥⌃`) | `≢`    | hyper (`⇧⌘⌥⌃`) |
 
 #### Layers
 
-| Symbol | description  | Symbol | description |
-|--------|--------------|--------|-------------|
-| `⇪`    | symbols      | `ƒ`    | f-keys      |
-| `⊕`    | adjust (QMK) |        |             |
+| Symbol | description | Symbol | description | Symbol | description  |
+|--------|-------------|--------|-------------|--------|--------------|
+| `⇪`    | symbols     | `ƒ`    | f-keys      | `⊕`    | adjust (QMK) |
 
 #### Other Keys
 
-| Symbol    | description       | Symbol    | description |
-|-----------|-------------------|-----------|-------------|
-| `␣`       | space             | `⇥`       | tab         |
-| `⌫`       | backspace         | `⌦`       | delete      |
-| `⏎`       | enter             | `⎋`       | escape      |
-| `▲`       | page up           | `▼`       | page down   |
-| `⇞`       | home              | `⇟`       | end         |
-| `⇧` + `´` | CAPS LOCK         |           |             |
+| Symbol | Description | Symbol | Description | Symbol | Description |
+|--------|-------------|--------|-------------|--------|-------------|
+| `␣`    | Space       | `⌫`    | Backspace   | `⇞`    | Home        |
+| `⇥`    | Tab         | `⌦`    | Delete      | `⇟`    | End         |
+| `⏎`    | Enter       | `▼`    | Page Down   | `⇧´`   | Caps Lock   |
+| `⎋`    | Escape      | `▲`    | Page Up     |        |             |
 
 ### Base
 
@@ -76,11 +84,10 @@ Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retain
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
 
-| Symbol      | description | Symbol    | description |
-|-------------|-------------|-----------|-------------|
-| `F13`       | Alfred      | `⌘` + `␣` | Spotlight   |
-| `⌘` + `F13` | Lock Mac    | `⌘` + `⎋` | Lock Mac    |
-| `⇧` + `F13` | Emojis      |           |             |
+| Symbol | Description | Symbol      | Description | Symbol      | Description |
+|--------|-------------|-------------|-------------|-------------|-------------|
+| `F13`  | Alfred      | `⌘␣`        | Spotlight   | `⇧` + `F13` | Emojis      |
+| `⌘⎋`   | Lock Mac    | `⌘` + `F13` | Lock Mac    |             |             |
 
 ### Super
 
@@ -180,17 +187,5 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 ### How does **Karabiner-Elements** handle complex modifications precedence?
 
 Karabiner-Elements operates on a “first match, first served” basis. When scanning, it applies the first matching modification it encounters and ceases further search. To prioritize a particular rule, position it at the top of your list in the configuration. You can rearrange rules via drag-and-drop in the GUI or by editing the JSON file (higher positioned = higher priority). Beware that overlapping rules can cause unforeseen behavior, so strive for mutually exclusive criteria in your rules where feasible.
-
-### Why this distribuition?
-
-- Super Mod: Frequently used shortcuts. Placed on the left hand for ease of use with the mouse in the right hand.
-- Shift: Positioned on the left to be used with modifiers on the opposite side and with the mouse.
-- Symbols Layer: For all symbols that didn’t fit on the base layer. Positioned on the right to use the arrow keys (hjkl) with one hand.
-- Command: Placed on both sides since, like the Shift key, it is often used with other modifiers. This placement maintains consistency with the integrated keyboard, where the spacebar can be used with any modifier on either side.
-- Alt/Option: This modifier is less used in macOS, so I prioritized the Super key in the thumbs cluster.
-- Space: Placed in the most accessible positions, such as the Shift or Symbols keys, which are the most used modifiers when typing.
-- Enter: Positioned on both the left and right sides to facilitate copying, pasting, and pressing Enter while using the mouse. Keeping Enter on the left side prevents the need to move the right hand from the mouse to the keyboard.
-- Sticky mods (CMD, CTRL, ALT): Available when holding the Super key for the rare occasions when I need to combine mods.
-- Avoid placing Enter on the Shift or Symbols keys to prevent accidental presses while typing.
 
 <!-- [![Keyboard Layout Editor](keyboard-layout.png)](http://www.keyboard-layout-editor.com/#/gists/3b8aa95c07c388e37f393d3b0e141f25) -->
