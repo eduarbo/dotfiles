@@ -21,6 +21,10 @@ alias dot="${DOTFILES}/deploy"
 
 ## Library
 
+function is_backports_configured {
+    grep -q "^deb .*backports" /etc/apt/sources.list /etc/apt/sources.list.d/*.list >/dev/null 2>&1
+}
+
 function _is_interactive { [[ $- == *i* || -n $EMACS ]]; }
 
 function _is_running {
