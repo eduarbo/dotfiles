@@ -62,9 +62,9 @@ function _ensure_repo {
   local branch=$3
   if [[ ! -d $dest ]]; then
     if [[ $target =~ "^[^/]+/[^/]+$" ]]; then
-      url=git@github.com:$target.git
+      url=https://github.com/$target.git
     elif [[ $target =~ "^[^/]+$" ]]; then
-      url=git@github.com:$USER/$target.git
+      url=https://github.com/$USER/$target.git
     fi
     [[ -n ${dest%/*} ]] && mkdir -p ${dest%/*}
     echo "clone --recursive -b $branch $url $dest"

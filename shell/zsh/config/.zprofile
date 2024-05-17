@@ -53,12 +53,12 @@ BREW_PATH=$( [ -x /opt/homebrew/bin/brew ] && echo /opt/homebrew/bin/brew || ech
 if [ -x "$BREW_PATH" ]; then
   # NOTE this reorders the PATH, make sure to update the PATH after homebrew init
   eval "$($BREW_PATH shellenv)"
+  path=( $HOMEBREW_PREFIX/opt/grep/libexec/gnubin $path )
 else
-  echo-warning "Homebrew no está instalado"
+  echo-alert "Homebrew no está instalado"
 fi
 
 path=( $path /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
-path=( $HOMEBREW_PREFIX/opt/grep/libexec/gnubin $path )
 path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
