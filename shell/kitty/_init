@@ -2,11 +2,11 @@
 source ${0:A:h}/../../deploy
 KITTY_DIR="$XDG_CONFIG_HOME/kitty"
 
-# only for macOS
-[[ $(_os) != macos ]] && exit
+common_deps=(
+  kitty
+)
 
 brew_deps=(
-  kitty
   font-hack
   font-jetbrains-mono
 )
@@ -17,10 +17,16 @@ link() {
 }
 
 install() {
-  # Enable Cask of fonts
-  brew tap homebrew/cask-fonts
-
-  brew install ${brew_deps[@]}
+  case $(_os) in
+    macos)
+      # Enable Cask of fonts
+      brew install ${common_deps[@]} ${brew_deps[@]}
+      ;;
+    debian)
+      sudo apt update
+      sudo apt install -y ${common_deps[@]}
+      ;;
+  esac
 }
 
 update() {
