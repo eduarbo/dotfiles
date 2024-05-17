@@ -1,3 +1,10 @@
+alias ai='sudo apt install'
+alias aiy='sudo apt install -y'
+alias ar='sudo apt remove -y'
+alias ac='sudo apt clean all && sudo dnf autoremove'
+
+alias fd='fdfind'
+
 alias sc='systemctl'
 alias jc='journalctl'
 alias ssc='sudo systemctl'
@@ -28,5 +35,3 @@ elif _is_callable xsel; then
   alias y='xsel -i --clipboard'
   alias p='xsel -o --clipboard'
 fi
-
-[[ $(_os) == debian ]] && _load linux/defaults/aliases.debian.zsh

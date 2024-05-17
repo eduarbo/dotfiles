@@ -1,3 +1,5 @@
+_load "shell/zsh/aliases.$(_os).zsh"
+
 alias cd='pushd -q'
 alias ag="noglob ag"
 alias rg='noglob rg'
@@ -28,6 +30,11 @@ alias ......='cd ../../../../..'
 alias -- -='cd -'
 
 alias ln='ln -v'  # verbose ln
+
+alias dl='cd ~/Downloads'
+alias dt='cd ~/Desktop'
+alias doc='cd ~/Documents'
+alias dev='cd ~/dev'
 
 if [[ $(_os) == macos ]]; then
   alias ls="gls -Fh --color --group-directories-first"
