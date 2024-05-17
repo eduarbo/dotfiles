@@ -6,10 +6,6 @@ alias bi='brew install'
 alias br='brew remove'
 alias bu='brew update && brew outdated && brew upgrade && brew cleanup'
 
-alias dl='cd ~/Downloads'
-alias dt='cd ~/Desktop'
-alias dev='cd ~/dev'
-
 alert() {
   osascript -e 'display notification "$*"'
 }

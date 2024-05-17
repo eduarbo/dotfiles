@@ -58,6 +58,13 @@ path=( $XDG_BIN_HOME $DOTFILES_DATA/*.topic/bin(N) $path )
 
 fpath=( $ZDOTDIR/functions $XDG_BIN_HOME $fpath )
 
+case $(_os) in
+  debian)
+    export GNUPGHOME="$XDG_CONFIG_HOME/gpg"
+    export TERMINFO="$XDG_CONFIG_HOME/terminfo"
+    ;;
+esac
+
 _cache ssh-agent -s >/dev/null
 
 # initialize enabled topics
