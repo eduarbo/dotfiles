@@ -38,8 +38,9 @@ debian_deps=(
 link() {
   mkdir -p "$ZSH_CACHE"
   mkdir -p "$ZSH_DATA_HOME"
+  mkdir -p "$ZDOTDIR"
 
-  mklink config "$ZDOTDIR"
+  mklink config/{*,.*} "$ZDOTDIR"
 
   touch $ZDOTDIR/zshrc.local
   touch $ZDOTDIR/zprofile.local
