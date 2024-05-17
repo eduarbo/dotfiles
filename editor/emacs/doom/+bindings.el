@@ -214,61 +214,66 @@
 ;; -- Leader
 
 (map! :leader
-      :desc "Switch workspace"                  "TAB"           #'persp-switch
-      :desc "Yank buffer name"                  "b y"           #'my/yank-buffer-name
-      :desc "Yank buffer"                       "b Y"           #'+default/yank-buffer-contents
-      :desc "List errors in buffer"             "c x"           #'consult-flycheck
-      :desc "List errors in buffer/project"     "c X"           #'+default/diagnostics
-      :desc "Window Enlargen mode"              "t e"           #'my/window-enlargen-mode
-      :desc "Line numbers mode"                 "t l"           #'display-line-numbers-mode
-      :desc "Balance windows"                   "w b"           #'balance-windows
-      :desc "Enlargen mode"                     "w o"           #'my/window-enlargen-mode
-      :desc "Enlarge window"                    "w O"           #'doom/window-enlargen
-      :desc "Select a window"                   "w w"           #'switch-window
-      :desc "Eval expression"                   ":"             #'pp-eval-expression
-      :desc "M-x"                               ";"             #'execute-extended-command
-      :desc "Find file in project"              "SPC"           #'projectile-find-file
-      :desc "Pop up scratch buffer"             "X"             #'doom/open-project-scratch-buffer
+      :desc "Switch workspace"              "TAB"   #'persp-switch
+      :desc "Eval expression"               ":"     #'pp-eval-expression
+      :desc "M-x"                           ";"     #'execute-extended-command
+      :desc "Find file in project"          "SPC"   #'projectile-find-file
+      :desc "Pop up scratch buffer"         "X"     #'doom/open-project-scratch-buffer
+
+      ;;; <leader> b --- buffer
+      :desc "Yank buffer name"              "b y"   #'my/yank-buffer-name
+      :desc "Yank buffer"                   "b Y"   #'+default/yank-buffer-contents
+
+      ;;; <leader> c --- code
+      :desc "List errors in buffer"         "c x"   #'consult-flycheck
+      :desc "List errors in buffer/project" "c X"   #'+default/diagnostics
+
+      ;;; <leader> t --- toggle
+      :desc "Window Enlargen mode"          "t e"   #'my/window-enlargen-mode
+      :desc "Line numbers mode"             "t l"   #'display-line-numbers-mode
+
+      ;;; <leader> w --- workspaces/windows
+      :desc "Balance windows"               "w b"   #'balance-windows
+      :desc "Enlargen mode"                 "w o"   #'my/window-enlargen-mode
+      :desc "Enlarge window"                "w O"   #'doom/window-enlargen
+      :desc "Select a window"               "w w"   #'switch-window
 
       ;;; <leader> d --- delete
-      (:prefix-map ("d" . "delete") :when (modulep! :ui workspaces)
-       :desc "Buffer"                    "b"   #'kill-current-buffer
-       :desc "Kill buried buffers"       "k"   #'doom/kill-buried-buffers
-       :desc "Workspace"                 "l"   #'+workspace/delete
-       :desc "Bookmark"                  "m"   #'bookmark-delete
-       :desc "Other buffers"             "o"   #'doom/kill-other-buffers
-       :desc "Window or workspace"       "w"   #'+workspace/close-window-or-workspace
-       :desc "Session"                   "x"   #'+workspace/kill-session)
+      :desc "Buffer"                        "d b"   #'kill-current-buffer
+      :desc "Kill buried buffers"           "d k"   #'doom/kill-buried-buffers
+      :desc "Workspace"                     "d l"   #'+workspace/delete
+      :desc "Bookmark"                      "d m"   #'bookmark-delete
+      :desc "Other buffers"                 "d o"   #'doom/kill-other-buffers
+      :desc "Window or workspace"           "d w"   #'+workspace/close-window-or-workspace
+      :desc "Session"                       "d x"   #'+workspace/kill-session
 
       ;;; <leader> g --- git
-      (:prefix-map ("g" . "git") :when (modulep! :tools magit)
-       :desc "Magit switch branch"       "B"   #'magit-branch-checkout
-       :desc "Magit blame"               "b"   #'magit-blame-addition)
+      :desc "Magit switch branch"           "g B"   #'magit-branch-checkout
+      :desc "Magit blame"                   "g b"   #'magit-blame-addition
 
+      ;; NOTE Reassign entire workspace map to different prefix
       ;;; <leader> l --- workspace (mnemonic for layer)
       (:prefix-map ("l" . "workspace") :when (modulep! :ui workspaces)
-       :desc "Display tab bar"           "TAB" #'+workspace/display
-       :desc "Switch workspace"          "."   #'+workspace/switch-to
-       :desc "Switch to last workspace"  "`"   #'+workspace/other
-       :desc "Kill this workspace"       "k"   #'+workspace/delete
-       :desc "New workspace"             "n"   #'+workspace/new
-       :desc "New named workspace"       "N"   #'+workspace/new-named
-       :desc "Load workspace from file"  "l"   #'+workspace/load
-       :desc "Save workspace to file"    "s"   #'+workspace/save
-       :desc "Delete session"            "x"   #'+workspace/kill-session
-       :desc "Delete this workspace"     "d"   #'+workspace/delete
-       :desc "Rename workspace"          "r"   #'+workspace/rename
-       :desc "Restore last session"      "R"   #'+workspace/restore-last-session
-       :desc "Next workspace"            "]"   #'+workspace/switch-right
-       :desc "Previous workspace"        "["   #'+workspace/switch-left)
+       :desc "Display tab bar"              "TAB"   #'+workspace/display
+       :desc "Switch workspace"             "."     #'+workspace/switch-to
+       :desc "Switch to last workspace"     "`"     #'+workspace/other
+       :desc "Kill this workspace"          "k"     #'+workspace/delete
+       :desc "New workspace"                "n"     #'+workspace/new
+       :desc "New named workspace"          "N"     #'+workspace/new-named
+       :desc "Load workspace from file"     "l"     #'+workspace/load
+       :desc "Save workspace to file"       "s"     #'+workspace/save
+       :desc "Delete session"               "x"     #'+workspace/kill-session
+       :desc "Delete this workspace"        "d"     #'+workspace/delete
+       :desc "Rename workspace"             "r"     #'+workspace/rename
+       :desc "Restore last session"         "R"     #'+workspace/restore-last-session
+       :desc "Next workspace"               "]"     #'+workspace/switch-right
+       :desc "Previous workspace"           "["     #'+workspace/switch-left)
 
       ;;; <leader> n --- notes
-      (:prefix-map ("n" . "notes")
-       :desc "Obsidian notes"            "SPC" #'obsidian-jump)
+      :desc "Obsidian notes"                "n SPC" #'obsidian-jump
 
       ;;; <leader> q --- quit/session
-      (:prefix-map ("q" . "quit/session")
-        :desc "Start new Emacs"          "n"   #'restart-emacs-start-new-emacs))
+      :desc "Start new Emacs"               "q n"   #'restart-emacs-start-new-emacs)
 
 
 ;; -- goto prefix

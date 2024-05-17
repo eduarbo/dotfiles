@@ -61,8 +61,15 @@
     (modify-syntax-entry ?< ".")
     (modify-syntax-entry ?> ".")))
 
-
 (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 
+;; Download the emoji images immediately without prompting, otherwise Emacs freezes when opening for the first time
+(setq emojify-download-emojis-p t)
+
+;; Auto install nerd-icons
+(unless (member "Symbols Nerd Font Mono" (font-family-list))
+  (nerd-icons-install-fonts t))
+
+;; Magit
 (setq evil-collection-magit-want-horizontal-movement t)
 (setq evil-collection-magit-use-y-for-yank t)
