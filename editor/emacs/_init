@@ -4,17 +4,19 @@ source ${0:A:h}/../../deploy
 # Dependencies
 
 common_deps=(
-  the_silver_searcher
-  ripgrep
-  sqlite
-  zstd
-  editorconfig
   clang-format
+  editorconfig
+  markdown
+  ripgrep
+  shellcheck
+  shfmt
+  silversearcher-ag
+  sqlite3
+  zstd
 )
 
 brew_deps=(
   pandoc
-  markdown
   coreutils
   grep # GNU grep is not part of coreutils
   gnu-tar
@@ -28,7 +30,6 @@ brew_deps=(
   pngpaste # org-download
   trash
   marked
-  shellcheck
   graphviz # graph visualizator - org-roam dep
   fd
   libgit2 # improves Emacs' magit speed
@@ -40,6 +41,16 @@ cask_fonts_deps=(
   font-hack
   font-noto-sans
   font-noto-serif
+)
+
+apt_deps=(
+  emacs
+  fonts-firacode
+  fonts-jetbrains-mono
+  fonts-ibm-plex
+  fonts-hack
+  fonts-noto
+  tidy
 )
 
 pip_deps=(
@@ -61,11 +72,19 @@ install() {
       brew install emacs-plus --with-native-comp --with-modern-doom3-icon
       pip3 install ${pip_deps[@]}
       ;;
+    debian)
+      sudo apt update
+      if is_backports_configured; then
+          sudo apt install -y -t bookworm-backports ${common_deps[@]} ${apt_deps[@]}
+      else
+          sudo apt install -y ${common_deps[@]} ${apt_deps[@]}
+      fi
+      topic-enabled-p editor/coding-style || _dot editor/coding-style
+      ;;
   esac
 
   # Clone and setup doomemacs
   _ensure_repo eduarbo/doomemacs $XDG_CONFIG_HOME/emacs master
-
   $XDG_CONFIG_HOME/emacs/bin/doom install
 }
 
@@ -74,7 +93,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$XDG_CONFIG_HOME/doom" "~/.emacs.d"
+  rm -rfv "$XDG_CONFIG_HOME/{doom,emacs}"
 }
 
 init "$@"
