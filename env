@@ -47,9 +47,11 @@ function _load {
 }
 
 _load_all() {
+  setopt NULL_GLOB # Prevent "no matches found" error
   for file in "$DOTFILES_DATA"/*.topic/"$1"; do
     [ -e "$file" ] && source "$file"
   done
+  unsetopt NULL_GLOB
 }
 
 function _load_repo {
