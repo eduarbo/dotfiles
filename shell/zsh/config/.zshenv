@@ -1,10 +1,6 @@
 # This file is sourced by all instances of Zsh, and thus, it should be kept as
 # small as possible and should only define environment variables.
 
-# I opted for `.zprofile` over the commonly suggested `.zshenv` due to macOS's quirks. Turns out, `/usr/libexec/path_helper` reorders the `$PATH` between loading `.zshenv` and `.zprofile`. What a great "helper", right?
-
-# This great article explains what `path_helper` does in more detail: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#choosing-the-right-init-file
-
 # unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
 source $(cd ${${(%):-%x}:A:h}/../../.. && pwd -P)/env
 
@@ -31,6 +27,7 @@ local -A ZINIT
 
 export ZINIT[ZCOMPDUMP_PATH]="$ZSH_CACHE/zcompdump_$ZSH_VERSION"
 export ZINIT[HOME_DIR]="$ZINIT_DIR"
+export ZINIT[COMPINIT_OPTS]="-C"
 
 # These 2 variables need to be set in our local machine since they are passed
 # down to the remote host when we connect via SSH. Otherwise, we will be getting
@@ -54,8 +51,6 @@ if [ -x "$BREW_PATH" ]; then
   # NOTE this reorders the PATH, make sure to update the PATH after homebrew init
   eval "$($BREW_PATH shellenv)"
   path=( $HOMEBREW_PREFIX/opt/grep/libexec/gnubin $path )
-else
-  echo-alert "Homebrew no está instalado"
 fi
 
 path=( $path /usr/local/{,s}bin /usr/{,s}bin /{,s}bin )
@@ -69,4 +64,4 @@ _cache ssh-agent -s >/dev/null
 _load_all env.zsh
 
 # If you have host-local configuration, this is where you'd put it
-_source $ZDOTDIR/zprofile.local
+_source $ZDOTDIR/zshenv.local

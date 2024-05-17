@@ -1,9 +1,16 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
-source config/.zprofile
+source config/.zshenv
 
-ZPROFILE="$HOME/.zprofile"
 ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+if [[ $(_os) == macos ]]; then
+ # I opted for `.zprofile` over the commonly suggested `.zshenv` due to macOS's quirks. Turns out, `/usr/libexec/path_helper` reorders the `$PATH` between loading `.zshenv` and `.zprofile`. What a great "helper", right?
+
+ # This great article explains what `path_helper` does in more detail: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#choosing-the-right-init-file
+  ZSHENV="$HOME/.zprofile"
+else
+  ZSHENV="$HOME/.zshenv"
+fi
 
 # Dependencies
 
@@ -43,7 +50,7 @@ link() {
   mklink config/{*,.*} "$ZDOTDIR"
 
   touch $ZDOTDIR/zshrc.local
-  touch $ZDOTDIR/zprofile.local
+  touch $ZDOTDIR/zshenv.local
 }
 
 install() {
@@ -60,10 +67,12 @@ install() {
   sudo -v
 
   local zsh="$(command -v zsh)"
-  grep $zsh /etc/shells &>/dev/null || sudo tee -a /etc/shells <<<$zsh
+  if ! grep -Fxq "$zsh" /etc/shells; then
+    echo "$zsh" | sudo tee -a /etc/shells
+  fi
 
   echo-note "Move ZDOTDIR from $HOME to reduce dotfile pollution."
-  tee $ZPROFILE <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zprofile"'
+  tee $ZSHENV <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zshenv"'
 
   sudo chsh -s $zsh $(whoami)
 
@@ -91,7 +100,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$ZPROFILE" "$ZDOTDIR" "$ZSH_CACHE"
+  rm -rfv "$ZSHENV" "$ZDOTDIR" "$ZSH_CACHE"
 
   # Stop Zsh from displaying messages about missing startup files
   touch "$HOME/.zshrc"
