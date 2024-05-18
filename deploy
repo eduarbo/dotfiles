@@ -10,15 +10,15 @@
 source "${0:A:h}/env"
 SEP='.'
 
-# helpers
+# Helpers for output formatting
 function echo-debug { echo "$@" | sed -e "s%$HOME%~%g" -e "s%$DOTFILES%.%g"; }
-function echo-list  { printf "\r\033[2K🔸 \033[0;35m\033[1m%s\033[0m\n" "$*"; }
-function echo-note  { printf "\r\033[2K👉 \033[0;35m\033[1m%s\033[0m\n" "$*"; }
-function echo-ask   { printf "\r\033[2K☝️ \033[0;36m\033[1m%s\033[0m" "$*"; }
-function echo-alert { printf "\r\033[2K⚠️ \033[0;33m\033[1m%s\033[0m\n" "$*"; }
-function echo-info  { printf "\r\033[2Kℹ️ \033[0;34m%s\033[0m\n" "$*"; }
-function echo-ok    { printf "\r\033[2K✅ \033[0;32m%s\033[0m\n" "$*"; }
-function echo-fail  { printf "\r\033[2K❌ \033[0;31m%s\033[0m\n" "$*"; }
+function echo-list  { printf "\n\r\033[2K🔸 \033[0;35m\033[1m%s\033[0m\n" "$*"; }
+function echo-note  { printf "\n\r\033[2K👉 \033[0;35m\033[1m%s\033[0m\n" "$*"; }
+function echo-ask   { printf "\n\r\033[2K☝️ \033[0;36m\033[1m%s\033[0m" "$*"; }
+function echo-alert { printf "\n\r\033[2K⚠️ \033[0;33m\033[1m%s\033[0m\n" "$*"; }
+function echo-info  { printf "\n\r\033[2Kℹ️ \033[0;34m%s\033[0m\n" "$*"; }
+function echo-ok    { printf "\n\r\033[2K✅ \033[0;32m%s\033[0m\n" "$*"; }
+function echo-fail  { printf "\n\r\033[2K❌ \033[0;31m%s\033[0m\n" "$*"; }
 
 function _exec {
   ${DRYRUN:+echo-debug} $@
@@ -44,13 +44,9 @@ function _topics {
   echo ${${${topics[@]#$DOTFILES_DATA/}%.topic}/$SEP//}
 }
 
-
-# For _init scripts
+# Functions for topic initialization
 function topic-enabled-p { [[ -L "$(topic-path $1)" ]] }
 function topic-path { echo "$DOTFILES_DATA/${1/\//$SEP}.topic" }
-
-# Alternative version to use only the topic name as path: ${1##*/}
-# function topic-path { echo "$DOTFILES_DATA/${1##*/}.topic" }
 
 function mklink {
   if [[ $1 == '-s' ]]; then
@@ -99,32 +95,43 @@ function init {
   return $retval
 }
 
-# deploy functions
+# Functions to initialize, link, and update topics
 function topic-init {
   for topic in $@; do
+    # Check if the topic directory exists
     if [[ ! -d $topic ]]; then
       echo-fail "$topic doesn't exist!"
       continue
     fi
     echo-ok "$topic"
 
+    # Set the paths for the topic
     local tpath="$DOTFILES/$topic"
     local tsympath="$(topic-path $topic)"
+
+    # If the topic has a bin directory, add it to PATH temporarily
     if [[ -d "$topic/bin" ]]; then
       export path; path=( $tpath/bin $path )
       echo-ok "$topic: added $topic/bin to PATH, temporarily"
     fi
 
+    # If LINK is set or the topic is not enabled, create symlinks and link the topic
     if [[ -n $LINK ]] || ! topic-enabled-p $topic; then
       local op=install
       mklink $tpath $tsympath
       _topic-do $topic link
     fi
 
+    # If INHIBIT_INIT is not set, run the initialization or update script
     if [[ -z $INHIBIT_INIT ]]; then
       _topic-do $topic ${FORCE_OP:-${op:-update}}
+
+      # If the install operation fails, remove the topic
       if [[ $op == install && $? != 0 ]]; then
         topic-remove $topic
+      else
+        # Reload the shell if everything goes well
+        exec "$SHELL" -l
       fi
     fi
   done
