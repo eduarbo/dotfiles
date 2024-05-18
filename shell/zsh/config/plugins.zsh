@@ -53,4 +53,4 @@ zinit wait lucid for \
  atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions
 
-_cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
+# _cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
