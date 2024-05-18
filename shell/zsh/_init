@@ -78,7 +78,6 @@ install() {
 
   echo-info "Restart the terminal if it continues using a different shell."
   exec $zsh -l
-  compaudit | xargs chmod g-w
 }
 
 update() {
@@ -98,8 +97,6 @@ update() {
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
       ;;
   esac
-
-  compaudit | xargs chmod g-w
 }
 
 clean() {
