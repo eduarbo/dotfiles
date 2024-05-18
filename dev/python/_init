@@ -4,7 +4,7 @@ source env.zsh
 
 pip_deps=(
   black
-  nosetests
+  nose
   pyflakes
   isort
   pipenv
@@ -16,7 +16,31 @@ link() {
   mklink config/flake8 $XDG_CONFIG_HOME
 }
 
+apt_deps=(
+  build-essential
+  libssl-dev
+  zlib1g-dev
+  libbz2-dev
+  libreadline-dev
+  libsqlite3-dev
+  libncursesw5-dev
+  xz-utils
+  tk-dev
+  libxml2-dev
+  libxmlsec1-dev
+  libffi-dev
+  liblzma-dev
+)
+
 install() {
+  # Install Python build dependencies
+  case $(_os) in
+    debian)
+      sudo apt update
+      sudo apt install -y ${apt_deps[@]}
+      ;;
+  esac
+
   # Install pyenv
   echo-note "Install pyenv"
   curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
