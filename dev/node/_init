@@ -54,7 +54,6 @@ install_latest_node_version_as_global() {
 
   if [[ $(nodenv global) != $LATEST_NODE_VERSION ]]; then
     while true; do
-      echo
       echo-ask "Would you like to install the latest version of node (v${LATEST_NODE_VERSION}) and set it as global (y/n)? "
       read answer
 
@@ -96,12 +95,10 @@ uninstall_orphan_node_versions() {
   ORPHAN_NODE_VERSIONS_ARGS=($(echo "$ORPHAN_NODE_VERSIONS" | tr "\n" " "))
 
   if [[ $COUNT_ORPHAN_NODE_VERSIONS -ne 0 ]]; then
-    echo
     echo-list "Found orphan node versions:"
     echo $ORPHAN_NODE_VERSIONS
 
     while true; do
-      echo
       echo-ask "Do you wish to uninstall all of them (y/n)? "
       read answer
 

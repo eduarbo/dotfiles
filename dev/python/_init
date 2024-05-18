@@ -31,8 +31,6 @@ install() {
   topic-enabled-p dev/node || _dot dev/node
   npm install -g pyright
   nodenv rehash
-
-  exec "$SHELL" -l
 }
 
 update() {
