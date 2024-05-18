@@ -4,6 +4,9 @@
 # unsetopt GLOBAL_RCS  # disable global zsh config; we'll handle it ourselves
 source $(cd ${${(%):-%x}:A:h}/../../.. && pwd -P)/env
 
+# Do not call compinit too early (happening in Debian)
+skip_global_compinit=1
+
 export ZSH_DATA_HOME="$XDG_DATA_HOME/zsh"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 export ZINIT_DIR="$ZSH_CACHE/zinit"
