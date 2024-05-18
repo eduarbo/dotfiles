@@ -3,6 +3,8 @@ source ${0:A:h}/../../deploy
 source env.zsh
 
 pip_deps=(
+  black
+  nosetests
   pyflakes
   isort
   pipenv
