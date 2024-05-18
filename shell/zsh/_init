@@ -76,6 +76,8 @@ install() {
 
   sudo chsh -s $zsh $(whoami)
 
+  compaudit | xargs chmod g-w
+
   echo-info "Restart the terminal if it continues using a different shell."
   exec $zsh -l
 }
@@ -97,6 +99,8 @@ update() {
       sudo apt update && sudo apt install -y ${common_deps[@]} ${debian_deps[@]}
       ;;
   esac
+
+  compaudit | xargs chmod g-w
 }
 
 clean() {
