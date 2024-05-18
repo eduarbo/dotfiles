@@ -104,18 +104,26 @@ alias localip='ipconfig getifaddr en1'
 alias whois='whois -h whois-servers.net'
 alias ipinfo="curl ipinfo.io/json"
 
-# FIXME make it work on Debian/Linux
 # Copy my public key to my clipboard
 function pubkey() {
     if [ -f ~/.ssh/id_ed25519.pub ]; then
-        cat ~/.ssh/id_ed25519.pub | pbcopy
-        echo "=> id_ed25519 public key copied"
+        PUBKEY_FILE=~/.ssh/id_ed25519.pub
+        KEY_TYPE="id_ed25519"
     elif [ -f ~/.ssh/id_rsa.pub ]; then
-        cat ~/.ssh/id_rsa.pub | pbcopy
-        echo "=> id_rsa public key copied"
+        PUBKEY_FILE=~/.ssh/id_rsa.pub
+        KEY_TYPE="id_rsa"
     else
         echo "No public key found"
+        return
     fi
+
+    case $(_os) in
+      macos)
+        cat "$PUBKEY_FILE" | pbcopy ;;
+      debian)
+        cat "$PUBKEY_FILE" | xclip -selection clipboard ;;
+    esac
+    echo "=> $KEY_TYPE public key copied"
 }
 
 # quick way to serve a directory, very handy
