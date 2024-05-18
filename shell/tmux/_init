@@ -22,7 +22,12 @@ install() {
       brew install ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
-      sudo apt update && sudo apt install -y ${common_deps[@]}
+      sudo apt update
+      if is_backports_configured; then
+          sudo apt install -y -t bookworm-backports ${common_deps[@]}
+      else
+          sudo apt install -y ${common_deps[@]}
+      fi
       ;;
   esac
 
