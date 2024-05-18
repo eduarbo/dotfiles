@@ -135,8 +135,7 @@ loadtime() {
   local times=${1:-1}
 
   for _ in $(seq 1 "$times"); do
-    # FIXME wrong format in linux
-    /usr/bin/time "$SHELL" -lic exit;
+    time "$SHELL" -lic exit;
   done
   unset DISABLE_LOAD_TIME
 }
