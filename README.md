@@ -7,8 +7,7 @@ A tidy `$HOME` is a tidy mind.
 
 ![Doom Emacs - Jul-2023 Screenshot of macOS Ventura](assets/doom-emacs.png)
 
-These are my dotfiles, designed primarily for macOS and *Debian (well... it has
-only been tested on Ubuntu Server 20.04 ¯\\\_(ツ)\_/¯), heavily inspired by
+These are my dotfiles, designed primarily for macOS (Apple silicon) and Debian 12, heavily inspired by
 [hlissner/dotfiles](https://github.com/hlissner/dotfiles). They are my specific
 breed of madness, split into 2-level topics (e.g. `shell/zsh`) that strive for
 minimum `$HOME` presence (adhering to XDG standards where possible).
@@ -21,30 +20,24 @@ git clone https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
 ```
 
 ## Dependencies
-- [Homebrew](https://brew.sh/)
+- [Homebrew](https://brew.sh/) (for macOS)
 - git
 - zsh
+- curl
 
 ## What does it include?
 
 The following are the categories and topics available to install:
 
-- `linux/` - Linux compatible utilities
-  - `defaults` - bare essentials for Linux
-
 - `macos/` - macOS compatible utilities
   - `apps` - collection of macOS apps that I use on a daily basis
   - `defaults` - bare essentials for macOS
   - `hammerspoon` - a bunch of lua scripts to boost my productivity
-    - window manager
-    - quick app launcher
-    - push-to-talk mic
-    - audio output switcher
-  - `kitty` - A purr-fectly powerful and feature-rich terminal
+    - Window manager
+    - Quick app launcher
+    - Push-to-talk Mic
+    - Audio output switcher
   - `karabiner` - powerful keyboard customizer
-
-- `misc/` - Very handy apps & tools
-  - `surfingkeys` - bringing the power of Vim to the browser
 
 - `editor/` - Configuration for my text editors
   - `emacs` - the best of Emacs and Vim in one place
@@ -55,6 +48,7 @@ The following are the categories and topics available to install:
   - `git` - nice aliases and zsh plugins
   - `tmux` - window manager within the terminal + nice plugins
   - `zsh` - my shell of choice, fast, powerful and with a nice prompt
+  - `kitty` - A purr-fectly powerful and feature-rich terminal
 
 - `dev/` - Relevant to software development & programming in general
   - `lua` - manage lua environments with luaenv
