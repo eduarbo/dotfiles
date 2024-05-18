@@ -1,8 +1,6 @@
-alias py='python3'
-alias pip='python3 -m pip'
+alias py='python'
 
 if _is_callable python3; then
-    alias python='python3'
     alias py3='python3'
 fi
 

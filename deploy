@@ -17,8 +17,8 @@ function echo-note  { printf "\n\r\033[2K👉 \033[0;35m\033[1m%s\033[0m\n" "$*"
 function echo-ask   { printf "\n\r\033[2K☝️ \033[0;36m\033[1m%s\033[0m" "$*"; }
 function echo-alert { printf "\n\r\033[2K⚠️ \033[0;33m\033[1m%s\033[0m\n" "$*"; }
 function echo-info  { printf "\n\r\033[2Kℹ️ \033[0;34m%s\033[0m\n" "$*"; }
-function echo-ok    { printf "\n\r\033[2K✅ \033[0;32m%s\033[0m\n" "$*"; }
-function echo-fail  { printf "\n\r\033[2K❌ \033[0;31m%s\033[0m\n" "$*"; }
+function echo-ok    { printf "\r\033[2K✅ \033[0;32m%s\033[0m\n" "$*"; }
+function echo-fail  { printf "\r\033[2K❌ \033[0;31m%s\033[0m\n" "$*"; }
 
 function _exec {
   ${DRYRUN:+echo-debug} $@
