@@ -46,7 +46,7 @@ _load_all plugins.zsh
 
 # This should be loaded after plugins that are issuing compdefs
 zinit wait lucid for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+ atinit"zicompinit; zicdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
  blockf \
     zsh-users/zsh-completions \
