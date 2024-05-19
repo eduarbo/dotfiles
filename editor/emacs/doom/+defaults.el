@@ -73,3 +73,8 @@
 ;; Magit
 (setq evil-collection-magit-want-horizontal-movement t)
 (setq evil-collection-magit-use-y-for-yank t)
+
+(unless (featurep 'macos)
+  ;; Swap Ctrl and Alt
+  (setq x-super-keysym 'ctrl)
+  (setq x-ctrl-keysym 'super))
