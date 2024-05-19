@@ -91,8 +91,7 @@
 
 
 ;; -- macOS shortcuts
-
-(map! :when (featurep :system 'macos)
+(map!
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
       (:map helpful-mode-map
@@ -129,10 +128,12 @@
       :g     "s-l"           #'avy-goto-line
       :g     "s-o"           #'projectile-switch-project
       :g     "s-p"           #'+treemacs/toggle
+      :g     "s-s"           #'save-buffer
+      :g     "s-u"           #'evil-window-mru
+      :g     "s-v"           #'evil-paste-after
+      :g     "s-y"           #'+default/yank-pop
       :n     "s-r"           #'+eval/open-repl-other-window
       :v     "s-r"           #'+eval:region
-      :g     "s-u"           #'evil-window-mru
-      :g     "s-y"           #'+default/yank-pop
 
       (:map with-editor-mode-map
        :g    "s-s"    #'with-editor-finish
