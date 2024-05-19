@@ -119,8 +119,8 @@
        :gn   "s-["           #'git-timemachine-show-previous-revision
        :gn   "s-]"           #'git-timemachine-show-next-revision)
 
-      :mi    "C-S-<tab>"     #'+workspace/switch-left
-      :mi    "C-<tab>"       #'+workspace/switch-right)
+      :gn    "C-S-<tab>"     #'+workspace/switch-left
+      :gn    "C-<tab>"       #'+workspace/switch-right)
 
 ;; -- Super (WIN/CMD key) shortcuts
 (map!
