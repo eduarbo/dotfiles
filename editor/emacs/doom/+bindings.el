@@ -90,8 +90,23 @@
             "C-z" nil))
 
 
-;; -- macOS shortcuts
-(map!
+(map! :unless (featurep :system 'macos)
+      :gn    "M-<left>"      #'previous-buffer
+      :gn    "M-<right>"     #'next-buffer
+      (:map helpful-mode-map
+       :gn   "M-<left>"      #'help-go-back
+       :gn   "M-<right>"     #'help-go-forward)
+      (:map Info-mode-map
+       :gn   "M-<left>"      #'Info-history-back
+       :gn   "M-<right>"     #'Info-history-forward)
+      (:map git-timemachine-mode-map
+       :gn   "M-<left>"      #'git-timemachine-show-previous-revision
+       :gn   "M-<right>"     #'git-timemachine-show-next-revision)
+
+      :mi    "s-S-<tab>"     #'+workspace/switch-left
+      :mi    "s-<tab>"       #'+workspace/switch-right)
+
+(map! :when (featurep :system 'macos)
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
       (:map helpful-mode-map
@@ -104,9 +119,11 @@
        :gn   "s-["           #'git-timemachine-show-previous-revision
        :gn   "s-]"           #'git-timemachine-show-next-revision)
 
-      :mi    "s-{"           #'+workspace/switch-left
-      :mi    "s-}"           #'+workspace/switch-right
+      :mi    "C-S-<tab>"     #'+workspace/switch-left
+      :mi    "C-<tab>"       #'+workspace/switch-right)
 
+;; -- Super (WIN/CMD key) shortcuts
+(map!
       :g     "s-;"           #'pp-eval-expression
 
       :g     "s-h"           #'helpful-key
