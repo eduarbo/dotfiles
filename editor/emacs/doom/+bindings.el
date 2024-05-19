@@ -128,12 +128,16 @@
       :g     "s-l"           #'avy-goto-line
       :g     "s-o"           #'projectile-switch-project
       :g     "s-p"           #'+treemacs/toggle
+      :n     "s-r"           #'+eval/open-repl-other-window
+      :v     "s-r"           #'+eval:region
       :g     "s-s"           #'save-buffer
+      :g     "s-t"           #'+workspace/new
+      :g     "s-x"           #'doom/open-scratch-buffer
+      :g     "s-X"           #'doom/open-project-scratch-buffer
       :g     "s-u"           #'evil-window-mru
       :g     "s-v"           #'evil-paste-after
       :g     "s-y"           #'+default/yank-pop
-      :n     "s-r"           #'+eval/open-repl-other-window
-      :v     "s-r"           #'+eval:region
+      :g     "s-w"           #'+workspace/close-window-or-workspace
 
       (:map with-editor-mode-map
        :g    "s-s"    #'with-editor-finish
