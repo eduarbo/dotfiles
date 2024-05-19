@@ -103,8 +103,9 @@
        :gn   "M-<left>"      #'git-timemachine-show-previous-revision
        :gn   "M-<right>"     #'git-timemachine-show-next-revision)
 
-      :mi    "s-S-<tab>"     #'+workspace/switch-left
-      :mi    "s-<tab>"       #'+workspace/switch-right)
+      :gn    "s-S-<iso-lefttab>" #'+workspace/switch-left
+      :gn    "s-S-<tab>"     #'+workspace/switch-left
+      :gn    "s-<tab>"       #'+workspace/switch-right)
 
 (map! :when (featurep :system 'macos)
       :gn    "s-["           #'previous-buffer
