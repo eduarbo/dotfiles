@@ -66,18 +66,27 @@ function window.moveToNextScreen()
     end
 end
 
+local function framesEqual(frame1, frame2)
+    return frame1.x == frame2.x and
+           frame1.y == frame2.y and
+           frame1.w == frame2.w and
+           frame1.h == frame2.h
+end
+
 function window.toggleMaximize()
     local win = hs.window.focusedWindow()
     if win ~= nil then
-        if isMaximized then
+        local screen = win:screen()
+        local maxFrame = screen:frame()
+        local winFrame = win:frame()
+
+        if framesEqual(winFrame, maxFrame) then
             if previousFrame then
                 win:setFrame(previousFrame)
             end
-            isMaximized = false
         else
             previousFrame = win:frame()
             win:maximize()
-            isMaximized = true
         end
     end
 end
