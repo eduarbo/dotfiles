@@ -110,7 +110,7 @@ local function isWindowInStates(win, states)
     local winFrame = win:frame()
     for _, state in ipairs(states) do
         local stateFrame = hs.geometry.rect(state):fromUnitRect(win:screen():frame())
-        if winFrame:equals(stateFrame) then
+        if winFrame:floor() == stateFrame:floor() then
             return true
         end
     end
@@ -119,22 +119,24 @@ end
 
 function window.toggleLeftSize()
     local win = hs.window.focusedWindow()
-    if win ~= nil then
+    if win then
         if not isWindowInStates(win, toggleStates) then
             toggleIndex = 1
         end
-        win:move(toggleStates[toggleIndex])
+        local newStateFrame = hs.geometry.rect(toggleStates[toggleIndex]):fromUnitRect(win:screen():frame())
+        win:setFrame(newStateFrame)
         toggleIndex = (toggleIndex % #toggleStates) + 1
     end
 end
 
 function window.toggleRightSize()
     local win = hs.window.focusedWindow()
-    if win ~= nil then
+    if win then
         if not isWindowInStates(win, rightToggleStates) then
             rightToggleIndex = 1
         end
-        win:move(rightToggleStates[rightToggleIndex])
+        local newStateFrame = hs.geometry.rect(rightToggleStates[rightToggleIndex]):fromUnitRect(win:screen():frame())
+        win:setFrame(newStateFrame)
         rightToggleIndex = (rightToggleIndex % #rightToggleStates) + 1
     end
 end
