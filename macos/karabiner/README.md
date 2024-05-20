@@ -138,13 +138,13 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 **Debugger**
 - `⌥⌘I`: Toggle DevTools
 - `⇧⌘C`: Inspect element
-- `F8`: Pause/Resume script
+- `⌘\`: Pause/Resume script
 
 **Browser navigation**
-- `⇧⌘[` : Previous tab
+- `⇧⌃⇥` : Previous tab
 - `⌘[` : Back
 - `⌘]` : Forward
-- `⇧⌘]`: Next tab
+- `⌃⇥`: Next tab
 
 **App navigation**
 - `⌃↓`: App windows
