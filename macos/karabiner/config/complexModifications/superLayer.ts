@@ -23,13 +23,13 @@ const rules = [
 
       /// Home Row - Nav
       // Prev
-      keybind('s', [['tab', ['command', 'shift']]]),
+      keybind('s', [['tab', ['control', 'shift']]]),
       // Back
       keybind('d', [['open_bracket', ['command']]]),
       // Forward
       keybind('f', [['close_bracket', ['command']]]),
       // Next
-      keybind('g', [['tab', ['command', 'shift']]]),
+      keybind('g', [['tab', ['control']]]),
 
       /// Bottom Row
       // Show all windows of the front app
