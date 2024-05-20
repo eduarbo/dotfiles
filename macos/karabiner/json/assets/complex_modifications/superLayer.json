@@ -90,14 +90,14 @@
           },
           "to": [
             {
-              "key_code": "open_bracket",
+              "key_code": "tab",
               "modifiers": [
-                "command",
+                "control",
                 "shift"
               ]
             }
           ],
-          "description": "from option+command+control+s to command+shift+open_bracket"
+          "description": "from option+command+control+s to control+shift+tab"
         },
         {
           "type": "basic",
@@ -160,14 +160,13 @@
           },
           "to": [
             {
-              "key_code": "close_bracket",
+              "key_code": "tab",
               "modifiers": [
-                "command",
-                "shift"
+                "control"
               ]
             }
           ],
-          "description": "from option+command+control+g to command+shift+close_bracket"
+          "description": "from option+command+control+g to control+tab"
         },
         {
           "type": "basic",
