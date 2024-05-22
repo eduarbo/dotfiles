@@ -3373,10 +3373,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "slash"
+                    "key_code": "delete_or_backspace"
                   }
                 ],
-                "description": "from right_shift+slash to slash",
+                "description": "from right_shift+slash to delete_or_backspace",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -3602,10 +3602,10 @@
                 ],
                 "to_if_alone": [
                   {
-                    "key_code": "f13"
+                    "key_code": "f16"
                   }
                 ],
-                "description": "right_option to right_control, send f13 on tap",
+                "description": "right_option to right_control, send f16 on tap",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -7055,10 +7055,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "slash"
+                    "key_code": "delete_or_backspace"
                   }
                 ],
-                "description": "from right_shift+slash to slash",
+                "description": "from right_shift+slash to delete_or_backspace",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -7284,10 +7284,10 @@
                 ],
                 "to_if_alone": [
                   {
-                    "key_code": "f13"
+                    "key_code": "f16"
                   }
                 ],
-                "description": "right_option to right_control, send f13 on tap",
+                "description": "right_option to right_control, send f16 on tap",
                 "conditions": [
                   {
                     "type": "device_unless",

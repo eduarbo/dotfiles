@@ -44,8 +44,8 @@ const rules = [
         },
       ),
 
-      // R Option -> R Control on hold, F13 on tap
-      modTap(['right_option', null, ['any']], [['right_control']], [['f13']], {
+      // R Option -> R Control on hold, F16 on tap
+      modTap(['right_option', null, ['any']], [['right_control']], [['f16']], {
         manipulatorOptions,
         toOptions,
       }),

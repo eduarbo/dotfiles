@@ -11,7 +11,7 @@ local window = require("window")
 -----------------------------------------------
 
 -- Emojis
-hs.hotkey.bind("shift", "f13", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
+hs.hotkey.bind("shift", "f16", function() hs.eventtap.keyStroke({"cmd", "ctrl"}, "space") end)
 
 
 -- Super layer
@@ -39,7 +39,7 @@ hs.hotkey.bind(mods.super, ";", hs.grid.show)
 -- .: Taken by Alfred (Universal Action)
 
 -- Lock screen
-hs.hotkey.bind("cmd", "f13", hs.caffeinate.lockScreen)
+hs.hotkey.bind("cmd", "f16", hs.caffeinate.lockScreen)
 hs.hotkey.bind("cmd", "escape", hs.caffeinate.lockScreen)
 
 -- Hyper layer: Launcher
