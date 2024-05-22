@@ -62,7 +62,7 @@ Standard QWERTY layout, with the delete key replacing the slash key. Modifiers a
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
 │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ ⌫ │
 ╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │ ⎋ │ ␣ │ ⏎ │ │ ⏎ │ ⇥ │F13│ ← on tap
+           │ ⎋ │ ␣ │ ⏎ │ │ ⏎ │ ⇥ │F16│ ← on tap
            │ ≡ │ ⇧ │ ⌘ │ │ ⌘ │ ⇪ │ ⌃ │ ← on hold
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
@@ -86,8 +86,8 @@ Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retain
 
 | Symbol | Description | Symbol      | Description | Symbol      | Description |
 |--------|-------------|-------------|-------------|-------------|-------------|
-| `F13`  | Alfred      | `⌘␣`        | Spotlight   | `⇧` + `F13` | Emojis      |
-| `⌘⎋`   | Lock Mac    | `⌘` + `F13` | Lock Mac    |             |             |
+| `F16`  | Alfred      | `⌘␣`        | Spotlight   | `⇧` + `F16` | Emojis      |
+| `⌘⎋`   | Lock Mac    | `⌘` + `F16` | Lock Mac    |             |             |
 
 ### Super
 

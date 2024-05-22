@@ -2,13 +2,12 @@
 --                                ░█░█░░█░░█░░
 --                                ░▀░▀░▀▀▀░▀▀▀
 --
--- When the mic is muted hold f13 key to talk and release to mute again.
--- You can toggle mute by double tapping the f13 key
+-- When the mic is muted, hold the bound key to talk and release it to mute again.
+-- You can toggle mute by double-tapping the bound key
 
 local mods = require("modifiers")
 
 local mic = {}
-local micKey = "b"
 local doubleTap = false
 local pushToTalk = false
 local recentlyTapped = false

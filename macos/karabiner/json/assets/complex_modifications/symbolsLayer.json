@@ -1317,10 +1317,10 @@
           },
           "to": [
             {
-              "key_code": "slash"
+              "key_code": "delete_or_backspace"
             }
           ],
-          "description": "from right_shift+slash to slash",
+          "description": "from right_shift+slash to delete_or_backspace",
           "conditions": [
             {
               "type": "device_unless",
