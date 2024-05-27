@@ -19,7 +19,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.factorio$"
+                "^com\\.factorio$",
+                "^com.aspyr.civ5xp.steam$"
               ]
             }
           ]
@@ -39,7 +40,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.factorio$"
+                "^com\\.factorio$",
+                "^com.aspyr.civ5xp.steam$"
               ]
             }
           ]
@@ -59,7 +61,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.factorio$"
+                "^com\\.factorio$",
+                "^com.aspyr.civ5xp.steam$"
               ]
             }
           ]
@@ -79,7 +82,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "^com\\.factorio$"
+                "^com\\.factorio$",
+                "^com.aspyr.civ5xp.steam$"
               ]
             }
           ]

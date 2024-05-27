@@ -11,9 +11,7 @@ export const EMACS = [
   '^org\\.pqrs\\.unknownapp.conkeror$',
 ];
 
-export const VSCODE = [
-  '^com.microsoft.VSCode$',
-];
+export const VSCODE = ['^com.microsoft.VSCode$'];
 
 export const REMOTE_DESKTOP = [
   '^com\\.microsoft\\.rdc$',
@@ -60,9 +58,9 @@ export const X11 = [
   '^org\\.macports\\.X11$',
 ];
 
-export const GAMES = [
-  '^com\\.factorio$',
-];
+export const CIV5 = '^com.aspyr.civ5xp.steam$';
+
+export const GAMES = ['^com\\.factorio$', CIV5];
 
 export const EMACS_KEY_BINDINGS_EXCEPTION = [
   ...EMACS,

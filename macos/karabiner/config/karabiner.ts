@@ -5,6 +5,7 @@ import {
   superLayer,
   fnLayer,
   baseLayer,
+  civLayer,
   // gamingLayer,
 } from './complexModifications';
 
@@ -15,6 +16,7 @@ const defaultProfile = [
   fnLayer,
   symbolsLayer,
   baseLayer,
+  civLayer,
   // gamingLayer,
 ];
 
