@@ -15,7 +15,7 @@ zinit light zdharma-continuum/history-search-multi-word
 zinit ice wait lucid
 zinit light djui/alias-tips
 
-zinit ice wait lucid multisrc"shell/*.zsh"
+zinit ice multisrc"shell/{key-bindings,completion}.zsh" pick""
 zinit light junegunn/fzf
 
 # https://github.com/mustaqimM/dotfiles/blob/248e03018096e5913b82940dca626fa78d9cf46c/.zsh/.zshrc

@@ -90,7 +90,7 @@
             "C-z" nil))
 
 
-(map! :unless (featurep :system 'macos)
+(map! :unless (eq system-type 'darwin)
       :gn    "M-<left>"      #'previous-buffer
       :gn    "M-<right>"     #'next-buffer
       (:map helpful-mode-map
@@ -107,7 +107,7 @@
       :gn    "s-S-<tab>"     #'+workspace/switch-left
       :gn    "s-<tab>"       #'+workspace/switch-right)
 
-(map! :when (featurep :system 'macos)
+(map! :when (eq system-type 'darwin)
       :gn    "s-["           #'previous-buffer
       :gn    "s-]"           #'next-buffer
       (:map helpful-mode-map
