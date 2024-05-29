@@ -74,6 +74,7 @@
 	clean = git-lfs clean -- %f
 [commit]
 	template = ~/.config/git/message
+	gpgsign = false
 [rerere]
 	enabled = 1
 [init]
