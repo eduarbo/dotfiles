@@ -214,3 +214,16 @@ narrowed."
           (kill-buffer buffer))))
     (unless found-and-closed
       (+magit/quit))))
+
+;;;###autoload
+(defun my/comment-divider ()
+  "Insert a comment divider with dashes, 60 chars long."
+  (interactive)
+  (let* ((comment-start (or comment-start "# "))
+         (comment-length (length comment-start))
+         (divider-length (- 60 comment-length))
+         (divider (concat comment-start (make-string divider-length ?-))))
+    (save-excursion
+      (move-end-of-line 1)
+      (newline)
+      (insert divider))))
