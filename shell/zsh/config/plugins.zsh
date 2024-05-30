@@ -7,6 +7,10 @@
 # Load zinit and install it when missing
 _load_repo zdharma-continuum/zinit $ZINIT_DIR zinit.zsh
 
+zinit ice wait lucid multisrc"shell/*.zsh"
+zinit light junegunn/fzf
+
+# Binds Ctrl-R to a widget that performs a search for multiple keywords using AND logic
 zinit lucid light-mode for zsh-users/zsh-history-substring-search
 
 zinit ice wait lucid
@@ -14,9 +18,6 @@ zinit light zdharma-continuum/history-search-multi-word
 
 zinit ice wait lucid
 zinit light djui/alias-tips
-
-zinit ice multisrc"shell/{key-bindings,completion}.zsh" pick""
-zinit light junegunn/fzf
 
 # https://github.com/mustaqimM/dotfiles/blob/248e03018096e5913b82940dca626fa78d9cf46c/.zsh/.zshrc
 zinit ice lucid as"program" mv"*cht.sh -> cht" pick"cht" id-as"cht.sh"
