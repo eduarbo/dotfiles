@@ -200,11 +200,16 @@
         :desc "Capital_Snake_Case" :nv "S"     #'string-inflection-capital-underscore
         :desc "UP_CASE"            :nv "u"     #'string-inflection-upcase))
 
-;; accept completion from copilot and fallback to company
+
+;-----------------------------------------------------------
+; -- Copilot
+
 (use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+  :init
+  (setq copilot-idle-delay nil))
+
+(defun cae-copilot-clear-overlay-h ()
+  "Like `copilot-clear-overlay', but returns `t' if the overlay was visible."
+  (when (copilot--overlay-visible)
+    (copilot-clear-overlay)))
+(add-hook 'doom-escape-hook #'cae-copilot-clear-overlay-h)
