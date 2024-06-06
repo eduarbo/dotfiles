@@ -227,3 +227,14 @@ narrowed."
       (move-end-of-line 1)
       (newline)
       (insert divider))))
+
+;; Based on function from https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/
+;;;###autoload
+(defun copilot-complete-or-accept ()
+  "Command that either triggers a completion or accepts one if one
+is available."
+  (interactive)
+  (if (copilot--overlay-visible)
+      (progn
+        (copilot-accept-completion))
+    (copilot-complete)))

@@ -155,7 +155,8 @@
       :g     "s-x"           #'doom/open-scratch-buffer
       :g     "s-X"           #'doom/open-project-scratch-buffer
       :g     "s-u"           #'evil-window-mru
-      :g     "s-v"           #'evil-paste-after
+      :ni    "s-v"           #'evil-paste-before
+      :v     "s-v"           #'+evil/alt-paste
       :g     "s-y"           #'+default/yank-pop
       :g     "s-w"           #'+workspace/close-window-or-workspace
 
@@ -258,6 +259,7 @@
       ;;; <leader> t --- toggle
       :desc "Window Enlargen mode"          "t e"   #'my/window-enlargen-mode
       :desc "Line numbers mode"             "t l"   #'display-line-numbers-mode
+      :desc "Copilot mode"                  "t a"   #'copilot-mode
 
       ;;; <leader> w --- workspaces/windows
       :desc "Balance windows"               "w b"   #'balance-windows
@@ -383,3 +385,17 @@
 (map! :after embark :map minibuffer-local-map
       "C-SPC"    #'embark-act
       [C-return] #'embark-export)
+
+(map! :after copilot :map copilot-mode-map
+      :i    "C-S-l"     #'copilot-complete-or-accept
+      :i    "s-<right>" #'copilot-complete-or-accept
+      :i    "C-S-j"     #'copilot-accept-completion-by-word
+      :i    "s-<down>"  #'copilot-accept-completion-by-word
+      :i    "C-S-k"     #'copilot-accept-completion-by-line
+      :i    "s-<up>"    #'copilot-accept-completion-by-line
+      :i    "C->"       #'copilot-previous-completion
+      :i    "s->"       #'copilot-previous-completion
+      :i    "C-<"       #'copilot-next-completion
+      :i    "s-<"       #'copilot-next-completion
+      :i    "C-S-h"     #'copilot-clear-overlay
+      :i    "s-<left>"  #'copilot-clear-overlay)
