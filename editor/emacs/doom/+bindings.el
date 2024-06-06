@@ -123,7 +123,9 @@
       :gn    "C-S-<tab>"     #'+workspace/switch-left
       :gn    "C-<tab>"       #'+workspace/switch-right)
 
-;; -- Super (WIN/CMD key) shortcuts
+;-----------------------------------------------------------
+; -- Super (WIN/CMD key) shortcuts
+
 (map!
       :g     "s-;"           #'pp-eval-expression
 
@@ -171,7 +173,8 @@
        :g    "s-w"    #'+snippet--abort))
 
 
-;; -- Smart tab: these will only work in GUI Emacs
+;-----------------------------------------------------------
+; -- Smart tab: these will only work in GUI Emacs
 
 (map! :i [tab]     (cmds! (and (bound-and-true-p company-mode)
                                (modulep! :completion company))
@@ -234,7 +237,8 @@
                 "C-j"       (cmd!! #'corfu-popupinfo-scroll-up nil (/ corfu-popupinfo-max-height 2)))))
 
 
-;; -- Leader
+;-----------------------------------------------------------
+; -- Leader
 
 (map! :leader
       :desc "Switch workspace"              "TAB"   #'persp-switch
@@ -299,7 +303,8 @@
       :desc "Start new Emacs"               "q n"   #'restart-emacs-start-new-emacs)
 
 
-;; -- goto prefix
+;-----------------------------------------------------------
+; -- goto prefix
 
 (map! :prefix "g"
       :nv "j"     #'avy-goto-line-below
@@ -313,7 +318,8 @@
       :nv "."     #'evil-goto-last-change)
 
 
-;; -- Modules
+;-----------------------------------------------------------
+; -- Modules
 
 (map! :after evil-snipe
       :inv "C-,"     #'evil-snipe-repeat-reverse
