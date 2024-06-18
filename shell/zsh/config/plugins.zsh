@@ -10,6 +10,9 @@ _load_repo zdharma-continuum/zinit $ZINIT_DIR zinit.zsh
 zinit ice wait lucid multisrc"shell/*.zsh"
 zinit light junegunn/fzf
 
+zinit ice wait lucid
+zinit light Aloxaf/fzf-tab
+
 # Binds Ctrl-R to a widget that performs a search for multiple keywords using AND logic
 zinit lucid light-mode for zsh-users/zsh-history-substring-search
 
