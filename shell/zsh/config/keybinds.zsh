@@ -20,13 +20,6 @@ bindkey '^[[B' history-substring-search-down
 
 bindkey "^R" history-search-multi-word
 
-# FZF
-# -----------------------------------------------------------
-
-bindkey '^T' fzf-history-widget
-bindkey '^O' fzf-cd-widget
-bindkey '^I' fzf-file-widget
-
 # Fancy Ctrl+Z
 # -----------------------------------------------------------
 
