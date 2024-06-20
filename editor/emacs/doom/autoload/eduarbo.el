@@ -238,3 +238,14 @@ is available."
       (progn
         (copilot-accept-completion))
     (copilot-complete)))
+
+;;;###autoload
+(defun my/evil-inser-mode-paste ()
+  "Paste text relative to the cursor's line position: after if at end, before with cursor adjustment otherwise.
+Uses `evil-paste-after` if the cursor is at the end of the line. If not, uses `evil-paste-before` and moves the cursor forward to the end of the pasted text."
+  (interactive)
+  (if (eolp)  ; Check if the cursor is at the end of the line
+      (evil-paste-after 1)
+    (progn
+      (evil-paste-before 1)
+      (evil-forward-char))))
