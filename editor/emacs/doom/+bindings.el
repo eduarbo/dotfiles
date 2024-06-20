@@ -155,7 +155,8 @@
       :g     "s-x"           #'doom/open-scratch-buffer
       :g     "s-X"           #'doom/open-project-scratch-buffer
       :g     "s-u"           #'evil-window-mru
-      :ni    "s-v"           #'evil-paste-before
+      :n     "s-v"           #'evil-paste-after
+      :i     "s-v"           #'my/evil-inser-mode-paste
       :v     "s-v"           #'+evil/alt-paste
       :g     "s-y"           #'+default/yank-pop
       :g     "s-w"           #'+workspace/close-window-or-workspace
