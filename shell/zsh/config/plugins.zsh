@@ -37,7 +37,7 @@ zinit light tj/git-extras
 
 # fasd is archived and unavailable for brew
 # https://github.com/Homebrew/homebrew-core/pull/112791
-zinit ice wait lucid
+zinit ice lucid
 zinit light whjvenyl/fasd
 
 # To customize prompt edit this file or run `p10k configure`
@@ -56,5 +56,3 @@ zinit wait lucid for \
     zsh-users/zsh-completions \
  atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions
-
-_cache fasd --init posix-alias zsh-{hook,{c,w}comp{,-install}}
