@@ -38,10 +38,22 @@ function findDeviceInMap(findFn, deviceMap, currentDevice)
     return nextDevice
 end
 
+-- Switches the default audio output to the next available device in a predefined sequence.
+-- Iterates through groups of audio devices, setting the first available device in each group as the default.
+-- Supports two groups: Headphones and Speakers
 function switchOutput()
     local outputMap = {
-        {{"AirPods Pro de Eduardo", "🎧 AirPods Pro"}, {"AB13X USB Audio", "🎧 Headphones (USB)"}, {"USB Audio Device", "🔊 Speakers (USB)"}},
-        {{"External Headphones", "🔊 Speakers (Jack port)"}, {"NS- 20G", "🔊 Speakers (Bluetooth)"}, {"SWITCH", "🔊 Speakers"}, {"LG HDR QHD", "🔊 Speakers (HDMI)"}, {"MacBook Pro Speakers", "💻 MacBook"}}
+        { -- Headphones
+            {"AirPods Pro Femto", "🎧 AirPods Pro"},
+            {"AB13X USB Audio", "🎧 Headphones (USB)"}
+        },
+        { -- Speakers
+            {"External Headphones", "🔊 Speakers (Jack port)"},
+            {"NS- 20G", "🔊 Speakers (Bluetooth)"},
+            {"SWITCH", "🔊 Speakers"},
+            {"LG HDR QHD", "🔊 Speakers (HDMI)"},
+            {"MacBook Pro Speakers", "💻 MacBook"}
+        }
     }
     local currentDevice = hs.audiodevice.defaultOutputDevice()
     local nextDevice = findDeviceInMap(hs.audiodevice.findOutputByName, outputMap, currentDevice)
