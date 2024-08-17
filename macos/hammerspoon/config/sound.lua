@@ -1,4 +1,4 @@
-local audio = {}
+local sound = {}
 
 -- Output
 
@@ -40,15 +40,15 @@ end
 
 function switchOutput()
     local outputMap = {
-        {{"AirPods Pro de Eduardo", "🎧 AirPods Pro"}, {"External Headphones", "🎧 Headphones"}},
-        {{"NS- 20G", "🔊 Speakers Bluetooth"}, {"SWITCH", "🔊 Speakers"}, {"LG HDR QHD", "🔊 Speakers"}, {"MacBook Pro Speakers", "💻 MacBook"}}
+        {{"AirPods Pro de Eduardo", "🎧 AirPods Pro"}, {"AB13X USB Audio", "🎧 Headphones (USB)"}, {"USB Audio Device", "🔊 Speakers (USB)"}},
+        {{"External Headphones", "🔊 Speakers (Jack port)"}, {"NS- 20G", "🔊 Speakers (Bluetooth)"}, {"SWITCH", "🔊 Speakers"}, {"LG HDR QHD", "🔊 Speakers (HDMI)"}, {"MacBook Pro Speakers", "💻 MacBook"}}
     }
     local currentDevice = hs.audiodevice.defaultOutputDevice()
     local nextDevice = findDeviceInMap(hs.audiodevice.findOutputByName, outputMap, currentDevice)
 
     if nextDevice then
         nextDevice.device:setDefaultOutputDevice()
-        hs.notify.new({title = "Audio out: " .. nextDevice.label, withdrawAfter = 1}):send()
+        hs.notify.new({title = "Sound out: " .. nextDevice.label, withdrawAfter = 1}):send()
     end
 end
 
@@ -67,12 +67,12 @@ function switch_input()
 
     if nextDevice then
         nextDevice.device:setDefaultOutputDevice()
-        hs.notify.new({title = "Audio in: " .. nextDevice.label, withdrawAfter = 1}):send()
+        hs.notify.new({title = "Sound in: " .. nextDevice.label, withdrawAfter = 1}):send()
     end
 end
 
-function audio.bind(mods, key)
+function sound.bind(mods, key)
     hs.hotkey.bind(mods, key, switchOutput)
 end
 
-return audio
+return sound

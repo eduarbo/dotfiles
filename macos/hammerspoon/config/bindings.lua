@@ -1,6 +1,6 @@
 local mods = require("modifiers")
 local mic = require("mic")
-local audio = require("audio")
+local sound = require("sound")
 local window = require("window")
 
 -----------------------------------------------
@@ -20,8 +20,8 @@ hs.hotkey.bind("shift", "f16", function() hs.eventtap.keyStroke({"cmd", "ctrl"},
 -- Toggle Mic
 mic.bind(mods.super, "w")
 
--- Switch Audio output
-audio.bind(mods.super, "y")
+-- Switch Sound output
+sound.bind(mods.super, "y")
 
 -- U: Taken by 1Password mini
 -- I: Taken by ChatGPT
