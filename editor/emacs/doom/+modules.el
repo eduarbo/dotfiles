@@ -43,6 +43,9 @@
 
 (after! lsp-mode
   (setq
+   ;; Do not execute the action without user confirmation
+   lsp-auto-execute-action nil
+
    ;; Follow the instructions to setup ESLint in LSP server:
    ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
    lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
@@ -61,6 +64,8 @@
    ;; lsp-completion-provider :none
    ;; lsp-completion-show-detail nil
    ;; lsp-completion-show-kind nil
+
+   lsp-typescript-preferences-import-module-specifier "non-relative"
 
    lsp-enable-snippet nil
    ;; lsp-signature-doc-lines 5
