@@ -168,6 +168,37 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
 
+### Civ V
+
+- ⌃A: Attack
+- B: Ranged attack
+- M: Move
+- SPC: Do nothing
+- A: Alert
+- E: Explore
+- F: Sleep/Fortify
+- S: Setup artillery
+- H: Fortify Heal
+- U: Upgrade unit
+- Shift+ENTER: Next turn
+- .: Next unit
+- ,: Prev unit
+- F10: Strategic view
+- HOME: Prev city
+- END: Next city
+
+```text
+╭───┬───┬───┬───┬───╮
+│ ⌫ │HOM│   │END│ U │
+├───┼───┼───┼───┼───┤
+│   │ , │F10│ . │ M │
+├───┼───┼───┼───┼───┤
+│ F │ H │ S │⌃A │   │
+╰───┴───┴──┬┴──┬┴──┬┴──╮
+           │   │   │⇧⏎ │
+           ╰───┴───┴───╯
+```
+
 ### Template
 
 ```text
