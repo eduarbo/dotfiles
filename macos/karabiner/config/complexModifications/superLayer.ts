@@ -18,7 +18,7 @@ const rules = [
       keybind('e', [['i', ['option', 'command']]]),
       // Inspect element
       keybind('r', [['c', ['shift', 'command']]]),
-      // Toggle script execution
+      // Pause/Resume script execution
       keybind('t', [['backslash', ['command']]]),
 
       /// Home Row - Nav

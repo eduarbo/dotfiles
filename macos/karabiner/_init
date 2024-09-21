@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 
+source ./aliases.zsh
+
 # only for macOS
 [[ $(_os) != macos ]] && exit
 
@@ -11,7 +13,7 @@ brew_deps=(
 link() {
   mklink json/* $KARABINER_CONFIG_DIR
   echo-info "Profile names"
-  '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --list-profile-names
+  karabiner --list-profile-names
 }
 
 install() {
@@ -30,7 +32,11 @@ install() {
   # build
 }
 
-update() {}
+update() {
+  build
+  # Re-link files to ensure Karabiner detects the updates and reloads the configuration
+  link
+}
 
 clean() {
   rm -rfv "$KARABINER_CONFIG_DIR"/{karabiner.json,assets}
@@ -38,11 +44,18 @@ clean() {
 
 build() {
   npm run build
+
+  echo-info "Check Complex Modifications"
+  karabiner --lint-complex-modifications "$KARABINER_CONFIG_DIR"/assets/complex_modifications/* || {
+    echo-fail "Invalid Complex Modifications"
+    exit 1
+  }
+
   # copy json files instead of linking them to force karabiner to reload the conf
   echo-info "copy json files and reload the conf"
 
   echo-info "Profile names"
-  '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --list-profile-names
+  karabiner --list-profile-names
 }
 
 init "$@"
