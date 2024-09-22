@@ -35,7 +35,7 @@ brew_deps=(
   libgit2 # improves Emacs' magit speed
 )
 
-cask_fonts_deps=(
+cask_deps=(
   font-jetbrains-mono
   font-ibm-plex-mono
   font-hack
@@ -66,8 +66,7 @@ install() {
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
       # Enable Cask of fonts
-      brew tap homebrew/cask-fonts
-      brew install ${cask_fonts_deps[@]}
+      brew install --cask ${cask_deps[@]}
 
       # Install emacs-plus@29
       brew tap d12frosted/emacs-plus

@@ -6,7 +6,7 @@ common_deps=(
   kitty
 )
 
-brew_deps=(
+cask_deps=(
   font-jetbrains-mono
 )
 
@@ -23,7 +23,8 @@ install() {
   case $(_os) in
     macos)
       # Enable Cask of fonts
-      brew install ${common_deps[@]} ${brew_deps[@]}
+      brew install ${common_deps[@]}
+      brew install --cask ${cask_deps[@]}
       ;;
     debian)
       sudo apt update
