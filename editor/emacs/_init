@@ -10,7 +10,6 @@ common_deps=(
   ripgrep
   shellcheck
   shfmt
-  silversearcher-ag
   sqlite3
   zstd
 )
