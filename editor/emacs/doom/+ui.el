@@ -111,9 +111,6 @@
 ;-----------------------------------------------------------
 ; -- Frame
 
-;; Maximize window on startup
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
 ;; FIXME Disabled for now as it breaks `persp-mode' and there's no way to work around it
 ;; https://github.com/doomemacs/doomemacs/issues/6205
 ;;
