@@ -171,6 +171,9 @@
 ;;-----------------------------------------------------------
 ;; -- Smart tab: these will only work in GUI Emacs
 
+;; Globally disable default TAB binding to ensure consistent behavior across modes
+(global-set-key [remap indent-for-tab-command] nil)
+
 (map! :i [tab]
       `(menu-item "Evil insert smart tab" nil :filter
         (lambda (cmd)
@@ -189,12 +192,17 @@
                         (overlays-in (1- (point)) (1+ (point))))
                   #'yas-next-field))))))
 
-      :m [tab]
+      :v [tab]
       (cmds! (and (modulep! :editor snippets)
                   (evil-visual-state-p)
-                  (or (eq evil-visual-selection 'line)
-                      (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
+                  ;; NOTE Disabling check for trailing chars to avoid issues when selecting functions
+                  ;; (or (eq evil-visual-selection 'line)
+                  ;;     (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\)))))
+                  )
              #'yas-insert-snippet)
+
+      :n [tab]
+      #'+fold/toggle
 
       :i [backtab]
       `(menu-item "Evil insert smart backtab" nil :filter
@@ -214,9 +222,6 @@
                                  (frame-live-p corfu--frame)
                                  (frame-visible-p corfu--frame))))
                   #'yasnippet-capf))))))
-
-      :m [backtab]
-      #'+fold/toggle
 
       ;; Extend smart tab for specific modes. This way, we process the entire
       ;; smart tab logic and only fall back to these commands at the end.
