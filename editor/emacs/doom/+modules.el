@@ -24,8 +24,8 @@
 ;; - `map!' for binding new keys
 ;;
 
-;-----------------------------------------------------------
-; -- Evil Snipe
+;;-----------------------------------------------------------
+;; -- Evil Snipe
 
 ;; Do not override my bindings!
 (after! evil-snipe
@@ -38,8 +38,8 @@
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 
-;-----------------------------------------------------------
-; -- LSP
+;;-----------------------------------------------------------
+;; -- LSP
 
 (after! lsp-mode
   (setq
@@ -80,16 +80,16 @@
 (setq +format-with-lsp nil)
 
 
-;-----------------------------------------------------------
-; -- Company
+;;-----------------------------------------------------------
+;; -- Company
 
 (after! company
   ;; On-demand code completion
   (setq company-idle-delay nil))
 
 
-;-----------------------------------------------------------
-; -- Corfu
+;;-----------------------------------------------------------
+;; -- Corfu
 
 (after! corfu
   (setq corfu-preselect 'valid)
@@ -97,8 +97,8 @@
   (setq corfu-auto-delay nil))
 
 
-;-----------------------------------------------------------
-; -- Flycheck
+;;-----------------------------------------------------------
+;; -- Flycheck
 
 (after! flycheck
   ;; The following advice is a workaround for a performance issue when opening files, particularly JavaScript files,
@@ -109,8 +109,8 @@
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
 
-;-----------------------------------------------------------
-; -- Editorconfig
+;;-----------------------------------------------------------
+;; -- Editorconfig
 
 (after! editorconfig
   (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level web-mode-code-indent-offset))
@@ -135,8 +135,8 @@
             standard-indent)))
 
 
-;-----------------------------------------------------------
-; -- Evil Surround/Embrace
+;;-----------------------------------------------------------
+;; -- Evil Surround/Embrace
 
 (after! evil-embrace
   ;; allow the use of backtick as a surround char in all modes by default
@@ -149,15 +149,15 @@
 (add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook) 'my/embrace-js-mode-h)
 
 
-;-----------------------------------------------------------
-; -- REPL
+;;-----------------------------------------------------------
+;; -- REPL
 
 ;; Set a default REPL for all the js-related modes
 (set-repl-handler! '(rjsx-mode web-mode typescript-mode) #'+javascript/open-repl)
 
 
-;-----------------------------------------------------------
-; -- Obsidian
+;;-----------------------------------------------------------
+;; -- Obsidian
 
 (use-package! obsidian
   ;; :demand t
@@ -176,9 +176,9 @@
               ("C-c C-l" . obsidian-insert-wikilink)))
 
 
-;-----------------------------------------------------------
-; -- String inflection: underscore -> UPCASE -> CamelCase conversion of names
-; https://github.com/akicho8/string-inflection
+;;-----------------------------------------------------------
+;; -- String inflection: underscore -> UPCASE -> CamelCase conversion of names
+;; https://github.com/akicho8/string-inflection
 
 (use-package! string-inflection
   :commands (string-inflection-all-cycle
@@ -206,8 +206,8 @@
         :desc "UP_CASE"            :nv "u"     #'string-inflection-upcase))
 
 
-;-----------------------------------------------------------
-; -- Copilot
+;;-----------------------------------------------------------
+;; -- Copilot
 
 (use-package! copilot
   :init
@@ -218,3 +218,10 @@
   (when (copilot--overlay-visible)
     (copilot-clear-overlay)))
 (add-hook 'doom-escape-hook #'cae-copilot-clear-overlay-h)
+
+(after! yasnippet
+  ;; NOTE Add the following in `.dir-locals.el` (at root level) to enable semicolons on js-mode snippets:
+  ;; ((nil . ((doom-snippets-js-semi . t))))
+
+  (setq yas-indent-line 'auto)
+  (setq yas-triggers-in-field t))

@@ -63,3 +63,11 @@
 
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+
+(package! doom-snippets
+  ;; enable for debugging and make sure to symlink the repo into $DOOMDIR/snippets
+  ;; :recipe (:local-repo "snippets")
+  :recipe (:host github
+           :repo "eduarbo/snippets"
+           :files (:defaults "*"))
+  :pin nil)
