@@ -39,8 +39,12 @@ const rules = [
       keybind('g', [['equal_sign']]), // =
 
       /// Bottom Row
-      remap(['z', layerMods, ['right_command', 'right_control']], [['e', ['option']]], { manipulatorOptions }), // accent
-      remap(['z', [...layerMods, 'left_shift'], ['caps_lock']], [['caps_lock']], { manipulatorOptions }), // CAPS_LOCK
+      remap(['z', layerMods, ['right_command', 'right_control']], [['e', ['option']]], {
+        manipulatorOptions,
+      }), // accent
+      remap(['z', [...layerMods, 'left_shift'], ['caps_lock']], [['caps_lock']], {
+        manipulatorOptions,
+      }), // CAPS_LOCK
       keybind('x', [['1']]),
       keybind('c', [['2']]),
       keybind('v', [['3']]),
@@ -68,12 +72,33 @@ const rules = [
       keybind('n', [['grave_accent_and_tilde']]), // `
       keybind('m', [['quote']]), // '
 
-      // NOTE Do not shift these, I want them to be available in the same layer as the numpad
-      keybind('comma', [['comma']]),
-      keybind('period', [['period']]),
+      // // NOTE Do not shift these, I want them to be available in the same layer as the numpad
+      // keybind('comma', [['comma']]),
+      // keybind('period', [['period']]),
       keybind('slash', [['delete_or_backspace']]),
+
+      // remap(['comma', layerMods, ['caps_lock']], [['e', ['option']]], {
+      //   manipulatorOptions,
+      // }), // acento ´
+      remap(['comma', ['left_shift', ...layerMods], ['caps_lock']], [['e', ['option']]], {
+        manipulatorOptions,
+      }), // acento ´
+
+      // remap(['period', layerMods, ['caps_lock']], [['n', ['option']]], {
+      //   manipulatorOptions,
+      // }), // virgulilla (~)
+      remap(['period', ['left_shift', ...layerMods], ['caps_lock']], [['n', ['option']]], {
+        manipulatorOptions,
+      }), // virgulilla (~)
+
+      // TODO create function to bind keys in this way:
+      // bind('comma', layerMods, ['right_command', 'right_control'])
+      //   .to([['e', ['option']]])
+      //   .condition(ignoreKeebs),
     ],
   },
 ];
+
+// FIXME: C N M , .
 
 export const symbolsLayer: ComplexModifications = { title: `${LAYER} layer`, rules };
