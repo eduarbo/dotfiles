@@ -38,7 +38,7 @@ const rules = [
       keybind('t', [['0']]),
 
       /// Home Row
-      keybind('a', [['n', ['option']]]), // virgulilla (~)
+      keybind('a', [['e', ['option']]]), // acento ´
       keybind('s', [['4']]),
       keybind('d', [['5']]),
       keybind('f', [['6']]),
@@ -68,7 +68,7 @@ const rules = [
       keybind('j', [['down_arrow']]), // ↓
       keybind('k', [['up_arrow']]), // ↑
       keybind('l', [['right_arrow']]), // →
-      keybind('semicolon', [['e', ['option']]]), // acento ´
+      keybind('semicolon', [['n', ['option']]]), // virgulilla (~)
 
       /// Bottom Row
       keybind('n', [['grave_accent_and_tilde']]), // `

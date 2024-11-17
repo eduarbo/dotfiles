@@ -2336,13 +2336,13 @@
                 },
                 "to": [
                   {
-                    "key_code": "n",
+                    "key_code": "e",
                     "modifiers": [
                       "option"
                     ]
                   }
                 ],
-                "description": "from right_shift+a to option+n",
+                "description": "from right_shift+a to option+e",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -3205,13 +3205,13 @@
                 },
                 "to": [
                   {
-                    "key_code": "e",
+                    "key_code": "n",
                     "modifiers": [
                       "option"
                     ]
                   }
                 ],
-                "description": "from right_shift+semicolon to option+e",
+                "description": "from right_shift+semicolon to option+n",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -6398,13 +6398,13 @@
                 },
                 "to": [
                   {
-                    "key_code": "n",
+                    "key_code": "e",
                     "modifiers": [
                       "option"
                     ]
                   }
                 ],
-                "description": "from right_shift+a to option+n",
+                "description": "from right_shift+a to option+e",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -7267,13 +7267,13 @@
                 },
                 "to": [
                   {
-                    "key_code": "e",
+                    "key_code": "n",
                     "modifiers": [
                       "option"
                     ]
                   }
                 ],
-                "description": "from right_shift+semicolon to option+e",
+                "description": "from right_shift+semicolon to option+n",
                 "conditions": [
                   {
                     "type": "device_unless",
