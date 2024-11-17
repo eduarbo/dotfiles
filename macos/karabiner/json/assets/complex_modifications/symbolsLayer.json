@@ -15,7 +15,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -59,7 +60,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -102,7 +104,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -145,7 +148,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -188,7 +192,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -231,7 +236,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -274,7 +280,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -320,7 +327,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -363,7 +371,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -406,7 +415,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -449,7 +459,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -492,7 +503,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -535,7 +547,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -578,7 +591,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -621,7 +635,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -664,7 +679,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -712,7 +728,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -755,7 +772,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -798,7 +816,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -841,7 +860,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -884,7 +904,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -928,7 +949,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -971,7 +993,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1014,7 +1037,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1057,7 +1081,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1100,7 +1125,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1143,7 +1169,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1189,7 +1216,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1232,7 +1260,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1275,7 +1304,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1318,7 +1348,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1361,7 +1392,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },

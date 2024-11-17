@@ -10,7 +10,7 @@ import type {
 const LAYER = 'SYMBOLS';
 const layerMods: Modifier[] = ['right_shift'];
 const shiftedLayerMods: Modifier[] = ['left_shift', 'right_shift'];
-const optionalMods: ModifierOptional[] = ['left_shift', 'right_command', 'right_control'];
+const optionalMods: ModifierOptional[] = ['left_shift', 'right_command', 'right_control', 'caps_lock'];
 
 const manipulatorOptions = {
   conditions: ignoreKeebs,
@@ -78,6 +78,11 @@ const rules = [
       keybind('comma', [['comma']]),
       keybind('period', [['period']]),
       keybind('slash', [['delete_or_backspace']]),
+
+      // TODO create function to bind keys in this way:
+      // bind('comma', layerMods, ['right_command', 'right_control'])
+      //   .to([['e', ['option']]])
+      //   .condition(ignoreKeebs),
     ],
   },
 ];
