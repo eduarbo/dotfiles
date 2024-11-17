@@ -99,6 +99,10 @@ const rules = [
   },
 ];
 
-// FIXME: C N M , .
+// FIXME: The built-in keyboard on MacBooks experiences ghosting with the keys `C`, `V`, `B`, `N`, `M`, `,`, `.`, and `/` when both Command keys are pressed together. A possible workaround is to remap the modifiers so that the Left CMD + Right CMD combo is reserved for infrequent keybinds.
+// Suggestions:
+// - Spacebar: Modtap - Space/Shift
+// - Left CMD: Modtap - Enter/CMD
+// - Right CMD: Modtap - Tab/Symbols (Right Shift)
 
 export const symbolsLayer: ComplexModifications = { title: `${LAYER} layer`, rules };

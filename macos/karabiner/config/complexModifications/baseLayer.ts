@@ -15,8 +15,8 @@ const rules = [
   {
     description: `${LAYER} layer: Thumbs cluster`,
     manipulators: [
-      // L Command -> L Shift on hold, SPACE on tap
-      modTap(['left_command', null, ['any']], [['left_shift']], [['spacebar']], {
+      // L Command -> L Command on hold, Enter on tap
+      modTap(['left_command', null, ['any']], [['left_command']], [['return_or_enter']], {
         manipulatorOptions,
         toOptions,
       }),
@@ -27,8 +27,8 @@ const rules = [
         toOptions,
       }),
 
-      // Spacebar -> R Command on hold, Enter on tap
-      modTap(['spacebar', null, ['any']], [['right_command']], [['return_or_enter']], {
+      // Spacebar -> L Shift on hold, SPACE on tap
+      modTap(['spacebar', null, ['any']], [['left_shift']], [['spacebar']], {
         manipulatorOptions,
         toOptions,
       }),
