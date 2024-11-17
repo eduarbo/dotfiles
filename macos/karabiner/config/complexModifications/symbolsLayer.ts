@@ -9,14 +9,19 @@ import type {
 
 const LAYER = 'SYMBOLS';
 const layerMods: Modifier[] = ['right_shift'];
+const shiftedLayerMods: Modifier[] = ['left_shift', 'right_shift'];
 const optionalMods: ModifierOptional[] = ['left_shift', 'right_command', 'right_control'];
 
 const manipulatorOptions = {
   conditions: ignoreKeebs,
 };
 
-const keybind = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
-  remap([fromKeyCode, layerMods, optionalMods], toTuples, {
+const keybind = (
+  fromKeyCode: KeyCode,
+  toTuples: ToKeyCodeTuple[],
+  options?: { shifted: boolean },
+) =>
+  remap([fromKeyCode, options?.shifted ? shiftedLayerMods : layerMods, optionalMods], toTuples, {
     manipulatorOptions,
   });
 
@@ -25,26 +30,22 @@ const rules = [
     description: `${LAYER} layer: Left hand - Numpad`,
     manipulators: [
       /// Top Row
-      keybind('q', [['home']]), // ⇱
+      keybind('q', [['page_up']]), // ▲
+      keybind('q', [['home']], { shifted: true }), // ⇱
       keybind('w', [['7']]),
       keybind('e', [['8']]),
       keybind('r', [['9']]),
       keybind('t', [['0']]),
 
       /// Home Row
-      keybind('a', [['end']]), // ⇲
+      keybind('a', [['n', ['option']]]), // virgulilla (~)
       keybind('s', [['4']]),
       keybind('d', [['5']]),
       keybind('f', [['6']]),
       keybind('g', [['equal_sign']]), // =
 
       /// Bottom Row
-      remap(['z', layerMods, ['right_command', 'right_control']], [['e', ['option']]], {
-        manipulatorOptions,
-      }), // accent
-      remap(['z', [...layerMods, 'left_shift'], ['caps_lock']], [['caps_lock']], {
-        manipulatorOptions,
-      }), // CAPS_LOCK
+      keybind('z', [['caps_lock']]), // CAPS_LOCK
       keybind('x', [['1']]),
       keybind('c', [['2']]),
       keybind('v', [['3']]),
@@ -59,42 +60,24 @@ const rules = [
       keybind('u', [['open_bracket']]), // [
       keybind('i', [['close_bracket']]), // ]
       keybind('o', [['slash']]), // /
-      keybind('p', [['page_up']]), // ▲
+      keybind('p', [['page_down']]), // ▼
+      keybind('p', [['end']], { shifted: true }), // ⇲
 
       /// Home Row
       keybind('h', [['left_arrow']]), // ←
       keybind('j', [['down_arrow']]), // ↓
       keybind('k', [['up_arrow']]), // ↑
       keybind('l', [['right_arrow']]), // →
-      keybind('semicolon', [['page_down']]), // ▼
+      keybind('semicolon', [['e', ['option']]]), // acento ´
 
       /// Bottom Row
       keybind('n', [['grave_accent_and_tilde']]), // `
       keybind('m', [['quote']]), // '
 
       // // NOTE Do not shift these, I want them to be available in the same layer as the numpad
-      // keybind('comma', [['comma']]),
-      // keybind('period', [['period']]),
+      keybind('comma', [['comma']]),
+      keybind('period', [['period']]),
       keybind('slash', [['delete_or_backspace']]),
-
-      // remap(['comma', layerMods, ['caps_lock']], [['e', ['option']]], {
-      //   manipulatorOptions,
-      // }), // acento ´
-      remap(['comma', ['left_shift', ...layerMods], ['caps_lock']], [['e', ['option']]], {
-        manipulatorOptions,
-      }), // acento ´
-
-      // remap(['period', layerMods, ['caps_lock']], [['n', ['option']]], {
-      //   manipulatorOptions,
-      // }), // virgulilla (~)
-      remap(['period', ['left_shift', ...layerMods], ['caps_lock']], [['n', ['option']]], {
-        manipulatorOptions,
-      }), // virgulilla (~)
-
-      // TODO create function to bind keys in this way:
-      // bind('comma', layerMods, ['right_command', 'right_control'])
-      //   .to([['e', ['option']]])
-      //   .condition(ignoreKeebs),
     ],
   },
 ];

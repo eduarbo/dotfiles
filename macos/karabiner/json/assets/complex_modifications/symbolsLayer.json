@@ -21,10 +21,54 @@
           },
           "to": [
             {
+              "key_code": "page_up"
+            }
+          ],
+          "description": "from right_shift+q to page_up",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
               "key_code": "home"
             }
           ],
-          "description": "from right_shift+q to home",
+          "description": "from left_shift+right_shift+q to home",
           "conditions": [
             {
               "type": "device_unless",
@@ -236,10 +280,13 @@
           },
           "to": [
             {
-              "key_code": "end"
+              "key_code": "n",
+              "modifiers": [
+                "option"
+              ]
             }
           ],
-          "description": "from right_shift+a to end",
+          "description": "from right_shift+a to option+n",
           "conditions": [
             {
               "type": "device_unless",
@@ -443,53 +490,9 @@
                 "right_shift"
               ],
               "optional": [
+                "left_shift",
                 "right_command",
                 "right_control"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "e",
-              "modifiers": [
-                "option"
-              ]
-            }
-          ],
-          "description": "from right_shift+z to option+e",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            },
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "z",
-            "modifiers": {
-              "mandatory": [
-                "right_shift",
-                "left_shift"
-              ],
-              "optional": [
-                "caps_lock"
               ]
             }
           },
@@ -498,7 +501,7 @@
               "key_code": "caps_lock"
             }
           ],
-          "description": "from right_shift+left_shift+z to caps_lock",
+          "description": "from right_shift+z to caps_lock",
           "conditions": [
             {
               "type": "device_unless",
@@ -887,10 +890,54 @@
           },
           "to": [
             {
-              "key_code": "page_up"
+              "key_code": "page_down"
             }
           ],
-          "description": "from right_shift+p to page_up",
+          "description": "from right_shift+p to page_down",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "end"
+            }
+          ],
+          "description": "from left_shift+right_shift+p to end",
           "conditions": [
             {
               "type": "device_unless",
@@ -1102,10 +1149,13 @@
           },
           "to": [
             {
-              "key_code": "page_down"
+              "key_code": "e",
+              "modifiers": [
+                "option"
+              ]
             }
           ],
-          "description": "from right_shift+semicolon to page_down",
+          "description": "from right_shift+semicolon to option+e",
           "conditions": [
             {
               "type": "device_unless",
@@ -1217,7 +1267,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "slash",
+            "key_code": "comma",
             "modifiers": {
               "mandatory": [
                 "right_shift"
@@ -1231,55 +1281,10 @@
           },
           "to": [
             {
-              "key_code": "delete_or_backspace"
+              "key_code": "comma"
             }
           ],
-          "description": "from right_shift+slash to delete_or_backspace",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            },
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "comma",
-            "modifiers": {
-              "mandatory": [
-                "left_shift",
-                "right_shift"
-              ],
-              "optional": [
-                "caps_lock"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "e",
-              "modifiers": [
-                "option"
-              ]
-            }
-          ],
-          "description": "from left_shift+right_shift+comma to option+e",
+          "description": "from right_shift+comma to comma",
           "conditions": [
             {
               "type": "device_unless",
@@ -1308,23 +1313,64 @@
             "key_code": "period",
             "modifiers": {
               "mandatory": [
-                "left_shift",
                 "right_shift"
               ],
               "optional": [
-                "caps_lock"
+                "left_shift",
+                "right_command",
+                "right_control"
               ]
             }
           },
           "to": [
             {
-              "key_code": "n",
-              "modifiers": [
-                "option"
-              ]
+              "key_code": "period"
             }
           ],
-          "description": "from left_shift+right_shift+period to option+n",
+          "description": "from right_shift+period to period",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ],
+          "description": "from right_shift+slash to delete_or_backspace",
           "conditions": [
             {
               "type": "device_unless",
