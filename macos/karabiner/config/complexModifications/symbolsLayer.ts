@@ -77,7 +77,7 @@ const rules = [
       // // NOTE Do not shift these, I want them to be available in the same layer as the numpad
       keybind('comma', [['comma']]),
       keybind('period', [['period']]),
-      keybind('slash', [['delete_or_backspace']]),
+      keybind('slash', [['slash']]),
 
       // TODO create function to bind keys in this way:
       // bind('comma', layerMods, ['right_command', 'right_control'])
