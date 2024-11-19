@@ -55,7 +55,7 @@ const rules = [
     description: `${LAYER} layer: Custom QWERTY`,
     manipulators: [
       // / -> DEL
-      remap(['slash'], [['delete_or_backspace']], {
+      remap(['slash', null, ['any']], [['delete_or_backspace']], {
         manipulatorOptions,
       }),
     ],

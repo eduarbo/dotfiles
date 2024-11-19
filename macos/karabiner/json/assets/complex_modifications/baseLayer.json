@@ -236,7 +236,12 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "slash"
+            "key_code": "slash",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
           },
           "to": [
             {
