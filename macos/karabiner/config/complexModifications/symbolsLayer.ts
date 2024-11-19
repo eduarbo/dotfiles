@@ -88,9 +88,11 @@ const rules = [
 ];
 
 // FIXME: The built-in keyboard on MacBooks experiences ghosting with the keys `C`, `V`, `B`, `N`, `M`, `,`, `.`, and `/` when both Command keys are pressed together. A possible workaround is to remap the modifiers so that the Left CMD + Right CMD combo is reserved for infrequent keybinds.
-// Suggestions:
+// Suggestion A (I would prefer not to do this, I really like my current layout):
 // - Spacebar: Modtap - Space/Shift
 // - Left CMD: Modtap - Enter/CMD
 // - Right CMD: Modtap - Tab/Symbols (Right Shift)
+// Suggestion B
+// - resign myself to living with it and, instead of pressing both Command keys, only press one along with the opposite native Shift key.
 
 export const symbolsLayer: ComplexModifications = { title: `${LAYER} layer`, rules };
