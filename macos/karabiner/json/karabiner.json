@@ -3,6 +3,9 @@
     {
       "name": "Empty",
       "devices": [],
+      "virtual_hid_keyboard": {
+        "keyboard_type_v2": "ansi"
+      },
       "complex_modifications": {
         "parameters": {
           "basic.simultaneous_threshold_milliseconds": 50,
@@ -16,6 +19,9 @@
     {
       "name": "Default",
       "devices": [],
+      "virtual_hid_keyboard": {
+        "keyboard_type_v2": "ansi"
+      },
       "complex_modifications": {
         "parameters": {
           "basic.simultaneous_threshold_milliseconds": 50,
@@ -3731,6 +3737,44 @@
                   }
                 ],
                 "description": "from slash to delete_or_backspace",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_option"
+                  }
+                ],
+                "description": "from left_control to left_option",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -4115,6 +4159,9 @@
         }
       ],
       "selected": true,
+      "virtual_hid_keyboard": {
+        "keyboard_type_v2": "ansi"
+      },
       "complex_modifications": {
         "parameters": {
           "basic.simultaneous_threshold_milliseconds": 50,
@@ -7830,6 +7877,44 @@
                   }
                 ],
                 "description": "from slash to delete_or_backspace",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_option"
+                  }
+                ],
+                "description": "from left_control to left_option",
                 "conditions": [
                   {
                     "type": "device_unless",

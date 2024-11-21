@@ -74,7 +74,7 @@ const rules = [
       keybind('n', [['grave_accent_and_tilde']]), // `
       keybind('m', [['quote']]), // '
 
-      // // NOTE Do not shift these, I want them to be available in the same layer as the numpad
+      // NOTE Do not shift these, I want them to be available in the same layer as the numpad
       keybind('comma', [['comma']]),
       keybind('period', [['period']]),
       keybind('slash', [['delete_or_backspace']]),

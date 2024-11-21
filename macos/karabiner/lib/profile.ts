@@ -30,6 +30,8 @@ interface Device {
   simple_modifications: SimpleModification[];
 }
 
+type KeyboardTypeV2 = 'ansi' | 'iso' | 'jis';
+
 export interface Profile {
   name: string;
   selected?: boolean;
@@ -40,9 +42,10 @@ export interface Profile {
     rules: Rule[];
   };
   virtual_hid_keyboard?: {
-    country_code: number;
-    indicate_sticky_modifier_keys_state: boolean;
-    mouse_key_xy_scale: number;
+    country_code?: number;
+    indicate_sticky_modifier_keys_state?: boolean;
+    mouse_key_xy_scale?: number;
+    keyboard_type_v2?: KeyboardTypeV2;
   };
   devices?: Device[];
   parameters?: {
@@ -67,6 +70,7 @@ export const profile = (
   name,
   devices: [],
   ...overrides,
+  virtual_hid_keyboard: { keyboard_type_v2: 'ansi' },
   complex_modifications: {
     parameters: {
       'basic.simultaneous_threshold_milliseconds': 50,
