@@ -48,6 +48,9 @@ bindkey -M viins '^a' beginning-of-line
 bindkey -M viins '^e' end-of-line
 bindkey -M viins '^d' push-line-or-edit
 
+bindkey -M viins '^J' down-line
+bindkey -M viins '^K' up-line
+
 bindkey -M vicmd '^k' kill-line
 bindkey -M vicmd 'H'  run-help
 
