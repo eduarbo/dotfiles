@@ -23,17 +23,27 @@ install() {
     debian)
       sudo apt update
       if is_backports_configured; then
-          sudo apt install -y -t bookworm-backports ${common_deps[@]}
+        sudo apt install -y -t bookworm-backports ${common_deps[@]}
       else
-          sudo apt install -y ${common_deps[@]}
+        sudo apt install -y ${common_deps[@]}
       fi
       topic-enabled-p editor/coding-style || _dot editor/coding-style
       ;;
   esac
 
-  [ -f "$PLUG_PATH" ] || curl -fLo $PLUG_PATH --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if [ ! -f "$PLUG_PATH" ]; then
+    echo-note "Downloading vim-plug..."
+    curl -fLo "$PLUG_PATH" --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim || {
+      echo-fail "Failed to download vim-plug"
+      exit 1
+    }
+  fi
+
+  if [ -f "$PLUG_PATH" ]; then
+    echo-note "Installing plugins..."
     nvim --headless +PlugInstall +qall
+  fi
 }
 
 update() {
