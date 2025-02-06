@@ -17,6 +17,8 @@ zstyle ":history-search-multi-word" highlight-color "fg=yellow,bold"
 # bind UP and DOWN arrow keys
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey "^[OA" history-substring-search-up
+bindkey "^[OB" history-substring-search-down
 
 bindkey "^R" history-search-multi-word
 
