@@ -16,10 +16,14 @@ set smartcase                   " case-sensitive when upper-case letters are pre
 " Plugins
 " ------------------------------------------------------------------------------
 
-" Run PlugInstall if there are missing plugins
-" autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-"     \| PlugInstall --sync | source $MYVIMRC
-" \| endif
+" Auto-install vim-plug if missing
+let s:plug_path = stdpath('data') . '/site/autoload/plug.vim'
+if empty(glob(s:plug_path))
+  echo "Installing vim-plug..."
+  silent execute '!curl -fLo ' . s:plug_path . ' --create-dirs ' .
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin()
 " -- Tim Pope essentials
