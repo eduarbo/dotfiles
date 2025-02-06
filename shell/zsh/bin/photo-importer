@@ -1,0 +1,345 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import os
+import argparse
+import subprocess
+import json
+from pathlib import Path
+from datetime import datetime
+from dateutil import parser, tz
+
+"""
+USAGE:
+  python photo-importer.py <source_dir> <target_dir> [--dry-run] [--omit-skipped] [--log-file <path>]
+
+Behavior summary:
+  1) Recursively finds all files in <source_dir>, ignoring hidden ones ('.*').
+  2) Extracts best possible datetime with offset from Exif.
+  3) Converts that datetime to a UTC prefix truncated to minutes: YYYYMMDDTHHMM.
+  4) Builds the local part: YYYY-MM-DD--HH.MM.SS(.mmm)?(±HHMM)?(--seq)?  (photos can have sub-sec or seq).
+  5) Moves the file to <target_dir>/<YYYY>/<YYYY-MM-DD>/.
+  6) If --dry-run => show only. If --omit-skipped => don't list skipped. If --log-file => write logs there.
+"""
+
+PHOTO_EXTENSIONS = {"jpg", "jpeg", "tiff", "nef", "rw2", "dng", "png", "heic"}
+VIDEO_EXTENSIONS = {"mp4", "mov", "m4v", "3gp"}
+
+SUBSEC_FIELDS_WITH_OFFSET = [
+    "SubSecDateTimeOriginal",
+    "SubSecCreateDate",
+    "SubSecModifyDate",
+]
+MAIN_DATETIME_FIELDS = [
+    "DateTimeOriginal",
+    "CreateDate",
+    "ModifyDate",
+    "TimeStamp",
+    "PanasonicDateTime",
+]
+FALLBACK_FIELDS = ["FileModifyDate"]
+OFFSET_TIME_FIELDS = ["OffsetTime", "OffsetTimeOriginal", "OffsetTimeDigitized"]
+SEQUENCE_TAGS = ["SequenceNumber", "ImageNumber"]
+
+
+def which(cmd: str) -> str:
+    for path_dir in os.environ.get("PATH", "").split(os.pathsep):
+        full = os.path.join(path_dir, cmd)
+        if os.path.isfile(full) and os.access(full, os.X_OK):
+            return full
+    return ""
+
+
+def run_exiftool(file_path: str) -> dict:
+    try:
+        out = subprocess.check_output(
+            ["exiftool", "-a", "-G1", "-json", file_path], stderr=subprocess.DEVNULL
+        )
+        data = json.loads(out.decode("utf-8", errors="replace"))
+        if data and len(data) > 0:
+            return data[0]
+    except subprocess.CalledProcessError:
+        pass
+    return {}
+
+
+def extract_field(metadata: dict, field_name: str) -> str:
+    lf = field_name.lower()
+    for k, v in metadata.items():
+        if k.lower().endswith(lf):
+            if isinstance(v, str):
+                return v.strip()
+            elif isinstance(v, (int, float)):
+                return str(v)
+    return ""
+
+
+def parse_datetime_str(dt_str: str) -> datetime:
+    dt_str = dt_str.strip()
+    if not dt_str:
+        return None
+    parts = dt_str.split(" ", 1)
+    if len(parts) == 2:
+        date_part, time_part = parts
+        date_part = date_part.replace(":", "-", 2)
+        normalized = f"{date_part} {time_part}"
+    else:
+        normalized = dt_str.replace(":", "-", 2)
+    try:
+        return parser.parse(normalized)
+    except:
+        return None
+
+
+def parse_datetime_with_offset(dt_str: str, offset_str: str) -> datetime:
+    offset_str = offset_str.strip()
+    combined = dt_str.strip()
+    if offset_str.startswith(("+", "-")) and offset_str not in combined:
+        combined += offset_str
+    return parse_datetime_str(combined)
+
+
+def is_photo_extension(ext: str) -> bool:
+    return ext.lower() in PHOTO_EXTENSIONS
+
+
+def is_video_extension(ext: str) -> bool:
+    return ext.lower() in VIDEO_EXTENSIONS
+
+
+def get_best_datetime_for_photos(metadata: dict) -> (datetime, str):
+    """
+    Returns (dt_obj, chosen_field).
+    """
+
+    # 1) sub-second
+    for field in SUBSEC_FIELDS_WITH_OFFSET:
+        dt_val = extract_field(metadata, field)
+        if dt_val:
+            dt_obj = parse_datetime_str(dt_val)
+            if dt_obj:
+                if not dt_obj.tzinfo:
+                    for off_f in OFFSET_TIME_FIELDS:
+                        off_val = extract_field(metadata, off_f)
+                        if off_val.startswith(("+", "-")):
+                            dt_obj2 = parse_datetime_with_offset(dt_val, off_val)
+                            if dt_obj2:
+                                return dt_obj2, field
+                return dt_obj, field
+
+    # 2) main fields
+    for f in MAIN_DATETIME_FIELDS:
+        dt_val = extract_field(metadata, f)
+        if dt_val:
+            dt_obj = parse_datetime_str(dt_val)
+            if dt_obj:
+                if not dt_obj.tzinfo:
+                    for off_f in OFFSET_TIME_FIELDS:
+                        off_val = extract_field(metadata, off_f)
+                        if off_val.startswith(("+", "-")):
+                            dt_obj2 = parse_datetime_with_offset(dt_val, off_val)
+                            if dt_obj2:
+                                return dt_obj2, f
+                return dt_obj, f
+
+    # 3) fallback
+    for f in FALLBACK_FIELDS:
+        dt_val = extract_field(metadata, f)
+        if dt_val:
+            dt_obj = parse_datetime_str(dt_val)
+            if dt_obj:
+                return dt_obj, f
+
+    return None, ""
+
+
+def get_best_datetime_for_videos(metadata: dict) -> datetime:
+    """
+    Gather multiple date/time fields, pick earliest. We do *not* forcibly make naive times = UTC,
+    to avoid +0000 in final naming if no real offset is known.
+    """
+    candidate_fields = [
+        "QuickTime:CreateDate",
+        "TrackCreateDate",
+        "MediaCreateDate",
+        "CreateDate",
+        "ModifyDate",
+        "FileModifyDate",
+    ]
+    best_obj = None
+    for k, v in metadata.items():
+        kl = k.lower()
+        for cf in candidate_fields:
+            if kl.endswith(cf.lower()):
+                dt_obj = parse_datetime_str(str(v))
+                if dt_obj:
+                    # We'll unify them for comparison by removing tz entirely, i.e. "naive local".
+                    # This ensures no offset is forcibly appended if there's no real tz.
+                    dt_naive = (
+                        dt_obj.astimezone(tz.UTC).replace(tzinfo=None)
+                        if dt_obj.tzinfo
+                        else dt_obj
+                    )
+                    if best_obj is None:
+                        best_obj = dt_naive
+                    else:
+                        if dt_naive < best_obj:
+                            best_obj = dt_naive
+    return best_obj
+
+
+def build_photo_time_string(
+    dt_local: datetime, chosen_field: str, metadata: dict
+) -> str:
+    base_time = dt_local.strftime("%H.%M.%S")
+    raw_val = extract_field(metadata, chosen_field)
+    subsec_str = ""
+    if raw_val:
+        import re
+
+        match = re.search(r"\.(\d{1,3})", raw_val)
+        if match:
+            subsec_str = match.group(1).rstrip()
+
+    # If the sub-seconds are all zeros, ignore them
+    if subsec_str and all(ch == "0" for ch in subsec_str):
+        subsec_str = ""
+
+    offset_str = ""
+    if dt_local.tzinfo:
+        raw_off = dt_local.strftime("%z")
+        if raw_off:
+            offset_str = raw_off
+
+    if subsec_str:
+        subsec_str = subsec_str.zfill(3)
+        time_with_subsec = f"{base_time}.{subsec_str}"
+        if offset_str:
+            time_with_subsec += offset_str
+        return time_with_subsec
+
+    # fallback to seq if no sub-seconds
+    seq_val = ""
+    for sq_tag in SEQUENCE_TAGS:
+        sq = extract_field(metadata, sq_tag)
+        if sq:
+            seq_val = sq.strip()
+            break
+
+    time_str = base_time
+    if offset_str:
+        time_str += offset_str
+    if seq_val:
+        time_str += f"--{seq_val}"
+    return time_str
+
+
+def build_video_time_string(dt_local: datetime) -> str:
+    base_time = dt_local.strftime("%H.%M.%S")
+    offset_str = ""
+    if dt_local.tzinfo:
+        off = dt_local.strftime("%z")
+        if off:
+            offset_str = off
+    if offset_str:
+        return f"{base_time}{offset_str}"
+    return base_time
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("source_dir")
+    ap.add_argument("target_dir")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--omit-skipped", action="store_true")
+    ap.add_argument("--log-file")
+    args = ap.parse_args()
+
+    if args.log_file:
+        lf = open(args.log_file, "w", encoding="utf-8")
+        sys.stdout = lf
+        sys.stderr = lf
+
+    if not which("exiftool"):
+        print("Error: 'exiftool' not in PATH.")
+        sys.exit(1)
+
+    src = Path(args.source_dir).resolve()
+    dst = Path(args.target_dir).resolve()
+    dry_run = args.dry_run
+    show_skipped = not args.omit_skipped
+
+    if not src.is_dir():
+        print(f"Error: '{src}' is not a directory.")
+        sys.exit(1)
+
+    skipped_invalid = []
+    skipped_unknown = []
+
+    for root, _, files in os.walk(src):
+        for fname in files:
+            if fname.startswith("."):
+                continue
+            old_path = Path(root) / fname
+            ext = old_path.suffix.lower().lstrip(".")
+            metadata = run_exiftool(str(old_path))
+
+            if is_photo_extension(ext):
+                dt_obj, used_field = get_best_datetime_for_photos(metadata)
+                if not dt_obj:
+                    skipped_invalid.append(str(old_path))
+                    continue
+            elif is_video_extension(ext):
+                dt_obj = get_best_datetime_for_videos(metadata)
+                used_field = ""
+                if not dt_obj:
+                    skipped_invalid.append(str(old_path))
+                    continue
+            else:
+                skipped_unknown.append(str(old_path))
+                continue
+
+            if dt_obj.tzinfo is None:
+                dt_utc = dt_obj
+                dt_local = dt_obj
+            else:
+                dt_utc = dt_obj.astimezone(tz.UTC)
+                dt_local = dt_obj
+
+            prefix_utc = dt_utc.strftime("%Y%m%dT%H%M")
+            local_date_str = dt_local.strftime("%Y-%m-%d")
+            year_str = dt_local.strftime("%Y")
+            dest_dir = dst / year_str / local_date_str
+
+            if is_photo_extension(ext):
+                time_str = build_photo_time_string(dt_local, used_field, metadata)
+            else:
+                time_str = build_video_time_string(dt_local)
+
+            new_name = f"{prefix_utc}--{local_date_str}--{time_str}.{ext}"
+            new_path = dest_dir / new_name
+
+            if old_path != new_path:
+                print(f"'{old_path}' -> '{new_path}'")
+                if not dry_run:
+                    os.makedirs(dest_dir, exist_ok=True)
+                    try:
+                        os.rename(old_path, new_path)
+                    except Exception as e:
+                        print(f"Error moving '{old_path}' -> '{new_path}': {e}")
+                        skipped_invalid.append(str(old_path))
+
+    if show_skipped and skipped_invalid:
+        print("\nSkipped (invalid date or move error):", file=sys.stderr)
+        for s in skipped_invalid:
+            print(s, file=sys.stderr)
+
+    if show_skipped and skipped_unknown:
+        print("\nSkipped unknown extension:", file=sys.stderr)
+        for s in skipped_unknown:
+            print(s, file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()
