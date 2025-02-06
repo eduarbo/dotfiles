@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Check if an argument was provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <directory_path>"
+  exit 1
+fi
+
+# Base directory
+BASE_DIR="$1"
+
+# Check if the directory exists
+if [ ! -d "$BASE_DIR" ]; then
+  echo "Error: The directory '$BASE_DIR' does not exist or is not accessible."
+  exit 1
+fi
+
+# Find all file extensions in the directory and subdirectories
+find "$BASE_DIR" -type f | rev | awk -F. '{print $1}' | rev | sort | uniq -c | sort -nr
