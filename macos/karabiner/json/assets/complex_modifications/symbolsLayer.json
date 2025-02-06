@@ -15,7 +15,53 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_up"
+            }
+          ],
+          "description": "from right_shift+q to page_up",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -24,7 +70,7 @@
               "key_code": "home"
             }
           ],
-          "description": "from right_shift+q to home",
+          "description": "from left_shift+right_shift+q to home",
           "conditions": [
             {
               "type": "device_unless",
@@ -58,7 +104,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -101,7 +148,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -144,7 +192,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -187,7 +236,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -230,16 +280,20 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
           "to": [
             {
-              "key_code": "end"
+              "key_code": "e",
+              "modifiers": [
+                "option"
+              ]
             }
           ],
-          "description": "from right_shift+a to end",
+          "description": "from right_shift+a to option+e",
           "conditions": [
             {
               "type": "device_unless",
@@ -273,7 +327,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -316,7 +371,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -359,7 +415,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -402,7 +459,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -443,52 +501,9 @@
                 "right_shift"
               ],
               "optional": [
+                "left_shift",
                 "right_command",
-                "right_control"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "e",
-              "modifiers": [
-                "option"
-              ]
-            }
-          ],
-          "description": "from right_shift+z to option+e",
-          "conditions": [
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "vendor_id": 18003
-                }
-              ]
-            },
-            {
-              "type": "device_unless",
-              "identifiers": [
-                {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "z",
-            "modifiers": {
-              "mandatory": [
-                "right_shift",
-                "left_shift"
-              ],
-              "optional": [
+                "right_control",
                 "caps_lock"
               ]
             }
@@ -498,7 +513,7 @@
               "key_code": "caps_lock"
             }
           ],
-          "description": "from right_shift+left_shift+z to caps_lock",
+          "description": "from right_shift+z to caps_lock",
           "conditions": [
             {
               "type": "device_unless",
@@ -532,7 +547,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -575,7 +591,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -618,7 +635,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -661,7 +679,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -709,7 +728,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -752,7 +772,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -795,7 +816,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -838,7 +860,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -881,16 +904,62 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
           "to": [
             {
-              "key_code": "page_up"
+              "key_code": "page_down"
             }
           ],
-          "description": "from right_shift+p to page_up",
+          "description": "from right_shift+p to page_down",
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "mandatory": [
+                "left_shift",
+                "right_shift"
+              ],
+              "optional": [
+                "left_shift",
+                "right_command",
+                "right_control",
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "end"
+            }
+          ],
+          "description": "from left_shift+right_shift+p to end",
           "conditions": [
             {
               "type": "device_unless",
@@ -924,7 +993,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -967,7 +1037,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1010,7 +1081,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1053,7 +1125,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1096,16 +1169,20 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
           "to": [
             {
-              "key_code": "page_down"
+              "key_code": "n",
+              "modifiers": [
+                "option"
+              ]
             }
           ],
-          "description": "from right_shift+semicolon to page_down",
+          "description": "from right_shift+semicolon to option+n",
           "conditions": [
             {
               "type": "device_unless",
@@ -1139,7 +1216,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1182,7 +1260,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1225,7 +1304,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1268,7 +1348,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },
@@ -1311,7 +1392,8 @@
               "optional": [
                 "left_shift",
                 "right_command",
-                "right_control"
+                "right_control",
+                "caps_lock"
               ]
             }
           },

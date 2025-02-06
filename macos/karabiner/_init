@@ -11,7 +11,7 @@ brew_deps=(
 )
 
 link() {
-  mklink json/* $KARABINER_CONFIG_DIR
+  mklink json $KARABINER_CONFIG_DIR
   echo-info "Profile names"
   karabiner --list-profile-names
 }
@@ -20,42 +20,37 @@ install() {
   brew install ${brew_deps[@]}
 
   # TODO Extract karabiner.json generator to its own repo
-  # if _is_callable nodenv; then
-  #   echo "Installing required node version"
-  #   nodenv install < .node-version
-  # else
-  #   echo "Make sure to install the required node version"
-  # fi
-
-  # npm install
-
-  # build
+  if _is_callable nodenv; then
+    echo-info "Installing required node version"
+    nodenv install < .node-version
+    npm install
+    build
+  else
+    echo-alert "Make sure to install the required node version to regenerate config from source files"
+  fi
 }
 
 update() {
-  build
-  # Re-link files to ensure Karabiner detects the updates and reloads the configuration
-  link
+  if _is_callable node; then
+    build
+  else
+    link
+  fi
 }
 
 clean() {
-  rm -rfv "$KARABINER_CONFIG_DIR"/{karabiner.json,assets}
+  rm -rfv "$KARABINER_CONFIG_DIR"
 }
 
 build() {
   npm run build
 
+  # validate complex modifications
   echo-info "Check Complex Modifications"
-  karabiner --lint-complex-modifications "$KARABINER_CONFIG_DIR"/assets/complex_modifications/* || {
+  karabiner --lint-complex-modifications json/assets/complex_modifications/* || {
     echo-fail "Invalid Complex Modifications"
     exit 1
   }
-
-  # copy json files instead of linking them to force karabiner to reload the conf
-  echo-info "copy json files and reload the conf"
-
-  echo-info "Profile names"
-  karabiner --list-profile-names
 }
 
 init "$@"
