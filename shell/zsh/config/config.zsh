@@ -51,7 +51,7 @@ setopt HIST_FIND_NO_DUPS        # Prevent duplicate entries from appearing in hi
 setopt HIST_IGNORE_SPACE        # Ignore commands that start with a space
 setopt HIST_SAVE_NO_DUPS        # Don't write duplicates to the history file
 setopt HIST_VERIFY              # Show history expansion before executing
-setopt HIST_BEEP                # Beep when accessing a non-existent history entry
+unsetopt HIST_BEEP              # Don't beep when accessing a non-existent history entry
 
 
 # ─── Directory Navigation ──────────────────────────────────────────────────────
