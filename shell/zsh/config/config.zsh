@@ -75,3 +75,5 @@ unsetopt AUTO_NAME_DIRS         # Don't auto-assign variables for frequently use
 
 # Prevent pasted text from getting a different background color
 unset zle_bracketed_paste
+
+export PS2=$'%F{8}❭%f '
