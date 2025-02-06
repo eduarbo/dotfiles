@@ -1,3 +1,6 @@
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	whitespace = trailing-space

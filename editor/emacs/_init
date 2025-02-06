@@ -92,6 +92,7 @@ install() {
   esac
 
   # Clone and setup doomemacs
+  # TODO Make sure to pull the latest changes if repo already exists
   _ensure_repo eduarbo/doomemacs $XDG_CONFIG_HOME/emacs master
   $XDG_CONFIG_HOME/emacs/bin/doom install
 }
