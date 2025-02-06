@@ -249,3 +249,41 @@ Uses `evil-paste-after` if the cursor is at the end of the line. If not, uses `e
     (progn
       (evil-paste-before 1)
       (evil-forward-char))))
+
+;;;###autoload
+(defun my/comment-box (beg end)
+  "Toggle a comment box for headers with a fixed width of 80 characters.
+If the selected text is already formatted as a comment box, remove it.
+Otherwise, create the formatted comment box.
+
+Formats:
+  - Single line: `# ─── Title ───────────────────────────────────────────────`
+  - Ensures exactly 80 characters.
+  - Works in Normal, Visual, and Insert modes.
+  - Preserves newlines when needed."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end)) ;; If there is a selection, use it
+     (list (line-beginning-position) (line-end-position)))) ;; Otherwise, use the whole line
+
+  (let* ((text (buffer-substring-no-properties beg end)) ;; Capture selected text
+         (has-newline (string-suffix-p "\n" text)) ;; Check if the selection includes a newline
+         (comment-char "#")
+         (regex (format "^%s ─── \\(.*?\\) ─+ *$" (regexp-quote comment-char))) ;; Regex for detecting an existing box
+         (already-boxed (string-match regex text)))
+
+    (delete-region beg end) ;; Remove the original text
+
+    (if already-boxed
+        ;; If already formatted, remove the comment-box and restore the title
+        (insert (match-string 1 text))
+      ;; Otherwise, apply the comment-box format
+      (let* ((title (string-trim text)) ;; Remove extra spaces
+             (prefix (format "%s ─── %s " comment-char title))
+             (fill-length (- 81 (length prefix))) ;; Calculate remaining space
+             (fill (if (> fill-length 0) (make-string fill-length ?─) "")) ;; Fill with '─'
+             (formatted-comment (concat prefix fill))) ;; Final formatted comment
+        (insert formatted-comment)))
+
+    ;; Restore newline if it was present
+    (when has-newline (insert "\n"))))

@@ -33,6 +33,8 @@
  :nv   [left]          #'evil-first-non-blank-of-visual-line
  :nv   [right]         #'evil-end-of-line-or-visual-line
 
+ :m    [S-escape]      #'my/comment-box
+
  :m    [S-up]          #'drag-stuff-up
  :m    [S-down]        #'drag-stuff-down
  :m    [S-left]        #'drag-stuff-left
