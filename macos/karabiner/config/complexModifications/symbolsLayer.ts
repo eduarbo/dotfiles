@@ -9,14 +9,19 @@ import type {
 
 const LAYER = 'SYMBOLS';
 const layerMods: Modifier[] = ['right_shift'];
-const optionalMods: ModifierOptional[] = ['left_shift', 'right_command', 'right_control'];
+const shiftedLayerMods: Modifier[] = ['left_shift', 'right_shift'];
+const optionalMods: ModifierOptional[] = ['left_shift', 'right_command', 'right_control', 'caps_lock'];
 
 const manipulatorOptions = {
   conditions: ignoreKeebs,
 };
 
-const keybind = (fromKeyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
-  remap([fromKeyCode, layerMods, optionalMods], toTuples, {
+const keybind = (
+  fromKeyCode: KeyCode,
+  toTuples: ToKeyCodeTuple[],
+  options?: { shifted: boolean },
+) =>
+  remap([fromKeyCode, options?.shifted ? shiftedLayerMods : layerMods, optionalMods], toTuples, {
     manipulatorOptions,
   });
 
@@ -25,22 +30,22 @@ const rules = [
     description: `${LAYER} layer: Left hand - Numpad`,
     manipulators: [
       /// Top Row
-      keybind('q', [['home']]), // ⇱
+      keybind('q', [['page_up']]), // ▲
+      keybind('q', [['home']], { shifted: true }), // ⇱
       keybind('w', [['7']]),
       keybind('e', [['8']]),
       keybind('r', [['9']]),
       keybind('t', [['0']]),
 
       /// Home Row
-      keybind('a', [['end']]), // ⇲
+      keybind('a', [['e', ['option']]]), // acento ´
       keybind('s', [['4']]),
       keybind('d', [['5']]),
       keybind('f', [['6']]),
       keybind('g', [['equal_sign']]), // =
 
       /// Bottom Row
-      remap(['z', layerMods, ['right_command', 'right_control']], [['e', ['option']]], { manipulatorOptions }), // accent
-      remap(['z', [...layerMods, 'left_shift'], ['caps_lock']], [['caps_lock']], { manipulatorOptions }), // CAPS_LOCK
+      keybind('z', [['caps_lock']]), // CAPS_LOCK
       keybind('x', [['1']]),
       keybind('c', [['2']]),
       keybind('v', [['3']]),
@@ -55,14 +60,15 @@ const rules = [
       keybind('u', [['open_bracket']]), // [
       keybind('i', [['close_bracket']]), // ]
       keybind('o', [['slash']]), // /
-      keybind('p', [['page_up']]), // ▲
+      keybind('p', [['page_down']]), // ▼
+      keybind('p', [['end']], { shifted: true }), // ⇲
 
       /// Home Row
       keybind('h', [['left_arrow']]), // ←
       keybind('j', [['down_arrow']]), // ↓
       keybind('k', [['up_arrow']]), // ↑
       keybind('l', [['right_arrow']]), // →
-      keybind('semicolon', [['page_down']]), // ▼
+      keybind('semicolon', [['n', ['option']]]), // virgulilla (~)
 
       /// Bottom Row
       keybind('n', [['grave_accent_and_tilde']]), // `
@@ -72,8 +78,21 @@ const rules = [
       keybind('comma', [['comma']]),
       keybind('period', [['period']]),
       keybind('slash', [['delete_or_backspace']]),
+
+      // TODO create function to bind keys in this way:
+      // bind('comma', layerMods, ['right_command', 'right_control'])
+      //   .to([['e', ['option']]])
+      //   .condition(ignoreKeebs),
     ],
   },
 ];
+
+// FIXME: The built-in keyboard on MacBooks experiences ghosting with the keys `C`, `V`, `B`, `N`, `M`, `,`, `.`, and `/` when both Command keys are pressed together. A possible workaround is to remap the modifiers so that the Left CMD + Right CMD combo is reserved for infrequent keybinds.
+// Suggestion A (I would prefer not to do this, I really like my current layout):
+// - Spacebar: Modtap - Space/Shift
+// - Left CMD: Modtap - Enter/CMD
+// - Right CMD: Modtap - Tab/Symbols (Right Shift)
+// Suggestion B
+// - resign myself to living with it and, instead of pressing both Command keys, only press one along with the opposite native Shift key.
 
 export const symbolsLayer: ComplexModifications = { title: `${LAYER} layer`, rules };

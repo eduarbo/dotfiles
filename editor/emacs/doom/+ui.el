@@ -111,13 +111,11 @@
 ;-----------------------------------------------------------
 ; -- Frame
 
-;; FIXME Disabled for now as it breaks `persp-mode' and there's no way to work around it
-;; https://github.com/doomemacs/doomemacs/issues/6205
-;;
 ;; Show file path in the title for files with the same base name. For example, the files `/foo/bar/mumble/name'
 ;; and `/baz/quux/mumble/name' would have the following buffer names:
 ;; bar/mumble/name    quux/mumble/name
-;; (setq uniquify-buffer-name-style 'forward)
+(after! persp-mode
+  (setq-hook! 'persp-mode-hook uniquify-buffer-name-style 'forward))
 
 
 ;-----------------------------------------------------------
