@@ -1,0 +1,219 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import os
+import argparse
+import subprocess
+import json
+from pathlib import Path
+from datetime import datetime
+from dateutil import parser, tz
+
+"""
+align-modify-time.py
+
+Purpose:
+  1) Recursively find photo files (JPG, RW2, DNG, etc.) under a directory.
+  2) For each file, parse the EXIF capture time with dateutil (including offsets like +09:00).
+  3) Convert that EXIF time to UTC.
+  4) Convert the file's OS modtime from local time to UTC.
+  5) Compare difference. If above some threshold, optionally fix OS modtime to match EXIF time.
+
+Usage examples:
+    python3 report_or_fix_mod_time.py /path/photos --dry-run
+    python3 report_or_fix_mod_time.py /path/photos --recursive --threshold 600
+
+Key flags:
+  --recursive : descend into subdirectories
+  --threshold : seconds difference above which we consider "needs fix"
+  --dry-run   : only log, don't actually fix
+"""
+
+PHOTO_EXTENSIONS = {"jpg", "jpeg", "tiff", "nef", "rw2", "dng", "png", "heic"}
+VIDEO_EXTENSIONS = {"mp4", "mov", "m4v", "3gp"}
+
+PRIORITY_CAPTURE_TAGS = [
+    "SubSecDateTimeOriginal",
+    "DateTimeOriginal",
+    "CreateDate",
+]
+
+
+def run_exiftool(file_path: str) -> dict:
+    """
+    Call exiftool -a -G1 -json <file>.
+    Return the first dictionary or {} if error.
+    """
+    try:
+        cmd = ["exiftool", "-a", "-G1", "-json", file_path]
+        raw = subprocess.check_output(cmd, stderr=subprocess.DEVNULL)
+        data = json.loads(raw.decode("utf-8", errors="replace"))
+        if data and len(data) > 0:
+            return data[0]
+    except subprocess.CalledProcessError:
+        pass
+    return {}
+
+
+def extract_field(meta: dict, field: str) -> str:
+    """
+    Return the first metadata value whose key ends with 'field' (case-insensitive).
+    """
+    want = field.lower()
+    for k, v in meta.items():
+        if k.lower().endswith(want):
+            return str(v).strip()
+    return ""
+
+
+def parse_exif_datetime(dt_str: str) -> datetime:
+    """
+    Attempt to parse something like "YYYY:MM:DD HH:MM:SS(.sss)?±HH:MM?" using dateutil.
+    We replace the first two ':' in the date with '-', then feed to dateutil.
+    """
+    dt_str = dt_str.strip()
+    if not dt_str:
+        return None
+
+    # e.g. "2024:12:20 13:18:08+09:00" => "2024-12-20 13:18:08+09:00"
+    parts = dt_str.split(" ", 1)
+    if len(parts) == 2:
+        date_part, time_part = parts
+        date_part = date_part.replace(":", "-", 2)
+        normalized = f"{date_part} {time_part}"
+    else:
+        # single part, e.g. "2024:12:20T13:18:08+09:00" or something
+        normalized = dt_str.replace(":", "-", 2)
+
+    try:
+        return parser.parse(normalized)
+    except:
+        return None
+
+
+def unify_to_utc(dt: datetime) -> datetime:
+    """
+    Convert dt to UTC for consistent comparison:
+      - If dt has tzinfo, dt.astimezone(UTC)
+      - Else interpret dt as local time, then convert to UTC
+    """
+    if dt is None:
+        return None
+    if dt.tzinfo is not None:
+        return dt.astimezone(tz.UTC)
+    else:
+        # interpret naive as local time
+        local_zone = tz.gettz()
+        return dt.replace(tzinfo=local_zone).astimezone(tz.UTC)
+
+
+def get_exif_capture_time(meta: dict) -> datetime:
+    """
+    Return the first valid datetime from PRIORITY_CAPTURE_TAGS, or None if none found.
+    """
+    for tag in PRIORITY_CAPTURE_TAGS:
+        raw_val = extract_field(meta, tag)
+        if raw_val:
+            dt_obj = parse_exif_datetime(raw_val)
+            if dt_obj:
+                return dt_obj
+    return None
+
+
+def main():
+    parser_ = argparse.ArgumentParser()
+    parser_.add_argument("directory", help="Directory to process")
+    parser_.add_argument(
+        "--recursive", action="store_true", help="Recurse into subdirectories"
+    )
+    parser_.add_argument(
+        "--threshold",
+        type=float,
+        default=60.0,
+        help="Seconds difference above which we consider it 'off'",
+    )
+    parser_.add_argument(
+        "--dry-run", action="store_true", help="Log changes but don't fix anything"
+    )
+    args = parser_.parse_args()
+
+    root = Path(args.directory).resolve()
+    if not root.is_dir():
+        print(f"Error: '{root}' is not a directory.")
+        sys.exit(1)
+
+    # Check exiftool
+    exiftool_found = False
+    for p in os.environ.get("PATH", "").split(os.pathsep):
+        exe = Path(p) / "exiftool"
+        if exe.is_file() and os.access(exe, os.X_OK):
+            exiftool_found = True
+            break
+    if not exiftool_found:
+        print("Error: exiftool not found in PATH.")
+        sys.exit(1)
+
+    # Gather files
+    if args.recursive:
+        it = root.rglob("*")
+    else:
+        it = root.glob("*")
+
+    for f in it:
+        if not f.is_file() or f.name.startswith("."):
+            continue
+        ext = f.suffix.lower().lstrip(".")
+        if ext not in PHOTO_EXTENSIONS and ext not in VIDEO_EXTENSIONS:
+            continue
+
+        # read exif
+        meta = run_exiftool(str(f))
+        exif_dt = get_exif_capture_time(meta)
+        if not exif_dt:
+            # no recognized capture date => skip
+            continue
+
+        exif_utc = unify_to_utc(exif_dt)
+
+        # get OS modtime as local => unify to UTC
+        stat = f.stat()
+        mod_naive_local = datetime.fromtimestamp(stat.st_mtime)
+        mod_utc = unify_to_utc(mod_naive_local)
+
+        if not exif_utc:
+            # can't unify => skip
+            continue
+
+        diff = (mod_utc - exif_utc).total_seconds()
+        abs_diff = abs(diff)
+
+        if abs_diff > args.threshold:
+            # We'll set the modtime to exif_dt in local time
+            if exif_dt.tzinfo is not None:
+                # interpret exif in user’s local
+                local_exif = exif_dt.astimezone(tz.gettz())
+            else:
+                local_exif = exif_dt
+
+            if args.dry_run:
+                # debugging logs
+                print(f"---\nFile: {f}")
+                print(f"EXIF raw: {exif_dt.isoformat() if exif_dt else 'None'}")
+                print(f"EXIF in UTC: {exif_utc.isoformat() if exif_utc else 'None'}")
+                print(f"OS mod naive local: {mod_naive_local.isoformat()}")
+                print(f"OS mod in UTC: {mod_utc.isoformat()}")
+                print(f"Difference: {diff:.1f} seconds")
+            else:
+                new_ts = local_exif.timestamp()
+                try:
+                    os.utime(f, (new_ts, new_ts))
+                    print(
+                        f"Modtime updated => new local modtime is {local_exif.isoformat()}"
+                    )
+                except Exception as e:
+                    print(f"Error setting times on {f}: {e}")
+
+
+if __name__ == "__main__":
+    main()
