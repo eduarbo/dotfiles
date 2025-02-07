@@ -1,6 +1,6 @@
 ;;; +defaults.el -*- lexical-binding: t; -*-
 
-;; -- Sane defaults
+;; ─── Sane defaults ────────────────────────────────────────────────────────────
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!

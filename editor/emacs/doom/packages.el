@@ -71,3 +71,5 @@
            :repo "eduarbo/snippets"
            :files (:defaults "*"))
   :pin nil)
+
+(package! drag-stuff)
