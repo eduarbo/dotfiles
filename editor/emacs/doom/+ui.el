@@ -1,7 +1,6 @@
 ;;; ../../dev/eduarbo/dotfiles/editor/emacs/doom/+ui.el -*- lexical-binding: t; -*-
 
-;-----------------------------------------------------------
-; -- Fonts
+;; ─── Fonts ────────────────────────────────────────────────────────────────────
 
 ;; make sure that the font exists before using it
 (let ((fn (doom-rpartial #'member (font-family-list))))
@@ -18,8 +17,8 @@
   (when-let (font (cl-find-if fn '("IBM Plex Mono" "Fira Code")))
     (setq doom-variable-pitch-font (font-spec :family font :weight 'regular))))
 
-;-----------------------------------------------------------
-; -- Theme
+
+;; ─── Theme ────────────────────────────────────────────────────────────────────
 
 ;; Workaround to ensure that nothing else gets in front of my `custom-theme-directory' after initialization. Doom's core
 ;; is supposed to handle this, but it isn't working correctly, so I've mimicked its approach within a hook
@@ -42,8 +41,7 @@
 (setq doom-themes-treemacs-theme "doom-colors")
 
 
-;-----------------------------------------------------------
-; -- Modeline
+;; ─── Modeline ─────────────────────────────────────────────────────────────────
 
 (after! doom-modeline
   (setq
@@ -108,8 +106,7 @@
     :inherit error))
 
 
-;-----------------------------------------------------------
-; -- Frame
+;; ─── Frame ────────────────────────────────────────────────────────────────────
 
 ;; Show file path in the title for files with the same base name. For example, the files `/foo/bar/mumble/name'
 ;; and `/baz/quux/mumble/name' would have the following buffer names:
@@ -118,8 +115,7 @@
   (setq-hook! 'persp-mode-hook uniquify-buffer-name-style 'forward))
 
 
-;-----------------------------------------------------------
-; -- Dashboard
+;; ─── Dashboard ────────────────────────────────────────────────────────────────
 
 (setq fancy-splash-image (concat doom-user-dir "banners/berserk-guts-eclipse-1.png"))
 
@@ -127,8 +123,7 @@
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 
-;-----------------------------------------------------------
-; -- Markdown
+;; ─── Markdown ─────────────────────────────────────────────────────────────────
 
 ;; get headings of sizes relative to their level
 (setq markdown-header-scaling t)
