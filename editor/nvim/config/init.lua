@@ -78,7 +78,6 @@ local function setup_plugins()
     -- leap.nvim - Fast 2-character jump navigation
     if pcall(require, "leap") then
         local leap = require("leap")
-        -- leap.add_repeat_mappings('<C-.>', '<C-,>', { relative_directions = false })
         require('leap.user').set_repeat_keys('<C-.>', '<C-,>', { relative_directions = false })
         leap.opts.special_keys.prev_target = '<C-,>'
         leap.opts.special_keys.next_target = '<C-.>'
