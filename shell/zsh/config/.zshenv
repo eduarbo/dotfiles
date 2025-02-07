@@ -17,6 +17,9 @@ export PAGER=less
 export LESS='-R -i -w -M -z-4'
 export LESSHISTFILE="$XDG_DATA_HOME/lesshst"
 
+export USER_FULL_NAME="Eduardo Ruiz Macias"
+export USER_EMAIL="eduarbo@gmail.com"
+
 # Changing pinentry for SSH logins
 GPG_TTY=$(tty)
 export GPG_TTY
