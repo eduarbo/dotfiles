@@ -253,23 +253,34 @@ Uses `evil-paste-after` if the cursor is at the end of the line. If not, uses `e
 ;;;###autoload
 (defun my/comment-box (beg end)
   "Toggle a comment box for headers with a fixed width of 80 characters.
+Uses `comment-start` and `comment-end` dynamically to determine the comment syntax.
 If the selected text is already formatted as a comment box, remove it.
 Otherwise, create the formatted comment box.
 
 Formats:
-  - Single line: `# ─── Title ───────────────────────────────────────────────`
+  - Single line: `<comment-char> ─── Title ───────────────────────────────────`
   - Ensures exactly 80 characters.
   - Works in Normal, Visual, and Insert modes.
-  - Preserves newlines when needed."
+  - Preserves newlines when needed.
+  - In `emacs-lisp-mode`, it uses `;;` instead of `;` to avoid auto-indentation."
   (interactive
    (if (use-region-p)
-       (list (region-beginning) (region-end)) ;; If there is a selection, use it
+       (list (region-beginning) (region-end)) ;; If a selection exists, use it
      (list (line-beginning-position) (line-end-position)))) ;; Otherwise, use the whole line
 
-  (let* ((text (buffer-substring-no-properties beg end)) ;; Capture selected text
+  (let* ((text (buffer-substring-no-properties beg end)) ;; Capture the selected text
          (has-newline (string-suffix-p "\n" text)) ;; Check if the selection includes a newline
-         (comment-char "#")
-         (regex (format "^%s ─── \\(.*?\\) ─+ *$" (regexp-quote comment-char))) ;; Regex for detecting an existing box
+         (comment-start (or comment-start "")) ;; Get the comment prefix
+         (comment-end (or comment-end "")) ;; Get the comment suffix (e.g., `*/` in C-style)
+         ;; Special case for Emacs Lisp: Use `;;` instead of `;` to avoid indentation issues
+         (comment-prefix (if (eq major-mode 'emacs-lisp-mode)
+                             ";;"
+                           (string-trim comment-start)))
+         (comment-suffix (string-trim comment-end))
+         (comment-len (+ (length comment-prefix) (length comment-suffix)))
+         (regex (format "^%s ─── \\(.*?\\) ─+%s$"
+                        (regexp-quote comment-prefix)
+                        (if (string-empty-p comment-suffix) "" (concat " " (regexp-quote comment-suffix))))) ;; Regex for detecting an existing box
          (already-boxed (string-match regex text)))
 
     (delete-region beg end) ;; Remove the original text
@@ -279,10 +290,11 @@ Formats:
         (insert (match-string 1 text))
       ;; Otherwise, apply the comment-box format
       (let* ((title (string-trim text)) ;; Remove extra spaces
-             (prefix (format "%s ─── %s " comment-char title))
-             (fill-length (- 81 (length prefix))) ;; Calculate remaining space
+             (prefix (concat comment-prefix " ─── " title " ")) ;; Prefix with comment syntax
+             (fill-length (- 81 (length prefix) (length comment-suffix))) ;; Ensure 80-char width
              (fill (if (> fill-length 0) (make-string fill-length ?─) "")) ;; Fill with '─'
-             (formatted-comment (concat prefix fill))) ;; Final formatted comment
+             (formatted-comment (concat prefix fill
+                                         (if (string-empty-p comment-suffix) "" (concat " " comment-suffix))))) ;; Final formatted comment
         (insert formatted-comment)))
 
     ;; Restore newline if it was present
