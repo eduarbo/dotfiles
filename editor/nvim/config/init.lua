@@ -18,8 +18,8 @@ local start_time = vim.loop.hrtime()
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         local end_time = vim.loop.hrtime()
-        local elapsed_time = (end_time - start_time) / 1e6 -- Convertir a milisegundos
-        print("Tiempo de carga: " .. elapsed_time .. " ms")
+        local elapsed_time = (end_time - start_time) / 1e6 -- Convert to milliseconds
+        print("Load time: " .. elapsed_time .. " ms")
     end,
 })
 
