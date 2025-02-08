@@ -20,13 +20,13 @@
  :n    [S-return]      #'evilnc-comment-or-uncomment-lines
  :n    [C-return]      #'lsp-execute-code-action
 
- :m    "RET"           #'evil-jump-item
+ :n    "RET"           #'evil-jump-item
 
  :nv   ";"             #'evil-ex
  :nv   ":"             #'pp-eval-expression
 
- :m    "k"             #'evil-previous-visual-line
- :m    "j"             #'evil-next-visual-line
+ :n    "k"             #'evil-previous-visual-line
+ :n    "j"             #'evil-next-visual-line
 
  :nv   "H"             #'flycheck-previous-error
  :nv   "L"             #'flycheck-next-error
