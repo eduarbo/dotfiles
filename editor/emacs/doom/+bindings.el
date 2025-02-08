@@ -18,7 +18,8 @@
  ;; :nv   "S-SPC"         #'+default/search-project-for-symbol-at-point
 
  :v    [S-return]      #'evilnc-comment-operator
- :ni   [S-return]      #'evilnc-comment-or-uncomment-lines
+ :n    [S-return]      #'evilnc-comment-or-uncomment-lines
+ :i    [S-return]      #'my/evilnc-comment-and-stay-in-insert
  :n    [C-return]      #'lsp-execute-code-action
 
  :m    "RET"           #'evil-jump-item
