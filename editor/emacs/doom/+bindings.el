@@ -310,6 +310,9 @@
       ;;; <leader> n --- notes
       :desc "Obsidian notes"                "n SPC" #'obsidian-jump
 
+      ;;; <leader> o --- open
+      :desc "Open Aider"                    "o a"   #'aider-run-aider
+
       ;;; <leader> q --- quit/session
       :desc "Start new Emacs"               "q n"   #'restart-emacs-start-new-emacs)
 
