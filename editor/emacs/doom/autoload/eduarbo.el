@@ -288,3 +288,11 @@ Formats:
 
     ;; Restore newline if it was present
     (when has-newline (insert "\n"))))
+
+;;;###autoload
+(defun my/evilnc-comment-and-stay-in-insert ()
+  "Comment/uncomment the current line while staying in insert mode."
+  (interactive)
+  (save-excursion
+    (evilnc-comment-or-uncomment-lines 1))
+  (evil-insert-state))
