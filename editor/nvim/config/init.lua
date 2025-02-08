@@ -11,6 +11,18 @@ vim.opt.ignorecase = true              -- Case-insensitive search
 vim.opt.smartcase = true               -- Case-sensitive search if query contains uppercase
 vim.opt.list = true                    -- Enable indication characters
 
+-- ─── Profiling ────────────────────────────────────────────────────────────────
+
+local start_time = vim.loop.hrtime()
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        local end_time = vim.loop.hrtime()
+        local elapsed_time = (end_time - start_time) / 1e6 -- Convertir a milisegundos
+        print("Tiempo de carga: " .. elapsed_time .. " ms")
+    end,
+})
+
 -- ─── Ensure package manager (vim-plug equivalent) ─────────────────────────────
 
 local plug_path = vim.fn.stdpath("data") .. "/site/autoload/plug.vim"
