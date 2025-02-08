@@ -11,7 +11,7 @@ vim.opt.ignorecase = true              -- Case-insensitive search
 vim.opt.smartcase = true               -- Case-sensitive search if query contains uppercase
 vim.opt.list = true                    -- Enable indication characters
 
--- ─── Profiling ────────────────────────────────────────────────────────────────
+-- ─── Profiling ───────────────────────────────────────────────────────────────
 
 local start_time = vim.loop.hrtime()
 
