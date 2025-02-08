@@ -20,13 +20,13 @@
  :n    [S-return]      #'evilnc-comment-or-uncomment-lines
  :n    [C-return]      #'lsp-execute-code-action
 
- :n    "RET"           #'evil-jump-item
+ :m    "RET"           #'evil-jump-item
 
  :nv   ";"             #'evil-ex
  :nv   ":"             #'pp-eval-expression
 
- :n    "k"             #'evil-previous-visual-line
- :n    "j"             #'evil-next-visual-line
+ :m    "k"             #'evil-previous-visual-line
+ :m    "j"             #'evil-next-visual-line
 
  :nv   "H"             #'flycheck-previous-error
  :nv   "L"             #'flycheck-next-error
@@ -36,12 +36,12 @@
  :nv   [left]          #'evil-first-non-blank-of-visual-line
  :nv   [right]         #'evil-end-of-line-or-visual-line
 
- :m    [S-escape]      #'my/comment-box
+ :nvi  [S-escape]      #'my/comment-box
 
- :m    [S-up]          #'drag-stuff-up
- :m    [S-down]        #'drag-stuff-down
- :m    [S-left]        #'drag-stuff-left
- :m    [S-right]       #'drag-stuff-right
+ :nv   [S-up]          #'drag-stuff-up
+ :nv   [S-down]        #'drag-stuff-down
+ :nv   [S-left]        #'drag-stuff-left
+ :nv   [S-right]       #'drag-stuff-right
 
  :n    [backspace]     #'join-line
  :n    [S-backspace]   #'split-line
@@ -266,7 +266,6 @@
       ;;; <leader> t --- toggle
       :desc "Window Enlargen mode"          "t e"   #'my/window-enlargen-mode
       :desc "Line numbers mode"             "t l"   #'display-line-numbers-mode
-      :desc "Copilot mode"                  "t a"   #'copilot-mode
 
       ;;; <leader> w --- workspaces/windows
       :desc "Balance windows"               "w b"   #'balance-windows
@@ -385,18 +384,3 @@
 (map! :after embark :map minibuffer-local-map
       "C-SPC"    #'embark-act
       [C-return] #'embark-export)
-
-;; TODO REMOVE
-;; (map! :after copilot :map copilot-mode-map
-;;       :i    "C-S-l"     #'copilot-complete-or-accept
-;;       :i    "s-<right>" #'copilot-complete-or-accept
-;;       :i    "C-S-j"     #'copilot-accept-completion-by-word
-;;       :i    "s-<down>"  #'copilot-accept-completion-by-word
-;;       :i    "C-S-k"     #'copilot-accept-completion-by-line
-;;       :i    "s-<up>"    #'copilot-accept-completion-by-line
-;;       :i    "C->"       #'copilot-previous-completion
-;;       :i    "s->"       #'copilot-previous-completion
-;;       :i    "C-<"       #'copilot-next-completion
-;;       :i    "s-<"       #'copilot-next-completion
-;;       :i    "C-S-h"     #'copilot-clear-overlay
-;;       :i    "s-<left>"  #'copilot-clear-overlay)

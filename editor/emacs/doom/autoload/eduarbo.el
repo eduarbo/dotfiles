@@ -228,17 +228,6 @@ narrowed."
       (newline)
       (insert divider))))
 
-;; Based on function from https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/
-;;;###autoload
-(defun copilot-complete-or-accept ()
-  "Command that either triggers a completion or accepts one if one
-is available."
-  (interactive)
-  (if (copilot--overlay-visible)
-      (progn
-        (copilot-accept-completion))
-    (copilot-complete)))
-
 ;;;###autoload
 (defun my/evil-inser-mode-paste ()
   "Paste text relative to the cursor's line position: after if at end, before with cursor adjustment otherwise.

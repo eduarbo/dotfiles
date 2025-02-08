@@ -26,13 +26,13 @@
 
 ;; ─── Evil Snipe ───────────────────────────────────────────────────────────────
 
-;; Do not override my bindings!
 (after! evil-snipe
   (setq
-   evil-snipe-scope 'whole-visible
+   evil-snipe-override-evil-repeat-keys nil ;; Do not override my bindings!
+   evil-snipe-scope 'whole-visible ;; highlight all visible matches in buffer
    evil-snipe-repeat-keys nil
    evil-snipe-enable-incremental-highlight nil
-   evil-snipe-override-evil-repeat-keys nil))
+   ))
 
 ;; Unbind default mapping for evil-snipe-S
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
@@ -196,17 +196,7 @@
         :desc "UP_CASE"            :nv "u"     #'string-inflection-upcase))
 
 
-;; ─── Copilot ──────────────────────────────────────────────────────────────────
-
-(use-package! copilot
-  :init
-  (setq copilot-idle-delay nil))
-
-(defun cae-copilot-clear-overlay-h ()
-  "Like `copilot-clear-overlay', but returns `t' if the overlay was visible."
-  (when (copilot--overlay-visible)
-    (copilot-clear-overlay)))
-(add-hook 'doom-escape-hook #'cae-copilot-clear-overlay-h)
+;; ─── Yasnippet: Template System for Code Expansion ────────────────────────────
 
 (after! yasnippet
   ;; NOTE Add the following in `.dir-locals.el` (at root level) to enable semicolons on js-mode snippets:
@@ -223,3 +213,12 @@
              drag-stuff-down
              drag-stuff-left
              drag-stuff-right))
+
+
+;; ─── AI-powered assistant for Emacs (experimental) ────────────────────────────
+
+(use-package aider
+  :config
+  ;; (setq aider-args '("--model" "o3-mini"))
+  (setq aider-args '("--model" "gpt-4o-mini"))
+  (setenv "OPENAI_API_KEY" (getenv "OPENAI_API_KEY")))
