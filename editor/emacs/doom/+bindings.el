@@ -9,7 +9,8 @@
  :i    "S-SPC"         #'tab-to-tab-stop
 
  (:map general-override-mode-map
-  :nvi "C-SPC"         #'aider-transient-menu)
+  :nv  "C-SPC"         #'aider-transient-menu
+  :i   "C-SPC"         #'aider-implement-todo)
 
  :n    "SPC"           #'evil-ex-search-word-forward
  :v    "SPC"           #'evil-visualstar/begin-search-forward
@@ -17,7 +18,7 @@
  ;; :nv   "S-SPC"         #'+default/search-project-for-symbol-at-point
 
  :v    [S-return]      #'evilnc-comment-operator
- :n    [S-return]      #'evilnc-comment-or-uncomment-lines
+ :ni   [S-return]      #'evilnc-comment-or-uncomment-lines
  :n    [C-return]      #'lsp-execute-code-action
 
  :m    "RET"           #'evil-jump-item
