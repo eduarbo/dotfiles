@@ -8,11 +8,13 @@
  :i    [C-return]      #'+default/newline-below
  :i    "S-SPC"         #'tab-to-tab-stop
 
+ (:map general-override-mode-map
+  :nvi "C-SPC"         #'aider-transient-menu)
+
  :n    "SPC"           #'evil-ex-search-word-forward
  :v    "SPC"           #'evil-visualstar/begin-search-forward
  :nv   "S-SPC"         #'+default/search-project
  ;; :nv   "S-SPC"         #'+default/search-project-for-symbol-at-point
- :nv   "C-SPC"         #'lsp-rename
 
  :v    [S-return]      #'evilnc-comment-operator
  :n    [S-return]      #'evilnc-comment-or-uncomment-lines
@@ -79,10 +81,10 @@
 
  ;; Window navigation
  (:map general-override-mode-map
-  :nvi "C-j"          #'evil-window-down
-  :nvi "C-k"          #'evil-window-up
-  :nvi "C-l"          #'evil-window-right
-  :nvi "C-h"          #'evil-window-left)
+  :nvi "C-j"           #'evil-window-down
+  :nvi "C-k"           #'evil-window-up
+  :nvi "C-l"           #'evil-window-right
+  :nvi "C-h"           #'evil-window-left)
 
  ;; Leaving Emacs state unbound, my accidental visits always turn into a quest for an escape route!
  :im    "C-z"          nil
@@ -384,16 +386,17 @@
       "C-SPC"    #'embark-act
       [C-return] #'embark-export)
 
-(map! :after copilot :map copilot-mode-map
-      :i    "C-S-l"     #'copilot-complete-or-accept
-      :i    "s-<right>" #'copilot-complete-or-accept
-      :i    "C-S-j"     #'copilot-accept-completion-by-word
-      :i    "s-<down>"  #'copilot-accept-completion-by-word
-      :i    "C-S-k"     #'copilot-accept-completion-by-line
-      :i    "s-<up>"    #'copilot-accept-completion-by-line
-      :i    "C->"       #'copilot-previous-completion
-      :i    "s->"       #'copilot-previous-completion
-      :i    "C-<"       #'copilot-next-completion
-      :i    "s-<"       #'copilot-next-completion
-      :i    "C-S-h"     #'copilot-clear-overlay
-      :i    "s-<left>"  #'copilot-clear-overlay)
+;; TODO REMOVE
+;; (map! :after copilot :map copilot-mode-map
+;;       :i    "C-S-l"     #'copilot-complete-or-accept
+;;       :i    "s-<right>" #'copilot-complete-or-accept
+;;       :i    "C-S-j"     #'copilot-accept-completion-by-word
+;;       :i    "s-<down>"  #'copilot-accept-completion-by-word
+;;       :i    "C-S-k"     #'copilot-accept-completion-by-line
+;;       :i    "s-<up>"    #'copilot-accept-completion-by-line
+;;       :i    "C->"       #'copilot-previous-completion
+;;       :i    "s->"       #'copilot-previous-completion
+;;       :i    "C-<"       #'copilot-next-completion
+;;       :i    "s-<"       #'copilot-next-completion
+;;       :i    "C-S-h"     #'copilot-clear-overlay
+;;       :i    "s-<left>"  #'copilot-clear-overlay)
