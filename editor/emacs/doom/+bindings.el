@@ -8,12 +8,10 @@
  :i    [C-return]      #'+default/newline-below
  :i    "S-SPC"         #'tab-to-tab-stop
 
+ :nv   "SPC"           #'aider-transient-menu
  (:map general-override-mode-map
-  :nv  "C-SPC"         #'aider-transient-menu
   :i   "C-SPC"         #'aider-implement-todo)
 
- :n    "SPC"           #'evil-ex-search-word-forward
- :v    "SPC"           #'evil-visualstar/begin-search-forward
  :nv   "S-SPC"         #'+default/search-project
  ;; :nv   "S-SPC"         #'+default/search-project-for-symbol-at-point
 

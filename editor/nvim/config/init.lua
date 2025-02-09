@@ -23,148 +23,183 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end,
 })
 
--- ─── Ensure package manager (vim-plug equivalent) ─────────────────────────────
+-- ─── Bootstrap lazy.nvim ──────────────────────────────────────────────────────
 
-local plug_path = vim.fn.stdpath("data") .. "/site/autoload/plug.vim"
-if vim.fn.empty(vim.fn.glob(plug_path)) > 0 then
-    print("Installing vim-plug...")
-    vim.fn.system({
-        "curl", "-fLo", plug_path, "--create-dirs",
-        "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    })
-    vim.cmd("autocmd VimEnter * PlugInstall --sync | source $MYVIMRC")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
+vim.opt.rtp:prepend(lazypath)
 
 -- ─── Install and configure plugins ────────────────────────────────────────────
 
-vim.cmd [[
-call plug#begin()
-" Defaults
-Plug 'tpope/vim-sensible'                           " Sensible default settings
-Plug 'tpope/vim-surround'                           " Surround characters manipulation
-Plug 'tpope/vim-repeat'                             " Enhances . command
-Plug 'tpope/vim-abolish'                            " Case-aware substitution
+require("lazy").setup({
+  -- Defaults
+  { -- Sensible default settings
+    "tpope/vim-sensible",
+  },
+  { -- Surround characters manipulation
+    "tpope/vim-surround",
+    keys = { "cs", "ds", "ys" },   -- Load when these keys are used
+  },
+  { -- Enhances the '.' command
+    "tpope/vim-repeat",
+    event = "VeryLazy",
+  },
+  { -- Case-aware substitution
+    "tpope/vim-abolish",
+    event = "VeryLazy",
+  },
 
-" Motions
-Plug 'ggandor/leap.nvim'                            " Jump to any spot on-screen
-Plug 'ggandor/flit.nvim'                            " Enhanced f/t motions
-Plug 'tommcdo/vim-exchange'                         " Swap text objects
-Plug 'andymass/vim-matchup'                         " Smarter % navigation
-Plug 'chaoren/vim-wordmotion'                       " Better word navigation
-Plug 'wellle/targets.vim'                           " Extra text objects
-Plug 'terryma/vim-expand-region'                    " Incrementally expand selection
-Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Multiple cursors
+  -- Motions
+  { -- Jump to any spot on-screen
+    "ggandor/leap.nvim",
+    keys = { "S" },
+    config = function()
+      local leap = require("leap")
+      require("leap.user").set_repeat_keys("<C-.>", "<C-,>", { relative_directions = false })
+      leap.opts.special_keys.prev_target = "<C-,>"
+      leap.opts.special_keys.next_target = "<C-.>"
+      vim.keymap.set({ "n", "x" }, "S", "<Plug>(leap)") -- Bidirectional mapping
+    end,
+  },
+  { -- Enhanced f/t motions
+    "ggandor/flit.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("flit").setup()
+    end,
+  },
+  { -- Swap text objects
+    "tommcdo/vim-exchange",
+    event = "VeryLazy",
+  },
+  { -- Smarter '%' navigation
+    "andymass/vim-matchup",
+    event = "VeryLazy",
+  },
+  { -- Better word navigation
+    "chaoren/vim-wordmotion",
+    event = "VeryLazy",
+  },
+  { -- Extra text objects
+    "wellle/targets.vim",
+    event = "VeryLazy",
+  },
+  { -- Incrementally expand selection
+    "terryma/vim-expand-region",
+    event = "VeryLazy",
+    config = function()
+      vim.api.nvim_set_keymap("v", "v", "<Plug>(expand_region_expand)", {})
+      vim.api.nvim_set_keymap("v", "V", "<Plug>(expand_region_shrink)", {})
+    end,
+  },
+  { -- Multiple cursors
+    "mg979/vim-visual-multi",
+    branch = "master",
+    keys = { "<S-r>" },
+    config = function()
+      vim.keymap.set("n", "<S-r>", ":VMSearchAll<CR>", { noremap = true, silent = true })
+    end,
+  },
 
-" Utilities
-Plug 'numToStr/Comment.nvim'                        " Smart commenting
-Plug 'romainl/vim-cool'                             " Disable search highlight automatically
-Plug 'knubie/vim-kitty-navigator'                   " Seamless Vim-Kitty navigation
-Plug 'mikesmithgh/kitty-scrollback.nvim'            " Proper Kitty scrollback navigation
-Plug 'nvim-lua/plenary.nvim'                        " Dependency for telescope
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' } " Fuzzy finder
+  -- Utilities
+  { -- Smart commenting
+    "numToStr/Comment.nvim",
+    keys = { "<S-CR>" },
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  { -- Automatically disable search highlight
+    "romainl/vim-cool",
+    event = "VeryLazy",
+  },
+  { -- Seamless Vim-Kitty navigation
+    "knubie/vim-kitty-navigator",
+    event = "VeryLazy",
+  },
+  { -- Proper Kitty scrollback navigation
+    "mikesmithgh/kitty-scrollback.nvim",
+    event = "VeryLazy",
+    config = function()
+      vim.keymap.set("n", "<Esc>", "<Plug>(KsbCloseOrQuitAll)", {})
+      -- FIXME: configuration is being ignored
+      require("kitty-scrollback").setup({
+        {
+          status_window = {
+            icons = {
+              kitty = "",   -- variants: 󰄛, etc.
+              heart = "",   -- variants: 󰣐, , etc.
+              nvim  = "",  -- variants: , etc.
+            },
+          },
+          paste_window = {
+            -- Options commented out
+          },
+          kitty_get_text = {
+            -- Option commented out
+          },
+        },
+        ksb_builtin_get_text_all = {},
+      })
+    end,
+  },
+  { -- Dependency for Telescope
+    "nvim-lua/plenary.nvim",
+  },
+  { -- Fuzzy finder
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.8",
+    keys = { "<leader>,", "<leader>." },
+    config = function()
+      local actions = require("telescope.actions")
+      require("telescope").setup({
+        defaults = {
+          mappings = {
+            i = {
+              ["<Esc>"] = actions.close,
+              ["<C-n>"] = actions.move_selection_next,
+              ["<C-p>"] = actions.move_selection_previous,
+            },
+          },
+        },
+      })
+      vim.keymap.set("n", "<leader>,", ":Telescope buffers<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>.", ":Telescope find_files<CR>", { noremap = true, silent = true })
+    end,
+  },
 
-" Theme
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-call plug#end()
-]]
+  -- Theme
+  { -- Catppuccin theme
+    "catppuccin/nvim",
+    as = "catppuccin",
+    config = function()
+      require("catppuccin").setup({ flavour = "mocha", transparent_background = true })
+      vim.cmd("colorscheme catppuccin")
+    end,
+  },
+}, {})
 
--- ─── Plugin Configurations ────────────────────────────────────────────────────
+-- ─── Global configuration ─────────────────────────────────────────────────────
 
-local function setup_plugins()
-    vim.opt.listchars = {
-        tab = "→ ",
-        trail = "·",
-        extends = "»",
-        precedes = "«",
-        nbsp = "␣"
-    }
-    -- expand-region - Incrementally expand selection
-    vim.api.nvim_set_keymap("v", "v", "<Plug>(expand_region_expand)", {})
-    vim.api.nvim_set_keymap("v", "V", "<Plug>(expand_region_shrink)", {})
-
-    -- comment.nvim - Smart commenting
-    if pcall(require, "Comment") then
-        require('Comment').setup()
-    end
-
-    -- leap.nvim - Fast 2-character jump navigation
-    if pcall(require, "leap") then
-        local leap = require("leap")
-        require('leap.user').set_repeat_keys('<C-.>', '<C-,>', { relative_directions = false })
-        leap.opts.special_keys.prev_target = '<C-,>'
-        leap.opts.special_keys.next_target = '<C-.>'
-
-        vim.keymap.set({'n', 'x'}, 'S', '<Plug>(leap)') -- Bidirectional
-    end
-
-    -- flit.nvim - Enhanced f/t motions
-    if pcall(require, "flit") then
-        require('flit').setup()
-    end
-
-    -- vim-visual-multi - Multiple cursors
-    if pcall(require, "vim-visual-multi") then
-        vim.keymap.set("n", "<S-r>", ":VMSearchAll<CR>", { noremap = true, silent = true })
-    end
-
-    -- telescope.nvim - Fuzzy finder
-    if pcall(require, "telescope") then
-        local actions = require("telescope.actions")
-        require('telescope').setup({
-                defaults = {
-                    mappings = {
-                        i = {
-                            ["<Esc>"] = actions.close,
-                            ["<C-n>"] = actions.move_selection_next,
-                            ["<C-p>"] = actions.move_selection_previous,
-                        },
-                    },
-                },
-                                  })
-        vim.keymap.set("n", "<leader>,", ":Telescope buffers<CR>", { noremap = true, silent = true })
-        vim.keymap.set("n", "<leader>.", ":Telescope find_files<CR>", { noremap = true, silent = true })
-    end
-
-    -- Kitty Scrollback - Open Kitty scrollback in Neovim with proper ANSI color support
-    if pcall(require, "kitty-scrollback") then
-        vim.keymap.set("n", "<Esc>", "<Plug>(KsbCloseOrQuitAll)", {})
-        -- FIXME config is being ignored
-        require("kitty-scrollback").setup({
-                -- global configuration
-                {
-                    status_window = {
-                        -- enabled = false,
-                        -- autoclose = true,
-                        -- style_simple = true,
-                        icons = {
-                            kitty = '', -- variants 󰄛
-                            heart = '', -- variants 󰣐 |  |  | ♥ |  | 󱢠 | 
-                            nvim = '', -- variants  |  |  | 
-                        },
-                    },
-                    paste_window = {
-                        -- yank_register_enabled = false,
-                        -- hide_footer = true,
-                    },
-                    kitty_get_text = {
-                        -- ansi = false,
-                    },
-                },
-                -- builtin configuration override
-                ksb_builtin_get_text_all = {
-                }
-                                         })
-    end
-
-    -- Theme: Catppuccin
-    if pcall(require, "catppuccin") then
-        require("catppuccin").setup({ flavour = "mocha", transparent_background = true })
-        vim.cmd("colorscheme catppuccin")
-    end
-end
-
--- Load Plugins on VimEnter
-vim.api.nvim_create_autocmd("VimEnter", { callback = setup_plugins })
+vim.opt.listchars = {
+    tab      = "→ ",   -- Show tab as →
+    trail    = "·",    -- Show trailing spaces as ·
+    extends  = "»",    -- Show extends as »
+    precedes = "«",    -- Show precedes as «
+    nbsp     = "␣"     -- Show non-breakable space as ␣
+}
 
 -- ─── Keybindings ──────────────────────────────────────────────────────────────
 
@@ -175,8 +210,14 @@ vim.g.maplocalleader = "m"
 vim.api.nvim_set_keymap("n", ";", ":", { noremap = true })
 
 -- Search the word under cursor without jumping
-vim.api.nvim_set_keymap("n", "*", ":let @/='\\<' .. expand('<cword>') .. '\\>' | set hls<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "#", ":let @/='\\<' .. expand('<cword>') .. '\\>' | set hls<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "*", function()
+    vim.fn.setreg("/", "\\<" .. vim.fn.expand("<cword>") .. "\\>")
+    vim.cmd("set hls")
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "#", function()
+    vim.fn.setreg("/", "\\<" .. vim.fn.expand("<cword>") .. "\\>")
+    vim.cmd("set hls")
+end, { noremap = true, silent = true })
 
 -- Toggle folds using Tab
 vim.api.nvim_set_keymap("n", "<Tab>", "za", { noremap = true })
