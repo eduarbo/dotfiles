@@ -15,9 +15,7 @@ typescript
 yarn
 js-beautify
 typescript-language-server
-vscode-json-languageserver
-vscode-css-languageservice
-vscode-html-languageservice
+vscode-langservers-extracted
 graphql-language-service-cli
 bash-language-server
 unified-language-server

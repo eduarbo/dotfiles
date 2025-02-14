@@ -29,8 +29,8 @@
        ;;  ;; +tng
        ;;  )
        (corfu            ; complete with cap(f), cape and a flying feather!
-         +icons
-         +orderless)
+        +icons
+        +orderless)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
@@ -95,7 +95,10 @@
        ;;vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       syntax            ; tasing you for every semicolon you forget
+       (syntax           ; tasing you for every semicolon you forget
+        +childframe
+        +icons
+        )
        ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
