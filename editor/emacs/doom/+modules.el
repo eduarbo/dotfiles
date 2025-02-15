@@ -48,6 +48,7 @@
    ;; Follow the instructions to setup ESLint in LSP server:
    ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
    lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
+   lsp-eslint-run "onType"
    lsp-enable-symbol-highlighting nil
    lsp-lens-enable nil
    lsp-headerline-breadcrumb-enable nil
@@ -72,11 +73,17 @@
    ;; lsp-auto-execute-action nil
    lsp-use-plists t))
 
-
 ;; If you are in a buffer with `lsp-mode' enabled and a server that supports `textDocument/formatting', it will be used
 ;; instead of `format-all's formatter. Unfortunately typescript does not seem to be respecting my settings, and is
 ;; slower than format-all so I prefer to disable it universally.
 (setq +format-with-lsp nil)
+
+;; Auto-fix ESLint issues on save
+(setq lsp-eslint-auto-fix-on-save t)
+;; Incorporate ESLint fixes into the save hook
+(advice-add 'lsp--before-save :around #'my/lsp--eslint-before-save)
+;; After applying ESLint fixes, run Flycheck
+(advice-add 'lsp-eslint-apply-all-fixes :around #'my/lsp-eslint-fix-after)
 
 
 ;; ─── Company ──────────────────────────────────────────────────────────────────

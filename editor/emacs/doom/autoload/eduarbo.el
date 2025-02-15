@@ -296,3 +296,15 @@ Formats:
   (save-excursion
     (evilnc-comment-or-uncomment-lines 1))
   (evil-insert-state))
+
+;;;###autoload
+(defun my/lsp--eslint-before-save (orig-fun)
+  "Run lsp-eslint-apply-all-fixes and then run the original lsp--before-save."
+  (when lsp-eslint-auto-fix-on-save (lsp-eslint-apply-all-fixes))
+  (funcall orig-fun))
+
+;;;###autoload
+(defun my/lsp-eslint-fix-after (orig-fn &rest args)
+  "Call the original lsp-eslint-apply-all-fixes, then run flycheck-buffer."
+  (apply orig-fn args)
+  (flycheck-buffer))
