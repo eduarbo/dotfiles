@@ -53,6 +53,7 @@
 
 ;; Arduino Sketches
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . cpp-mode))
+(add-to-list 'auto-mode-alist '("\\.clangd\\'" . yaml-mode))
 
 ;; Treats the `=', `<' and `>' as punctuation for all modes
 (add-hook! 'after-change-major-mode-hook
