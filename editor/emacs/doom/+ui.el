@@ -32,7 +32,7 @@
 
 (setq doom-theme 'doom-oceanic-next)
 
-;; HACK Fix the output color in the REPL
+;; HACK: Fix the output color in the REPL
 ;; https://github.com/emacs-ess/ESS/issues/1193#issuecomment-1144182009
 (add-hook 'comint-mode-hook #'ansi-color-for-comint-mode-filter 'append)
 

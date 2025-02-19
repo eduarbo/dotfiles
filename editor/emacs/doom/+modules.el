@@ -42,13 +42,14 @@
 
 (after! lsp-mode
   (setq
-   ;; Do not execute the action without user confirmation
-   lsp-auto-execute-action nil
+   ;; lsp-clients-typescript-prefer-use-project-ts-server t
 
    ;; Follow the instructions to setup ESLint in LSP server:
    ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
    lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
    lsp-eslint-run "onType"
+   ;; lsp-eslint-auto-fix-on-save t
+
    lsp-enable-symbol-highlighting nil
    lsp-lens-enable nil
    lsp-headerline-breadcrumb-enable nil
@@ -65,25 +66,34 @@
    ;; lsp-completion-show-detail nil
    ;; lsp-completion-show-kind nil
 
-   lsp-typescript-preferences-import-module-specifier "non-relative"
-
    lsp-enable-snippet nil
    ;; lsp-signature-doc-lines 5
    lsp-enable-file-watchers nil
-   ;; lsp-auto-execute-action nil
-   lsp-use-plists t))
+   lsp-auto-execute-action nil ;; Do not execute the action without user confirmation
+   lsp-use-plists t)
 
-;; If you are in a buffer with `lsp-mode' enabled and a server that supports `textDocument/formatting', it will be used
-;; instead of `format-all's formatter. Unfortunately typescript does not seem to be respecting my settings, and is
-;; slower than format-all so I prefer to disable it universally.
-(setq +format-with-lsp nil)
+  ;; HACK: Don't prompt the user for the project root every time we open a new
+  ;; lsp-worthy file, instead, try to guess it with projectile
+  ;; This behavior was previously disabled as it was too confusing for beginners 🤷‍♂️:
+  ;; https://github.com/doomemacs/doomemacs/commit/8c3f24f14c148f24d08aee6b6ae7a2a48e42853b#diff-b03b8e6a7215aedaf8f74b36b04158bba60d3e4b145790fd00857d7ea56969c0
+  (setq lsp-auto-guess-root t)
 
-;; Auto-fix ESLint issues on save
-(setq lsp-eslint-auto-fix-on-save t)
-;; Incorporate ESLint fixes into the save hook
-(advice-add 'lsp--before-save :around #'my/lsp--eslint-before-save)
-;; After applying ESLint fixes, run Flycheck
-(advice-add 'lsp-eslint-apply-all-fixes :around #'my/lsp-eslint-fix-after)
+  (defadvice! +lsp-prompt-if-no-project-a (session file-name)
+    "Prompt for the project root only if no project was found."
+    :after-until #'lsp--calculate-root
+    (cond ((not lsp-auto-guess-root)
+           nil)
+          ((cl-find-if (lambda (dir)
+                         (and (lsp--files-same-host dir file-name)
+                              (file-in-directory-p file-name dir)))
+                       (lsp-session-folders-blacklist session))
+           nil)
+          ((lsp--find-root-interactively session))))
+
+  ;; HACK: Auto-fix ESLint issues on save when `lsp-eslint-auto-fix-on-save' is
+  ;; non-nil since lsp-mode doesn't support this natively. See:
+  ;; https://github.com/emacs-lsp/lsp-mode/issues/1842
+  (advice-add 'lsp--before-save :around #'my/lsp--eslint-before-save))
 
 
 ;; ─── Company ──────────────────────────────────────────────────────────────────
@@ -104,14 +114,22 @@
 ;; ─── Flycheck ─────────────────────────────────────────────────────────────────
 
 (after! flycheck
+  ;; Prefer eslint_d to ESLint
+  ;; See https://github.com/mantoni/eslint_d.js
+  (when (executable-find "eslint_d")
+    (setq flycheck-javascript-eslint-executable "eslint_d"))
+
   (setq
+   ;; Stop cluttering my project dirs with temp flycheck files by moving everything to a temp dir
+   flycheck-temp-prefix (concat temporary-file-directory "flycheck")
    ;; flycheck-check-syntax-automatically '((save idle-change mode-enabled new-line))
    flycheck-idle-change-delay 0.5)
 
-  ;; The following advice is a workaround for a performance issue when opening files, particularly JavaScript files,
-  ;; where the existence check of eslint configuration is causing noticeable delays.  By overriding
-  ;; `flycheck-eslint-config-exists-p' to always return true, we bypass the file existence check, thus significantly
-  ;; improving file opening times.
+  ;; HACK: The following advice is a workaround for a performance issue when
+  ;; opening files, particularly JavaScript files, where the existence check of
+  ;; eslint configuration is causing noticeable delays.  By overriding
+  ;; `flycheck-eslint-config-exists-p' to always return true, we bypass the file
+  ;; existence check, thus significantly improving file opening times.
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
@@ -121,7 +139,6 @@
   ;; A non-descript, right-pointing arrow
   (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
     [8 12 14 15 14 12 8] 8 7 'center))
-
 ;; while diff-hl takes the right fringe
 (after! diff-hl (setq diff-hl-side 'right))
 
@@ -149,6 +166,13 @@
             web-mode-script-padding
             web-mode-style-padding
             standard-indent)))
+
+
+;; HACK: Force web-mode padding values via hook, as the overrides above don't work
+(add-hook! 'web-mode-hook
+  (lambda ()
+    (setq-local web-mode-style-padding 2
+                web-mode-script-padding 2)))
 
 
 ;; ─── Evil Surround/Embrace ────────────────────────────────────────────────────
