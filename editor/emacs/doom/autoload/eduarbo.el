@@ -11,7 +11,7 @@
     )
   "Alist mapping markdown code block languages to their Emacs major modes.")
 
-;; HACK prevent the cursor from ending outside the code block
+;; HACK: prevent the cursor from ending outside the code block
 ;;;###autoload
 (defun my/markdown-forward-block (&optional arg)
   "Move forward to the next end of a Markdown block.
@@ -283,7 +283,7 @@ Formats:
              (fill-length (- 81 (length prefix) (length comment-suffix))) ;; Ensure 80-char width
              (fill (if (> fill-length 0) (make-string fill-length ?─) "")) ;; Fill with '─'
              (formatted-comment (concat prefix fill
-                                         (if (string-empty-p comment-suffix) "" (concat " " comment-suffix))))) ;; Final formatted comment
+                                        (if (string-empty-p comment-suffix) "" (concat " " comment-suffix))))) ;; Final formatted comment
         (insert formatted-comment)))
 
     ;; Restore newline if it was present
@@ -299,12 +299,18 @@ Formats:
 
 ;;;###autoload
 (defun my/lsp--eslint-before-save (orig-fun)
-  "Run lsp-eslint-apply-all-fixes and then run the original lsp--before-save."
-  (when lsp-eslint-auto-fix-on-save (lsp-eslint-apply-all-fixes))
+  "Run lsp-eslint-fix-all and then run the original lsp--before-save."
+  (when lsp-eslint-auto-fix-on-save (lsp-eslint-fix-all))
   (funcall orig-fun))
 
 ;;;###autoload
-(defun my/lsp-eslint-fix-after (orig-fn &rest args)
-  "Call the original lsp-eslint-apply-all-fixes, then run flycheck-buffer."
-  (apply orig-fn args)
-  (flycheck-buffer))
+(defun my/eslint-fix-all-maybe-and-format ()
+  "Apply ESLint auto-fixes (if applicable) without prompting, then format the buffer/region.
+Temporarily sets `lsp-auto-execute-action' to t so that `lsp-eslint-fix-all' executes
+the code action without confirmation. Manual invocation outside this function will still prompt."
+  (interactive)
+  (when (and (derived-mode-p 'js-mode 'typescript-mode 'typescript-tsx-mode)
+             (fboundp 'lsp-eslint-fix-all))
+    (let ((lsp-auto-execute-action t))
+      (lsp-eslint-fix-all)))
+  (+format/region-or-buffer))

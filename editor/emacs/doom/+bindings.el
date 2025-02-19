@@ -141,7 +141,7 @@
   :g    "s-e"           #'execute-extended-command)
 
  :g     "s-g"           #'magit-status
- :g     "s-i"           #'+format/region-or-buffer
+ :g     "s-i"           #'my/eslint-fix-all-maybe-and-format
  :g     "s-j"           #'evil-switch-to-windows-last-buffer
  :g     "s-k"           #'kill-current-buffer
  :g     "s-l"           #'avy-goto-line
