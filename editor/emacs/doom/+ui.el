@@ -50,21 +50,21 @@
    ;; relative-from-project => emacs/lisp/comint.el
    doom-modeline-buffer-file-name-style 'relative-from-project
    ;; doom-modeline-buffer-file-name-style 'truncate-with-project
-   ;; Whether display the buffer encoding
+   ;; Show buffer encoding
    doom-modeline-buffer-encoding t
-   ;; Whether display the modal state icon.
-   ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc
+   ;; Show modal state icon (`evil', `overwrite', `god', `ryo', `xah-fly-keys', etc)
    doom-modeline-modal-icon t
-   ;; Whether display the modification icon for the buffer
+   ;; Hide buffer modification icon
    doom-modeline-buffer-modification-icon nil
-   ;; Whether display the icon for `major-mode'
+   ;; Show `major-mode' icon
    doom-modeline-major-mode-icon t
-   ;; The maximum displayed length of the branch name of version control
+   ;; Max length for VCS branch name
    doom-modeline-vcs-max-length 18
-   ;; Whether display the GitHub notifications. It requires `ghub' package
+   ;; Show GitHub notifications (requires `ghub' package)
    doom-modeline-github t
-   ;; If non-nil, only display one number for checker information if applicable
-   doom-modeline-checker-simple-format t)
+   ;; only display one number for checker information if applicable
+   ;; doom-modeline-check-simple-format t
+   )
 
   ;; customize modeline segments
   (doom-modeline-def-segment clean-matches
@@ -134,3 +134,25 @@
 
 ;; better than `markdown-toggle-markup-hiding
 ;; (add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
+
+
+;; ─── Flycheck posframe ────────────────────────────────────────────────────────
+
+(after! flycheck-posframe
+  (setq flycheck-posframe-border-width 1)
+
+  (set-face-attribute 'flycheck-posframe-border-face nil :foreground "#555860")
+  (set-face-attribute 'flycheck-posframe-background-face nil :inherit nil :background "#10121a")
+  (set-face-attribute 'flycheck-posframe-face nil :inherit nil :foreground "#66bdfc") ; same as info
+  (set-face-attribute 'flycheck-posframe-info-face nil :foreground "#66bdfc")
+  (set-face-attribute 'flycheck-posframe-error-face nil :inherit nil :foreground "#EC5f67")
+  (set-face-attribute 'flycheck-posframe-warning-face nil :foreground "#F99157")
+
+  (if (modulep! :checkers syntax +icons)
+      (setq flycheck-posframe-prefix "󰋽 "
+            flycheck-posframe-info-prefix "󰋽 "
+            flycheck-posframe-warning-prefix " "
+            flycheck-posframe-error-prefix "󰅚 ")
+    (setq flycheck-posframe-warning-prefix "[?] "
+          flycheck-posframe-info-prefix "[i] "
+          flycheck-posframe-error-prefix "[!] ")))
