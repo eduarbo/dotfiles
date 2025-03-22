@@ -1,57 +1,21 @@
 local sound = {}
 
--- Output
-
-function findDeviceInMap(findFn, deviceMap, currentDevice)
-    local currentOutput = hs.audiodevice.defaultOutputDevice()
-    local hasFoundCurrentDeviceOnMap = false
-    local nextDevice
-
-    for _, group in ipairs(deviceMap) do
-        if nextDevice then
-            break
-        end
-
-        for _, item in ipairs(group) do
-            local name = item[1]
-            local label = item[2]
-            local device = findFn(name)
-            local isCurrentDevice = name == currentOutput:name()
-
-            -- if current device is found in this group go to the next one
-            if isCurrentDevice then
-                hasFoundCurrentDeviceOnMap = true
-                break
-            elseif device and (not nextDevice or hasFoundCurrentDeviceOnMap) then
-                nextDevice = {}
-                nextDevice["name"] = name
-                nextDevice["label"] = label
-                nextDevice["device"] = device
-
-                if hasFoundCurrentDeviceOnMap then
-                    break
-                end
-            end
-        end
-    end
-
-    return nextDevice
-end
-
 -- Switches the default audio output to the next available device in a predefined sequence.
 -- Iterates through groups of audio devices, setting the first available device in each group as the default.
 -- Supports two groups: Headphones and Speakers
 function switchOutput()
     local outputMap = {
-        { -- Headphones
+        { -- Earbuds
             {"AirPods Pro Femto", "🎧 AirPods Pro"},
-            {"AB13X USB Audio", "🎧 Headphones (USB)"}
+        },
+        { -- Wired Headphones
+            {"AB13X USB Audio", "🎧 Headphones (USB)"},
+            {"KM_B2 Digital Audio", "🎧 Headphones (USB)"}
         },
         { -- Speakers
             {"External Headphones", "🔊 Speakers (Jack port)"},
             {"NS- 20G", "🔊 Speakers (Bluetooth)"},
             {"SWITCH", "🔊 Speakers"},
-            {"LG HDR QHD", "🔊 Speakers (HDMI)"},
             {"MacBook Pro Speakers", "💻 MacBook"}
         }
     }
@@ -62,6 +26,48 @@ function switchOutput()
         nextDevice.device:setDefaultOutputDevice()
         hs.notify.new({title = "Sound out: " .. nextDevice.label, withdrawAfter = 1}):send()
     end
+end
+
+-- Output
+
+function findDeviceInMap(findFn, deviceMap, currentDevice)
+    local currentOutput = hs.audiodevice.defaultOutputDevice()
+    local deviceFound = false
+    local nextDevice = nil
+    local startIndex = 1  -- Start from the first group if current device is not found
+
+    -- Determine in which group the current device is located
+    for index, group in ipairs(deviceMap) do
+        for _, item in ipairs(group) do
+            if item[1] == currentOutput:name() then
+                startIndex = index % #deviceMap + 1  -- Move to the next group in circular order
+                deviceFound = true
+                break
+            end
+        end
+        if deviceFound then break end
+    end
+
+    -- Search for the next available device starting from startIndex
+    local groupCount = #deviceMap
+    for i = 0, groupCount - 1 do
+        local groupIndex = (startIndex + i - 1) % groupCount + 1
+        local group = deviceMap[groupIndex]
+        for _, item in ipairs(group) do
+            local name = item[1]
+            local device = findFn(name)
+            if device then
+                nextDevice = {
+                    name = name,
+                    label = item[2],
+                    device = device
+                }
+                return nextDevice  -- Return the next device if found
+            end
+        end
+    end
+
+    return nextDevice  -- Return nil if no device is found
 end
 
 -- Input
