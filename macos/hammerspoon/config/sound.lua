@@ -6,7 +6,7 @@ local sound = {}
 function switchOutput()
     local outputMap = {
         { -- Earbuds
-            {"AirPods Pro Femto", "🎧 AirPods Pro"},
+            {"AirPods Pro Femto", "ᖰᖳ AirPods Pro"},
         },
         { -- Wired Headphones
             {"AB13X USB Audio", "🎧 Headphones (USB)"},
