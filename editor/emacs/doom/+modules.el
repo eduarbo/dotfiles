@@ -24,6 +24,7 @@
 ;; - `map!' for binding new keys
 ;;
 
+
 ;; ─── Evil Snipe ───────────────────────────────────────────────────────────────
 
 (after! evil-snipe
@@ -46,11 +47,13 @@
 
    ;; Follow the instructions to setup ESLint in LSP server:
    ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
+   lsp-eslint-download-url "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/3.0.10/vspackage" ;; latest VSCode eslint extension from marketplace
    lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
+   ;; lsp-eslint-server-command '("~/.vscode/extensions/dbaeumer.vscode-eslint-3.0.10/server/out/eslintServer.js" "--stdio")
    lsp-eslint-run "onType"
    ;; lsp-eslint-auto-fix-on-save t
 
-   lsp-enable-symbol-highlighting nil
+   ;; lsp-enable-symbol-highlighting nil
    lsp-lens-enable nil
    lsp-headerline-breadcrumb-enable nil
    ;; lsp-modeline-code-actions-enable nil

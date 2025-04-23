@@ -8,10 +8,6 @@
  :i    [C-return]      #'+default/newline-below
  :i    "S-SPC"         #'tab-to-tab-stop
 
- :nv   "SPC"           #'aider-transient-menu
- (:map general-override-mode-map
-  :i   "C-SPC"         #'aider-implement-todo)
-
  :nv   "S-SPC"         #'+default/search-project
  ;; :nv   "S-SPC"         #'+default/search-project-for-symbol-at-point
 
@@ -91,6 +87,9 @@
  (:map magit-mode-map
        "C-z" nil))
 
+(map! :mode prog-mode
+      :nv    "SPC"           #'aider-transient-menu
+      :i     "C-SPC"         #'aider-implement-todo)
 
 (map! :unless (eq system-type 'darwin)
       :gn    "M-<left>"      #'previous-buffer
@@ -146,7 +145,7 @@
  :g     "s-k"           #'kill-current-buffer
  :g     "s-l"           #'avy-goto-line
  :g     "s-o"           #'projectile-switch-project
- :g     "s-p"           #'+treemacs/toggle
+ :g     "s-p"           #'+dired/dirvish-side-and-follow
  :n     "s-r"           #'+eval/open-repl-other-window
  :v     "s-r"           #'+eval:region
  :g     "s-s"           #'save-buffer
@@ -206,8 +205,9 @@
                   )
              #'yas-insert-snippet)
 
-      :n [tab]
-      #'+fold/toggle
+      (:mode prog-mode
+       :n [tab]
+       #'+fold/toggle)
 
       :i [backtab]
       `(menu-item "Evil insert smart backtab" nil :filter
@@ -387,3 +387,11 @@
 (map! :after embark :map minibuffer-local-map
       "C-SPC"    #'embark-act
       [C-return] #'embark-export)
+
+(map! :map dired-mode-map
+      :ng   "s-<down>"       #'dired-find-file
+      :ng   "s-<up>"         #'dired-up-directory)
+
+(map! :map dirvish-mode-map
+      :ng   [backspace]      #'dirvish-history-go-backward
+      :ng   [s-backspace]    #'dirvish-history-go-forward)

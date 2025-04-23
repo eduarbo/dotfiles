@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Usage instructions
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <input_directory> [output_directory] [--delete]"
+  echo
+  echo "Converts all .cbr files in the input directory to .cbz format."
+  echo
+  echo "Arguments:"
+  echo "  input_directory       Directory containing .cbr files"
+  echo "  output_directory      (Optional) Where to save the .cbz files (default: same as input)"
+  echo "  --delete              (Optional) Delete .cbr files after successful conversion"
+  exit 1
+fi
+
+# Parse arguments
+in_dir="$1"
+out_dir="${2:-$in_dir}"
+delete_after=false
+[[ "${*}" =~ --delete ]] && delete_after=true
+
+mkdir -p "$out_dir"
+
+for file in "$in_dir"/*.cbr; do
+  [ -f "$file" ] || continue
+  base="$(basename "${file%.cbr}")"
+  temp_dir="$(mktemp -d)"
+
+  echo "🔄 Processing: $(basename "$file")"
+
+  if unar -quiet -no-directory -o "$temp_dir" "$file"; then
+    if zip -r -q "$out_dir/$base.cbz" "$temp_dir"; then
+      echo "✅ $base.cbz created successfully"
+      $delete_after && rm -f "$file"
+    else
+      echo "❌ Failed to create $base.cbz"
+    fi
+  else
+    echo "❌ Failed to extract $file with unar"
+  fi
+
+  rm -rf "$temp_dir"
+done
+
+# Remove input directory if empty, --delete was passed, and it's not the output dir
+if $delete_after && [[ "$in_dir" != "$out_dir" ]]; then
+  shopt -s nullglob
+  remaining=("$in_dir"/*.cbr)
+  if [ ${#remaining[@]} -eq 0 ]; then
+    echo "🧼 Removing empty input directory: $in_dir"
+    rmdir "$in_dir" 2>/dev/null || echo "⚠️ Could not remove $in_dir"
+  fi
+fi

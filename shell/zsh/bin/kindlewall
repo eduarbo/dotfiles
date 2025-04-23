@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Defaults
+dest="."
+fit_mode="cover"
+all_fits=false
+bg_color="white"
+align_x="center"
+align_y="center"
+files=()
+
+show_help() {
+  echo "Usage: kindlewall.sh [-o output_dir] [--fit mode] [--all-fits] [--bg color] [--align-x pos] [--align-y pos] <image1> [image2 ...]"
+  echo ""
+  echo "Converts images to Kindle Oasis wallpaper format (1264x1680 px, grayscale, dithered)."
+  echo ""
+  echo "Options:"
+  echo "  -o, --output <dir>            Output directory (default: current directory)"
+  echo "  --fit <mode>                  Resize mode:"
+  echo "                                  cover   (default, fills and crops if needed)"
+  echo "                                  contain (fit inside, white/black padding)"
+  echo "                                  width   (fit width only, pad height)"
+  echo "                                  height  (fit height only, pad width)"
+  echo "                                  none    (no scaling, just align)"
+  echo "  --all-fits                    Generate all 5 fit modes with suffixes"
+  echo "  --bg <color>                  Background color (default: white)"
+  echo "  --align-x <left|center|right> Horizontal alignment (default: center)"
+  echo "  --align-y <top|center|bottom> Vertical alignment (default: center)"
+  echo "  --help                        Show this help message"
+  echo ""
+  echo "Examples:"
+  echo "  ./kindlewall.sh image.jpg"
+  echo "  ./kindlewall.sh -o out --fit contain --bg black *.png"
+  echo "  ./kindlewall.sh --all-fits --align-x right --align-y bottom image.jpg"
+}
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -o|--output)
+      dest="$2"
+      shift 2
+      ;;
+    --fit)
+      fit_mode="$2"
+      shift 2
+      ;;
+    --all-fits)
+      all_fits=true
+      shift
+      ;;
+    --bg)
+      bg_color="$2"
+      shift 2
+      ;;
+    --align-x)
+      align_x="$2"
+      shift 2
+      ;;
+    --align-y)
+      align_y="$2"
+      shift 2
+      ;;
+    --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      echo "❌ Unknown option: $1"
+      show_help
+      exit 1
+      ;;
+    *)
+      files+=("$1")
+      shift
+      ;;
+  esac
+done
+
+# Validate
+if [[ ${#files[@]} -eq 0 ]]; then
+  echo "❌ No image files provided."
+  echo ""
+  show_help
+  exit 1
+fi
+
+mkdir -p "$dest"
+
+# Fit mode mapping
+get_resize_args() {
+  local mode="$1"
+  case "$mode" in
+    cover) echo "-resize 1264x1680^" ;;
+    contain) echo "-resize 1264x1680" ;;
+    width) echo "-resize 1264x" ;;
+    height) echo "-resize x1680" ;;
+    none) echo "" ;;
+    *)
+      echo "❌ Unknown fit mode: $mode" >&2
+      exit 1
+      ;;
+  esac
+}
+
+# Alignments → gravity
+get_gravity() {
+  local gx="$1"
+  local gy="$2"
+
+  case "$gy" in
+    top) g1="North" ;;
+    center) g1="" ;;
+    bottom) g1="South" ;;
+    *) echo "❌ Invalid --align-y value: $gy" >&2; exit 1 ;;
+  esac
+
+  case "$gx" in
+    left) g2="West" ;;
+    center) g2="Center" ;;
+    right) g2="East" ;;
+    *) echo "❌ Invalid --align-x value: $gx" >&2; exit 1 ;;
+  esac
+
+  if [[ "$g1" == "" && "$g2" == "Center" ]]; then
+    echo "Center"
+  elif [[ "$g1" == "" ]]; then
+    echo "$g2"
+  elif [[ "$g2" == "Center" ]]; then
+    echo "$g1"
+  else
+    echo "${g1}${g2}"
+  fi
+}
+
+gravity=$(get_gravity "$align_x" "$align_y")
+
+fit_modes=(cover contain width height none)
+
+process_image() {
+  local img="$1"
+  local mode="$2"
+  local resize_args
+  resize_args=($(get_resize_args "$mode"))
+
+  local filename="$(basename "${img%.*}")"
+  local out="$dest/${filename}_kindle_${mode}.png"
+
+  magick "$img" \
+    "${resize_args[@]}" \
+    -gravity "$gravity" \
+    -background "$bg_color" \
+    -extent 1264x1680 \
+    -colorspace Gray \
+    -dither FloydSteinberg \
+    "$out"
+
+  echo "✔ Converted [$mode]: $out"
+}
+
+# Process files
+for img in "${files[@]}"; do
+  if [[ ! -f "$img" ]]; then
+    echo "⚠️  Skipping: '$img' is not a valid file."
+    continue
+  fi
+
+  if [[ "$all_fits" == true ]]; then
+    for mode in "${fit_modes[@]}"; do
+      process_image "$img" "$mode"
+    done
+  else
+    process_image "$img" "$fit_mode"
+  fi
+done
