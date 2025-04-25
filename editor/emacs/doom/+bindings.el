@@ -87,7 +87,7 @@
  (:map magit-mode-map
        "C-z" nil))
 
-(map! :mode prog-mode
+(map! :map general-override-mode-map
       :nv    "SPC"           #'aider-transient-menu
       :i     "C-SPC"         #'aider-implement-todo)
 

@@ -267,6 +267,6 @@
 
 (use-package aider
   :config
-  ;; (setq aider-args '("--model" "o3-mini"))
-  (setq aider-args '("--model" "gpt-4o-mini"))
-  (setenv "OPENAI_API_KEY" (getenv "OPENAI_API_KEY")))
+  (setq aider-args '("--model" "gpt-4o"))
+  (setenv "OPENAI_API_KEY" (getenv "OPENAI_API_KEY"))
+  (require 'aider-doom))
