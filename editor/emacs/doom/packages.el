@@ -64,8 +64,7 @@
 (package! string-inflection)  ;; Cycle through different naming conventions (camelCase, snake_case, etc.)
 
 ;; ─── AI-Assisted Development ──────────────────────────────────────────────────
-(package! aider  ;; AI-powered assistant for Emacs (experimental)
-  :recipe (:host github :repo "tninja/aider.el" :files ("aider.el" "aider-core.el" "aider-file.el" "aider-code-change.el" "aider-discussion.el" "aider-prompt-mode.el" "aider-doom.el")))
+(package! aider :recipe (:host github :repo "tninja/aider.el" ))
 
 ;; ─── Snippet Management ───────────────────────────────────────────────────────
 (package! doom-snippets
