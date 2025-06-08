@@ -3,6 +3,8 @@
 # Define which characters are considered part of a word
 WORDCHARS='*?[]~&.;!#$%^(){}<>'
 
+SYSTEMD_EDITOR=vim
+
 # When using Ctrl+w, treat slashes, dots, and some other characters as delimiters
 autoload -U select-word-style
 select-word-style bash
