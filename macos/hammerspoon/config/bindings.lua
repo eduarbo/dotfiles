@@ -69,7 +69,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         p = "Preview",
         q = "Activity Monitor",
         -- r = "",
-        s = "Slack",
+        s = "Microsoft Teams",
         t = "Microsoft To Do",
         u = "1Password",
         -- v = "",
