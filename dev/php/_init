@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source env.zsh
+
+brew_deps=(
+  composer
+)
+
+composer_deps=(
+  d11wtq/boris
+  phpunit/phpunit
+  techlivezheng/phpctags
+  friendsofphp/php-cs-fixer
+)
+
+# link() {}
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${brew_deps[@]}
+      ;;
+  esac
+
+  echo-note "Installing composer dependencies"
+  composer global require ${composer_deps[@]}
+
+  echo-note "Installing node dependencies"
+  npm install -g @prettier/plugin-php
+}
+
+# update() {
+# }
+
+# clean() {
+# }
+
+init "$@"
