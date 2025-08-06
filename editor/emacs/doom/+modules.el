@@ -25,6 +25,62 @@
 ;;
 
 
+;; ─── Company ──────────────────────────────────────────────────────────────────
+
+(after! company
+  ;; On-demand code completion
+  (setq company-idle-delay nil))
+
+
+;; ─── Corfu ────────────────────────────────────────────────────────────────────
+
+(after! corfu
+  (setq corfu-preselect 'valid)
+  ;; On-demand code completion
+  (setq corfu-auto-delay nil))
+
+
+;; ─── Drag stuff (words, region, lines) around ─────────────────────────────────
+
+(use-package! drag-stuff
+  :commands (drag-stuff-up
+             drag-stuff-down
+             drag-stuff-left
+             drag-stuff-right))
+
+
+;; ─── Editorconfig ─────────────────────────────────────────────────────────────
+
+(after! editorconfig
+  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level))
+  ;; Override editorconfig defaults for web-mode to fix indentation
+  (setcdr (assq 'web-mode editorconfig-indentation-alist)
+          '((web-mode-indent-style lambda (size) 2)
+            ;; I prefer the web mode attr indent behavior when it's set to nil
+            ;;
+            ;; <a href="http://google.com"
+            ;;    target="_blank">See how the attributes line up vertically?</a>
+            ;;
+            ;; web-mode-attr-indent-offset
+            ;; web-mode-attr-value-indent-offset
+
+            ;; web-mode-block-padding
+            web-mode-code-indent-offset
+            web-mode-css-indent-offset
+            web-mode-markup-indent-offset
+            web-mode-sql-indent-offset
+            web-mode-script-padding
+            web-mode-style-padding
+            standard-indent)))
+
+
+;; HACK: Force web-mode padding values via hook, as the overrides above don't work
+(add-hook! 'web-mode-hook
+  (lambda ()
+    (setq-local web-mode-style-padding 2
+                web-mode-script-padding 2)))
+
+
 ;; ─── Evil Snipe ───────────────────────────────────────────────────────────────
 
 (after! evil-snipe
@@ -37,6 +93,68 @@
 
 ;; Unbind default mapping for evil-snipe-S
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
+
+
+;; ─── Evil Surround/Embrace ────────────────────────────────────────────────────
+
+(after! evil-embrace
+  ;; allow the use of backtick as a surround char in all modes by default
+  (add-to-list 'evil-embrace-evil-surround-keys ?`)
+
+  ;; Temporarily disables the backtick surround for emacs-lisp-mode to avoid overriding the emacs-lisp-mode specific
+  ;; embrace pair that's setup in this hook
+  (advice-add 'embrace-emacs-lisp-mode-hook :around #'my/embrace-emacs-lisp-mode-hook-advice))
+
+(add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook) 'my/embrace-js-mode-h)
+
+
+;; ─── Flycheck ─────────────────────────────────────────────────────────────────
+
+(after! flycheck
+  ;; Enable html-tidy checker for files in web-mode
+  (flycheck-add-mode 'html-tidy 'web-mode)
+  ;; Add html-tidy as next checker after lsp in PHP files using web-mode
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (and buffer-file-name
+                         (string-match-p "\\.php\\'" buffer-file-name))
+                ;; Use 'append to avoid duplicate next-checker
+                (flycheck-add-next-checker 'lsp 'html-tidy 'append))))
+
+  ;; Prefer eslint_d to ESLint
+  ;; See https://github.com/mantoni/eslint_d.js
+  (when (executable-find "eslint_d")
+    (setq flycheck-javascript-eslint-executable "eslint_d"))
+
+  ;; Allow flycheck to display on the left fringe
+  (setq flycheck-indication-mode 'left-fringe)
+
+  ;; A non-descript, right-pointing arrow
+  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    [8 12 14 15 14 12 8] 8 7 'center)
+
+  (setq
+   ;; Stop cluttering my project dirs with temp flycheck files by moving everything to a temp dir
+   flycheck-temp-prefix (concat temporary-file-directory "flycheck")
+   ;; flycheck-check-syntax-automatically '((save idle-change mode-enabled new-line))
+   flycheck-idle-change-delay 0.5)
+
+  ;; HACK: The following advice is a workaround for a performance issue when
+  ;; opening files, particularly JavaScript files, where the existence check of
+  ;; eslint configuration is causing noticeable delays.  By overriding
+  ;; `flycheck-eslint-config-exists-p' to always return true, we bypass the file
+  ;; existence check, thus significantly improving file opening times.
+  ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
+
+;; while diff-hl takes the right fringe
+(after! diff-hl (setq diff-hl-side 'right))
+
+
+;; ─── GPTel ────────────────────────────────────────────────────────────────────
+
+(after! gptel
+  (setq! gptel-api-key (getenv "OPENAI_API_KEY")))
 
 
 ;; ─── LSP ──────────────────────────────────────────────────────────────────────
@@ -99,115 +217,6 @@
   (advice-add 'lsp--before-save :around #'my/lsp--eslint-before-save))
 
 
-;; ─── Company ──────────────────────────────────────────────────────────────────
-
-(after! company
-  ;; On-demand code completion
-  (setq company-idle-delay nil))
-
-
-;; ─── Corfu ────────────────────────────────────────────────────────────────────
-
-(after! corfu
-  (setq corfu-preselect 'valid)
-  ;; On-demand code completion
-  (setq corfu-auto-delay nil))
-
-
-;; ─── Flycheck ─────────────────────────────────────────────────────────────────
-
-(after! flycheck
-  ;; Enable html-tidy checker for files in web-mode
-  (flycheck-add-mode 'html-tidy 'web-mode)
-  ;; Add html-tidy as next checker after lsp in PHP files using web-mode
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (and buffer-file-name
-                         (string-match-p "\\.php\\'" buffer-file-name))
-                ;; Use 'append to avoid duplicate next-checker
-                (flycheck-add-next-checker 'lsp 'html-tidy 'append))))
-
-  ;; Prefer eslint_d to ESLint
-  ;; See https://github.com/mantoni/eslint_d.js
-  (when (executable-find "eslint_d")
-    (setq flycheck-javascript-eslint-executable "eslint_d"))
-
-  ;; Allow flycheck to display on the left fringe
-  (setq flycheck-indication-mode 'left-fringe)
-
-  ;; A non-descript, right-pointing arrow
-  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
-    [8 12 14 15 14 12 8] 8 7 'center)
-
-  (setq
-   ;; Stop cluttering my project dirs with temp flycheck files by moving everything to a temp dir
-   flycheck-temp-prefix (concat temporary-file-directory "flycheck")
-   ;; flycheck-check-syntax-automatically '((save idle-change mode-enabled new-line))
-   flycheck-idle-change-delay 0.5)
-
-  ;; HACK: The following advice is a workaround for a performance issue when
-  ;; opening files, particularly JavaScript files, where the existence check of
-  ;; eslint configuration is causing noticeable delays.  By overriding
-  ;; `flycheck-eslint-config-exists-p' to always return true, we bypass the file
-  ;; existence check, thus significantly improving file opening times.
-  ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
-  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
-
-;; while diff-hl takes the right fringe
-(after! diff-hl (setq diff-hl-side 'right))
-
-
-;; ─── Editorconfig ─────────────────────────────────────────────────────────────
-
-(after! editorconfig
-  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level))
-  ;; Override editorconfig defaults for web-mode to fix indentation
-  (setcdr (assq 'web-mode editorconfig-indentation-alist)
-          '((web-mode-indent-style lambda (size) 2)
-            ;; I prefer the web mode attr indent behavior when it's set to nil
-            ;;
-            ;; <a href="http://google.com"
-            ;;    target="_blank">See how the attributes line up vertically?</a>
-            ;;
-            ;; web-mode-attr-indent-offset
-            ;; web-mode-attr-value-indent-offset
-
-            ;; web-mode-block-padding
-            web-mode-code-indent-offset
-            web-mode-css-indent-offset
-            web-mode-markup-indent-offset
-            web-mode-sql-indent-offset
-            web-mode-script-padding
-            web-mode-style-padding
-            standard-indent)))
-
-
-;; HACK: Force web-mode padding values via hook, as the overrides above don't work
-(add-hook! 'web-mode-hook
-  (lambda ()
-    (setq-local web-mode-style-padding 2
-                web-mode-script-padding 2)))
-
-
-;; ─── Evil Surround/Embrace ────────────────────────────────────────────────────
-
-(after! evil-embrace
-  ;; allow the use of backtick as a surround char in all modes by default
-  (add-to-list 'evil-embrace-evil-surround-keys ?`)
-
-  ;; Temporarily disables the backtick surround for emacs-lisp-mode to avoid overriding the emacs-lisp-mode specific
-  ;; embrace pair that's setup in this hook
-  (advice-add 'embrace-emacs-lisp-mode-hook :around #'my/embrace-emacs-lisp-mode-hook-advice))
-
-(add-hook! '(js-mode-hook web-mode-hook typescript-mode-hook) 'my/embrace-js-mode-h)
-
-
-;; ─── REPL ─────────────────────────────────────────────────────────────────────
-
-;; Set a default REPL for all the js-related modes
-(set-repl-handler! '(rjsx-mode web-mode typescript-mode) #'+javascript/open-repl)
-
-
 ;; ─── Obsidian ─────────────────────────────────────────────────────────────────
 
 (use-package! obsidian
@@ -225,6 +234,12 @@
               ("C-c C-b" . obsidian-backlink-jump)
               ;; If you prefer you can use `obsidian-insert-link'
               ("C-c C-l" . obsidian-insert-wikilink)))
+
+
+;; ─── REPL ─────────────────────────────────────────────────────────────────────
+
+;; Set a default REPL for all the js-related modes
+(set-repl-handler! '(rjsx-mode web-mode typescript-mode) #'+javascript/open-repl)
 
 
 ;; ─── String inflection: underscore -> UPCASE -> CamelCase ─────────────────────
@@ -263,12 +278,3 @@
 
   (setq yas-indent-line 'auto)
   (setq yas-triggers-in-field t))
-
-
-;; ─── Drag stuff (words, region, lines) around ─────────────────────────────────
-
-(use-package! drag-stuff
-  :commands (drag-stuff-up
-             drag-stuff-down
-             drag-stuff-left
-             drag-stuff-right))

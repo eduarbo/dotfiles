@@ -299,6 +299,18 @@
        :desc "Next workspace"               "]"     #'+workspace/switch-right
        :desc "Previous workspace"           "["     #'+workspace/switch-left)
 
+      ;; <leader> l --- LLM (GPTel)
+      (:prefix-map ("l" . "llm") :when (modulep! :tools llm)
+       :desc "Add text to context"          "a"     #'gptel-add
+       :desc "Explain"                      "e"     #'gptel-quick
+       :desc "Add file to context"          "f"     #'gptel-add-file
+       :desc "Open gptel"                   "l"     #'gptel
+       :desc "Send to gptel"                "s"     #'gptel-send
+       :desc "Open gptel menu"              "m"     #'gptel-menu
+       :desc "Rewrite"                      "r"     #'gptel-rewrite
+       :desc "Org: set topic"               "o"     #'gptel-org-set-topic
+       :desc "Org: set properties"          "O"     #'gptel-org-set-properties)
+
       ;;; <leader> n --- notes
       :desc "Obsidian notes"                "n SPC" #'obsidian-jump
 
