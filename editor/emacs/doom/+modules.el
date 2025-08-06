@@ -117,6 +117,16 @@
 ;; ─── Flycheck ─────────────────────────────────────────────────────────────────
 
 (after! flycheck
+  ;; Enable html-tidy checker for files in web-mode
+  (flycheck-add-mode 'html-tidy 'web-mode)
+  ;; Add html-tidy as next checker after lsp in PHP files using web-mode
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (and buffer-file-name
+                         (string-match-p "\\.php\\'" buffer-file-name))
+                ;; Use 'append to avoid duplicate next-checker
+                (flycheck-add-next-checker 'lsp 'html-tidy 'append))))
+
   ;; Prefer eslint_d to ESLint
   ;; See https://github.com/mantoni/eslint_d.js
   (when (executable-find "eslint_d")
