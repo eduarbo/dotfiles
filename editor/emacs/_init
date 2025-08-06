@@ -40,6 +40,7 @@ brew_deps=(
   libgit2 # improves Emacs' magit speed
   poppler # Dired: pdf previews
   vips # Dired: image preview
+  nixftm
 )
 
 cask_deps=(
