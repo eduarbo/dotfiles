@@ -154,10 +154,42 @@ narrowed."
 
 ;;;###autoload
 (defun my/yank-buffer-name ()
-  "Copy the current buffer's path to the kill ring."
+  "Copy the current buffer's name (e.g. *scratch* or filename.ext) to the kill ring."
   (interactive)
-  (message "Copied buffer name to clipboard: %s"
-           (kill-new (buffer-name))))
+  (let ((name (buffer-name)))
+    (kill-new name)
+    (message "Copied buffer name: %s" name)))
+
+;;;###autoload
+(defun my/yank-file-name ()
+  "Copy the current file's name (with extension) to the kill ring."
+  (interactive)
+  (if buffer-file-name
+      (let ((fname (file-name-nondirectory buffer-file-name)))
+        (kill-new fname)
+        (message "Copied file name: %s" fname))
+    (message "Not visiting a file!")))
+
+;;;###autoload
+(defun my/yank-file-name-no-ext ()
+  "Copy the current file's name (without extension) to the kill ring."
+  (interactive)
+  (if buffer-file-name
+      (let* ((fname (file-name-nondirectory buffer-file-name))
+             (noext (file-name-sans-extension fname)))
+        (kill-new noext)
+        (message "Copied file name (no ext): %s" noext))
+    (message "Not visiting a file!")))
+
+;;;###autoload
+(defun my/yank-directory-path ()
+  "Copy the directory of the current buffer file to kill ring."
+  (interactive)
+  (if buffer-file-name
+      (let ((dir (file-name-directory buffer-file-name)))
+        (kill-new dir)
+        (message "Copied directory: %s" dir))
+    (message "Not visiting a file!")))
 
 ;;;###autoload
 (defun my/embrace-emacs-lisp-mode-hook-advice (orig-fun &rest args)

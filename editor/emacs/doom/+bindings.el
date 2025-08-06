@@ -311,6 +311,21 @@
        :desc "Org: set topic"               "o"     #'gptel-org-set-topic
        :desc "Org: set properties"          "O"     #'gptel-org-set-properties)
 
+      ;;; <leader> y --- Yank (copy)
+      (:prefix-map ("y" . "yank/copy")
+       :desc "Yank from clipboard history"  "y"     #'+default/yank-pop
+       :desc "Yank buffer content"          "c"     #'+default/yank-buffer-contents
+       :desc "Yank buffer name"             "b"     #'my/yank-buffer-name
+       :desc "Yank directory path"          "d"     #'my/yank-directory-path
+       :desc "Yank file name"               "f"     #'my/yank-file-name
+       :desc "Yank file name (no ext)"      "F"     #'my/yank-file-name-no-ext
+       :desc "Yank file path"               "p"     #'+default/yank-buffer-path
+       :desc "Yank file path (project)"     "P"     #'+default/yank-buffer-path-relative-to-project
+       (:when (modulep! :lang org)
+         :desc "Yank org heading link"      "h"     #'+org/copy-link-to-heading
+         :desc "Yank org subtree"           "s"     #'org-copy-subtree)
+       )
+
       ;;; <leader> n --- notes
       :desc "Obsidian notes"                "n SPC" #'obsidian-jump
 
