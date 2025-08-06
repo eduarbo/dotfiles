@@ -54,7 +54,7 @@
        ;;neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
-       smooth-scroll     ; So smooth you won't believe it's not butter
+       ;;smooth-scroll     ; So smooth you won't believe it's not butter
        ;;tabs              ; a tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
@@ -71,6 +71,7 @@
        fold              ; (nigh) universal code folding
        (format           ; automated prettiness
         ;; +onsave
+        +lsp
         )
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
@@ -160,6 +161,7 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        (json +lsp)       ; At least it ain't XML
+       ;;janet             ; Fun fact: Janet is me!
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        (javascript       ; all(hope(abandon(ye(who(enter(here))))))
         +lsp)
@@ -174,7 +176,9 @@
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        org               ; organize your plain life in plain text
-       ;;php               ; perl's insecure younger brother
+       (php              ; perl's insecure younger brother
+        +lsp
+        +tree-sitter)
        ;;plantuml          ; diagrams for confusing people more
        ;;graphviz          ; diagrams for confusing yourself even more
        ;;purescript        ; javascript, but functional
@@ -193,7 +197,9 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       (web              ; the tubes
+        +lsp
+        +tree-sitter)
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 

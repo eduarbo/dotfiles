@@ -17,6 +17,7 @@ common_deps=(
   ffmpegthumbnailer # video previews
   mediainfo # audio/video metadata generation
   imagemagick # font preview
+  htmlhint
 )
 
 brew_deps=(

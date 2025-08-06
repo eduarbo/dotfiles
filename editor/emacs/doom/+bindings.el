@@ -13,7 +13,6 @@
 
  :v    [S-return]      #'evilnc-comment-operator
  :n    [S-return]      #'evilnc-comment-or-uncomment-lines
- :i    [S-return]      #'my/evilnc-comment-and-stay-in-insert
  :n    [C-return]      #'lsp-execute-code-action
 
  :m    "RET"           #'evil-jump-item
@@ -86,10 +85,6 @@
  :im    "C-z"          nil
  (:map magit-mode-map
        "C-z" nil))
-
-(map! :map general-override-mode-map
-      :nv    "SPC"           #'aider-transient-menu
-      :i     "C-SPC"         #'aider-implement-todo)
 
 (map! :unless (eq system-type 'darwin)
       :gn    "M-<left>"      #'previous-buffer
@@ -286,9 +281,8 @@
       :desc "Magit switch branch"           "g B"   #'magit-branch-checkout
       :desc "Magit blame"                   "g b"   #'magit-blame-addition
 
-      ;; NOTE Reassign entire workspace map to different prefix
-      ;;; <leader> l --- workspace (mnemonic for layer)
-      (:prefix-map ("l" . "workspace") :when (modulep! :ui workspaces)
+      ;;; <leader> k --- workspace (mnemonic: 'k' as in worKspace)
+      (:prefix-map ("k" . "workspace") :when (modulep! :ui workspaces)
        :desc "Display tab bar"              "TAB"   #'+workspace/display
        :desc "Switch workspace"             "."     #'+workspace/switch-to
        :desc "Switch to last workspace"     "`"     #'+workspace/other
@@ -307,9 +301,6 @@
 
       ;;; <leader> n --- notes
       :desc "Obsidian notes"                "n SPC" #'obsidian-jump
-
-      ;;; <leader> o --- open
-      :desc "Open Aider"                    "o a"   #'aider-run-aider
 
       ;;; <leader> q --- quit/session
       :desc "Start new Emacs"               "q n"   #'restart-emacs-start-new-emacs)
