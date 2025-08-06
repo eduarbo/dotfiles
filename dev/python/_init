@@ -10,6 +10,7 @@ pip_deps=(
   pipenv
   pytest
   setuptools
+  nose
 )
 
 link() {
