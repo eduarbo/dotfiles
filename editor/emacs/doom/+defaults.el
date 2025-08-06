@@ -8,6 +8,7 @@
 
 ;; Tell projectile where my projects are located
 (setq projectile-project-search-path '(("~/dev" . 2) ("~/Library/Mobile Documents/iCloud~md~obsidian/Documents" . 2)))
+(setq projectile-enable-caching nil)
 
 ;; Line numbers are pretty slow all around. The performance boost of disabling them outweighs the
 ;; utility of always keeping them on
@@ -51,6 +52,9 @@
 ;; Nunjucks template files
 (add-to-list 'auto-mode-alist '("\\.njk\\'" . web-mode))
 
+;; HTML
+(add-to-list 'auto-mode-alist '("\\.html\\'" . html-mode))
+
 ;; Arduino Sketches
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . cpp-mode))
 (add-to-list 'auto-mode-alist '("\\.clangd\\'" . yaml-mode))
@@ -79,3 +83,5 @@
   ;; Swap Ctrl and Alt
   (setq x-super-keysym 'ctrl)
   (setq x-ctrl-keysym 'super))
+
+(setq desktop-restore-forces-onscreen nil)

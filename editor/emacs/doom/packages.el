@@ -63,9 +63,6 @@
 (package! obsidian)  ;; Integration with Obsidian for note-taking
 (package! string-inflection)  ;; Cycle through different naming conventions (camelCase, snake_case, etc.)
 
-;; ─── AI-Assisted Development ──────────────────────────────────────────────────
-(package! aider :recipe (:host github :repo "tninja/aider.el" ))
-
 ;; ─── Snippet Management ───────────────────────────────────────────────────────
 (package! doom-snippets
   ;; enable for debugging and make sure to symlink the repo into $DOOMDIR/snippets

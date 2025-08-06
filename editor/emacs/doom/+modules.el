@@ -122,6 +122,13 @@
   (when (executable-find "eslint_d")
     (setq flycheck-javascript-eslint-executable "eslint_d"))
 
+  ;; Allow flycheck to display on the left fringe
+  (setq flycheck-indication-mode 'left-fringe)
+
+  ;; A non-descript, right-pointing arrow
+  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+    [8 12 14 15 14 12 8] 8 7 'center)
+
   (setq
    ;; Stop cluttering my project dirs with temp flycheck files by moving everything to a temp dir
    flycheck-temp-prefix (concat temporary-file-directory "flycheck")
@@ -136,12 +143,6 @@
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
-;; Allow flycheck to display on the left fringe
-(after! flycheck
-  (setq flycheck-indication-mode 'left-fringe)
-  ;; A non-descript, right-pointing arrow
-  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
-    [8 12 14 15 14 12 8] 8 7 'center))
 ;; while diff-hl takes the right fringe
 (after! diff-hl (setq diff-hl-side 'right))
 
@@ -261,12 +262,3 @@
              drag-stuff-down
              drag-stuff-left
              drag-stuff-right))
-
-
-;; ─── AI-powered assistant for Emacs (experimental) ────────────────────────────
-
-(use-package aider
-  :config
-  (setq aider-args '("--model" "gpt-4o"))
-  (setenv "OPENAI_API_KEY" (getenv "OPENAI_API_KEY"))
-  (require 'aider-doom))
