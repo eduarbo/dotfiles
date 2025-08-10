@@ -383,3 +383,14 @@ sidebars)."
             (dirvish-prop :cus-header 'dirvish-side-header)
             (dirvish-update-body-h))))))
   (select-window (dirvish-side--session-visible-p)))
+
+;;;###autoload
+(defun my/dired-toggle-mark ()
+  "Toggle mark on the current line in Dired/Dirvish without moving point."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (save-excursion
+      (beginning-of-line)
+      (if (eq (char-after) dired-marker-char)
+          (dired-unmark 1)
+        (dired-mark 1)))))

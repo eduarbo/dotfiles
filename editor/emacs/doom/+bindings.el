@@ -408,7 +408,8 @@
 
 (map! :map dired-mode-map
       :ng   "s-<down>"       #'dired-find-file
-      :ng   "s-<up>"         #'dired-up-directory)
+      :ng   "s-<up>"         #'dired-up-directory
+      :ng   "SPC"            #'my/dired-toggle-mark)
 
 (map! :map dirvish-mode-map
       :ng   [backspace]      #'dirvish-history-go-backward
