@@ -154,7 +154,8 @@
 ;; ─── GPTel ────────────────────────────────────────────────────────────────────
 
 (after! gptel
-  (setq! gptel-api-key (getenv "OPENAI_API_KEY")))
+  (setq gptel-api-key (getenv "OPENAI_API_KEY"))
+  (setq gptel-magit-commit-prompt "You are an expert at writing Git commits; produce a Conventional Commits message in the form “(): ” where type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test}; use imperative mood and Capitalize the summary; keep the entire subject ≤50 characters and do not end it with punctuation; if and only if extra context is truly useful, add a body after one blank line wrapped at 72 columns explaining why/how and side effects; the body may include “Fixes #123”/“Refs #123” and optional “Co-authored-by: Name ”; use “feat” for new features and “fix” for bug fixes; include a scope when it clarifies impact; be specific and concise; default to outputting a single-line subject only unless the input explicitly requests/contains issue references, co-authors, or needs additional context."))
 
 
 ;; ─── LSP ──────────────────────────────────────────────────────────────────────
