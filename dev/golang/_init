@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source env.zsh
+
+brew_deps=(
+  go
+  gotests
+)
+
+golang_deps=(
+  github.com/jessfraz/dockfmt@latest
+  golang.org/x/tools/gopls@latest # code completion
+  github.com/fatih/gomodifytags@latest
+  github.com/x-motemen/gore/cmd/gore@latest
+)
+
+# link() {}
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${brew_deps[@]}
+      ;;
+  esac
+
+  echo-note "Installing golang dependencies"
+  for dep in "${golang_deps[@]}"; do
+    go install "$dep"
+  done
+}
+
+update() {
+  install
+}
+
+# clean() {
+# }
+
+init "$@"
