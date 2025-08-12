@@ -24,6 +24,8 @@ _load $ZDOTDIR/plugins.zsh
 _load $ZDOTDIR/completion.zsh
 _load $ZDOTDIR/keybinds.zsh
 
+_load $ZDOTDIR/cursor.zsh
+
 # load configs and aliases from enabled topics
 _load_all config.zsh
 _load_all aliases.zsh
