@@ -2,7 +2,6 @@
 source ${0:A:h}/../../deploy
 source config/.zshenv
 
-ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 if [[ $(_os) == macos ]]; then
  # I opted for `.zprofile` over the commonly suggested `.zshenv` due to macOS's quirks. Turns out, `/usr/libexec/path_helper` reorders the `$PATH` between loading `.zshenv` and `.zprofile`. What a great "helper", right?
 
@@ -81,6 +80,8 @@ install() {
 }
 
 update() {
+  link
+
   # Update zpugins and recompile
   if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
     source ${ZINIT[BIN_DIR]}/zinit.zsh

@@ -6,3 +6,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
 
 path=($NODENV_ROOT/bin $BUN_INSTALL/bin $PNPM_HOME $path)
+
+# bun completions
+_source "$BUN_INSTALL/_bun"

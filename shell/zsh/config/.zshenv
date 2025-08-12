@@ -11,7 +11,7 @@ export ZSH_DATA_HOME="$XDG_DATA_HOME/zsh"
 export ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 export ZINIT_DIR="$ZSH_CACHE/zinit"
 
-export LANG=${LANG:-en_US.UTF-8}
+export LANG=en_US.UTF-8
 export MANPAGER="less -R"
 export PAGER=less
 export LESS='-R -i -w -M -z-4'
