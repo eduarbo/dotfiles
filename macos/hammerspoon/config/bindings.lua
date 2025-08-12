@@ -75,7 +75,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- v = "",
         w = "WhatsApp",
         x = "Telegram",
-        y = "Spotify",
+        y = "YouTube Music",
         z = "zoom.us",
     },
     config = {
