@@ -160,6 +160,8 @@
 ;; ─── GPTel ────────────────────────────────────────────────────────────────────
 
 (after! gptel
+  (gptel-make-gemini "Gemini" :key (getenv "GEMINI_API_KEY") :stream t)
+
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
   (setq gptel-magit-commit-prompt "You are an expert at writing Git commits. Format: \"<type>(<optional scope>): <summary>\". Type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test}. Use imperative mood, capitalize summary, ≤50 chars (if >50, rewrite/shorten), no punctuation at end. Include body only if essential, with 1 blank line after subject, wrap body ≤72 chars. Output only the commit message."))
 
