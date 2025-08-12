@@ -46,7 +46,7 @@ determine the exact padding."
 ;;; Theme definition
 
 (def-doom-theme doom-oceanic-next
-  "A dark theme inspired by Oceanic Next "
+    "A dark theme inspired by Oceanic Next "
 
   ;; name        default   256       16
   ((bg         '("#181C27" "black"   "black"  ))
@@ -60,8 +60,8 @@ determine the exact padding."
    (base6      '("#CDD3DE" "#6b6b6b" "brightblack"  ))
    (base7      '("#D8DEE9" "#979797" "white"        ))
    (base8      base7)
-   (fg-alt     base6)
-   (fg         base8)
+   (fg-alt     base5)
+   (fg         base6)
 
    (grey       base4)
    (red        '("#EC5f67" "#EC5f67" "red"          ))
@@ -81,8 +81,8 @@ determine the exact padding."
    (vertical-bar   (doom-darken bg-alt 0.5))
    (selection      base2)
    (builtin        red)
-   (comments       (if doom-oceanic-next-brighter-comments dark-cyan base3))
-   (doc-comments   (doom-lighten (if doom-oceanic-next-brighter-comments dark-cyan base3) 0.25))
+   (comments       (if doom-oceanic-next-brighter-comments dark-cyan base2))
+   (doc-comments   (doom-lighten (if doom-oceanic-next-brighter-comments dark-cyan base2) 0.25))
    (constants      orange)
    (functions      blue)
    (keywords       violet)
@@ -92,7 +92,7 @@ determine the exact padding."
    (strings        green)
    (variables      orange)
    (numbers        orange)
-   (region         base2)
+   (region         base1)
    (error          red)
    (warning        yellow)
    (success        green)
@@ -125,8 +125,8 @@ determine the exact padding."
   ;;;; Base theme face overrides
   (
 
-   ((line-number &override) :foreground base4)
-   ((line-number-current-line &override) :foreground fg)
+   ((line-number &override) :foreground base1)
+   ((line-number-current-line &override) :foreground grey :weight 'bold)
    ((font-lock-comment-face &override)
     :background (if doom-oceanic-next-comment-bg (doom-lighten bg 0.05) 'unspecified))
 
