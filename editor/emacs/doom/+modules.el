@@ -49,6 +49,12 @@
              drag-stuff-right))
 
 
+;; ─── Dirvish ──────────────────────────────────────────────────────────────────
+
+;; It's bugged
+;; (dirvish-side-follow-mode 1)
+
+
 ;; ─── Editorconfig ─────────────────────────────────────────────────────────────
 
 (after! editorconfig

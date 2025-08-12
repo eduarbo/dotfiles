@@ -140,13 +140,12 @@
 
 (after! flycheck-posframe
   (setq flycheck-posframe-border-width 1)
+  (setq flycheck-posframe-border-use-error-face nil)
 
-  (set-face-attribute 'flycheck-posframe-border-face nil :foreground "#555860")
-  (set-face-attribute 'flycheck-posframe-background-face nil :inherit nil :background "#10121a")
-  (set-face-attribute 'flycheck-posframe-face nil :inherit nil :foreground "#66bdfc") ; same as info
-  (set-face-attribute 'flycheck-posframe-info-face nil :foreground "#66bdfc")
-  (set-face-attribute 'flycheck-posframe-error-face nil :inherit nil :foreground "#EC5f67")
-  (set-face-attribute 'flycheck-posframe-warning-face nil :foreground "#F99157")
+  (custom-set-faces!
+    `(flycheck-posframe-border-face     :foreground ,(doom-color 'base3))
+    `(flycheck-posframe-background-face :background ,(doom-color 'bg-alt))
+    `(flycheck-posframe-face            :box (:line-width ( 8 . 4 ) :color ,(doom-color 'bg-alt)) :foreground ,(doom-color 'fg)))
 
   (if (modulep! :checkers syntax +icons)
       (setq flycheck-posframe-prefix "󰋽 "
@@ -156,3 +155,20 @@
     (setq flycheck-posframe-warning-prefix "[?] "
           flycheck-posframe-info-prefix "[i] "
           flycheck-posframe-error-prefix "[!] ")))
+
+;; ─── Vertico Posframe ─────────────────────────────────────────────────────────
+
+(after! vertico-posframe
+  (setq vertico-posframe-border-width  1)
+  (setq vertico-posframe-poshandler    #'my/posframe-poshandler-simple-smart-margins)
+  (setq vertico-posframe-size-function #'my/vertico-posframe-get-size-with-max)
+
+  (setq vertico-posframe-parameters
+        '((left-fringe . 8)
+          (right-fringe . 8)))
+
+  (custom-set-faces!
+    `(vertico-group-title     :background ,(doom-color 'bg-alt))
+    `(vertico-group-separator :inherit vertico-group-title :foreground ,(doom-color 'base1) :strike-through t)
+    `(vertico-posframe        :box (:line-width (8 . 16) :color ,(doom-color 'bg)))
+    `(vertico-posframe-border :background ,(doom-color 'base3))))

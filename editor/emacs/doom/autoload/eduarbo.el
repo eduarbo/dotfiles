@@ -347,43 +347,6 @@ the code action without confirmation. Manual invocation outside this function wi
       (lsp-eslint-fix-all)))
   (+format/region-or-buffer))
 
-;; HACK: Fix for missing `dirvish–get-project-root' on the original function
-;;;###autoload
-(defun +dired/dirvish-side-and-follow (&optional arg)
-  "Open `dirvish-side' then find the currently focused file.
-
-If dirvish is already open, remotely jump to the file in Dirvish.
-If given the prefix ARG, then prompt for a directory (replaces existing Dirvish
-sidebars)."
-  (interactive "P")
-  (require 'dirvish-side)
-  (save-selected-window
-    (let ((win (dirvish-side--session-visible-p)))
-      (when (and win arg)
-        (with-selected-window win
-          (dirvish-quit))
-        (setq win nil))
-      (unless win
-        (call-interactively #'dirvish-side))
-      (when-let* (((not (dirvish-curr)))
-                  ((not (active-minibuffer-window)))
-                  (win (dirvish-side--session-visible-p))
-                  (dv (with-selected-window win (dirvish-curr)))
-                  (dir (or (dirvish--vc-root-dir) default-directory))
-                  (prev (with-selected-window win (dirvish-prop :index)))
-                  (curr buffer-file-name)
-                  ((not (string-suffix-p "COMMIT_EDITMSG" curr)))
-                  ((not (equal prev curr))))
-        (with-selected-window win
-          (when dir
-            (setq dirvish--this dv)
-            (let (buffer-list-update-hook) (dirvish-find-entry-a dir))
-            (if dirvish-side-auto-expand (dirvish-subtree-expand-to file)
-              (dired-goto-file curr))
-            (dirvish-prop :cus-header 'dirvish-side-header)
-            (dirvish-update-body-h))))))
-  (select-window (dirvish-side--session-visible-p)))
-
 ;;;###autoload
 (defun my/dired-toggle-mark ()
   "Toggle mark on the current line in Dired/Dirvish without moving point."
@@ -394,3 +357,67 @@ sidebars)."
       (if (eq (char-after) dired-marker-char)
           (dired-unmark 1)
         (dired-mark 1)))))
+
+;;;###autoload
+(defun my/posframe-poshandler-simple-smart-margins (info)
+  "Smart posframe handler that places frame on side margins or bottom center.
+
+Simple strategy:
+- If either side has enough space for the full posframe width: use that side
+- Otherwise: bottom center
+
+The structure of INFO can be found in docstring of `posframe-show'."
+
+  (let* ((window-left (plist-get info :parent-window-left))
+         (window-width (plist-get info :parent-window-width))
+         (frame-width (plist-get info :parent-frame-width))
+         (frame-height (plist-get info :parent-frame-height))
+         (posframe-width (plist-get info :posframe-width))
+         (posframe-height (plist-get info :posframe-height))
+         (left-space window-left)
+         (right-space (- frame-width window-left window-width))
+         (center-y (/ (- frame-height posframe-height) 2))
+         (center-x (/ (- frame-width posframe-width) 2))
+         (margin 10))
+
+    (cond
+     ;; Left side has enough space
+     ((>= left-space posframe-width)
+      (cons (max margin (- left-space posframe-width margin)) center-y))
+
+     ;; Right side has enough space
+     ((>= right-space posframe-width)
+      (cons (+ window-left window-width margin) center-y))
+
+     ;; Neither side has enough space: bottom center
+     (t
+      (cons center-x (- frame-height posframe-height margin))))))
+
+;;;###autoload
+(defun my/vertico-posframe-get-size-with-max (buffer)
+  "Calculate posframe size with maximum width constraint.
+
+BUFFER is the vertico minibuffer.
+
+Limits width to max 80 characters (or 62% of frame width if smaller),
+enabling proper side margin placement.
+
+Returns plist with :height, :width, :min-height, and :min-width."
+  (let* ((frame-width (frame-width))
+         ;; Maximum width in characters (adjust as needed)
+         (max-width 80)
+         ;; 62% of frame (vertico default)
+         (preferred-width (round (* frame-width 0.62)))
+         ;; Use smaller of the two
+         (actual-width (min preferred-width max-width))
+         ;; Original height logic
+         (height (buffer-local-value 'vertico-posframe-height buffer))
+         (min-height (or (buffer-local-value 'vertico-posframe-min-height buffer)
+                        (let ((h (+ vertico-count 1)))
+                          (min h (or height h))))))
+    (list
+     :height height
+     :width (buffer-local-value 'vertico-posframe-width buffer)
+     :min-height min-height
+     :min-width (or (buffer-local-value 'vertico-posframe-min-width buffer)
+                   actual-width))))

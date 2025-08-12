@@ -139,8 +139,8 @@
  :g     "s-j"           #'evil-switch-to-windows-last-buffer
  :g     "s-k"           #'kill-current-buffer
  :g     "s-l"           #'avy-goto-line
- :g     "s-o"           #'projectile-switch-project
- :g     "s-p"           #'+dired/dirvish-side-and-follow
+ :g     "s-o"           #'dirvish
+ :g     "s-p"           #'dirvish-side
  :n     "s-r"           #'+eval/open-repl-other-window
  :v     "s-r"           #'+eval:region
  :g     "s-s"           #'save-buffer
@@ -329,6 +329,11 @@
       ;;; <leader> n --- notes
       :desc "Obsidian notes"                "n SPC" #'obsidian-jump
 
+      ;;; <leader> o --- open
+      :desc "Open directory in dirvish"     "o d"   #'dirvish
+      :desc "Dired"                         "o /"   #'dired
+      "o -" nil
+
       ;;; <leader> q --- quit/session
       :desc "Start new Emacs"               "q n"   #'restart-emacs-start-new-emacs)
 
@@ -412,5 +417,7 @@
       :ng   "SPC"            #'my/dired-toggle-mark)
 
 (map! :map dirvish-mode-map
+      :ng   [left]           #'dirvish-history-go-backward
+      :ng   [right]          #'dirvish-history-go-forward
       :ng   [backspace]      #'dirvish-history-go-backward
       :ng   [s-backspace]    #'dirvish-history-go-forward)
