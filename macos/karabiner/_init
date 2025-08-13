@@ -16,62 +16,10 @@ link() {
   karabiner --list-profile-names
 }
 
-has_exact_node_version() {
-  # Check if '.node-version' exists and 'node' is available
-  [[ ! -f .node-version ]] && return 1
-  _is_callable node || return 1
-  local required_version actual_version
-  required_version="v$(<.node-version)"
-  actual_version="$(node --version 2>/dev/null)"
-  [[ "$required_version" == "$actual_version" ]]
-}
-
-ensure_node_and_build() {
-  # Ensure the project uses the required node version, asking user if needed
-  if has_exact_node_version; then
-    build
-    return 0
-  fi
-
-  while true; do
-    echo-ask "Node.js $(<.node-version) is not installed. It's only needed if you want to regenerate the Karabiner config from source files (for development or customization). Do you want to install and use it now? [y/N] "
-    read answer
-    case $answer in
-    [Yy]*)
-      echo-info "Installing required Node.js version and npm dependencies"
-      # Run the dev/node topic in a subshell to prevent 'dot' from terminating this script if it uses 'exec' or ends the current shell
-      (dot dev/node)
-      # Refresh the environment after installing node, in case $PATH was modified
-      hash -r
-      rehash 2>/dev/null
-      build
-      return 0
-      ;;
-    [Nn]* | '')
-      return 0
-      ;;
-    *) echo "Please answer yes or no." ;;
-    esac
-  done
-}
-
-install_node_version_and_deps() {
-  if _is_callable nodenv; then
-    nodenv install -s <.node-version
-    nodenv local <.node-version
-  else
-    echo-alert "nodenv not found. Please install Node.js version $(<.node-version) manually."
-    return 1
-  fi
-  if _is_callable npm; then
-    npm install
-  fi
-}
-
 install() {
   brew install "${brew_deps[@]}"
-  ensure_node_and_build
-  link
+  echo-info "Node.js $(<.node-version) is not installed. It's only needed if you want to regenerate the Karabiner config from source files (for development or customization)."
+  update
 }
 
 update() {
