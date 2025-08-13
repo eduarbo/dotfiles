@@ -52,11 +52,13 @@ ensure_node_and_build() {
 
 install_node_version_and_deps() {
   echo-info "Installing required Node.js version and npm dependencies"
+  dot dev/node
+
   if _is_callable nodenv; then
     nodenv install -s <.node-version
     nodenv local <.node-version
   else
-    echo-warn "nodenv not found. Please install Node.js version $(<.node-version) manually."
+    echo-alert "nodenv not found. Please install Node.js version $(<.node-version) manually."
     return 1
   fi
   if _is_callable npm; then
