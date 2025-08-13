@@ -39,7 +39,11 @@ ensure_node_and_build() {
     case $answer in
     [Yy]*)
       echo-info "Installing required Node.js version and npm dependencies"
-      dot dev/node
+      # Run the dev/node topic in a subshell to prevent 'dot' from terminating this script if it uses 'exec' or ends the current shell
+      (dot dev/node)
+      # Refresh the environment after installing node, in case $PATH was modified
+      hash -r
+      rehash 2>/dev/null
       build
       return 0
       ;;
