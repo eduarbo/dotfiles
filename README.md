@@ -27,33 +27,35 @@ git clone https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
 
 ## What does it include?
 
-The following are the categories and topics available to install:
+The following are the categories and topics you can install:
 
-- `macos/` - macOS compatible utilities
-  - `apps` - collection of macOS apps that I use on a daily basis
-  - `defaults` - bare essentials for macOS
-  - `hammerspoon` - a bunch of lua scripts to boost my productivity
-    - Window manager
-    - Quick app launcher
-    - Push-to-talk Mic
-    - Audio output switcher
-  - `karabiner` - powerful keyboard customizer
+- `macos/` – Mac-specific tools and tweaks
+  - `apps` – The essential macOS app lineup I can't live without
+  - `defaults` – Opinionated values for a saner (and possibly sassier) macOS
+  - `hammerspoon` – Lua-powered automation for pro-level productivity
+    - Window wrangling made easy
+    - Lightning-fast app launcher
+    - Push-to-talk microphone magic
+    - Instantly swap your audio outputs like a DJ
+  - `karabiner` – The ultimate keyboard wizardry (remap all the things!)
 
-- `editor/` - Configuration for my text editors
-  - `emacs` - the best of Emacs and Vim in one place
-  - `nvim` - for quick file editing
-  - `coding-style` - Tools to enforce coding style because consistency is king
+- `editor/` – My battle-stations for text and code
+  - `emacs` – The best of both Emacs and Vim worlds, with extra chaos
+  - `nvim` – My nimble sidekick for those “just one quick edit” moments
+  - `coding-style` – Keep your code prettier than your neighbor's garden
 
-- `shell/` - Shell utilities
-  - `git` - nice aliases and zsh plugins
-  - `tmux` - window manager within the terminal + nice plugins
-  - `zsh` - my shell of choice, fast, powerful and with a nice prompt
-  - `kitty` - A purr-fectly powerful and feature-rich terminal
+- `shell/` – Terminal superpowers and creature comforts
+  - `git` – Snazzy aliases and Zsh plugins for effortless versioning
+  - `tmux` – Tab-multiplying terminal wizardry
+  - `zsh` – The shell with speed, features, and a prompt that actually sparks joy
+  - `kitty` – The terminal so full-featured, even your cat would approve
 
-- `dev/` - Relevant to software development & programming in general
-  - `lua` - manage lua environments with luaenv
-  - `node` - setup nodenv, a lightweight alternative to nvm
-  - `python` - setup pyenv, a simple Python version management
+- `dev/` – Essential tools and setups for a life in code
+  - `lua` – Harness the power of luaenv and keep your Lua scripts flowing
+  - `node` – Install nodenv: because who wants to remember which version of Node broke what?
+  - `python` – Pyenv to rule them all, so every script gets the right snake
+  - `golang` – Go fast, install Go, and grab some must-have packages
+  - `php` – Composer support included, because sometimes you just can’t avoid PHP
 
 
 ## Dotfile management
