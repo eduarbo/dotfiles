@@ -20,7 +20,9 @@ link() {
 install() {
   brew install "${brew_deps[@]}"
   echo-info "Node.js $(<.node-version) is not installed. It's only needed if you want to regenerate the Karabiner config from source files (for development or customization)."
-  update
+  if has_exact_node_version; then
+    build
+  fi
 }
 
 update() {
