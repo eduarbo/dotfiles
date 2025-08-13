@@ -190,7 +190,7 @@ function _dot {
       i) export INHIBIT_INIT=1 ;;
       t) export DRYRUN=1       ;;
       h) cat <<EOL
-Usage: ${0:A:t} [-acdlLit] [TOPIC...]
+Usage: dot [-acdlLit] [TOPIC...]
 
   -a   Target all enabled topics (ignores TOPIC args)
   -c   Afterwards, remove dead symlinks & empty
@@ -208,6 +208,14 @@ EOL
     esac
   done
   shift $((OPTIND-1))
+
+  # Print help if no options or topics were provided
+  if [[ $# -eq 0 && -z $CLEAN && -z $LIST && -z $REMOVE ]]; then
+    set -- -h
+    # recursively re-call _dot to display help
+    _dot "$@"
+    return
+  fi
 
   if [[ -n $LIST ]]; then
     _topics | tr ' ' $'\n'
