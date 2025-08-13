@@ -32,6 +32,7 @@ clean() {
 fetch_nodenv_and_plugins() {
   # Install nodenv
   _ensure_repo nodenv/nodenv                     $NODENV_ROOT
+  source config.zsh
 
   # NOTE All plugins should be placed in `$(nodenv root)/plugins`
 
