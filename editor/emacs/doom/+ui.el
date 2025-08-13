@@ -123,19 +123,6 @@
 (remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
 
 
-;; ─── Markdown ─────────────────────────────────────────────────────────────────
-
-;; get headings of sizes relative to their level
-(setq markdown-header-scaling t)
-
-(custom-set-faces!
-  '(markdown-header-face :inherit nil)
-  `(markdown-list-face :foreground ,(doom-color 'teal)))
-
-;; better than `markdown-toggle-markup-hiding
-;; (add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
-
-
 ;; ─── Flycheck posframe ────────────────────────────────────────────────────────
 
 (after! flycheck-posframe
@@ -155,6 +142,26 @@
     (setq flycheck-posframe-warning-prefix "[?] "
           flycheck-posframe-info-prefix "[i] "
           flycheck-posframe-error-prefix "[!] ")))
+
+
+;; ─── GPTel ────────────────────────────────────────────────────────────────────
+
+(custom-set-faces!
+    `(gptel-context-highlight-face :extend t :background ,(doom-color 'bg-alt)))
+
+
+;; ─── Markdown ─────────────────────────────────────────────────────────────────
+
+;; get headings of sizes relative to their level
+(setq markdown-header-scaling t)
+
+(custom-set-faces!
+  '(markdown-header-face :inherit nil)
+  `(markdown-list-face :foreground ,(doom-color 'teal)))
+
+;; better than `markdown-toggle-markup-hiding
+;; (add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
+
 
 ;; ─── Vertico Posframe ─────────────────────────────────────────────────────────
 
