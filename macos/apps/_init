@@ -18,12 +18,14 @@ brew_deps=(
   appcleaner
   bruno
   calibre
+  chatgpt
   deepl
   ffmpeg
   ffms2
   grandperspective
   keka
   keycastr
+  orbstack
   omnidisksweeper
   prettyping
   provisionql
