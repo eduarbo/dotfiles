@@ -11,7 +11,8 @@ brew_deps=(
 )
 
 link() {
-  mklink json $KARABINER_CONFIG_DIR
+  mkdir -p "$KARABINER_CONFIG_DIR"
+  mklink json/* $KARABINER_CONFIG_DIR
   echo-info "Profile names"
   karabiner --list-profile-names
 }
