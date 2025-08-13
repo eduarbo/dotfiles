@@ -30,7 +30,6 @@ brew_deps=(
   prettyping
   provisionql
   qlcolorcode
-  qlimagesize
   qlmarkdown
   qlprettypatch
   qlstephen
