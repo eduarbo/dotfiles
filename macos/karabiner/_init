@@ -35,6 +35,7 @@ ensure_node_and_build() {
 
   while true; do
     echo-ask "Node.js $(<.node-version) is not installed. It's only needed if you want to regenerate the Karabiner config from source files (for development or customization). Do you want to install and use it now? [y/N] "
+    read answer
     case $answer in
     [Yy]*)
       install_node_version_and_deps
