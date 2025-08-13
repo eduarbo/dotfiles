@@ -8,22 +8,22 @@ A tidy `$HOME` is a tidy mind.
 ![Doom Emacs - Jul-2023 Screenshot of macOS Ventura](assets/doom-emacs.png)
 
 These are my dotfiles, designed primarily for macOS (Apple silicon) and Debian 12, heavily inspired by
-[hlissner/dotfiles](https://github.com/hlissner/dotfiles). They are my specific
-breed of madness, split into 2-level topics (e.g. `shell/zsh`) that strive for
-minimum `$HOME` presence (adhering to XDG standards where possible).
+[hlissner/dotfiles](https://github.com/hlissner/dotfiles). Topics are split into `category/topic` (e.g. `shell/zsh`), aim for XDG compliance, and clutter your `$HOME` as little as possible.
 
-
-## Quick start
-
-```sh
-git clone https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
-```
 
 ## Dependencies
 - [Homebrew](https://brew.sh/) (for macOS)
 - git
 - zsh
 - curl
+
+
+## Quick start
+
+```sh
+git clone --recurse-submodules https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
+```
+
 
 ## What does it include?
 
@@ -33,11 +33,11 @@ The following are the categories and topics you can install:
   - `apps` – The essential macOS app lineup I can't live without
   - `defaults` – Opinionated values for a saner (and possibly sassier) macOS
   - `hammerspoon` – Lua-powered automation for pro-level productivity
-    - Window wrangling made easy
+    - Window wrangling without the wrestling
     - Lightning-fast app launcher
-    - Push-to-talk microphone magic
+    - Push-to-talk mic sorcery
     - Instantly swap your audio outputs like a DJ
-  - `karabiner` – The ultimate keyboard wizardry (remap all the things!)
+  - `karabiner` – The ultimate keyboard wizardry to remap all the things
 
 - `editor/` – My battle-stations for text and code
   - `emacs` – The best of both Emacs and Vim worlds, with extra chaos
@@ -73,8 +73,8 @@ Usage: deploy [-acdlLit] [TOPIC...]
   -t   Do a test run; do not actually do anything
 ```
 
-e.g.
-+ `deploy misc/kitty shell/{zsh,tmux}`: enables misc/kitty, shell/zsh & shell/tmux
+### Examples
++ `deploy shell/zsh macos/kitty`: enables `shell/zsh` and `macos/kitty`
 + `deploy -d shell/zsh`: disables shell/zsh & cleans up after it
 + `deploy -l shell/zsh`: refresh links for shell/zsh (inhibits init script)
 + `deploy -l`: relink all enabled topics
@@ -96,7 +96,11 @@ fi
 
 ## Best practices
 
-- Generate one key per client device with `ssh-keygen -t ed25519 -C "your_email@example.com"` and protect it with a strong passphrase
+- If you use a password manager like 1Password, managing SSH keys is a breeze (and much more convenient). But if you're old-school (or just like a little DIY), you can still generate SSH keys manually:
+
+  ```sh
+  ssh-keygen -t ed25519 -C "personal-mbpro-2025" # Use a descriptive comment: purpose + device + year
+  ```
 
 ## Troubleshooting
 
