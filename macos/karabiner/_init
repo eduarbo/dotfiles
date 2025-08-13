@@ -38,7 +38,8 @@ ensure_node_and_build() {
     read answer
     case $answer in
     [Yy]*)
-      install_node_version_and_deps
+      echo-info "Installing required Node.js version and npm dependencies"
+      dot dev/node
       build
       return 0
       ;;
@@ -51,9 +52,6 @@ ensure_node_and_build() {
 }
 
 install_node_version_and_deps() {
-  echo-info "Installing required Node.js version and npm dependencies"
-  dot dev/node
-
   if _is_callable nodenv; then
     nodenv install -s <.node-version
     nodenv local <.node-version
