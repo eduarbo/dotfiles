@@ -1,0 +1,3 @@
+[submodule "editor/emacs/doom/snippets"]
+	path = editor/emacs/doom/snippets
+	url = git@github.com:eduarbo/snippets.git
