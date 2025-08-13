@@ -65,13 +65,7 @@
 
 ;; ─── Snippet Management ───────────────────────────────────────────────────────
 (package! doom-snippets
-  ;; enable for debugging and make sure to symlink the repo into $DOOMDIR/snippets
-  :recipe (:local-repo "snippets")
-  ;; :recipe (:host github
-  ;;          :repo "eduarbo/snippets"
-  ;;          :files (:defaults "*"))
-  ;; :pin nil
-  )
+  :recipe (:local-repo "snippets"))
 
 ;; ─── Editing Enhancements ─────────────────────────────────────────────────────
 (package! drag-stuff)  ;; Move lines or text blocks up/down/left/right using shortcuts
