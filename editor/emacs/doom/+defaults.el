@@ -59,6 +59,9 @@
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . cpp-mode))
 (add-to-list 'auto-mode-alist '("\\.clangd\\'" . yaml-mode))
 
+;; Dockerfile
+(add-to-list 'auto-mode-alist '("\\Dockerfile" . dockerfile-mode))
+
 ;; Treats the `=', `<' and `>' as punctuation for all modes
 (add-hook! 'after-change-major-mode-hook
   (defun my-global-word-delimiters-h ()
