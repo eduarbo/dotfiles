@@ -68,7 +68,9 @@ install() {
   esac
 }
 
-# update() {}
+update() {
+  install
+}
 
 # clean() {}
 
