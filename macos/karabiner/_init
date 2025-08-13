@@ -3,7 +3,7 @@ source ${0:A:h}/../../deploy
 
 source ./aliases.zsh
 
-# only for macOS
+# Only for macOS
 [[ $(_os) != macos ]] && exit
 
 brew_deps=(
@@ -16,26 +16,64 @@ link() {
   karabiner --list-profile-names
 }
 
-install() {
-  brew install ${brew_deps[@]}
+has_exact_node_version() {
+  # Check if '.node-version' exists and 'node' is available
+  [[ ! -f .node-version ]] && return 1
+  _is_callable node || return 1
+  local required_version actual_version
+  required_version="v$(<.node-version)"
+  actual_version="$(node --version 2>/dev/null)"
+  [[ "$required_version" == "$actual_version" ]]
+}
 
-  # TODO Extract karabiner.json generator to its own repo
-  if _is_callable nodenv; then
-    echo-info "Installing required node version"
-    nodenv install < .node-version
-    npm install
+ensure_node_and_build() {
+  # Ensure the project uses the required node version, asking user if needed
+  if has_exact_node_version; then
     build
+    return 0
+  fi
+
+  while true; do
+    echo-ask "Node.js $(<.node-version) is not installed. It's only needed if you want to regenerate the Karabiner config from source files (for development or customization). Do you want to install and use it now? [y/N] "
+    case $answer in
+    [Yy]*)
+      install_node_version_and_deps
+      build
+      return 0
+      ;;
+    [Nn]* | '')
+      return 0
+      ;;
+    *) echo "Please answer yes or no." ;;
+    esac
+  done
+}
+
+install_node_version_and_deps() {
+  echo-info "Installing required Node.js version and npm dependencies"
+  if _is_callable nodenv; then
+    nodenv install -s <.node-version
+    nodenv local <.node-version
   else
-    echo-alert "Make sure to install the required node version to regenerate config from source files"
+    echo-warn "nodenv not found. Please install Node.js version $(<.node-version) manually."
+    return 1
+  fi
+  if _is_callable npm; then
+    npm install
   fi
 }
 
+install() {
+  brew install "${brew_deps[@]}"
+  ensure_node_and_build
+  link
+}
+
 update() {
-  if _is_callable node; then
+  if has_exact_node_version; then
     build
-  else
-    link
   fi
+  link
 }
 
 clean() {
@@ -43,14 +81,18 @@ clean() {
 }
 
 build() {
+  if ! _is_callable npm; then
+    echo-fail "npm not found. Aborting build."
+    exit 1
+  fi
   npm run build
 
-  # validate complex modifications
+  # Validate complex modifications
   echo-info "Check Complex Modifications"
-  karabiner --lint-complex-modifications json/assets/complex_modifications/* || {
+  if ! karabiner --lint-complex-modifications json/assets/complex_modifications/*; then
     echo-fail "Invalid Complex Modifications"
     exit 1
-  }
+  fi
 }
 
 init "$@"
