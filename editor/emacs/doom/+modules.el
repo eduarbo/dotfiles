@@ -162,6 +162,8 @@
 (after! gptel
   (gptel-make-gemini "Gemini" :key (getenv "GEMINI_API_KEY") :stream t)
 
+  (setq gptel-model "gpt-4.1")
+  (setq gptel-magit-model "gpt-5-mini")
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
   (setq gptel-magit-commit-prompt
         "You are an expert at writing Git commit messages. Output exactly one commit message in the format `<optional type>: <summary>`, where type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test} and only include it if it fits naturally without exceeding limits. Use imperative mood, capitalize the first word of the summary, keep it ≤50 characters (rewrite/shorten if needed), and omit ending punctuation. Add a body only if it is absolutely essential, separated by one blank line, wrapped at ≤72 characters. Do not include anything except the commit message."))
