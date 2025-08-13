@@ -6,7 +6,6 @@ source ${0:A:h}/../../deploy
 common_deps=(
   clang-format
   editorconfig
-  markdown
   ripgrep
   shellcheck
   shfmt
@@ -27,6 +26,7 @@ brew_deps=(
   gnu-tar
   llvm
   cmake
+  clang-format
   glslang
   pyenv
   jq
@@ -40,7 +40,7 @@ brew_deps=(
   libgit2 # improves Emacs' magit speed
   poppler # Dired: pdf previews
   vips # Dired: image preview
-  nixftm
+  nixfmt
 )
 
 cask_deps=(
