@@ -309,7 +309,8 @@
        :desc "Open gptel menu"              "m"     #'gptel-menu
        :desc "Rewrite"                      "r"     #'gptel-rewrite
        :desc "Org: set topic"               "o"     #'gptel-org-set-topic
-       :desc "Org: set properties"          "O"     #'gptel-org-set-properties)
+       :desc "Org: set properties"          "O"     #'gptel-org-set-properties
+       :desc "Abort gptel process"          "x"     #'gptel-abort)
 
       ;;; <leader> y --- Yank (copy)
       (:prefix-map ("y" . "yank/copy")
