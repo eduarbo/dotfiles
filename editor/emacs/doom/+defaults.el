@@ -78,6 +78,9 @@
 (unless (member "Symbols Nerd Font Mono" (font-family-list))
   (nerd-icons-install-fonts t))
 
+;; while diff-hl takes the right fringe
+(after! diff-hl (setq diff-hl-side 'right))
+
 ;; Magit
 (setq evil-collection-magit-want-horizontal-movement t)
 (setq evil-collection-magit-use-y-for-yank t)

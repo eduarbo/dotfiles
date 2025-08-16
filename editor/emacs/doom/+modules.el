@@ -116,16 +116,32 @@
 
 ;; ─── Flycheck ─────────────────────────────────────────────────────────────────
 
-(after! flycheck
-  ;; Enable html-tidy checker for files in web-mode
-  (flycheck-add-mode 'html-tidy 'web-mode)
-  ;; Add html-tidy as next checker after lsp in PHP files using web-mode
-  (add-hook 'web-mode-hook
+;; PHP mode hooks
+(add-hook 'php-mode-hook #'my/use-project-phpcs-executable)
+(add-hook 'lsp-after-open-hook #'my/setup-php-flycheck-chain)
+
+;; CSS-like mode hooks
+(dolist (mode-hook '(css-mode-hook scss-mode-hook less-mode-hook))
+  (add-hook mode-hook
             (lambda ()
-              (when (and buffer-file-name
-                         (string-match-p "\\.php\\'" buffer-file-name))
-                ;; Use 'append to avoid duplicate next-checker
-                (flycheck-add-next-checker 'lsp 'html-tidy 'append))))
+              (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t))))
+(add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain)
+
+;; Web-mode hooks (handles both PHP and CSS)
+(add-hook 'web-mode-hook
+          (lambda ()
+            (cond
+             ;; PHP files in web-mode
+             ((my/web-mode-is-php-p)
+              (my/use-project-phpcs-executable)
+              (add-hook 'lsp-after-open-hook #'my/setup-php-flycheck-chain nil t))
+             ;; CSS-like files in web-mode
+             ((member web-mode-content-type '("css" "scss" "less"))
+              (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t)))))
+
+(after! flycheck
+  (flycheck-add-mode 'php-phpcs 'web-mode)
+  (flycheck-add-mode 'html-tidy 'web-mode)
 
   ;; Prefer eslint_d to ESLint
   ;; See https://github.com/mantoni/eslint_d.js
@@ -152,9 +168,6 @@
   ;; existence check, thus significantly improving file opening times.
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
-
-;; while diff-hl takes the right fringe
-(after! diff-hl (setq diff-hl-side 'right))
 
 
 ;; ─── GPTel ────────────────────────────────────────────────────────────────────
