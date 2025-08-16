@@ -413,11 +413,87 @@ Returns plist with :height, :width, :min-height, and :min-width."
          ;; Original height logic
          (height (buffer-local-value 'vertico-posframe-height buffer))
          (min-height (or (buffer-local-value 'vertico-posframe-min-height buffer)
-                        (let ((h (+ vertico-count 1)))
-                          (min h (or height h))))))
+                         (let ((h (+ vertico-count 1)))
+                           (min h (or height h))))))
     (list
      :height height
      :width (buffer-local-value 'vertico-posframe-width buffer)
      :min-height min-height
      :min-width (or (buffer-local-value 'vertico-posframe-min-width buffer)
-                   actual-width))))
+                    actual-width))))
+
+;;; PHP PHPCS Integration with LSP for Doom Emacs
+;;; Enables PHPCS to work alongside LSP in both php-mode and web-mode
+
+;;;###autoload
+(defun my/use-project-phpcs-executable ()
+  "Configure Flycheck to use project-local PHPCS executable if available.
+Looks for phpcs in the project's vendor/bin directory and sets it as
+the local executable for the current buffer."
+  (let* ((root (or (projectile-project-root) default-directory))
+         (phpcs (expand-file-name "vendor/bin/phpcs" root)))
+    (when (file-exists-p phpcs)
+      (setq-local flycheck-php-phpcs-executable phpcs))))
+
+;;;###autoload
+(defun my/web-mode-is-php-p ()
+  "Check if the current web-mode buffer is a PHP file.
+Returns t if the buffer is in web-mode and has a PHP extension
+or web-mode-engine is set to 'php'."
+  (and (eq major-mode 'web-mode)
+       (or (string-match-p "\\.php\\'" (or buffer-file-name ""))
+           (string-match-p "\\.phtml\\'" (or buffer-file-name ""))
+           (equal web-mode-engine "php"))))
+
+;;;###autoload
+(defun my/chain-flycheck-after-lsp (checker)
+  "Chain CHECKER to run after LSP when both are active.
+Adds CHECKER to the list of available checkers and chains it to run
+after LSP diagnostics regardless of LSP results."
+  (when (and (bound-and-true-p lsp-mode)
+             (bound-and-true-p flycheck-mode)
+             checker)
+    ;; Add checker to the list of available checkers
+    (unless (memq checker flycheck-checkers)
+      (setq-local flycheck-checkers
+                  (append flycheck-checkers (list checker))))
+    ;; Chain checker to run after lsp
+    ;; The (t . checker) syntax means run checker regardless of lsp result
+    (flycheck-add-next-checker 'lsp `(t . ,checker))))
+
+;; ============================================================================
+;; Language-specific Setup Functions
+;; ============================================================================
+
+;;;###autoload
+(defun my/setup-php-flycheck-chain ()
+  "Setup Flycheck chain to run PHPCS after LSP for PHP files.
+Works in both php-mode and web-mode. Configures the project-local
+PHPCS executable and chains it to run after LSP diagnostics."
+  (when (or (derived-mode-p 'php-mode)
+            (my/web-mode-is-php-p))
+    ;; Configure project-local PHPCS executable
+    (my/use-project-phpcs-executable)
+    ;; Chain PHPCS to run after LSP
+    (my/chain-flycheck-after-lsp 'php-phpcs)))
+
+;;;###autoload
+(defun my/setup-stylelint-flycheck-chain ()
+  "Setup Flycheck chain to run Stylelint after LSP for CSS-like files.
+Works with css-mode, scss-mode, less-mode, and web-mode (for CSS).
+Chains the appropriate stylelint checker to run after LSP diagnostics."
+  (let ((stylelint-checker
+         (cond
+          ((derived-mode-p 'scss-mode) 'scss-stylelint)
+          ((derived-mode-p 'less-mode) 'less-stylelint)
+          ((derived-mode-p 'css-mode) 'css-stylelint)
+          ;; For web-mode, detect the content type
+          ((and (eq major-mode 'web-mode)
+                (member web-mode-content-type '("css" "scss" "less")))
+           (pcase web-mode-content-type
+             ("scss" 'scss-stylelint)
+             ("less" 'less-stylelint)
+             (_ 'css-stylelint)))
+          (t nil))))
+    ;; Chain the appropriate stylelint checker
+    (my/chain-flycheck-after-lsp stylelint-checker)))
