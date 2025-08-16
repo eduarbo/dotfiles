@@ -436,6 +436,28 @@ the local executable for the current buffer."
       (setq-local flycheck-php-phpcs-executable phpcs))))
 
 ;;;###autoload
+(defun my/find-stylelint-config ()
+  "Find and set the Stylelint configuration file for the current project.
+Searches for common Stylelint config file patterns in the project root.
+Supports: .stylelintrc{,.json,.yaml,.yml,.js}, stylelint.config.js,
+and package.json with stylelint field."
+  (when-let* ((root (or (projectile-project-root) default-directory))
+              (config-patterns '(".stylelintrc"
+                                 ".stylelintrc.json"
+                                 ".stylelintrc.yaml"
+                                 ".stylelintrc.yml"
+                                 ".stylelintrc.js"
+                                 "stylelint.config.js"
+                                 "stylelint.config.cjs"
+                                 "stylelint.config.mjs"
+                                 ".stylelintrc.cjs"
+                                 ".stylelintrc.mjs"))
+              (config-file (seq-find (lambda (pattern)
+                                       (file-exists-p (expand-file-name pattern root)))
+                                     config-patterns)))
+    (setq-local flycheck-stylelintrc (expand-file-name config-file root))))
+
+;;;###autoload
 (defun my/web-mode-is-php-p ()
   "Check if the current web-mode buffer is a PHP file.
 Returns t if the buffer is in web-mode and has a PHP extension
@@ -495,5 +517,8 @@ Chains the appropriate stylelint checker to run after LSP diagnostics."
              ("less" 'less-stylelint)
              (_ 'css-stylelint)))
           (t nil))))
-    ;; Chain the appropriate stylelint checker
-    (my/chain-flycheck-after-lsp stylelint-checker)))
+    (when stylelint-checker
+      ;; Configure Stylelint to find project config
+      (my/find-stylelint-config)
+      ;; Chain the appropriate stylelint checker
+      (my/chain-flycheck-after-lsp stylelint-checker))))

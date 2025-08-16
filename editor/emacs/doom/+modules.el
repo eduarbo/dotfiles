@@ -124,6 +124,7 @@
 (dolist (mode-hook '(css-mode-hook scss-mode-hook less-mode-hook))
   (add-hook mode-hook
             (lambda ()
+              (my/find-stylelint-config)
               (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t))))
 (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain)
 
@@ -137,11 +138,15 @@
               (add-hook 'lsp-after-open-hook #'my/setup-php-flycheck-chain nil t))
              ;; CSS-like files in web-mode
              ((member web-mode-content-type '("css" "scss" "less"))
+              (my/find-stylelint-config)
               (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t)))))
 
 (after! flycheck
   (flycheck-add-mode 'php-phpcs 'web-mode)
   (flycheck-add-mode 'html-tidy 'web-mode)
+
+  ;; (setq flycheck-stylelintrc
+  ;;       (expand-file-name "stylelint.config.js" (projectile-project-root)))
 
   ;; Prefer eslint_d to ESLint
   ;; See https://github.com/mantoni/eslint_d.js
