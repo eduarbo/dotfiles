@@ -185,7 +185,57 @@
   (setq gptel-magit-model "gpt-5-mini")
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
   (setq gptel-magit-commit-prompt
-        "You are an expert at writing Git commit messages. Output exactly one commit message in the format `<optional type>: <summary>`, where type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test} and only include it if it fits naturally without exceeding limits. Use imperative mood, capitalize the first word of the summary, keep it ≤50 characters (rewrite/shorten if needed), and omit ending punctuation. Add a body only if it is absolutely essential, separated by one blank line, wrapped at ≤72 characters. Do not include anything except the commit message."))
+        "You are an expert at writing Git commit messages. Output exactly one commit message in the format `<optional type>: <summary>`, where type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test} and only include it if it fits naturally without exceeding limits. Use imperative mood, capitalize the first word of the summary, keep it ≤50 characters (rewrite/shorten if needed), and omit ending punctuation. Add a body only if it is absolutely essential, separated by one blank line, wrapped at ≤72 characters. Do not include anything except the commit message.")
+
+  (gptel-make-preset
+      :name "base-preset"
+      :description "Common style rules."
+      :system "Return only the polished text.
+Do not add explanations, introductions, labels, comments, separators, or any extra output.
+Do not use dashes (—, ---, --, -) or semicolons as separators.
+Do not use typographic quotes or smart quotes; always use plain ASCII ' for single quotes and \" for double quotes.
+Always output only the final text, with nothing else.")
+
+  (gptel-make-preset
+      :name "translate"
+      :model "gpt-4o"
+      :parents '(base-preset)
+      :description "Translate EN ↔ ES."
+      :system "You are an expert English-Spanish translator.
+If the text is in English, translate it into Spanish.
+If it is in Spanish, translate it into English.
+Maintain the tone, style, and nuances of the original text."
+      :user "")
+
+  (gptel-make-preset
+      :name "translate-refine"
+      :model "gpt-4o"
+      :parents '(base-preset)
+      :description "Translate EN ↔ ES and refine wording."
+      :system "You are an expert translator and editor.
+Translate EN ↔ ES as needed, and reorganize the text to be clear, coherent, and concise.
+Improve grammar, vocabulary, and style, while keeping the intended meaning."
+      :user "")
+
+  (gptel-make-preset
+      :name "refine"
+      :model "gpt-4o"
+      :parents '(base-preset)
+      :description "Refine writing (clarity, conciseness, coherence)."
+      :system "You are an expert editor.
+Improve the wording of the text so it is clearer, more concise, and coherent while preserving the same meaning and tone."
+      :user "")
+
+  (gptel-make-preset
+      :name "@cr"
+      :model "gpt-4.1"
+      :parents '(base-preset)
+      :description "Line-by-line code review."
+      :system "You are a senior code reviewer. Review the provided snippet line by line as needed.
+Format:
+- For each finding, start with Line X: then a one-line title, followed by a short explanation and fix.
+Provide minimal corrected snippets or unified diff if necessary. Keep it concise and actionable."
+      :user ""))
 
 
 ;; ─── LSP ──────────────────────────────────────────────────────────────────────
