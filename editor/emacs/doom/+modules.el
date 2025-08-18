@@ -179,8 +179,9 @@
 
 (after! gptel
   (gptel-make-gemini "Gemini" :key (getenv "GEMINI_API_KEY") :stream t)
+  (setq gptel-default-mode 'org-mode)
 
-  (setq gptel-model "gpt-4.1")
+  (setq gptel-model 'gpt-4.1)
   (setq gptel-magit-model "gpt-5-mini")
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
   (setq gptel-magit-commit-prompt

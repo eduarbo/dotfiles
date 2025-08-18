@@ -4,8 +4,7 @@
 (setq +evil-repeat-keys (cons [right] [left]))
 
 (map!
- :i    [S-return]      #'+default/newline-above
- :i    [C-return]      #'+default/newline-below
+ :i    [C-return]      #'+default/newline-above
  :i    "S-SPC"         #'tab-to-tab-stop
 
  :nv   "S-SPC"         #'+default/search-project
@@ -422,3 +421,19 @@
       :ng   [right]          #'dirvish-history-go-forward
       :ng   [backspace]      #'dirvish-history-go-backward
       :ng   [s-backspace]    #'dirvish-history-go-forward)
+
+(map! :after gptel
+      (:map evil-org-mode-map :after evil-org
+       :mi    "S-RET"          #'+org/dwim-at-point
+       :mi    [S-return]       #'+org/dwim-at-point
+       :mi    "RET"            nil)
+
+      (:map (gptel-mode-map evil-org-mode-map) :after evil-org
+       :nvmi   "S-RET"         #'gptel-send
+       :nvmi   [S-return]      #'gptel-send
+       :nvmi   "RET"           nil)
+
+      (:map gptel-mode-map
+       :nvmi   "S-RET"         #'gptel-send
+       :nvmi   [S-return]      #'gptel-send
+       :nvmi   "RET"           nil))
