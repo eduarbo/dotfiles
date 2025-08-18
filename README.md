@@ -102,6 +102,17 @@ fi
   ssh-keygen -t ed25519 -C "personal-mbpro-2025" # Use a descriptive comment: purpose + device + year
   ```
 
+### Managing Forge/GitHub Tokens
+
+Forge (Magit’s helper for GitHub/GitLab) expects your personal access token to be stored in `~/.authinfo.gpg`, or another location specified in your auth-sources. This file should never be committed to your repository.
+
+To set up your tokens securely:
+- This repo provides an `authinfo.gpg.example` template. Copy or rename this file to `authinfo.gpg` in the same location
+- Run `dot -l doom/emacs` to link the file
+- Open and edit the file in Emacs to add your tokens, then save. Emacs will manage the GPG encryption for you
+
+By following these steps, your dotfiles remain clean, secure, and portable—reducing the risk of accidentally exposing your credentials.
+
 ## Troubleshooting
 
 ### Signing Git commit with GPG ask passphrase everytime

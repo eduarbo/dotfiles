@@ -81,6 +81,13 @@
 ;; while diff-hl takes the right fringe
 (after! diff-hl (setq diff-hl-side 'right))
 
+;; Authentication and encryption settings
+(setq auth-sources '("~/.config/doom/authinfo.gpg")
+      auth-source-cache-expiry nil
+      epa-file-encrypt-to (getenv "USER_EMAIL")
+      ;; Automatically select GPG keys without prompting the user
+      epa-file-select-keys 'silent)
+
 ;; Magit
 (setq evil-collection-magit-want-horizontal-movement t)
 (setq evil-collection-magit-use-y-for-yank t)

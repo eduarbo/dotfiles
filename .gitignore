@@ -37,3 +37,6 @@ dist/
 !.gitkeep
 Spoons/
 .aider*
+
+# secrets 🤫
+authinfo.gpg
