@@ -1,0 +1,2 @@
+machine api.github.com login USERNAME^forge password <GITHUB_TOKEN>
+machine github.com     login USERNAME^forge password <GITHUB_TOKEN>
