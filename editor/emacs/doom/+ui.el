@@ -147,7 +147,7 @@
 ;; ─── GPTel ────────────────────────────────────────────────────────────────────
 
 (custom-set-faces!
-    `(gptel-context-highlight-face :extend t :background ,(doom-color 'bg-alt)))
+  `(gptel-context-highlight-face :extend t :background ,(doom-lighten (doom-color 'bg) 0.05)))
 
 
 ;; ─── Markdown ─────────────────────────────────────────────────────────────────
