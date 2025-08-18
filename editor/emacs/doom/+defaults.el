@@ -91,3 +91,9 @@
   (setq x-ctrl-keysym 'super))
 
 (setq desktop-restore-forces-onscreen nil)
+
+(add-hook 'minibuffer-setup-hook
+  ;; Set the cursor type to 'bar in the minibuffer when evaluating an expression
+  (lambda ()
+    (when (eq this-command 'eval-expression)
+      (setq cursor-type 'bar))))
