@@ -160,7 +160,7 @@
   `(markdown-list-face :foreground ,(doom-color 'teal)))
 
 ;; better than `markdown-toggle-markup-hiding
-;; (add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
+(add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
 
 
 ;; ─── Vertico Posframe ─────────────────────────────────────────────────────────
