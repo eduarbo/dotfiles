@@ -100,6 +100,5 @@
 (setq desktop-restore-forces-onscreen nil)
 
 ;; Set the cursor type to 'bar in the minibuffer when evaluating an expression
-(add-hook! minibuffer-setup-hook
-  (when (eq this-command 'eval-expression)
-    (setq cursor-type 'bar)))
+(setq-hook! 'minibuffer-setup-hook cursor-type 'bar)
+(setq-hook! 'eval-expression-minibuffer-setup-hook cursor-type 'bar)
