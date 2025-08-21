@@ -199,63 +199,60 @@
     :width 120
     :select t
     :modeline t
-    :quit nil
+    :quit 'other
+    :vslot 1
     :ttl nil
-    :vslot -1)
-  (set-popup-rule! "^*doom:vterm-popup:" :sice 'bottom :size 0.25 :width 40 :height 0.16 :vslot -4 :select t :quit t)
+    )
+
 
   (gptel-make-gemini "Gemini" :key (getenv "GEMINI_API_KEY") :stream t)
-  (setq gptel-default-mode 'org-mode)
 
+  (setq gptel-default-mode 'org-mode)
   (setq gptel-model 'gpt-4.1)
   (setq gptel-magit-model 'gpt-5-mini)
   (setq gptel-api-key (getenv "OPENAI_API_KEY"))
+  (setq gptel-directives '((default
+                            . "You are a large language model living in Emacs and a helpful assistant. Respond concisely.")
+                           (programming
+                            . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt or note.")
+                           (writing
+                            . "You are a large language model and a writing assistant. Respond concisely.")
+                           (chat
+                            . "You are a large language model and a conversation partner. Respond concisely.")))
   (setq gptel-magit-commit-prompt
         "You are an expert at writing Git commit messages. Output exactly one commit message in the format `<optional type>: <summary>`, where type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test} and only include it if it fits naturally without exceeding limits. Use imperative mood, capitalize the first word of the summary, keep it ≤50 characters (rewrite/shorten if needed), and omit ending punctuation. Add a body only if it is absolutely essential, separated by one blank line, wrapped at ≤72 characters. Do not include anything except the commit message.")
 
-  (gptel-make-preset 'base-preset
-    :description "Common style rules."
-    :system "Do not add explanations, introductions, labels, comments, separators, or any extra output.
-Always output only the final text, with nothing else.")
+  (gptel-make-preset 'output-only
+    :description "Always output only the final text, with nothing else."
+    :system "Never add introductions, explanations, labels, comments, or separators. Do not use extra whitespace or formatting. Output only the requested final text, nothing else.")
 
-  (gptel-make-preset 'base-preset
+  (gptel-make-preset 'common
     :description "Common style rules."
-    :system "Do not use dashes (—) or semicolons as separators.
-Do not use typographic quotes or smart quotes; always use plain ASCII ' for single quotes and \" for double quotes.
-Always output only the final text, with nothing else.")
+    :system "Do not use dashes (—) or semicolons as separators. Do not use typographic quotes or smart quotes; always use plain ASCII ' for single quotes and \" for double quotes. Always output only the final text, with nothing else.")
 
   (gptel-make-preset 'translate
     :model 'gpt-4o
-    :parents '(base-preset)
+    :parents '(common output-only)
     :description "Translate EN ↔ ES."
-    :system "You are an expert English-Spanish translator.
-If the text is in English, translate it into Spanish.
-If it is in Spanish, translate it into English.
-Maintain the tone, style, and nuances of the original text.")
-
-  (gptel-make-preset 'translate-refine
-    :model 'gpt-4o
-    :parents '(base-preset)
-    :description "Translate EN ↔ ES and refine wording."
-    :system "You are an expert translator and editor.
-Translate EN ↔ ES as needed, and reorganize the text to be clear, coherent, and concise.
-Improve grammar, vocabulary, and style, while keeping the intended meaning.")
+    :system "You are an expert English-Spanish translator. If the text is in English, translate it into Spanish. If it is in Spanish, translate it into English. Maintain the tone, style, and nuances of the original text.")
 
   (gptel-make-preset 'refine
     :model 'gpt-4o
-    :parents '(base-preset)
-    :description "Refine writing (clarity, conciseness, coherence)."
-    :system "You are an expert editor.
-Improve the wording of the text so it is clearer, more concise, and coherent while preserving the same meaning and tone.")
+    :parents '(common output-only)
+    :description "Refine writing: clarity, conciseness, coherence."
+    :system "You are an expert editor. Rewrite the text to make it clearer, more concise, and coherent, preserving meaning and tone.")
+
+  (gptel-make-preset 'refine-translate
+    :model 'gpt-4o
+    :parents '(common output-only)
+    :description "Translate EN ↔ ES and refine (clarity, conciseness, coherence)."
+    :system "You are an expert English-Spanish translator. If the text is in English, translate it into Spanish. If it is in Spanish, translate it into English. Maintain the tone, style, and nuances of the original text. You are an expert editor. Rewrite the text to make it clearer, more concise, and coherent, preserving meaning and tone.")
 
   (gptel-make-preset 'cr
     :model 'gpt-4.1
-    :parents '(base-preset)
+    :parents '(common)
     :description "Line-by-line code review."
-    :system "You are a senior code reviewer. Review the provided snippet line by line as needed.
-Format:
-- For each finding, start with Line X: then a one-line title, followed by a short explanation and fix.
-Provide minimal corrected snippets or unified diff if necessary. Keep it concise and actionable."))
+    :system "You are a senior code reviewer. Review the provided snippet line by line as needed. For each finding, start with Line X: then a one-line title, followed by a short explanation and fix. Provide minimal corrected snippets or unified diff if necessary. Keep it concise and actionable."))
 
 
 ;; ─── LSP ──────────────────────────────────────────────────────────────────────
@@ -369,6 +366,11 @@ Provide minimal corrected snippets or unified diff if necessary. Keep it concise
         :desc "snake_case"         :nv "s"     #'string-inflection-underscore
         :desc "Capital_Snake_Case" :nv "S"     #'string-inflection-capital-underscore
         :desc "UP_CASE"            :nv "u"     #'string-inflection-upcase))
+
+
+;; ─── vTerm ────────────────────────────────────────────────────────────────────
+
+(set-popup-rule! "^*doom:vterm-popup:" :sice 'bottom :size 0.25 :width 40 :height 0.16 :vslot -4 :select t :quit t)
 
 
 ;; ─── Yasnippet: Template System for Code Expansion ────────────────────────────
