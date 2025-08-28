@@ -343,7 +343,7 @@ before you tell the user that something exists.")
             (bigboss . ,(string-join (list my--prompt-attitude-big-boss my--prompt-format) "\n\n"))
             (emacser . ,(string-join (list my--prompt-emacser my--prompt-format) "\n\n"))
             (epictetus . ,(string-join (list my--prompt-attitude-epictetus my--prompt-format) "\n\n"))
-            (default . ,(string-join (list my--prompt-attitude-marcus-aurelius my--prompt-format) "\n\n"))))
+            (default . ,(string-join (list my--prompt-attitude-big-boss my--prompt-format) "\n\n"))))
 
   (setq gptel-model 'gpt-4o)
   (setq gptel-magit-model 'gpt-5-mini)
