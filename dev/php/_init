@@ -11,6 +11,7 @@ composer_deps=(
   phpunit/phpunit
   techlivezheng/phpctags
   friendsofphp/php-cs-fixer
+  felixfbecker/language-server
 )
 
 # link() {}

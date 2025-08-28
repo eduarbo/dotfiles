@@ -11,6 +11,7 @@ pip_deps=(
   pytest
   setuptools
   nose
+  "python-lsp-server[all]"
 )
 
 link() {
