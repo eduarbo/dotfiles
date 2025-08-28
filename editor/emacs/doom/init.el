@@ -30,6 +30,7 @@
        ;;  )
        (corfu            ; complete with cap(f), cape and a flying feather!
         +icons
+        +dabbrev
         +orderless)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...

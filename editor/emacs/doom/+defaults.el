@@ -6,6 +6,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory (expand-file-name "~/Documents/Docs personales/org"))
 
+(after! org
+  (setq org-startup-indented nil))
+
 ;; Tell projectile where my projects are located
 (setq projectile-project-search-path '(("~/dev" . 2) ("~/Library/Mobile Documents/iCloud~md~obsidian/Documents" . 2)))
 (setq projectile-enable-caching nil)
@@ -20,6 +23,8 @@
 
 ;; enable word-wrap (almost) everywhere
 (+global-word-wrap-mode +1)
+(add-hook! 'special-mode-hook
+  (+word-wrap-mode +1))
 
 ;; evil
 (setq evil-split-window-below t

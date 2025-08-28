@@ -15,4 +15,5 @@
 (load! "+ui.el")
 (load! "+magit.el")
 (load! "+modules.el")
+(load! "+gptel.el")
 (load! "+bindings.el")
