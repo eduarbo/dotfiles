@@ -37,7 +37,14 @@
 (after! corfu
   (setq corfu-preselect 'valid)
   ;; On-demand code completion
-  (setq corfu-auto-delay nil))
+  (setq corfu-auto nil)
+  (setq +corfu-want-tab-prefer-expand-snippets t)
+  ;; (setq +corfu-want-tab-prefer-navigating-snippets t)
+
+  (custom-set-faces!
+    `(corfu-current
+      :background ,(doom-blend (doom-color 'blue) (doom-color 'bg-alt) 0.3)
+      :extend t)))
 
 
 ;; ─── Drag stuff (words, region, lines) around ─────────────────────────────────
@@ -173,86 +180,6 @@
   ;; existence check, thus significantly improving file opening times.
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
-
-
-;; ─── GPTel ────────────────────────────────────────────────────────────────────
-
-;; (defvar my-gptel-buffer-prefix "GPTel: "
-;;   "Prefix for gptel buffers.")
-
-;; (defun my-gptel-buffer-name (name)
-;;   (if (string-prefix-p my-gptel-buffer-prefix name)
-;;       name
-;;     (concat my-gptel-buffer-prefix name)))
-
-;; (advice-add 'gptel :around
-;;             (lambda (orig-fn name &rest args)
-;;               (apply orig-fn (my-gptel-buffer-name name) args)))
-
-(after! gptel
-  (set-popup-rule!
-    (lambda (bname _action)
-      (and (null gptel-display-buffer-action)
-           (buffer-local-value 'gptel-mode (get-buffer bname))))
-    :side 'right
-    :size 0.35
-    :width 120
-    :select t
-    :modeline t
-    :quit 'other
-    :vslot 1
-    :ttl nil
-    )
-
-
-  (gptel-make-gemini "Gemini" :key (getenv "GEMINI_API_KEY") :stream t)
-
-  (setq gptel-default-mode 'org-mode)
-  (setq gptel-model 'gpt-4.1)
-  (setq gptel-magit-model 'gpt-5-mini)
-  (setq gptel-api-key (getenv "OPENAI_API_KEY"))
-  (setq gptel-directives '((default
-                            . "You are a large language model living in Emacs and a helpful assistant. Respond concisely.")
-                           (programming
-                            . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt or note.")
-                           (writing
-                            . "You are a large language model and a writing assistant. Respond concisely.")
-                           (chat
-                            . "You are a large language model and a conversation partner. Respond concisely.")))
-  (setq gptel-magit-commit-prompt
-        "You are an expert at writing Git commit messages. Output exactly one commit message in the format `<optional type>: <summary>`, where type ∈ {build,chore,ci,docs,feat,fix,perf,refactor,style,test} and only include it if it fits naturally without exceeding limits. Use imperative mood, capitalize the first word of the summary, keep it ≤50 characters (rewrite/shorten if needed), and omit ending punctuation. Add a body only if it is absolutely essential, separated by one blank line, wrapped at ≤72 characters. Do not include anything except the commit message.")
-
-  (gptel-make-preset 'output-only
-    :description "Always output only the final text, with nothing else."
-    :system "Never add introductions, explanations, labels, comments, or separators. Do not use extra whitespace or formatting. Output only the requested final text, nothing else.")
-
-  (gptel-make-preset 'common
-    :description "Common style rules."
-    :system "Do not use dashes (—) or semicolons as separators. Do not use typographic quotes or smart quotes; always use plain ASCII ' for single quotes and \" for double quotes. Always output only the final text, with nothing else.")
-
-  (gptel-make-preset 'translate
-    :model 'gpt-4o
-    :parents '(common output-only)
-    :description "Translate EN ↔ ES."
-    :system "You are an expert English-Spanish translator. If the text is in English, translate it into Spanish. If it is in Spanish, translate it into English. Maintain the tone, style, and nuances of the original text.")
-
-  (gptel-make-preset 'refine
-    :model 'gpt-4o
-    :parents '(common output-only)
-    :description "Refine writing: clarity, conciseness, coherence."
-    :system "You are an expert editor. Rewrite the text to make it clearer, more concise, and coherent, preserving meaning and tone.")
-
-  (gptel-make-preset 'refine-translate
-    :model 'gpt-4o
-    :parents '(common output-only)
-    :description "Translate EN ↔ ES and refine (clarity, conciseness, coherence)."
-    :system "You are an expert English-Spanish translator. If the text is in English, translate it into Spanish. If it is in Spanish, translate it into English. Maintain the tone, style, and nuances of the original text. You are an expert editor. Rewrite the text to make it clearer, more concise, and coherent, preserving meaning and tone.")
-
-  (gptel-make-preset 'cr
-    :model 'gpt-4.1
-    :parents '(common)
-    :description "Line-by-line code review."
-    :system "You are a senior code reviewer. Review the provided snippet line by line as needed. For each finding, start with Line X: then a one-line title, followed by a short explanation and fix. Provide minimal corrected snippets or unified diff if necessary. Keep it concise and actionable."))
 
 
 ;; ─── LSP ──────────────────────────────────────────────────────────────────────

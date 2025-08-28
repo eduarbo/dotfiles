@@ -24,7 +24,7 @@ brew_deps=(
   coreutils
   grep # GNU grep is not part of coreutils
   gnu-tar
-  llvm
+  llvm # for clangd
   cmake
   clang-format
   glslang
@@ -41,6 +41,7 @@ brew_deps=(
   poppler # Dired: pdf previews
   vips # Dired: image preview
   nixfmt
+  marksman # Markdown lang server
 )
 
 cask_deps=(
@@ -49,6 +50,8 @@ cask_deps=(
   font-hack
   font-noto-sans
   font-noto-serif
+  font-roboto-slab
+  font-roboto-condensed
 )
 
 apt_deps=(

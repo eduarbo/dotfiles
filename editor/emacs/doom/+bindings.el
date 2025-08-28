@@ -30,8 +30,6 @@
  :nv   [left]          #'evil-first-non-blank-of-visual-line
  :nv   [right]         #'evil-end-of-line-or-visual-line
 
- :nvi  [S-escape]      #'my/comment-box
-
  :nv   [S-up]          #'drag-stuff-up
  :nv   [S-down]        #'drag-stuff-down
  :nv   [S-left]        #'drag-stuff-left
@@ -137,15 +135,17 @@
  :g     "s-i"           #'my/eslint-fix-all-maybe-and-format
  :g     "s-j"           #'evil-switch-to-windows-last-buffer
  :g     "s-k"           #'kill-current-buffer
- :g     "s-l"           #'avy-goto-line
- :g     "s-o"           #'dirvish
+ :g     "s-l"           #'gptel-menu
+ :g     "s-o"           #'projectile-switch-project
+ :g     "s-b"           #'bookmark-jump
+ :g     "s-d"           #'dirvish
  :g     "s-p"           #'dirvish-side
  :n     "s-r"           #'+eval/open-repl-other-window
  :v     "s-r"           #'+eval:region
  :g     "s-s"           #'save-buffer
  :g     "s-t"           #'+workspace/new
  :g     "s-x"           #'doom/open-scratch-buffer
- :g     "s-X"           #'doom/open-project-scratch-buffer
+ :g     "s-z"           #'doom/open-project-scratch-buffer
  :g     "s-u"           #'evil-window-mru
  :n     "s-v"           #'evil-paste-after
  :i     "s-v"           #'my/evil-inser-mode-paste
@@ -243,6 +243,7 @@
 ;; ─── Leader ───────────────────────────────────────────────────────────────────
 
 (map! :leader
+      :desc "Open GPTel"                    "RET"   #'gptel
       :desc "Switch workspace"              "TAB"   #'persp-switch
       :desc "Eval expression"               ":"     #'pp-eval-expression
       :desc "M-x"                           ";"     #'execute-extended-command
@@ -341,6 +342,7 @@
 ;; ─── goto prefix ──────────────────────────────────────────────────────────────
 
 (map! :prefix "g"
+      :nv "C"     #'my/comment-box
       :nv "j"     #'avy-goto-line-below
       :nv "k"     #'avy-goto-line-above
       :nv "n"     #'my/narrow-or-widen-dwim
@@ -422,18 +424,9 @@
       :ng   [backspace]      #'dirvish-history-go-backward
       :ng   [s-backspace]    #'dirvish-history-go-forward)
 
-(map! :after gptel
-      (:map evil-org-mode-map :after evil-org
-       :mi    "S-RET"          #'+org/dwim-at-point
-       :mi    [S-return]       #'+org/dwim-at-point
-       :mi    "RET"            nil)
+(map! :map gptel-mode-map
+      :ginv "RET"            nil
 
-      (:map (gptel-mode-map evil-org-mode-map) :after evil-org
-       :nvmi   "S-RET"         #'gptel-send
-       :nvmi   [S-return]      #'gptel-send
-       :nvmi   "RET"           nil)
-
-      (:map gptel-mode-map
-       :nvmi   "S-RET"         #'gptel-send
-       :nvmi   [S-return]      #'gptel-send
-       :nvmi   "RET"           nil))
+      (:when (featurep :system 'macos)
+        :mi [s-return]       #'gptel-send
+        :mi "s-RET"          #'gptel-send))
