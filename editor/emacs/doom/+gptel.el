@@ -432,7 +432,7 @@ before you tell the user that something exists.")
     :rewrite-message "Address TODO")
 
   (gptel-make-preset 'explain
-    :model 'gpt-4o
+    :model 'gpt-4.1
     :description "Explain code snippet"
     :use-context 'user
     :use-tools t
@@ -520,7 +520,7 @@ before you tell the user that something exists.")
      "\n\n"))
 
   (gptel-make-preset 'evil-ex
-    :model 'gpt-4o
+    :model 'gpt-4.1
     :description "Reply only with the most appropriate evil-ex command"
     :use-context nil
     :use-tools t
@@ -532,7 +532,7 @@ before you tell the user that something exists.")
      "\n\n"))
 
   (gptel-make-preset 'cli
-    :model 'gpt-4o
+    :model 'gpt-4.1
     :description "Reply with a single shell command, no explanation"
     :use-context nil
     :use-tools nil
