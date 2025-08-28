@@ -424,7 +424,7 @@
       :ng   [backspace]      #'dirvish-history-go-backward
       :ng   [s-backspace]    #'dirvish-history-go-forward)
 
-(map! :map gptel-mode-map
+(map! :after gptel :map gptel-mode-map
       :ginv "RET"            nil
 
       (:when (featurep :system 'macos)
