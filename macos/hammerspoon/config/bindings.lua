@@ -54,7 +54,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         a = "Figma",
         b = "Arc",
         c = "Calendar",
-        d = "Deepl",
+        d = "Firefox Developer Edition",
         e = "Emacs",
         f = "Finder",
         g = "Microsoft Edge",
