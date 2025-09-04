@@ -3,6 +3,8 @@ source ${0:A:h}/../../deploy
 source env.zsh
 
 brew_deps=(
+  lua
+  luarocks
   lua-language-server
 )
 
@@ -27,6 +29,12 @@ update() {
       cd $ver && git pull
     done
   fi
+
+  luaenv install 5.3.6
+  luaenv global 5.3.6
+  luaenv luarocks
+  luarocks install luacheck
+  luarocks install --server=http://luarocks.org/dev lua-lsp
 }
 
 clean() {
