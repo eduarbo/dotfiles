@@ -172,63 +172,139 @@
 ;; Globally disable default TAB binding to ensure consistent behavior across modes
 (global-set-key [remap indent-for-tab-command] nil)
 
+
+;; Smart tab, these will only work in GUI Emacs
 (map! :i [tab]
       `(menu-item "Evil insert smart tab" nil :filter
         (lambda (cmd)
           (cond
-           ;; If there's an overriding keybinding, use it
            ((or (doom-lookup-key [tab] overriding-terminal-local-map)
                 (doom-lookup-key (kbd "TAB") overriding-terminal-local-map))
             cmd)
            ,@(when (modulep! :editor snippets)
-               ;; If yasnippet can expand, do so
-               '(((and (bound-and-true-p yas-minor-mode)
-                       (yas-maybe-expand-abbrev-key-filter 'yas-expand))
-                  #'yas-expand)
-                 ;; If inside an active yasnippet field, move to the next field
-                 ((memq (bound-and-true-p yas--active-field-overlay)
-                        (overlays-in (1- (point)) (1+ (point))))
-                  #'yas-next-field))))))
-
-      :v [tab]
-      (cmds! (and (modulep! :editor snippets)
-                  (evil-visual-state-p)
-                  ;; NOTE Disabling check for trailing chars to avoid issues when selecting functions
-                  ;; (or (eq evil-visual-selection 'line)
-                  ;;     (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\)))))
-                  )
-             #'yas-insert-snippet)
-
-      (:mode prog-mode
-       :n [tab]
-       #'+fold/toggle)
-
-      :i [backtab]
-      `(menu-item "Evil insert smart backtab" nil :filter
-        (lambda (cmd)
-          (cond
-           ((or (doom-lookup-key [backtab] overriding-terminal-local-map)
-                (doom-lookup-key (kbd "S-TAB") overriding-terminal-local-map))
-            cmd)
-           ,@(when (modulep! :editor snippets)
-               ;; If in an active `yasnippet' field, move to previous field
                '(((memq (bound-and-true-p yas--active-field-overlay)
                    (overlays-in (1- (point)) (1+ (point))))
-                  #'yas-prev-field)
-                 ;; If yasnippet is active and corfu popup is not visible, invoke yasnippet completion
-                 ((and (bound-and-true-p yas-minor-mode)
-                       (not (and (boundp 'corfu--frame)
-                                 (frame-live-p corfu--frame)
-                                 (frame-visible-p corfu--frame))))
-                  #'yasnippet-capf))))))
+                  #'yas-next-field)
+                 ;; #'yas-next-field-or-maybe-expand)
+                 ;; ((and (bound-and-true-p yas-minor-mode)
+                 ;;       (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+                 ;;  #'yas-expand)
+                 ))
+           ,@(when (modulep! :completion company +tng)
+               '(((bound-and-true-p company-mode)
+                  #'company-indent-or-complete-common)))
+           ,@(when (modulep! :completion corfu)
+               '(((and (bound-and-true-p corfu-mode)
+                       corfu--candidates)
+                  (if (derived-mode-p 'eshell-mode 'comint-mode)
+                      #'completion-at-point
+                    #'indent-for-tab-command)))))))
+      :m [tab]
+      `(menu-item "Evil motion smart tab" nil :filter
+        (lambda (cmd)
+          (cond
+           ((or (doom-lookup-key [tab] overriding-terminal-local-map)
+                (doom-lookup-key (kbd "TAB") overriding-terminal-local-map))
+            cmd)
+           ,@(when (modulep! :editor snippets)
+               '(((and (evil-visual-state-p)
+                       (or (eq evil-visual-selection 'line)
+                           (not (memq (char-after)
+                                      (list ?\( ?\[ ?\{ ?\} ?\] ?\))))))
+                  #'yas-insert-snippet)))
+           ,@(when (modulep! :editor fold)
+               '(((save-excursion (end-of-line) (invisible-p (point)))
+                  #'+fold/toggle)))
+           ;; Fixes #4548: without this, this tab keybind overrides
+           ;; mode-local ones for modes that don't have an evil
+           ;; keybinding scheme or users who don't have :editor (evil
+           ;; +everywhere) enabled.
+           ((or (doom-lookup-key
+                 [tab]
+                 (list (evil-get-auxiliary-keymap (current-local-map)
+                                                  evil-state)
+                       (current-local-map)))
+                (doom-lookup-key
+                 (kbd "TAB")
+                 (list (evil-get-auxiliary-keymap (current-local-map)
+                                                  evil-state)))
+                (doom-lookup-key (kbd "TAB") (list (current-local-map))))
+            cmd)))))
 
-      ;; Extend smart tab for specific modes. This way, we process the entire
-      ;; smart tab logic and only fall back to these commands at the end.
-      (:when (modulep! :lang org)
-        (:after org :map org-mode-map
-                [remap indent-for-tab-command]
-                `(menu-item "Go to the next field" org-table-next-field
-                  :filter ,(lambda (cmd) (when (org-at-table-p) cmd))))))
+;; (map!
+;; :i [tab]
+;; `(menu-item "Evil insert smart tab" nil :filter
+;;   (lambda (cmd)
+;;     (cond
+;;      ;; If there's an overriding keybinding, use it
+;;      ((or (doom-lookup-key [tab] overriding-terminal-local-map)
+;;           (doom-lookup-key (kbd "TAB") overriding-terminal-local-map))
+;;       cmd)
+;;      ;; Yasnippet
+;;      ,@(when (modulep! :editor snippets)
+;;          ;; If inside an active yasnippet field, move to the next field
+;;          '(((memq (bound-and-true-p yas--active-field-overlay)
+;;              (overlays-in (1- (point)) (1+ (point))))
+;;             #'yas-next-field-or-maybe-expand)
+;;            ;; #'yas-next-field)
+;;            ;; If yasnippet can expand, do so
+;;            ((and (bound-and-true-p yas-minor-mode)
+;;                  (yas-maybe-expand-abbrev-key-filter 'yas-expand))
+;;             #'yas-expand)))
+;;      ,@(when (modulep! :completion company +tng)
+;;          '(((bound-and-true-p company-mode)
+;;             #'company-indent-or-complete-common)))
+;;      ,@(when (modulep! :completion corfu)
+;;          '(((and (bound-and-true-p corfu-mode)
+;;                  corfu--candidates)
+;;             (if (derived-mode-p 'eshell-mode 'comint-mode)
+;;                 #'completion-at-point
+;;               #'indent-for-tab-command)))))))
+
+;; ;; Extend smart tab for specific modes. This way, we process the entire
+;; ;; smart tab logic and only fall back to these commands at the end.
+;; (:when (modulep! :lang org)
+;;   (:after org :map org-mode-map
+;;           [remap indent-for-tab-command]
+;;           `(menu-item "Go to the next field" org-table-next-field
+;;             :filter ,(lambda (cmd) (when (org-at-table-p) cmd)))))
+
+;; :v [tab]
+;; (cmds! (and (modulep! :editor snippets)
+;;             (evil-visual-state-p)
+;;             ;; NOTE Disabling check for trailing chars to avoid issues when selecting functions
+;;             ;; (or (eq evil-visual-selection 'line)
+;;             ;;     (not (memq (char-after) (list ?\( ?\[ ?\{ ?\} ?\] ?\)))))
+;;             )
+;;        #'yas-insert-snippet)
+
+;; (:mode prog-mode
+;;  :n [tab]
+;;  #'+fold/toggle)
+
+;; :i [backtab]
+;; `(menu-item "Evil insert smart backtab" nil :filter
+;;   (lambda (cmd)
+;;     (cond
+;;      ((or (doom-lookup-key [backtab] overriding-terminal-local-map)
+;;           (doom-lookup-key (kbd "S-TAB") overriding-terminal-local-map))
+;;       cmd)
+;;      ;; ;; Org-mode
+;;      ;; ((derived-mode-p 'org-mode)
+;;      ;;  #'org-shifttab)
+;;      ;; Yasnippet
+;;      ,@(when (modulep! :editor snippets)
+;;          ;; If in an active `yasnippet' field, move to previous field
+;;          '(((memq (bound-and-true-p yas--active-field-overlay)
+;;              (overlays-in (1- (point)) (1+ (point))))
+;;             #'yas-prev-field)
+;;            ;; If yasnippet is active and corfu popup is not visible, invoke yasnippet completion
+;;            ((and (bound-and-true-p yas-minor-mode)
+;;                  (not (and (boundp 'corfu--frame)
+;;                            (frame-live-p corfu--frame)
+;;                            (frame-visible-p corfu--frame))))
+;;             #'yasnippet-capf))))))
+;; )
 
 ;; :completion (in-buffer)
 (map! (:when (modulep! :completion corfu)

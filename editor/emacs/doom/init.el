@@ -121,7 +121,7 @@
        lookup              ; navigate your code and its documentation
        llm               ; when I said you needed friends, I didn't mean...
        (lsp              ; M-x vscode
-        ;; +eglot
+        +eglot
         )
        (magit +forge)    ; a git porcelain for Emacs
        make              ; run make tasks from Emacs

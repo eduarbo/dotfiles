@@ -25,6 +25,19 @@
 ;;
 
 
+;; ─── Apheleia ─────────────────────────────────────────────────────────────────
+
+(after! apheleia
+  (let* ((modes '(css-mode scss-mode less-mode))
+         (mode-hooks (mapcar (lambda (m) (intern (format "%s-hook" m))) modes)))
+    (set-formatter! 'stylelint
+      '("cat" filepath "|" npx "stylelint" "--fix" "--stdin-filename" filepath)
+      ;; '(npx "stylelint" "--fix" "--stdin-filename" filepath)
+      :modes modes)
+    (dolist (hook mode-hooks)
+      (setq-hook! hook +format-with 'stylelint))))
+
+
 ;; ─── Company ──────────────────────────────────────────────────────────────────
 
 (after! company
@@ -33,6 +46,32 @@
 
 
 ;; ─── Corfu ────────────────────────────────────────────────────────────────────
+
+;; (after! cape
+;;   (defun +corfu-add-cape-dabbrev-h ()
+;;     (add-hook 'completion-at-point-functions #'cape-dabbrev -20 t)))
+
+;; (after! yasnippet-capf
+;;   (add-hook! 'yas-minor-mode-hook
+;;     (defun +corfu-add-yasnippet-capf-h ()
+;;       (add-hook 'completion-at-point-functions #'yasnippet-capf -30 t))))
+
+;; (defun my/eglot-capf ()
+;;   (setq-local completion-at-point-functions
+;;               (list (cape-capf-super
+;;                      #'eglot-completion-at-point
+;;                      #'yasnippet-capf
+;;                      #'cape-file))))
+
+;; (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
+
+;; (after! cape
+;;   (add-hook! 'prog-mode-hook
+;;     (defun +corfu-add-cape-file-h ()
+;;       (add-hook 'completion-at-point-functions #'cape-file -10 t))))
+
+;; (after! yasnippet
+;;   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (after! corfu
   (setq corfu-preselect 'valid)
