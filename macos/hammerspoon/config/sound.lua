@@ -5,15 +5,19 @@ local sound = {}
 -- Supports two groups: Headphones and Speakers
 function switchOutput()
     local outputMap = {
-        { -- Earbuds
+        {
+            {"AB13X USB Audio", "🎧 Headphones (USB)"},
+        },
+        {
+            {"KM_B2 Digital Audio", "🎧 Headphones (USB)"},
+        },
+        {
+            {"External Headphones", "🔊 External (Jack port)"},
+        },
+        {
             {"AirPods Pro Femto", "ᖰᖳ AirPods Pro"},
         },
-        { -- Wired Headphones
-            {"AB13X USB Audio", "🎧 Headphones (USB)"},
-            {"KM_B2 Digital Audio", "🎧 Headphones (USB)"}
-        },
-        { -- Speakers
-            {"External Headphones", "🔊 Speakers (Jack port)"},
+        {
             {"NS- 20G", "🔊 Speakers (Bluetooth)"},
             {"SWITCH", "🔊 Speakers"},
             {"MacBook Pro Speakers", "💻 MacBook"}
