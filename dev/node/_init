@@ -14,6 +14,11 @@ link() {
 install() {
   fetch_nodenv_and_plugins
   install_latest_node_version_as_global
+  case $(_os) in
+    macos)
+      brew install pnpm
+      ;;
+  esac
 }
 
 update() {
@@ -86,7 +91,7 @@ uninstall_orphan_node_versions() {
   }
 
   USED_NODE_VERSIONS=$((fd_node_versions 2>/dev/null) || (find_node_versions 2>/dev/null))
-  USED_NODE_VERSIONS+="\n$(nodenv global)" 
+  USED_NODE_VERSIONS+="\n$(nodenv global)"
   # Get, sort and delete duplicates of all node versions used in repositories + global version
   USED_NODE_VERSIONS=$(echo $USED_NODE_VERSIONS | sort -uV)
 
