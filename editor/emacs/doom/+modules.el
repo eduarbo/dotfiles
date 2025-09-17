@@ -104,26 +104,27 @@
 ;; ─── Editorconfig ─────────────────────────────────────────────────────────────
 
 (after! editorconfig
-  (add-to-list 'editorconfig-indentation-alist '(typescript-tsx-mode typescript-indent-level))
   ;; Override editorconfig defaults for web-mode to fix indentation
-  (setcdr (assq 'web-mode editorconfig-indentation-alist)
-          '((web-mode-indent-style lambda (size) 2)
-            ;; I prefer the web mode attr indent behavior when it's set to nil
-            ;;
-            ;; <a href="http://google.com"
-            ;;    target="_blank">See how the attributes line up vertically?</a>
-            ;;
-            ;; web-mode-attr-indent-offset
-            ;; web-mode-attr-value-indent-offset
+  (add-to-list 'editorconfig-indentation-alist
+               '(tsx-ts-mode
+                 (web-mode-indent-style lambda (size) 2)
 
-            ;; web-mode-block-padding
-            web-mode-code-indent-offset
-            web-mode-css-indent-offset
-            web-mode-markup-indent-offset
-            web-mode-sql-indent-offset
-            web-mode-script-padding
-            web-mode-style-padding
-            standard-indent)))
+                 ;; I prefer the web mode attr indent behavior when it's set to nil
+                 ;;
+                 ;; <a href="http://google.com"
+                 ;;    target="_blank">See how the attributes line up vertically?</a>
+                 ;;
+                 ;; web-mode-attr-indent-offset
+                 ;; web-mode-attr-value-indent-offset
+
+                 ;; web-mode-block-padding
+                 ;; web-mode-code-indent-offset
+                 ;; web-mode-css-indent-offset
+                 ;; web-mode-markup-indent-offset
+                 ;; web-mode-sql-indent-offset
+                 ;; web-mode-script-padding
+                 ;; web-mode-style-padding
+                 standard-indent)))
 
 
 ;; HACK: Force web-mode padding values via hook, as the overrides above don't work
@@ -229,7 +230,8 @@
 
    ;; Follow the instructions to setup ESLint in LSP server:
    ;; https://github.com/emacs-lsp/lsp-mode/wiki/LSP-ESlint-integration#fn1
-   lsp-eslint-download-url "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/3.0.10/vspackage" ;; latest VSCode eslint extension from marketplace
+   ;; Get latest number version from https://github.com/microsoft/vscode-eslint/releases/latest
+   lsp-eslint-download-url "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/3.0.16/vspackage" ;; latest VSCode eslint extension from marketplace
    lsp-eslint-server-command '("vscode-eslint-language-server" "--stdio")
    ;; lsp-eslint-server-command '("~/.vscode/extensions/dbaeumer.vscode-eslint-3.0.10/server/out/eslintServer.js" "--stdio")
    lsp-eslint-run "onType"
