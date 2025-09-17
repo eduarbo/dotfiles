@@ -83,14 +83,14 @@ install() {
       # Enable Cask of fonts
       brew install --cask ${cask_deps[@]}
 
-      # Install emacs-plus@29
+      # Install emacs-plus
       brew tap d12frosted/emacs-plus
       brew install emacs-plus --with-modern-doom3-icon
       ln -fs $(brew --prefix)/opt/emacs-plus/Emacs.app /Applications
 
       # # Install emacs-mac
       # # BUG window resizing doesn't work when maximized (not fullscreen)
-      # brew install emacs-mac --with-emacs-big-sur-icon --with-native-comp --with-starter --with-no-title-bars
+      # brew install emacs-mac --with-emacs-big-sur-icon --with-native-comp --with-starter
       # ln -fs $(brew --prefix)/opt/emacs-mac/Emacs.app /Applications
 
       # Install node deps

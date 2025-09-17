@@ -54,10 +54,10 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         a = "Figma",
         b = "Arc",
         c = "Calendar",
-        d = "Firefox Developer Edition",
+        d = "Firefox",
         e = "Emacs",
         f = "Finder",
-        g = "Microsoft Edge",
+        g = "Brave Browser",
         -- h = "", -- already bound to reload 🔨🥄
         i = "ChatGPT",
         -- j = "",

@@ -121,7 +121,9 @@
        lookup              ; navigate your code and its documentation
        llm               ; when I said you needed friends, I didn't mean...
        (lsp              ; M-x vscode
-        +eglot
+        ;; +eglot
+        ;; +booster
+        ;; +peek
         )
        (magit +forge)    ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
@@ -168,7 +170,9 @@
        ;;janet             ; Fun fact: Janet is me!
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
        (javascript       ; all(hope(abandon(ye(who(enter(here))))))
-        +lsp)
+        +lsp
+        +tree-sitter
+        )
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        ;;latex             ; writing papers in Emacs has never been so fun
@@ -182,7 +186,8 @@
        org               ; organize your plain life in plain text
        (php              ; perl's insecure younger brother
         +lsp
-        +tree-sitter)
+        +tree-sitter
+        )
        ;;plantuml          ; diagrams for confusing people more
        ;;graphviz          ; diagrams for confusing yourself even more
        ;;purescript        ; javascript, but functional
@@ -203,7 +208,8 @@
        ;;terra             ; Earth and Moon in alignment for performance.
        (web              ; the tubes
         +lsp
-        +tree-sitter)
+        +tree-sitter
+        )
        yaml              ; JSON, but readable
        ;;zig               ; C, but simpler
 
