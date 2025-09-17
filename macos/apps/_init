@@ -5,13 +5,24 @@ brew_deps=(
   bpytop
   hacker1024/hacker1024/coretemp
   gtypist
-  highlight
   mvtools
   p7zip
   rsync
   tree
-  rar
   wget
+  ffmpeg
+  ffms2
+  prettyping
+  yt-dlp
+)
+
+cask_deps=(
+  handbrake
+  obsidian
+  syncthing
+  iina
+  highlight
+  rar
   adobe-acrobat-reader
   alfred
   android-file-transfer
@@ -20,14 +31,11 @@ brew_deps=(
   calibre
   chatgpt
   deepl
-  ffmpeg
-  ffms2
   grandperspective
   keka
   keycastr
   orbstack
   omnidisksweeper
-  prettyping
   provisionql
   qlcolorcode
   qlmarkdown
@@ -37,19 +45,9 @@ brew_deps=(
   quicklook-json
   quicklookase
   skim
-  slack
-  spotify
   suspicious-package
   visual-studio-code
-  vlc
   webpquicklook
-  yt-dlp
-)
-
-cask_deps=(
-  handbrake
-  obsidian
-  syncthing
 )
 
 # link() {}
@@ -57,8 +55,12 @@ cask_deps=(
 install() {
   case $(_os) in
     macos)
-      brew install ${brew_deps[@]}
-      brew install --cask ${cask_deps[@]}
+      for pkg in "${brew_deps[@]}"; do
+        brew install "$pkg"
+      done
+      for pkg in "${cask_deps[@]}"; do
+        brew install --cask "$pkg"
+      done
       brew tap cjbassi/gotop
       brew install gotop
       brew tap teamookla/speedtest
