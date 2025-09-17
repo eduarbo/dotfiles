@@ -76,6 +76,9 @@
 ;; Python: treat _ as word constituent
 (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 
+;; FIXME: Emacs freezes if LSP tries to auto-download a server in nxml-mode
+(setq-hook! 'nxml-mode-hook lsp-enable-suggest-server-download nil)
+
 ;; ─── User Experience Defaults ────────────────────────────────────────────────
 
 ;; Stop in-between "camelCase" words instead of just spaces, hyphens or underscores
