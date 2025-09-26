@@ -82,8 +82,6 @@
 	enabled = true
 [init]
 	defaultBranch = main
-[forge]
-	remote = upstream
 [include]
 	# Here goes my personal configuration
 	path = ~/.config/git/personal.gitconfig
