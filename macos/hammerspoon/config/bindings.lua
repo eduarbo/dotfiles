@@ -54,7 +54,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         a = "Figma",
         b = "Arc",
         c = "Calendar",
-        d = "Firefox",
+        -- d = "",
         e = "Emacs",
         f = "Finder",
         g = "Brave Browser",
