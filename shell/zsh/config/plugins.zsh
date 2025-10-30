@@ -39,8 +39,9 @@ zinit load tj/git-extras
 
 # fasd is archived and unavailable for brew; we still can load from GitHub
 # https://github.com/Homebrew/homebrew-core/pull/112791
-zinit ice wait"1" lucid
+zinit ice pick"fasd" atload'eval "$(fasd --init env)"'
 zinit load whjvenyl/fasd
+# eval "$(fasd --init env)"
 
 # ─── powerlevel10k theme ───────────────────────────────────────────────────────
 
