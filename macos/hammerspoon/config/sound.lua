@@ -18,6 +18,9 @@ function switchOutput()
             {"AirPods Pro Femto", "ᖰᖳ AirPods Pro"},
         },
         {
+            {"Chat-Audeze Maxwell", "🎧 Audeze Maxwell"},
+        },
+        {
             {"NS- 20G", "🔊 Speakers (Bluetooth)"},
             {"SWITCH", "🔊 Speakers"},
             {"MacBook Pro Speakers", "💻 MacBook"}
