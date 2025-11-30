@@ -91,6 +91,7 @@ alias top='top -o cpu'
 
 alias d='docker'
 alias dc='docker compose'
+alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest'
 
 # Intuitive map function
 # For example, to list all directories that contain a certain file: find . -name
