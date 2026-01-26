@@ -53,6 +53,8 @@ fetch_nodenv_and_plugins() {
   _ensure_repo nodenv/nodenv-package-json-engine $NODENV_PLUGINS/nodenv-package-json-engine
   # detects the Node version based on .nvmrc
   _ensure_repo ouchxp/nodenv-nvmrc               $NODENV_PLUGINS/nodenv-nvmrc
+  # generate node-build definitions from nodejs.org
+  _ensure_repo nodenv/node-build-update-defs     $NODENV_PLUGINS/node-build-update-defs
 }
 
 install_latest_node_version_as_global() {
