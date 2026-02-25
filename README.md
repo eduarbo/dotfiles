@@ -49,6 +49,7 @@ The following are the categories and topics you can install:
   - `tmux` – Tab-multiplying terminal wizardry
   - `zsh` – The shell with speed, features, and a prompt that actually sparks joy
   - `kitty` – The terminal so full-featured, even your cat would approve
+  - `claude-code` – Custom status line for Claude Code CLI, integrated with Powerlevel10k
 
 - `dev/` – Essential tools and setups for a life in code
   - `lua` – Harness the power of luaenv and keep your Lua scripts flowing
