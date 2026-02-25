@@ -27,15 +27,15 @@
 
 ;; ─── Apheleia ─────────────────────────────────────────────────────────────────
 
-(after! apheleia
-  (let* ((modes '(css-mode scss-mode less-mode))
-         (mode-hooks (mapcar (lambda (m) (intern (format "%s-hook" m))) modes)))
-    (set-formatter! 'stylelint
-      '("cat" filepath "|" npx "stylelint" "--fix" "--stdin-filename" filepath)
-      ;; '(npx "stylelint" "--fix" "--stdin-filename" filepath)
-      :modes modes)
-    (dolist (hook mode-hooks)
-      (setq-hook! hook +format-with 'stylelint))))
+;; (after! apheleia
+;;   (let* ((modes '(css-mode scss-mode less-mode))
+;;          (mode-hooks (mapcar (lambda (m) (intern (format "%s-hook" m))) modes)))
+;;     (set-formatter! 'stylelint
+;;       '("cat" filepath "|" npx "stylelint" "--fix" "--stdin-filename" filepath)
+;;       ;; '(npx "stylelint" "--fix" "--stdin-filename" filepath)
+;;       :modes modes)
+;;     (dolist (hook mode-hooks)
+;;       (setq-hook! hook +format-with 'stylelint))))
 
 
 ;; ─── Company ──────────────────────────────────────────────────────────────────
@@ -85,6 +85,18 @@
       :background ,(doom-blend (doom-color 'blue) (doom-color 'bg-alt) 0.3)
       :extend t)))
 
+
+;; ─── Denote ───────────────────────────────────────────────────────────────────
+
+(use-package! denote
+  :config
+  (setq denote-known-keywords '("emacs" "programming" "managing" "learning")
+                ;; denote-date-prompt-use-org-read-date t
+                denote-infer-keywords t
+                denote-prompts '(title keywords)
+                denote-directory (expand-file-name "/Volumes/silo.guts.cc/Notes/denote")))
+
+;; NOTE Check if it's worth it to install denote-explore, denote-menu, denote-journal, consult-notes
 
 ;; ─── Drag stuff (words, region, lines) around ─────────────────────────────────
 
@@ -168,32 +180,26 @@
 (add-hook 'lsp-after-open-hook #'my/setup-php-flycheck-chain)
 
 ;; CSS-like mode hooks
-(dolist (mode-hook '(css-mode-hook scss-mode-hook less-mode-hook))
-  (add-hook mode-hook
-            (lambda ()
-              (my/find-stylelint-config)
-              (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t))))
-(add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain)
-
-;; Web-mode hooks (handles both PHP and CSS)
-(add-hook 'web-mode-hook
-          (lambda ()
-            (cond
-             ;; PHP files in web-mode
-             ((my/web-mode-is-php-p)
-              (my/use-project-phpcs-executable)
-              (add-hook 'lsp-after-open-hook #'my/setup-php-flycheck-chain nil t))
-             ;; CSS-like files in web-mode
-             ((member web-mode-content-type '("css" "scss" "less"))
-              (my/find-stylelint-config)
-              (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t)))))
+;; (dolist (mode-hook '(css-mode-hook scss-mode-hook less-mode-hook))
+;;   (add-hook mode-hook
+;;             (lambda ()
+;;               (my/find-stylelint-config)
+;;               (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain nil t))))
+;; (add-hook 'lsp-after-open-hook #'my/setup-stylelint-flycheck-chain)
 
 (after! flycheck
-  (flycheck-add-mode 'php-phpcs 'web-mode)
-  (flycheck-add-mode 'html-tidy 'web-mode)
+  ;; Remove default chains from php
+  (flycheck-remove-next-checker 'php 'php-phpmd)
+  (flycheck-remove-next-checker 'php 'php-phpcs)
 
-  ;; (setq flycheck-stylelintrc
-  ;;       (expand-file-name "stylelint.config.js" (projectile-project-root)))
+  ;; ;; Make phpcs the main checker, then chain php and phpmd
+  ;; (flycheck-add-next-checker 'php-phpcs '(warning . php))
+  (flycheck-add-next-checker 'php '(t . php-phpcs))
+
+  ;; (flycheck-add-mode 'php-phpcs 'web-mode)
+  ;; (flycheck-add-mode 'html-tidy 'web-mode)
+
+  (setq flycheck-stylelintrc '("stylelint.config.js" ".stylelintrc.mjs" ".stylelintrc.cjs" ".stylelintrc" ".stylelintrc.yml" ".stylelintrc.yaml" ".stylelintrc.json" ".stylelintrc.js"))
 
   ;; Prefer eslint_d to ESLint
   ;; See https://github.com/mantoni/eslint_d.js
@@ -221,8 +227,25 @@
   ;; https://github.com/flycheck/flycheck/issues/1129#issuecomment-319600923
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t)))
 
+;; (after! php-ts
+;;   (setf (alist-get 'phpcs apheleia-formatters)
+;;         '("composer" "--no-interaction" (concat "--working-dir=" (expand-file-name (project-root (project-current t))))
+;;           "exec" "php-cs-fixer" "fix" "--quiet" (buffer-file-name))))
 
 ;; ─── LSP ──────────────────────────────────────────────────────────────────────
+
+;; FIXME Formatting is broken when using LSP for these modes
+(dolist (hook '(css-mode-local-vars-hook
+                css-ts-mode-local-vars-hook
+                scss-mode-local-vars-hook
+                sass-mode-local-vars-hook
+                less-css-mode-local-vars-hook))
+  (remove-hook hook #'lsp!))
+
+;; (set-next-checker! 'scss-mode 'scss-stylelint 'lsp t)
+;; (set-next-checker! 'less-css-mode 'less-stylelint `(t . lsp))
+;; (set-next-checker! 'css-mode 'css-stylelint 'lsp t)
+;; (set-next-checker! 'css-ts-mode 'css-stylelint 'lsp t)
 
 (after! lsp-mode
   (setq
@@ -281,6 +304,14 @@
   ;; non-nil since lsp-mode doesn't support this natively. See:
   ;; https://github.com/emacs-lsp/lsp-mode/issues/1842
   (advice-add 'lsp--before-save :around #'my/lsp--eslint-before-save))
+
+
+;; ─── Magit ────────────────────────────────────────────────────────────────────
+
+;; FIXME
+(after! magit
+  (setq evil-collection-magit-want-horizontal-movement t)
+  (setq evil-collection-magit-use-y-for-yank t))
 
 
 ;; ─── Obsidian ─────────────────────────────────────────────────────────────────

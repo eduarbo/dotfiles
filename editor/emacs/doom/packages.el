@@ -69,3 +69,5 @@
 
 ;; ─── Editing Enhancements ─────────────────────────────────────────────────────
 (package! drag-stuff)  ;; Move lines or text blocks up/down/left/right using shortcuts
+
+(package! denote)
