@@ -1,5 +1,5 @@
-import { remap, EMACS_KEY_BINDINGS_EXCEPTION } from '../../lib';
-import type { ManipulatorOptions, ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib';
+import { remap, EMACS_KEY_BINDINGS_EXCEPTION } from '../../lib/index.js';
+import type { ManipulatorOptions, ToKeyCodeTuple, KeyCode, ComplexModifications } from '../../lib/index.js';
 
 const keybind = (
   fromKeyCode: KeyCode,

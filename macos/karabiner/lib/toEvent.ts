@@ -4,7 +4,7 @@ import type {
   PointingButton,
   ConsumerKeyCode,
   StickyModifierState,
-} from './enums';
+} from './enums/index.js';
 
 export interface ToEventCommon {
   modifiers?: Modifier[];
@@ -89,7 +89,7 @@ export type VariableEvents = {
   to_if_alone?: VariableValue;
   to_if_held_down?: VariableValue;
 };
-export type SetVariables = { [name: string]: VariableEvents };
+export type SetVariables = Record<string, VariableEvents>;
 export type ToSetVariableTuple = [VariableName, VariableValue];
 
 export const toKeyCode = (
@@ -139,10 +139,7 @@ export const toSetVariable = (
   [name, value]: ToSetVariableTuple,
   options: ToEventCommon = {},
 ): ToSetVariableEvent => ({
-  set_variable: {
-    name,
-    value,
-  },
+  set_variable: { name, value },
   ...options,
 });
 
@@ -167,5 +164,3 @@ export const toHyperKeyCodeTuple: ToKeyCodeTuple = [
 export const toMehKeyCodeTuple: ToKeyCodeTuple = ['right_shift', ['option', 'control']];
 
 export const toSuperKeyCodeTuple: ToKeyCodeTuple = ['right_command', ['option', 'control']];
-
-// TODO software_function
