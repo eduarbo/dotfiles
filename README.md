@@ -52,9 +52,10 @@ The following are the categories and topics you can install:
   - `claude-code` – Custom status line for Claude Code CLI, integrated with Powerlevel10k
 
 - `dev/` – Essential tools and setups for a life in code
-  - `lua` – Harness the power of luaenv and keep your Lua scripts flowing
-  - `node` – Install nodenv: because who wants to remember which version of Node broke what?
-  - `python` – Pyenv to rule them all, so every script gets the right snake
+  - `mise` – Universal version manager for Node, Python, Lua and more
+  - `lua` – Lua runtime via mise, luarocks packages, and luacheck linter
+  - `node` – npm/pnpm package management — runtime versions handled by mise
+  - `python` – Python tooling via brew and pipx — runtime versions handled by mise
   - `golang` – Go fast, install Go, and grab some must-have packages
   - `php` – Composer support included, because sometimes you just can’t avoid PHP
 
