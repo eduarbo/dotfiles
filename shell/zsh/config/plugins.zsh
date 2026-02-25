@@ -35,7 +35,9 @@ zinit ice wait"0" lucid as"program" pick"bin/git-*"
 zinit load tj/git-extras
 
 # zoxide is a smarter cd with frecency tracking (replaces the archived fasd)
-_is_callable zoxide && eval "$(zoxide init zsh)"
+# --hook prompt: use precmd instead of chpwd, since `alias cd='pushd -q'`
+# suppresses chpwd_functions (zsh intentionally skips chpwd hooks with -q)
+_is_callable zoxide && eval "$(zoxide init zsh --hook prompt)"
 
 # ─── powerlevel10k theme ───────────────────────────────────────────────────────
 
