@@ -35,8 +35,8 @@ zinit ice wait"0" lucid as"program" pick"bin/git-*"
 zinit load tj/git-extras
 
 # zoxide is a smarter cd with frecency tracking (replaces the archived fasd)
-zinit ice wait"0" lucid atload'eval "$(zoxide init zsh)"'
-zinit load ajeetdsouza/zoxide
+# It's a system binary (brew/apt), not a shell plugin — just cache its init
+_cache zoxide init zsh
 
 # ─── powerlevel10k theme ───────────────────────────────────────────────────────
 
