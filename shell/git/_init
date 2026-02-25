@@ -14,10 +14,6 @@ apt_deps=(
   git-delta
 )
 
-zinit_deps=(
-  tj/git-extras
-)
-
 link() {
   mklink {config,ignore,message} "$GIT_DIR/"
 }
@@ -40,26 +36,19 @@ install() {
 }
 
 update() {
-  if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
-    source ${ZINIT[BIN_DIR]}/zinit.zsh
-
-    for plugin in "${zinit_deps[@]}" ; do
-      zinit update $plugin
-      zinit compile $plugin
-    done
-  fi
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]}
+      brew upgrade ${common_deps[@]}
+      ;;
+    debian)
+      sudo apt update && sudo apt install -y ${apt_deps[@]}
+      ;;
+  esac
 }
 
 clean() {
   rm -rfv "$GIT_DIR"
-
-  if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
-    source ${ZINIT[BIN_DIR]}/zinit.zsh
-
-    for plugin in "${zinit_deps[@]}" ; do
-      zinit delete $plugin
-    done
-  fi
 }
 
 init "$@"

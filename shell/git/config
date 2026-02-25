@@ -27,7 +27,7 @@
 	default = current
 	autoSetupRemote = true
 [merge]
-	ff = onlt
+	ff = only
 	log = true
 	conflictStyle = diff3
 [log]

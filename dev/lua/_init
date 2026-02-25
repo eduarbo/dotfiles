@@ -48,7 +48,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$XDG_CACHE_HOME/zsh/luaenv"
+  :
 }
 
 init "$@"
