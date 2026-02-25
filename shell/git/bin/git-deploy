@@ -24,7 +24,7 @@ git add "$1" -f
 git commit -m 'deploy'
 
 # push your subfolder to gh-pages branch
-git push origin `git subtree split --prefix $1 master`:gh-pages --force
+git push origin $(git subtree split --prefix "$1" HEAD):gh-pages --force
 
 # undo temporary commit
 git reset HEAD^1

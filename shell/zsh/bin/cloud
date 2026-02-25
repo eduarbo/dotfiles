@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # IMPORTANT: Make sure you update the `DST` variable to
 # match the name of the destination backup drive
@@ -12,7 +12,7 @@ DOMAIN="http://cloud.eduarbo.com"
 
 # Header logging
 e_header() {
-  echo "\n$(tput setaf 7)$@$(tput sgr0)"
+  echo -e "\n$(tput setaf 7)$@$(tput sgr0)"
 }
 
 # Success logging
@@ -20,10 +20,13 @@ e_success() {
   echo "$(tput setaf 64)✓ $@$(tput sgr0)"
 }
 
-if [ ! -d $1 ]; then
-  if [[ "$1" =~ *.png|*.jpeg|*.jpg|*.gif|*.tiff|*.raw|*.bmp ]]; then
-    DSTFINAL="screenshots"
-  fi
+if [[ -z "$1" ]]; then
+  echo "Usage: $PROG <file>"
+  exit 1
+fi
+
+if [[ ! -d "$1" && "$1" =~ \.(png|jpeg|jpg|gif|tiff|raw|bmp)$ ]]; then
+  DST="screenshots"
 fi
 
 e_header "Uploading..."
@@ -32,7 +35,7 @@ rsync -vax -S -H --delete --rsh='ssh -p2222' "$1" "$HOST/$DST"
 
 e_success "Upload completed!"
 
-echo "Link $DOMAIN/$DST/$(basename $1) copied to pasteboard."
-echo "$DOMAIN/$DST/$(basename $1)" | pbcopy
+echo "Link $DOMAIN/$DST/$(basename "$1") copied to pasteboard."
+echo "$DOMAIN/$DST/$(basename "$1")" | pbcopy
 
 exit 0

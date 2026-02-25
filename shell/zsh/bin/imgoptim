@@ -29,7 +29,7 @@ EOL
 
 _filesize() {
   case $OSTYPE in
-    darwin*) stat -c%s "$1" ;;
+    darwin*) stat -f%z "$1" ;;
     *) stat --printf="%s" "$1" ;;
   esac
 }

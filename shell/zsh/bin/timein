@@ -52,7 +52,7 @@ def get_coords(desc):
                 "name": result['results'][0]['formatted_address']}
 
 def cache(key, fn, ttl):
-    if key in CACHE and CACHE[key]['time'] < CACHE[key]['time'] + ttl:
+    if key in CACHE and datetime.now().timestamp() < CACHE[key]['time'] + ttl:
         return CACHE[key]['value']
     value = fn()
     if value is not None:
@@ -111,10 +111,10 @@ if __name__ == '__main__':
     cachefp = Path(CACHE_FILE)
     CACHE = json.loads(cachefp.read_text()) if cachefp.exists() else {}
 
-    for data in each_location(sys.argv[1:]):
+    for i, data in enumerate(each_location(sys.argv[1:])):
         if data:
             print("{name:24} {then}\t{diff}h {suffix}".format(**data))
         else:
-            print("Couldn't find {name} or something went wrong".format(**data), file=sys.stderr)
+            print("Couldn't find '{}' or something went wrong".format(sys.argv[i + 1]), file=sys.stderr)
 
     cachefp.write_text(json.dumps(CACHE))

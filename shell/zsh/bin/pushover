@@ -27,7 +27,7 @@ url=
 url_title=
 device=
 
-while getopts t:m:p:u:d: opt; do
+while getopts t:m:p:u:U:d: opt; do
   case $opt in
     t) title="$OPTARG" ;;
     m) message="$OPTARG" ;;

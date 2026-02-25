@@ -16,6 +16,7 @@ TAGS
 !TAGS/
 tags
 !tags/
+.tags
 
 # Logs and databases
 *.log
@@ -36,12 +37,7 @@ Thumbs.db
 # Code stuffs
 .svn
 .git
-.swp
 .idea
-.*.swp
-*~
-.tags
-tags
 .sass-cache
 tmp
 .codekit-cache
