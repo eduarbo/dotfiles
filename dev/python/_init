@@ -2,14 +2,18 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
-pip_deps=(
-  ruff          # linter + formatter: replaces pyflakes, black, isort
-  pytest
-  setuptools
+# Tools installed globally via pipx (isolated envs, no venv conflicts)
+pipx_deps=(
   "python-lsp-server[all]"
 )
 
-# Build dependencies required by mise/pyenv to compile Python from source
+# Tools available as system packages (prefer brew/apt over pip)
+brew_deps=(
+  ruff    # linter + formatter (replaces pyflakes, black, isort)
+  pipx    # installs Python CLI apps in isolated environments
+)
+
+# Build dependencies required by mise to compile Python from source
 apt_build_deps=(
   build-essential
   libssl-dev
@@ -26,6 +30,11 @@ apt_build_deps=(
   liblzma-dev
 )
 
+apt_deps=(
+  ruff
+  pipx
+)
+
 link() {
   mklink config/flake8 $XDG_CONFIG_HOME
 }
@@ -33,19 +42,31 @@ link() {
 install() {
   # Install Python build dependencies so mise can compile Python from source
   case $(_os) in
+    macos)
+      brew install ${brew_deps[@]}
+      ;;
     debian)
       sudo apt update
-      sudo apt install -y ${apt_build_deps[@]}
+      sudo apt install -y ${apt_build_deps[@]} ${apt_deps[@]}
       ;;
   esac
 
+  pipx install ${pipx_deps[@]}
   echo-note "Set your global Python version via: mise use --global python@latest"
-  echo-note "Setup development tools"
-  pip3 install ${pip_deps[@]}
 }
 
 update() {
-  pip3 install --upgrade ${pip_deps[@]}
+  case $(_os) in
+    macos)
+      brew install ${brew_deps[@]}
+      brew upgrade ${brew_deps[@]}
+      ;;
+    debian)
+      sudo apt install -y ${apt_deps[@]}
+      ;;
+  esac
+
+  pipx upgrade-all
 }
 
 clean() {

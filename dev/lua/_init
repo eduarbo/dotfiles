@@ -36,6 +36,7 @@ install() {
 update() {
   case $(_os) in
     macos)
+      brew install ${brew_deps[@]}
       brew upgrade ${brew_deps[@]}
       ;;
     debian)
