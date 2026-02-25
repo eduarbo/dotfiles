@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+CLAUDE_DIR="${HOME}/.claude"
+
+# Dependencies
+
+common_deps=(
+  jq  # Required for parsing JSON in statusline.sh
+)
+
+link() {
+  # Ensure ~/.claude directory exists
+  [[ ! -d "$CLAUDE_DIR" ]] && mkdir -p "$CLAUDE_DIR"
+
+  # Link statusline script and settings
+  mklink statusline.sh "$CLAUDE_DIR/"
+  mklink settings.json "$CLAUDE_DIR/"
+}
+
+install() {
+  case $(_os) in
+    macos)
+      brew install ${common_deps[@]}
+      ;;
+    debian)
+      sudo apt update && sudo apt install -y ${common_deps[@]}
+      ;;
+  esac
+}
+
+update() {
+  # Nothing to update for now
+  :
+}
+
+clean() {
+  # Remove symlinks but preserve ~/.claude directory
+  # (it may contain other user data)
+  rm -fv "$CLAUDE_DIR/statusline.sh"
+  rm -fv "$CLAUDE_DIR/settings.json"
+}
+
+init "$@"
