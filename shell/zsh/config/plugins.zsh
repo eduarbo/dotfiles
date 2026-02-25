@@ -37,11 +37,9 @@ zinit load so-fancy/diff-so-fancy
 zinit ice wait"0" lucid as"program" pick"bin/git-*"
 zinit load tj/git-extras
 
-# fasd is archived and unavailable for brew; we still can load from GitHub
-# https://github.com/Homebrew/homebrew-core/pull/112791
-zinit ice pick"fasd" atload'eval "$(fasd --init env)"'
-zinit load whjvenyl/fasd
-# eval "$(fasd --init env)"
+# zoxide is a smarter cd with frecency tracking (replaces the archived fasd)
+zinit ice wait"0" lucid atload'eval "$(zoxide init zsh)"'
+zinit load ajeetdsouza/zoxide
 
 # ─── powerlevel10k theme ───────────────────────────────────────────────────────
 

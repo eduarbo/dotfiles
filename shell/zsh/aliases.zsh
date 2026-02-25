@@ -60,7 +60,6 @@ alias cp='cp -i'
 alias shred='shred -zuvn5'
 alias vanish='shred'
 
-alias agg='ag -S --hidden --line-number'
 alias rgg='rg -S --hidden --line-number'
 
 
@@ -128,7 +127,7 @@ function pubkey() {
 }
 
 # quick way to serve a directory, very handy
-alias server='python -m SimpleHTTPServer'
+alias server='python3 -m http.server'
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
@@ -173,10 +172,10 @@ zman() { PAGER="less -g -s '+/^       "$1"'" man zshall; }
 
 ## FZF
 
-# fasd & fzf change directory
+# zoxide & fzf: jump to frecent directory (or fuzzy-search one with fzf)
 j() {
   local dir
-  dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+  dir="$(zoxide query --list "$@" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
 }
 
 # fd & fzf change directory
