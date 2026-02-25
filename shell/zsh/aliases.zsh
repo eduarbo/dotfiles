@@ -175,13 +175,13 @@ zman() { PAGER="less -g -s '+/^       "$1"'" man zshall; }
 # zoxide & fzf: jump to frecent directory (or fuzzy-search one with fzf)
 j() {
   local dir
-  dir="$(zoxide query --list "$@" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+  dir="$(zoxide query --list "$@" | fzf -1 --no-sort +m)" && cd "${dir}"
 }
 
 # fd & fzf change directory
 cdd() {
   local dir
-  dir="$(fd --type directory --follow --hidden "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+  dir="$(fd --type directory --follow --hidden "$1" | fzf -1 --no-sort +m)" && cd "${dir}"
 }
 
 # cdf - cd into the directory of the selected file
