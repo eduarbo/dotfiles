@@ -110,7 +110,7 @@ function _cache {
 
   if _is_callable "$1" && [[ ! -f "$cache" || ! -s "$cache" ]]; then
     mkdir -p "$cache_dir"
-    echo "Caching $1"
+    echo "Caching $1" >&2
     "$@" >| $cache
   fi
   _source $cache

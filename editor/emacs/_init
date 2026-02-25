@@ -28,7 +28,6 @@ brew_deps=(
   cmake
   clang-format
   glslang
-  pyenv
   jq
   black
   aspell
@@ -68,8 +67,8 @@ apt_deps=(
   tar
 )
 
-pip_deps=(
-  grip
+pipx_deps=(
+  grip  # GitHub Markdown preview server
 )
 
 link() {
@@ -93,8 +92,7 @@ install() {
       # brew install emacs-mac --with-emacs-big-sur-icon --with-native-comp --with-starter
       # ln -fs $(brew --prefix)/opt/emacs-mac/Emacs.app /Applications
 
-      # Install node deps
-      pip3 install ${pip_deps[@]}
+      pipx install ${pipx_deps[@]}
       ;;
     debian)
       sudo apt update

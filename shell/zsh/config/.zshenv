@@ -45,8 +45,6 @@ export FIGLET_FONTDIR="$ZDOTDIR/figlet-fonts"
 
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 
-export _FASD_DATA="$XDG_DATA_HOME/zsh/fasd"
-
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath manpath path
 typeset -gUT INFOPATH infopath
