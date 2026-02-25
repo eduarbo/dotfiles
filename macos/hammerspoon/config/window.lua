@@ -1,13 +1,12 @@
 --                 ░█░█░▀█▀░█▀█░░░█▄█░█▀█░█▀█░█▀█░█▀▀░█▀▀░█▀▄
 --                 ░█▄█░░█░░█░█░░░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█▀▄
 --                 ░▀░▀░▀▀▀░▀░▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
-local mods = require("modifiers")
 
 local window = {}
 
 hs.window.animationDuration = 0
 
--- Ignore the misbehaving apps to supress warnings
+-- Ignore the misbehaving apps to suppress warnings
 hs.window.filter.ignoreAlways["WhatsApp Helper"] = true
 hs.window.filter.ignoreAlways["Mail Networking"] = true
 hs.window.filter.ignoreAlways["Firefox Developer EditionCP WebExtensions"] = true
@@ -42,11 +41,8 @@ hs.grid.ui.fontName = 'PT Sans Caption'
 -- ╹┗╸┗━╸┗━┛╹┗━╸┗━╸   ┗━┛    ╹ ╹┗━┛┗┛ ┗━╸
 -- Resize and move
 
-local wasPressed = {false, false, false, false}
-local pressed = {false, false, false, false}
-
 local function getNextScreen(s)
-    all = hs.screen.allScreens()
+    local all = hs.screen.allScreens()
     for i = 1, #all do
         if all[i] == s then
             return all[(i - 1 + 1) % #all + 1]
@@ -57,9 +53,8 @@ end
 
 function window.moveToNextScreen()
     local win = hs.window.focusedWindow()
-    if win ~= nil then
-        currentScreen = win:screen()
-        nextScreen = getNextScreen(currentScreen)
+    if win then
+        local nextScreen = getNextScreen(win:screen())
         if nextScreen then
             win:moveToScreen(nextScreen)
         end
@@ -73,19 +68,20 @@ local function framesEqual(frame1, frame2)
            frame1.h == frame2.h
 end
 
+-- Store previous frames per window ID so maximizing different windows doesn't lose state
+local previousFrames = {}
+
 function window.toggleMaximize()
     local win = hs.window.focusedWindow()
-    if win ~= nil then
-        local screen = win:screen()
-        local maxFrame = screen:frame()
+    if win then
+        local id = win:id()
+        local maxFrame = win:screen():frame()
         local winFrame = win:frame()
 
-        if framesEqual(winFrame, maxFrame) then
-            if previousFrame then
-                win:setFrame(previousFrame)
-            end
+        if framesEqual(winFrame, maxFrame) and previousFrames[id] then
+            win:setFrame(previousFrames[id])
         else
-            previousFrame = win:frame()
+            previousFrames[id] = win:frame()
             win:maximize()
         end
     end

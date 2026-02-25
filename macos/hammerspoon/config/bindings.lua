@@ -48,7 +48,7 @@ hs.hotkey.bind("cmd", "escape", hs.caffeinate.lockScreen)
 
 hs.hotkey.bind(mods.hyper, "h", hs.reload)
 
--- Appps launcher
+-- Apps launcher
 spoon.SpoonInstall:andUse("AppLauncher", {
     hotkeys = {
         a = "Figma",
