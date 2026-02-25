@@ -70,7 +70,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$XDG_CONFIG_HOME/flake8" "$XDG_CACHE_HOME/zsh/pyenv"
+  rm -rfv "$XDG_CONFIG_HOME/flake8"
 }
 
 init "$@"

@@ -1,7 +1,6 @@
 _load "shell/zsh/aliases.$(_os).zsh"
 
 alias cd='pushd -q'
-alias ag="noglob ag"
 alias rg='noglob rg'
 
 # Allow aliases to be sudo'ed
@@ -155,10 +154,10 @@ historystat() {
 }
 
 rvu() {
-  local offset=${2:=0}
+  local offset=${2:-0}
   local output
 
-  output=$($output | md5)
+  output=$(echo -n "$1" | md5)
   output=${output:$offset:15}
   echo "$output" | y
 }

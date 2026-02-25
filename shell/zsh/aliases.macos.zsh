@@ -22,8 +22,8 @@ o() {
 # Also, clear Apple’s System Logs to improve shell startup speed
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
+# Get macOS Software Updates and update Homebrew packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
 
 # Recursively delete `.DS_Store` files
 alias cleanup='find . -type f -name "*.DS_Store" -ls -delete'

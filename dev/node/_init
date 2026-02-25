@@ -38,7 +38,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$HOME/.prettierrc.js" "$XDG_CACHE_HOME/zsh/nodenv"
+  rm -rfv "$HOME/.prettierrc.js"
 }
 
 init "$@"
