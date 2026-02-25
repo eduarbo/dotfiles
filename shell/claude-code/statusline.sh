@@ -43,7 +43,7 @@ for ((i=0; i<EMPTY; i++)); do BAR+="─"; done
 COST_FORMATTED=$(printf "%.2f" $COST)
 
 # Output con formato similar a p10k
-printf "${GRAY}in ${BLUE}󱚟 %s ${GRAY}at ${BLUE}📁 %s ${CTX_COLOR}[%s %d%%%%] ${GRAY}\$%s${RESET}" \
+printf "${GRAY}in ${BLUE}󱚟 %s ${GRAY}at ${BLUE}📁 %s ${CTX_COLOR}[%s %d%%] ${GRAY}\$%s${RESET}" \
     "$MODEL" \
     "$DIR_NAME" \
     "$BAR" \
