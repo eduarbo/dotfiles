@@ -11,6 +11,13 @@ if [[ "$TERM" == "dumb" ]]; then
     return
 fi
 
+# Enable Powerlevel10k instant prompt. Must be near the top of .zshrc — before
+# any output or code that may produce output. The prompt will render immediately
+# while the rest of zsh initialization continues in the background.
+if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "$XDG_CACHE_HOME/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Set vi style bindings before sourcing fzf to prevent reset for TAB key binding
 bindkey -v
 
