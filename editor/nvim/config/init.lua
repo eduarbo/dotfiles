@@ -62,22 +62,28 @@ require("lazy").setup({
   },
 
   -- Motions
-  { -- Jump to any spot on-screen
-    "ggandor/leap.nvim",
-    keys = { "S" },
+  { -- Jump to any spot on-screen + enhanced f/t motions
+    url = "https://codeberg.org/andyg/leap.nvim",
+    keys = { "S", "f", "F", "t", "T" },
     config = function()
-      local leap = require("leap")
-      require("leap.user").set_repeat_keys("<C-.>", "<C-,>", { relative_directions = false })
-      leap.opts.special_keys.prev_target = "<C-,>"
-      leap.opts.special_keys.next_target = "<C-.>"
-      vim.keymap.set({ "n", "x" }, "S", "<Plug>(leap)") -- Bidirectional mapping
-    end,
-  },
-  { -- Enhanced f/t motions
-    "ggandor/flit.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("flit").setup()
+      require("leap.user").set_repeat_keys("<C-.>", "<C-,>")
+      vim.keymap.set({ "n", "x" }, "S", "<Plug>(leap)")
+
+      -- Built-in f/t motions (replaces the deprecated flit.nvim)
+      local function ft(key_args)
+        require("leap").leap(vim.tbl_deep_extend("keep", key_args, {
+          inputlen = 1,
+          inclusive = true,
+          equivalence_classes = {},
+          opts = { labels = "" },
+        }))
+      end
+      local clever = require("leap.user").with_traversal_keys
+      local clever_f, clever_t = clever("f", "F"), clever("t", "T")
+      vim.keymap.set({ "n", "x", "o" }, "f", function() ft { opts = clever_f } end)
+      vim.keymap.set({ "n", "x", "o" }, "F", function() ft { backward = true, opts = clever_f } end)
+      vim.keymap.set({ "n", "x", "o" }, "t", function() ft { offset = -1, opts = clever_t } end)
+      vim.keymap.set({ "n", "x", "o" }, "T", function() ft { backward = true, offset = 1, opts = clever_t } end)
     end,
   },
   { -- Swap text objects
