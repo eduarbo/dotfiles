@@ -21,8 +21,11 @@ function echo-ok    { printf "\r\033[2K✅ \033[0;32m%s\033[0m\n" "$*"; }
 function echo-fail  { printf "\r\033[2K❌ \033[0;31m%s\033[0m\n" "$*"; }
 
 function _exec {
-  ${DRYRUN:+echo-debug} $@
-  return ${DRYRUN:+1}
+  if [[ -n $DRYRUN ]]; then
+    echo-debug "$@"
+    return 0
+  fi
+  "$@"
 }
 
 function _topic-do {
@@ -34,8 +37,9 @@ function _topic-do {
     export TOPIC=$1
     pushd -q $1
     _exec ./_init $2
+    local retcode=$?
     popd -q
-    return $?
+    return $retcode
   fi
 }
 
@@ -91,13 +95,21 @@ function init {
   echo-info "$TOPIC.init.$1: start"
   $1
   local retval=$?
-  echo-ok "$TOPIC.init.$1: done"
+  if (( retval )); then
+    echo-fail "$TOPIC.init.$1: failed"
+  else
+    echo-ok "$TOPIC.init.$1: done"
+  fi
   return $retval
 }
 
 # Functions to initialize, link, and update topics
 function topic-init {
+  local _needs_reload=0
   for topic in $@; do
+    # Reset op on every iteration so it doesn't bleed from a previous topic
+    local op=''
+
     # Check if the topic directory exists
     if [[ ! -d $topic ]]; then
       echo-fail "$topic doesn't exist!"
@@ -117,7 +129,7 @@ function topic-init {
 
     # If LINK is set or the topic is not enabled, create symlinks and link the topic
     if [[ -n $LINK ]] || ! topic-enabled-p $topic; then
-      local op=install
+      op=install
       mklink $tpath $tsympath
       _topic-do $topic link
     fi
@@ -125,16 +137,20 @@ function topic-init {
     # If INHIBIT_INIT is not set, run the initialization or update script
     if [[ -z $INHIBIT_INIT ]]; then
       _topic-do $topic ${FORCE_OP:-${op:-update}}
+      local retval=$?
 
       # If the install operation fails, remove the topic
-      if [[ $op == install && $? != 0 ]]; then
+      if [[ $op == install && $retval != 0 ]]; then
         topic-remove $topic
       else
-        # Reload the shell if everything goes well
-        exec "$SHELL" -l
+        _needs_reload=1
       fi
     fi
   done
+
+  if (( _needs_reload )); then
+    echo-note "Run 'exec \$SHELL -l' to reload your shell and apply the changes"
+  fi
 }
 
 function topic-remove {
@@ -157,7 +173,7 @@ function topic-remove {
 function clean {
   local paths; paths=( $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME $XDG_BIN_HOME $DOTFILES_DATA )
   local links; links=( ~/.*(-@DN) ${^paths}/**(-@DN))
-  if [[ ${#links[@]} > 1 ]]; then
+  if (( ${#links[@]} > 0 )); then
     echo-info "Removing dead dotfile symlinks..."
     for link in "${links[@]}"; do
       [[ -e $link ]] || _exec rm -fv "$link"
@@ -168,7 +184,7 @@ function clean {
 
   # Remove empty dotfile folders
   local dirs; dirs=( ${^paths}/**(N/^F) ~/.*(N/^F) )
-  if [[ ${#dirs[@]} > 1 ]]; then
+  if (( ${#dirs[@]} > 0 )); then
     echo-info "Removing empty dotfile directories..."
     for dir in "${dirs[@]}"; do
       _exec rmdir "$dir" && echo-ok "Deleted ${dir/$HOME/~}"
@@ -179,7 +195,7 @@ function clean {
 }
 
 function _dot {
-  while getopts acdefhlLit opt; do
+  while getopts acdfhlLit opt; do
     case $opt in
       a) TARGETS=( $(_topics) );;
       c) CLEAN=1               ;;

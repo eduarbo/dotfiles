@@ -10,7 +10,6 @@ pip_deps=(
   pipenv
   pytest
   setuptools
-  nose
   "python-lsp-server[all]"
 )
 

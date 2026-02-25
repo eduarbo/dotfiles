@@ -24,7 +24,7 @@ install() {
     debian)
       sudo apt update
       if is_backports_configured; then
-          sudo apt install -y -t bookworm-backports ${common_deps[@]}
+          sudo apt install -y -t "$(_apt_backports_suite)" ${common_deps[@]}
       else
           sudo apt install -y ${common_deps[@]}
       fi
@@ -47,7 +47,7 @@ update() {
   fi
 
   if [[ -d $TMUXIFIER ]]; then
-    cd $TMUXIFIER && git pull --rebase
+    git -C $TMUXIFIER pull --rebase
   fi
 }
 
