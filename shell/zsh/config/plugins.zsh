@@ -31,9 +31,6 @@ zinit load djui/alias-tips
 zinit ice wait"1" lucid as"program" mv"*cht.sh -> cht" pick"cht" id-as"cht.sh"
 zinit snippet "https://cht.sh/:cht.sh"
 
-zinit ice wait"0" lucid as"program" pick"bin/git-dsf"
-zinit load so-fancy/diff-so-fancy
-
 zinit ice wait"0" lucid as"program" pick"bin/git-*"
 zinit load tj/git-extras
 
