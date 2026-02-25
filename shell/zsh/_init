@@ -91,6 +91,7 @@ update() {
 
   case $(_os) in
     macos)
+      brew install ${common_deps[@]} ${brew_deps[@]}
       brew upgrade ${common_deps[@]} ${brew_deps[@]}
       ;;
     debian)
