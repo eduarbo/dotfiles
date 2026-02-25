@@ -2,131 +2,43 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
-NODENV_CONFIG="$XDG_CONFIG_HOME/nodenv"
+# npm packages to install globally
+global_npm_packages=(
+  pyright # Python language server (avoids adding nodeenv just for this)
+)
 
 link() {
   mklink prettierrc.js "$HOME/.prettierrc.js"
-  # NOTE the default-packages plugin reads the file from $(nodenv root)/default-packages
-  # as well as nodenv/default-packages under all XDG config directories
-  mklink default-packages "$NODENV_CONFIG/default-packages"
 }
 
 install() {
-  fetch_nodenv_and_plugins
-  install_latest_node_version_as_global
   case $(_os) in
     macos)
       brew install pnpm
       ;;
+    debian)
+      # pnpm installs itself once node is available via mise
+      npm install -g pnpm
+      ;;
   esac
+
+  npm install -g ${global_npm_packages[@]}
 }
 
 update() {
-  fetch_nodenv_and_plugins
-  nodenv update
-  install_latest_node_version_as_global
-  uninstall_orphan_node_versions
+  npm update -g ${global_npm_packages[@]}
+  case $(_os) in
+    macos)
+      brew upgrade pnpm
+      ;;
+    debian)
+      npm install -g pnpm
+      ;;
+  esac
 }
 
 clean() {
-  rm -rfv "$NODENV_ROOT" "$NODENV_CONFIG" "$HOME/.prettierrc.js" "$XDG_CACHE_HOME/zsh/nodenv"
-}
-
-## Helpers
-
-fetch_nodenv_and_plugins() {
-  # Install nodenv
-  _ensure_repo nodenv/nodenv                     $NODENV_ROOT
-  source config.zsh
-
-  # NOTE All plugins should be placed in `$(nodenv root)/plugins`
-
-  # allow me to install virtually any version of Node
-  _ensure_repo nodenv/node-build                 $NODENV_PLUGINS/node-build
-  # update nodenv as well as all installed nodenv plugins
-  _ensure_repo nodenv/nodenv-update              $NODENV_PLUGINS/node-update
-  # automatically install npm packages every time you install a new version of Node
-  _ensure_repo nodenv/nodenv-default-packages    $NODENV_PLUGINS/nodenv-default-packages
-  # installer/updater and doctor scripts for nodenv
-  _ensure_repo nodenv/nodenv-installer           $NODENV_PLUGINS/nodenv-installer
-  # detects the Node version based on the engines field of the current tree's package.json file
-  _ensure_repo nodenv/nodenv-package-json-engine $NODENV_PLUGINS/nodenv-package-json-engine
-  # detects the Node version based on .nvmrc
-  _ensure_repo ouchxp/nodenv-nvmrc               $NODENV_PLUGINS/nodenv-nvmrc
-  # generate node-build definitions from nodejs.org
-  _ensure_repo nodenv/node-build-update-defs     $NODENV_PLUGINS/node-build-update-defs
-}
-
-install_latest_node_version_as_global() {
-  local LATEST_NODE_VERSION
-  LATEST_NODE_VERSION=$(nodenv install -l | grep -E "^[0-9]+(\.[0-9]+){2}" | sort -V | tail -1)
-
-  if [[ $(nodenv global) != $LATEST_NODE_VERSION ]]; then
-    while true; do
-      echo-ask "Would you like to install the latest version of node (v${LATEST_NODE_VERSION}) and set it as global (y/n)? "
-      read answer
-
-      case $answer in
-        [Yy]* )
-          _exec nodenv install -s "$LATEST_NODE_VERSION" && _exec nodenv global "$LATEST_NODE_VERSION"
-          [ $? -eq 0 ] && echo-ok "Installed node v${LATEST_NODE_VERSION} as global"
-          break
-          ;;
-        [Nn]* )
-          break
-          ;;
-        * ) echo "Please answer yes or no.";;
-      esac
-    done
-  fi
-}
-
-uninstall_orphan_node_versions() {
-  # TODO Move this to an env variable so that it can be configurable
-  local repos_dir=($HOME/dev)
-  local USED_NODE_VERSIONS INSTALLED_NODE_VERSIONS ORPHAN_NODE_VERSIONS
-  local COUNT_ORPHAN_NODE_VERSIONS
-  local ORPHAN_NODE_VERSIONS_ARGS
-
-  find_node_versions() {
-    find $repos_dir -type f -maxdepth 3 -name '.node-version' -exec cat {} \;
-  }
-
-  fd_node_versions() {
-    fd -d 3 -H .node-version $repos_dir -x cat {}
-  }
-
-  USED_NODE_VERSIONS=$((fd_node_versions 2>/dev/null) || (find_node_versions 2>/dev/null))
-  USED_NODE_VERSIONS+="\n$(nodenv global)"
-  # Get, sort and delete duplicates of all node versions used in repositories + global version
-  USED_NODE_VERSIONS=$(echo $USED_NODE_VERSIONS | sort -uV)
-
-  INSTALLED_NODE_VERSIONS=$(nodenv versions --bare)
-  ORPHAN_NODE_VERSIONS=$(comm -23 <(echo $INSTALLED_NODE_VERSIONS) <(echo $USED_NODE_VERSIONS))
-  COUNT_ORPHAN_NODE_VERSIONS=$(echo $ORPHAN_NODE_VERSIONS | awk NF | wc -l)
-  ORPHAN_NODE_VERSIONS_ARGS=($(echo "$ORPHAN_NODE_VERSIONS" | tr "\n" " "))
-
-  if [[ $COUNT_ORPHAN_NODE_VERSIONS -ne 0 ]]; then
-    echo-list "Found orphan node versions:"
-    echo $ORPHAN_NODE_VERSIONS
-
-    while true; do
-      echo-ask "Do you wish to uninstall all of them (y/n)? "
-      read answer
-
-      case $answer in
-        [Yy]* )
-          _exec nodenv uninstall -f ${ORPHAN_NODE_VERSIONS_ARGS[@]}
-          # [ $? -eq 0] && echo-ok ""
-          break
-        ;;
-        [Nn]* )
-          break
-        ;;
-        * ) echo "Please answer yes or no.";;
-      esac
-    done
-  fi
+  rm -rfv "$HOME/.prettierrc.js" "$XDG_CACHE_HOME/zsh/nodenv"
 }
 
 init "$@"

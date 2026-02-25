@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source env.zsh
+
+link() { : }  # mise global config is user-managed, nothing to symlink
+
+install() {
+  case $(_os) in
+    macos)
+      brew install mise
+      ;;
+    debian)
+      # Install via the official script to ~/.local/bin
+      # See https://mise.jdx.dev/getting-started.html
+      curl https://mise.run | sh
+      ;;
+  esac
+
+  # Bootstrap: initialize mise so it's usable right away
+  source config.zsh
+
+  echo-note "Set your global tool versions in \$MISE_CONFIG_DIR/config.toml"
+  echo-info "Example: mise use --global node@lts python@latest"
+}
+
+update() {
+  mise self-update
+  mise upgrade
+}
+
+clean() {
+  rm -rfv "$MISE_DATA_DIR" "$MISE_CACHE_DIR" "$XDG_CACHE_HOME/zsh/mise"
+}
+
+init "$@"
