@@ -3,21 +3,14 @@ source ${0:A:h}/../../deploy
 source env.zsh
 
 pip_deps=(
-  black
-  nose
-  pyflakes
-  isort
-  pipenv
+  ruff          # linter + formatter: replaces pyflakes, black, isort
   pytest
   setuptools
   "python-lsp-server[all]"
 )
 
-link() {
-  mklink config/flake8 $XDG_CONFIG_HOME
-}
-
-apt_deps=(
+# Build dependencies required by mise/pyenv to compile Python from source
+apt_build_deps=(
   build-essential
   libssl-dev
   zlib1g-dev
@@ -33,41 +26,30 @@ apt_deps=(
   liblzma-dev
 )
 
+link() {
+  mklink config/flake8 $XDG_CONFIG_HOME
+}
+
 install() {
-  # Install Python build dependencies
+  # Install Python build dependencies so mise can compile Python from source
   case $(_os) in
     debian)
       sudo apt update
-      sudo apt install -y ${apt_deps[@]}
+      sudo apt install -y ${apt_build_deps[@]}
       ;;
   esac
 
-  # Install pyenv
-  echo-note "Install pyenv"
-  curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-  eval "$(pyenv init -)"
-
-  echo-note "Install latest Python version as global"
-  local python_latest="3"
-  pyenv install $python_latest
-  pyenv global $python_latest
-
+  echo-note "Set your global Python version via: mise use --global python@latest"
   echo-note "Setup development tools"
   pip3 install ${pip_deps[@]}
-  # Install pyright using node, not pip, which annoyingly insists on adding nodeenv just for this package! (゜-゜)
-  topic-enabled-p dev/node || _dot dev/node
-  npm install -g pyright
-  nodenv rehash
 }
 
 update() {
-  pyenv update
-  npm install -g --force pyright # install or update
-  nodenv rehash
+  pip3 install --upgrade ${pip_deps[@]}
 }
 
 clean() {
-  rm -rfv "$XDG_CONFIG_HOME/flake8" "$PYENV_ROOT" "$XDG_CACHE_HOME/zsh/pyenv"
+  rm -rfv "$XDG_CONFIG_HOME/flake8" "$XDG_CACHE_HOME/zsh/pyenv"
 }
 
 init "$@"
