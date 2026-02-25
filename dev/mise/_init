@@ -24,7 +24,14 @@ install() {
 }
 
 update() {
-  mise self-update
+  case $(_os) in
+    macos)
+      brew upgrade mise
+      ;;
+    debian)
+      mise self-update
+      ;;
+  esac
   mise upgrade
 }
 
