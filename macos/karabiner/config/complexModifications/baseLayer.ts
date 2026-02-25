@@ -1,5 +1,5 @@
-import { modTap, remap, ignoreKeebs } from '../../lib';
-import type { ComplexModifications } from '../../lib';
+import { modTap, remap, ignoreKeebs } from '../../lib/index.js';
+import type { ComplexModifications } from '../../lib/index.js';
 
 const LAYER = 'BASE';
 

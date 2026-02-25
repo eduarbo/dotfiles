@@ -92,4 +92,4 @@ const CONSUMER_KEY_CODE = [
   'ac_bookmarks',
 ] as const;
 
-export type ConsumerKeyCode = typeof CONSUMER_KEY_CODE[number];
+export type ConsumerKeyCode = (typeof CONSUMER_KEY_CODE)[number];

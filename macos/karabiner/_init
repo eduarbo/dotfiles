@@ -10,23 +10,37 @@ brew_deps=(
   karabiner-elements
 )
 
+has_required_node() {
+  _is_callable node || return 1
+  local required=$(<.node-version)
+  local current=$(node -v 2>/dev/null)
+  # node -v outputs "v22.x.y", strip the prefix and compare major
+  [[ ${current#v} == ${required}* ]]
+}
+
 link() {
   mkdir -p "$KARABINER_CONFIG_DIR"
-  mklink json/* $KARABINER_CONFIG_DIR
+  mklink json/karabiner.json $KARABINER_CONFIG_DIR
+
+  # Karabiner owns assets/ as a real directory — link individual files inside it
+  mkdir -p "$KARABINER_CONFIG_DIR/assets/complex_modifications"
+  mklink json/assets/complex_modifications/* "$KARABINER_CONFIG_DIR/assets/complex_modifications/"
+
   echo-info "Profile names"
   karabiner --list-profile-names
 }
 
 install() {
   brew install "${brew_deps[@]}"
-  echo-info "Node.js $(<.node-version) is not installed. It's only needed if you want to regenerate the Karabiner config from source files (for development or customization)."
-  if has_exact_node_version; then
+  if has_required_node; then
     build
+  else
+    echo-info "Node.js $(<.node-version) not found. It's only needed to regenerate the Karabiner config from source."
   fi
 }
 
 update() {
-  if has_exact_node_version; then
+  if has_required_node; then
     build
   fi
   link
@@ -41,7 +55,7 @@ build() {
     echo-fail "npm not found. Aborting build."
     exit 1
   fi
-  npm run build
+  npm install && npm run build
 
   # Validate complex modifications
   echo-info "Check Complex Modifications"

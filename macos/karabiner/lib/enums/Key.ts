@@ -220,9 +220,9 @@ const KEY_CODE = [
   'illumination_increment',
 ] as const;
 
-export type BaseModifierKeyCode = typeof BASE_MODIFIER_KEY_CODE[number];
-export type ModifierKeyCode = typeof MODIFIER_KEY_CODE[number];
-export type FunctionKeyCode = typeof FUNCTION_KEY_CODE[number];
-export type KeyCode = typeof KEY_CODE[number] | ModifierKeyCode | FunctionKeyCode;
-export type Modifier = ModifierKeyCode | BaseModifierKeyCode
-export type ModifierOptional = Modifier | 'any'
+export type BaseModifierKeyCode = (typeof BASE_MODIFIER_KEY_CODE)[number];
+export type ModifierKeyCode = (typeof MODIFIER_KEY_CODE)[number];
+export type FunctionKeyCode = (typeof FUNCTION_KEY_CODE)[number];
+export type KeyCode = (typeof KEY_CODE)[number] | ModifierKeyCode | FunctionKeyCode;
+export type Modifier = ModifierKeyCode | BaseModifierKeyCode;
+export type ModifierOptional = Modifier | 'any';

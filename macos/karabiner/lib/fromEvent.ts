@@ -7,8 +7,8 @@ import type {
   Any,
   KeyEventOrder,
   KeyUpWhen,
-} from './enums';
-import type { ToEvent } from './toEvent';
+} from './enums/index.js';
+import type { ToEvent } from './toEvent.js';
 
 type FromKeyCodeProp = { key_code: KeyCode };
 type FromConsumerKeyCodeProp = { consumer_key_code: ConsumerKeyCode };

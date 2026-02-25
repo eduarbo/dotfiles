@@ -1,4 +1,4 @@
-import type { Manipulator } from './manipulator';
+import type { Manipulator } from './manipulator.js';
 
 export interface Rule {
   description: string;

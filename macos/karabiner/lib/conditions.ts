@@ -1,6 +1,6 @@
-import { BEEKEEB, CRKBD, GAMES } from './consts';
-import type { VariableType } from './enums';
-import type { Variable } from './toEvent';
+import { BEEKEEB, CRKBD, GAMES } from './consts/index.js';
+import type { VariableType } from './enums/index.js';
+import type { Variable } from './toEvent.js';
 
 export interface Identifier {
   vendor_id?: number;
@@ -31,8 +31,7 @@ export interface VariableCondition extends Variable {
 
 interface KeyboardTypeCondition {
   type: 'keyboard_type_if' | 'keyboard_type_unless';
-  // keyboard_types are joined by "or"
-  keyboard_types: ['ansi' | 'iso' | 'jis'];
+  keyboard_types: ('ansi' | 'iso' | 'jis')[];
   description?: string;
 }
 
@@ -52,7 +51,7 @@ interface EventChangedCondition {
   description?: string;
 }
 
-export type Conditions =
+export type Condition =
   | FrontmostApplicationCondition
   | DeviceCondition
   | KeyboardTypeCondition
@@ -60,7 +59,7 @@ export type Conditions =
   | VariableCondition
   | EventChangedCondition;
 
-export const ignoreCrkbd: Conditions = {
+export const ignoreCrkbd: Condition = {
   type: 'device_unless',
   identifiers: [
     {
@@ -69,14 +68,14 @@ export const ignoreCrkbd: Conditions = {
   ],
 };
 
-export const ignoreBeekeb: Conditions = {
+export const ignoreBeekeb: Condition = {
   type: 'device_unless',
   identifiers: [BEEKEEB],
 };
 
-export const ignoreGames: Conditions = {
+export const ignoreGames: Condition = {
   type: 'frontmost_application_unless',
   bundle_identifiers: GAMES,
 };
 
-export const ignoreKeebs: Conditions[] = [ignoreCrkbd, ignoreBeekeb];
+export const ignoreKeebs: Condition[] = [ignoreCrkbd, ignoreBeekeb];

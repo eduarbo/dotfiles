@@ -1,4 +1,5 @@
-import { profile, CRKBD, BEEKEEB, type KarabinerConfig } from '../lib';
+import { profile, CRKBD, BEEKEEB } from '../lib/index.js';
+import type { KarabinerConfig } from '../lib/index.js';
 import {
   emacsKeybindings,
   symbolsLayer,
@@ -6,10 +7,9 @@ import {
   fnLayer,
   baseLayer,
   civLayer,
-  // gamingLayer,
-} from './complexModifications';
+} from './complexModifications/index.js';
 
-// NOTE Do NOT move them! order matters: The more specific the binding, the sooner it should be declared
+// Order matters: first match wins. More specific bindings go first.
 const defaultProfile = [
   emacsKeybindings,
   superLayer,
@@ -17,14 +17,11 @@ const defaultProfile = [
   symbolsLayer,
   baseLayer,
   civLayer,
-  // gamingLayer,
 ];
 
 const profiles = [
   profile('Empty'),
-  profile('Default', defaultProfile, {
-    // selected: true,
-  }),
+  profile('Default', defaultProfile),
   profile('Default (disable built-in kbd when CRKBD is connected)', defaultProfile, {
     selected: true,
     devices: [
@@ -56,4 +53,4 @@ export const karabiner: KarabinerConfig = {
   global: globalSettings,
 };
 
-export * as complexModifications from './complexModifications';
+export * as complexModifications from './complexModifications/index.js';

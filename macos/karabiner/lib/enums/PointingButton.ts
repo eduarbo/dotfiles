@@ -33,4 +33,4 @@ const POINTING_BUTTON = [
   'button32',
 ] as const;
 
-export type PointingButton = typeof POINTING_BUTTON[number];
+export type PointingButton = (typeof POINTING_BUTTON)[number];

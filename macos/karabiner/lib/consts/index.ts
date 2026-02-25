@@ -1,2 +1,2 @@
-export * from './identifiers';
-export * from './devices';
+export * from './identifiers.js';
+export * from './devices.js';
