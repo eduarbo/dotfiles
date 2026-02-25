@@ -15,6 +15,6 @@ ssh_path="$2"
 repo_name=$(basename "$(git config --get remote.origin.url)")
 repo_path="$ssh_path/$repo_name"
 
-ssh "$ssh_host" "mkdir $repo_path"
-ssh "$ssh_host" "git init --bare $repo_path"
+ssh "$ssh_host" "mkdir -p '$repo_path'"
+ssh "$ssh_host" "git init --bare '$repo_path'"
 git remote set-url --add --push origin "ssh://$ssh_host:$repo_path"

@@ -81,7 +81,7 @@ install() {
 update() {
   link
 
-  # Update zpugins and recompile
+  # Update plugins and recompile
   if [[ -e ${ZINIT[BIN_DIR]}/zinit.zsh ]]; then
     source ${ZINIT[BIN_DIR]}/zinit.zsh
     zinit self-update

@@ -82,7 +82,7 @@ alias verify='gpg --verify'
 alias pathlist='tr : "\n" <<<$PATH'
 
 alias please='sudo $(fc -ln -1)'  # rerun last command with sudo, please!
-alias mine='sudo chown -R $USER:$GROUPS'
+alias mine='sudo chown -R $USER:$(id -gn)'
 alias fuck='killall -9'
 
 alias top='top -o cpu'
@@ -153,17 +153,25 @@ historystat() {
   history 0 | awk "{print $2}" | sort | uniq -c | sort -n -r | head -n 50
 }
 
+_md5() {
+  if _is_callable md5; then
+    md5
+  else
+    md5sum | cut -d' ' -f1
+  fi
+}
+
 rvu() {
   local offset=${2:-0}
   local output
 
-  output=$(echo -n "$1" | md5)
+  output=$(echo -n "$1" | _md5)
   output=${output:$offset:15}
   echo "$output" | y
 }
 
 rvp() {
-  echo "$1" | md5 | y
+  echo "$1" | _md5 | y
 }
 
 zman() { PAGER="less -g -s '+/^       "$1"'" man zshall; }

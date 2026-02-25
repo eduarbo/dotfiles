@@ -63,17 +63,17 @@
 
 	# data analysis
 	authors = !git log --format="%aN" | sort -u
-	ranked-authors = !git authors | sort | uniq -c | sort -n
+	ranked-authors = !git log --format='%aN' | sort | uniq -c | sort -rn
 	emails = !git log --format="%aE" | sort -u
 	email-domains = !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
 
 	root = rev-parse --show-toplevel
 	panic = !tar cvf ../git_panic.tar *
 	dt = difftool
-	exec = "!exec "
+	exec = "!exec"
 	orphan = checkout --orphan
-	squash = rebase -i origin/master
-	done = !git checkout master && git branch -D @{-1}
+	squash = "!git rebase -i origin/$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||' || echo main)"
+	done = "!git checkout $(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||' || echo main) && git branch -D @{-1}"
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process

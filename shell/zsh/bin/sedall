@@ -12,7 +12,7 @@ main() {
   shift 2
 
   for item in $(rg -l --no-messages "$search" "$@"); do
-    sed -ir "s%${search//%/\\%}%${replace//%/\\%}%g" "$item"
+    sed -i'' "s%${search//%/\\%}%${replace//%/\\%}%g" "$item"
   done
 }
 
