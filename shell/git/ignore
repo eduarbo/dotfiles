@@ -55,3 +55,5 @@ node_modules
 *.so
 *.dll
 *.pyc
+
+**/.claude/settings.local.json
