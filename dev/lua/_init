@@ -1,11 +1,19 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
-source env.zsh
 
 brew_deps=(
   lua
   luarocks
   lua-language-server
+)
+
+apt_deps=(
+  lua5.4
+  luarocks
+)
+
+luarocks_deps=(
+  luacheck
 )
 
 # link() {}
@@ -15,30 +23,31 @@ install() {
     macos)
       brew install ${brew_deps[@]}
       ;;
+    debian)
+      sudo apt update
+      sudo apt install -y ${apt_deps[@]}
+      ;;
   esac
 
-  _ensure_repo cehoffman/luaenv     $LUAENV_ROOT
-  _ensure_repo cehoffman/lua-build  $LUAENV_ROOT/plugins/lua-build
-  _ensure_repo xpol/luaenv-luarocks $LUAENV_ROOT/plugins/luaenv-luarocks
+  luarocks install ${luarocks_deps[@]}
+  echo-note "Set your global Lua version via: mise use --global lua@latest"
 }
 
 update() {
-  if [[ -n $LUAENV_ROOT ]]; then
-    cd $LUAENV_ROOT && git pull
-    for ver in $LUAENV_ROOT/plugins/*(/); do
-      cd $ver && git pull
-    done
-  fi
+  case $(_os) in
+    macos)
+      brew upgrade ${brew_deps[@]}
+      ;;
+    debian)
+      sudo apt install -y ${apt_deps[@]}
+      ;;
+  esac
 
-  luaenv install 5.3.6
-  luaenv global 5.3.6
-  luaenv luarocks
-  luarocks install luacheck
-  luarocks install --server=http://luarocks.org/dev lua-lsp
+  luarocks install ${luarocks_deps[@]}
 }
 
 clean() {
-  rm -rfv "$LUAENV_ROOT" "$XDG_CACHE_HOME/zsh/luaenv"
+  rm -rfv "$XDG_CACHE_HOME/zsh/luaenv"
 }
 
 init "$@"
