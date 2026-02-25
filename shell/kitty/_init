@@ -29,7 +29,7 @@ install() {
     debian)
       sudo apt update
       if is_backports_configured; then
-          sudo apt install -y -t bookworm-backports ${common_deps[@]} ${apt_deps[@]}
+          sudo apt install -y -t "$(_apt_backports_suite)" ${common_deps[@]} ${apt_deps[@]}
       else
           sudo apt install -y ${apt_deps[@]}
       fi

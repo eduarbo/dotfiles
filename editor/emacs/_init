@@ -99,7 +99,7 @@ install() {
     debian)
       sudo apt update
       if is_backports_configured; then
-          sudo apt install -y -t bookworm-backports ${common_deps[@]} ${apt_deps[@]}
+          sudo apt install -y -t "$(_apt_backports_suite)" ${common_deps[@]} ${apt_deps[@]}
       else
           sudo apt install -y ${common_deps[@]} ${apt_deps[@]}
       fi
@@ -120,7 +120,7 @@ update() {
 }
 
 clean() {
-  rm -rfv "$XDG_CONFIG_HOME/{doom,emacs}"
+  rm -rfv "$XDG_CONFIG_HOME/doom" "$XDG_CONFIG_HOME/emacs"
 }
 
 init "$@"

@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # env -- envvars & standard library for dotfiles; don't symlink me!
-# Can be sourced by zsh/bash scripts
 
 export XDG_CACHE_HOME=~/.cache
 export XDG_CONFIG_HOME=~/.config
@@ -23,8 +22,17 @@ alias dot="${DOTFILES}/deploy"
 
 ## Library
 
+# Returns true if backports are configured in apt sources
 function is_backports_configured {
-    grep -q "^deb .*backports" /etc/apt/sources.list /etc/apt/sources.list.d/*.list >/dev/null 2>&1
+  setopt LOCAL_OPTIONS NULL_GLOB
+  grep -ql "backports" /etc/apt/sources.list /etc/apt/sources.list.d/*.list 2>/dev/null
+}
+
+# Returns the backports suite name for the current distro (e.g. "bookworm-backports", "jammy-backports")
+function _apt_backports_suite {
+  local codename
+  codename=$(. /etc/os-release 2>/dev/null && echo "$VERSION_CODENAME")
+  [[ -n $codename ]] && echo "${codename}-backports"
 }
 
 function _is_interactive { [[ $- == *i* || -n $EMACS ]]; }
@@ -68,6 +76,7 @@ function _ensure_repo {
   local target=$1
   local dest=$2
   local branch=$3
+  local url
   if [[ ! -d $dest ]]; then
     if [[ $target =~ "^[^/]+/[^/]+$" ]]; then
       url=https://github.com/$target.git
@@ -75,10 +84,8 @@ function _ensure_repo {
       url=https://github.com/$USER/$target.git
     fi
     [[ -n ${dest%/*} ]] && mkdir -p ${dest%/*}
-    echo "clone --recursive -b $branch $url $dest"
 
     if [[ -z $branch ]]; then
-      echo "git clone --recursive $url $dest"
       git clone --recursive "$url" "$dest" || return 1
     else
       git clone --recursive -b "$branch" "$url" "$dest" || return 1
@@ -102,6 +109,7 @@ function _cache {
   local cache="$cache_dir/$1"
 
   if _is_callable "$1" && [[ ! -f "$cache" || ! -s "$cache" ]]; then
+    mkdir -p "$cache_dir"
     echo "Caching $1"
     "$@" >| $cache
   fi

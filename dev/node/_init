@@ -58,6 +58,7 @@ fetch_nodenv_and_plugins() {
 }
 
 install_latest_node_version_as_global() {
+  local LATEST_NODE_VERSION
   LATEST_NODE_VERSION=$(nodenv install -l | grep -E "^[0-9]+(\.[0-9]+){2}" | sort -V | tail -1)
 
   if [[ $(nodenv global) != $LATEST_NODE_VERSION ]]; then
@@ -82,7 +83,10 @@ install_latest_node_version_as_global() {
 
 uninstall_orphan_node_versions() {
   # TODO Move this to an env variable so that it can be configurable
-  repos_dir=($HOME/dev)
+  local repos_dir=($HOME/dev)
+  local USED_NODE_VERSIONS INSTALLED_NODE_VERSIONS ORPHAN_NODE_VERSIONS
+  local COUNT_ORPHAN_NODE_VERSIONS
+  local ORPHAN_NODE_VERSIONS_ARGS
 
   find_node_versions() {
     find $repos_dir -type f -maxdepth 3 -name '.node-version' -exec cat {} \;
