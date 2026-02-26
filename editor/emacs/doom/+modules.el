@@ -153,8 +153,7 @@
    evil-snipe-override-evil-repeat-keys nil ;; Do not override my bindings!
    evil-snipe-scope 'whole-visible ;; highlight all visible matches in buffer
    evil-snipe-repeat-keys nil
-   evil-snipe-enable-incremental-highlight nil
-   ))
+   evil-snipe-enable-incremental-highlight nil))
 
 ;; Unbind default mapping for evil-snipe-S
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
@@ -369,7 +368,7 @@
 
 ;; ─── vTerm ────────────────────────────────────────────────────────────────────
 
-(set-popup-rule! "^*doom:vterm-popup:" :sice 'bottom :size 0.25 :width 40 :height 0.16 :vslot -4 :select t :quit t)
+(set-popup-rule! "^*doom:vterm-popup:" :side 'bottom :size 0.25 :width 40 :height 0.16 :vslot -4 :select t :quit t)
 
 
 ;; ─── Yasnippet: Template System for Code Expansion ────────────────────────────

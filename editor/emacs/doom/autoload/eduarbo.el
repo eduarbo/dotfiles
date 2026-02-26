@@ -6,9 +6,7 @@
 
 ;;;###autoload
 (defvar my/markdown-lang-to-mode-alist
-  '(("js" . js2-mode)
-    ;; Add more mappings here
-    )
+  '(("js" . js2-mode))
   "Alist mapping markdown code block languages to their Emacs major modes.")
 
 ;; HACK: prevent the cursor from ending outside the code block
@@ -76,7 +74,6 @@ ARG = -N means move backward N blocks."
         (forward-line -1)
         (setq block-end (point)))
       ;; Narrow to the region if valid block start and end points are found
-      (print block-end)
       (if (and block-start block-end)
           (narrow-to-region block-start block-end)
         (error "Not inside a Markdown fenced code block")))))
@@ -261,7 +258,7 @@ narrowed."
       (insert divider))))
 
 ;;;###autoload
-(defun my/evil-inser-mode-paste ()
+(defun my/evil-insert-mode-paste ()
   "Paste text relative to the cursor's line position: after if at end, before with cursor adjustment otherwise.
 Uses `evil-paste-after` if the cursor is at the end of the line. If not, uses `evil-paste-before` and moves the cursor forward to the end of the pasted text."
   (interactive)
