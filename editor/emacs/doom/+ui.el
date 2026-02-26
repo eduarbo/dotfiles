@@ -159,11 +159,6 @@
   '(markdown-header-face :inherit nil)
   `(markdown-list-face :foreground ,(doom-color 'teal)))
 
-;; better than `markdown-toggle-markup-hiding
-;; TODO Remove this, it's pretty slow
-;; (add-hook 'markdown-mode-hook #'nb/markdown-unhighlight)
-
-
 ;; ─── Vertico Posframe ─────────────────────────────────────────────────────────
 
 (after! vertico-posframe

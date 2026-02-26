@@ -320,13 +320,6 @@ before you tell the user that something exists.")
     :vslot 1
     :ttl nil)
 
-  ;; Prevent pop-up rules from managing gptel buffers
-  ;; (set-popup-rule!
-  ;;   (lambda (bname _action)
-  ;;     (and (null gptel-display-buffer-action)
-  ;;          (buffer-local-value 'gptel-mode (get-buffer bname))))
-  ;;   :ignore t)
-
   (gptel-make-gemini "Gemini" :key (getenv "GEMINI_API_KEY") :stream t)
 
   (defun pmx--re-adapt-prefixes (_beg _end)
@@ -705,7 +698,7 @@ style language anc content.")
 
          (gptel-make-tool
           :function #'pmx--gptel-featurep
-          :name "features"
+          :name "featurep"
           :include t
           :category "introspection"
           :args '(( :name "feature"
@@ -990,7 +983,6 @@ If the user says call it, always call it.")))
   ;; Define unique faces so prompts are highly visible
   (defface pmx-gptel-user
     `((t :family "Roboto Slab"
-       ;; `((t :family "Fira Code"
        :weight bold
        :foreground ,(doom-color 'teal)
        :inverse-video t
@@ -998,7 +990,6 @@ If the user says call it, always call it.")))
     "User prompt face")
   (defface pmx-gptel-assistant
     `((t :family "Roboto Slab"
-       ;; `((t :family "Fira Code"
        :weight bold
        :foreground ,(doom-color 'orange)
        :inverse-video t

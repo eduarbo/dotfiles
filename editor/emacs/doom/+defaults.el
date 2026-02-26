@@ -41,11 +41,6 @@
 ;; diff-hl: use right fringe
 (after! diff-hl (setq diff-hl-side 'right))
 
-;; No Titlebar with square corners
-;; (add-to-list 'default-frame-alist '(undecorated . t))
-;; No Titlebar with round corners
-;; (add-to-list 'default-frame-alist '(undecorated-round . t))
-
 ;; ─── Language/Mode-Specific Adjustments ──────────────────────────────────────
 
 ;; Org mode
@@ -66,12 +61,12 @@
 (add-to-list 'auto-mode-alist '("\\.clangd\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\Dockerfile" . dockerfile-mode))
 
-;; Treat '=_<> as punctuation in all modes
-(add-hook! 'after-change-major-mode-hook
-  (defun my-global-word-delimiters-h ()
-    (modify-syntax-entry ?= ".")
-    (modify-syntax-entry ?< ".")
-    (modify-syntax-entry ?> ".")))
+;; Treat =<> as punctuation in all modes
+(defun my-global-word-delimiters-h ()
+  (modify-syntax-entry ?= ".")
+  (modify-syntax-entry ?< ".")
+  (modify-syntax-entry ?> "."))
+(add-hook 'after-change-major-mode-hook #'my-global-word-delimiters-h)
 
 ;; Python: treat _ as word constituent
 (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
