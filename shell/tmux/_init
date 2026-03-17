@@ -16,6 +16,12 @@ link() {
   mklink *.conf     $TMUX_HOME/
 }
 
+_ensure_tpm_env() {
+  # TPM resolves its plugin path via `tmux show-environment -g`.
+  # If a tmux server is already running, it may lack this variable.
+  tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_PLUGINS_HOME" 2>/dev/null || true
+}
+
 install() {
   case $(_os) in
     macos)
@@ -35,12 +41,14 @@ install() {
 
   local tpm=$TMUX_PLUGINS_HOME/tpm
   _ensure_repo tmux-plugins/tpm $tpm
-  $tpm/bin/install_plugins
+  _ensure_tpm_env
+  $tpm/bin/install_plugins || echo-alert "Plugin install deferred — run prefix + I inside tmux"
 }
 
 update() {
   local tpm=$TMUX_PLUGINS_HOME/tpm
   if [[ -d $tpm ]]; then
+    _ensure_tpm_env
     $tpm/bin/install_plugins
     $tpm/bin/update_plugins all
     $tpm/bin/clean_plugins all
