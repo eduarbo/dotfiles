@@ -75,7 +75,10 @@ unsetopt AUTO_NAME_DIRS         # Don't auto-assign variables for frequently use
 
 # ─── Terminal Behavior ─────────────────────────────────────────────────────────
 
-# Prevent pasted text from getting a different background color
-unset zle_bracketed_paste
+# Disable the highlight on pasted text while keeping bracketed paste mode
+# active so that pasted characters are treated literally (critical for vi mode
+# over SSH, where without bracketed paste, characters can be misinterpreted as
+# key bindings or escape sequences)
+zle_highlight+=(paste:none)
 
 export PS2=$'%F{8}❭%f '
