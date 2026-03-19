@@ -69,7 +69,7 @@ case $(_os) in
     ;;
 esac
 
-_cache ssh-agent -s >/dev/null
+export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
 
 # initialize enabled topics
 _load_all env.zsh

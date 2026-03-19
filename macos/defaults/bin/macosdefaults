@@ -924,31 +924,11 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
 ###############################################################################
-# 1password                                                                   #
-###############################################################################
-
-# Fill Login on current web page with shortcut ⌘ + '
-defaults write com.agilebits.onepassword7 "ShortcutRecorder BrowserActivation" -dict \
-        keyChars -string "\004" \
-        keyCharsIgnoringModifiers -string 'd' \
-        keyCode -int 2 \
-        modifierFlags -int 786432 \
-        modifiers -int 6144
-
-# Show 1Password mini with shortcut ⌘ + '
-defaults read com.agilebits.onepassword7 "ShortcutRecorder GlobalActivation" -dict \
-        keyChars -string "\\U00a3" \
-        keyCharsIgnoringModifiers -string '3' \
-        keyCode -int 20 \
-        modifierFlags -int 524288 \
-        modifiers -int 2048
-
-###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
 for app in "Activity Monitor" \
-  "1Password 7" \
+  "bitwarden" \
 	"Address Book" \
 	"Calendar" \
 	"cfprefsd" \
