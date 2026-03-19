@@ -110,7 +110,7 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 
 **Top Row**
 - `SND`: Change Sound output
-- `1PW`: 1Password
+- `1PW`: Bitwarden
 - `GPT`: ChatGPT Launcher
 - `CLP`: Alfred Clipboard History
 

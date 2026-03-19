@@ -23,9 +23,9 @@ mic.bind(mods.super, "w")
 -- Switch Sound output
 sound.bind(mods.super, "y")
 
--- U: Taken by 1Password mini
--- I: Taken by ChatGPT
--- O: Taken by Alfred (Clipboard History)
+-- U: Taken by Bitwarden in Raycast
+-- I: Taken by Gemini in Raycast
+-- O: Taken by Clipboard History in Raycast
 
 -- Window Nav
 hs.hotkey.bind(mods.super, "h", window.toggleLeftSize)
@@ -59,8 +59,8 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         f = "Finder",
         g = "Brave Browser",
         -- h = "", -- already bound to reload 🔨🥄
-        i = "ChatGPT",
-        -- j = "",
+        -- i = "", -- already bound to Gemini in Raycast
+        j = "Cursor",
         k = "kitty",
         l = "Logseq",
         m = "Mail",
@@ -71,7 +71,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         r = "Microsoft Teams",
         s = "Slack",
         t = "Microsoft To Do",
-        u = "1Password",
+        u = "Bitwarden",
         -- v = "",
         w = "WhatsApp",
         -- w = "WhatsApp Web",

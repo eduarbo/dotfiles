@@ -105,24 +105,38 @@ alias ipinfo="curl ipinfo.io/json"
 
 # Copy my public key to my clipboard
 function pubkey() {
-    if [ -f ~/.ssh/id_ed25519.pub ]; then
-        PUBKEY_FILE=~/.ssh/id_ed25519.pub
-        KEY_TYPE="id_ed25519"
-    elif [ -f ~/.ssh/id_rsa.pub ]; then
-        PUBKEY_FILE=~/.ssh/id_rsa.pub
-        KEY_TYPE="id_rsa"
+    local pub_files=(~/.ssh/*.pub(N))
+
+    if (( ${#pub_files} == 0 )); then
+        echo "No public key found in ~/.ssh/"
+        return 1
+    fi
+
+    local pubkey_file
+    if (( ${#pub_files} == 1 )); then
+        pubkey_file=$pub_files[1]
     else
-        echo "No public key found"
-        return
+        echo "Available public keys:"
+        local i
+        for i in {1..${#pub_files}}; do
+            echo "  $i) ${pub_files[$i]:t}"
+        done
+        echo -n "Select key [1]: "
+        local choice
+        read choice
+        choice=${choice:-1}
+        if (( choice < 1 || choice > ${#pub_files} )); then
+            echo "Invalid selection"
+            return 1
+        fi
+        pubkey_file=$pub_files[$choice]
     fi
 
     case $(_os) in
-      macos)
-        cat "$PUBKEY_FILE" | pbcopy ;;
-      debian)
-        cat "$PUBKEY_FILE" | xclip -selection clipboard ;;
+        macos)  cat "$pubkey_file" | pbcopy ;;
+        debian) cat "$pubkey_file" | xclip -selection clipboard ;;
     esac
-    echo "=> $KEY_TYPE public key copied"
+    echo "=> ${pubkey_file:t} copied to clipboard"
 }
 
 # quick way to serve a directory, very handy

@@ -98,7 +98,7 @@ fi
 
 ## Best practices
 
-- If you use a password manager like 1Password, managing SSH keys is a breeze (and much more convenient). But if you're old-school (or just like a little DIY), you can still generate SSH keys manually:
+- If you use a password manager like Bitwarden, managing SSH keys is a breeze (and much more convenient). But if you're old-school (or just like a little DIY), you can still generate SSH keys manually:
 
   ```sh
   ssh-keygen -t ed25519 -C "personal-mbpro-2025" # Use a descriptive comment: purpose + device + year
