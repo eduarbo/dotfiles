@@ -91,6 +91,10 @@ function mklink {
 }
 
 function init {
+  if [[ $1 == "deps" ]]; then
+    [[ -n "${deps[*]}" ]] && echo "${deps[@]}"
+    return 0
+  fi
   declare -f $1 >/dev/null || return 1
   echo-info "$TOPIC.init.$1: start"
   $1
@@ -102,6 +106,9 @@ function init {
   fi
   return $retval
 }
+
+# Track topics being processed to detect circular deps
+typeset -gA _PROCESSING_TOPICS
 
 # Functions to initialize, link, and update topics
 function topic-init {
@@ -115,6 +122,23 @@ function topic-init {
       echo-fail "$topic doesn't exist!"
       continue
     fi
+
+    # Resolve dependencies before processing
+    if [[ -z ${_PROCESSING_TOPICS[$topic]} ]]; then
+      _PROCESSING_TOPICS[$topic]=1
+      local topic_deps=( $(cd $topic && ./_init deps 2>/dev/null) )
+      if (( ${#topic_deps} )); then
+        local missing_deps=()
+        for dep in $topic_deps; do
+          topic-enabled-p $dep || missing_deps+=($dep)
+        done
+        if (( ${#missing_deps} )); then
+          echo-list "$topic: installing dependencies: ${missing_deps[*]}"
+          topic-init $missing_deps
+        fi
+      fi
+    fi
+
     echo-ok "$topic"
 
     # Set the paths for the topic

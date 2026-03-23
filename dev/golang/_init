@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+deps=(dev/mise)
+
 brew_deps=(
   go
   gotests
@@ -20,6 +22,17 @@ install() {
   case $(_os) in
     macos)
       brew install ${brew_deps[@]}
+      ;;
+    *)
+      if ! _is_callable go; then
+        if _is_callable mise; then
+          echo-info "Installing Go via mise..."
+          mise use --global go@latest
+        else
+          echo-fail "Neither go nor mise found. Install dev/mise first."
+          return 1
+        fi
+      fi
       ;;
   esac
 

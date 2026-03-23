@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+deps=(shell/git)
+
 # Dependencies
 
 common_deps=(

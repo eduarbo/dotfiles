@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+deps=(dev/mise)
+
 # npm packages to install globally
 global_npm_packages=(
   pyright # Python language server (avoids adding nodeenv just for this)
@@ -13,8 +15,13 @@ link() {
 
 install() {
   if ! _is_callable node; then
-    echo-fail "Node.js not found. Install it first: dot dev/mise && mise use --global node@lts"
-    return 1
+    if _is_callable mise; then
+      echo-info "Installing Node.js LTS via mise..."
+      mise use --global node@lts
+    else
+      echo-fail "Neither node nor mise found. Install dev/mise first."
+      return 1
+    fi
   fi
 
   case $(_os) in
