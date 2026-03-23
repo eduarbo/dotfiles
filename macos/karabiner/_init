@@ -36,7 +36,7 @@ link() {
 }
 
 install() {
-  brew install "${brew_deps[@]}"
+  brew install --cask "${brew_deps[@]}"
   if has_required_node; then
     build
   else
