@@ -73,9 +73,6 @@ install() {
   tee $ZSHENV <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zshenv"'
 
   sudo chsh -s $zsh $(whoami)
-
-  echo-info "Restart the terminal if it continues using a different shell."
-  exec $zsh -l
 }
 
 update() {

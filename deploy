@@ -149,7 +149,7 @@ function topic-init {
   done
 
   if (( _needs_reload )); then
-    echo-note "Run 'exec \$SHELL -l' to reload your shell and apply the changes"
+    NEEDS_RELOAD=1
   fi
 }
 
@@ -244,6 +244,11 @@ EOL
     fi
     [[ -n $CLEAN ]] && clean
     popd -q
+  fi
+
+  if (( NEEDS_RELOAD )) && [[ -z $DRYRUN ]]; then
+    echo-note "Reloading shell..."
+    exec $SHELL -l
   fi
 }
 
