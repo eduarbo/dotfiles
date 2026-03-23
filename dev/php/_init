@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+deps=(dev/mise dev/node)
+
 brew_deps=(
   composer
 )

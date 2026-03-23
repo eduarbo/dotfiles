@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 
+deps=(shell/git dev/python)
+
 # Dependencies
 
 common_deps=(
