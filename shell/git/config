@@ -89,3 +89,9 @@
 [include]
 	# Here goes my personal configuration
 	path = ~/.config/git/personal.gitconfig
+[credential "https://github.com"]
+	helper = 
+	helper = !git-credential-gh
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !git-credential-gh

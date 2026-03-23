@@ -69,7 +69,9 @@ case $(_os) in
     ;;
 esac
 
-export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
+if [[ -S ~/.bitwarden-ssh-agent.sock ]]; then
+  export SSH_AUTH_SOCK=~/.bitwarden-ssh-agent.sock
+fi
 
 # initialize enabled topics
 _load_all env.zsh
