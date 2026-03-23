@@ -34,7 +34,6 @@ cask_deps=(
   grandperspective
   keka
   keycastr
-  orbstack
   omnidisksweeper
   provisionql
   qlcolorcode
@@ -49,6 +48,13 @@ cask_deps=(
   visual-studio-code
   webpquicklook
 )
+
+# ARM-only casks
+if [[ "$(uname -m)" == "arm64" ]]; then
+  cask_deps+=(
+    orbstack
+  )
+fi
 
 # link() {}
 

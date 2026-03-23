@@ -40,3 +40,4 @@ Spoons/
 
 # secrets 🤫
 authinfo.gpg
+.cursor/

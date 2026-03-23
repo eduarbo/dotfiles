@@ -7,7 +7,7 @@ A tidy `$HOME` is a tidy mind.
 
 ![Doom Emacs - Jul-2023 Screenshot of macOS Ventura](assets/doom-emacs.png)
 
-These are my dotfiles, designed primarily for macOS (Apple silicon) and Debian 12, heavily inspired by
+These are my dotfiles, designed for macOS (Apple Silicon and Intel) and Debian 12, heavily inspired by
 [hlissner/dotfiles](https://github.com/hlissner/dotfiles). Topics are split into `category/topic` (e.g. `shell/zsh`), aim for XDG compliance, and clutter your `$HOME` as little as possible.
 
 
@@ -114,6 +114,16 @@ To set up your tokens securely:
 - Open and edit the file in Emacs to add your tokens, then save. Emacs will manage the GPG encryption for you
 
 By following these steps, your dotfiles remain clean, secure, and portable—reducing the risk of accidentally exposing your credentials.
+
+## Intel vs Apple Silicon
+
+These dotfiles work on both Intel and Apple Silicon Macs. A few things to be aware of:
+
+- **Homebrew paths**: Homebrew installs to `/opt/homebrew` on Apple Silicon and `/usr/local` on Intel. The shell config auto-detects the correct path.
+- **ARM-only apps**: Some casks like OrbStack are Apple Silicon only and will be skipped automatically on Intel Macs.
+- **macOS defaults**: The `macos/defaults` script detects the macOS version to handle differences between System Preferences (pre-Ventura) and System Settings (Ventura+).
+- **SSH agent**: If using Bitwarden's SSH agent, the `SSH_AUTH_SOCK` is only set when the socket file exists.
+
 
 ## Troubleshooting
 
