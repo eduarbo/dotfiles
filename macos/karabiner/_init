@@ -27,8 +27,10 @@ link() {
   mkdir -p "$KARABINER_CONFIG_DIR/assets/complex_modifications"
   mklink json/assets/complex_modifications/* "$KARABINER_CONFIG_DIR/assets/complex_modifications/"
 
-  echo-info "Profile names"
-  karabiner --list-profile-names
+  if [[ -x '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' ]]; then
+    echo-info "Profile names"
+    karabiner --list-profile-names
+  fi
 }
 
 install() {
