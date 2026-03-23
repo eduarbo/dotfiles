@@ -12,12 +12,16 @@ link() {
 }
 
 install() {
+  if ! _is_callable node; then
+    echo-fail "Node.js not found. Install it first: dot dev/mise && mise use --global node@lts"
+    return 1
+  fi
+
   case $(_os) in
     macos)
       brew install pnpm
       ;;
     debian)
-      # pnpm installs itself once node is available via mise
       npm install -g pnpm
       ;;
   esac
