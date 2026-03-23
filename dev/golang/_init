@@ -28,6 +28,7 @@ install() {
         if _is_callable mise; then
           echo-info "Installing Go via mise..."
           mise use --global go@latest
+          eval "$(mise activate zsh)"
         else
           echo-fail "Neither go nor mise found. Install dev/mise first."
           return 1

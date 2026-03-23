@@ -18,6 +18,7 @@ install() {
     if _is_callable mise; then
       echo-info "Installing Node.js LTS via mise..."
       mise use --global node@lts
+      eval "$(mise activate zsh)"
     else
       echo-fail "Neither node nor mise found. Install dev/mise first."
       return 1
