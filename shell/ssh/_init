@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+SSH_DIR="$HOME/.ssh"
+
+link() {
+  mkdir -p "$SSH_DIR"
+  chmod 700 "$SSH_DIR"
+  mklink config "$SSH_DIR/"
+  mklink id_mbpro19_personal.pub "$SSH_DIR/"
+  chmod 600 "$SSH_DIR/config"
+}
+
+# install() {}
+# update() {}
+
+clean() {
+  rm -fv "$SSH_DIR/config"
+  rm -fv "$SSH_DIR/id_mbpro19_personal.pub"
+}
+
+init "$@"
