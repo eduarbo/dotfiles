@@ -86,8 +86,10 @@ install() {
 
       # Install emacs-plus
       brew tap d12frosted/emacs-plus
-      brew install emacs-plus --with-modern-doom3-icon
-      ln -fs $(brew --prefix)/opt/emacs-plus/Emacs.app /Applications
+      mkdir -p "$XDG_CONFIG_HOME/emacs-plus"
+      echo "icon: dragon-plus" > "$XDG_CONFIG_HOME/emacs-plus/build.yml"
+      brew install emacs-plus@30
+      cp -r $(brew --prefix)/opt/emacs-plus@30/Emacs.app /Applications/
 
       # # Install emacs-mac
       # # BUG window resizing doesn't work when maximized (not fullscreen)
