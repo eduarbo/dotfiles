@@ -7,7 +7,6 @@ brew_deps=(
   gtypist
   mvtools
   p7zip
-  rsync
   tree
   wget
   ffmpeg
