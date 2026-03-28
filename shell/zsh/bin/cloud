@@ -31,7 +31,7 @@ fi
 
 e_header "Uploading..."
 
-rsync -vax -S -H --delete --rsh='ssh -p2222' "$1" "$HOST/$DST"
+$RSYNC -vax -S -H --delete --rsh='ssh -p2222' "$1" "$HOST/$DST"
 
 e_success "Upload completed!"
 

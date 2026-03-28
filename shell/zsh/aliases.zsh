@@ -65,14 +65,16 @@ alias rgg='rg -S --hidden --line-number'
 ## Misc
 
 alias gurl='curl --compressed'
-alias rscp='rsync -va --delete'   # Copy files with rsync
-# This preserves as much file-system metadata in the process, such as Hard
-# links, ACLs, eXtended attributes, displays the information in Human readable
-# values, includes the Archive metaflag, stays on it's filesystem, copies
-# Partial (open) files with Progess output, and copies Sparse files as such.
-# Also preserves the numeric ids instead of interpreted user attribute. Also,
-# gives you statistics afterwards.
-alias rscpp='rsync -HAXhaxvPS --numeric-ids --stats'
+alias rscp='rsync -va --delete'
+# Preserve as much file-system metadata as possible: Hard links, extended
+# attributes, Archive mode, stay on the same filesystem, Partial (open) files
+# with Progress output, Sparse files, numeric ids, and stats.
+# macOS built-in rsync uses -E for extended attrs; GNU rsync uses -AX for ACLs + xattrs.
+if [[ $(_os) == macos ]]; then
+  alias rscpp='rsync -HEhaxvPS --numeric-ids --stats'
+else
+  alias rscpp='rsync -HAXhaxvPS --numeric-ids --stats'
+fi
 
 alias encrypt='gpg --encrypt'
 alias decrypt='gpg --decrypt'
