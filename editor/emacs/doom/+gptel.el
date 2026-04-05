@@ -336,9 +336,22 @@ before you tell the user that something exists.")
             (epictetus . ,(string-join (list my--prompt-attitude-epictetus my--prompt-format) "\n\n"))
             (default . ,(string-join (list my--prompt-attitude-big-boss my--prompt-format) "\n\n"))))
 
-  (setq gptel-model 'gpt-4o)
-  (setq gptel-magit-model 'gpt-5-mini)
-  (setq gptel-api-key (getenv "OPENAI_API_KEY"))
+  (setq gptel-backend
+        (gptel-make-anthropic "Claude"
+          :stream t
+          :key (getenv "ANTHROPIC_API_KEY")
+          :models '((claude-opus-4-6
+                     :description "Most capable Claude model for complex reasoning and coding"
+                     :capabilities (media tool-use cache)
+                     :mime-types ("image/jpeg" "image/png" "image/gif" "image/webp" "application/pdf")
+                     :context-window 200)
+                    (claude-haiku-4-5-20251001
+                     :description "Fast and cost-efficient model for simple tasks"
+                     :capabilities (media tool-use cache)
+                     :mime-types ("image/jpeg" "image/png" "image/gif" "image/webp" "application/pdf")
+                     :context-window 200))))
+  (setq gptel-model 'claude-opus-4-6)
+  (setq gptel-magit-model 'claude-haiku-4-5-20251001)
   (setopt gptel-default-mode 'org-mode)
   (setopt gptel--system-message (alist-get 'default gptel-directives))
   ;; leaves blank lines after consecutive tool calls and before the response prefix
