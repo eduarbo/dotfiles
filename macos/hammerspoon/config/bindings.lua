@@ -18,7 +18,7 @@ hs.hotkey.bind("shift", "f16", function() hs.eventtap.keyStroke({"cmd", "ctrl"},
 -----------------------------------------------
 
 -- Toggle Mic
-mic.bind(mods.super, "w")
+-- mic.bind(mods.super, "w")
 
 -- Switch Sound output
 sound.bind(mods.super, "y")
@@ -34,9 +34,9 @@ hs.hotkey.bind(mods.super, "k", window.toggleMaximize)
 hs.hotkey.bind(mods.super, "l", window.toggleRightSize)
 hs.hotkey.bind(mods.super, ";", hs.grid.show)
 
--- M: Taken by Alfred to search for emojis
--- ,: Taken by Alfred (Snippets)
--- .: Taken by Alfred (Universal Action)
+-- M: Taken by Raycast (Emojis)
+-- ,: Taken by Raycast (Snippets)
+-- .: Taken by Raycast (Universal Action)
 
 -- Lock screen
 hs.hotkey.bind("cmd", "f16", hs.caffeinate.lockScreen)
@@ -62,9 +62,9 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- i = "", -- already bound to Gemini in Raycast
         j = "Cursor",
         k = "kitty",
-        l = "Logseq",
+        -- l = "",
         m = "Mail",
-        n = "Logseq",
+        n = "Craft",
         o = "Spotify",
         p = "Preview",
         q = "Activity Monitor",

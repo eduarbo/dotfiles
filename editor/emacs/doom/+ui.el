@@ -14,7 +14,7 @@
     (setq doom-serif-font (font-spec :family font)))
 
   ;; a non-monospace font (where applicable)
-  (when-let (font (cl-find-if fn '("IBM Plex Mono" "Fira Code")))
+  (when-let (font (cl-find-if fn '("Noto Sans" "Roboto Condensed" "IBM Plex Sans")))
     (setq doom-variable-pitch-font (font-spec :family font :weight 'regular))))
 
 

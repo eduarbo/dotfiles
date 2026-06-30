@@ -86,7 +86,7 @@ Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retain
 
 | Symbol | Description | Symbol      | Description | Symbol      | Description |
 |--------|-------------|-------------|-------------|-------------|-------------|
-| `F16`  | Alfred      | `⌘␣`        | Spotlight   | `⇧` + `F16` | Emojis      |
+| `F16`  | Raycast     | `⌘␣`        | Spotlight   | `⇧` + `F16` | Emojis      |
 | `⌘⎋`   | Lock Mac    | `⌘` + `F16` | Lock Mac    |             |             |
 
 ### Super
@@ -112,7 +112,7 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 - `SND`: Change Sound output
 - `1PW`: Bitwarden
 - `GPT`: ChatGPT Launcher
-- `CLP`: Alfred Clipboard History
+- `CLP`: Raycast Clipboard History
 
 **Home Row (HammerSpoon bindings)**
 - `W←½`: Cycles the window to the left 1/2, 1/3 and 2/3 of the screen
@@ -122,9 +122,9 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 - `WGR`: moves and resizes window in a grid
 
 **Bottom Row**
-- `EMJ`: Alfred Emojis
-- `SNP`: Alfred Snippets
-- `UAC`: Alfred Universal Actions
+- `EMJ`: Raycast Emojis
+- `SNP`: Raycast Snippets
+- `UAC`: Raycast Universal Actions
 
 #### Left side
 
