@@ -23,7 +23,6 @@ cask_deps=(
   highlight
   rar
   adobe-acrobat-reader
-  alfred
   android-file-transfer
   appcleaner
   bruno

@@ -652,7 +652,7 @@
       ]
     },
     {
-      "description": "FN layer: Right hand - Sticky Mods, alfred features, and page nav",
+      "description": "FN layer: Right hand - Sticky Mods, Raycast features, and page nav",
       "manipulators": [
         {
           "type": "basic",
