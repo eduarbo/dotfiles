@@ -43,7 +43,7 @@ The following are the categories and topics you can install:
   - `hammerspoon` – Lua-powered automation for pro-level productivity
     - Window wrangling without the wrestling
     - Lightning-fast app launcher
-    - Push-to-talk mic sorcery
+    - Push-to-talk mic sorcery (menubar toggle; hotkey opt-in via `bindings.lua`)
     - Instantly swap your audio outputs like a DJ
   - `karabiner` – The ultimate keyboard wizardry to remap all the things
 
@@ -62,7 +62,7 @@ The following are the categories and topics you can install:
 
 - `dev/` – Essential tools and setups for a life in code
   - `mise` – Universal version manager for Node, Python, Lua and more
-  - `lua` – Lua runtime via mise, luarocks packages, and luacheck linter
+  - `lua` – Lua toolchain (brew/apt), luarocks packages, and luacheck linter
   - `node` – npm/pnpm package management — runtime versions handled by mise
   - `python` – Python tooling via brew and pipx — runtime versions handled by mise
   - `golang` – Go fast, install Go, and grab some must-have packages
