@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# Snapshot Raycast settings into the repo as an encrypted .rayconfig.
+#
+# The snapshot is AES-encrypted by Raycast with your export passphrase, which is
+# the ONLY thing protecting it in the public repo — set a strong random one
+# (Raycast Settings -> Advanced -> Export) and keep it in Bitwarden.
+#
+# Raycast has no headless export: this launches the export command, then you
+# pick the categories and save the file. Point it at the saved file (or let it
+# autodetect the newest .rayconfig) and it lands in the topic ready to commit.
+#
+# Usage: raycast-export [path/to/file.rayconfig]
+
+set -euo pipefail
+
+DEEPLINK="raycast://extensions/raycast/raycast/export-settings-data"
+
+# Resolve the real topic dir (this script is symlinked into PATH via *.topic/bin)
+source_path="${BASH_SOURCE[0]}"
+while [[ -L $source_path ]]; do
+  dir="$(cd -P "$(dirname "$source_path")" && pwd)"
+  source_path="$(readlink "$source_path")"
+  [[ $source_path != /* ]] && source_path="$dir/$source_path"
+done
+topic_dir="$(cd -P "$(dirname "$source_path")/.." && pwd)"
+dest="$topic_dir/raycast.rayconfig"
+
+src="${1:-}"
+
+if [[ -z $src ]]; then
+  echo "Opening Raycast's Export command…"
+  open "$DEEPLINK"
+  cat <<'EOF'
+
+In Raycast:
+  1. Confirm the deeplink.
+  2. Select ALL categories.
+  3. Save the file (use your strong Bitwarden passphrase).
+
+EOF
+  read -r -p "Press Enter once the export is saved… "
+
+  src="$(
+    { find "$HOME/Downloads" "$HOME/Desktop" "$PWD" -maxdepth 1 -name '*.rayconfig' -type f 2>/dev/null || true; } \
+      | while IFS= read -r f; do stat -f '%m %N' "$f"; done \
+      | sort -rn | head -1 | cut -d' ' -f2-
+  )"
+
+  if [[ -z $src ]]; then
+    echo "No .rayconfig found in ~/Downloads, ~/Desktop or the current dir." >&2
+    echo "Pass it explicitly: raycast-export /path/to/file.rayconfig" >&2
+    exit 1
+  fi
+fi
+
+if [[ ! -f $src ]]; then
+  echo "Not a file: $src" >&2
+  exit 1
+fi
+
+echo
+echo "Source:      $src"
+echo "Destination: $dest"
+read -r -p "Copy this snapshot into the repo? [y/N] " ans
+[[ $ans == [yY] ]] || { echo "Aborted."; exit 1; }
+
+cp "$src" "$dest"
+echo "Snapshot updated: $dest"
+
+if [[ $src != "$dest" ]]; then
+  read -r -p "Delete the loose export at $src? [y/N] " del
+  [[ $del == [yY] ]] && rm -f "$src" && echo "Deleted $src"
+fi
+
+cat <<'EOF'
+
+Commit it with:
+  cd "$DOTFILES" && git add macos/raycast/raycast.rayconfig && git commit -m "raycast: update settings snapshot"
+EOF
