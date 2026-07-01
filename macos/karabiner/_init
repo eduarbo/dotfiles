@@ -45,6 +45,7 @@ install() {
 }
 
 update() {
+  brew install --cask "${brew_deps[@]}"
   if has_required_node; then
     build
   fi
