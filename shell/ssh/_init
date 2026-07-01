@@ -10,8 +10,8 @@ link() {
   chmod 600 "$SSH_DIR/config"
 }
 
-# install() {}
-# update() {}
+install() { :; }
+update() { link; }
 
 clean() {
   rm -fv "$SSH_DIR/config"
