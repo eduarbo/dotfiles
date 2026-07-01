@@ -4,8 +4,8 @@ source ${0:A:h}/../../deploy
 brew_deps=(
   btop
   hacker1024/hacker1024/coretemp
-  gtypist
-  mvtools
+  gnu-typist
+  vapoursynth-mvtools
   p7zip
   tree
   wget
@@ -16,35 +16,27 @@ brew_deps=(
 )
 
 cask_deps=(
-  handbrake
-  obsidian
-  syncthing
+  raycast
+  codex
+  telegram
+  whatsapp
+  craft
+  syncthing-app
   iina
-  highlight
-  rar
+  iptvnator
   adobe-acrobat-reader
   android-file-transfer
   appcleaner
   bruno
-  calibre
-  chatgpt
-  deepl
   grandperspective
   keka
   keycastr
   omnidisksweeper
-  provisionql
-  qlcolorcode
   qlmarkdown
-  qlprettypatch
-  qlstephen
-  qlvideo
-  quicklook-json
-  quicklookase
+  quicklook-video
   skim
   suspicious-package
   visual-studio-code
-  webpquicklook
 )
 
 # ARM-only casks
@@ -65,8 +57,6 @@ install() {
       for pkg in "${cask_deps[@]}"; do
         brew install --cask "$pkg"
       done
-      brew tap cjbassi/gotop
-      brew install gotop
       brew tap teamookla/speedtest
       brew install speedtest
       ;;
