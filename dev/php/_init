@@ -23,6 +23,10 @@ install() {
     macos)
       brew install ${brew_deps[@]}
       ;;
+    *)
+      echo-alert "dev/php only automates setup on macOS; install PHP + composer manually on this OS."
+      return 0
+      ;;
   esac
 
   echo-note "Installing composer dependencies"
@@ -32,10 +36,12 @@ install() {
   npm install -g @prettier/plugin-php
 }
 
-# update() {
-# }
+update() {
+  install
+}
 
-# clean() {
-# }
+clean() {
+  :
+}
 
 init "$@"
