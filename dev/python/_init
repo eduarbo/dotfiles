@@ -35,9 +35,7 @@ apt_deps=(
   pipx
 )
 
-link() {
-  mklink config/flake8 $XDG_CONFIG_HOME
-}
+# link() {}  # ruff needs no linked config; flake8 config removed
 
 install() {
   # Install Python build dependencies so mise can compile Python from source
@@ -69,8 +67,6 @@ update() {
   pipx upgrade-all
 }
 
-clean() {
-  rm -rfv "$XDG_CONFIG_HOME/flake8"
-}
+# clean() {}
 
 init "$@"

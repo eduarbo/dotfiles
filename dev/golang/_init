@@ -47,7 +47,8 @@ update() {
   install
 }
 
-# clean() {
-# }
+clean() {
+  :
+}
 
 init "$@"
