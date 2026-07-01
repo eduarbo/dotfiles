@@ -8,7 +8,7 @@ alias sudo='sudo '
 
 # Clear the screen AND scrollback buffer
 # Works for kitty, iTerm2 and maybe other terminals
-alias cl='SIMPL_NEWLINE_BEFORE_PROMPT= && printf "\033[2J\033[3J\033[1;1H"'
+alias cl='printf "\033[2J\033[3J\033[1;1H"'
 
 alias mk='make'
 alias q='exit'
