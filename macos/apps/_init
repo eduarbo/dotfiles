@@ -51,6 +51,8 @@ fi
 install() {
   case $(_os) in
     macos)
+      # Homebrew 6+ prompts to trust non-official taps; pre-trust to keep installs non-interactive
+      brew trust --tap hacker1024/hacker1024 teamookla/speedtest
       for pkg in "${brew_deps[@]}"; do
         brew install "$pkg"
       done
