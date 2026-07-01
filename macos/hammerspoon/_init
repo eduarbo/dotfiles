@@ -28,7 +28,10 @@ install() {
   curl -o spoon.zip https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/SpoonInstall.spoon.zip && unzip -qo -d config/Spoons spoon.zip && rm -rf spoon.zip
 }
 
-# update() {}
+update() {
+  brew install ${brew_deps[@]}
+  link
+}
 
 clean() {
   rm -fv $HAMMERSPOON_DIR
