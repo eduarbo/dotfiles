@@ -6,8 +6,9 @@
 # the ONLY thing protecting it in the public repo — set a strong random one
 # (Raycast Settings -> Advanced -> Export) and keep it in Bitwarden.
 #
-# Raycast has no headless export: this launches the export command, then you
-# pick the categories and save the file. Point it at the saved file (or let it
+# Raycast has no headless export: this launches the export command, then you set
+# the passphrase (if unset) and save the file. All categories are bundled — there
+# is no per-category choice on export. Point it at the saved file (or let it
 # autodetect the newest .rayconfig) and it lands in the topic ready to commit.
 #
 # Usage: raycast-export [path/to/file.rayconfig]
@@ -35,8 +36,8 @@ if [[ -z $src ]]; then
 
 In Raycast:
   1. Confirm the deeplink.
-  2. Select ALL categories.
-  3. Save the file (use your strong Bitwarden passphrase).
+  2. Save the .rayconfig (encrypted with your export passphrase — set a strong
+     one in Settings -> Advanced -> Export, kept in Bitwarden).
 
 EOF
   read -r -p "Press Enter once the export is saved… "
