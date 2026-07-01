@@ -1,4 +1,4 @@
 Host *
     IdentityAgent ~/.bitwarden-ssh-agent.sock
-    IdentityFile ~/.ssh/id_mbpro19_personal.pub
+    IdentityFile ~/.ssh/id_mbpro19_personal
     IdentitiesOnly yes
