@@ -22,7 +22,15 @@ These are my dotfiles, designed for macOS (Apple Silicon and Intel) and Debian 1
 
 ```sh
 git clone --recurse-submodules https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
+cd ~/.config/dotfiles
+
+# On a fresh clone the `dot` alias doesn't exist yet, so invoke the script
+# directly. Deploy the shell first — the `dot` alias is available afterwards.
+./deploy shell/zsh
 ```
+
+If you cloned without `--recurse-submodules`, fetch the Doom snippets submodule
+with `git submodule update --init` before deploying `editor/emacs`.
 
 
 ## What does it include?
@@ -46,6 +54,7 @@ The following are the categories and topics you can install:
 
 - `shell/` – Terminal superpowers and creature comforts
   - `git` – Snazzy aliases and Zsh plugins for effortless versioning
+  - `ssh` – SSH client config with Bitwarden agent support and a default identity
   - `tmux` – Tab-multiplying terminal wizardry
   - `zsh` – The shell with speed, features, and a prompt that actually sparks joy
   - `kitty` – The terminal so full-featured, even your cat would approve
@@ -62,13 +71,17 @@ The following are the categories and topics you can install:
 
 ## Dotfile management
 
+The manager is the `deploy` script. On a fresh clone run it directly as
+`./deploy`; once `shell/zsh` is enabled it's also available as the `dot` alias.
+
 ```
-Usage: deploy [-acdlLit] [TOPIC...]
+Usage: dot [-acdfhlLit] [TOPIC...]
 
   -a   Target all enabled topics (ignores TOPIC args)
   -c   Afterwards, remove dead symlinks & empty dot-directories in $HOME.
        Can be used alone.
-  -d   Unlink and run `./_init clean` for topic(s)
+  -d   Disable & unlink topic(s), runs `clean()`
+  -f   Force install & link
   -l   Only relink topic(s) (implies -i)
   -L   List enabled topics
   -i   Inhibit install/update/clean init scripts
@@ -76,11 +89,12 @@ Usage: deploy [-acdlLit] [TOPIC...]
 ```
 
 ### Examples
-+ `deploy shell/zsh macos/kitty`: enables `shell/zsh` and `macos/kitty`
-+ `deploy -d shell/zsh`: disables shell/zsh & cleans up after it
-+ `deploy -l shell/zsh`: refresh links for shell/zsh (inhibits init script)
-+ `deploy -l`: relink all enabled topics
-+ `deploy -L`: list all enabled topics
++ `dot shell/zsh shell/kitty`: enables `shell/zsh` and `shell/kitty`
++ `dot -d shell/zsh`: disables shell/zsh & cleans up after it
++ `dot -l shell/zsh`: refresh links for shell/zsh (inhibits init script)
++ `dot -f macos/karabiner`: force re-run install & link for an enabled topic
++ `dot -l`: relink all enabled topics
++ `dot -L`: list all enabled topics
 
 Here's a breakdown of what the script does:
 
@@ -106,11 +120,11 @@ fi
 
 ### Managing Forge/GitHub Tokens
 
-Forge (Magit’s helper for GitHub/GitLab) expects your personal access token to be stored in `~/.authinfo.gpg`, or another location specified in your auth-sources. This file should never be committed to your repository.
+Forge (Magit’s helper for GitHub/GitLab) reads your personal access token from the file set in `auth-sources`. This config points it at `~/.config/doom/authinfo.gpg` (see `editor/emacs/doom/+defaults.el`). This file should never be committed to your repository.
 
 To set up your tokens securely:
-- This repo provides an `authinfo.gpg.example` template. Copy or rename this file to `authinfo.gpg` in the same location
-- Run `dot -l doom/emacs` to link the file
+- This repo provides a template at `editor/emacs/doom/authinfo.gpg.example`. Copy it to `editor/emacs/doom/authinfo.gpg` (same directory)
+- Run `dot -l editor/emacs` to relink the `doom/` directory (the file then appears at `~/.config/doom/authinfo.gpg`)
 - Open and edit the file in Emacs to add your tokens, then save. Emacs will manage the GPG encryption for you
 
 By following these steps, your dotfiles remain clean, secure, and portable—reducing the risk of accidentally exposing your credentials.
@@ -144,4 +158,4 @@ Just [add your SSH Key](https://docs.github.com/en/authentication/connecting-to-
 
 + [DOOM Emacs](https://github.com/doomemacs/doomemacs) (pulled by `editor/emacs`)
 + [Pacmux Tmux theme](https://github.com/eduarbo/pacmux) (pulled by `shell/tmux`)
-+ [Simpl ZSH prompt](https://github.com/eduarbo/simpl) (pulled by `shell/zsh`)
++ [Powerlevel10k](https://github.com/romkatv/powerlevel10k) (zsh prompt, loaded via zinit in `shell/zsh`)
