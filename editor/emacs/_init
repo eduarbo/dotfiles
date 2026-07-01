@@ -86,6 +86,8 @@ install() {
 
       # Install emacs-plus
       brew tap d12frosted/emacs-plus
+      # Homebrew 6+ prompts to trust non-official taps; pre-trust to keep installs non-interactive
+      brew trust --tap d12frosted/emacs-plus
       mkdir -p "$XDG_CONFIG_HOME/emacs-plus"
       echo "icon: dragon-plus" > "$XDG_CONFIG_HOME/emacs-plus/build.yml"
       brew install emacs-plus@30
