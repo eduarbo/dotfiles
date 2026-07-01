@@ -1,0 +1,5 @@
+# Only the encrypted snapshot (raycast.rayconfig) belongs in git.
+# Never commit a decrypted/plaintext export or scratch file.
+*.json
+*.rayconfig.plain
+*.tmp

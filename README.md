@@ -46,6 +46,7 @@ The following are the categories and topics you can install:
     - Push-to-talk mic sorcery (menubar toggle; hotkey opt-in via `bindings.lua`)
     - Instantly swap your audio outputs like a DJ
   - `karabiner` – The ultimate keyboard wizardry to remap all the things
+  - `raycast` – Encrypted snapshot of my Raycast config, with export/import helpers
 
 - `editor/` – My battle-stations for text and code
   - `emacs` – The best of both Emacs and Vim worlds, with extra chaos

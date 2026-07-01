@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+# Raycast keeps its data in encrypted SQLite, so it can't be symlinked like the
+# other topics. Instead we version an encrypted snapshot (raycast.rayconfig) and
+# expose the export/import helpers in bin/, which the shell auto-adds to PATH.
+
+[[ $(_os) != macos ]] && exit
+
+# no link() — nothing to symlink
+
+install() {
+  if [[ ! -d /Applications/Raycast.app && ! -d "$HOME/Applications/Raycast.app" ]]; then
+    echo-alert "Raycast isn't installed. Enable 'macos/apps' or run 'brew install --cask raycast'."
+  fi
+}
+
+update() {
+  install
+}
+
+# clean() {}
+
+init "$@"

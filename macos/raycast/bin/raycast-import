@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Restore Raycast settings from the versioned snapshot (e.g. on a new machine).
+#
+# Raycast has no headless import: this launches the import command and points
+# you at the snapshot (path copied to clipboard + revealed in Finder). You'll
+# need the export passphrase from Bitwarden to decrypt it inside Raycast.
+#
+# Usage: raycast-import
+
+set -euo pipefail
+
+DEEPLINK="raycast://extensions/raycast/raycast/import-settings-data"
+
+source_path="${BASH_SOURCE[0]}"
+while [[ -L $source_path ]]; do
+  dir="$(cd -P "$(dirname "$source_path")" && pwd)"
+  source_path="$(readlink "$source_path")"
+  [[ $source_path != /* ]] && source_path="$dir/$source_path"
+done
+topic_dir="$(cd -P "$(dirname "$source_path")/.." && pwd)"
+snapshot="$topic_dir/raycast.rayconfig"
+
+if [[ ! -f $snapshot ]]; then
+  echo "No snapshot at $snapshot. Run 'raycast-export' first." >&2
+  exit 1
+fi
+
+copied=0
+printf '%s' "$snapshot" | pbcopy 2>/dev/null && copied=1 || copied=0
+open -R "$snapshot" 2>/dev/null || true
+
+echo "Opening Raycast's Import command…"
+open "$DEEPLINK"
+
+cat <<EOF
+
+In Raycast:
+  1. Confirm the deeplink.
+  2. Select the file:
+       $snapshot
+EOF
+[[ $copied == 1 ]] && echo "     (path is on your clipboard: press ⌘⇧G in the dialog and paste)"
+cat <<'EOF'
+  3. Pick the categories to import.
+  4. Enter your export passphrase (Bitwarden).
+
+Tip: install your apps first (macos/apps) so aliases and hotkeys work right away.
+EOF
