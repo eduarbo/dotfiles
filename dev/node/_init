@@ -9,9 +9,7 @@ global_npm_packages=(
   pyright # Python language server (avoids adding nodeenv just for this)
 )
 
-link() {
-  mklink prettierrc.js "$HOME/.prettierrc.js"
-}
+# link() {}  # prettier config is owned by editor/coding-style
 
 install() {
   if ! _is_callable node; then
@@ -49,8 +47,6 @@ update() {
   esac
 }
 
-clean() {
-  rm -rfv "$HOME/.prettierrc.js"
-}
+# clean() {}
 
 init "$@"
