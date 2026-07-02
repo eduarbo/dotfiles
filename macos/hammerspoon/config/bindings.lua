@@ -60,7 +60,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         g = "Brave Browser",
         -- h = "", -- already bound to reload 🔨🥄
         -- i = "", -- already bound to Gemini in Raycast
-        j = "Cursor",
+        j = "Codex",
         k = "kitty",
         -- l = "",
         m = "Mail",
