@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source config/.zshenv
 
+os=(macos debian)
+
 if [[ $(_os) == macos ]]; then
  # I opted for `.zprofile` over the commonly suggested `.zshenv` due to macOS's quirks. Turns out, `/usr/libexec/path_helper` reorders the `$PATH` between loading `.zshenv` and `.zprofile`. What a great "helper", right?
 

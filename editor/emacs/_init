@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 
+os=(macos debian)
+
 deps=(shell/git dev/python)
 
 # Dependencies

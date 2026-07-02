@@ -5,6 +5,8 @@ source ${0:A:h}/../../deploy
 # other topics. Instead we version an encrypted snapshot (raycast.rayconfig) and
 # expose the export/import helpers in bin/, which the shell auto-adds to PATH.
 
+os=(macos)
+
 [[ $(_os) != macos ]] && exit
 
 # no link() — nothing to symlink

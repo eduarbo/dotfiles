@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 HAMMERSPOON_DIR="$XDG_CONFIG_HOME/hammerspoon"
 
+os=(macos)
+
 # only for macOS
 [[ $(_os) != macos ]] && exit
 

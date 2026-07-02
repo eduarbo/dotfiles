@@ -2,6 +2,8 @@
 
 source ${0:A:h}/../../deploy
 
+os=(macos)
+
 # link() {}
 
 install() {

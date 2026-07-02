@@ -4,6 +4,8 @@ source ${0:A:h}/../../deploy
 source ./env.zsh
 source ./aliases.zsh
 
+os=(macos)
+
 # Only for macOS
 [[ $(_os) != macos ]] && exit
 

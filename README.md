@@ -76,8 +76,9 @@ The manager is the `deploy` script. On a fresh clone run it directly as
 `./deploy`; once `shell/zsh` is enabled it's also available as the `dot` alias.
 
 ```
-Usage: dot [-acdfhlLit] [TOPIC...]
+Usage: dot [-AacdfhlLit] [TOPIC...]
 
+  -A   Target all available topics supported on this OS
   -a   Target all enabled topics (ignores TOPIC args)
   -c   Afterwards, remove dead symlinks & empty dot-directories in $HOME.
        Can be used alone.
@@ -87,10 +88,17 @@ Usage: dot [-acdfhlLit] [TOPIC...]
   -L   List enabled topics
   -i   Inhibit install/update/clean init scripts
   -t   Do a test run; do not actually do anything
+
+TOPIC can be an exact topic (`shell/zsh`), a group (`shell`), or a glob
+(`shell/*`, `editor/n*`). Expanded groups and globs are filtered to topics that
+support the current OS.
 ```
 
 ### Examples
 + `dot shell/zsh shell/kitty`: enables `shell/zsh` and `shell/kitty`
++ `dot shell`: enables all `shell/*` topics supported on this OS
++ `dot 'editor/*'`: enables all matching editor topics supported on this OS
++ `dot -A`: enables all available topics supported on this OS
 + `dot -d shell/zsh`: disables shell/zsh & cleans up after it
 + `dot -l shell/zsh`: refresh links for shell/zsh (inhibits init script)
 + `dot -f macos/karabiner`: force re-run install & link for an enabled topic
