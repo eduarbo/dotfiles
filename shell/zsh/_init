@@ -63,18 +63,27 @@ install() {
       ;;
   esac
 
-  echo-note "Please enter your sudo password to set ZSH as the default shell"
-  sudo -v
-
-  local zsh="$(command -v zsh)"
-  if ! grep -Fxq "$zsh" /etc/shells; then
-    echo "$zsh" | sudo tee -a /etc/shells
-  fi
-
   echo-note "Move ZDOTDIR from $HOME to reduce dotfile pollution."
   tee $ZSHENV <<< $'ZDOTDIR="$HOME/.config/zsh"\nsource "$ZDOTDIR/.zshenv"'
 
-  sudo chsh -s $zsh $(whoami)
+  local zsh="$(command -v zsh)"
+  if [[ -z $zsh ]]; then
+    echo-alert "zsh not found; skipping default shell change."
+    return 0
+  fi
+
+  echo-note "Please enter your sudo password to set ZSH as the default shell"
+  if sudo -v; then
+    if ! grep -Fxq "$zsh" /etc/shells; then
+      echo "$zsh" | sudo tee -a /etc/shells >/dev/null || \
+        echo-alert "Couldn't add $zsh to /etc/shells; skipping default shell change."
+    fi
+
+    sudo chsh -s $zsh $(whoami) || \
+      echo-alert "Couldn't set $zsh as the default shell; run chsh manually if needed."
+  else
+    echo-alert "Couldn't validate sudo; skipping default shell change."
+  fi
 }
 
 update() {
