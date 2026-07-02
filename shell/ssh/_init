@@ -1,8 +1,97 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 SSH_DIR="$HOME/.ssh"
+BITWARDEN_APP="/Applications/Bitwarden.app"
+BITWARDEN_MIN_VERSION="2025.1.2"
+BITWARDEN_AGENT_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+BITWARDEN_APPSTORE_AGENT_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
 
 os=(all)
+
+_version_at_least() {
+  local current=$1
+  local minimum=$2
+  local current_parts=( ${(s:.:)current} )
+  local minimum_parts=( ${(s:.:)minimum} )
+  local idx current_part minimum_part
+
+  for idx in 1 2 3; do
+    current_part=${current_parts[$idx]:-0}
+    minimum_part=${minimum_parts[$idx]:-0}
+    current_part=${current_part%%[^0-9]*}
+    minimum_part=${minimum_part%%[^0-9]*}
+    current_part=${current_part:-0}
+    minimum_part=${minimum_part:-0}
+
+    (( current_part > minimum_part )) && return 0
+    (( current_part < minimum_part )) && return 1
+  done
+
+  return 0
+}
+
+_bitwarden_version() {
+  defaults read "$BITWARDEN_APP/Contents/Info.plist" CFBundleShortVersionString 2>/dev/null
+}
+
+_ensure_bitwarden_app() {
+  [[ $(_os) == macos ]] || return 0
+
+  if [[ -d "$BITWARDEN_APP" ]]; then
+    local version=$(_bitwarden_version)
+    if [[ -n $version ]]; then
+      if _version_at_least "$version" "$BITWARDEN_MIN_VERSION"; then
+        echo-ok "Bitwarden.app $version supports the SSH agent"
+      else
+        echo-alert "Bitwarden.app $version is installed; SSH agent requires $BITWARDEN_MIN_VERSION or newer."
+      fi
+    else
+      echo-alert "Bitwarden.app is installed, but its version could not be detected."
+    fi
+    return 0
+  fi
+
+  if _is_callable brew; then
+    echo-note "Installing Bitwarden for SSH agent support."
+    brew install --cask bitwarden
+  else
+    echo-alert "Bitwarden.app is missing and Homebrew is not available to install it."
+    return 1
+  fi
+}
+
+_check_bitwarden_agent() {
+  if [[ -S "$BITWARDEN_AGENT_SOCK" ]]; then
+    echo-ok "Bitwarden SSH agent socket is available at $BITWARDEN_AGENT_SOCK"
+    return 0
+  fi
+
+  case $(_os) in
+    macos)
+      if [[ -S "$BITWARDEN_APPSTORE_AGENT_SOCK" ]]; then
+        echo-alert "Bitwarden SSH agent is using the Mac App Store socket, but ~/.ssh/config expects $BITWARDEN_AGENT_SOCK."
+        echo-note "Use the direct/.dmg Bitwarden app or update shell/ssh/config to match the App Store socket."
+      else
+        echo-alert "Bitwarden SSH agent socket is not available at $BITWARDEN_AGENT_SOCK."
+        echo-note "Open Bitwarden -> Settings -> SSH Agent -> Enable SSH agent, then set authorization to 'Remember until vault is locked'."
+      fi
+      ;;
+    *)
+      echo-alert "Bitwarden SSH agent socket is not available at $BITWARDEN_AGENT_SOCK."
+      echo-note "Enable the Bitwarden SSH agent in the desktop app before using SSH keys from Bitwarden."
+      ;;
+  esac
+
+  return 0
+}
+
+_show_personal_key_fingerprint() {
+  local pubkey="$SSH_DIR/id_mbpro19_personal.pub"
+  [[ -f "$pubkey" ]] || return 0
+  _is_callable ssh-keygen || return 0
+
+  echo-note "Bitwarden should contain this public key: $(ssh-keygen -lf "$pubkey")"
+}
 
 link() {
   mkdir -p "$SSH_DIR"
@@ -12,8 +101,16 @@ link() {
   chmod 600 "$SSH_DIR/config"
 }
 
-install() { :; }
-update() { link; }
+install() {
+  _ensure_bitwarden_app || return $?
+  _check_bitwarden_agent
+  _show_personal_key_fingerprint
+}
+
+update() {
+  link
+  install
+}
 
 clean() {
   rm -fv "$SSH_DIR/config"
