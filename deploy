@@ -198,11 +198,9 @@ function mklink {
       *)  src="$(topic-path $TOPIC)/$lk" ;; # Other cases
     esac
 
-    # If source is a directory, remove destination if it is a symlink
-    if [[ -d $src ]]; then
-      if [[ $dest != */ && -d $dest && -L $dest ]]; then
-        ${dosudo:+sudo} rm -fv $dest
-      fi
+    # Avoid following a symlinked directory destination and linking inside it.
+    if [[ $dest != */ && -L $dest ]]; then
+      _exec ${dosudo:+sudo} rm -fv "$dest"
     fi
 
     # Create the symbolic link
