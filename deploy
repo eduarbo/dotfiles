@@ -75,6 +75,28 @@ function _topic-uniq {
   done
 }
 
+function _topic-sort {
+  local rows=()
+  local topic rank subrank
+  for topic in "$@"; do
+    case $topic in
+      shell/zsh)  rank=0; subrank=0 ;;
+      shell/git)  rank=0; subrank=1 ;;
+      shell/ssh)  rank=0; subrank=2 ;;
+      shell/tmux) rank=0; subrank=3 ;;
+      shell/*)    rank=0; subrank=100 ;;
+      dev/*)      rank=1; subrank=0 ;;
+      editor/*)   rank=2; subrank=0 ;;
+      macos/*)    rank=3; subrank=0 ;;
+      *)          rank=99; subrank=0 ;;
+    esac
+    rows+=( "${rank}|${subrank}|${topic}" )
+  done
+
+  (( ${#rows[@]} )) || return 0
+  printf '%s\n' "${rows[@]}" | sort -t '|' -k1,1n -k2,2n -k3,3 | cut -d '|' -f3-
+}
+
 function _resolve-topic-spec {
   local spec=$(_topic-normalize "$1")
   local topics=( $(_available-topics) )
@@ -106,7 +128,7 @@ function _resolve-topic-specs {
   for spec in "$@"; do
     resolved+=( $(_resolve-topic-spec "$spec") )
   done
-  _topic-uniq $resolved
+  _topic-sort $(_topic-uniq $resolved)
 }
 
 function topic-supported-os {
@@ -133,15 +155,17 @@ function topic-compatible-p {
 }
 
 function _filter-compatible-topics {
+  local compatible=()
   local topic
   local current_os=$(_os)
   for topic in "$@"; do
     if topic-compatible-p $topic; then
-      echo $topic
+      compatible+=( $topic )
     else
       echo-alert "$topic skipped; supports: $(topic-supported-os $topic); current OS: ${current_os:-unknown}" >&2
     fi
   done
+  _topic-sort $compatible
 }
 
 # Functions for topic initialization
@@ -333,7 +357,7 @@ function _dot {
       h) cat <<EOL
 Usage: dot [-AacdfhlLit] [TOPIC...]
 
-  -A   Target all available topics supported on this OS
+  -A   Target all available topics supported on this OS (shell bootstrap first)
   -a   Target all enabled topics (ignores TOPIC args)
   -c   Afterwards, remove dead symlinks & empty
        dot-directories in HOME (Can be used alone)
