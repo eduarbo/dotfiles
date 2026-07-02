@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 source env.zsh
 
+os=(macos debian)
+
 # Tools installed globally via pipx (isolated envs, no venv conflicts)
 pipx_deps=(
   "python-lsp-server[all]"

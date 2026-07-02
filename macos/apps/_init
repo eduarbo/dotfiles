@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 
+os=(macos)
+
 brew_deps=(
   btop
   hacker1024/hacker1024/coretemp

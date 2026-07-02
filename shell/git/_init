@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 GIT_DIR="$XDG_CONFIG_HOME/git"
 
+os=(macos debian)
+
 # Dependencies
 
 common_deps=(

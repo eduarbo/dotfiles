@@ -48,6 +48,102 @@ function _topics {
   echo ${${${topics[@]#$DOTFILES_DATA/}%.topic}/$SEP//}
 }
 
+function _available-topics {
+  local inits; inits=( "$DOTFILES"/*/*/_init(N) )
+  local topics=()
+  local init topic
+  for init in $inits; do
+    topic=${init#$DOTFILES/}
+    topics+=( ${topic%/_init} )
+  done
+  echo $topics
+}
+
+function _topic-normalize {
+  local topic=${1#./}
+  echo ${topic%/}
+}
+
+function _topic-uniq {
+  local -A seen
+  local topic
+  for topic in "$@"; do
+    if [[ -z ${seen[$topic]} ]]; then
+      echo $topic
+      seen[$topic]=1
+    fi
+  done
+}
+
+function _resolve-topic-spec {
+  local spec=$(_topic-normalize "$1")
+  local topics=( $(_available-topics) )
+  local matches=()
+  local topic
+
+  if [[ -d "$DOTFILES/$spec" && -f "$DOTFILES/$spec/_init" ]]; then
+    matches=( $spec )
+  elif [[ -d "$DOTFILES/$spec" ]]; then
+    for topic in $topics; do
+      [[ $topic == $spec/* ]] && matches+=( $topic )
+    done
+  else
+    for topic in $topics; do
+      [[ $topic == ${~spec} ]] && matches+=( $topic )
+    done
+  fi
+
+  if (( ${#matches[@]} )); then
+    echo $matches
+  else
+    echo-fail "$spec doesn't match any topics" >&2
+  fi
+}
+
+function _resolve-topic-specs {
+  local resolved=()
+  local spec
+  for spec in "$@"; do
+    resolved+=( $(_resolve-topic-spec "$spec") )
+  done
+  _topic-uniq $resolved
+}
+
+function topic-supported-os {
+  local topic=$1
+  local supported=( $(cd "$DOTFILES/$topic" && ./_init os 2>/dev/null) )
+  if (( ${#supported[@]} )); then
+    echo $supported
+  else
+    case $topic in
+      macos/*) echo macos ;;
+      *)       echo all ;;
+    esac
+  fi
+}
+
+function topic-compatible-p {
+  local topic=$1
+  local current_os=$(_os)
+  local supported_os
+  for supported_os in $(topic-supported-os $topic); do
+    [[ $supported_os == all || $supported_os == $current_os ]] && return 0
+  done
+  return 1
+}
+
+function _filter-compatible-topics {
+  local topic
+  local current_os=$(_os)
+  for topic in "$@"; do
+    if topic-compatible-p $topic; then
+      echo $topic
+    else
+      echo-alert "$topic skipped; supports: $(topic-supported-os $topic); current OS: ${current_os:-unknown}" >&2
+    fi
+  done
+}
+
 # Functions for topic initialization
 function topic-enabled-p { [[ -L "$(topic-path $1)" ]] }
 function topic-path { echo "$DOTFILES_DATA/${1/\//$SEP}.topic" }
@@ -91,10 +187,14 @@ function mklink {
 }
 
 function init {
-  if [[ $1 == "deps" ]]; then
-    [[ -n "${deps[*]}" ]] && echo "${deps[@]}"
-    return 0
-  fi
+  case $1 in
+    deps)
+      [[ -n "${deps[*]}" ]] && echo "${deps[@]}"
+      return 0 ;;
+    os|supported-os)
+      [[ -n "${os[*]}" ]] && echo "${os[@]}"
+      return 0 ;;
+  esac
   declare -f $1 >/dev/null || return 1
   echo-info "$TOPIC.init.$1: start"
   $1
@@ -219,8 +319,9 @@ function clean {
 }
 
 function _dot {
-  while getopts acdfhlLit opt; do
+  while getopts AacdfhlLit opt; do
     case $opt in
+      A) TARGETS=( $(_available-topics) );;
       a) TARGETS=( $(_topics) );;
       c) CLEAN=1               ;;
       d) REMOVE=1              ;;
@@ -230,8 +331,9 @@ function _dot {
       i) export INHIBIT_INIT=1 ;;
       t) export DRYRUN=1       ;;
       h) cat <<EOL
-Usage: dot [-acdlLit] [TOPIC...]
+Usage: dot [-AacdfhlLit] [TOPIC...]
 
+  -A   Target all available topics supported on this OS
   -a   Target all enabled topics (ignores TOPIC args)
   -c   Afterwards, remove dead symlinks & empty
        dot-directories in HOME (Can be used alone)
@@ -241,6 +343,9 @@ Usage: dot [-acdlLit] [TOPIC...]
   -L   List enabled topics
   -i   Do not run install/update/clean init scripts
   -t   Do a test run; do not actually do anything
+
+TOPIC can be an exact topic (shell/zsh), a group (shell), or a glob (shell/*).
+Install/update targets are filtered to topics that support the current OS.
 EOL
          exit ;;
       *) >&2 echo-fail "Aborted."
@@ -249,8 +354,12 @@ EOL
   done
   shift $((OPTIND-1))
 
+  if (( ${#TARGETS[@]} == 0 )) && [[ $# -eq 0 && -n $LINK && -n $INHIBIT_INIT ]]; then
+    TARGETS=( $(_topics) )
+  fi
+
   # Print help if no options or topics were provided
-  if [[ $# -eq 0 && -z $CLEAN && -z $LIST && -z $REMOVE ]]; then
+  if (( ${#TARGETS[@]} == 0 )) && [[ $# -eq 0 && -z $CLEAN && -z $LIST && -z $REMOVE ]]; then
     set -- -h
     # recursively re-call _dot to display help
     _dot "$@"
@@ -261,10 +370,16 @@ EOL
     _topics | tr ' ' $'\n'
   else
     pushd -qL "$DOTFILES"
+    if (( ${#TARGETS[@]} == 0 && $# > 0 )); then
+      TARGETS=( $(_resolve-topic-specs "$@") )
+    fi
+    if [[ -z $REMOVE ]]; then
+      TARGETS=( $(_filter-compatible-topics $TARGETS) )
+    fi
     if [[ -n $REMOVE ]]; then
-      topic-remove ${TARGETS:-$@}
+      topic-remove $TARGETS
     else
-      topic-init ${TARGETS:-$@}
+      topic-init $TARGETS
     fi
     [[ -n $CLEAN ]] && clean
     popd -q

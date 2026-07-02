@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 SSH_DIR="$HOME/.ssh"
 
+os=(all)
+
 link() {
   mkdir -p "$SSH_DIR"
   chmod 700 "$SSH_DIR"

@@ -2,6 +2,8 @@
 source ${0:A:h}/../../deploy
 CLAUDE_DIR="${HOME}/.claude"
 
+os=(macos debian)
+
 # Dependencies
 
 common_deps=(
