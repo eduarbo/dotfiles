@@ -78,7 +78,7 @@ The manager is the `deploy` script. On a fresh clone run it directly as
 ```
 Usage: dot [-AacdfhlLit] [TOPIC...]
 
-  -A   Target all available topics supported on this OS
+  -A   Target all available topics supported on this OS (shell bootstrap first)
   -a   Target all enabled topics (ignores TOPIC args)
   -c   Afterwards, remove dead symlinks & empty dot-directories in $HOME.
        Can be used alone.

@@ -23,10 +23,11 @@ link() {
 _ensure_tpm_env() {
   # TPM resolves its plugin path via `tmux show-environment -g`.
   # If a tmux server is already running, it may lack this variable.
+  _is_callable tmux || return 0
   tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_PLUGINS_HOME" 2>/dev/null || true
 }
 
-install() {
+_install_system_deps() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]} ${brew_deps[@]}
@@ -40,22 +41,47 @@ install() {
       fi
       ;;
   esac
+}
 
+_ensure_repos() {
   [[ -n $TMUXIFIER ]] && _ensure_repo jimeh/tmuxifier $TMUXIFIER
 
   local tpm=$TMUX_PLUGINS_HOME/tpm
   _ensure_repo tmux-plugins/tpm $tpm
+}
+
+_install_tpm_plugins() {
+  local tpm=$TMUX_PLUGINS_HOME/tpm
+  [[ -x $tpm/bin/install_plugins ]] || return 0
+  if ! _is_callable tmux; then
+    echo-alert "tmux not found; plugin install deferred"
+    return 0
+  fi
+
   _ensure_tpm_env
   $tpm/bin/install_plugins || echo-alert "Plugin install deferred — run prefix + I inside tmux"
 }
 
+install() {
+  _install_system_deps
+  _ensure_repos
+  _install_tpm_plugins
+}
+
 update() {
+  _is_callable tmux || _install_system_deps
+  _ensure_repos
+
   local tpm=$TMUX_PLUGINS_HOME/tpm
   if [[ -d $tpm ]]; then
-    _ensure_tpm_env
-    $tpm/bin/install_plugins
-    $tpm/bin/update_plugins all
-    $tpm/bin/clean_plugins all
+    if _is_callable tmux; then
+      _ensure_tpm_env
+      $tpm/bin/install_plugins || echo-alert "Plugin install deferred — run prefix + I inside tmux"
+      $tpm/bin/update_plugins all
+      $tpm/bin/clean_plugins all
+    else
+      echo-alert "tmux not found; plugin update deferred"
+    fi
   fi
 
   if [[ -d $TMUXIFIER ]]; then
