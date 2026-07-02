@@ -7,8 +7,10 @@ snapshot** (`raycast.rayconfig`) and ships two helpers to move it around.
 
 > The `.rayconfig` is AES-encrypted by Raycast with your **export password**.
 > Since this repo is public, that password is the *only* thing protecting the
-> file — use a strong random one (≥20 chars) and keep it in Bitwarden. Raycast
-> asks you to set it the first time you export (min 8 chars).
+> file — use a strong random one (≥20 chars) and keep it in Bitwarden. Set it in
+> **Settings → Extensions → "Export Settings & Data"** (under the Raycast
+> extension) → the **Export Password** field. It saves as you type; there's no
+> prompt, which is why nothing pops up on export once it's set.
 
 ## Commands
 
