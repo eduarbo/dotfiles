@@ -5,12 +5,10 @@ Raycast stores everything in **encrypted SQLite** under
 like the rest of the dotfiles. This topic instead versions a single **encrypted
 snapshot** (`raycast.rayconfig`) and ships two helpers to move it around.
 
-> The `.rayconfig` is AES-encrypted by Raycast with your **export passphrase**.
-> Since this repo is public, that passphrase is the *only* thing protecting the
-> file. Set a strong random one in **Raycast Settings (⌘,) → Advanced → Export**
-> — it's a field you fill in there, not a popup (the inline prompt only shows up
-> the first time you run *Export Settings & Data*). Store it in Bitwarden and
-> don't leave it at the `12345678` default.
+> The `.rayconfig` is AES-encrypted by Raycast with your **export password**.
+> Since this repo is public, that password is the *only* thing protecting the
+> file — use a strong random one (≥20 chars) and keep it in Bitwarden. Raycast
+> asks you to set it the first time you export (min 8 chars).
 
 ## Commands
 
@@ -22,10 +20,10 @@ Both live in `bin/` and are on your `PATH` once the topic is enabled.
 - `raycast-import` — points Raycast's import command at the snapshot (path copied
   to clipboard + revealed in Finder).
 
-Neither is fully automatic: on export you choose where to save and (first time)
-set the passphrase; on import you choose the file, tick which categories to
-restore, and type the passphrase. The helpers only remove the busywork around
-that.
+Neither is fully automatic: on export you tick the categories, set/enter the
+password, and choose where to save; on import you choose the file, tick which
+categories to restore, and enter the password. The helpers only remove the
+busywork around that.
 
 ## New machine
 
@@ -35,13 +33,12 @@ that.
 
 ## What's in the snapshot
 
-The export bundles all 11 categories into the encrypted file and you **can't
-deselect any at export time** (category selection only happens on import).
-Included: settings/aliases/hotkeys, extensions, snippets, quicklinks, notes,
-window layouts, MCP servers, AI chats/commands, **Clipboard History**, and
-Emoji & Symbol History. Only Screenshots are left out.
+The export dialog has a checkbox per category, so you pick what goes in. By
+default everything is ticked: settings/aliases/hotkeys, extensions, AI
+chats/presets/commands, Clipboard History, MCP servers, quicklinks, Focus
+categories, notes, script directories, and more. Screenshots are never exported.
 
-Heads-up for a public repo: your Clipboard History (which can hold copied
-passwords/tokens) rides inside the encrypted snapshot and can't be excluded on
-export. The strong passphrase is what protects it — if that worries you, clear
-it first (Raycast → Clipboard History → `Delete All Entries`) before exporting.
+Heads-up for a public repo: **Clipboard History** can hold copied
+passwords/tokens. Simplest fix — **untick "Clipboard History"** in the export
+dialog so it never enters the snapshot. (Even if left in, it's encrypted behind
+your export password.)
