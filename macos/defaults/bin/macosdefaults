@@ -7,6 +7,17 @@
 MACOS_VERSION=$(sw_vers -productVersion)
 MACOS_MAJOR=$(echo "$MACOS_VERSION" | cut -d. -f1)
 
+run_systemsetup() {
+  local output
+  if ! output=$(sudo systemsetup "$@" 2>&1 >/dev/null); then
+    printf '%s\n' "$output" >&2
+    return 1
+  fi
+
+  output=$(printf '%s\n' "$output" | grep -v '### Error:-99 File:.*/InternetServices.m Line:' || true)
+  [[ -z "$output" ]] || printf '%s\n' "$output" >&2
+}
+
 # Close any open System Preferences/Settings panes, to prevent them from
 # overriding settings we're about to change
 if [[ "$MACOS_MAJOR" -ge 13 ]]; then
@@ -158,7 +169,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "America/Mexico_City" > /dev/null
+run_systemsetup -settimezone "America/Mexico_City"
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -168,7 +179,8 @@ sudo systemsetup -settimezone "America/Mexico_City" > /dev/null
 ###############################################################################
 
 # Sleep the display after inactivity
-sudo pmset -a displaysleep 15
+sudo pmset -c displaysleep 15
+sudo pmset -b displaysleep 5
 
 # Disable machine sleep while charging
 sudo pmset -c sleep 0
@@ -291,7 +303,8 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+chflags nohidden ~/Library
+xattr -p com.apple.FinderInfo ~/Library >/dev/null 2>&1 && xattr -d com.apple.FinderInfo ~/Library
 
 # Show the /Volumes folder
 sudo chflags nohidden /Volumes
