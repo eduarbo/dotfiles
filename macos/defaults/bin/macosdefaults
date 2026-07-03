@@ -85,6 +85,15 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
+# Re-register ExtensionKit bundles after resetting LaunchServices. On macOS 15,
+# System Settings can otherwise reopen with only a couple of panes visible.
+if [[ "$MACOS_MAJOR" -ge 13 ]]; then
+  find /System/Library/ExtensionKit/Extensions \
+    "/System/Applications/System Settings.app/Contents/PlugIns" \
+    -maxdepth 1 -type d -name "*.appex" -print0 2>/dev/null \
+    | xargs -0 -n 20 /usr/bin/pluginkit -a 2>/dev/null || true
+fi
+
 # Display ASCII control characters using caret notation in standard text views
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
 defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
