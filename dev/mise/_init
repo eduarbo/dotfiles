@@ -6,6 +6,43 @@ os=(macos debian)
 
 link() { : }  # mise global config is user-managed, nothing to symlink
 
+_mise_refresh_path() {
+  local brew_prefix
+
+  path=( "$XDG_BIN_HOME" $path )
+
+  if _is_callable brew; then
+    brew_prefix="$(brew --prefix 2>/dev/null)"
+    [[ -n $brew_prefix ]] && path=( "$brew_prefix/bin" $path )
+  fi
+
+  rehash
+}
+
+_mise_require() {
+  _mise_refresh_path
+  if ! _is_callable mise; then
+    echo-fail "mise is not available in PATH"
+    return 1
+  fi
+}
+
+_brew_upgrade_formula() {
+  local formula=$1 outdated
+
+  if ! brew list --formula "$formula" >/dev/null 2>&1; then
+    brew install "$formula"
+    return
+  fi
+
+  outdated="$(brew outdated --quiet "$formula")"
+  if [[ -n $outdated ]]; then
+    brew upgrade "$formula"
+  else
+    echo-ok "$formula is already up-to-date"
+  fi
+}
+
 install() {
   case $(_os) in
     macos)
@@ -18,6 +55,8 @@ install() {
       ;;
   esac
 
+  _mise_require || return 1
+
   # Bootstrap: initialize mise so it's usable right away
   source config.zsh
 
@@ -26,14 +65,28 @@ install() {
 }
 
 update() {
-  case $(_os) in
-    macos)
-      brew upgrade mise
-      ;;
-    debian)
-      mise self-update
-      ;;
-  esac
+  _mise_refresh_path
+
+  if ! _is_callable mise; then
+    echo-alert "mise not found; installing first"
+    install || return 1
+  else
+    case $(_os) in
+      macos)
+        if brew list --formula mise >/dev/null 2>&1; then
+          _brew_upgrade_formula mise
+        else
+          echo-info "mise is not managed by Homebrew; using self-update"
+          mise self-update
+        fi
+        ;;
+      debian)
+        mise self-update
+        ;;
+    esac
+  fi
+
+  _mise_require || return 1
   mise upgrade
 }
 
