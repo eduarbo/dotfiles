@@ -8,8 +8,7 @@
 
 ;; Tell projectile where my projects are located
 (setq projectile-project-search-path
-      '(("~/dev" . 2)
-        ("~/Library/Mobile Documents/iCloud~md~obsidian/Documents" . 2)))
+      '(("~/dev" . 2)))
 (setq projectile-enable-caching nil)
 
 ;; ─── Editor Performance & Display ─────────────────────────────────────────────
@@ -19,8 +18,8 @@
 (remove-hook! '(prog-mode-hook text-mode-hook conf-mode-hook) #'display-line-numbers-mode)
 (setq display-line-numbers-type t)
 
-;; Enable scroll margin for better context when scrolling
-(setq scroll-margin 10)
+;; `ultra-scroll' requires a zero margin to avoid rendering glitches.
+(setq scroll-margin 0)
 
 ;; Show trailing whitespace in code & config
 (add-hook! '(prog-mode-hook conf-mode-hook) #'doom-enable-show-trailing-whitespace-h)

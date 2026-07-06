@@ -23,12 +23,14 @@
 ;; Workaround to ensure that nothing else gets in front of my `custom-theme-directory' after initialization. Doom's core
 ;; is supposed to handle this, but it isn't working correctly, so I've mimicked its approach within a hook
 
-(add-hook! 'doom-init-ui-hook
-  (defun my/prioritize-custom-theme-directory-h ()
-    "Prioritize my custom them path over all other themes"
-    (setq custom-theme-load-path
-          (cons custom-theme-directory
-                (delq 'custom-theme-directory custom-theme-load-path)))))
+(defun my/prioritize-custom-theme-directory-h ()
+  "Prioritize my custom theme path over all other themes."
+  (setq custom-theme-load-path
+        (cons custom-theme-directory
+              (delete custom-theme-directory custom-theme-load-path))))
+
+(my/prioritize-custom-theme-directory-h)
+(add-hook! 'doom-init-ui-hook #'my/prioritize-custom-theme-directory-h)
 
 (setq doom-theme 'doom-oceanic-next)
 
@@ -108,6 +110,9 @@
 
 ;; ─── Frame ────────────────────────────────────────────────────────────────────
 
+;; Start the initial frame maximized.
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 ;; Show file path in the title for files with the same base name. For example, the files `/foo/bar/mumble/name'
 ;; and `/baz/quux/mumble/name' would have the following buffer names:
 ;; bar/mumble/name    quux/mumble/name
@@ -120,7 +125,7 @@
 (setq fancy-splash-image (concat doom-user-dir "banners/berserk-guts-eclipse-1.png"))
 
 ;; Hide the menu for as minimalistic a startup screen as possible.
-(remove-hook '+doom-dashboard-functions #'doom-dashboard-widget-shortmenu)
+(remove-hook '+dashboard-functions #'+dashboard-widget-shortmenu)
 
 
 ;; ─── Flycheck posframe ────────────────────────────────────────────────────────

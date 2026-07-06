@@ -57,17 +57,16 @@
 (package! emmet-mode :disable t)   ;; not needed for my workflow
 
 ;; ─── Syntax Highlighting & File Modes ─────────────────────────────────────────
-(package! vimrc-mode)  ;; Provides syntax highlighting for Vim configuration files (.vimrc, .vim)
+(package! vimrc-mode :pin "f594392a0834193a1fe1522d007e1c8ce5b68e43")  ;; Provides syntax highlighting for Vim configuration files (.vimrc, .vim)
 
 ;; ─── Productivity & Writing ───────────────────────────────────────────────────
-(package! obsidian)  ;; Integration with Obsidian for note-taking
-(package! string-inflection)  ;; Cycle through different naming conventions (camelCase, snake_case, etc.)
+(package! string-inflection :pin "4a2f87d7b47f5efe702a78f8a40a98df36eeba13")  ;; Cycle through different naming conventions (camelCase, snake_case, etc.)
 
 ;; ─── Snippet Management ───────────────────────────────────────────────────────
 (package! doom-snippets
   :recipe (:local-repo "snippets"))
 
 ;; ─── Editing Enhancements ─────────────────────────────────────────────────────
-(package! drag-stuff)  ;; Move lines or text blocks up/down/left/right using shortcuts
+(package! drag-stuff :pin "6d06d846cd37c052d79acd0f372c13006aa7e7c8")  ;; Move lines or text blocks up/down/left/right using shortcuts
 
-(package! denote)
+(package! denote :pin "33640be055025269c0e8b7722d0f44c204d840ed")
