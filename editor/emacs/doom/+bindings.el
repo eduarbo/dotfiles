@@ -328,9 +328,6 @@
          :desc "Yank org subtree"           "s"     #'org-copy-subtree)
        )
 
-      ;;; <leader> n --- notes
-      :desc "Obsidian notes"                "n SPC" #'obsidian-jump
-
       ;;; <leader> o --- open
       :desc "Open directory in dirvish"     "o d"   #'dirvish
       :desc "Dired"                         "o /"   #'dired
