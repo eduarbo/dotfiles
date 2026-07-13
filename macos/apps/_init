@@ -37,6 +37,7 @@ cask_deps=(
   qlmarkdown
   quicklook-video
   skim
+  spotify
   suspicious-package
   visual-studio-code
 )
