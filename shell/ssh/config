@@ -4,5 +4,10 @@ Host guts.cc ssh.guts.cc
     IdentityFile ~/.ssh/id_personal
     IdentitiesOnly yes
 
+Host github.com gist.github.com
+    IdentityFile ~/.ssh/id_personal
+    IdentitiesOnly yes
+    StrictHostKeyChecking accept-new
+
 Host *
     IdentityAgent ~/.bitwarden-ssh-agent.sock
