@@ -1,3 +1,7 @@
+Host guts.cc
+    HostName ssh.guts.cc
+    ProxyCommand cloudflared access ssh --hostname %h
+
 Host *
     IdentityAgent ~/.bitwarden-ssh-agent.sock
     IdentityFile ~/.ssh/id_mbpro21_personal
