@@ -34,6 +34,23 @@ _bitwarden_version() {
   defaults read "$BITWARDEN_APP/Contents/Info.plist" CFBundleShortVersionString 2>/dev/null
 }
 
+_ensure_cloudflared() {
+  if _is_callable cloudflared; then
+    echo-ok "$(cloudflared --version 2>/dev/null)"
+    return 0
+  fi
+
+  if _is_callable brew; then
+    echo-note "Installing cloudflared for SSH access to guts.cc."
+    brew install cloudflared
+    return $?
+  fi
+
+  echo-alert "cloudflared is required for SSH access to guts.cc but is not installed."
+  echo-note "Install cloudflared with your system package manager before cloning from guts.cc."
+  return 0
+}
+
 _ensure_bitwarden_app() {
   [[ $(_os) == macos ]] || return 0
 
@@ -102,6 +119,7 @@ link() {
 }
 
 install() {
+  _ensure_cloudflared || return $?
   _ensure_bitwarden_app || return $?
   _check_bitwarden_agent
   _show_personal_key_fingerprint
