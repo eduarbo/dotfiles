@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 SSH_DIR="$HOME/.ssh"
+XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 BITWARDEN_APP="/Applications/Bitwarden.app"
 BITWARDEN_MIN_VERSION="2025.1.2"
 BITWARDEN_AGENT_SOCK="$HOME/.bitwarden-ssh-agent.sock"
@@ -112,10 +113,14 @@ _show_personal_key_fingerprint() {
 
 link() {
   mkdir -p "$SSH_DIR"
+  mkdir -p "$XDG_BIN_HOME"
   chmod 700 "$SSH_DIR"
   mklink config "$SSH_DIR/"
   mklink id_personal.pub "$SSH_DIR/"
+  mklink cloudflared-ssh-service "$XDG_BIN_HOME/"
   chmod 600 "$SSH_DIR/config"
+  chmod 600 "$SSH_DIR/id_personal.pub"
+  chmod 700 "$XDG_BIN_HOME/cloudflared-ssh-service"
 }
 
 install() {
@@ -133,6 +138,7 @@ update() {
 clean() {
   rm -fv "$SSH_DIR/config"
   rm -fv "$SSH_DIR/id_personal.pub"
+  rm -fv "$XDG_BIN_HOME/cloudflared-ssh-service"
   rm -fv "$SSH_DIR/id_mbpro21_personal.pub"
   rm -fv "$SSH_DIR/id_mbpro19_personal.pub"
 }

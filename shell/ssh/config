@@ -1,12 +1,13 @@
 Host guts.cc ssh.guts.cc
     HostName ssh.guts.cc
-    ProxyCommand cloudflared access ssh --hostname %h
-    IdentityFile ~/.ssh/id_personal
+    ProxyCommand ~/.local/bin/cloudflared-ssh-service %h
+    IdentityFile ~/.ssh/id_personal.pub
     IdentitiesOnly yes
 
 Host github.com gist.github.com
-    IdentityFile ~/.ssh/id_personal
-    IdentitiesOnly yes
+    # Let the Bitwarden agent offer the current per-device auth key. The old
+    # local private-key path no longer exists on agent-only machines.
+    IdentitiesOnly no
     StrictHostKeyChecking accept-new
 
 Host *

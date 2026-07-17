@@ -146,7 +146,7 @@ These dotfiles work on both Intel and Apple Silicon Macs. A few things to be awa
 - **ARM-only apps**: Some casks like OrbStack are Apple Silicon only and will be skipped automatically on Intel Macs.
 - **macOS defaults**: The `macos/defaults` script detects the macOS version to handle differences between System Preferences (pre-Ventura) and System Settings (Ventura+).
 - **SSH agent**: If using Bitwarden's SSH agent, the `SSH_AUTH_SOCK` is only set when the socket file exists.
-- **Gitea SSH**: New clone URLs use `git@ssh.guts.cc:...` and are routed through Cloudflare Access. Existing `git@guts.cc:...` remotes remain compatible. The `shell/ssh` topic installs `cloudflared`, links the public half of the personal key used by Bitwarden, and configures both hostnames; the first connection opens a browser for Access authorization. Test the full path with `ssh -T git@ssh.guts.cc`.
+- **Gitea SSH**: New clone URLs use `git@ssh.guts.cc:...` and are routed through Cloudflare Access. Existing `git@guts.cc:...` remotes remain compatible. The `shell/ssh` topic installs `cloudflared`, links the public half of the personal key used by Bitwarden, and configures both hostnames. If Keychain contains `cloudflare-ssh-polyhunter-client-id` and `cloudflare-ssh-polyhunter-client-secret`, the proxy uses the dedicated service token without browser SSO; otherwise the normal interactive Access login remains available. Test the full path with `ssh -T git@ssh.guts.cc`.
 
 
 ## Troubleshooting

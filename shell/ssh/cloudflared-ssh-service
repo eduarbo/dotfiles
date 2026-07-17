@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+readonly hostname="${1:?usage: cloudflared-ssh-service HOSTNAME}"
+readonly account="${USER:-$(id -un)}"
+
+cloudflared_bin="$(command -v cloudflared 2>/dev/null || true)"
+for candidate in /opt/homebrew/bin/cloudflared /usr/local/bin/cloudflared; do
+  [[ -n "$cloudflared_bin" ]] && break
+  [[ -x "$candidate" ]] && cloudflared_bin="$candidate"
+done
+[[ -n "$cloudflared_bin" ]] || {
+  print -u2 "cloudflared is not installed"
+  exit 127
+}
+readonly cloudflared_bin
+
+# A dedicated Cloudflare Access service token avoids browser SSO for automation.
+# If the Keychain entries are absent, preserve the normal interactive login flow.
+if command -v security >/dev/null 2>&1 \
+  && client_id="$(security find-generic-password \
+    -a "$account" -s cloudflare-ssh-polyhunter-client-id -w 2>/dev/null)" \
+  && client_secret="$(security find-generic-password \
+    -a "$account" -s cloudflare-ssh-polyhunter-client-secret -w 2>/dev/null)"; then
+  exec "$cloudflared_bin" access tcp \
+    --hostname "$hostname" \
+    --service-token-id "$client_id" \
+    --service-token-secret "$client_secret"
+fi
+
+exec "$cloudflared_bin" access ssh --hostname "$hostname"
