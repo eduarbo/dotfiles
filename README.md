@@ -130,10 +130,12 @@ fi
 ### Multiple GitHub accounts
 
 Deploy `shell/git` and `shell/ssh`, run `git account discover`, then run
-`git account add` once per account.
-Each account gets a generic SSH alias, isolated `gh` session, conditional commit
-identity, and SSH signing key. Sensitive metadata and public keys are generated
-only under `~/.config`; nothing is written into this repository. See the
+`git account add` once per SSH/Git profile. Profiles may use separate keys for
+the same GitHub login, isolated sessions for future client logins, or no `gh`
+session for SSH-only automation. Each gets a generic SSH alias, conditional
+commit identity, and optional SSH signing key. Sensitive metadata and public
+keys are generated only under `~/.config`; nothing is written into this
+repository. See the
 [complete bootstrap, migration, and testing guide](shell/git/README.md).
 
 ### Managing Forge/GitHub Tokens

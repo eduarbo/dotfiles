@@ -70,8 +70,13 @@ printf '%s\n' \
   '  git config --global test.ghLoginSandbox true' \
   '  mkdir -p "$GH_CONFIG_DIR"' \
   '  : >"$GH_CONFIG_DIR/hosts.yml"' \
+  'elif [ "$1 $2" = "auth token" ]; then' \
+  '  printf "mock-token\\n"' \
   'elif [ "$1 $2" = "api user" ]; then' \
+  '  [ "${FAIL_API:-}" != 1 ] || exit 99' \
   '  printf "example-user\\n"' \
+  'elif [ "$1 $2" = "debug config-dir" ]; then' \
+  '  printf "%s\\n" "$GH_CONFIG_DIR"' \
   'fi' >"$mock_bin/gh"
 chmod 700 "$mock_bin/gh"
 # shellcheck disable=SC2016
@@ -99,18 +104,28 @@ identity=$(ssh -G github-account-1 2>/dev/null | awk '$1 == "identityfile" {prin
 
 "$PROGRAM" add account-2 \
   --auth-key "$TEST_ROOT/key.pub" \
-  --username second-user \
-  --name 'Second User' \
+  --username example-user \
+  --name 'Second Context' \
   --email second@example.invalid \
   --no-sign \
   --no-infer >/dev/null
+
+[ "$(git config -f "$GITHUB_ACCOUNTS_DIR/accounts/account-2.gitconfig" --get account.ghMode)" = shared ]
+[ "$(git config -f "$GITHUB_ACCOUNTS_DIR/accounts/account-2.gitconfig" --get account.ghAccount)" = account-1 ]
+[ "$(PATH="$mock_bin:$PATH" "$PROGRAM" gh account-2 -- debug config-dir)" = \
+  "$GITHUB_ACCOUNTS_DIR/gh/account-1" ]
+PATH="$mock_bin:$PATH" "$PROGRAM" login account-2 >/dev/null
+[ "$(git config -f "$GITHUB_ACCOUNTS_DIR/gh/account-1/gitconfig" --get test.ghLoginSandbox)" = true ]
+[ ! -e "$GITHUB_ACCOUNTS_DIR/gh/account-2/gitconfig" ]
+FAIL_API=1 TEST_PUBLIC_KEY="$TEST_ROOT/key.pub" PATH="$mock_bin:$PATH" \
+  "$PROGRAM" doctor account-2 >/dev/null
 
 repo2="$TEST_ROOT/repo2"
 mkdir -p "$repo2"
 git -C "$repo2" init -q
 git -C "$repo2" remote add origin git@github-account-2:second/example.git
 [ "$(git -C "$repo2" config --get githubAccount.id)" = account-2 ]
-[ "$(git -C "$repo2" config --get user.name)" = 'Second User' ]
+[ "$(git -C "$repo2" config --get user.name)" = 'Second Context' ]
 
 gist="$TEST_ROOT/gist"
 mkdir -p "$gist"
@@ -121,6 +136,40 @@ git -C "$gist" remote add origin git@github-account-2-gist:example.git
 git -C "$repo" remote add upstream git@github-account-2:second/example.git
 [ "$(git -C "$repo" config --get-all githubAccount.id | sort -u | wc -l | tr -d ' ')" -eq 2 ]
 git -C "$repo" remote remove upstream
+
+"$PROGRAM" add account-3 \
+  --auth-key "$TEST_ROOT/key.pub" \
+  --username bot-user \
+  --name 'Automation Identity' \
+  --email bot@example.invalid \
+  --no-sign \
+  --no-gh \
+  --no-infer >/dev/null
+[ "$(git config -f "$GITHUB_ACCOUNTS_DIR/accounts/account-3.gitconfig" --get account.ghMode)" = none ]
+TEST_PUBLIC_KEY="$TEST_ROOT/key.pub" PATH="$mock_bin:$PATH" "$PROGRAM" doctor account-3 >/dev/null
+if PATH="$mock_bin:$PATH" "$PROGRAM" login account-3 >/dev/null 2>&1; then
+  printf 'gh login was allowed for a profile with gh disabled\n' >&2
+  exit 1
+fi
+if PATH="$mock_bin:$PATH" "$PROGRAM" gh account-3 -- status >/dev/null 2>&1; then
+  printf 'gh command was allowed for a profile with gh disabled\n' >&2
+  exit 1
+fi
+[ ! -e "$GITHUB_ACCOUNTS_DIR/gh/account-3/hosts.yml" ]
+
+"$PROGRAM" add account-4 \
+  --auth-key "$TEST_ROOT/key.pub" \
+  --username client-user \
+  --name 'Client Identity' \
+  --email client@example.invalid \
+  --no-sign \
+  --no-infer >/dev/null
+[ "$(git config -f "$GITHUB_ACCOUNTS_DIR/accounts/account-4.gitconfig" --get account.ghMode)" = isolated ]
+if "$PROGRAM" add account-4 --share-gh account-1 >/dev/null 2>&1; then
+  printf 'gh sharing was allowed across different GitHub logins\n' >&2
+  exit 1
+fi
+[ "$(git config -f "$GITHUB_ACCOUNTS_DIR/accounts/account-4.gitconfig" --get account.ghMode)" = isolated ]
 
 if find "$ROOT/shell/ssh" -maxdepth 1 -name '*.pub' -print | grep . >/dev/null; then
   printf 'versioned SSH public key found\n' >&2
