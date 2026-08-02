@@ -43,8 +43,31 @@ _dotfiles_github_owner() {
   print -r -- "$owner"
 }
 
+_github_account_id() {
+  local username="$1"
+  local accounts_root metadata configured_username
+
+  accounts_root=${GITHUB_ACCOUNTS_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/github-accounts}
+  for metadata in "$accounts_root"/accounts/account-*.gitconfig(N); do
+    configured_username=$(git config -f "$metadata" --get account.username 2>/dev/null) || continue
+    if [[ "$configured_username" == "$username" ]]; then
+      print -r -- "${metadata:t:r}"
+      return 0
+    fi
+  done
+  return 1
+}
+
 _github_token() {
-  local account="$1"
+  local account="$1" account_id token
+
+  if account_id=$(_github_account_id "$account") && _is_callable git-account; then
+    token=$(git account gh "$account_id" -- auth token --hostname github.com 2>/dev/null) || true
+    if [[ -n "$token" ]]; then
+      print -r -- "$token"
+      return 0
+    fi
+  fi
   gh auth token --hostname github.com --user "$account" 2>/dev/null
 }
 
@@ -86,8 +109,17 @@ _repo_exists() {
     --json nameWithOwner >/dev/null 2>&1
 }
 
+_route_repo_account() {
+  local account="$1" repository_dir="$2" account_id
+
+  [[ -d "$repository_dir/.git" ]] || return 0
+  _is_callable git-account || return 0
+  account_id=$(_github_account_id "$account") || return 0
+  git -C "$repository_dir" account use "$account_id" origin
+}
+
 _update_repo() {
-  local account="$1" repository_dir="$2"
+  local account="$1" repository_dir="$2" remote_url
 
   [[ -d "$repository_dir/.git" ]] || return 0
   if [[ -n "$(git -C "$repository_dir" status --porcelain)" ]]; then
@@ -99,7 +131,11 @@ _update_repo() {
     return 0
   fi
 
-  _git_with_token "$account" -C "$repository_dir" pull --ff-only
+  remote_url=$(git -C "$repository_dir" remote get-url origin 2>/dev/null) || return 1
+  case "$remote_url" in
+    https://github.com/*) _git_with_token "$account" -C "$repository_dir" pull --ff-only ;;
+    *) git -C "$repository_dir" pull --ff-only ;;
+  esac
 }
 
 _orchestrate_agent_config() {
@@ -122,8 +158,10 @@ _orchestrate_agent_config() {
   owner_dir=${AGENT_CONFIG_OWNER_DIR:-$HOME/dev/$account/agent-config}
 
   _clone_repo "$account" "$global_repository" "$global_dir" || return $?
+  _route_repo_account "$account" "$global_dir" || return $?
   if _repo_exists "$account" "$owner_repository"; then
     _clone_repo "$account" "$owner_repository" "$owner_dir" || return $?
+    _route_repo_account "$account" "$owner_dir" || return $?
   fi
 
   if [[ "$operation" == update ]]; then
@@ -132,7 +170,16 @@ _orchestrate_agent_config() {
   fi
 
   AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
-    "$global_dir/setup"
+    "$global_dir/setup" || return $?
+
+  [[ -x "$global_dir/bin/agent-config" ]] || {
+    echo-alert "agent-config command is missing from $global_dir"
+    return 1
+  }
+  AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
+    "$global_dir/bin/agent-config" monitor install || return $?
+  AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
+    "$global_dir/bin/agent-config" doctor
 }
 
 link() {
@@ -148,6 +195,9 @@ update() {
 }
 
 clean() {
+  if [[ -x "$HOME/.local/bin/agent-config" ]]; then
+    "$HOME/.local/bin/agent-config" monitor uninstall || return $?
+  fi
   echo-note "Agent configuration repositories and symlinks were preserved."
 }
 

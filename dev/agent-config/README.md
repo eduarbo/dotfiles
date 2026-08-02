@@ -15,6 +15,15 @@ Local changes are never overwritten: dirty repositories are not pulled,
 unmanaged files are not replaced, and removing the topic preserves both the
 repositories and installed links.
 
+The topic also installs a daily `agent-config doctor` monitor and runs an
+immediate audit. Use `agent-config sync -m "reason"` after intentional changes;
+it validates, commits, rebases concurrent work from another machine, and pushes
+without force. Real conflicts stop for explicit resolution.
+
+When `git account` is configured, the topic maps the local GitHub login to its
+PII-free `account-N` alias automatically. Authentication, author identity, and
+signing remain machine-local and work independently on every computer.
+
 Optional machine-local overrides:
 
 - `AGENT_CONFIG_ACCOUNT`
