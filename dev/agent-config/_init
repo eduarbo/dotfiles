@@ -180,7 +180,11 @@ _orchestrate_agent_config() {
   AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
     "$global_dir/bin/agent-config" monitor install || return $?
   AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
-    "$global_dir/bin/agent-config" doctor
+    "$global_dir/bin/agent-config" doctor --managed-only || return $?
+  AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
+    "$global_dir/bin/agent-config" doctor --offline || \
+    echo-note "Tracked workflow changes need attention; the daily monitor is active."
+  return 0
 }
 
 link() {
