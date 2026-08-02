@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 GIT_DIR="$XDG_CONFIG_HOME/git"
+GITHUB_ACCOUNTS_DIR="$XDG_CONFIG_HOME/github-accounts"
 
 os=(macos debian)
 
@@ -9,14 +10,26 @@ os=(macos debian)
 common_deps=(
   git
   git-delta  # better diff viewer (replaces diff-so-fancy)
+  gh
 )
 
 apt_deps=(
   git
   git-delta
+  gh
 )
 
+_ensure_local_config() {
+  mkdir -p "$GIT_DIR" "$GITHUB_ACCOUNTS_DIR/git"
+  chmod 700 "$GITHUB_ACCOUNTS_DIR" "$GITHUB_ACCOUNTS_DIR/git"
+  [[ -e "$GIT_DIR/local.gitconfig" ]] || touch "$GIT_DIR/local.gitconfig"
+  [[ -e "$GITHUB_ACCOUNTS_DIR/git/includes.gitconfig" ]] || \
+    touch "$GITHUB_ACCOUNTS_DIR/git/includes.gitconfig"
+  chmod 600 "$GIT_DIR/local.gitconfig" "$GITHUB_ACCOUNTS_DIR/git/includes.gitconfig"
+}
+
 link() {
+  _ensure_local_config
   mklink {config,ignore,message} "$GIT_DIR/"
 }
 
@@ -38,6 +51,7 @@ install() {
 }
 
 update() {
+  _ensure_local_config
   case $(_os) in
     macos)
       brew install ${common_deps[@]}
@@ -50,7 +64,8 @@ update() {
 }
 
 clean() {
-  rm -rfv "$GIT_DIR"
+  rm -fv "$GIT_DIR/config" "$GIT_DIR/ignore" "$GIT_DIR/message"
+  echo-note "Local Git identity and GitHub account data were preserved."
 }
 
 init "$@"

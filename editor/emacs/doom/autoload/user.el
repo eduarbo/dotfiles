@@ -1,4 +1,4 @@
-;;; autoload/eduarbo.el -*- lexical-binding: t; -*-
+;;; autoload/user.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (defvar my/original-major-mode nil

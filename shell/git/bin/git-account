@@ -1,0 +1,889 @@
+#!/bin/sh
+set -eu
+
+CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
+ACCOUNTS_ROOT=${GITHUB_ACCOUNTS_DIR:-"$CONFIG_HOME/github-accounts"}
+ACCOUNTS_DIR="$ACCOUNTS_ROOT/accounts"
+KEYS_DIR="$ACCOUNTS_ROOT/keys"
+SSH_DIR="$ACCOUNTS_ROOT/ssh"
+GIT_DIR="$ACCOUNTS_ROOT/git"
+GH_DIR="$ACCOUNTS_ROOT/gh"
+SSH_CONFIG="$SSH_DIR/config"
+GIT_INCLUDES="$GIT_DIR/includes.gitconfig"
+
+note() { printf '==> %s\n' "$*"; }
+ok() { printf 'ok: %s\n' "$*"; }
+warn() { printf 'warning: %s\n' "$*" >&2; }
+die() { printf 'error: %s\n' "$*" >&2; exit 1; }
+have() { command -v "$1" >/dev/null 2>&1; }
+
+usage() {
+  cat <<'EOF'
+Usage: git account COMMAND [ARGS]
+
+Commands:
+  discover                        Probe agent keys for GitHub associations
+  add [account-N] [OPTIONS]      Add or update a local SSH/Git profile
+  render                         Rebuild generated SSH and Git includes
+  list                           List configured generic account IDs
+  use ACCOUNT [REMOTE]           Route one repository remote through ACCOUNT
+  migrate ACCOUNT [REMOTE]       Alias for use; reports legacy global rules
+  login ACCOUNT                  Authenticate the gh session used by ACCOUNT
+  import-gh ACCOUNT              Import a matching gh session for ACCOUNT
+  gh [ACCOUNT] [--] ARGS...      Run gh with ACCOUNT's isolated/shared session
+  doctor [ACCOUNT]               Check local configuration without network access
+  test [--skip-gh] [ACCOUNT] [OWNER/REPO]
+                                 Test SSH, gh, signing, and a real temporary clone
+
+add options:
+  --auth-key FILE                Public authentication key (comment is stripped)
+  --agent-index N                Select key N from ssh-add -L
+  --signing-key FILE|same        Public signing key; defaults to auth key
+  --signing-agent-index N        Select signing key N from ssh-add -L
+  --sign                         Enable signing when updating an account
+  --no-sign                      Do not sign commits for this account
+  --username USER                GitHub login, stored only locally
+  --name NAME                    Commit author name, stored only locally
+  --email EMAIL                  Commit author email, stored only locally
+  --no-infer                     Do not infer the login with ssh -T
+  --gh isolated|none            Use a private gh session or disable gh
+  --share-gh ACCOUNT             Share ACCOUNT's gh session (same login only)
+  --no-gh                        Alias for --gh none
+  --import-gh                    Import a matching existing gh session
+
+An account-N is a local transport profile, not necessarily a distinct GitHub
+login. IDs are deliberately generic so SSH aliases never expose PII.
+EOF
+}
+
+ensure_layout() {
+  umask 077
+  mkdir -p "$ACCOUNTS_DIR" "$KEYS_DIR" "$SSH_DIR" "$GIT_DIR" "$GH_DIR"
+  chmod 700 "$ACCOUNTS_ROOT" "$ACCOUNTS_DIR" "$KEYS_DIR" "$SSH_DIR" "$GIT_DIR" "$GH_DIR"
+  [ -e "$SSH_CONFIG" ] || : >"$SSH_CONFIG"
+  [ -e "$GIT_INCLUDES" ] || : >"$GIT_INCLUDES"
+  chmod 600 "$SSH_CONFIG" "$GIT_INCLUDES"
+}
+
+validate_account() {
+  case ${1:-} in
+    account-[1-9]*)
+      number=${1#account-}
+      case $number in *[!0-9]*) die "account ID must contain only a positive number" ;; esac
+      ;;
+    *) die "account ID must match account-N (for example, account-1)" ;;
+  esac
+}
+
+account_file() { printf '%s/%s.gitconfig\n' "$ACCOUNTS_DIR" "$1"; }
+account_git_file() { printf '%s/%s.gitconfig\n' "$GIT_DIR" "$1"; }
+auth_key_file() { printf '%s/%s-auth.pub\n' "$KEYS_DIR" "$1"; }
+signing_key_file() { printf '%s/%s-signing.pub\n' "$KEYS_DIR" "$1"; }
+gh_config_dir() { printf '%s/%s\n' "$GH_DIR" "$1"; }
+github_host() { printf 'github-%s\n' "$1"; }
+gist_host() { printf 'github-%s-gist\n' "$1"; }
+
+cfg_get() {
+  file=$1 key=$2
+  [ -f "$file" ] || return 1
+  git config -f "$file" --get "$key" 2>/dev/null
+}
+
+next_account() {
+  n=1
+  while [ -e "$(account_file "account-$n")" ]; do n=$((n + 1)); done
+  printf 'account-%s\n' "$n"
+}
+
+account_gh_mode() {
+  mode=$(cfg_get "$(account_file "$1")" account.ghMode || true)
+  # Profiles created before gh policies existed had one isolated directory.
+  printf '%s\n' "${mode:-isolated}"
+}
+
+find_isolated_gh_profile() {
+  wanted_username=$1 excluded_account=$2
+  for candidate_file in "$ACCOUNTS_DIR"/account-*.gitconfig; do
+    [ -e "$candidate_file" ] || continue
+    candidate=$(basename "$candidate_file" .gitconfig)
+    [ "$candidate" = "$excluded_account" ] && continue
+    [ "$(cfg_get "$candidate_file" account.username || true)" = "$wanted_username" ] || continue
+    [ "$(account_gh_mode "$candidate")" = isolated ] || continue
+    printf '%s\n' "$candidate"
+    return 0
+  done
+  return 1
+}
+
+validate_gh_selection() {
+  selected_account=$1 selected_username=$2 selected_mode=$3 selected_source=${4:-}
+  case $selected_mode in
+    isolated|none)
+      [ -z "$selected_source" ] || die "$selected_mode gh mode cannot name a shared profile"
+      ;;
+    shared)
+      validate_account "$selected_source"
+      [ "$selected_source" != "$selected_account" ] || die "$selected_account cannot share gh with itself"
+      source_file=$(account_file "$selected_source")
+      [ -f "$source_file" ] || die "$selected_source is not configured"
+      [ "$(account_gh_mode "$selected_source")" = isolated ] || \
+        die "$selected_source must use an isolated gh session before it can be shared"
+      source_username=$(cfg_get "$source_file" account.username || true)
+      [ "$source_username" = "$selected_username" ] || \
+        die "gh sessions can be shared only by profiles for the same GitHub login"
+      ;;
+    *) die "gh mode must be isolated, shared, or none" ;;
+  esac
+}
+
+load_gh_context() {
+  context_account=$1
+  context_metadata=$(account_file "$context_account")
+  GH_PROFILE_MODE=$(account_gh_mode "$context_account")
+  GH_SESSION_ACCOUNT=$context_account
+  case $GH_PROFILE_MODE in
+    isolated) ;;
+    none) die "$context_account has gh disabled; use SSH/Git commands or change it with: git account add $context_account --gh isolated" ;;
+    shared)
+      GH_SESSION_ACCOUNT=$(cfg_get "$context_metadata" account.ghAccount || true)
+      validate_gh_selection "$context_account" \
+        "$(cfg_get "$context_metadata" account.username)" shared "$GH_SESSION_ACCOUNT"
+      ;;
+    *) die "$context_account has an invalid local gh policy" ;;
+  esac
+  GH_SESSION_CONFIG=$(gh_config_dir "$GH_SESSION_ACCOUNT")
+}
+
+atomic_key_from_line() {
+  destination=$1 line=$2
+  key_type=$(printf '%s\n' "$line" | awk '{print $1}')
+  key_data=$(printf '%s\n' "$line" | awk '{print $2}')
+  [ -n "$key_type" ] && [ -n "$key_data" ] || die "invalid public key"
+  tmp=$(mktemp "${destination}.tmp.XXXXXX")
+  printf '%s %s\n' "$key_type" "$key_data" >"$tmp"
+  ssh-keygen -lf "$tmp" >/dev/null 2>&1 || { rm -f "$tmp"; die "invalid public key"; }
+  chmod 600 "$tmp"
+  mv -f "$tmp" "$destination"
+}
+
+atomic_key_from_file() {
+  source_key=$1 destination=$2
+  [ -f "$source_key" ] || die "public key not found: $source_key"
+  atomic_key_from_line "$destination" "$(sed -n '1p' "$source_key")"
+}
+
+agent_key_line() {
+  index=$1
+  keys=$(ssh-add -L 2>/dev/null) || die "the SSH agent has no available keys"
+  line=$(printf '%s\n' "$keys" | sed -n "${index}p")
+  [ -n "$line" ] || die "agent key $index does not exist"
+  printf '%s\n' "$line"
+}
+
+choose_agent_key() {
+  destination=$1
+  keys=$(ssh-add -L 2>/dev/null) || die "the SSH agent has no available keys"
+  count=0
+  old_ifs=$IFS
+  IFS='
+'
+  for line in $keys; do
+    count=$((count + 1))
+    fingerprint=$(printf '%s\n' "$line" | ssh-keygen -lf - 2>/dev/null | awk '{print $2}')
+    printf '  %s) %s %s\n' "$count" "$(printf '%s\n' "$line" | awk '{print $1}')" "$fingerprint"
+  done
+  IFS=$old_ifs
+  [ "$count" -gt 0 ] || die "the SSH agent has no available keys"
+  [ -r /dev/tty ] || die "use --auth-key or --agent-index in a non-interactive shell"
+  printf 'Authentication key number: ' >/dev/tty
+  IFS= read -r choice </dev/tty
+  case $choice in *[!0-9]*|'') die "invalid key number" ;; esac
+  atomic_key_from_line "$destination" "$(agent_key_line "$choice")"
+}
+
+prompt_value() {
+  label=$1 default=${2:-}
+  [ -r /dev/tty ] || die "$label is required in a non-interactive shell"
+  if [ -n "$default" ]; then
+    printf '%s [%s]: ' "$label" "$default" >/dev/tty
+  else
+    printf '%s: ' "$label" >/dev/tty
+  fi
+  IFS= read -r value </dev/tty
+  printf '%s\n' "${value:-$default}"
+}
+
+infer_username() {
+  key=$1
+  output=$(ssh -F /dev/null -T \
+    -o BatchMode=yes \
+    -o ConnectTimeout=10 \
+    -o IdentitiesOnly=yes \
+    -o StrictHostKeyChecking=accept-new \
+    -o "IdentityFile=$key" \
+    git@github.com 2>&1 || true)
+  printf '%s\n' "$output" | sed -n 's/^Hi \([^!]*\)!.*/\1/p' | sed -n '1p'
+}
+
+cmd_discover() {
+  ensure_layout
+  keys=$(ssh-add -L 2>/dev/null) || die "the SSH agent has no available keys"
+  temp_root=$(mktemp -d "${TMPDIR:-/tmp}/git-account-discover.XXXXXX")
+  trap 'rm -rf "$temp_root"' EXIT HUP INT TERM
+  count=0
+  old_ifs=$IFS
+  IFS='
+'
+  for line in $keys; do
+    count=$((count + 1))
+    key_file="$temp_root/key-$count.pub"
+    atomic_key_from_line "$key_file" "$line"
+    fingerprint=$(ssh-keygen -lf "$key_file" 2>/dev/null | awk '{print $2}')
+    username=$(infer_username "$key_file" || true)
+    if [ -n "$username" ]; then
+      printf '%s  %s  GitHub=%s\n' "$count" "$fingerprint" "$username"
+    else
+      printf '%s  %s  GitHub=not-recognized\n' "$count" "$fingerprint"
+    fi
+  done
+  IFS=$old_ifs
+  rm -rf "$temp_root"
+  trap - EXIT HUP INT TERM
+  [ "$count" -gt 0 ] || die "the SSH agent has no available keys"
+}
+
+render() {
+  ensure_layout
+  ssh_tmp=$(mktemp "${SSH_CONFIG}.tmp.XXXXXX")
+  git_tmp=$(mktemp "${GIT_INCLUDES}.tmp.XXXXXX")
+  trap 'rm -f "$ssh_tmp" "$git_tmp"' EXIT HUP INT TERM
+
+  printf '# Generated by git account render. Local-only; do not version.\n' >"$ssh_tmp"
+  : >"$git_tmp"
+
+  for metadata in "$ACCOUNTS_DIR"/account-*.gitconfig; do
+    [ -e "$metadata" ] || continue
+    account=$(basename "$metadata" .gitconfig)
+    validate_account "$account"
+    auth_key=$(auth_key_file "$account")
+    account_git=$(account_git_file "$account")
+    [ -f "$auth_key" ] || die "$account is missing its authentication key"
+    [ -f "$account_git" ] || die "$account is missing its Git configuration"
+    host=$(github_host "$account")
+    gist=$(gist_host "$account")
+
+    {
+      printf '\nHost %s\n' "$host"
+      printf '    HostName github.com\n'
+      printf '    HostKeyAlias github.com\n'
+      printf '    User git\n'
+      printf '    IdentityFile "%s"\n' "$auth_key"
+      printf '    IdentitiesOnly yes\n'
+      printf '    StrictHostKeyChecking accept-new\n'
+      printf '\nHost %s\n' "$gist"
+      printf '    HostName gist.github.com\n'
+      printf '    HostKeyAlias gist.github.com\n'
+      printf '    User git\n'
+      printf '    IdentityFile "%s"\n' "$auth_key"
+      printf '    IdentitiesOnly yes\n'
+      printf '    StrictHostKeyChecking accept-new\n'
+    } >>"$ssh_tmp"
+
+    git config -f "$git_tmp" --add "includeIf.hasconfig:remote.*.url:git@${host}:*/**.path" "$account_git"
+    git config -f "$git_tmp" --add "includeIf.hasconfig:remote.*.url:ssh://git@${host}/**.path" "$account_git"
+    git config -f "$git_tmp" --add "includeIf.hasconfig:remote.*.url:git@${gist}:*.path" "$account_git"
+    git config -f "$git_tmp" --add "includeIf.hasconfig:remote.*.url:ssh://git@${gist}/**.path" "$account_git"
+  done
+
+  chmod 600 "$ssh_tmp" "$git_tmp"
+  mv -f "$ssh_tmp" "$SSH_CONFIG"
+  mv -f "$git_tmp" "$GIT_INCLUDES"
+  trap - EXIT HUP INT TERM
+}
+
+write_account() {
+  account=$1 username=$2 author_name=$3 email=$4 sign=$5 gh_mode=$6 gh_account=${7:-}
+  metadata=$(account_file "$account")
+  account_git=$(account_git_file "$account")
+  auth_key=$(auth_key_file "$account")
+  sign_key=$(signing_key_file "$account")
+  metadata_tmp=$(mktemp "${metadata}.tmp.XXXXXX")
+  account_git_tmp=$(mktemp "${account_git}.tmp.XXXXXX")
+  trap 'rm -f "$metadata_tmp" "$account_git_tmp"' EXIT HUP INT TERM
+
+  git config -f "$metadata_tmp" account.id "$account"
+  git config -f "$metadata_tmp" account.username "$username"
+  git config -f "$metadata_tmp" account.name "$author_name"
+  git config -f "$metadata_tmp" account.email "$email"
+  git config -f "$metadata_tmp" account.authKey "$auth_key"
+  git config -f "$metadata_tmp" account.sign "$sign"
+  git config -f "$metadata_tmp" account.ghMode "$gh_mode"
+  [ "$gh_mode" = shared ] && git config -f "$metadata_tmp" account.ghAccount "$gh_account"
+  [ "$sign" = true ] && git config -f "$metadata_tmp" account.signingKey "$sign_key"
+
+  git config -f "$account_git_tmp" user.name "$author_name"
+  git config -f "$account_git_tmp" user.email "$email"
+  git config -f "$account_git_tmp" user.useConfigOnly true
+  git config -f "$account_git_tmp" githubAccount.id "$account"
+  git config -f "$account_git_tmp" githubAccount.username "$username"
+  if [ "$sign" = true ]; then
+    git config -f "$account_git_tmp" user.signingKey "$sign_key"
+    git config -f "$account_git_tmp" gpg.format ssh
+    git config -f "$account_git_tmp" commit.gpgSign true
+  else
+    git config -f "$account_git_tmp" commit.gpgSign false
+  fi
+
+  chmod 600 "$metadata_tmp" "$account_git_tmp"
+  mv -f "$metadata_tmp" "$metadata"
+  mv -f "$account_git_tmp" "$account_git"
+  trap - EXIT HUP INT TERM
+}
+
+cmd_add() {
+  ensure_layout
+  account=''; auth_source=''; agent_index=''; signing_source=''; signing_agent_index=''
+  username=''; author_name=''; email=''; sign=true; infer=true; import=false
+  gh_mode=''; gh_account=''; gh_option_seen=false
+
+  if [ $# -gt 0 ]; then
+    case $1 in account-*) account=$1; shift ;; esac
+  fi
+  account=${account:-$(next_account)}
+  validate_account "$account"
+  metadata=$(account_file "$account")
+  username=${username:-$(cfg_get "$metadata" account.username || true)}
+  author_name=${author_name:-$(cfg_get "$metadata" account.name || true)}
+  email=${email:-$(cfg_get "$metadata" account.email || true)}
+  existing_sign=$(cfg_get "$metadata" account.sign || true)
+  [ -n "$existing_sign" ] && sign=$existing_sign
+  if [ -f "$metadata" ]; then
+    gh_mode=$(account_gh_mode "$account")
+    gh_account=$(cfg_get "$metadata" account.ghAccount || true)
+  fi
+
+  while [ $# -gt 0 ]; do
+    case $1 in
+      --auth-key) [ $# -ge 2 ] || die "--auth-key requires a file"; auth_source=$2; shift 2 ;;
+      --agent-index) [ $# -ge 2 ] || die "--agent-index requires a number"; agent_index=$2; shift 2 ;;
+      --signing-key) [ $# -ge 2 ] || die "--signing-key requires a file or same"; signing_source=$2; shift 2 ;;
+      --signing-agent-index) [ $# -ge 2 ] || die "--signing-agent-index requires a number"; signing_agent_index=$2; shift 2 ;;
+      --sign) sign=true; shift ;;
+      --no-sign) sign=false; shift ;;
+      --username) [ $# -ge 2 ] || die "--username requires a value"; username=$2; shift 2 ;;
+      --name) [ $# -ge 2 ] || die "--name requires a value"; author_name=$2; shift 2 ;;
+      --email) [ $# -ge 2 ] || die "--email requires a value"; email=$2; shift 2 ;;
+      --no-infer) infer=false; shift ;;
+      --gh)
+        [ $# -ge 2 ] || die "--gh requires isolated or none"
+        [ "$gh_option_seen" = false ] || die "choose only one gh policy option"
+        gh_option_seen=true
+        case $2 in
+          isolated|none) gh_mode=$2; gh_account='' ;;
+          *) die "--gh requires isolated or none" ;;
+        esac
+        shift 2
+        ;;
+      --share-gh)
+        [ $# -ge 2 ] || die "--share-gh requires account-N"
+        [ "$gh_option_seen" = false ] || die "choose only one gh policy option"
+        gh_option_seen=true; gh_mode=shared; gh_account=$2; shift 2
+        ;;
+      --no-gh)
+        [ "$gh_option_seen" = false ] || die "choose only one gh policy option"
+        gh_option_seen=true; gh_mode=none; gh_account=''; shift
+        ;;
+      --import-gh) import=true; shift ;;
+      --) shift; break ;;
+      *) die "unknown add option: $1" ;;
+    esac
+  done
+
+  if [ -n "$signing_source" ] && [ -n "$signing_agent_index" ]; then
+    die "use only one of --signing-key and --signing-agent-index"
+  fi
+
+  auth_key=$(auth_key_file "$account")
+  sign_key=$(signing_key_file "$account")
+  signing_follows_auth=false
+  if [ -f "$auth_key" ] && [ -f "$sign_key" ] && cmp -s "$auth_key" "$sign_key"; then
+    signing_follows_auth=true
+  fi
+  if [ -n "$auth_source" ]; then
+    atomic_key_from_file "$auth_source" "$auth_key"
+  elif [ -n "$agent_index" ]; then
+    atomic_key_from_line "$auth_key" "$(agent_key_line "$agent_index")"
+  elif [ ! -f "$auth_key" ]; then
+    choose_agent_key "$auth_key"
+  fi
+
+  if [ -z "$username" ] && [ "$infer" = true ]; then
+    note "Asking GitHub which account owns the selected SSH key"
+    username=$(infer_username "$auth_key" || true)
+    [ -n "$username" ] && ok "GitHub account association inferred"
+  fi
+  [ -n "$username" ] || username=$(prompt_value "GitHub username")
+  [ -n "$author_name" ] || author_name=$(prompt_value "Commit author name")
+  [ -n "$email" ] || email=$(prompt_value "Commit author email")
+
+  if [ -z "$gh_mode" ]; then
+    shared_profile=$(find_isolated_gh_profile "$username" "$account" || true)
+    if [ -n "$shared_profile" ]; then
+      gh_mode=shared
+      gh_account=$shared_profile
+      note "$account will share gh with $shared_profile because both SSH keys authenticate the same login"
+    else
+      gh_mode=isolated
+    fi
+  fi
+  validate_gh_selection "$account" "$username" "$gh_mode" "$gh_account"
+
+  if [ "$sign" = true ]; then
+    if [ -n "$signing_agent_index" ]; then
+      atomic_key_from_line "$sign_key" "$(agent_key_line "$signing_agent_index")"
+    else
+      case ${signing_source:-keep} in
+        same) atomic_key_from_file "$auth_key" "$sign_key" ;;
+        keep)
+          if [ "$signing_follows_auth" = true ] || [ ! -f "$sign_key" ]; then
+            atomic_key_from_file "$auth_key" "$sign_key"
+          fi
+          ;;
+        *) atomic_key_from_file "$signing_source" "$sign_key" ;;
+      esac
+    fi
+  else
+    rm -f "$(signing_key_file "$account")"
+  fi
+
+  configured_account=$account
+  write_account "$configured_account" "$username" "$author_name" "$email" "$sign" "$gh_mode" "$gh_account"
+  render
+  ok "$configured_account configured locally as $(github_host "$configured_account")"
+  [ "$import" = true ] && cmd_import_gh "$configured_account"
+  return 0
+}
+
+require_account() {
+  validate_account "$1"
+  [ -f "$(account_file "$1")" ] || die "$1 is not configured; run: git account add $1"
+}
+
+cmd_list() {
+  ensure_layout
+  found=false
+  for metadata in "$ACCOUNTS_DIR"/account-*.gitconfig; do
+    [ -e "$metadata" ] || continue
+    found=true
+    account=$(basename "$metadata" .gitconfig)
+    gh_mode=$(account_gh_mode "$account")
+    case $gh_mode in
+      none) gh_status=disabled ;;
+      shared)
+        gh_source=$(cfg_get "$metadata" account.ghAccount || printf invalid)
+        if [ -f "$(gh_config_dir "$gh_source")/hosts.yml" ]; then
+          gh_status="shared:$gh_source/configured"
+        else
+          gh_status="shared:$gh_source/missing"
+        fi
+        ;;
+      isolated)
+        if [ -f "$(gh_config_dir "$account")/hosts.yml" ]; then gh_status=configured; else gh_status=missing; fi
+        ;;
+      *) gh_status=invalid ;;
+    esac
+    printf '%s  ssh=%s  signing=%s  gh=%s\n' \
+      "$account" "$(github_host "$account")" \
+      "$(cfg_get "$metadata" account.sign || printf false)" "$gh_status"
+  done
+  [ "$found" = true ] || note "No accounts configured; run: git account add"
+}
+
+remote_url() {
+  remote=${1:-origin}
+  git remote get-url "$remote" 2>/dev/null || die "remote not found: $remote"
+}
+
+remote_path_and_kind() {
+  url=$1
+  REMOTE_KIND=github
+  case $url in
+    https://github.com/*) REMOTE_PATH=${url#https://github.com/} ;;
+    https://gist.github.com/*) REMOTE_KIND=gist; REMOTE_PATH=${url#https://gist.github.com/} ;;
+    git@github.com:*) REMOTE_PATH=${url#git@github.com:} ;;
+    git@gist.github.com:*) REMOTE_KIND=gist; REMOTE_PATH=${url#git@gist.github.com:} ;;
+    ssh://git@github.com/*) REMOTE_PATH=${url#ssh://git@github.com/} ;;
+    ssh://git@gist.github.com/*) REMOTE_KIND=gist; REMOTE_PATH=${url#ssh://git@gist.github.com/} ;;
+    git@github-account-[1-9]*-gist:*) REMOTE_KIND=gist; REMOTE_PATH=${url#*:} ;;
+    git@github-account-[1-9]*:*) REMOTE_PATH=${url#*:} ;;
+    ssh://git@github-account-[1-9]*-gist/*) REMOTE_KIND=gist; REMOTE_PATH=${url#ssh://git@*/} ;;
+    ssh://git@github-account-[1-9]*/*) REMOTE_PATH=${url#ssh://git@*/} ;;
+    *) return 1 ;;
+  esac
+  REMOTE_PATH=${REMOTE_PATH#/}
+  [ -n "$REMOTE_PATH" ]
+}
+
+cmd_use() {
+  [ $# -ge 1 ] || die "usage: git account use ACCOUNT [REMOTE]"
+  account=$1 remote=${2:-origin}
+  require_account "$account"
+  url=$(remote_url "$remote")
+  remote_path_and_kind "$url" || die "$remote is not a GitHub or Gist remote"
+  if [ "$REMOTE_KIND" = gist ]; then host=$(gist_host "$account"); else host=$(github_host "$account"); fi
+  new_url="git@${host}:${REMOTE_PATH}"
+  if [ "$url" = "$new_url" ]; then
+    ok "$remote already uses $host"
+  else
+    git remote set-url "$remote" "$new_url"
+    ok "$remote now uses $host"
+  fi
+  effective=$(effective_account)
+  [ "$effective" = "$account" ] || die "Git did not load $account; run: git account doctor $account"
+}
+
+legacy_warnings() {
+  if git config --global --get-regexp '^url\..*\.insteadof$' 2>/dev/null | grep -E 'https://(gist\.)?github\.com/' >/dev/null; then
+    warn "a global GitHub insteadOf rule is still active; remove it from the reported config origin"
+    git config --show-origin --global --get-regexp '^url\..*\.insteadof$' 2>/dev/null | grep -E 'https://(gist\.)?github\.com/' >&2 || true
+  fi
+}
+
+cmd_migrate() {
+  cmd_use "$@"
+  legacy_warnings
+}
+
+cmd_login() {
+  [ $# -eq 1 ] || die "usage: git account login ACCOUNT"
+  account=$1
+  require_account "$account"
+  load_gh_context "$account"
+  config_dir=$GH_SESSION_CONFIG
+  if [ "$GH_PROFILE_MODE" = shared ]; then
+    note "$account uses the isolated gh session owned by $GH_SESSION_ACCOUNT"
+  fi
+  mkdir -p "$config_dir"; chmod 700 "$config_dir"
+  gh_git_config="$config_dir/gitconfig"
+  [ -e "$gh_git_config" ] || : >"$gh_git_config"
+  chmod 600 "$gh_git_config"
+  GH_CONFIG_DIR="$config_dir" GIT_CONFIG_GLOBAL="$gh_git_config" gh auth login \
+    --hostname github.com --git-protocol ssh --skip-ssh-key
+  verify_gh_session "$account"
+}
+
+cmd_import_gh() {
+  [ $# -eq 1 ] || die "usage: git account import-gh ACCOUNT"
+  account=$1
+  require_account "$account"
+  metadata=$(account_file "$account")
+  username=$(cfg_get "$metadata" account.username)
+  have gh || die "gh is not installed"
+  load_gh_context "$account"
+  token=$(gh auth token --hostname github.com --user "$username" 2>/dev/null) || \
+    die "no existing gh session matches $account; run: git account login $account"
+  config_dir=$GH_SESSION_CONFIG
+  mkdir -p "$config_dir"; chmod 700 "$config_dir"
+  gh_git_config="$config_dir/gitconfig"
+  [ -e "$gh_git_config" ] || : >"$gh_git_config"
+  chmod 600 "$gh_git_config"
+  printf '%s' "$token" | GH_CONFIG_DIR="$config_dir" GIT_CONFIG_GLOBAL="$gh_git_config" gh auth login \
+    --hostname github.com --git-protocol ssh --skip-ssh-key --with-token >/dev/null
+  token=
+  verify_gh_session "$account"
+  ok "existing gh session imported for $account"
+}
+
+verify_gh_session() {
+  account=$1
+  metadata=$(account_file "$account")
+  expected=$(cfg_get "$metadata" account.username)
+  load_gh_context "$account"
+  config_dir=$GH_SESSION_CONFIG
+  actual=$(GH_CONFIG_DIR="$config_dir" GH_HOST=github.com gh api user --jq .login 2>/dev/null) || \
+    die "$account gh API authentication failed"
+  [ "$actual" = "$expected" ] || \
+    die "$account gh session belongs to a different GitHub account"
+}
+
+effective_account() {
+  accounts=$(git config --get-all githubAccount.id 2>/dev/null | awk 'NF && !seen[$0]++' || true)
+  count=$(printf '%s\n' "$accounts" | awk 'NF {n++} END {print n+0}')
+  case $count in
+    0) return 0 ;;
+    1) printf '%s\n' "$accounts" ;;
+    *) die "multiple GitHub account aliases are configured in this repository; keep non-authenticated upstream remotes on HTTPS" ;;
+  esac
+}
+
+repo_slug() {
+  url=$(git remote get-url origin 2>/dev/null || true)
+  [ -n "$url" ] || return 1
+  remote_path_and_kind "$url" || return 1
+  [ "$REMOTE_KIND" = github ] || return 1
+  slug=${REMOTE_PATH%.git}
+  case $slug in */*) printf '%s\n' "$slug" ;; *) return 1 ;; esac
+}
+
+cmd_gh() {
+  account=
+  if [ $# -gt 0 ]; then
+    case $1 in account-*) account=$1; shift ;; esac
+  fi
+  account=${account:-$(effective_account)}
+  [ -n "$account" ] || die "cannot infer an account here; use: git account gh account-N -- ..."
+  require_account "$account"
+  [ "${1:-}" = -- ] && shift
+  [ $# -gt 0 ] || set -- status
+  load_gh_context "$account"
+  config_dir=$GH_SESSION_CONFIG
+  [ -f "$config_dir/hosts.yml" ] || die "gh is not authenticated for $account; run: git account login $account"
+  slug=$(repo_slug || true)
+  if [ -n "$slug" ]; then
+    GH_CONFIG_DIR="$config_dir" GH_HOST=github.com GH_REPO="$slug" gh "$@"
+  else
+    GH_CONFIG_DIR="$config_dir" GH_HOST=github.com gh "$@"
+  fi
+}
+
+key_in_agent() {
+  key=$1
+  needle=$(awk '{print $1 " " $2}' "$key")
+  ssh-add -L 2>/dev/null | awk '{print $1 " " $2}' | grep -Fqx "$needle"
+}
+
+doctor_gh() {
+  dgh_account=$1
+  dgh_metadata=$(account_file "$dgh_account")
+  dgh_mode=$(account_gh_mode "$dgh_account")
+  case $dgh_mode in
+    none)
+      ok "$dgh_account gh is intentionally disabled"
+      return 0
+      ;;
+    isolated)
+      dgh_session_account=$dgh_account
+      ;;
+    shared)
+      dgh_session_account=$(cfg_get "$dgh_metadata" account.ghAccount || true)
+      case $dgh_session_account in
+        account-[1-9]*)
+          dgh_number=${dgh_session_account#account-}
+          case $dgh_number in *[!0-9]*) warn "$dgh_account has an invalid shared gh profile"; return 1 ;; esac
+          ;;
+        *) warn "$dgh_account has an invalid shared gh profile"; return 1 ;;
+      esac
+      dgh_source_file=$(account_file "$dgh_session_account")
+      if [ ! -f "$dgh_source_file" ]; then
+        warn "$dgh_account shares gh with an unconfigured profile"
+        return 1
+      fi
+      if [ "$(account_gh_mode "$dgh_session_account")" != isolated ]; then
+        warn "$dgh_account shared gh source is not isolated"
+        return 1
+      fi
+      if [ "$(cfg_get "$dgh_metadata" account.username || true)" != \
+        "$(cfg_get "$dgh_source_file" account.username || true)" ]; then
+        warn "$dgh_account shared gh session belongs to a different login"
+        return 1
+      fi
+      ;;
+    *)
+      warn "$dgh_account has an invalid gh policy"
+      return 1
+      ;;
+  esac
+
+  dgh_config_dir=$(gh_config_dir "$dgh_session_account")
+  dgh_expected=$(cfg_get "$dgh_metadata" account.username)
+  if [ -f "$dgh_config_dir/hosts.yml" ] && \
+    GH_CONFIG_DIR="$dgh_config_dir" GH_HOST=github.com \
+      gh auth token --hostname github.com --user "$dgh_expected" >/dev/null 2>&1; then
+    if [ "$dgh_mode" = shared ]; then
+      ok "$dgh_account gh session is shared from $dgh_session_account and correctly associated"
+    else
+      ok "$dgh_account gh session is valid and correctly associated"
+    fi
+    return 0
+  fi
+  warn "$dgh_account gh session is missing or invalid"
+  return 1
+}
+
+doctor_one() {
+  account=$1
+  require_account "$account"
+  doctor_failures=0
+  metadata=$(account_file "$account")
+  auth_key=$(auth_key_file "$account")
+  sign=$(cfg_get "$metadata" account.sign || printf false)
+  host=$(github_host "$account")
+
+  if ssh-keygen -lf "$auth_key" >/dev/null 2>&1; then
+    ok "$account authentication key is valid"
+  else
+    warn "$account authentication key is invalid"
+    doctor_failures=$((doctor_failures + 1))
+  fi
+  if key_in_agent "$auth_key"; then
+    ok "$account authentication key is available from the agent"
+  else
+    warn "$account authentication key is not available from the agent"
+    doctor_failures=$((doctor_failures + 1))
+  fi
+  effective_identity=$(ssh -G "$host" 2>/dev/null | awk '$1 == "identityfile" {print $2; exit}')
+  if [ "$effective_identity" = "$auth_key" ]; then
+    ok "$account SSH alias selects exactly one key"
+  else
+    warn "$account SSH alias is not loaded from ~/.ssh/config"
+    doctor_failures=$((doctor_failures + 1))
+  fi
+  if [ "$sign" = true ]; then
+    sign_key=$(signing_key_file "$account")
+    if key_in_agent "$sign_key"; then
+      ok "$account signing key is available from the agent"
+    else
+      warn "$account signing key is not available from the agent"
+      doctor_failures=$((doctor_failures + 1))
+    fi
+  fi
+  if ! doctor_gh "$account"; then
+    doctor_failures=$((doctor_failures + 1))
+  fi
+  return "$doctor_failures"
+}
+
+cmd_doctor() {
+  ensure_layout
+  failures=0
+  legacy_warnings
+  if [ $# -gt 0 ]; then
+    doctor_one "$1" || failures=$((failures + $?))
+  else
+    found=false
+    for metadata in "$ACCOUNTS_DIR"/account-*.gitconfig; do
+      [ -e "$metadata" ] || continue
+      found=true
+      account=$(basename "$metadata" .gitconfig)
+      doctor_one "$account" || failures=$((failures + $?))
+    done
+    [ "$found" = true ] || { warn "no accounts are configured"; failures=$((failures + 1)); }
+  fi
+  direct_ids=$(ssh -G github.com 2>/dev/null | awk '$1 == "identityfile" && $2 != "none" {n++} END {print n+0}')
+  if [ "$direct_ids" -eq 0 ]; then
+    ok "direct github.com SSH is fail-closed"
+  else
+    warn "direct github.com can still offer an identity"
+    failures=$((failures + 1))
+  fi
+  current_accounts=$(git config --get-all githubAccount.id 2>/dev/null | awk 'NF && !seen[$0]++' || true)
+  current_count=$(printf '%s\n' "$current_accounts" | awk 'NF {n++} END {print n+0}')
+  if [ "$current_count" -gt 1 ]; then
+    warn "current repository matches multiple account aliases"
+    failures=$((failures + 1))
+  elif [ "$current_count" -eq 1 ]; then
+    ok "current repository resolves to $current_accounts"
+  fi
+  [ "$failures" -eq 0 ] || die "$failures diagnostic check(s) failed"
+}
+
+test_ssh() {
+  account=$1
+  metadata=$(account_file "$account")
+  expected=$(cfg_get "$metadata" account.username)
+  output=$(ssh -T -o BatchMode=yes -o ConnectTimeout=15 "git@$(github_host "$account")" 2>&1 || true)
+  actual=$(printf '%s\n' "$output" | sed -n 's/^Hi \([^!]*\)!.*/\1/p' | sed -n '1p')
+  [ -n "$actual" ] || die "$account SSH authentication failed"
+  [ "$actual" = "$expected" ] || die "$account SSH key authenticates a different GitHub account"
+  ok "$account SSH authentication matches its local association"
+}
+
+test_gh() {
+  account=$1
+  metadata=$(account_file "$account")
+  expected=$(cfg_get "$metadata" account.username)
+  load_gh_context "$account"
+  config_dir=$GH_SESSION_CONFIG
+  actual=$(GH_CONFIG_DIR="$config_dir" GH_HOST=github.com gh api user --jq .login 2>/dev/null) || die "$account gh API authentication failed"
+  [ "$actual" = "$expected" ] || die "$account gh session belongs to a different GitHub account"
+  if [ "$GH_PROFILE_MODE" = shared ]; then
+    ok "$account gh API session from $GH_SESSION_ACCOUNT matches its local association"
+  else
+    ok "$account gh API session matches its local association"
+  fi
+}
+
+test_signing() {
+  account=$1 temp_root=$2
+  metadata=$(account_file "$account")
+  sign=$(cfg_get "$metadata" account.sign || printf false)
+  [ "$sign" = true ] || { note "$account commit signing is disabled; skipping signature test"; return 0; }
+  email=$(cfg_get "$metadata" account.email)
+  sign_key=$(signing_key_file "$account")
+  repo="$temp_root/signing"
+  mkdir -p "$repo"
+  git -C "$repo" init -q
+  git -C "$repo" remote add origin "git@$(github_host "$account"):example/example.git"
+  printf '%s %s\n' "$email" "$(cat "$sign_key")" >"$temp_root/allowed_signers"
+  git -C "$repo" config gpg.ssh.allowedSignersFile "$temp_root/allowed_signers"
+  [ "$(git -C "$repo" config --get githubAccount.id)" = "$account" ] || die "$account conditional Git include did not activate"
+  git -C "$repo" commit -q --allow-empty -m 'account signing test' || die "$account could not create a signed commit"
+  git -C "$repo" verify-commit HEAD >/dev/null 2>&1 || die "$account signed commit could not be verified"
+  ok "$account Git identity selection and SSH commit signing work"
+}
+
+test_clone() {
+  account=$1 slug=$2 temp_root=$3
+  [ -n "$slug" ] || die "no OWNER/REPO supplied and none could be inferred from origin"
+  git clone -q --depth 1 --no-checkout "git@$(github_host "$account"):${slug%.git}.git" "$temp_root/clone" || die "$account real clone test failed"
+  ok "$account completed a real temporary SSH clone"
+}
+
+cmd_test() {
+  account=''; skip_gh=false; gh_skipped=false
+  if [ "${1:-}" = --skip-gh ]; then skip_gh=true; shift; fi
+  if [ $# -gt 0 ]; then case $1 in account-*) account=$1; shift ;; esac; fi
+  account=${account:-$(effective_account)}
+  [ -n "$account" ] || die "cannot infer an account; pass account-N"
+  require_account "$account"
+  slug=${1:-$(repo_slug || true)}
+  temp_root=$(mktemp -d "${TMPDIR:-/tmp}/git-account-test.XXXXXX")
+  trap 'rm -rf "$temp_root"' EXIT HUP INT TERM
+  test_ssh "$account"
+  if [ "$skip_gh" = true ]; then
+    note "$account gh test explicitly skipped"
+    gh_skipped=true
+  elif [ "$(account_gh_mode "$account")" = none ]; then
+    note "$account gh is intentionally disabled; skipping API test"
+    gh_skipped=true
+  else
+    test_gh "$account"
+  fi
+  test_signing "$account" "$temp_root"
+  test_clone "$account" "$slug" "$temp_root"
+  rm -rf "$temp_root"
+  trap - EXIT HUP INT TERM
+  if [ "$gh_skipped" = true ]; then
+    ok "$account passed SSH, identity, signing, and clone tests"
+  else
+    ok "$account passed all real integration tests"
+  fi
+}
+
+command=${1:-help}
+[ $# -eq 0 ] || shift
+case $command in
+  discover) cmd_discover "$@" ;;
+  add|setup) cmd_add "$@" ;;
+  render) render; ok "local account configuration rendered" ;;
+  list) cmd_list "$@" ;;
+  use) cmd_use "$@" ;;
+  migrate) cmd_migrate "$@" ;;
+  login) cmd_login "$@" ;;
+  import-gh) cmd_import_gh "$@" ;;
+  gh) cmd_gh "$@" ;;
+  doctor|diagnose) cmd_doctor "$@" ;;
+  test) cmd_test "$@" ;;
+  help|-h|--help) usage ;;
+  *) usage >&2; die "unknown command: $command" ;;
+esac

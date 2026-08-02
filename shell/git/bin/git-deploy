@@ -1,7 +1,4 @@
 #!/bin/sh
-# Author: Eduardo Ruiz <eduarbo@gmail.com>
-# Source: https://gist.github.com/eduarbo/d44f5033899520b69140
-
 # This script allows you to push an ignored subfolder to `gh-pages` branch.
 
 if [ -z "$1" ]

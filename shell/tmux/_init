@@ -18,6 +18,8 @@ brew_deps=(
 
 link() {
   mklink *.conf     $TMUX_HOME/
+  [[ -e "$TMUX_HOME/local.conf" ]] || touch "$TMUX_HOME/local.conf"
+  chmod 600 "$TMUX_HOME/local.conf"
 }
 
 _ensure_tpm_env() {
@@ -90,7 +92,9 @@ update() {
 }
 
 clean() {
-  rm -rfv "$TMUX_HOME" "$TMUX_PLUGINS_HOME" "$TMUXIFIER"
+  rm -fv "$TMUX_HOME/bindings.conf" "$TMUX_HOME/macos.conf" "$TMUX_HOME/tmux.conf"
+  rm -rfv "$TMUX_PLUGINS_HOME" "$TMUXIFIER"
+  echo-note "Local tmux configuration was preserved."
 }
 
 init "$@"

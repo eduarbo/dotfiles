@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-# IMPORTANT: Make sure you update the `DST` variable to
-# match the name of the destination backup drive
-
 PROG=$0
 RSYNC="/usr/bin/rsync"
 SRC="/"
-HOST="eduarbo@eduarbo.com:public_html/cloud"
 DST="mess"
-DOMAIN="http://cloud.eduarbo.com"
+HOST="${CLOUD_UPLOAD_HOST:-}"
+DOMAIN="${CLOUD_UPLOAD_DOMAIN:-}"
 
 # Header logging
 e_header() {
@@ -22,6 +19,11 @@ e_success() {
 
 if [[ -z "$1" ]]; then
   echo "Usage: $PROG <file>"
+  exit 1
+fi
+
+if [[ -z "$HOST" || -z "$DOMAIN" ]]; then
+  echo "Set CLOUD_UPLOAD_HOST and CLOUD_UPLOAD_DOMAIN in your local shell config."
   exit 1
 fi
 

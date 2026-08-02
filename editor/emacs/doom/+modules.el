@@ -94,7 +94,9 @@
                 ;; denote-date-prompt-use-org-read-date t
                 denote-infer-keywords t
                 denote-prompts '(title keywords)
-                denote-directory (expand-file-name "/Volumes/silo.guts.cc/Notes/denote")))
+                denote-directory (expand-file-name
+                                  (or (getenv "DENOTE_DIRECTORY")
+                                      "~/Documents/denote"))))
 
 ;; NOTE Check if it's worth it to install denote-explore, denote-menu, denote-journal, consult-notes
 

@@ -1,6 +1,6 @@
 [user]
-	name = Eduardo Ruiz Macias
-	email = eduarbo@gmail.com
+	# Refuse to invent an identity. Account-specific values are generated locally.
+	useConfigOnly = true
 [core]
 	pager = delta
 	whitespace = trailing-space
@@ -81,16 +81,11 @@
 	clean = git-lfs clean -- %f
 [commit]
 	template = ~/.config/git/message
-	gpgsign = false
 [rerere]
 	enabled = true
 [init]
 	defaultBranch = main
 [include]
-	# Here goes my personal configuration
-	path = ~/.config/git/personal.gitconfig
-[url "git@github.com:"]
-	# Keep public HTTPS clones bootstrap-friendly, then use Bitwarden SSH for Git operations.
-	insteadOf = https://github.com/
-[url "git@gist.github.com:"]
-	insteadOf = https://gist.github.com/
+	# Host-local settings and account routing are intentionally outside this repo.
+	path = ~/.config/git/local.gitconfig
+	path = ~/.config/github-accounts/git/includes.gitconfig

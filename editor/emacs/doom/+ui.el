@@ -1,4 +1,4 @@
-;;; ../../dev/eduarbo/dotfiles/editor/emacs/doom/+ui.el -*- lexical-binding: t; -*-
+;;; +ui.el -*- lexical-binding: t; -*-
 
 ;; ─── Fonts ────────────────────────────────────────────────────────────────────
 

@@ -18,7 +18,6 @@
     "typescript",
     "keyboard"
   ],
-  "author": "Eduardo Ruiz Macias <eduarbo@gmail.com>",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@types/node": "^22.20.0",

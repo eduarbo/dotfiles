@@ -15,6 +15,7 @@ brew_deps=(
   ffms2
   prettyping
   yt-dlp
+  gh
 )
 
 cask_deps=(

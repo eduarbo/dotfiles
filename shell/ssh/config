@@ -1,13 +1,10 @@
-Host guts.cc ssh.guts.cc
-    HostName ssh.guts.cc
-    ProxyCommand ~/.local/bin/cloudflared-ssh-service %h
-    IdentityFile ~/.ssh/id_personal.pub
-    IdentitiesOnly yes
+Include ~/.config/github-accounts/ssh/config
+Include ~/.config/ssh/local.conf
 
 Host github.com gist.github.com
-    # Let the Bitwarden agent offer the current per-device auth key. The old
-    # local private-key path no longer exists on agent-only machines.
-    IdentitiesOnly no
+    # Direct SSH is fail-closed: use a generated github-account-N alias.
+    IdentityFile none
+    IdentitiesOnly yes
     StrictHostKeyChecking accept-new
 
 Host *

@@ -114,7 +114,7 @@ install() {
   esac
 
   # Clone and setup doomemacs
-  _ensure_repo eduarbo/doomemacs $XDG_CONFIG_HOME/emacs master
+  _ensure_repo ${DOOM_EMACS_REPOSITORY:-doomemacs/doomemacs} $XDG_CONFIG_HOME/emacs master
   $XDG_CONFIG_HOME/emacs/bin/doom install
   $XDG_CONFIG_HOME/emacs/bin/doom sync
 }

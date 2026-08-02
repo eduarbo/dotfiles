@@ -1,7 +1,8 @@
 # Vim Cheatsheet
 
 ## Add bindings
-> ![IMPORTANT] sync with [My Doom Emacs Bindings](https://github.com/eduarbo/dotfiles/blob/main/editor/emacs/README.md)
+> [!IMPORTANT]
+> Keep this in sync with the [Doom Emacs bindings](../emacs/README.md).
 
 - [ ]  `,SPC` | nv   | Find file in project
 - [ ] `C-SPC` | in   | LSP Rename
