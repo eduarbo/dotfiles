@@ -21,6 +21,7 @@ scan_range() {
     --redact \
     --no-banner \
     --no-color \
+    --verbose \
     --log-opts="$log_options" \
     "$repository"
 }
