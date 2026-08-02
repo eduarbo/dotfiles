@@ -176,6 +176,7 @@ _orchestrate_agent_config() {
     echo-alert "agent-config command is missing from $global_dir"
     return 1
   }
+  "$global_dir/bin/agent-config" track add "$DOTFILES" || return $?
   AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
     "$global_dir/bin/agent-config" monitor install || return $?
   AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \

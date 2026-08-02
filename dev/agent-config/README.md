@@ -20,6 +20,10 @@ immediate audit. Use `agent-config sync -m "reason"` after intentional changes;
 it validates, commits, rebases concurrent work from another machine, and pushes
 without force. Real conflicts stop for explicit resolution.
 
+The dotfiles repository is registered for read-only daily auditing. Dirty,
+unpushed, behind, or divergent state triggers a notification, but is never
+auto-committed by `agent-config sync`.
+
 When `git account` is configured, the topic maps the local GitHub login to its
 PII-free `account-N` alias automatically. Authentication, author identity, and
 signing remain machine-local and work independently on every computer.
