@@ -21,7 +21,7 @@ These are my dotfiles, designed for macOS (Apple Silicon and Intel) and Debian 1
 ## Quick start
 
 ```sh
-git clone --recurse-submodules https://github.com/eduarbo/dotfiles.git ~/.config/dotfiles
+git clone --recurse-submodules <DOTFILES_REPOSITORY_URL> ~/.config/dotfiles
 cd ~/.config/dotfiles
 
 # On a fresh clone the `dot` alias doesn't exist yet, so invoke the script
@@ -54,8 +54,8 @@ The following are the categories and topics you can install:
   - `coding-style` – Keep your code prettier than your neighbor's garden
 
 - `shell/` – Terminal superpowers and creature comforts
-  - `git` – Snazzy aliases and Zsh plugins for effortless versioning
-  - `ssh` – SSH client config with Bitwarden agent support and a default identity
+  - `git` – Git aliases plus isolated, signed GitHub multi-account support
+  - `ssh` – SSH client config with Bitwarden agent support and local-only identities
   - `tmux` – Tab-multiplying terminal wizardry
   - `zsh` – The shell with speed, features, and a prompt that actually sparks joy
   - `kitty` – The terminal so full-featured, even your cat would approve
@@ -121,11 +121,20 @@ fi
 
 ## Best practices
 
-- If you use a password manager like Bitwarden, managing SSH keys is a breeze (and much more convenient). But if you're old-school (or just like a little DIY), you can still generate SSH keys manually:
+- If you use a password manager like Bitwarden, managing SSH keys is a breeze. If you prefer local keys, generate one without embedding a device name or email in its public comment:
 
   ```sh
-  ssh-keygen -t ed25519 -C "personal-mbpro-2025" # Use a descriptive comment: purpose + device + year
+  ssh-keygen -t ed25519 -C ""
   ```
+
+### Multiple GitHub accounts
+
+Deploy `shell/git` and `shell/ssh`, run `git account discover`, then run
+`git account add` once per account.
+Each account gets a generic SSH alias, isolated `gh` session, conditional commit
+identity, and SSH signing key. Sensitive metadata and public keys are generated
+only under `~/.config`; nothing is written into this repository. See the
+[complete bootstrap, migration, and testing guide](shell/git/README.md).
 
 ### Managing Forge/GitHub Tokens
 
@@ -146,7 +155,7 @@ These dotfiles work on both Intel and Apple Silicon Macs. A few things to be awa
 - **ARM-only apps**: Some casks like OrbStack are Apple Silicon only and will be skipped automatically on Intel Macs.
 - **macOS defaults**: The `macos/defaults` script detects the macOS version to handle differences between System Preferences (pre-Ventura) and System Settings (Ventura+).
 - **SSH agent**: If using Bitwarden's SSH agent, the `SSH_AUTH_SOCK` is only set when the socket file exists.
-- **Gitea SSH**: New clone URLs use `git@ssh.guts.cc:...` and are routed through Cloudflare Access. Existing `git@guts.cc:...` remotes remain compatible. The `shell/ssh` topic installs `cloudflared`, links the public half of the personal key used by Bitwarden, and configures both hostnames. If Keychain contains `cloudflare-ssh-polyhunter-client-id` and `cloudflare-ssh-polyhunter-client-secret`, the proxy uses the dedicated service token without browser SSO; otherwise the normal interactive Access login remains available. Test the full path with `ssh -T git@ssh.guts.cc`.
+- **Private SSH hosts**: Put hostnames, public keys, organizations, and proxy details in `~/.config/ssh/local.conf`. The optional `cloudflared-ssh-service` helper reads a local `keychain_service_prefix` from `~/.config/ssh/cloudflared-service.conf`; when its Keychain entries are absent, it preserves interactive browser login.
 
 
 ## Troubleshooting
@@ -161,11 +170,12 @@ More details in [Telling Git about your GPG key](https://help.github.com/article
 
 ### git@github.com: Permission denied (publickey)
 
-Just [add your SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) to your GitHub account
+This is intentional for direct SSH. Configure an account with `git account add`
+and use `git@github-account-N:OWNER/REPO.git`. Run `git account doctor` for a
+local diagnosis and `git account test` for real authentication and clone tests.
 
 
 ## Relevant projects/resources
 
 + [DOOM Emacs](https://github.com/doomemacs/doomemacs) (pulled by `editor/emacs`)
-+ [Pacmux Tmux theme](https://github.com/eduarbo/pacmux) (pulled by `shell/tmux`)
 + [Powerlevel10k](https://github.com/romkatv/powerlevel10k) (zsh prompt, loaded via zinit in `shell/zsh`)

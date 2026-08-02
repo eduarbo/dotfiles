@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 SSH_DIR="$HOME/.ssh"
+SSH_CONFIG_DIR="$XDG_CONFIG_HOME/ssh"
+GITHUB_ACCOUNTS_DIR="$XDG_CONFIG_HOME/github-accounts"
 XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 BITWARDEN_APP="/Applications/Bitwarden.app"
 BITWARDEN_MIN_VERSION="2025.1.2"
@@ -42,13 +44,13 @@ _ensure_cloudflared() {
   fi
 
   if _is_callable brew; then
-    echo-note "Installing cloudflared for SSH access to guts.cc."
+    echo-note "Installing cloudflared for the host-local SSH configuration."
     brew install cloudflared
     return $?
   fi
 
-  echo-alert "cloudflared is required for SSH access to guts.cc but is not installed."
-  echo-note "Install cloudflared with your system package manager before cloning from guts.cc."
+  echo-alert "cloudflared is referenced by the host-local SSH configuration but is not installed."
+  echo-note "Install cloudflared with your system package manager before using that host."
   return 0
 }
 
@@ -103,31 +105,36 @@ _check_bitwarden_agent() {
   return 0
 }
 
-_show_personal_key_fingerprint() {
-  local pubkey="$SSH_DIR/id_personal.pub"
-  [[ -f "$pubkey" ]] || return 0
-  _is_callable ssh-keygen || return 0
-
-  echo-note "Bitwarden should contain this public key: $(ssh-keygen -lf "$pubkey")"
+_local_uses_cloudflared() {
+  [[ -f "$SSH_CONFIG_DIR/local.conf" ]] && \
+    grep -q 'cloudflared-ssh-service' "$SSH_CONFIG_DIR/local.conf"
 }
 
 link() {
-  mkdir -p "$SSH_DIR"
+  mkdir -p "$SSH_DIR" "$SSH_CONFIG_DIR" "$GITHUB_ACCOUNTS_DIR/ssh"
   mkdir -p "$XDG_BIN_HOME"
   chmod 700 "$SSH_DIR"
+  chmod 700 "$SSH_CONFIG_DIR" "$GITHUB_ACCOUNTS_DIR" "$GITHUB_ACCOUNTS_DIR/ssh"
+  [[ -e "$SSH_CONFIG_DIR/local.conf" ]] || touch "$SSH_CONFIG_DIR/local.conf"
+  [[ -e "$GITHUB_ACCOUNTS_DIR/ssh/config" ]] || touch "$GITHUB_ACCOUNTS_DIR/ssh/config"
+  chmod 600 "$SSH_CONFIG_DIR/local.conf" "$GITHUB_ACCOUNTS_DIR/ssh/config"
   mklink config "$SSH_DIR/"
-  mklink id_personal.pub "$SSH_DIR/"
   mklink cloudflared-ssh-service "$XDG_BIN_HOME/"
   chmod 600 "$SSH_DIR/config"
-  chmod 600 "$SSH_DIR/id_personal.pub"
   chmod 700 "$XDG_BIN_HOME/cloudflared-ssh-service"
+
+  # Remove only obsolete public-key links into this topic; preserve local keys.
+  local legacy_key
+  for legacy_key in "$SSH_DIR"/*.pub(N@); do
+    [[ "$(readlink "$legacy_key")" == "$DOTFILES_DATA/shell.ssh.topic/"* ]] && \
+      rm -fv "$legacy_key"
+  done
 }
 
 install() {
-  _ensure_cloudflared || return $?
+  _local_uses_cloudflared && _ensure_cloudflared || true
   _ensure_bitwarden_app || return $?
   _check_bitwarden_agent
-  _show_personal_key_fingerprint
 }
 
 update() {
@@ -137,10 +144,8 @@ update() {
 
 clean() {
   rm -fv "$SSH_DIR/config"
-  rm -fv "$SSH_DIR/id_personal.pub"
   rm -fv "$XDG_BIN_HOME/cloudflared-ssh-service"
-  rm -fv "$SSH_DIR/id_mbpro21_personal.pub"
-  rm -fv "$SSH_DIR/id_mbpro19_personal.pub"
+  echo-note "Host-local SSH and GitHub account data were preserved."
 }
 
 init "$@"
