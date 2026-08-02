@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+remote_name="${1:-}"
+repository=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  printf 'gitleaks: cannot resolve repository root; push blocked\n' >&2
+  exit 1
+}
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  printf 'gitleaks: scanner is unavailable; push blocked\n' >&2
+  printf 'Install dependencies through dotfiles and retry.\n' >&2
+  exit 1
+fi
+
+scan_range() {
+  local log_options="$1"
+
+  printf 'gitleaks: scanning commits %s\n' "$log_options" >&2
+  gitleaks git \
+    --redact \
+    --no-banner \
+    --no-color \
+    --log-opts="$log_options" \
+    "$repository"
+}
+
+while read -r local_ref local_oid remote_ref remote_oid; do
+  [[ -n "${local_oid:-}" ]] || continue
+
+  # A zero local object means the remote ref is being deleted.
+  [[ "$local_oid" =~ ^0+$ ]] && continue
+
+  if [[ "${remote_oid:-}" =~ ^0+$ ]]; then
+    if [[ -n "$remote_name" ]] && git remote get-url "$remote_name" >/dev/null 2>&1; then
+      log_options="$local_oid --not --remotes=$remote_name"
+    else
+      log_options="$local_oid --not --remotes"
+    fi
+  else
+    log_options="$remote_oid..$local_oid"
+  fi
+
+  scan_range "$log_options" || {
+    printf 'gitleaks: push blocked; remove or rotate the detected secret\n' >&2
+    exit 1
+  }
+done

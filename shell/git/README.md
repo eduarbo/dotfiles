@@ -202,6 +202,11 @@ directory.
 
 ## Diagnostics and real tests
 
+Every push runs the managed Gitleaks pre-push hook against the commits being
+published. The hook blocks the push if Gitleaks is missing, errors, or detects
+a secret; output is always redacted. Install or update this topic on each
+machine to keep the scanner and hook active.
+
 Local checks make no network request:
 
 ```sh

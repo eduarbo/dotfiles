@@ -15,6 +15,7 @@ export GIT_CONFIG_GLOBAL="$ROOT/shell/git/config"
 
 "$ROOT/deploy" -l shell/git shell/ssh >/dev/null
 [ -L "$XDG_CONFIG_HOME/git/config" ]
+[ -L "$XDG_CONFIG_HOME/git/hooks/pre-push" ]
 [ -L "$HOME/.ssh/config" ]
 [ -f "$XDG_CONFIG_HOME/git/local.gitconfig" ]
 [ -f "$XDG_CONFIG_HOME/ssh/local.conf" ]
@@ -59,6 +60,45 @@ git -C "$repo" remote add origin https://github.com/example/example.git
 [ "$(git -C "$repo" config --get user.name)" = 'Example User' ]
 [ "$(git -C "$repo" config --get user.email)" = example@example.invalid ]
 [ "$(git -C "$repo" config --get commit.gpgSign)" = false ]
+
+hook_repo="$TEST_ROOT/hook-repo"
+mkdir -p "$hook_repo"
+git -C "$hook_repo" init -q
+git -C "$hook_repo" config user.name 'Hook Test'
+git -C "$hook_repo" config user.email hook@example.invalid
+printf 'base\n' >"$hook_repo/state.txt"
+git -C "$hook_repo" add state.txt
+git -C "$hook_repo" commit -qm base
+remote_oid=$(git -C "$hook_repo" rev-parse HEAD)
+printf 'next\n' >>"$hook_repo/state.txt"
+git -C "$hook_repo" commit -qam next
+local_oid=$(git -C "$hook_repo" rev-parse HEAD)
+git -C "$hook_repo" remote add origin https://github.com/example/hook-test.git
+
+hook_mock_bin="$TEST_ROOT/hook-mock-bin"
+mkdir -p "$hook_mock_bin"
+printf '%s\n' \
+  '#!/bin/sh' \
+  'printf "%s\\n" "$*" >>"$GITLEAKS_TEST_LOG"' \
+  '[ "${GITLEAKS_TEST_FAIL:-}" != 1 ]' >"$hook_mock_bin/gitleaks"
+chmod 700 "$hook_mock_bin/gitleaks"
+hook_log="$TEST_ROOT/gitleaks.log"
+(
+  cd "$hook_repo"
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$local_oid" "$remote_oid" | \
+    GITLEAKS_TEST_LOG="$hook_log" PATH="$hook_mock_bin:$PATH" \
+      "$XDG_CONFIG_HOME/git/hooks/pre-push" origin ignored
+)
+grep -Fq -- "--log-opts=$remote_oid..$local_oid" "$hook_log"
+if (
+  cd "$hook_repo"
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$local_oid" "$remote_oid" | \
+    GITLEAKS_TEST_FAIL=1 GITLEAKS_TEST_LOG="$hook_log" PATH="$hook_mock_bin:$PATH" \
+      "$XDG_CONFIG_HOME/git/hooks/pre-push" origin ignored >/dev/null 2>&1
+); then
+  printf 'pre-push allowed a failed secret scan\n' >&2
+  exit 1
+fi
 
 mock_bin="$TEST_ROOT/mock-bin"
 mkdir -p "$mock_bin"
@@ -195,6 +235,7 @@ printf 'Host test-only\n' >"$XDG_CONFIG_HOME/ssh/local.conf"
 [ -f "$XDG_CONFIG_HOME/ssh/local.conf" ]
 [ -f "$GITHUB_ACCOUNTS_DIR/accounts/account-1.gitconfig" ]
 [ ! -e "$XDG_CONFIG_HOME/git/config" ]
+[ ! -e "$XDG_CONFIG_HOME/git/hooks/pre-push" ]
 [ ! -e "$HOME/.ssh/config" ]
 
 printf 'git-account unit tests passed\n'

@@ -11,12 +11,14 @@ common_deps=(
   git
   git-delta  # better diff viewer (replaces diff-so-fancy)
   gh
+  gitleaks
 )
 
 apt_deps=(
   git
   git-delta
   gh
+  gitleaks
 )
 
 _ensure_local_config() {
@@ -30,7 +32,9 @@ _ensure_local_config() {
 
 link() {
   _ensure_local_config
+  mkdir -p "$GIT_DIR/hooks"
   mklink {config,ignore,message} "$GIT_DIR/"
+  mklink hooks/pre-push "$GIT_DIR/hooks/"
 }
 
 install() {
@@ -64,7 +68,11 @@ update() {
 }
 
 clean() {
-  rm -fv "$GIT_DIR/config" "$GIT_DIR/ignore" "$GIT_DIR/message"
+  rm -fv \
+    "$GIT_DIR/config" \
+    "$GIT_DIR/ignore" \
+    "$GIT_DIR/message" \
+    "$GIT_DIR/hooks/pre-push"
   echo-note "Local Git identity and GitHub account data were preserved."
 }
 

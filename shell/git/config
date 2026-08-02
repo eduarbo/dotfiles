@@ -3,6 +3,7 @@
 	useConfigOnly = true
 [core]
 	pager = delta
+	hooksPath = ~/.config/git/hooks
 	whitespace = trailing-space
 	autocrlf = input
 	ignorecase = false
