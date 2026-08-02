@@ -1,0 +1,154 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+deps=(shell/git)
+os=(macos debian)
+
+_ensure_gh() {
+  if _is_callable gh; then
+    return 0
+  fi
+
+  case $(_os) in
+    macos)
+      brew install gh
+      ;;
+    debian)
+      sudo apt update && sudo apt install -y gh
+      ;;
+  esac
+}
+
+_dotfiles_github_owner() {
+  local remote_url repository_path owner
+  remote_url=$(git -C "$DOTFILES" remote get-url origin 2>/dev/null) || return 1
+  remote_url=${remote_url%.git}
+
+  case "$remote_url" in
+    *://*)
+      repository_path=${remote_url#*://}
+      repository_path=${repository_path#*@}
+      repository_path=${repository_path#*/}
+      ;;
+    *:*)
+      repository_path=${remote_url#*:}
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+
+  owner=${repository_path%%/*}
+  [[ -n "$owner" && "$owner" != *[^A-Za-z0-9_.-]* ]] || return 1
+  print -r -- "$owner"
+}
+
+_github_token() {
+  local account="$1"
+  gh auth token --hostname github.com --user "$account" 2>/dev/null
+}
+
+_git_with_token() {
+  local account="$1"
+  shift
+  local token
+  token=$(_github_token "$account") || {
+    echo-alert "GitHub account '$account' is not authenticated in gh."
+    echo-note "Run: gh auth login --hostname github.com"
+    return 1
+  }
+
+  GH_TOKEN="$token" GIT_TERMINAL_PROMPT=0 \
+    git -c credential.helper= \
+        -c 'credential.helper=!gh auth git-credential' \
+        "$@"
+}
+
+_clone_repo() {
+  local account="$1" repository="$2" destination="$3"
+
+  [[ -d "$destination/.git" ]] && return 0
+  if [[ -e "$destination" ]]; then
+    echo-alert "Refusing to replace existing path: $destination"
+    return 1
+  fi
+
+  mkdir -p "${destination:h}"
+  echo-note "Cloning $repository"
+  _git_with_token "$account" clone --origin origin \
+    "https://github.com/$repository.git" "$destination"
+}
+
+_repo_exists() {
+  local account="$1" repository="$2" token
+  token=$(_github_token "$account") || return 1
+  GH_TOKEN="$token" gh repo view "$repository" \
+    --json nameWithOwner >/dev/null 2>&1
+}
+
+_update_repo() {
+  local account="$1" repository_dir="$2"
+
+  [[ -d "$repository_dir/.git" ]] || return 0
+  if [[ -n "$(git -C "$repository_dir" status --porcelain)" ]]; then
+    echo-alert "Skipping update for dirty checkout: $repository_dir"
+    return 0
+  fi
+  if ! git -C "$repository_dir" rev-parse --verify '@{upstream}' >/dev/null 2>&1; then
+    echo-alert "Skipping update without upstream: $repository_dir"
+    return 0
+  fi
+
+  _git_with_token "$account" -C "$repository_dir" pull --ff-only
+}
+
+_orchestrate_agent_config() {
+  local operation="$1"
+  local account global_repository owner_repository
+  local global_dir owner_dir
+
+  _ensure_gh || return $?
+
+  account=${AGENT_CONFIG_ACCOUNT:-$(_dotfiles_github_owner)}
+  [[ -n "$account" ]] || {
+    echo-alert "Could not infer the GitHub account from the dotfiles remote."
+    echo-note "Set AGENT_CONFIG_ACCOUNT and rerun."
+    return 1
+  }
+
+  global_repository=${AGENT_CONFIG_GLOBAL_REPO:-$account/agent-config-global}
+  owner_repository=${AGENT_CONFIG_OWNER_REPO:-$account/agent-config}
+  global_dir=${AGENT_CONFIG_GLOBAL_DIR:-$HOME/dev/$account/agent-config-global}
+  owner_dir=${AGENT_CONFIG_OWNER_DIR:-$HOME/dev/$account/agent-config}
+
+  _clone_repo "$account" "$global_repository" "$global_dir" || return $?
+  if _repo_exists "$account" "$owner_repository"; then
+    _clone_repo "$account" "$owner_repository" "$owner_dir" || return $?
+  fi
+
+  if [[ "$operation" == update ]]; then
+    _update_repo "$account" "$global_dir" || return $?
+    _update_repo "$account" "$owner_dir" || return $?
+  fi
+
+  AGENT_WORKSPACES_DIR="${AGENT_WORKSPACES_DIR:-$HOME/dev}" \
+    "$global_dir/setup"
+}
+
+link() {
+  return 0
+}
+
+install() {
+  _orchestrate_agent_config install
+}
+
+update() {
+  _orchestrate_agent_config update
+}
+
+clean() {
+  echo-note "Agent configuration repositories and symlinks were preserved."
+}
+
+init "$@"
