@@ -1,0 +1,33 @@
+name: Enforce main only
+
+on:
+  create:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  delete-non-main-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const refs = await github.paginate(github.rest.git.listMatchingRefs, {
+              ...context.repo,
+              ref: 'heads/',
+            })
+
+            for (const item of refs) {
+              const branch = item.ref.replace('refs/heads/', '')
+              if (branch === 'main') continue
+
+              core.warning(`Deleting forbidden branch: ${branch}`)
+              await github.rest.git.deleteRef({
+                ...context.repo,
+                ref: `heads/${branch}`,
+              })
+            }
