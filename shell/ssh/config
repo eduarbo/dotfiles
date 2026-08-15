@@ -1,8 +1,7 @@
-Include ~/.config/github-accounts/ssh/config
 Include ~/.config/ssh/local.conf
 
 Host github.com gist.github.com
-    # Direct SSH is fail-closed: use a generated github-account-N alias.
+    # Direct SSH is fail-closed unless a repository selects exactly one key.
     IdentityFile none
     IdentitiesOnly yes
     StrictHostKeyChecking accept-new

@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 GIT_DIR="$XDG_CONFIG_HOME/git"
-GITHUB_ACCOUNTS_DIR="$XDG_CONFIG_HOME/github-accounts"
 
 os=(macos debian)
 
@@ -22,12 +21,9 @@ apt_deps=(
 )
 
 _ensure_local_config() {
-  mkdir -p "$GIT_DIR" "$GITHUB_ACCOUNTS_DIR/git"
-  chmod 700 "$GITHUB_ACCOUNTS_DIR" "$GITHUB_ACCOUNTS_DIR/git"
+  mkdir -p "$GIT_DIR"
   [[ -e "$GIT_DIR/local.gitconfig" ]] || touch "$GIT_DIR/local.gitconfig"
-  [[ -e "$GITHUB_ACCOUNTS_DIR/git/includes.gitconfig" ]] || \
-    touch "$GITHUB_ACCOUNTS_DIR/git/includes.gitconfig"
-  chmod 600 "$GIT_DIR/local.gitconfig" "$GITHUB_ACCOUNTS_DIR/git/includes.gitconfig"
+  chmod 600 "$GIT_DIR/local.gitconfig"
 }
 
 link() {

@@ -87,6 +87,5 @@
 [init]
 	defaultBranch = main
 [include]
-	# Host-local settings and account routing are intentionally outside this repo.
+	# Host-local settings are intentionally outside this repo.
 	path = ~/.config/git/local.gitconfig
-	path = ~/.config/github-accounts/git/includes.gitconfig

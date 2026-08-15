@@ -3,22 +3,22 @@
 GitHub authenticates an SSH connection by key before it knows which repository
 will be accessed. If an agent exposes several keys, GitHub can accept the first
 recognized key and OpenSSH never reaches the intended one. These dotfiles solve
-that ambiguity with a generic hostname per local profile and exactly one public
-key per hostname:
+that ambiguity by binding exactly one public key to each repository through its
+local Git configuration:
 
 ```text
-github-account-1       -> github.com, profile 1 authentication key only
-github-account-1-gist  -> gist.github.com, the same key only
-github-account-2       -> github.com, profile 2 authentication key only
+remote.origin.url = git@github.com:OWNER/REPO.git
+githubAccount.id  = account-1
+core.sshCommand   = ~/.config/github-accounts/bin/account-1-ssh
 ```
 
-Despite the historical command name, an `account-N` is a **local SSH/Git
-profile**, not necessarily a distinct GitHub login. Multiple profiles can use
-different keys for the same GitHub login, while a client or bot login can use a
-separate profile. IDs and host aliases stay generic so they reveal no person,
-organization, customer, device, or purpose.
+An `account-N` is a **local SSH/Git profile**, not necessarily a distinct GitHub
+login. Multiple profiles can use different keys for the same GitHub login,
+while a client or bot login can use a separate profile. IDs stay generic so
+they reveal no person, organization, customer, device, or purpose.
 
-The alias stored in a repository remote selects four things:
+The repository-local binding selects four things. Its small SSH selector adds
+the profile key only for GitHub and passes other SSH hosts through unchanged:
 
 - the only SSH authentication key OpenSSH may offer;
 - the local commit author and email;
@@ -27,8 +27,8 @@ The alias stored in a repository remote selects four things:
 
 GitHub does not expose an organization-to-key mapping during SSH
 authentication, so it cannot be inferred reliably. Associating a repository
-with a generic alias is the one required local decision. No global URL rewrite
-attempts to guess it.
+with a local profile is the one required decision. Remotes remain canonical;
+no hostname alias or global URL rewrite attempts to guess the profile.
 
 ## GitHub CLI policies
 
@@ -142,8 +142,9 @@ For a key that GitHub associates with a different login, a new profile defaults
 to its own isolated `gh` session. Authenticate it only if GitHub CLI access is
 needed. If the work is SSH-only, use `--no-gh` instead.
 
-Re-running `add` or `render` is idempotent. Existing values and keys are retained
-unless replacement options are supplied. Inspect generic state without printing
+Re-running `add` is idempotent. Existing values and keys are retained unless
+replacement options are supplied. `render` validates profiles and removes files
+from the retired hostname-alias design. Inspect generic state without printing
 usernames or emails:
 
 ```sh
@@ -155,26 +156,27 @@ git account list
 For an existing repository, explicitly associate one remote once:
 
 ```sh
-git account migrate account-1
+git account use account-1
 ```
 
-This changes only `remote.origin.url`, for example from HTTPS or
-`git@github.com:OWNER/REPO.git` to
-`git@github-account-1:OWNER/REPO.git`. Pass a remote name as the second argument
-when it is not `origin`.
+This normalizes `remote.origin.url` to `git@github.com:OWNER/REPO.git` and writes
+the selected SSH key, Git identity, and signing settings only to `.git/config`.
+Pass a remote name as the second argument when it is not `origin`. `migrate` is
+an alias for `use` when converting repositories from an older setup.
 
-Clone a new repository with the intended generic alias:
+Clone a new repository through a profile while keeping the stored remote
+canonical:
 
 ```sh
-git clone git@github-account-1:OWNER/REPO.git
+git account clone account-1 OWNER/REPO
 ```
 
-The remote then activates the profile-specific Git identity and signing
-configuration through a conditional include. Keep read-only upstream remotes on
-HTTPS. If a repository contains authenticated remotes for two profile aliases,
-diagnosis fails instead of choosing one by file order.
+The clone uses the selected key for its first fetch and then records the same
+repository-local binding. Keep read-only upstream remotes on HTTPS when they do
+not need authentication. Every authenticated SSH remote in one repository uses
+the repository's single selected profile.
 
-Direct `git@github.com` authentication is intentionally fail-closed. Ordinary
+Unbound `git@github.com` authentication is intentionally fail-closed. Ordinary
 public HTTPS clones remain HTTPS, and there is no global `insteadOf` conversion.
 For an organization protected by SAML SSO, GitHub may additionally require the
 selected key to be authorized for that organization; that association lives on
@@ -213,9 +215,9 @@ Local checks make no network request:
 git account doctor
 ```
 
-They validate generated SSH selection, agent availability, signing-key
-availability, the `gh` policy and exact session association, fail-closed direct
-GitHub SSH, and ambiguous repository remotes.
+They validate repository-local SSH selection, agent availability, signing-key
+availability, the `gh` policy and exact session association, fail-closed
+unbound GitHub SSH, canonical remotes, and the absence of global URL rewrites.
 
 The integration test performs real SSH authentication, checks the GitHub API
 when enabled, creates and verifies a temporary signed commit, and makes a real
@@ -239,8 +241,8 @@ git account test --skip-gh account-2 OWNER/REPO
 ```
 
 For `gh=none`, that skip is automatic. Unit tests for clean deployment,
-idempotent generation, generic aliases, conditional identities, shared and
-disabled `gh` policies, login sandboxing, and cleanup are available at:
+canonical remotes, repository-local identities, shared and disabled `gh`
+policies, login sandboxing, and legacy cleanup are available at:
 
 ```sh
 shell/git/tests/git-account-test
@@ -252,19 +254,19 @@ None of these paths is linked into or generated inside the dotfiles repository:
 
 ```text
 ~/.config/github-accounts/accounts/   profile metadata and gh policy
+~/.config/github-accounts/bin/        per-profile SSH selectors
 ~/.config/github-accounts/keys/       comment-free public keys
-~/.config/github-accounts/ssh/        generated SSH aliases
-~/.config/github-accounts/git/        conditional identities and signing
 ~/.config/github-accounts/gh/         isolated owner sessions for GitHub CLI
-~/.config/git/local.gitconfig         other machine-local Git settings
+~/.config/git/local.gitconfig         other machine-local Git settings only
 ~/.config/ssh/local.conf              other machine-local SSH hosts
 ```
 
 Directories use mode `0700`; generated files use mode `0600`. Existing local
 data is preserved when the Git or SSH topic is disabled.
 
-`git account render` reconstructs derived SSH and conditional Git files from the
-local profile metadata and is safe to run repeatedly. Back up
+Repository bindings live in each repository's untracked `.git/config`.
+`git account render` validates profile data and removes obsolete generated
+alias/routing files; it is safe to run repeatedly. Back up
 `~/.config/github-accounts/` only through an encrypted local backup; never copy
 it into this repository.
 
@@ -279,22 +281,21 @@ key upload, key deletion, or key revocation.
   remain active.
 - **Two keys return the same login:** this is expected for multiple keys on one
   GitHub account. Let the newer profile share the isolated owner with
-  `--share-gh account-N`; choose the intended alias per repository.
+  `--share-gh account-N`; choose the intended profile per repository.
 - **SSH reports a different login:** run `git account discover`, then update the
   profile with the correct `--agent-index`. `test` compares GitHub's greeting to
   the locally recorded login and fails on a mismatch.
 - **`gh` opens the wrong browser account:** cancel the flow rather than approving
   it. For a distinct login, sign into the login recorded for that profile; for
   the same login, use `--share-gh`; for SSH-only automation, use `--no-gh`.
-- **Git reports multiple profile aliases:** keep read-only upstream remotes on
-  HTTPS. Two authenticated aliases in one repository are intentionally treated
-  as ambiguous.
+- **Git reports an unbound SSH remote:** run `git account use account-N` in that
+  repository. Keep read-only upstream remotes on HTTPS when possible.
 - **Signing works locally but GitHub does not show Verified:** register the
   public signing key with key type **Signing** on the same GitHub login. Keys are
   never uploaded automatically.
 - **The agent key is unavailable:** unlock Bitwarden, enable its SSH agent, and
   confirm `SSH_AUTH_SOCK` points to the Bitwarden socket before running `doctor`
   again.
-- **Generated files were edited or lost:** update the authoritative profile with
-  `git account add account-N`, then run `git account render`. Do not edit the
-  generated SSH or conditional include files by hand.
+- **A repository uses the wrong key or identity:** rerun
+  `git account use account-N`. It rewrites only that repository's local binding
+  and leaves its canonical remote intact.
