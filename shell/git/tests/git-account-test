@@ -90,6 +90,14 @@ hook_log="$TEST_ROOT/gitleaks.log"
       "$XDG_CONFIG_HOME/git/hooks/pre-push" origin ignored
 )
 grep -Fq -- "--log-opts=$remote_oid..$local_oid" "$hook_log"
+missing_remote_oid=1111111111111111111111111111111111111111
+(
+  cd "$hook_repo"
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$local_oid" "$missing_remote_oid" | \
+    GITLEAKS_TEST_LOG="$hook_log" PATH="$hook_mock_bin:$PATH" \
+      "$XDG_CONFIG_HOME/git/hooks/pre-push" origin ignored
+)
+tail -n 1 "$hook_log" | grep -Fq -- "--log-opts=$local_oid"
 if (
   cd "$hook_repo"
   printf 'refs/heads/main %s refs/heads/main %s\n' "$local_oid" "$remote_oid" | \
