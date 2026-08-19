@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
 KITTY_DIR="$XDG_CONFIG_HOME/kitty"
+KITTY_CONTROL_DIR="$XDG_CACHE_HOME/kitty/remote-control"
 
 os=(macos debian)
 
@@ -17,6 +18,8 @@ apt_deps=(
 )
 
 link() {
+  mkdir -p "$KITTY_CONTROL_DIR"
+  chmod 700 "$KITTY_CONTROL_DIR"
   find "$KITTY_DIR" -maxdepth 1 -type l -delete
   mklink config "$KITTY_DIR"
 }
@@ -45,6 +48,7 @@ update() {
 
 clean() {
   rm -rfv "$KITTY_DIR"
+  rm -rfv "$KITTY_CONTROL_DIR"
 }
 
 init "$@"

@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+set -eu
+setopt NULL_GLOB
+
+if [[ -n ${KITTY_LISTEN_ON:-} ]]; then
+  exec kitty @ "$@"
+fi
+
+control_dir="${XDG_CACHE_HOME:-$HOME/.cache}/kitty/remote-control"
+control_sockets=()
+
+for candidate in "$control_dir"/control "$control_dir"/control-*; do
+  [[ -S $candidate && -O $candidate ]] && control_sockets+=( "$candidate" )
+done
+
+case ${#control_sockets[@]} in
+  0)
+    print -u2 "kitty-remote: no user-owned control socket found in $control_dir"
+    exit 1
+    ;;
+  1)
+    exec kitty @ --to "unix:${control_sockets[1]}" "$@"
+    ;;
+  *)
+    print -u2 "kitty-remote: multiple kitty sockets found; select one with kitty @ --to"
+    printf '  unix:%s\n' "${control_sockets[@]}" >&2
+    exit 2
+    ;;
+esac

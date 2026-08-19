@@ -121,6 +121,21 @@ fi
 
 ## Best practices
 
+### Kitty automation
+
+The kitty topic enables native remote control over a Unix socket while rejecting
+control sequences sent through terminal or SSH sessions. The socket is kept in a
+per-user directory with mode `0700`:
+
+```sh
+kitty-remote ls
+```
+
+`kitty-remote` uses the current kitty connection when available and otherwise
+discovers a user-owned socket in that private directory. This is the supported
+interface for local scripts. It does not relax application restrictions imposed
+by external automation tools such as Codex Computer Use.
+
 - If you use a password manager like Bitwarden, managing SSH keys is a breeze. If you prefer local keys, generate one without embedding a device name or email in its public comment:
 
   ```sh
