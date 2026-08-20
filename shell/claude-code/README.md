@@ -21,7 +21,12 @@ deploy shell/claude-code
 
 This will:
 1. Install `jq` (required for JSON parsing)
-2. Create symlinks from this directory to `~/.claude/`
+2. Install the stable Claude Code Homebrew cask on macOS when missing
+3. Create symlinks from this directory to `~/.claude/`
+
+Authentication remains machine-local. Run `claude`, complete the browser login, and disable
+usage credits/overage before enabling Claude in Personal Ops. Never copy `~/.claude` auth or
+session files from another computer.
 
 ## Customization
 

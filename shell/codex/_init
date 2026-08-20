@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+deps=(dev/node)
+os=(macos debian)
+
+link() {
+  return 0
+}
+
+install() {
+  _is_callable codex || npm install --global @openai/codex
+}
+
+update() {
+  npm update --global @openai/codex
+}
+
+clean() {
+  echo-note "Codex CLI and its machine-local authentication were preserved."
+}
+
+init "$@"

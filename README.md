@@ -60,6 +60,7 @@ The following are the categories and topics you can install:
   - `zsh` – The shell with speed, features, and a prompt that actually sparks joy
   - `kitty` – The terminal so full-featured, even your cat would approve
   - `claude-code` – Custom status line for Claude Code CLI, integrated with Powerlevel10k
+  - `codex` – Codex CLI installed through the managed Node toolchain
 
 - `dev/` – Essential tools and setups for a life in code
   - `mise` – Universal version manager for Node, Python, Lua and more

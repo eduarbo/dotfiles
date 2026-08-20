@@ -23,16 +23,26 @@ install() {
   case $(_os) in
     macos)
       brew install ${common_deps[@]}
+      _is_callable claude || brew install --cask claude-code
       ;;
     debian)
       sudo apt update && sudo apt install -y ${common_deps[@]}
+      if ! _is_callable claude; then
+        echo-note "Install Claude Code with an official package, then rerun this topic."
+      fi
       ;;
   esac
 }
 
 update() {
-  # Nothing to update for now
-  :
+  case $(_os) in
+    macos)
+      brew list --cask claude-code >/dev/null 2>&1 && brew upgrade --cask claude-code || true
+      ;;
+    debian)
+      :
+      ;;
+  esac
 }
 
 clean() {
