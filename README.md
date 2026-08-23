@@ -39,6 +39,7 @@ The following are the categories and topics you can install:
 
 - `macos/` – Mac-specific tools and tweaks
   - `apps` – The essential macOS app lineup I can't live without
+  - `workstation` – One entry point to bootstrap and validate the personal Mac profile
   - `defaults` – Opinionated values for a saner (and possibly sassier) macOS
   - `hammerspoon` – Lua-powered automation for pro-level productivity
     - Window wrangling without the wrestling

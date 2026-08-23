@@ -1,0 +1,83 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+
+os=(macos)
+
+deps=(
+  macos/apps
+  dev/agent-config
+)
+
+_workstation_postflight() {
+  local check_status=0
+  local topic command_spec command_name owner app_name
+  local applications_dir=${WORKSTATION_APPLICATIONS_DIR:-/Applications}
+  local agent_config_bin=${WORKSTATION_AGENT_CONFIG_BIN:-${XDG_BIN_HOME:-$HOME/.local/bin}/agent-config}
+
+  echo-note "Checking workstation readiness."
+
+  for topic in "${deps[@]}"; do
+    if topic-enabled-p "$topic"; then
+      echo-ok "$topic is enabled"
+    else
+      echo-alert "$topic is not enabled. Owner: dot $topic"
+      check_status=1
+    fi
+  done
+
+  for command_spec in \
+    "codex:shell/codex" \
+    "claude:shell/claude-code"; do
+    command_name=${command_spec%%:*}
+    owner=${command_spec#*:}
+    if _is_callable "$command_name"; then
+      echo-ok "$command_name CLI is available"
+    else
+      echo-alert "$command_name CLI is missing. Owner: dot $owner"
+      check_status=1
+    fi
+  done
+
+  for app_name in ChatGPT.app Claude.app; do
+    if [[ -d "$applications_dir/$app_name" ]]; then
+      echo-ok "$app_name is installed"
+    else
+      echo-alert "$app_name is missing. Owner: dot macos/apps"
+      check_status=1
+    fi
+  done
+
+  if [[ -x "$agent_config_bin" ]]; then
+    "$agent_config_bin" doctor --offline --managed-only || check_status=1
+  else
+    echo-alert "agent-config is missing. Owner: dot dev/agent-config"
+    check_status=1
+  fi
+
+  if (( check_status )); then
+    echo-alert "Workstation bootstrap is incomplete; repair the reported owner topics and rerun macos/workstation."
+    return 1
+  fi
+
+  echo-ok "Workstation bootstrap is ready"
+  echo-note "Provider logins, macOS permissions, Personal Ops memory, and writer cutover remain machine-local gates."
+}
+
+link() {
+  return 0
+}
+
+install() {
+  _workstation_postflight
+}
+
+update() {
+  echo-info "macos/workstation validates readiness; it does not recursively upgrade enabled dependencies."
+  _workstation_postflight
+}
+
+clean() {
+  echo-note "Apps, repositories, authentication, and private state were preserved by their owner topics."
+}
+
+init "$@"
