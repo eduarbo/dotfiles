@@ -235,6 +235,7 @@ typeset -gA _PROCESSING_TOPICS
 # Functions to initialize, link, and update topics
 function topic-init {
   local _needs_reload=0
+  local topic dep
   for topic in $@; do
     # Reset op on every iteration so it doesn't bleed from a previous topic
     local op=''

@@ -3,6 +3,18 @@ source ${0:A:h}/../../deploy
 
 os=(macos)
 
+# Keep this topic as the central personal-app bootstrap while dedicated topics
+# remain the single owners of their app configuration and CLI installs.
+deps=(
+  editor/emacs
+  macos/hammerspoon
+  macos/karabiner
+  shell/claude-code
+  shell/codex
+  shell/kitty
+  shell/ssh
+)
+
 brew_deps=(
   btop
   hacker1024/hacker1024/coretemp
@@ -20,7 +32,10 @@ brew_deps=(
 
 cask_deps=(
   raycast
-  codex
+  brave-browser
+  chatgpt
+  claude
+  protonvpn
   telegram
   whatsapp
   craft
@@ -43,6 +58,13 @@ cask_deps=(
   visual-studio-code
 )
 
+mas_deps=(
+  "937984704:Amphetamine"
+)
+
+# Work-managed apps such as Teams, Slack, Outlook, Defender, and CyberArk are
+# intentionally excluded from this personal inventory.
+
 # ARM-only casks
 if [[ "$(uname -m)" == "arm64" ]]; then
   cask_deps+=(
@@ -51,6 +73,37 @@ if [[ "$(uname -m)" == "arm64" ]]; then
 fi
 
 # link() {}
+
+_install_mas_apps() {
+  local app app_id app_name macos_major
+
+  if ! _is_callable mas; then
+    macos_major=${$(sw_vers -productVersion)%%.*}
+    if (( macos_major < 15 )); then
+      echo-alert "Automatic Mac App Store installs require macOS 15 or newer."
+      echo-note "Install Amphetamine manually from the Mac App Store, then rerun macos/apps."
+      return 1
+    fi
+
+    brew install mas || return 1
+  fi
+
+  for app in "${mas_deps[@]}"; do
+    app_id=${app%%:*}
+    app_name=${app#*:}
+
+    if mas list 2>/dev/null | grep -Eq "^${app_id}[[:space:]]"; then
+      echo-ok "$app_name is already installed"
+      continue
+    fi
+
+    echo-note "Installing $app_name from the Mac App Store."
+    mas install "$app_id" || {
+      echo-alert "Could not install $app_name. Sign in to the Mac App Store and rerun macos/apps."
+      return 1
+    }
+  done
+}
 
 install() {
   case $(_os) in
@@ -65,6 +118,7 @@ install() {
       done
       brew tap teamookla/speedtest
       brew install speedtest
+      _install_mas_apps
       ;;
   esac
 }
