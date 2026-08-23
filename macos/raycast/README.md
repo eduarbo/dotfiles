@@ -31,7 +31,14 @@ busywork around that.
 
 1. Enable the topic: `dot macos/raycast` (installs Raycast if missing).
 2. Install the rest of your apps (`dot macos/apps`) so aliases/hotkeys resolve.
-3. `raycast-import`, then enter the passphrase from Bitwarden.
+3. Run `raycast-import`, then enter the passphrase from Bitwarden.
+4. Confirm Raycast finishes without an error.
+5. Verify the real launcher hotkey and one restored alias, Quicklink, Snippet, or
+   extension. Opening the import command or selecting the file is only preparation,
+   not a completed recovery.
+
+See [the 2026-08-23 recovery post mortem](POSTMORTEM-2026-08-23.md) for the
+acceptance gate behind these checks.
 
 ## What's in the snapshot
 

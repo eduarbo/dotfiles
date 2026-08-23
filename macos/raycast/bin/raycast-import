@@ -35,6 +35,8 @@ open "$DEEPLINK"
 
 cat <<EOF
 
+STATUS: PREPARED ONLY — no settings have been restored yet.
+
 In Raycast:
   1. Confirm the deeplink.
   2. Select the file:
@@ -44,6 +46,11 @@ EOF
 cat <<'EOF'
   3. Pick the categories to import.
   4. Enter your export passphrase (Bitwarden).
+  5. Confirm that Raycast finishes without an error and closes the import prompt.
+  6. Verify the real launcher hotkey and one restored alias, Quicklink, Snippet,
+     or extension.
 
 Tip: install your apps first (macos/apps) so aliases and hotkeys work right away.
+
+Do not report recovery complete until both verification checks in step 6 pass.
 EOF
