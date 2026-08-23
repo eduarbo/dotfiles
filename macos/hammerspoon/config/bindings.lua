@@ -54,10 +54,10 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- a = "",
         -- b = "",
         c = "Calendar",
-        -- d = "",
+        d = "Brave Browser",
         e = "Emacs",
         f = "Finder",
-        g = "Brave Browser",
+        -- g = "",
         -- h = "", -- already bound to reload 🔨🥄
         -- i = "", -- already bound to Gemini in Raycast
         j = "Codex",
@@ -69,7 +69,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- p = "",
         q = "Activity Monitor",
         r = "Reminders",
-        s = "Slack",
+        -- s = "",
         t = "Telegram",
         u = "Bitwarden",
         v = "Preview",
