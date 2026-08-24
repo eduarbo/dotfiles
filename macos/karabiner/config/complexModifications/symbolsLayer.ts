@@ -1,4 +1,4 @@
-import { remap, ignoreKeebs } from '../../lib/index.js';
+import { modTap, remap, ignoreKeebs } from '../../lib/index.js';
 import type {
   Modifier,
   ModifierOptional,
@@ -6,19 +6,22 @@ import type {
   KeyCode,
   ComplexModifications,
 } from '../../lib/index.js';
+import { SUPER_LAYER_VARIABLE, SYMBOLS_LAYER_VARIABLE } from './layerVariables.js';
 
 const LAYER = 'SYMBOLS';
-const layerMods: Modifier[] = ['right_shift'];
-const shiftedLayerMods: Modifier[] = ['left_shift', 'right_shift'];
-const optionalMods: ModifierOptional[] = [
-  'left_shift',
+const shiftedLayerMods: Modifier[] = ['shift'];
+const optionalMods: ModifierOptional[] = ['shift', 'right_command', 'right_control', 'caps_lock'];
+const shiftedOptionalMods: ModifierOptional[] = [
   'right_command',
   'right_control',
   'caps_lock',
 ];
 
 const manipulatorOptions = {
-  conditions: ignoreKeebs,
+  conditions: [
+    ...ignoreKeebs,
+    { type: 'variable_if' as const, name: SYMBOLS_LAYER_VARIABLE, value: 1 },
+  ],
 };
 
 const keybind = (
@@ -26,15 +29,41 @@ const keybind = (
   toTuples: ToKeyCodeTuple[],
   options?: { shifted: boolean },
 ) =>
-  remap([fromKeyCode, options?.shifted ? shiftedLayerMods : layerMods, optionalMods], toTuples, {
-    manipulatorOptions,
-  });
+  remap(
+    [
+      fromKeyCode,
+      options?.shifted ? shiftedLayerMods : null,
+      options?.shifted ? shiftedOptionalMods : optionalMods,
+    ],
+    toTuples,
+    { manipulatorOptions },
+  );
 
 const rules = [
   {
+    description: `${LAYER} layer: Thumbs cluster`,
+    manipulators: [
+      // Command and Return share a mod-tap key, so expose their chord through SYMBOLS+Shift.
+      keybind('spacebar', [['return_or_enter', ['command']]], { shifted: true }),
+      // Preserve the launcher chord that previously inherited Shift from SYMBOLS.
+      modTap(
+        ['left_option', null, optionalMods],
+        [['left_option', ['left_command', 'left_control']]],
+        [['escape', ['right_shift']]],
+        {
+          manipulatorOptions,
+          toOptions: { lazy: true },
+          setVariables: {
+            [SUPER_LAYER_VARIABLE]: { to: 1, to_after_key_up: 0 },
+          },
+        },
+      ),
+    ],
+  },
+  {
     description: `${LAYER} layer: Left hand - Numpad`,
     manipulators: [
-      // Specific two-shift bindings must precede the generic right-shift bindings.
+      // Shift-specific bindings must precede the generic layer bindings.
       keybind('q', [['home']], { shifted: true }),
       keybind('q', [['page_up']]),
       keybind('w', [['7']]),
@@ -42,7 +71,10 @@ const rules = [
       keybind('r', [['9']]),
       keybind('t', [['0']]),
 
-      keybind('a', [['e', ['option']]]),
+      // Tap for acute accent; hold to add Shift within SYMBOLS.
+      modTap(['a', null, optionalMods], [['left_shift']], [['e', ['option']]], {
+        manipulatorOptions,
+      }),
       keybind('s', [['4']]),
       keybind('d', [['5']]),
       keybind('f', [['6']]),
@@ -69,7 +101,10 @@ const rules = [
       keybind('j', [['down_arrow']]),
       keybind('k', [['up_arrow']]),
       keybind('l', [['right_arrow']]),
-      keybind('semicolon', [['n', ['option']]]),
+      // Tap for tilde; hold to add Shift within SYMBOLS.
+      modTap(['semicolon', null, optionalMods], [['left_shift']], [['n', ['option']]], {
+        manipulatorOptions,
+      }),
 
       keybind('n', [['grave_accent_and_tilde']]),
       keybind('m', [['quote']]),

@@ -791,6 +791,64 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
             ],
           },
           {
+            "description": "HYPER layer: Pass through keys with Control+Option+Command+Shift",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "super_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "from": {
+                  "any": "key_code",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "from_event": true,
+                    "modifiers": [
+                      "left_control",
+                      "left_option",
+                      "left_command",
+                      "right_shift",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+            ],
+          },
+          {
             "description": "SUPER layer: Left hand - dev tools, screenshots and tab/history navigation",
             "manipulators": [
               {
@@ -2454,6 +2512,135 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
             ],
           },
           {
+            "description": "SYMBOLS layer: Thumbs cluster",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "from shift+spacebar to command+return_or_enter",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": [
+                      "shift",
+                    ],
+                    "optional": [
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "command",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "left_option to left_command+left_control+left_option, send right_shift+escape on tap",
+                "from": {
+                  "key_code": "left_option",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 1,
+                    },
+                  },
+                  {
+                    "key_code": "left_option",
+                    "lazy": true,
+                    "modifiers": [
+                      "left_command",
+                      "left_control",
+                    ],
+                  },
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 0,
+                    },
+                  },
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "escape",
+                    "modifiers": [
+                      "right_shift",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+            ],
+          },
+          {
             "description": "SYMBOLS layer: Left hand - Numpad",
             "manipulators": [
               {
@@ -2477,17 +2664,20 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from left_shift+right_shift+q to home",
+                "description": "from shift+q to home",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
-                      "right_shift",
+                      "shift",
                     ],
                     "optional": [
-                      "left_shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2523,16 +2713,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+q to page_up",
+                "description": "from q to page_up",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2568,16 +2760,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+w to 7",
+                "description": "from w to 7",
                 "from": {
                   "key_code": "w",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2613,16 +2807,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+e to 8",
+                "description": "from e to 8",
                 "from": {
                   "key_code": "e",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2658,16 +2854,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+r to 9",
+                "description": "from r to 9",
                 "from": {
                   "key_code": "r",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2703,16 +2901,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+t to 0",
+                "description": "from t to 0",
                 "from": {
                   "key_code": "t",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2748,16 +2948,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+a to option+e",
+                "description": "a to left_shift, send option+e on tap",
                 "from": {
                   "key_code": "a",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2765,6 +2967,12 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                   },
                 },
                 "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
                   {
                     "key_code": "e",
                     "modifiers": [
@@ -2795,16 +3003,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+s to 4",
+                "description": "from s to 4",
                 "from": {
                   "key_code": "s",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2840,16 +3050,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+d to 5",
+                "description": "from d to 5",
                 "from": {
                   "key_code": "d",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2885,16 +3097,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+f to 6",
+                "description": "from f to 6",
                 "from": {
                   "key_code": "f",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2930,16 +3144,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+g to equal_sign",
+                "description": "from g to equal_sign",
                 "from": {
                   "key_code": "g",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -2975,16 +3191,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+z to caps_lock",
+                "description": "from z to caps_lock",
                 "from": {
                   "key_code": "z",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3020,16 +3238,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+x to 1",
+                "description": "from x to 1",
                 "from": {
                   "key_code": "x",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3065,16 +3285,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+c to 2",
+                "description": "from c to 2",
                 "from": {
                   "key_code": "c",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3110,16 +3332,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+v to 3",
+                "description": "from v to 3",
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3155,16 +3379,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+b to hyphen",
+                "description": "from b to hyphen",
                 "from": {
                   "key_code": "b",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3205,16 +3431,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+y to backslash",
+                "description": "from y to backslash",
                 "from": {
                   "key_code": "y",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3250,16 +3478,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+u to open_bracket",
+                "description": "from u to open_bracket",
                 "from": {
                   "key_code": "u",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3295,16 +3525,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+i to close_bracket",
+                "description": "from i to close_bracket",
                 "from": {
                   "key_code": "i",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3340,16 +3572,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+o to slash",
+                "description": "from o to slash",
                 "from": {
                   "key_code": "o",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3385,17 +3619,20 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from left_shift+right_shift+p to end",
+                "description": "from shift+p to end",
                 "from": {
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
-                      "right_shift",
+                      "shift",
                     ],
                     "optional": [
-                      "left_shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3431,16 +3668,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+p to page_down",
+                "description": "from p to page_down",
                 "from": {
                   "key_code": "p",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3476,16 +3715,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+h to left_arrow",
+                "description": "from h to left_arrow",
                 "from": {
                   "key_code": "h",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3521,16 +3762,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+j to down_arrow",
+                "description": "from j to down_arrow",
                 "from": {
                   "key_code": "j",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3566,16 +3809,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+k to up_arrow",
+                "description": "from k to up_arrow",
                 "from": {
                   "key_code": "k",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3611,16 +3856,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+l to right_arrow",
+                "description": "from l to right_arrow",
                 "from": {
                   "key_code": "l",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3656,16 +3903,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+semicolon to option+n",
+                "description": "semicolon to left_shift, send option+n on tap",
                 "from": {
                   "key_code": "semicolon",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3673,6 +3922,12 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                   },
                 },
                 "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
                   {
                     "key_code": "n",
                     "modifiers": [
@@ -3703,16 +3958,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+n to grave_accent_and_tilde",
+                "description": "from n to grave_accent_and_tilde",
                 "from": {
                   "key_code": "n",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3748,16 +4005,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+m to quote",
+                "description": "from m to quote",
                 "from": {
                   "key_code": "m",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3793,16 +4052,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+comma to comma",
+                "description": "from comma to comma",
                 "from": {
                   "key_code": "comma",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3838,16 +4099,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+period to period",
+                "description": "from period to period",
                 "from": {
                   "key_code": "period",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3883,16 +4146,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+slash to delete_or_backspace",
+                "description": "from slash to delete_or_backspace",
                 "from": {
                   "key_code": "slash",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -3980,7 +4245,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "type": "device_unless",
                   },
                 ],
-                "description": "right_command to right_shift, send tab on tap",
+                "description": "right_command to , send tab on tap",
                 "from": {
                   "key_code": "right_command",
                   "modifiers": {
@@ -3991,9 +4256,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 },
                 "to": [
                   {
-                    "key_code": "right_shift",
-                    "lazy": true,
-                    "modifiers": undefined,
+                    "set_variable": {
+                      "name": "symbols_layer_active",
+                      "value": 1,
+                    },
+                  },
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "symbols_layer_active",
+                      "value": 0,
+                    },
                   },
                 ],
                 "to_if_alone": [
@@ -4083,12 +4357,26 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 },
                 "to": [
                   {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 1,
+                    },
+                  },
+                  {
                     "key_code": "left_option",
                     "lazy": true,
                     "modifiers": [
                       "left_command",
                       "left_control",
                     ],
+                  },
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 0,
+                    },
                   },
                 ],
                 "to_if_alone": [
@@ -5082,6 +5370,64 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
             ],
           },
           {
+            "description": "HYPER layer: Pass through keys with Control+Option+Command+Shift",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "super_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "from": {
+                  "any": "key_code",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "from_event": true,
+                    "modifiers": [
+                      "left_control",
+                      "left_option",
+                      "left_command",
+                      "right_shift",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+            ],
+          },
+          {
             "description": "SUPER layer: Left hand - dev tools, screenshots and tab/history navigation",
             "manipulators": [
               {
@@ -6745,6 +7091,135 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
             ],
           },
           {
+            "description": "SYMBOLS layer: Thumbs cluster",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "from shift+spacebar to command+return_or_enter",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": [
+                      "shift",
+                    ],
+                    "optional": [
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "command",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "left_option to left_command+left_control+left_option, send right_shift+escape on tap",
+                "from": {
+                  "key_code": "left_option",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 1,
+                    },
+                  },
+                  {
+                    "key_code": "left_option",
+                    "lazy": true,
+                    "modifiers": [
+                      "left_command",
+                      "left_control",
+                    ],
+                  },
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 0,
+                    },
+                  },
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "escape",
+                    "modifiers": [
+                      "right_shift",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+            ],
+          },
+          {
             "description": "SYMBOLS layer: Left hand - Numpad",
             "manipulators": [
               {
@@ -6768,17 +7243,20 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from left_shift+right_shift+q to home",
+                "description": "from shift+q to home",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
-                      "right_shift",
+                      "shift",
                     ],
                     "optional": [
-                      "left_shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -6814,16 +7292,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+q to page_up",
+                "description": "from q to page_up",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -6859,16 +7339,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+w to 7",
+                "description": "from w to 7",
                 "from": {
                   "key_code": "w",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -6904,16 +7386,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+e to 8",
+                "description": "from e to 8",
                 "from": {
                   "key_code": "e",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -6949,16 +7433,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+r to 9",
+                "description": "from r to 9",
                 "from": {
                   "key_code": "r",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -6994,16 +7480,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+t to 0",
+                "description": "from t to 0",
                 "from": {
                   "key_code": "t",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7039,16 +7527,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+a to option+e",
+                "description": "a to left_shift, send option+e on tap",
                 "from": {
                   "key_code": "a",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7056,6 +7546,12 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                   },
                 },
                 "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
                   {
                     "key_code": "e",
                     "modifiers": [
@@ -7086,16 +7582,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+s to 4",
+                "description": "from s to 4",
                 "from": {
                   "key_code": "s",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7131,16 +7629,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+d to 5",
+                "description": "from d to 5",
                 "from": {
                   "key_code": "d",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7176,16 +7676,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+f to 6",
+                "description": "from f to 6",
                 "from": {
                   "key_code": "f",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7221,16 +7723,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+g to equal_sign",
+                "description": "from g to equal_sign",
                 "from": {
                   "key_code": "g",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7266,16 +7770,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+z to caps_lock",
+                "description": "from z to caps_lock",
                 "from": {
                   "key_code": "z",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7311,16 +7817,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+x to 1",
+                "description": "from x to 1",
                 "from": {
                   "key_code": "x",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7356,16 +7864,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+c to 2",
+                "description": "from c to 2",
                 "from": {
                   "key_code": "c",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7401,16 +7911,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+v to 3",
+                "description": "from v to 3",
                 "from": {
                   "key_code": "v",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7446,16 +7958,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+b to hyphen",
+                "description": "from b to hyphen",
                 "from": {
                   "key_code": "b",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7496,16 +8010,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+y to backslash",
+                "description": "from y to backslash",
                 "from": {
                   "key_code": "y",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7541,16 +8057,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+u to open_bracket",
+                "description": "from u to open_bracket",
                 "from": {
                   "key_code": "u",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7586,16 +8104,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+i to close_bracket",
+                "description": "from i to close_bracket",
                 "from": {
                   "key_code": "i",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7631,16 +8151,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+o to slash",
+                "description": "from o to slash",
                 "from": {
                   "key_code": "o",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7676,17 +8198,20 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from left_shift+right_shift+p to end",
+                "description": "from shift+p to end",
                 "from": {
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
-                      "right_shift",
+                      "shift",
                     ],
                     "optional": [
-                      "left_shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7722,16 +8247,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+p to page_down",
+                "description": "from p to page_down",
                 "from": {
                   "key_code": "p",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7767,16 +8294,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+h to left_arrow",
+                "description": "from h to left_arrow",
                 "from": {
                   "key_code": "h",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7812,16 +8341,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+j to down_arrow",
+                "description": "from j to down_arrow",
                 "from": {
                   "key_code": "j",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7857,16 +8388,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+k to up_arrow",
+                "description": "from k to up_arrow",
                 "from": {
                   "key_code": "k",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7902,16 +8435,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+l to right_arrow",
+                "description": "from l to right_arrow",
                 "from": {
                   "key_code": "l",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7947,16 +8482,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+semicolon to option+n",
+                "description": "semicolon to left_shift, send option+n on tap",
                 "from": {
                   "key_code": "semicolon",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -7964,6 +8501,12 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                   },
                 },
                 "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
                   {
                     "key_code": "n",
                     "modifiers": [
@@ -7994,16 +8537,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+n to grave_accent_and_tilde",
+                "description": "from n to grave_accent_and_tilde",
                 "from": {
                   "key_code": "n",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -8039,16 +8584,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+m to quote",
+                "description": "from m to quote",
                 "from": {
                   "key_code": "m",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -8084,16 +8631,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+comma to comma",
+                "description": "from comma to comma",
                 "from": {
                   "key_code": "comma",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -8129,16 +8678,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+period to period",
+                "description": "from period to period",
                 "from": {
                   "key_code": "period",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -8174,16 +8725,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
                 ],
-                "description": "from right_shift+slash to delete_or_backspace",
+                "description": "from slash to delete_or_backspace",
                 "from": {
                   "key_code": "slash",
                   "modifiers": {
-                    "mandatory": [
-                      "right_shift",
-                    ],
                     "optional": [
-                      "left_shift",
+                      "shift",
                       "right_command",
                       "right_control",
                       "caps_lock",
@@ -8271,7 +8824,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "type": "device_unless",
                   },
                 ],
-                "description": "right_command to right_shift, send tab on tap",
+                "description": "right_command to , send tab on tap",
                 "from": {
                   "key_code": "right_command",
                   "modifiers": {
@@ -8282,9 +8835,18 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 },
                 "to": [
                   {
-                    "key_code": "right_shift",
-                    "lazy": true,
-                    "modifiers": undefined,
+                    "set_variable": {
+                      "name": "symbols_layer_active",
+                      "value": 1,
+                    },
+                  },
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "symbols_layer_active",
+                      "value": 0,
+                    },
                   },
                 ],
                 "to_if_alone": [
@@ -8374,12 +8936,26 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 },
                 "to": [
                   {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 1,
+                    },
+                  },
+                  {
                     "key_code": "left_option",
                     "lazy": true,
                     "modifiers": [
                       "left_command",
                       "left_control",
                     ],
+                  },
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "super_layer_active",
+                      "value": 0,
+                    },
                   },
                 ],
                 "to_if_alone": [

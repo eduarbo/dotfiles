@@ -1,0 +1,63 @@
+{
+  "title": "HYPER layer",
+  "rules": [
+    {
+      "description": "HYPER layer: Pass through keys with Control+Option+Command+Shift",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "any": "key_code",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "from_event": true,
+              "modifiers": [
+                "left_control",
+                "left_option",
+                "left_command",
+                "right_shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 18003
+                }
+              ]
+            },
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "is_keyboard": true,
+                  "is_pointing_device": false,
+                  "vendor_id": 48875,
+                  "product_id": 1
+                }
+              ]
+            },
+            {
+              "type": "variable_if",
+              "name": "super_layer_active",
+              "value": 1
+            },
+            {
+              "type": "variable_if",
+              "name": "symbols_layer_active",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -60,8 +60,18 @@
           },
           "to": [
             {
-              "key_code": "right_shift",
-              "lazy": true
+              "set_variable": {
+                "name": "symbols_layer_active",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "symbols_layer_active",
+                "value": 0
+              }
             }
           ],
           "to_if_alone": [
@@ -69,7 +79,7 @@
               "key_code": "tab"
             }
           ],
-          "description": "right_command to right_shift, send tab on tap",
+          "description": "right_command to , send tab on tap",
           "conditions": [
             {
               "type": "device_unless",
@@ -148,12 +158,26 @@
           },
           "to": [
             {
+              "set_variable": {
+                "name": "super_layer_active",
+                "value": 1
+              }
+            },
+            {
               "key_code": "left_option",
               "modifiers": [
                 "left_command",
                 "left_control"
               ],
               "lazy": true
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "super_layer_active",
+                "value": 0
+              }
             }
           ],
           "to_if_alone": [

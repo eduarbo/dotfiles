@@ -71,6 +71,10 @@ type ToStickyModifierEvent = ToEventCommon & {
   sticky_modifier: StickyModifier;
 };
 
+type ToFromEventEvent = ToEventCommon & {
+  from_event: true;
+};
+
 export type ToEvent =
   | ToKeyCodeEvent
   | ToConsumerKeyCodeEvent
@@ -79,7 +83,8 @@ export type ToEvent =
   | ToSelectInputSourceEvent
   | ToSetVariableEvent
   | ToMouseKeyEvent
-  | ToStickyModifierEvent;
+  | ToStickyModifierEvent
+  | ToFromEventEvent;
 
 export type ToKeyCodeTuple = [KeyCode, Modifier[]?];
 
@@ -153,6 +158,11 @@ export const toStickyModifier = (
   options: ToEventCommon = {},
 ): ToStickyModifierEvent => ({
   sticky_modifier,
+  ...options,
+});
+
+export const toFromEvent = (options: ToEventCommon = {}): ToFromEventEvent => ({
+  from_event: true,
   ...options,
 });
 

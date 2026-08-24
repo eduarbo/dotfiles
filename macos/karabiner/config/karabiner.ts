@@ -2,6 +2,7 @@ import { profile, CRKBD, BEEKEEB } from '../lib/index.js';
 import type { KarabinerConfig } from '../lib/index.js';
 import {
   emacsKeybindings,
+  hyperLayer,
   symbolsLayer,
   superLayer,
   fnLayer,
@@ -14,6 +15,7 @@ const defaultProfile = [
   // App-specific rules must precede the global base-layer mod-taps.
   civLayer,
   emacsKeybindings,
+  hyperLayer,
   superLayer,
   fnLayer,
   symbolsLayer,

@@ -75,16 +75,26 @@ Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retain
 
 ```text
 ╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│ ⇞ │ 7 │ 8 │ 9 │ 0 │       │ \ │ [ │ ] │ / │ ▲ │
+│ ⇞ │ 7 │ 8 │ 9 │ 0 │       │ \ │ [ │ ] │ / │ ▼ │
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│ ⇟ │ 4 │ 5 │ 6 │ = │       │ ← │ ↓ │ ↑ │ → │ ▼ │
+│´⇧ │ 4 │ 5 │ 6 │ = │       │ ← │ ↓ │ ↑ │ → │˜⇧ │
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│ ´ │ 1 │ 2 │ 3 │ - │       │ ` │ ' │   │   │   │
+│⇧´ │ 1 │ 2 │ 3 │ - │       │ ` │ ' │ , │ . │ ⌫ │
 ╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
            │⇧+⎋│⇧+␣│⇧+⏎│ │   │▐█▌│   │ ← on tap
            │ ≢ │   │   │ │   │▐█▌│   │ ← on hold
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
+
+On the built-in keyboard, `SYMBOLS+A` and `SYMBOLS+;` are mod-taps. Tap them for the
+acute-accent and tilde dead keys. Hold either combination while pressing another key to
+add Shift without leaving the Symbols layer. For example, `B` produces `_`, `W` produces
+`&`, and the shifted `Q`/`P` bindings produce Home/End.
+
+Because Command and Return share the same mod-tap, `SYMBOLS+Shift+Return` sends
+`Command+Return` directly. Holding `SYMBOLS+Left Option` produces Hyper
+(`Control+Option+Command+Shift`) for application-launcher shortcuts, regardless of
+which modifier is pressed first; tapping the combination remains `Shift+Escape`.
 
 | Symbol | Description | Symbol      | Description | Symbol      | Description |
 |--------|-------------|-------------|-------------|-------------|-------------|

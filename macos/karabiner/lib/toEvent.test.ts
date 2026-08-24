@@ -8,6 +8,7 @@ import {
   toSetVariable,
   toMouseKey,
   toStickyModifier,
+  toFromEvent,
   toHyperKeyCodeTuple,
   toMehKeyCodeTuple,
   toSuperKeyCodeTuple,
@@ -108,6 +109,15 @@ describe('toStickyModifier', () => {
   it('creates a sticky modifier event', () => {
     expect(toStickyModifier({ command: 'toggle' })).toEqual({
       sticky_modifier: { command: 'toggle' },
+    });
+  });
+});
+
+describe('toFromEvent', () => {
+  it('reposts the source key with explicit modifiers', () => {
+    expect(toFromEvent({ modifiers: ['control', 'option', 'command', 'shift'] })).toEqual({
+      from_event: true,
+      modifiers: ['control', 'option', 'command', 'shift'],
     });
   });
 });

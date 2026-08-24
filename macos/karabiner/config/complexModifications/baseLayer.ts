@@ -1,5 +1,6 @@
 import { modTap, remap, ignoreKeebs } from '../../lib/index.js';
 import type { ComplexModifications } from '../../lib/index.js';
+import { SUPER_LAYER_VARIABLE, SYMBOLS_LAYER_VARIABLE } from './layerVariables.js';
 
 const LAYER = 'BASE';
 
@@ -21,10 +22,12 @@ const rules = [
         toOptions,
       }),
 
-      // R Command -> R Shift (SYMBOLS) on hold, Tab on tap
-      modTap(['right_command', null, ['any']], [['right_shift']], [['tab']], {
+      // R Command -> SYMBOLS layer on hold, Tab on tap
+      modTap(['right_command', null, ['any']], [], [['tab']], {
         manipulatorOptions,
-        toOptions,
+        setVariables: {
+          [SYMBOLS_LAYER_VARIABLE]: { to: 1, to_after_key_up: 0 },
+        },
       }),
 
       // Spacebar -> R Command on hold, Enter on tap
@@ -41,6 +44,9 @@ const rules = [
         {
           manipulatorOptions,
           toOptions,
+          setVariables: {
+            [SUPER_LAYER_VARIABLE]: { to: 1, to_after_key_up: 0 },
+          },
         },
       ),
 

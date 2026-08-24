@@ -65,6 +65,7 @@ describe('karabiner config', () => {
 describe('complexModifications exports', () => {
   it('exports all expected layers', () => {
     expect(complexModifications.baseLayer).toBeDefined();
+    expect(complexModifications.hyperLayer).toBeDefined();
     expect(complexModifications.symbolsLayer).toBeDefined();
     expect(complexModifications.superLayer).toBeDefined();
     expect(complexModifications.fnLayer).toBeDefined();
@@ -76,6 +77,7 @@ describe('complexModifications exports', () => {
   it('each layer has a title and rules', () => {
     const layers = [
       complexModifications.baseLayer,
+      complexModifications.hyperLayer,
       complexModifications.symbolsLayer,
       complexModifications.superLayer,
       complexModifications.fnLayer,
@@ -134,11 +136,168 @@ describe('complexModifications exports', () => {
     const indexOf = (description: string) =>
       manipulators.findIndex((manipulator) => manipulator.description === description);
 
-    expect(indexOf('from left_shift+right_shift+q to home')).toBeLessThan(
-      indexOf('from right_shift+q to page_up'),
+    expect(indexOf('from shift+q to home')).toBeLessThan(indexOf('from q to page_up'));
+    expect(indexOf('from shift+p to end')).toBeLessThan(indexOf('from p to page_down'));
+  });
+
+  it('uses the Symbols accent keys as transferable Shift mod-taps', () => {
+    const manipulators = complexModifications.symbolsLayer.rules.flatMap(
+      (rule) => rule.manipulators,
     );
-    expect(indexOf('from left_shift+right_shift+p to end')).toBeLessThan(
-      indexOf('from right_shift+p to page_down'),
+    const bindingFor = (keyCode: 'a' | 'semicolon') =>
+      manipulators.find(
+        (manipulator) =>
+          'key_code' in manipulator.from &&
+          manipulator.from.key_code === keyCode &&
+          manipulator.conditions?.some(
+            (condition) =>
+              condition.type === 'variable_if' &&
+              condition.name === 'symbols_layer_active' &&
+              condition.value === 1,
+          ),
+      );
+
+    expect(bindingFor('a')).toEqual(
+      expect.objectContaining({
+        to: [{ key_code: 'left_shift' }],
+        to_if_alone: [{ key_code: 'e', modifiers: ['option'] }],
+      }),
+    );
+    expect(bindingFor('semicolon')).toEqual(
+      expect.objectContaining({
+        to: [{ key_code: 'left_shift' }],
+        to_if_alone: [{ key_code: 'n', modifiers: ['option'] }],
+      }),
+    );
+  });
+
+  it('keeps the Symbols layer active with a variable independent from Shift', () => {
+    const thumbCluster = complexModifications.baseLayer.rules.find(
+      (rule) => rule.description === 'BASE layer: Thumbs cluster',
+    );
+    const symbolsActivator = thumbCluster?.manipulators.find(
+      (manipulator) =>
+        'key_code' in manipulator.from &&
+        manipulator.from.key_code === 'right_command' &&
+        !manipulator.conditions?.some(
+          (condition) =>
+            condition.type === 'variable_if' && condition.name === 'super_layer_active',
+        ),
+    );
+    const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
+      (rule) => rule.manipulators,
+    );
+
+    expect(symbolsActivator).toEqual(
+      expect.objectContaining({
+        to: [{ set_variable: { name: 'symbols_layer_active', value: 1 } }],
+        to_after_key_up: [
+          { set_variable: { name: 'symbols_layer_active', value: 0 } },
+        ],
+        to_if_alone: [{ key_code: 'tab' }],
+      }),
+    );
+    for (const manipulator of symbolsManipulators) {
+      expect(manipulator.conditions).toEqual(
+        expect.arrayContaining([
+          {
+            type: 'variable_if',
+            name: 'symbols_layer_active',
+            value: 1,
+          },
+        ]),
+      );
+    }
+    expect(JSON.stringify(symbolsManipulators)).not.toContain('symbols_pinky_shift_active');
+  });
+
+  it('maps Symbols+Shift+Return to Command+Return', () => {
+    const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
+      (rule) => rule.manipulators,
+    );
+    const commandReturn = symbolsManipulators.find(
+      (manipulator) =>
+        'key_code' in manipulator.from &&
+        manipulator.from.key_code === 'spacebar' &&
+        manipulator.from.modifiers?.mandatory?.includes('shift'),
+    );
+
+    expect(commandReturn).toEqual(
+      expect.objectContaining({
+        to: [{ key_code: 'return_or_enter', modifiers: ['command'] }],
+        conditions: expect.arrayContaining([
+          {
+            type: 'variable_if',
+            name: 'symbols_layer_active',
+            value: 1,
+          },
+        ]),
+      }),
+    );
+  });
+
+  it('preserves Symbols+Left Option as the Shift+Escape launcher chord', () => {
+    const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
+      (rule) => rule.manipulators,
+    );
+    const launcherChord = symbolsManipulators.find(
+      (manipulator) =>
+        'key_code' in manipulator.from && manipulator.from.key_code === 'left_option',
+    );
+
+    expect(launcherChord).toEqual(
+      expect.objectContaining({
+        to: [
+          { set_variable: { name: 'super_layer_active', value: 1 } },
+          {
+            key_code: 'left_option',
+            modifiers: ['left_command', 'left_control'],
+            lazy: true,
+          },
+        ],
+        to_after_key_up: [
+          { set_variable: { name: 'super_layer_active', value: 0 } },
+        ],
+        to_if_alone: [{ key_code: 'escape', modifiers: ['right_shift'] }],
+        conditions: expect.arrayContaining([
+          {
+            type: 'variable_if',
+            name: 'symbols_layer_active',
+            value: 1,
+          },
+        ]),
+      }),
+    );
+  });
+
+  it('forms Hyper regardless of whether Super or Symbols is held first', () => {
+    const hyperManipulator = complexModifications.hyperLayer.rules[0]?.manipulators[0];
+    const descriptions =
+      karabiner.profiles[1].complex_modifications?.rules.map((rule) => rule.description) ?? [];
+
+    expect(hyperManipulator).toEqual(
+      expect.objectContaining({
+        from: {
+          any: 'key_code',
+          modifiers: { optional: ['any'] },
+        },
+        to: [
+          {
+            from_event: true,
+            modifiers: ['left_control', 'left_option', 'left_command', 'right_shift'],
+          },
+        ],
+        conditions: expect.arrayContaining([
+          { type: 'variable_if', name: 'super_layer_active', value: 1 },
+          { type: 'variable_if', name: 'symbols_layer_active', value: 1 },
+        ]),
+      }),
+    );
+    expect(descriptions.findIndex((value) => value.startsWith('HYPER layer:'))).toBeLessThan(
+      descriptions.findIndex((value) => value.startsWith('SUPER layer:')),
+    );
+    expect(descriptions.findIndex((value) => value.startsWith('HYPER layer:'))).toBeLessThan(
+      descriptions.findIndex((value) => value.startsWith('SYMBOLS layer:')),
     );
   });
 
