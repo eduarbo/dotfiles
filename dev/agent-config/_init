@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 source ${0:A:h}/../../deploy
+source ${0:A:h}/../../macos/workstation/profile.zsh
 
 deps=(shell/git)
 os=(macos debian)
@@ -17,30 +18,6 @@ _ensure_gh() {
       sudo apt update && sudo apt install -y gh
       ;;
   esac
-}
-
-_dotfiles_github_owner() {
-  local remote_url repository_path owner
-  remote_url=$(git -C "$DOTFILES" remote get-url origin 2>/dev/null) || return 1
-  remote_url=${remote_url%.git}
-
-  case "$remote_url" in
-    *://*)
-      repository_path=${remote_url#*://}
-      repository_path=${repository_path#*@}
-      repository_path=${repository_path#*/}
-      ;;
-    *:*)
-      repository_path=${remote_url#*:}
-      ;;
-    *)
-      return 1
-      ;;
-  esac
-
-  owner=${repository_path%%/*}
-  [[ -n "$owner" && "$owner" != *[^A-Za-z0-9_.-]* ]] || return 1
-  print -r -- "$owner"
 }
 
 _github_account_id() {
@@ -145,15 +122,15 @@ _orchestrate_agent_config() {
 
   _ensure_gh || return $?
 
-  account=${AGENT_CONFIG_ACCOUNT:-$(_dotfiles_github_owner)}
+  account=${AGENT_CONFIG_ACCOUNT:-$WORKSTATION_REPOSITORY_OWNER}
   [[ -n "$account" ]] || {
-    echo-alert "Could not infer the GitHub account from the dotfiles remote."
-    echo-note "Set AGENT_CONFIG_ACCOUNT and rerun."
+    echo-alert "The workstation repository owner is not configured."
+    echo-note "Set WORKSTATION_REPOSITORY_OWNER or AGENT_CONFIG_ACCOUNT and rerun."
     return 1
   }
 
-  global_repository=${AGENT_CONFIG_GLOBAL_REPO:-$account/agent-config-global}
-  owner_repository=${AGENT_CONFIG_OWNER_REPO:-$account/agent-config}
+  global_repository=${AGENT_CONFIG_GLOBAL_REPO:-$WORKSTATION_AGENT_CONFIG_GLOBAL_REPOSITORY}
+  owner_repository=${AGENT_CONFIG_OWNER_REPO:-$WORKSTATION_AGENT_CONFIG_OWNER_REPOSITORY}
   global_dir=${AGENT_CONFIG_GLOBAL_DIR:-$HOME/dev/$account/agent-config-global}
   owner_dir=${AGENT_CONFIG_OWNER_DIR:-$HOME/dev/$account/agent-config}
 

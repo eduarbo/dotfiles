@@ -1,0 +1,86 @@
+#!/usr/bin/env zsh
+source ${0:A:h}/../../deploy
+source ${0:A:h}/../../macos/workstation/profile.zsh
+
+deps=(dev/agent-config)
+os=(macos)
+
+_personal_ops_token() {
+  local account="$1" account_id token
+  local accounts_root=${GITHUB_ACCOUNTS_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/github-accounts}
+  local metadata configured_username
+
+  for metadata in "$accounts_root"/accounts/account-*.gitconfig(N); do
+    configured_username=$(git config -f "$metadata" --get account.username 2>/dev/null) || continue
+    if [[ "$configured_username" == "$account" ]]; then
+      account_id=${metadata:t:r}
+      if _is_callable git-account; then
+        token=$(git account gh "$account_id" -- auth token --hostname github.com 2>/dev/null) || true
+        [[ -z "$token" ]] || { print -r -- "$token"; return 0; }
+      fi
+    fi
+  done
+  gh auth token --hostname github.com --user "$account" 2>/dev/null
+}
+
+_personal_ops_git_with_token() {
+  local account="$1"
+  shift
+  local token
+  token=$(_personal_ops_token "$account") || {
+    echo-alert "GitHub account '$account' is not authenticated in gh."
+    echo-note "Run the native gh login flow and rerun dev/personal-ops."
+    return 1
+  }
+  GH_TOKEN="$token" GIT_TERMINAL_PROMPT=0 \
+    git -c credential.helper= -c 'credential.helper=!gh auth git-credential' "$@"
+}
+
+_personal_ops_checkout() {
+  local operation="$1"
+  local account=${WORKSTATION_REPOSITORY_OWNER}
+  local repository=${PERSONAL_OPS_REPOSITORY:-$WORKSTATION_PERSONAL_OPS_REPOSITORY}
+  local destination=${PERSONAL_OPS_DIR:-$HOME/dev/$account/personal-ops}
+
+  if [[ ! -d "$destination/.git" ]]; then
+    [[ ! -e "$destination" ]] || {
+      echo-alert "Refusing to replace existing path: $destination"
+      return 1
+    }
+    mkdir -p "${destination:h}"
+    _personal_ops_git_with_token "$account" clone --origin origin \
+      "https://github.com/$repository.git" "$destination" || return $?
+  elif [[ "$operation" == update ]]; then
+    if [[ -n "$(git -C "$destination" status --porcelain)" ]]; then
+      echo-alert "Skipping Personal Ops update for dirty checkout: $destination"
+    else
+      _personal_ops_git_with_token "$account" -C "$destination" pull --ff-only || return $?
+    fi
+  fi
+
+  python3 "$destination/scripts/validate_control_plane.py" || return $?
+  python3 "$destination/scripts/validate_ecosystem.py" || return $?
+  if python3 "$destination/scripts/personal_memory.py" status >/dev/null 2>&1; then
+    echo-ok "Personal Ops encrypted memory is available"
+  else
+    echo-note "Personal Ops memory restore remains a machine-local gate."
+  fi
+}
+
+link() {
+  return 0
+}
+
+install() {
+  _personal_ops_checkout install
+}
+
+update() {
+  _personal_ops_checkout update
+}
+
+clean() {
+  echo-note "Personal Ops repository, private memory, credentials and writers were preserved."
+}
+
+init "$@"

@@ -69,6 +69,7 @@ The following are the categories and topics you can install:
   - `node` – npm/pnpm package management — runtime versions handled by mise
   - `python` – Python tooling via brew and pipx — runtime versions handled by mise
   - `golang` – Go fast, install Go, and grab some must-have packages
+  - `personal-ops` – Clone/update and validate the provider-neutral personal control plane
   - `php` – Composer support included, because sometimes you just can’t avoid PHP
 
 

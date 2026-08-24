@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""Offline, redacted readiness doctor for the personal workstation profile."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+from pathlib import Path
+
+
+def run(command: list[str], *, cwd: Path | None = None) -> bool:
+    try:
+        result = subprocess.run(
+            command,
+            cwd=cwd,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=45,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    return result.returncode == 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--json", action="store_true")
+    arguments = parser.parse_args()
+
+    home = Path.home()
+    owner = os.environ.get("WORKSTATION_REPOSITORY_OWNER", "eduarbo")
+    applications = Path(os.environ.get("WORKSTATION_APPLICATIONS_DIR", "/Applications"))
+    dotfiles = Path(os.environ.get("WORKSTATION_DOTFILES_DIR", str(home / ".config/dotfiles")))
+    global_config = Path(
+        os.environ.get(
+            "WORKSTATION_AGENT_CONFIG_GLOBAL_DIR",
+            str(home / "dev" / owner / "agent-config-global"),
+        )
+    )
+    personal_ops = Path(
+        os.environ.get(
+            "WORKSTATION_PERSONAL_OPS_DIR",
+            str(home / "dev" / owner / "personal-ops"),
+        )
+    )
+    agent_config = Path(
+        os.environ.get("WORKSTATION_AGENT_CONFIG_BIN", str(home / ".local/bin/agent-config"))
+    )
+
+    checks: list[dict[str, object]] = []
+
+    def record(identifier: str, passed: bool, remediation: str) -> None:
+        checks.append(
+            {"id": identifier, "ok": passed, "remediation": None if passed else remediation}
+        )
+
+    record("dotfiles-checkout", (dotfiles / ".git").is_dir(), "Clone the managed dotfiles checkout.")
+    record("agent-config-global-checkout", (global_config / ".git").is_dir(), "Run dot dev/agent-config.")
+    record("personal-ops-checkout", (personal_ops / ".git").is_dir(), "Run dot dev/personal-ops.")
+    record("codex-cli", shutil.which("codex") is not None, "Run dot shell/codex.")
+    record("claude-cli", shutil.which("claude") is not None, "Run dot shell/claude-code.")
+    record("chatgpt-app", (applications / "ChatGPT.app").is_dir(), "Run dot macos/apps.")
+    record("claude-app", (applications / "Claude.app").is_dir(), "Run dot macos/apps.")
+    record("apple-notes-app", Path("/System/Applications/Notes.app").is_dir(), "Repair the macOS installation.")
+    record(
+        "agent-config-offline-doctor",
+        agent_config.is_file()
+        and os.access(agent_config, os.X_OK)
+        and run([str(agent_config), "doctor", "--offline", "--managed-only"]),
+        "Run dot dev/agent-config and repair the reported managed links.",
+    )
+    locator = global_config / "codex/skills/personal-ops/scripts/locate_personal_ops.py"
+    record(
+        "personal-ops-locator",
+        locator.is_file()
+        and run(
+            ["python3", str(locator), "--json"],
+            cwd=global_config if global_config.is_dir() else None,
+        ),
+        "Repair Personal Ops discovery or set PERSONAL_OPS_ROOT explicitly.",
+    )
+    record(
+        "personal-ops-control-plane",
+        run(["python3", "scripts/validate_control_plane.py"], cwd=personal_ops)
+        if personal_ops.is_dir()
+        else False,
+        "Restore or repair the Personal Ops control plane.",
+    )
+    record(
+        "personal-ops-ecosystem",
+        run(["python3", "scripts/validate_ecosystem.py"], cwd=personal_ops)
+        if personal_ops.is_dir()
+        else False,
+        "Restore or repair the Personal Ops ecosystem contract.",
+    )
+    record(
+        "personal-ops-memory",
+        run(["python3", "scripts/personal_memory.py", "status"], cwd=personal_ops)
+        if personal_ops.is_dir()
+        else False,
+        "Restore the encrypted Personal Ops memory through its reviewed recovery flow.",
+    )
+
+    ecosystem_path = personal_ops / "config/ecosystem.json"
+    try:
+        manual_gates = json.loads(ecosystem_path.read_text(encoding="utf-8"))["manual_gates"]
+    except (OSError, KeyError, TypeError, json.JSONDecodeError):
+        manual_gates = []
+    payload = {
+        "schema_version": 1,
+        "status": "automated_ready" if all(item["ok"] for item in checks) else "needs_attention",
+        "checks": checks,
+        "manual_gates": [{"id": identifier, "status": "manual"} for identifier in manual_gates],
+    }
+    if arguments.json:
+        print(json.dumps(payload, sort_keys=True))
+    else:
+        for item in checks:
+            prefix = "OK" if item["ok"] else "FAIL"
+            print(f"{prefix:4} {item['id']}")
+            if item["remediation"]:
+                print(f"     {item['remediation']}")
+        print("Manual gates: " + ", ".join(manual_gates))
+    return 0 if payload["status"] == "automated_ready" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

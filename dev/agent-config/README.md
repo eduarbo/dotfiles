@@ -7,8 +7,9 @@ owner-level `agent-config` companion, then runs the global setup.
 dot dev/agent-config
 ```
 
-The GitHub account is inferred from this dotfiles checkout's `origin`, not from
-whichever account happens to be active in SSH. Cloning uses the matching account
+The repository owner and canonical repository names come from the committed
+`macos/workstation/profile.zsh`, never from a Git remote. This remains deterministic
+even when `origin` is intentionally unrelated. Cloning uses the matching account
 stored by `gh`, over HTTPS, so a fresh install does not depend on SSH routing.
 
 Local changes are never overwritten: dirty repositories are not pulled,
