@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { karabiner, complexModifications } from './karabiner.js';
+import { GAMES } from '../lib/index.js';
 
 describe('karabiner config', () => {
   it('has global settings', () => {
@@ -32,6 +33,18 @@ describe('karabiner config', () => {
     expect(crkbdProfile.selected).toBe(true);
     expect(crkbdProfile.devices?.length).toBeGreaterThan(0);
     expect(crkbdProfile.devices?.[0].disable_built_in_keyboard_if_exists).toBe(true);
+  });
+
+  it('places the Civ rules before Base and keeps the general Gaming layer inactive', () => {
+    const descriptions =
+      karabiner.profiles[1].complex_modifications?.rules.map((rule) => rule.description) ?? [];
+    const civIndex = descriptions.findIndex((description) => description.startsWith('Civ V layer:'));
+    const baseIndex = descriptions.findIndex((description) => description.startsWith('BASE layer:'));
+
+    expect(civIndex).toBeGreaterThanOrEqual(0);
+    expect(baseIndex).toBeGreaterThanOrEqual(0);
+    expect(civIndex).toBeLessThan(baseIndex);
+    expect(descriptions.some((description) => description.startsWith('GAMING layer:'))).toBe(false);
   });
 
   it('all profiles have ANSI keyboard type', () => {
@@ -112,6 +125,67 @@ describe('complexModifications exports', () => {
         }),
       ]),
     );
+  });
+
+  it('orders shifted Symbols bindings before their generic bindings', () => {
+    const manipulators = complexModifications.symbolsLayer.rules.flatMap(
+      (rule) => rule.manipulators,
+    );
+    const indexOf = (description: string) =>
+      manipulators.findIndex((manipulator) => manipulator.description === description);
+
+    expect(indexOf('from left_shift+right_shift+q to home')).toBeLessThan(
+      indexOf('from right_shift+q to page_up'),
+    );
+    expect(indexOf('from left_shift+right_shift+p to end')).toBeLessThan(
+      indexOf('from right_shift+p to page_down'),
+    );
+  });
+
+  it('uses function keys on the left FN half and media controls on the right', () => {
+    const manipulators = complexModifications.fnLayer.rules.flatMap((rule) => rule.manipulators);
+    const bindingFor = (keyCode: string) =>
+      manipulators.find(
+        (manipulator) =>
+          'key_code' in manipulator.from && manipulator.from.key_code === keyCode,
+      );
+
+    expect(bindingFor('q')?.to).toEqual(
+      expect.arrayContaining([expect.objectContaining({ key_code: 'f12' })]),
+    );
+    expect(bindingFor('x')?.to).toEqual(
+      expect.arrayContaining([expect.objectContaining({ key_code: 'f1' })]),
+    );
+    expect(bindingFor('y')?.to).toEqual(
+      expect.arrayContaining([expect.objectContaining({ key_code: 'volume_increment' })]),
+    );
+    expect(bindingFor('m')?.to).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ key_code: 'display_brightness_decrement' }),
+      ]),
+    );
+  });
+
+  it('excludes games from Emacs keybindings', () => {
+    const conditions = complexModifications.emacsKeybindings.rules
+      .flatMap((rule) => rule.manipulators)
+      .flatMap((manipulator) => manipulator.conditions ?? [])
+      .filter((condition) => condition.type === 'frontmost_application_unless');
+
+    expect(conditions.length).toBeGreaterThan(0);
+    for (const condition of conditions) {
+      expect(condition).toEqual(
+        expect.objectContaining({ bundle_identifiers: expect.arrayContaining(GAMES) }),
+      );
+    }
+  });
+
+  it('keeps the Civ layer device-neutral', () => {
+    const conditions = complexModifications.civLayer.rules
+      .flatMap((rule) => rule.manipulators)
+      .flatMap((manipulator) => manipulator.conditions ?? []);
+
+    expect(conditions.some((condition) => condition.type.startsWith('device_'))).toBe(false);
   });
 });
 

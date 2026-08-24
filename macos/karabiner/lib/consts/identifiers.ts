@@ -65,6 +65,7 @@ export const GAMES = ['^com\\.factorio$', CIV5];
 export const EMACS_KEY_BINDINGS_EXCEPTION = [
   ...EMACS,
   ...VSCODE,
+  ...GAMES,
   ...REMOTE_DESKTOP,
   ...TERMINAL,
   ...VI,

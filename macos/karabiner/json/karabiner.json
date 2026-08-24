@@ -31,6 +31,336 @@
         },
         "rules": [
           {
+            "description": "Civ V layer: Thumbs cluster",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command"
+                },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "description": "right_command to right_command, send left_shift+return_or_enter on tap",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Civ V layer: Custom QWERTY",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "description": "from +q to delete_or_backspace",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "home"
+                  }
+                ],
+                "description": "from +w to home",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "r",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "end"
+                  }
+                ],
+                "description": "from +r to end",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "t",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "u"
+                  }
+                ],
+                "description": "from +t to u",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "comma"
+                  }
+                ],
+                "description": "from +s to comma",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f3"
+                  }
+                ],
+                "description": "from +d to f3",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "period"
+                  }
+                ],
+                "description": "from +f to period",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "m"
+                  }
+                ],
+                "description": "from +g to m",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "z",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f"
+                  }
+                ],
+                "description": "from +z to f",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "x",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "h"
+                  }
+                ],
+                "description": "from +x to h",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "s"
+                  }
+                ],
+                "description": "from +c to s",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "a",
+                    "modifiers": [
+                      "control"
+                    ]
+                  }
+                ],
+                "description": "from +v to control+a",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Emacs keybindings: Delete",
             "manipulators": [
               {
@@ -61,6 +391,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -126,6 +458,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -191,6 +525,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -259,6 +595,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -329,6 +667,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -394,6 +734,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -764,7 +1106,7 @@
             ]
           },
           {
-            "description": "FN layer: Left hand - Media and Brightness",
+            "description": "FN layer: Left hand - Function keys",
             "manipulators": [
               {
                 "type": "basic",
@@ -782,11 +1124,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_increment",
+                    "key_code": "f12",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+q to volume_increment",
+                "description": "from left_command+left_control+left_option+right_control+q to f12",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -825,11 +1167,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "rewind",
+                    "key_code": "f7",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+w to rewind",
+                "description": "from left_command+left_control+left_option+right_control+w to f7",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -868,11 +1210,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "play_or_pause",
+                    "key_code": "f8",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+e to play_or_pause",
+                "description": "from left_command+left_control+left_option+right_control+e to f8",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -911,11 +1253,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "fastforward",
+                    "key_code": "f9",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+r to fastforward",
+                "description": "from left_command+left_control+left_option+right_control+r to f9",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -997,11 +1339,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_decrement",
+                    "key_code": "f11",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+a to volume_decrement",
+                "description": "from left_command+left_control+left_option+right_control+a to f11",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1040,11 +1382,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_decrement",
+                    "key_code": "f4",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+s to volume_decrement",
+                "description": "from left_command+left_control+left_option+right_control+s to f4",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1083,11 +1425,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "mute",
+                    "key_code": "f5",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+d to mute",
+                "description": "from left_command+left_control+left_option+right_control+d to f5",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1126,11 +1468,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_increment",
+                    "key_code": "f6",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+f to volume_increment",
+                "description": "from left_command+left_control+left_option+right_control+f to f6",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1212,11 +1554,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "mute",
+                    "key_code": "f10",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+z to mute",
+                "description": "from left_command+left_control+left_option+right_control+z to f10",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1255,11 +1597,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "display_brightness_decrement",
+                    "key_code": "f1",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+x to display_brightness_decrement",
+                "description": "from left_command+left_control+left_option+right_control+x to f1",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1298,11 +1640,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "display_brightness_increment",
+                    "key_code": "f2",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+c to display_brightness_increment",
+                "description": "from left_command+left_control+left_option+right_control+c to f2",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -1341,11 +1683,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "mission_control",
+                    "key_code": "f3",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+v to mission_control",
+                "description": "from left_command+left_control+left_option+right_control+v to f3",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -2072,6 +2414,7 @@
                   "key_code": "q",
                   "modifiers": {
                     "mandatory": [
+                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -2084,10 +2427,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "page_up"
+                    "key_code": "home"
                   }
                 ],
-                "description": "from right_shift+q to page_up",
+                "description": "from left_shift+right_shift+q to home",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -2116,7 +2459,6 @@
                   "key_code": "q",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -2129,10 +2471,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "home"
+                    "key_code": "page_up"
                   }
                 ],
-                "description": "from left_shift+right_shift+q to home",
+                "description": "from right_shift+q to page_up",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -2961,6 +3303,7 @@
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
+                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -2973,10 +3316,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "page_down"
+                    "key_code": "end"
                   }
                 ],
-                "description": "from right_shift+p to page_down",
+                "description": "from left_shift+right_shift+p to end",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -3005,7 +3348,6 @@
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -3018,10 +3360,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "end"
+                    "key_code": "page_down"
                   }
                 ],
-                "description": "from left_shift+right_shift+p to end",
+                "description": "from right_shift+p to page_down",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -3869,336 +4211,6 @@
                         "vendor_id": 48875,
                         "product_id": 1
                       }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Civ V layer: Thumbs cluster",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "right_command"
-                },
-                "to": [
-                  {
-                    "key_code": "right_command",
-                    "lazy": true
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "return_or_enter",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "description": "right_command to right_command, send left_shift+return_or_enter on tap",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Civ V layer: Custom QWERTY",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "q",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "delete_or_backspace"
-                  }
-                ],
-                "description": "from +q to delete_or_backspace",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "w",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "home"
-                  }
-                ],
-                "description": "from +w to home",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "r",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "end"
-                  }
-                ],
-                "description": "from +r to end",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "t",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "u"
-                  }
-                ],
-                "description": "from +t to u",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "s",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "comma"
-                  }
-                ],
-                "description": "from +s to comma",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "f3"
-                  }
-                ],
-                "description": "from +d to f3",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "f",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "period"
-                  }
-                ],
-                "description": "from +f to period",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "g",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "m"
-                  }
-                ],
-                "description": "from +g to m",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "z",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "f"
-                  }
-                ],
-                "description": "from +z to f",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "x",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "h"
-                  }
-                ],
-                "description": "from +x to h",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "c",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "s"
-                  }
-                ],
-                "description": "from +c to s",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "v",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "a",
-                    "modifiers": [
-                      "control"
-                    ]
-                  }
-                ],
-                "description": "from +v to control+a",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
                     ]
                   }
                 ]
@@ -4247,6 +4259,336 @@
         },
         "rules": [
           {
+            "description": "Civ V layer: Thumbs cluster",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command"
+                },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "description": "right_command to right_command, send left_shift+return_or_enter on tap",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Civ V layer: Custom QWERTY",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "description": "from +q to delete_or_backspace",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "home"
+                  }
+                ],
+                "description": "from +w to home",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "r",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "end"
+                  }
+                ],
+                "description": "from +r to end",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "t",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "u"
+                  }
+                ],
+                "description": "from +t to u",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "comma"
+                  }
+                ],
+                "description": "from +s to comma",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f3"
+                  }
+                ],
+                "description": "from +d to f3",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "period"
+                  }
+                ],
+                "description": "from +f to period",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "m"
+                  }
+                ],
+                "description": "from +g to m",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "z",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f"
+                  }
+                ],
+                "description": "from +z to f",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "x",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "h"
+                  }
+                ],
+                "description": "from +x to h",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "s"
+                  }
+                ],
+                "description": "from +c to s",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "a",
+                    "modifiers": [
+                      "control"
+                    ]
+                  }
+                ],
+                "description": "from +v to control+a",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com.aspyr.civ5xp.steam$"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Emacs keybindings: Delete",
             "manipulators": [
               {
@@ -4277,6 +4619,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -4342,6 +4686,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -4407,6 +4753,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -4475,6 +4823,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -4545,6 +4895,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -4610,6 +4962,8 @@
                       "^org\\.gnu\\.Aquamacs$",
                       "^org\\.pqrs\\.unknownapp.conkeror$",
                       "^com.microsoft.VSCode$",
+                      "^com\\.factorio$",
+                      "^com.aspyr.civ5xp.steam$",
                       "^com\\.microsoft\\.rdc$",
                       "^com\\.microsoft\\.rdc\\.mac$",
                       "^com\\.microsoft\\.rdc\\.osx\\.beta$",
@@ -4980,7 +5334,7 @@
             ]
           },
           {
-            "description": "FN layer: Left hand - Media and Brightness",
+            "description": "FN layer: Left hand - Function keys",
             "manipulators": [
               {
                 "type": "basic",
@@ -4998,11 +5352,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_increment",
+                    "key_code": "f12",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+q to volume_increment",
+                "description": "from left_command+left_control+left_option+right_control+q to f12",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5041,11 +5395,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "rewind",
+                    "key_code": "f7",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+w to rewind",
+                "description": "from left_command+left_control+left_option+right_control+w to f7",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5084,11 +5438,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "play_or_pause",
+                    "key_code": "f8",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+e to play_or_pause",
+                "description": "from left_command+left_control+left_option+right_control+e to f8",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5127,11 +5481,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "fastforward",
+                    "key_code": "f9",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+r to fastforward",
+                "description": "from left_command+left_control+left_option+right_control+r to f9",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5213,11 +5567,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_decrement",
+                    "key_code": "f11",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+a to volume_decrement",
+                "description": "from left_command+left_control+left_option+right_control+a to f11",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5256,11 +5610,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_decrement",
+                    "key_code": "f4",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+s to volume_decrement",
+                "description": "from left_command+left_control+left_option+right_control+s to f4",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5299,11 +5653,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "mute",
+                    "key_code": "f5",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+d to mute",
+                "description": "from left_command+left_control+left_option+right_control+d to f5",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5342,11 +5696,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "volume_increment",
+                    "key_code": "f6",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+f to volume_increment",
+                "description": "from left_command+left_control+left_option+right_control+f to f6",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5428,11 +5782,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "mute",
+                    "key_code": "f10",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+z to mute",
+                "description": "from left_command+left_control+left_option+right_control+z to f10",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5471,11 +5825,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "display_brightness_decrement",
+                    "key_code": "f1",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+x to display_brightness_decrement",
+                "description": "from left_command+left_control+left_option+right_control+x to f1",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5514,11 +5868,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "display_brightness_increment",
+                    "key_code": "f2",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+c to display_brightness_increment",
+                "description": "from left_command+left_control+left_option+right_control+c to f2",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -5557,11 +5911,11 @@
                 },
                 "to": [
                   {
-                    "key_code": "mission_control",
+                    "key_code": "f3",
                     "lazy": true
                   }
                 ],
-                "description": "from left_command+left_control+left_option+right_control+v to mission_control",
+                "description": "from left_command+left_control+left_option+right_control+v to f3",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -6288,6 +6642,7 @@
                   "key_code": "q",
                   "modifiers": {
                     "mandatory": [
+                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -6300,10 +6655,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "page_up"
+                    "key_code": "home"
                   }
                 ],
-                "description": "from right_shift+q to page_up",
+                "description": "from left_shift+right_shift+q to home",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -6332,7 +6687,6 @@
                   "key_code": "q",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -6345,10 +6699,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "home"
+                    "key_code": "page_up"
                   }
                 ],
-                "description": "from left_shift+right_shift+q to home",
+                "description": "from right_shift+q to page_up",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -7177,6 +7531,7 @@
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
+                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -7189,10 +7544,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "page_down"
+                    "key_code": "end"
                   }
                 ],
-                "description": "from right_shift+p to page_down",
+                "description": "from left_shift+right_shift+p to end",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -7221,7 +7576,6 @@
                   "key_code": "p",
                   "modifiers": {
                     "mandatory": [
-                      "left_shift",
                       "right_shift"
                     ],
                     "optional": [
@@ -7234,10 +7588,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "end"
+                    "key_code": "page_down"
                   }
                 ],
-                "description": "from left_shift+right_shift+p to end",
+                "description": "from right_shift+p to page_down",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -8085,336 +8439,6 @@
                         "vendor_id": 48875,
                         "product_id": 1
                       }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Civ V layer: Thumbs cluster",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "right_command"
-                },
-                "to": [
-                  {
-                    "key_code": "right_command",
-                    "lazy": true
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "return_or_enter",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "description": "right_command to right_command, send left_shift+return_or_enter on tap",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Civ V layer: Custom QWERTY",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "q",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "delete_or_backspace"
-                  }
-                ],
-                "description": "from +q to delete_or_backspace",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "w",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "home"
-                  }
-                ],
-                "description": "from +w to home",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "r",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "end"
-                  }
-                ],
-                "description": "from +r to end",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "t",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "u"
-                  }
-                ],
-                "description": "from +t to u",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "s",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "comma"
-                  }
-                ],
-                "description": "from +s to comma",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "f3"
-                  }
-                ],
-                "description": "from +d to f3",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "f",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "period"
-                  }
-                ],
-                "description": "from +f to period",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "g",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "m"
-                  }
-                ],
-                "description": "from +g to m",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "z",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "f"
-                  }
-                ],
-                "description": "from +z to f",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "x",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "h"
-                  }
-                ],
-                "description": "from +x to h",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "c",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "s"
-                  }
-                ],
-                "description": "from +c to s",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "v",
-                  "modifiers": {
-                    "mandatory": [],
-                    "optional": []
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "a",
-                    "modifiers": [
-                      "control"
-                    ]
-                  }
-                ],
-                "description": "from +v to control+a",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_if",
-                    "bundle_identifiers": [
-                      "^com.aspyr.civ5xp.steam$"
                     ]
                   }
                 ]

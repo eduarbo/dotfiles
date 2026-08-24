@@ -10,6 +10,7 @@
             "key_code": "q",
             "modifiers": {
               "mandatory": [
+                "left_shift",
                 "right_shift"
               ],
               "optional": [
@@ -22,10 +23,10 @@
           },
           "to": [
             {
-              "key_code": "page_up"
+              "key_code": "home"
             }
           ],
-          "description": "from right_shift+q to page_up",
+          "description": "from left_shift+right_shift+q to home",
           "conditions": [
             {
               "type": "device_unless",
@@ -54,7 +55,6 @@
             "key_code": "q",
             "modifiers": {
               "mandatory": [
-                "left_shift",
                 "right_shift"
               ],
               "optional": [
@@ -67,10 +67,10 @@
           },
           "to": [
             {
-              "key_code": "home"
+              "key_code": "page_up"
             }
           ],
-          "description": "from left_shift+right_shift+q to home",
+          "description": "from right_shift+q to page_up",
           "conditions": [
             {
               "type": "device_unless",
@@ -899,6 +899,7 @@
             "key_code": "p",
             "modifiers": {
               "mandatory": [
+                "left_shift",
                 "right_shift"
               ],
               "optional": [
@@ -911,10 +912,10 @@
           },
           "to": [
             {
-              "key_code": "page_down"
+              "key_code": "end"
             }
           ],
-          "description": "from right_shift+p to page_down",
+          "description": "from left_shift+right_shift+p to end",
           "conditions": [
             {
               "type": "device_unless",
@@ -943,7 +944,6 @@
             "key_code": "p",
             "modifiers": {
               "mandatory": [
-                "left_shift",
                 "right_shift"
               ],
               "optional": [
@@ -956,10 +956,10 @@
           },
           "to": [
             {
-              "key_code": "end"
+              "key_code": "page_down"
             }
           ],
-          "description": "from left_shift+right_shift+p to end",
+          "description": "from right_shift+p to page_down",
           "conditions": [
             {
               "type": "device_unless",

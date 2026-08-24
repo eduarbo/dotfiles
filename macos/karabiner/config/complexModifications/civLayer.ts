@@ -3,6 +3,8 @@ import type { ComplexModifications, ManipulatorOptions, FromKeyCodeTuple, ToKeyC
 
 const LAYER = 'Civ V';
 
+// Intentionally applies to both the built-in keyboard and external keyboards.
+// This app-specific layer supplies the Civ layout independently of QMK.
 const manipulatorOptions: ManipulatorOptions = {
   conditions: [
     {

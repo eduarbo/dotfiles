@@ -34,8 +34,9 @@ const rules = [
   {
     description: `${LAYER} layer: Left hand - Numpad`,
     manipulators: [
-      keybind('q', [['page_up']]),
+      // Specific two-shift bindings must precede the generic right-shift bindings.
       keybind('q', [['home']], { shifted: true }),
+      keybind('q', [['page_up']]),
       keybind('w', [['7']]),
       keybind('e', [['8']]),
       keybind('r', [['9']]),
@@ -61,8 +62,8 @@ const rules = [
       keybind('u', [['open_bracket']]),
       keybind('i', [['close_bracket']]),
       keybind('o', [['slash']]),
-      keybind('p', [['page_down']]),
       keybind('p', [['end']], { shifted: true }),
+      keybind('p', [['page_down']]),
 
       keybind('h', [['left_arrow']]),
       keybind('j', [['down_arrow']]),

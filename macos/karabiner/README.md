@@ -54,6 +54,8 @@ This layout is designed to match the QMK layout of my main keyboard, a 36-key Pi
 
 Standard QWERTY layout, with the delete key replacing the slash key. Modifiers are set as mod-tap (acting as a modifier when held and a regular keycode when tapped). Central modifiers are treated as one, allowing the layout to be replicated on a MacBook keyboard by using the space key in place of the central modifiers.
 
+On the built-in keyboard, Caps Lock is an additional left Shift and `'` is an additional right Shift. Caps Lock and `'` remain available as `SYMBOLS+Z` and `SYMBOLS+M`.
+
 ```text
 ╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
 │ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │
@@ -154,21 +156,25 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 
 ### F-Keys
 
-<!-- TODO Function keys on the left, Media keys on the right -->
+Function keys are on the left; media, brightness, and system controls remain on the right.
 
 ```text
 ╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│F12│F7 │F8 │F9 │PRT│       │F12│F7 │F8 │F9 │PRT│
+│F12│F7 │F8 │F9 │PRT│       │V+ │RW │PLY│FF │PRT│
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│F11│F4 │F5 │F6 │LCK│       │F11│F4 │F5 │F6 │LCK│
+│F11│F4 │F5 │F6 │LCK│       │V- │V- │MUT│V+ │LCK│
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│F10│F1 │F2 │F3 │PAU│       │F10│F1 │F2 │F3 │PAU│
+│F10│F1 │F2 │F3 │PAU│       │MUT│B- │B+ │MIS│PAU│
 ╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
            │▐█▌│ ⇧ │   │ │   │ ⇧ │▐█▌│
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
 
+`V±` changes volume, `RW`/`FF` seek, `PLY` controls playback, `MUT` toggles mute, `B±` changes brightness, and `MIS` opens Mission Control.
+
 ### Civ V
+
+This application-specific layer is evaluated before the global base layer and intentionally applies to both the built-in keyboard and external keyboards. The general `gamingLayer` remains defined but inactive.
 
 - ⌃A: Attack
 - B: Ranged attack

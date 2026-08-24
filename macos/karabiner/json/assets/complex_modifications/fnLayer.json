@@ -2,7 +2,7 @@
   "title": "FN layer",
   "rules": [
     {
-      "description": "FN layer: Left hand - Media and Brightness",
+      "description": "FN layer: Left hand - Function keys",
       "manipulators": [
         {
           "type": "basic",
@@ -20,11 +20,11 @@
           },
           "to": [
             {
-              "key_code": "volume_increment",
+              "key_code": "f12",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+q to volume_increment",
+          "description": "from left_command+left_control+left_option+right_control+q to f12",
           "conditions": [
             {
               "type": "device_unless",
@@ -63,11 +63,11 @@
           },
           "to": [
             {
-              "key_code": "rewind",
+              "key_code": "f7",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+w to rewind",
+          "description": "from left_command+left_control+left_option+right_control+w to f7",
           "conditions": [
             {
               "type": "device_unless",
@@ -106,11 +106,11 @@
           },
           "to": [
             {
-              "key_code": "play_or_pause",
+              "key_code": "f8",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+e to play_or_pause",
+          "description": "from left_command+left_control+left_option+right_control+e to f8",
           "conditions": [
             {
               "type": "device_unless",
@@ -149,11 +149,11 @@
           },
           "to": [
             {
-              "key_code": "fastforward",
+              "key_code": "f9",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+r to fastforward",
+          "description": "from left_command+left_control+left_option+right_control+r to f9",
           "conditions": [
             {
               "type": "device_unless",
@@ -235,11 +235,11 @@
           },
           "to": [
             {
-              "key_code": "volume_decrement",
+              "key_code": "f11",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+a to volume_decrement",
+          "description": "from left_command+left_control+left_option+right_control+a to f11",
           "conditions": [
             {
               "type": "device_unless",
@@ -278,11 +278,11 @@
           },
           "to": [
             {
-              "key_code": "volume_decrement",
+              "key_code": "f4",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+s to volume_decrement",
+          "description": "from left_command+left_control+left_option+right_control+s to f4",
           "conditions": [
             {
               "type": "device_unless",
@@ -321,11 +321,11 @@
           },
           "to": [
             {
-              "key_code": "mute",
+              "key_code": "f5",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+d to mute",
+          "description": "from left_command+left_control+left_option+right_control+d to f5",
           "conditions": [
             {
               "type": "device_unless",
@@ -364,11 +364,11 @@
           },
           "to": [
             {
-              "key_code": "volume_increment",
+              "key_code": "f6",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+f to volume_increment",
+          "description": "from left_command+left_control+left_option+right_control+f to f6",
           "conditions": [
             {
               "type": "device_unless",
@@ -450,11 +450,11 @@
           },
           "to": [
             {
-              "key_code": "mute",
+              "key_code": "f10",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+z to mute",
+          "description": "from left_command+left_control+left_option+right_control+z to f10",
           "conditions": [
             {
               "type": "device_unless",
@@ -493,11 +493,11 @@
           },
           "to": [
             {
-              "key_code": "display_brightness_decrement",
+              "key_code": "f1",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+x to display_brightness_decrement",
+          "description": "from left_command+left_control+left_option+right_control+x to f1",
           "conditions": [
             {
               "type": "device_unless",
@@ -536,11 +536,11 @@
           },
           "to": [
             {
-              "key_code": "display_brightness_increment",
+              "key_code": "f2",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+c to display_brightness_increment",
+          "description": "from left_command+left_control+left_option+right_control+c to f2",
           "conditions": [
             {
               "type": "device_unless",
@@ -579,11 +579,11 @@
           },
           "to": [
             {
-              "key_code": "mission_control",
+              "key_code": "f3",
               "lazy": true
             }
           ],
-          "description": "from left_command+left_control+left_option+right_control+v to mission_control",
+          "description": "from left_command+left_control+left_option+right_control+v to f3",
           "conditions": [
             {
               "type": "device_unless",

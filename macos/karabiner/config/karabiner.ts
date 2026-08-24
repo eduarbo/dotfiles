@@ -11,12 +11,13 @@ import {
 
 // Order matters: first match wins. More specific bindings go first.
 const defaultProfile = [
+  // App-specific rules must precede the global base-layer mod-taps.
+  civLayer,
   emacsKeybindings,
   superLayer,
   fnLayer,
   symbolsLayer,
   baseLayer,
-  civLayer,
 ];
 
 const profiles = [

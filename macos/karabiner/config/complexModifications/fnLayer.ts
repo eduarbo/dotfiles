@@ -30,24 +30,24 @@ const keybind = (
 
 const rules = [
   {
-    description: `${LAYER} layer: Left hand - Media and Brightness`,
+    description: `${LAYER} layer: Left hand - Function keys`,
     manipulators: [
-      keybind('q', [['volume_increment']]),
-      keybind('w', [['rewind']]),
-      keybind('e', [['play_or_pause']]),
-      keybind('r', [['fastforward']]),
+      keybind('q', [['f12']]),
+      keybind('w', [['f7']]),
+      keybind('e', [['f8']]),
+      keybind('r', [['f9']]),
       keybind('t', [['print_screen']]),
 
-      keybind('a', [['volume_decrement']]),
-      keybind('s', [['volume_decrement']]),
-      keybind('d', [['mute']]),
-      keybind('f', [['volume_increment']]),
+      keybind('a', [['f11']]),
+      keybind('s', [['f4']]),
+      keybind('d', [['f5']]),
+      keybind('f', [['f6']]),
       keybind('g', [['locking_scroll_lock']]),
 
-      keybind('z', [['mute']]),
-      keybind('x', [['display_brightness_decrement']]),
-      keybind('c', [['display_brightness_increment']]),
-      keybind('v', [['mission_control']]),
+      keybind('z', [['f10']]),
+      keybind('x', [['f1']]),
+      keybind('c', [['f2']]),
+      keybind('v', [['f3']]),
       keybind('b', [['pause']]),
     ],
   },
