@@ -3818,6 +3818,84 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "type": "device_unless",
                   },
                 ],
+                "description": "from caps_lock to left_shift",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                ],
+                "description": "from quote to right_shift",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "right_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                ],
                 "description": "from slash to delete_or_backspace",
                 "from": {
                   "key_code": "slash",
@@ -7997,6 +8075,84 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
           {
             "description": "BASE layer: Custom QWERTY",
             "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                ],
+                "description": "from caps_lock to left_shift",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                ],
+                "description": "from quote to right_shift",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "right_shift",
+                    "modifiers": undefined,
+                  },
+                ],
+                "type": "basic",
+              },
               {
                 "conditions": [
                   {

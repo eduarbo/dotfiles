@@ -764,7 +764,7 @@
             ]
           },
           {
-            "description": "FN layer: Left hand - Sticky Mods and Window/App Nav",
+            "description": "FN layer: Left hand - Media and Brightness",
             "manipulators": [
               {
                 "type": "basic",
@@ -1414,7 +1414,7 @@
             ]
           },
           {
-            "description": "FN layer: Right hand - Sticky Mods, Raycast features, and page nav",
+            "description": "FN layer: Right hand - Media and Brightness",
             "manipulators": [
               {
                 "type": "basic",
@@ -3721,6 +3721,82 @@
           {
             "description": "BASE layer: Custom QWERTY",
             "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "description": "from caps_lock to left_shift",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_shift"
+                  }
+                ],
+                "description": "from quote to right_shift",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  }
+                ]
+              },
               {
                 "type": "basic",
                 "from": {
@@ -4904,7 +4980,7 @@
             ]
           },
           {
-            "description": "FN layer: Left hand - Sticky Mods and Window/App Nav",
+            "description": "FN layer: Left hand - Media and Brightness",
             "manipulators": [
               {
                 "type": "basic",
@@ -5554,7 +5630,7 @@
             ]
           },
           {
-            "description": "FN layer: Right hand - Sticky Mods, Raycast features, and page nav",
+            "description": "FN layer: Right hand - Media and Brightness",
             "manipulators": [
               {
                 "type": "basic",
@@ -7861,6 +7937,82 @@
           {
             "description": "BASE layer: Custom QWERTY",
             "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "description": "from caps_lock to left_shift",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_shift"
+                  }
+                ],
+                "description": "from quote to right_shift",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  }
+                ]
+              },
               {
                 "type": "basic",
                 "from": {

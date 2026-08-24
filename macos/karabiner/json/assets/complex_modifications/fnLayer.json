@@ -2,7 +2,7 @@
   "title": "FN layer",
   "rules": [
     {
-      "description": "FN layer: Left hand - Sticky Mods and Window/App Nav",
+      "description": "FN layer: Left hand - Media and Brightness",
       "manipulators": [
         {
           "type": "basic",
@@ -652,7 +652,7 @@
       ]
     },
     {
-      "description": "FN layer: Right hand - Sticky Mods, Raycast features, and page nav",
+      "description": "FN layer: Right hand - Media and Brightness",
       "manipulators": [
         {
           "type": "basic",

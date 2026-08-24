@@ -3,7 +3,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.resolve(__dirname, '..');
+// This script runs from dist/scripts after TypeScript compilation.
+const projectRoot = path.resolve(__dirname, '../..');
 
 async function writeJSON(filePath: string, data: unknown): Promise<void> {
   const json = JSON.stringify(data, null, 2);
@@ -19,7 +20,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const outputPath = path.resolve(rootDir, outputDir);
+  const outputPath = path.resolve(projectRoot, outputDir);
 
   const { karabiner, complexModifications } = await import(
     '../config/karabiner.js'

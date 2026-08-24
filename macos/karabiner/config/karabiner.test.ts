@@ -79,6 +79,40 @@ describe('complexModifications exports', () => {
       }
     }
   });
+
+  it('maps Caps Lock and quote to Shift while preserving their SYMBOLS outputs', () => {
+    const customQwerty = complexModifications.baseLayer.rules.find(
+      (rule) => rule.description === 'BASE layer: Custom QWERTY',
+    );
+    const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
+      (rule) => rule.manipulators,
+    );
+
+    expect(customQwerty?.manipulators).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          from: expect.objectContaining({ key_code: 'caps_lock' }),
+          to: [{ key_code: 'left_shift' }],
+        }),
+        expect.objectContaining({
+          from: expect.objectContaining({ key_code: 'quote' }),
+          to: [{ key_code: 'right_shift' }],
+        }),
+      ]),
+    );
+    expect(symbolsManipulators).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          from: expect.objectContaining({ key_code: 'z' }),
+          to: [{ key_code: 'caps_lock' }],
+        }),
+        expect.objectContaining({
+          from: expect.objectContaining({ key_code: 'm' }),
+          to: [{ key_code: 'quote' }],
+        }),
+      ]),
+    );
+  });
 });
 
 describe('generated JSON structure', () => {

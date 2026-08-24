@@ -54,6 +54,14 @@ const rules = [
   {
     description: `${LAYER} layer: Custom QWERTY`,
     manipulators: [
+      // Caps Lock -> L Shift (Caps Lock remains available on SYMBOLS+Z)
+      remap(['caps_lock', null, ['any']], [['left_shift']], {
+        manipulatorOptions,
+      }),
+      // ' -> R Shift (' remains available on SYMBOLS+M)
+      remap(['quote', null, ['any']], [['right_shift']], {
+        manipulatorOptions,
+      }),
       // / -> DEL
       remap(['slash', null, ['any']], [['delete_or_backspace']], {
         manipulatorOptions,
