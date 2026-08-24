@@ -4207,6 +4207,55 @@
                 },
                 "to": [
                   {
+                    "key_code": "right_control",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f16"
+                  }
+                ],
+                "description": "spacebar to right_control, send f16 on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "super_layer_active",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
                     "key_code": "right_command",
                     "lazy": true
                   }
@@ -8707,6 +8756,55 @@
                         "product_id": 1
                       }
                     ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_control",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f16"
+                  }
+                ],
+                "description": "spacebar to right_control, send f16 on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "super_layer_active",
+                    "value": 1
                   }
                 ]
               },

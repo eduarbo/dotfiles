@@ -30,6 +30,21 @@ const rules = [
         },
       }),
 
+      // While SUPER is active, Space mirrors R Option to make the FN layer easier to reach.
+      modTap(['spacebar', null, ['any']], [['right_control']], [['f16']], {
+        manipulatorOptions: {
+          conditions: [
+            ...ignoreKeebs,
+            {
+              type: 'variable_if',
+              name: SUPER_LAYER_VARIABLE,
+              value: 1,
+            },
+          ],
+        },
+        toOptions,
+      }),
+
       // Spacebar -> R Command on hold, Enter on tap
       modTap(['spacebar', null, ['any']], [['right_command']], [['return_or_enter']], {
         manipulatorOptions,

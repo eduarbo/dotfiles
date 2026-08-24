@@ -4299,6 +4299,57 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     ],
                     "type": "device_unless",
                   },
+                  {
+                    "name": "super_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "spacebar to right_control, send f16 on tap",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "right_control",
+                    "lazy": true,
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f16",
+                    "modifiers": undefined,
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
                 ],
                 "description": "spacebar to right_command, send return_or_enter on tap",
                 "from": {
@@ -8852,6 +8903,57 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 "to_if_alone": [
                   {
                     "key_code": "tab",
+                    "modifiers": undefined,
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "super_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "spacebar to right_control, send f16 on tap",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "any",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "right_control",
+                    "lazy": true,
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f16",
                     "modifiers": undefined,
                   },
                 ],

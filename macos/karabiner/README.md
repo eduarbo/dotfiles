@@ -12,7 +12,11 @@ npm run build
 
 ## My layout
 
-This layout is designed to match the QMK layout of my main keyboard, a 36-key Piantor Pro. The two central keys in the thumb cluster represent the spacebar on the MacBook keyboard. My goal is to seamlessly switch between the two keyboards, as I don't always carry my mechanical keyboard with me 😞
+This layout is designed to match the
+[QMK userspace](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md)
+of my main keyboard, a 36-key Piantor Pro. The two central keys in the thumb cluster
+represent the spacebar on the MacBook keyboard. My goal is to seamlessly switch
+between the two keyboards, as I don't always carry my mechanical keyboard with me 😞
 
 ### Why this layout distribuition?
 
@@ -23,7 +27,8 @@ This layout is designed to match the QMK layout of my main keyboard, a 36-key Pi
 - Alt/Option: This modifier is less used in macOS, so I prioritized the Super key in the thumbs cluster.
 - Space: Placed in the most accessible positions, such as the Shift or Symbols keys, which are the most used modifiers when typing.
 - Enter: Positioned on both the left and right sides to facilitate copying, pasting, and pressing Enter while using the mouse. Keeping Enter on the left side prevents the need to move the right hand from the mouse to the keyboard.
-- Sticky mods (CMD, CTRL, ALT): Available when holding the Super key for the rare occasions when I need to combine mods.
+- Layer chords: Symbols and Super can be held together for Hyper; releasing either
+  layer key immediately removes the part it owns, so no modifier remains sticky.
 - Avoid placing Enter on the Shift or Symbols keys to prevent accidental presses while typing.
 
 ### Symbols chart
@@ -94,7 +99,13 @@ add Shift without leaving the Symbols layer. For example, `B` produces `_`, `W` 
 Because Command and Return share the same mod-tap, `SYMBOLS+Shift+Return` sends
 `Command+Return` directly. Holding `SYMBOLS+Left Option` produces Hyper
 (`Control+Option+Command+Shift`) for application-launcher shortcuts, regardless of
-which modifier is pressed first; tapping the combination remains `Shift+Escape`.
+which modifier is pressed first. Releasing either key first immediately removes its
+contribution, so continuing to hold only Left Option behaves as Super, not Hyper.
+Tapping the Symbols-first combination remains `Shift+Escape`.
+
+`SYMBOLS+Z` is the one intentional QMK/Karabiner difference: QMK uses native Caps
+Word, while Karabiner sends Caps Lock. Emulating Caps Word in Karabiner would require
+a global state machine, so this configuration avoids that extra complexity.
 
 | Symbol | Description | Symbol      | Description | Symbol      | Description |
 |--------|-------------|-------------|-------------|-------------|-------------|
@@ -113,10 +124,14 @@ Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackp
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
 │⇧⌘5│⌃↓ │⌘` │⌘⇥ │⌃↑ │       │ ✗ │EMJ│SNP│UAC│ ✗ │
 ╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │▐█▌│   │   │ │ ⌘ │ ⌥ │ ⌃ │ ← on tap (sticky)
-           │▐█▌│   │   │ │ ⊕ │ ≢ │ ƒ │ ← on hold
+           │▐█▌│   │   │ │   │   │   │ ← layer shortcuts above
+           │▐█▌│   │   │ │   │ ≢ │ ƒ │ ← Symbols / FN chords
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
+
+The Super thumb is held, not sticky. `Super+Symbols` produces Hyper in either press
+order. `Super+Space` mirrors the right FN thumb: tap for `F16`, or hold for the FN
+layer. The Space alias intentionally requires Super to be pressed first.
 
 #### Right side
 
@@ -181,6 +196,10 @@ Function keys are on the left; media, brightness, and system controls remain on 
 ```
 
 `V±` changes volume, `RW`/`FF` seek, `PLY` controls playback, `MUT` toggles mute, `B±` changes brightness, and `MIS` opens Mission Control.
+
+On the built-in keyboard, `Left Option+Space` mirrors `Left Option+Right Option` for
+easier access to this layer. Within SUPER, Space is `F16` on tap and Right Control on
+hold; outside SUPER it remains Enter on tap and Right Command on hold.
 
 ### Civ V
 

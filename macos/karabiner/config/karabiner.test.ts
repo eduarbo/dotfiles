@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { karabiner, complexModifications } from './karabiner.js';
-import { GAMES } from '../lib/index.js';
+import { GAMES, type Condition } from '../lib/index.js';
 
 describe('karabiner config', () => {
   it('has global settings', () => {
@@ -93,6 +93,52 @@ describe('complexModifications exports', () => {
         expect(rule.manipulators.length).toBeGreaterThan(0);
       }
     }
+  });
+
+  it('mirrors Right Option on Space while Super is active', () => {
+    const thumbCluster = complexModifications.baseLayer.rules.find(
+      (rule) => rule.description === 'BASE layer: Thumbs cluster',
+    );
+    const manipulators = thumbCluster?.manipulators ?? [];
+    const isSuperCondition = (condition: Condition) =>
+      condition.type === 'variable_if' &&
+      condition.name === 'super_layer_active' &&
+      condition.value === 1;
+    const superSpaceIndex = manipulators.findIndex(
+      (manipulator) =>
+        'key_code' in manipulator.from &&
+        manipulator.from.key_code === 'spacebar' &&
+        manipulator.conditions?.some(isSuperCondition),
+    );
+    const genericSpaceIndex = manipulators.findIndex(
+      (manipulator) =>
+        'key_code' in manipulator.from &&
+        manipulator.from.key_code === 'spacebar' &&
+        !manipulator.conditions?.some(isSuperCondition),
+    );
+    const rightOption = manipulators.find(
+      (manipulator) =>
+        'key_code' in manipulator.from && manipulator.from.key_code === 'right_option',
+    );
+    const superSpace = manipulators[superSpaceIndex];
+
+    expect(superSpaceIndex).toBeGreaterThanOrEqual(0);
+    expect(superSpaceIndex).toBeLessThan(genericSpaceIndex);
+    expect(superSpace).toEqual(
+      expect.objectContaining({
+        to: [{ key_code: 'right_control', lazy: true }],
+        to_if_alone: [{ key_code: 'f16' }],
+        conditions: expect.arrayContaining([
+          {
+            type: 'variable_if',
+            name: 'super_layer_active',
+            value: 1,
+          },
+        ]),
+      }),
+    );
+    expect(superSpace?.to).toEqual(rightOption?.to);
+    expect(superSpace?.to_if_alone).toEqual(rightOption?.to_if_alone);
   });
 
   it('maps Caps Lock and quote to Shift while preserving their SYMBOLS outputs', () => {
