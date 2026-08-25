@@ -86,8 +86,8 @@ Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retain
 ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
 │⇧´ │ 1 │ 2 │ 3 │ - │       │ ` │ ' │ , │ . │ ⌫ │
 ╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │⇧+⎋│⇧+␣│⇧+⏎│ │   │▐█▌│   │ ← on tap
-           │ ≢ │   │   │ │   │▐█▌│   │ ← on hold
+           │⇧+⎋│⇧+⏎│⇧+⏎│ │   │▐█▌│   │ ← on tap
+           │ ≢ │ ⌘ │   │ │   │▐█▌│   │ ← on hold
            ╰───┴───┴───╯ ╰───┴───┴───╯
 ```
 
@@ -102,6 +102,11 @@ Because Command and Return share the same mod-tap, `SYMBOLS+Shift+Return` sends
 which modifier is pressed first. Releasing either key first immediately removes its
 contribution, so continuing to hold only Left Option behaves as Super, not Hyper.
 Tapping the Symbols-first combination remains `Shift+Escape`.
+
+On the built-in keyboard, tapping Space while Symbols is active sends
+`Shift+Return`. Holding it provides lazy Right Command, which Karabiner releases
+with the physical key so no modifier remains stuck. The Shift-specific Space
+binding stays first and continues to send `Command+Return`.
 
 `SYMBOLS+Z` is the one intentional QMK/Karabiner difference: QMK uses native Caps
 Word, while Karabiner sends Caps Lock. Emulating Caps Word in Karabiner would require
