@@ -62,7 +62,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         -- i = "", -- already bound to Gemini in Raycast
         j = "Codex",
         k = "kitty",
-        l = "Munder Difflin",
+        -- l = "",
         m = "Mail",
         n = "Craft",
         -- o = "",
