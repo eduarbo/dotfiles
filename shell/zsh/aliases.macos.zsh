@@ -29,6 +29,7 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 alias cleanup='find . -type f -name "*.DS_Store" -ls -delete'
 
 alias unfuckcamera='sudo killall VDCAssistant'
+alias unfuckaudio='sudo killall coreaudiod'
 
 # OS X has no `md5sum`, so use `md5` as a fallback
 _is_callable md5sum  || alias md5sum='md5'
