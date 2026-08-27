@@ -2541,7 +2541,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "value": 1,
                   },
                 ],
-                "description": "left_command to left_shift, send spacebar on tap",
+                "description": "left_command to left_shift, send right_shift+spacebar on tap",
                 "from": {
                   "key_code": "left_command",
                   "modifiers": {
@@ -2556,13 +2556,16 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 "to": [
                   {
                     "key_code": "left_shift",
+                    "lazy": true,
                     "modifiers": undefined,
                   },
                 ],
                 "to_if_alone": [
                   {
                     "key_code": "spacebar",
-                    "modifiers": undefined,
+                    "modifiers": [
+                      "right_shift",
+                    ],
                   },
                 ],
                 "type": "basic",
@@ -2645,7 +2648,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "value": 1,
                   },
                 ],
-                "description": "spacebar to right_command, send return_or_enter on tap",
+                "description": "spacebar to right_command, send left_command+return_or_enter on tap",
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
@@ -2660,13 +2663,16 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 "to": [
                   {
                     "key_code": "right_command",
+                    "lazy": true,
                     "modifiers": undefined,
                   },
                 ],
                 "to_if_alone": [
                   {
                     "key_code": "return_or_enter",
-                    "modifiers": undefined,
+                    "modifiers": [
+                      "left_command",
+                    ],
                   },
                 ],
                 "type": "basic",
@@ -7277,7 +7283,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "value": 1,
                   },
                 ],
-                "description": "left_command to left_shift, send spacebar on tap",
+                "description": "left_command to left_shift, send right_shift+spacebar on tap",
                 "from": {
                   "key_code": "left_command",
                   "modifiers": {
@@ -7292,13 +7298,16 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 "to": [
                   {
                     "key_code": "left_shift",
+                    "lazy": true,
                     "modifiers": undefined,
                   },
                 ],
                 "to_if_alone": [
                   {
                     "key_code": "spacebar",
-                    "modifiers": undefined,
+                    "modifiers": [
+                      "right_shift",
+                    ],
                   },
                 ],
                 "type": "basic",
@@ -7381,7 +7390,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "value": 1,
                   },
                 ],
-                "description": "spacebar to right_command, send return_or_enter on tap",
+                "description": "spacebar to right_command, send left_command+return_or_enter on tap",
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
@@ -7396,13 +7405,16 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                 "to": [
                   {
                     "key_code": "right_command",
+                    "lazy": true,
                     "modifiers": undefined,
                   },
                 ],
                 "to_if_alone": [
                   {
                     "key_code": "return_or_enter",
-                    "modifiers": undefined,
+                    "modifiers": [
+                      "left_command",
+                    ],
                   },
                 ],
                 "type": "basic",

@@ -43,21 +43,21 @@ const rules = [
   {
     description: `${LAYER} layer: Thumbs cluster`,
     manipulators: [
-      // Keep Shift physically down so the tap is emitted as Shift+Space.
+      // Keep Left Shift lazy on hold; use the opposite Shift side for the tap chord.
       modTap(
         ['left_command', null, optionalMods],
         [['left_shift']],
-        [['spacebar']],
-        { manipulatorOptions },
+        [['spacebar', ['right_shift']]],
+        { manipulatorOptions, toOptions: { lazy: true } },
       ),
       // Command and Return share a mod-tap key, so expose their chord through SYMBOLS+Shift.
       keybind('spacebar', [['return_or_enter', ['left_command']]], { shifted: true }),
-      // Keep Command physically down so the tap is emitted as Command+Return.
+      // Keep Right Command lazy on hold; use Left Command for the tap chord.
       modTap(
         ['spacebar', null, optionalMods],
         [['right_command']],
-        [['return_or_enter']],
-        { manipulatorOptions },
+        [['return_or_enter', ['left_command']]],
+        { manipulatorOptions, toOptions: { lazy: true } },
       ),
       // Preserve the launcher chord that previously inherited Shift from SYMBOLS.
       modTap(
