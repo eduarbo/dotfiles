@@ -2541,6 +2541,62 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "value": 1,
                   },
                 ],
+                "description": "left_command to left_shift, send shift+spacebar on tap",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "lazy": true,
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
                 "description": "from shift+spacebar to command+return_or_enter",
                 "from": {
                   "key_code": "spacebar",
@@ -2556,6 +2612,62 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                   },
                 },
                 "to": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "command",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "spacebar to right_command, send command+return_or_enter on tap",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "lazy": true,
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
                   {
                     "key_code": "return_or_enter",
                     "modifiers": [
@@ -7171,6 +7283,62 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "value": 1,
                   },
                 ],
+                "description": "left_command to left_shift, send shift+spacebar on tap",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "lazy": true,
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
                 "description": "from shift+spacebar to command+return_or_enter",
                 "from": {
                   "key_code": "spacebar",
@@ -7186,6 +7354,62 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                   },
                 },
                 "to": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "command",
+                    ],
+                  },
+                ],
+                "type": "basic",
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 1,
+                        "vendor_id": 48875,
+                      },
+                    ],
+                    "type": "device_unless",
+                  },
+                  {
+                    "name": "symbols_layer_active",
+                    "type": "variable_if",
+                    "value": 1,
+                  },
+                ],
+                "description": "spacebar to right_command, send command+return_or_enter on tap",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock",
+                    ],
+                  },
+                },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "lazy": true,
+                    "modifiers": undefined,
+                  },
+                ],
+                "to_if_alone": [
                   {
                     "key_code": "return_or_enter",
                     "modifiers": [

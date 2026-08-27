@@ -2469,6 +2469,61 @@
               {
                 "type": "basic",
                 "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "left_command to left_shift, send shift+spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "symbols_layer_active",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
                   "key_code": "spacebar",
                   "modifiers": {
                     "mandatory": [
@@ -2490,6 +2545,61 @@
                   }
                 ],
                 "description": "from shift+spacebar to command+return_or_enter",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "symbols_layer_active",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "command"
+                    ]
+                  }
+                ],
+                "description": "spacebar to right_command, send command+return_or_enter on tap",
                 "conditions": [
                   {
                     "type": "device_unless",
@@ -7033,6 +7143,61 @@
               {
                 "type": "basic",
                 "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "description": "left_command to left_shift, send shift+spacebar on tap",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "symbols_layer_active",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
                   "key_code": "spacebar",
                   "modifiers": {
                     "mandatory": [
@@ -7054,6 +7219,61 @@
                   }
                 ],
                 "description": "from shift+spacebar to command+return_or_enter",
+                "conditions": [
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "vendor_id": 18003
+                      }
+                    ]
+                  },
+                  {
+                    "type": "device_unless",
+                    "identifiers": [
+                      {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "vendor_id": 48875,
+                        "product_id": 1
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "symbols_layer_active",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": [
+                      "shift",
+                      "right_command",
+                      "right_control",
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_command",
+                    "lazy": true
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "command"
+                    ]
+                  }
+                ],
+                "description": "spacebar to right_command, send command+return_or_enter on tap",
                 "conditions": [
                   {
                     "type": "device_unless",
