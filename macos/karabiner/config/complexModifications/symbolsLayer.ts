@@ -45,13 +45,6 @@ const rules = [
     manipulators: [
       // Command and Return share a mod-tap key, so expose their chord through SYMBOLS+Shift.
       keybind('spacebar', [['return_or_enter', ['command']]], { shifted: true }),
-      // Mirror the physical Space mod-tap: Return on tap, Command while held.
-      modTap(
-        ['spacebar', null, optionalMods],
-        [['right_command']],
-        [['return_or_enter', ['shift']]],
-        { manipulatorOptions, toOptions: { lazy: true } },
-      ),
       // Preserve the launcher chord that previously inherited Shift from SYMBOLS.
       modTap(
         ['left_option', null, optionalMods],

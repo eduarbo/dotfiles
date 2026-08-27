@@ -282,40 +282,6 @@ describe('complexModifications exports', () => {
     );
   });
 
-  it('maps a Symbols Space tap to Shift+Return and holds Right Command lazily', () => {
-    const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
-      (rule) => rule.manipulators,
-    );
-    const spaceBindings = symbolsManipulators.filter(
-      (manipulator) =>
-        'key_code' in manipulator.from && manipulator.from.key_code === 'spacebar',
-    );
-    const shiftedSpaceIndex = spaceBindings.findIndex((manipulator) =>
-      manipulator.from.modifiers?.mandatory?.includes('shift'),
-    );
-    const symbolsSpaceIndex = spaceBindings.findIndex(
-      (manipulator) => !manipulator.from.modifiers?.mandatory?.includes('shift'),
-    );
-    const symbolsSpace = spaceBindings[symbolsSpaceIndex];
-
-    expect(shiftedSpaceIndex).toBeGreaterThanOrEqual(0);
-    expect(symbolsSpaceIndex).toBeGreaterThan(shiftedSpaceIndex);
-    expect(symbolsSpace).toEqual(
-      expect.objectContaining({
-        to: [{ key_code: 'right_command', lazy: true }],
-        to_if_alone: [{ key_code: 'return_or_enter', modifiers: ['shift'] }],
-        conditions: expect.arrayContaining([
-          {
-            type: 'variable_if',
-            name: 'symbols_layer_active',
-            value: 1,
-          },
-        ]),
-      }),
-    );
-    expect(symbolsSpace).not.toHaveProperty('to_after_key_up');
-  });
-
   it('preserves Symbols+Left Option as the Shift+Escape launcher chord', () => {
     const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
       (rule) => rule.manipulators,
