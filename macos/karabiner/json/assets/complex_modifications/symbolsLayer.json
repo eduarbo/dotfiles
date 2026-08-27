@@ -19,19 +19,15 @@
           },
           "to": [
             {
-              "key_code": "left_shift",
-              "lazy": true
+              "key_code": "left_shift"
             }
           ],
           "to_if_alone": [
             {
-              "key_code": "spacebar",
-              "modifiers": [
-                "shift"
-              ]
+              "key_code": "spacebar"
             }
           ],
-          "description": "left_command to left_shift, send shift+spacebar on tap",
+          "description": "left_command to left_shift, send spacebar on tap",
           "conditions": [
             {
               "type": "device_unless",
@@ -78,11 +74,11 @@
             {
               "key_code": "return_or_enter",
               "modifiers": [
-                "command"
+                "left_command"
               ]
             }
           ],
-          "description": "from shift+spacebar to command+return_or_enter",
+          "description": "from shift+spacebar to left_command+return_or_enter",
           "conditions": [
             {
               "type": "device_unless",
@@ -125,19 +121,15 @@
           },
           "to": [
             {
-              "key_code": "right_command",
-              "lazy": true
+              "key_code": "right_command"
             }
           ],
           "to_if_alone": [
             {
-              "key_code": "return_or_enter",
-              "modifiers": [
-                "command"
-              ]
+              "key_code": "return_or_enter"
             }
           ],
-          "description": "spacebar to right_command, send command+return_or_enter on tap",
+          "description": "spacebar to right_command, send return_or_enter on tap",
           "conditions": [
             {
               "type": "device_unless",

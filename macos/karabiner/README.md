@@ -104,7 +104,7 @@ contribution, so continuing to hold only Left Option behaves as Super, not Hyper
 Tapping the Symbols-first combination remains `Shift+Escape`.
 
 On the built-in keyboard, tapping Space while Symbols is active sends
-`Command+Return`; holding it remains lazy Right Command. The Shift-specific
+`Command+Return`; holding it remains Right Command. The Shift-specific
 binding stays first so Shift is not included in the emitted chord.
 
 `SYMBOLS+Z` is the one intentional QMK/Karabiner difference: QMK uses native Caps

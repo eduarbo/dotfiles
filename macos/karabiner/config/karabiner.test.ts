@@ -257,7 +257,7 @@ describe('complexModifications exports', () => {
     expect(JSON.stringify(symbolsManipulators)).not.toContain('symbols_pinky_shift_active');
   });
 
-  it('maps Symbols+Shift+Return to Command+Return', () => {
+  it('maps Symbols+Shift+Return to Left Command+Return', () => {
     const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
       (rule) => rule.manipulators,
     );
@@ -270,7 +270,7 @@ describe('complexModifications exports', () => {
 
     expect(commandReturn).toEqual(
       expect.objectContaining({
-        to: [{ key_code: 'return_or_enter', modifiers: ['command'] }],
+        to: [{ key_code: 'return_or_enter', modifiers: ['left_command'] }],
         conditions: expect.arrayContaining([
           {
             type: 'variable_if',
@@ -282,7 +282,7 @@ describe('complexModifications exports', () => {
     );
   });
 
-  it('maps a Symbols Left Command tap to Shift+Space and holds Left Shift lazily', () => {
+  it('maps a Symbols Left Command tap to Shift+Space through a non-lazy Left Shift', () => {
     const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
       (rule) => rule.manipulators,
     );
@@ -293,8 +293,8 @@ describe('complexModifications exports', () => {
 
     expect(leftCommand).toEqual(
       expect.objectContaining({
-        to: [{ key_code: 'left_shift', lazy: true }],
-        to_if_alone: [{ key_code: 'spacebar', modifiers: ['shift'] }],
+        to: [{ key_code: 'left_shift', modifiers: undefined }],
+        to_if_alone: [{ key_code: 'spacebar', modifiers: undefined }],
         conditions: expect.arrayContaining([
           {
             type: 'variable_if',
@@ -304,9 +304,10 @@ describe('complexModifications exports', () => {
         ]),
       }),
     );
+    expect(leftCommand?.to?.[0]).not.toHaveProperty('lazy');
   });
 
-  it('maps a Symbols Space tap to Command+Return and holds Right Command lazily', () => {
+  it('maps a Symbols Space tap to Command+Return through a non-lazy Right Command', () => {
     const symbolsManipulators = complexModifications.symbolsLayer.rules.flatMap(
       (rule) => rule.manipulators,
     );
@@ -326,8 +327,8 @@ describe('complexModifications exports', () => {
     expect(symbolsSpaceIndex).toBeGreaterThan(shiftedSpaceIndex);
     expect(symbolsSpace).toEqual(
       expect.objectContaining({
-        to: [{ key_code: 'right_command', lazy: true }],
-        to_if_alone: [{ key_code: 'return_or_enter', modifiers: ['command'] }],
+        to: [{ key_code: 'right_command', modifiers: undefined }],
+        to_if_alone: [{ key_code: 'return_or_enter', modifiers: undefined }],
         conditions: expect.arrayContaining([
           {
             type: 'variable_if',
@@ -337,6 +338,7 @@ describe('complexModifications exports', () => {
         ]),
       }),
     );
+    expect(symbolsSpace?.to?.[0]).not.toHaveProperty('lazy');
   });
 
   it('preserves Symbols+Left Option as the Shift+Escape launcher chord', () => {
