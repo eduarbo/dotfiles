@@ -147,10 +147,11 @@ by external automation tools such as Codex Computer Use.
 
 ### Multiple GitHub accounts
 
-Deploy `shell/git` and `shell/ssh`, run `git account discover`, then run
+Ordinary GitHub SSH uses Bitwarden without a profile. When explicit account
+selection is needed, deploy `shell/git` and `shell/ssh`, then run
 `git account add` once per SSH/Git profile. Profiles may use separate keys for
 the same GitHub login, isolated sessions for future client logins, or no `gh`
-session for SSH-only automation. Each gets a generic SSH alias, conditional
+session for SSH-only automation. Each provides a repository-local SSH selector,
 commit identity, and optional SSH signing key. Sensitive metadata and public
 keys are generated only under `~/.config`; nothing is written into this
 repository. See the
@@ -190,9 +191,14 @@ More details in [Telling Git about your GPG key](https://help.github.com/article
 
 ### git@github.com: Permission denied (publickey)
 
-This is intentional for direct SSH. Configure an account with `git account add`
-and use `git@github-account-N:OWNER/REPO.git`. Run `git account doctor` for a
-local diagnosis and `git account test` for real authentication and clone tests.
+Normal `git clone git@github.com:OWNER/REPO.git` uses the Bitwarden SSH agent;
+no local account profile is required. Run `ssh-agent-check` to check effective
+SSH configuration and socket availability without requesting keys or unlocking
+the vault. Installation and socket presence do not prove repository access.
+
+If several GitHub accounts need different keys, configure an optional profile
+with `git account add`, then use `git account clone account-N OWNER/REPO`.
+See [GitHub SSH profiles](shell/git/README.md) for explicit selection and tests.
 
 
 ## Relevant projects/resources

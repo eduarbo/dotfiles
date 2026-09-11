@@ -1,0 +1,43 @@
+#!/bin/sh
+# Inspect effective SSH configuration only. Never list keys or authenticate.
+set -eu
+
+if [ "${1:-}" = --config ] && [ "$#" -eq 2 ]; then
+  effective=$(ssh -G -F "$2" git@github.com 2>/dev/null) || {
+    printf 'error: cannot resolve GitHub SSH configuration\n' >&2
+    exit 1
+  }
+elif [ "$#" -eq 0 ]; then
+  effective=$(ssh -G git@github.com 2>/dev/null) || {
+    printf 'error: cannot resolve GitHub SSH configuration\n' >&2
+    exit 1
+  }
+else
+  printf 'usage: ssh-agent-check [--config FILE]\n' >&2
+  exit 2
+fi
+
+field() { printf '%s\n' "$effective" | awk -v name="$1" '$1 == name {print $2; exit}'; }
+agent=$(printf '%s\n' "$effective" | sed -n 's/^identityagent //p')
+identities_only=$(field identitiesonly)
+identity_count=$(printf '%s\n' "$effective" | awk '$1 == "identityfile" && $2 != "none" {n++} END {print n+0}')
+
+if [ "$identities_only" = yes ] && [ "$identity_count" -eq 0 ]; then
+  printf 'error: GitHub SSH blocks all agent keys (IdentitiesOnly=yes, IdentityFile=none). Redeploy shell/ssh and check local overrides.\n' >&2
+  exit 1
+fi
+
+# Match OpenSSH's literal variable/tilde notation; never evaluate configuration.
+# shellcheck disable=SC2016,SC2088
+case $agent in
+  none) printf 'error: the SSH agent is disabled for GitHub\n' >&2; exit 1 ;;
+  ''|SSH_AUTH_SOCK|'$SSH_AUTH_SOCK') agent=${SSH_AUTH_SOCK:-} ;;
+  '~/'*) agent="$HOME/${agent#\~/}" ;;
+esac
+if [ -z "$agent" ] || [ ! -S "$agent" ]; then
+  printf 'error: the configured SSH agent socket is unavailable. Open Bitwarden and enable its SSH agent; check the socket path for your installation.\n' >&2
+  exit 1
+fi
+
+printf 'ok: GitHub SSH permits agent authentication; the configured socket exists\n'
+printf 'note: vault state, available keys and repository access are not verified; test with the intended git clone\n'

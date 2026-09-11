@@ -80,9 +80,10 @@ _ensure_bitwarden_app() {
 }
 
 _check_bitwarden_agent() {
+  local checker="$DOTFILES/shell/ssh/bin/ssh-agent-check"
   if [[ -S "$BITWARDEN_AGENT_SOCK" ]]; then
-    echo-ok "Bitwarden SSH agent socket is available at $BITWARDEN_AGENT_SOCK"
-    return 0
+    "$checker"
+    return $?
   fi
 
   case $(_os) in
@@ -101,7 +102,13 @@ _check_bitwarden_agent() {
       ;;
   esac
 
-  return 0
+  return 1
+}
+
+# Readiness is separate from installation: a locked/closed app must not make
+# deploy remove the freshly linked SSH topic or discard existing local settings.
+check() {
+  _check_bitwarden_agent
 }
 
 _local_uses_cloudflared() {
@@ -132,7 +139,7 @@ link() {
 install() {
   _local_uses_cloudflared && _ensure_cloudflared || true
   _ensure_bitwarden_app || return $?
-  _check_bitwarden_agent
+  _check_bitwarden_agent || echo-alert "SSH configuration installed; agent readiness is incomplete. Run ssh-agent-check after resolving the message above."
 }
 
 update() {

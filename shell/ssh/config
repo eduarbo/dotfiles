@@ -6,9 +6,10 @@ Include ~/.orbstack/ssh/config
 Include ~/.config/ssh/local.conf
 
 Host github.com gist.github.com
-    # Direct SSH is fail-closed unless a repository selects exactly one key.
+    # Ordinary clones use Bitwarden; optional repository profiles select one key.
+    # Do not fall back to private identity files on disk.
     IdentityFile none
-    IdentitiesOnly yes
+    IdentitiesOnly no
     StrictHostKeyChecking accept-new
 
 Host *

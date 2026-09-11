@@ -1,10 +1,32 @@
 # GitHub SSH profiles and multi-login
 
+## Ordinary SSH with Bitwarden
+
+After deploying `shell/git` and `shell/ssh`, open Bitwarden and enable its SSH
+agent. Ordinary clones use that agent without any local profile:
+
+```sh
+git clone git@github.com:OWNER/REPO.git
+```
+
+The default `IdentitiesOnly no` allows agent keys; `IdentityFile none` excludes
+fallback private-key files on disk. Bitwarden controls its native authorization
+prompt, which may be remembered according to the app's settings.
+
+`ssh-agent-check` inspects effective configuration and socket presence without
+listing keys, unlocking the vault or contacting GitHub. It rejects the unusable
+combination `IdentitiesOnly yes` plus `IdentityFile none`. Installation reports
+incomplete agent readiness explicitly but preserves installed configuration.
+Neither a successful installation nor this local check proves authentication:
+the intended clone must succeed to verify repository access.
+
+## Optional profiles for multiple accounts
+
 GitHub authenticates an SSH connection by key before it knows which repository
 will be accessed. If an agent exposes several keys, GitHub can accept the first
 recognized key and OpenSSH never reaches the intended one. These dotfiles solve
-that ambiguity by binding exactly one public key to each repository through its
-local Git configuration:
+that ambiguity when needed by binding exactly one public key to a repository
+through its local Git configuration:
 
 ```text
 remote.origin.url = git@github.com:OWNER/REPO.git
@@ -27,7 +49,7 @@ the profile key only for GitHub and passes other SSH hosts through unchanged:
 
 GitHub does not expose an organization-to-key mapping during SSH
 authentication, so it cannot be inferred reliably. Associating a repository
-with a local profile is the one required decision. Remotes remain canonical;
+with a local profile is an explicit decision when isolation is needed. Remotes remain canonical;
 no hostname alias or global URL rewrite attempts to guess the profile.
 
 ## GitHub CLI policies
@@ -50,10 +72,9 @@ prevents accidental API actions as another account.
 in the real global Git configuration. The normal `gh` executable is not wrapped,
 shadowed, or globally switched.
 
-## Bootstrap
+## Optional profile setup
 
-Deploy the Git and SSH topics and inspect the keys currently exposed by the
-agent:
+For explicit account selection, deploy the topics and choose the intended key:
 
 ```sh
 dot shell/git shell/ssh
@@ -61,10 +82,10 @@ git account discover
 git account add
 ```
 
-`discover` makes a real SSH authentication attempt for every agent key and
+`discover` is optional and makes a real SSH authentication attempt for every agent key and
 reports the association returned by GitHub. It displays only a transient index,
-fingerprint, and detected login. It persists nothing and never reads or prints
-key comments.
+fingerprint, and detected login. It may create empty configuration directories,
+but does not persist discovered keys or associations and never prints key comments.
 
 The interactive `add` flow stores a comment-free public key under
 `~/.config/github-accounts/`, asks GitHub which login owns it when possible, and
@@ -176,8 +197,11 @@ repository-local binding. Keep read-only upstream remotes on HTTPS when they do
 not need authentication. Every authenticated SSH remote in one repository uses
 the repository's single selected profile.
 
-Unbound `git@github.com` authentication is intentionally fail-closed. Ordinary
-public HTTPS clones remain HTTPS, and there is no global `insteadOf` conversion.
+Without a profile, `git@github.com` uses the agent's normal key selection. With a
+profile, the wrapper retains `IdentitiesOnly yes` and selects exactly its public
+key. If a clone fails because GitHub accepted another account, choose a profile;
+do not infer an account from an organization or automatically retry every key.
+Ordinary public HTTPS clones remain HTTPS, and there is no global `insteadOf` conversion.
 For an organization protected by SAML SSO, GitHub may additionally require the
 selected key to be authorized for that organization; that association lives on
 GitHub and is never guessed or modified here.
@@ -215,9 +239,12 @@ Local checks make no network request:
 git account doctor
 ```
 
-They validate repository-local SSH selection, agent availability, signing-key
-availability, the `gh` policy and exact session association, fail-closed
-unbound GitHub SSH, canonical remotes, and the absence of global URL rewrites.
+Without profiles, `doctor` checks effective agent configuration, socket presence,
+canonical remotes and the absence of global URL rewrites. It does not create a
+profile directory. For configured profiles it also checks repository-local SSH
+selection, agent/signing-key availability, and the `gh` policy and exact session
+association. Those profile checks can ask the agent for keys; use
+`ssh-agent-check` for a check that cannot request a vault unlock.
 
 The integration test performs real SSH authentication, checks the GitHub API
 when enabled, creates and verifies a temporary signed commit, and makes a real
@@ -246,6 +273,7 @@ policies, login sandboxing, and legacy cleanup are available at:
 
 ```sh
 shell/git/tests/git-account-test
+python3 shell/ssh/tests/ssh-agent-check-test.py
 ```
 
 ## Local-only data
@@ -288,8 +316,9 @@ key upload, key deletion, or key revocation.
 - **`gh` opens the wrong browser account:** cancel the flow rather than approving
   it. For a distinct login, sign into the login recorded for that profile; for
   the same login, use `--share-gh`; for SSH-only automation, use `--no-gh`.
-- **Git reports an unbound SSH remote:** run `git account use account-N` in that
-  repository. Keep read-only upstream remotes on HTTPS when possible.
+- **GitHub SSH blocks all agent keys:** redeploy `shell/ssh` and inspect
+  `~/.config/ssh/local.conf` for a conflicting `IdentitiesOnly yes` with no
+  selected identity. `ssh-agent-check` detects this before authentication.
 - **Signing works locally but GitHub does not show Verified:** register the
   public signing key with key type **Signing** on the same GitHub login. Keys are
   never uploaded automatically.

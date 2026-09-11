@@ -1,6 +1,8 @@
 #!/bin/sh
 set -eu
 
+PROGRAM_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)
+
 CONFIG_HOME=${XDG_CONFIG_HOME:-"$HOME/.config"}
 ACCOUNTS_ROOT=${GITHUB_ACCOUNTS_DIR:-"$CONFIG_HOME/github-accounts"}
 ACCOUNTS_DIR="$ACCOUNTS_ROOT/accounts"
@@ -448,7 +450,6 @@ require_account() {
 }
 
 cmd_list() {
-  ensure_layout
   found=false
   for metadata in "$ACCOUNTS_DIR"/account-*.gitconfig; do
     [ -e "$metadata" ] || continue
@@ -474,7 +475,7 @@ cmd_list() {
       "$account" \
       "$(cfg_get "$metadata" account.sign || printf false)" "$gh_status"
   done
-  [ "$found" = true ] || note "No accounts configured; run: git account add"
+  [ "$found" = true ] || note "No optional profiles configured; ordinary SSH uses the agent"
 }
 
 remote_url() {
@@ -789,7 +790,6 @@ doctor_one() {
 }
 
 cmd_doctor() {
-  ensure_layout
   failures=0
   legacy_warnings || failures=$((failures + 1))
   if [ $# -gt 0 ]; then
@@ -802,13 +802,9 @@ cmd_doctor() {
       account=$(basename "$metadata" .gitconfig)
       doctor_one "$account" || failures=$((failures + $?))
     done
-    [ "$found" = true ] || { warn "no accounts are configured"; failures=$((failures + 1)); }
+    [ "$found" = true ] || note "No optional profiles configured; ordinary SSH uses the agent"
   fi
-  direct_ids=$(ssh -G github.com 2>/dev/null | awk '$1 == "identityfile" && $2 != "none" {n++} END {print n+0}')
-  if [ "$direct_ids" -eq 0 ]; then
-    ok "direct github.com SSH is fail-closed"
-  else
-    warn "direct github.com can still offer an identity"
+  if ! "$PROGRAM_DIR/../../ssh/bin/ssh-agent-check"; then
     failures=$((failures + 1))
   fi
   if [ -e "$LEGACY_SSH_CONFIG" ] || [ -e "$LEGACY_GIT_INCLUDES" ]; then
@@ -860,8 +856,7 @@ cmd_doctor() {
           ;;
         git@github.com:*|ssh://git@github.com/*|git@gist.github.com:*|ssh://git@gist.github.com/*)
           if [ -z "$current_account" ]; then
-            warn "$remote uses authenticated GitHub SSH without a repository-local account"
-            failures=$((failures + 1))
+            note "$remote uses the SSH agent without an optional repository profile"
           fi
           ;;
       esac

@@ -4,7 +4,8 @@ set -eu
 unset CDPATH
 ROOT=$(cd -- "$(dirname "$0")/../../.." && pwd)
 PROGRAM="$ROOT/shell/git/bin/git-account"
-TEST_ROOT=$(mktemp -d "${TMPDIR:-/tmp}/git-account-unit.XXXXXX")
+# Keep Unix socket paths below the macOS limit, including a fixture HOME.
+TEST_ROOT=$(mktemp -d /tmp/git-account-unit.XXXXXX)
 trap 'rm -rf "$TEST_ROOT"' EXIT HUP INT TERM
 
 export HOME="$TEST_ROOT/home"
@@ -19,6 +20,57 @@ export GIT_CONFIG_GLOBAL="$ROOT/shell/git/config"
 [ -L "$HOME/.ssh/config" ]
 [ -f "$XDG_CONFIG_HOME/git/local.gitconfig" ]
 [ -f "$XDG_CONFIG_HOME/ssh/local.conf" ]
+
+# OpenSSH uses passwd for ~ expansion, so do not accidentally test the real HOME.
+export TEST_SSH_CONFIG="$TEST_ROOT/ssh-config"
+TEST_REAL_SSH=$(command -v ssh)
+export TEST_REAL_SSH
+python3 - "$ROOT/shell/ssh/config" <<'PY'
+import os, socket, sys
+from pathlib import Path
+home = Path(os.environ['HOME'])
+Path(os.environ['TEST_SSH_CONFIG']).write_text(
+    Path(sys.argv[1]).read_text().replace('~/', str(home) + '/'))
+sock = socket.socket(socket.AF_UNIX)
+sock.bind(str(home / '.bitwarden-ssh-agent.sock'))
+sock.close()
+PY
+ssh_config_bin="$TEST_ROOT/ssh-config-bin"
+mkdir -p "$ssh_config_bin"
+cat >"$ssh_config_bin/ssh" <<'SH'
+#!/bin/sh
+exec "$TEST_REAL_SSH" -F "$TEST_SSH_CONFIG" "$@"
+SH
+chmod 700 "$ssh_config_bin/ssh"
+export PATH="$ssh_config_bin:$PATH"
+
+"$PROGRAM" list >/dev/null
+(
+  cd "$TEST_ROOT"
+  "$PROGRAM" doctor >/dev/null
+)
+[ ! -e "$GITHUB_ACCOUNTS_DIR" ]
+
+# A plain canonical SSH remote does not require an optional account profile.
+native_repo="$TEST_ROOT/native-repo"
+git init -q "$native_repo"
+git -C "$native_repo" remote add origin git@github.com:example/native.git
+(cd "$native_repo" && "$PROGRAM" doctor >/dev/null)
+[ ! -e "$GITHUB_ACCOUNTS_DIR" ]
+"$ROOT/shell/ssh/_init" check >/dev/null
+
+cp "$TEST_SSH_CONFIG" "$TEST_ROOT/ssh-config.good"
+sed 's/IdentitiesOnly no/IdentitiesOnly yes/' "$TEST_ROOT/ssh-config.good" >"$TEST_SSH_CONFIG"
+if "$ROOT/shell/ssh/_init" check >/dev/null 2>&1; then
+  printf 'bootstrap readiness accepted a blocked agent\n' >&2
+  exit 1
+fi
+if (cd "$native_repo" && "$PROGRAM" doctor >/dev/null 2>&1); then
+  printf 'doctor accepted a blocked agent without profiles\n' >&2
+  exit 1
+fi
+mv "$TEST_ROOT/ssh-config.good" "$TEST_SSH_CONFIG"
+[ ! -e "$GITHUB_ACCOUNTS_DIR" ]
 
 ssh-keygen -q -t ed25519 -N '' -C 'must-not-survive' -f "$TEST_ROOT/key"
 
@@ -171,6 +223,7 @@ printf '%s\n' "$doctor_output" | grep -q 'error: 1 diagnostic check(s) failed'
 mv "$GITHUB_ACCOUNTS_DIR/gh/account-1/hosts.yml.disabled" "$GITHUB_ACCOUNTS_DIR/gh/account-1/hosts.yml"
 
 [ "$(ssh -G github.com 2>/dev/null | awk '$1 == "identityfile" {print $2; exit}')" = none ]
+[ "$(ssh -G github.com 2>/dev/null | awk '$1 == "identitiesonly" {print $2; exit}')" = no ]
 
 "$PROGRAM" add account-2 \
   --auth-key "$TEST_ROOT/key.pub" \
@@ -283,6 +336,11 @@ fi
 
 printf '[test]\n\tvalue = preserved\n' >"$XDG_CONFIG_HOME/git/local.gitconfig"
 printf 'Host test-only\n' >"$XDG_CONFIG_HOME/ssh/local.conf"
+profile_before=$(git hash-object "$GITHUB_ACCOUNTS_DIR/accounts/account-1.gitconfig")
+"$ROOT/deploy" -l shell/git shell/ssh >/dev/null
+[ "$(git hash-object "$GITHUB_ACCOUNTS_DIR/accounts/account-1.gitconfig")" = "$profile_before" ]
+[ "$(git config -f "$XDG_CONFIG_HOME/git/local.gitconfig" --get test.value)" = preserved ]
+grep -q 'Host test-only' "$XDG_CONFIG_HOME/ssh/local.conf"
 "$ROOT/deploy" -d shell/git shell/ssh >/dev/null
 [ -f "$XDG_CONFIG_HOME/git/local.gitconfig" ]
 [ -f "$XDG_CONFIG_HOME/ssh/local.conf" ]
