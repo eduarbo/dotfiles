@@ -4667,7 +4667,7 @@
       }
     },
     {
-      "name": "Default (disable built-in kbd when CRKBD is connected)",
+      "name": "Default (disable built-in kbd when Corne or Piantor is connected)",
       "devices": [
         {
           "identifiers": {

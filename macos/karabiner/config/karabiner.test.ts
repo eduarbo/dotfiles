@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { karabiner, complexModifications } from './karabiner.js';
-import { GAMES, type Condition } from '../lib/index.js';
+import { BEEKEEB, CRKBD, GAMES, type Condition } from '../lib/index.js';
 
 describe('karabiner config', () => {
   it('has global settings', () => {
@@ -28,11 +28,16 @@ describe('karabiner config', () => {
     expect(defaultProfile.complex_modifications?.rules.length).toBeGreaterThan(0);
   });
 
-  it('third profile has CRKBD device config and is selected', () => {
-    const crkbdProfile = karabiner.profiles[2];
-    expect(crkbdProfile.selected).toBe(true);
-    expect(crkbdProfile.devices?.length).toBeGreaterThan(0);
-    expect(crkbdProfile.devices?.[0].disable_built_in_keyboard_if_exists).toBe(true);
+  it('third profile disables the built-in keyboard for the Corne and Piantor and is selected', () => {
+    const keebsProfile = karabiner.profiles[2];
+    expect(keebsProfile.selected).toBe(true);
+    expect(keebsProfile.devices?.map((device) => device.identifiers.vendor_id)).toEqual([
+      CRKBD.vendor_id,
+      BEEKEEB.vendor_id,
+    ]);
+    for (const device of keebsProfile.devices ?? []) {
+      expect(device.disable_built_in_keyboard_if_exists).toBe(true);
+    }
   });
 
   it('places the Civ rules before Base and keeps the general Gaming layer inactive', () => {
@@ -444,6 +449,30 @@ describe('complexModifications exports', () => {
         expect.objectContaining({ bundle_identifiers: expect.arrayContaining(GAMES) }),
       );
     }
+  });
+
+  it('keeps the Super layer device-neutral to complete the QMK Super layer', () => {
+    const conditions = complexModifications.superLayer.rules
+      .flatMap((rule) => rule.manipulators)
+      .flatMap((manipulator) => manipulator.conditions ?? []);
+
+    expect(conditions.some((condition) => condition.type.startsWith('device_'))).toBe(false);
+  });
+
+  it('matches the QMK F-Keys home row on the right FN half', () => {
+    const manipulators = complexModifications.fnLayer.rules.flatMap((rule) => rule.manipulators);
+    const keyCodesFor = (keyCode: string) =>
+      manipulators
+        .find((manipulator) => 'key_code' in manipulator.from && manipulator.from.key_code === keyCode)
+        ?.to?.map((event) => ('key_code' in event ? event.key_code : undefined));
+
+    expect(['h', 'j', 'k', 'l', 'semicolon'].map(keyCodesFor)).toEqual([
+      ['volume_decrement'],
+      ['volume_decrement'],
+      ['mute'],
+      ['volume_increment'],
+      ['locking_scroll_lock'],
+    ]);
   });
 
   it('keeps the Civ layer device-neutral', () => {

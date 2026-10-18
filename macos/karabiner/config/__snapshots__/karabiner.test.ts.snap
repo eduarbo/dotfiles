@@ -9527,7 +9527,7 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
           "manipulate_caps_lock_led": true,
         },
       ],
-      "name": "Default (disable built-in kbd when CRKBD is connected)",
+      "name": "Default (disable built-in kbd when Corne or Piantor is connected)",
       "selected": true,
       "virtual_hid_keyboard": {
         "keyboard_type_v2": "ansi",

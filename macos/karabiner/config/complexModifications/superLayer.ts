@@ -5,6 +5,9 @@ const LAYER = 'SUPER';
 const layerMods: Modifier[] = ['option', 'command', 'control'];
 const optionalMods: Modifier[] = [];
 
+// Intentionally device-neutral: QMK emits the E/R/T/S/D/F/G shortcuts itself
+// and relies on this layer for the screenshot (Q/A/Z) and app navigation
+// (X/C/V/B) bindings on the Corne and Piantor.
 const keybind = (keyCode: KeyCode, toTuples: ToKeyCodeTuple[]) =>
   remap([keyCode, layerMods, optionalMods], toTuples);
 

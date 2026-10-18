@@ -14,8 +14,8 @@ npm run build
 
 This layout is designed to match the
 [QMK userspace](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md)
-of my main keyboard, a 36-key Piantor Pro. The two central keys in the thumb cluster
-represent the spacebar on the MacBook keyboard. My goal is to seamlessly switch
+of my main keyboards, a 36-key Piantor and a 3x5 Corne. The two central keys in the
+thumb cluster represent the spacebar on the MacBook keyboard. My goal is to seamlessly switch
 between the two keyboards, as I don't always carry my mechanical keyboard with me 😞
 
 ### Why this layout distribuition?
@@ -30,6 +30,20 @@ between the two keyboards, as I don't always carry my mechanical keyboard with m
 - Layer chords: Symbols and Super can be held together for Hyper; releasing either
   layer key immediately removes the part it owns, so no modifier remains sticky.
 - Avoid placing Enter on the Shift or Symbols keys to prevent accidental presses while typing.
+
+### Differences with QMK
+
+The built-in keyboard and the QMK keyboards share every layer, including FN, with
+two intentional exceptions:
+
+- `SYMBOLS+Z` sends Caps Lock here; QMK uses Caps Word.
+- On the QMK keyboards (macOS base), holding a Return thumb and tapping Space sends
+  `Shift+Return`. On the built-in keyboard, `Command+Space` stays Spotlight.
+
+The SUPER layer has no device condition on purpose: QMK sends `Super+key` for `Q`,
+`A`, `Z`, `X`, `C`, `V` and `B`, and this layer turns them into the shortcuts listed
+below. QMK keeps its layout toggles (macOS/Winux base and Gamepad) on its Adjust
+layer, which has no Karabiner equivalent.
 
 ### Symbols chart
 

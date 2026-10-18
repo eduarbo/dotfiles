@@ -25,7 +25,7 @@ const defaultProfile = [
 const profiles = [
   profile('Empty'),
   profile('Default', defaultProfile),
-  profile('Default (disable built-in kbd when CRKBD is connected)', defaultProfile, {
+  profile('Default (disable built-in kbd when Corne or Piantor is connected)', defaultProfile, {
     selected: true,
     devices: [
       {
