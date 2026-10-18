@@ -43,8 +43,12 @@ describe('karabiner config', () => {
   it('places the Civ rules before Base and keeps the general Gaming layer inactive', () => {
     const descriptions =
       karabiner.profiles[1].complex_modifications?.rules.map((rule) => rule.description) ?? [];
-    const civIndex = descriptions.findIndex((description) => description.startsWith('Civ V layer:'));
-    const baseIndex = descriptions.findIndex((description) => description.startsWith('BASE layer:'));
+    const civIndex = descriptions.findIndex((description) =>
+      description.startsWith('Civ V layer:'),
+    );
+    const baseIndex = descriptions.findIndex((description) =>
+      description.startsWith('BASE layer:'),
+    );
 
     expect(civIndex).toBeGreaterThanOrEqual(0);
     expect(baseIndex).toBeGreaterThanOrEqual(0);
@@ -61,7 +65,7 @@ describe('karabiner config', () => {
   it('all profiles have timing parameters', () => {
     for (const prof of karabiner.profiles) {
       const params = prof.complex_modifications?.parameters;
-      expect(params?.['basic.to_if_alone_timeout_milliseconds']).toBe(500);
+      expect(params?.['basic.to_if_alone_timeout_milliseconds']).toBe(250);
       expect(params?.['basic.simultaneous_threshold_milliseconds']).toBe(50);
     }
   });
@@ -98,6 +102,29 @@ describe('complexModifications exports', () => {
         expect(rule.manipulators.length).toBeGreaterThan(0);
       }
     }
+  });
+
+  it('sends Shift+Return for a Left Command tap while Space holds Right Command', () => {
+    const thumbCluster = complexModifications.baseLayer.rules.find(
+      (rule) => rule.description === 'BASE layer: Thumbs cluster',
+    );
+    const leftCommandBindings = (thumbCluster?.manipulators ?? []).filter(
+      (manipulator) =>
+        'key_code' in manipulator.from && manipulator.from.key_code === 'left_command',
+    );
+
+    expect(leftCommandBindings).toHaveLength(2);
+    expect(leftCommandBindings[0].from.modifiers).toEqual({
+      mandatory: ['right_command'],
+      optional: ['any'],
+    });
+    expect(leftCommandBindings[0]).toEqual(
+      expect.objectContaining({
+        to: [{ key_code: 'left_shift', modifiers: ['right_command'], lazy: true }],
+        to_if_alone: [{ key_code: 'return_or_enter', modifiers: ['left_shift'] }],
+      }),
+    );
+    expect(leftCommandBindings[1].from.modifiers?.mandatory).toBeUndefined();
   });
 
   it('mirrors Right Option on Space while Super is active', () => {
@@ -242,9 +269,7 @@ describe('complexModifications exports', () => {
     expect(symbolsActivator).toEqual(
       expect.objectContaining({
         to: [{ set_variable: { name: 'symbols_layer_active', value: 1 } }],
-        to_after_key_up: [
-          { set_variable: { name: 'symbols_layer_active', value: 0 } },
-        ],
+        to_after_key_up: [{ set_variable: { name: 'symbols_layer_active', value: 0 } }],
         to_if_alone: [{ key_code: 'tab' }],
       }),
     );
@@ -318,8 +343,7 @@ describe('complexModifications exports', () => {
       (rule) => rule.manipulators,
     );
     const spaceBindings = symbolsManipulators.filter(
-      (manipulator) =>
-        'key_code' in manipulator.from && manipulator.from.key_code === 'spacebar',
+      (manipulator) => 'key_code' in manipulator.from && manipulator.from.key_code === 'spacebar',
     );
     const shiftedSpaceIndex = spaceBindings.findIndex((manipulator) =>
       manipulator.from.modifiers?.mandatory?.includes('shift'),
@@ -367,9 +391,7 @@ describe('complexModifications exports', () => {
             lazy: true,
           },
         ],
-        to_after_key_up: [
-          { set_variable: { name: 'super_layer_active', value: 0 } },
-        ],
+        to_after_key_up: [{ set_variable: { name: 'super_layer_active', value: 0 } }],
         to_if_alone: [{ key_code: 'escape', modifiers: ['right_shift'] }],
         conditions: expect.arrayContaining([
           {
@@ -417,8 +439,7 @@ describe('complexModifications exports', () => {
     const manipulators = complexModifications.fnLayer.rules.flatMap((rule) => rule.manipulators);
     const bindingFor = (keyCode: string) =>
       manipulators.find(
-        (manipulator) =>
-          'key_code' in manipulator.from && manipulator.from.key_code === keyCode,
+        (manipulator) => 'key_code' in manipulator.from && manipulator.from.key_code === keyCode,
       );
 
     expect(bindingFor('q')?.to).toEqual(
@@ -463,7 +484,9 @@ describe('complexModifications exports', () => {
     const manipulators = complexModifications.fnLayer.rules.flatMap((rule) => rule.manipulators);
     const keyCodesFor = (keyCode: string) =>
       manipulators
-        .find((manipulator) => 'key_code' in manipulator.from && manipulator.from.key_code === keyCode)
+        .find(
+          (manipulator) => 'key_code' in manipulator.from && manipulator.from.key_code === keyCode,
+        )
         ?.to?.map((event) => ('key_code' in event ? event.key_code : undefined));
 
     expect(['h', 'j', 'k', 'l', 'semicolon'].map(keyCodesFor)).toEqual([

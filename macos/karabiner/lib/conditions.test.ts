@@ -12,10 +12,10 @@ describe('ignoreCrkbd', () => {
 });
 
 describe('ignoreBeekeb', () => {
-  it('creates a device_unless condition for BEEKEEB', () => {
+  it('creates a device_unless condition for BEEKEEB vendor', () => {
     expect(ignoreBeekeb).toEqual({
       type: 'device_unless',
-      identifiers: [BEEKEEB],
+      identifiers: [{ vendor_id: BEEKEEB.vendor_id }],
     });
   });
 });

@@ -10,6 +10,15 @@ Use the following command to generate the JSON files for `karabiner.json` and co
 npm run build
 ```
 
+When `~/.config/karabiner/karabiner.json` is the deployed symlink, the build touches it
+so Karabiner reloads the new file. If saving settings in the Karabiner UI replaced the
+symlink with a regular file, `./_init link` backs that file up and restores the symlink.
+
+`npm test` also compares the base, Symbols and F-Keys layers with the
+[QMK userspace](https://github.com/eduarbo/qmk_userspace) when it is checked out at
+`~/dev/eduarbo/qmk_userspace` (set `QMK_USERSPACE` to use another path). Run it after
+changing either side.
+
 ## My layout
 
 This layout is designed to match the
@@ -33,12 +42,13 @@ between the two keyboards, as I don't always carry my mechanical keyboard with m
 
 ### Differences with QMK
 
-The built-in keyboard and the QMK keyboards share every layer, including FN, with
-two intentional exceptions:
+The built-in keyboard and the QMK keyboards share every layer, including FN, and
+the same 250 ms tap window for tap/hold keys. The one intentional exception is
+`SYMBOLS+Z`: Caps Lock here, Caps Word in QMK.
 
-- `SYMBOLS+Z` sends Caps Lock here; QMK uses Caps Word.
-- On the QMK keyboards (macOS base), holding a Return thumb and tapping Space sends
-  `Shift+Return`. On the built-in keyboard, `Command+Space` stays Spotlight.
+Holding Space (Right Command) and tapping Left Command sends `Shift+Return`, like
+holding a Return thumb and tapping Space on the QMK keyboards. Holding both still
+gives `Command+Shift`.
 
 The SUPER layer has no device condition on purpose: QMK sends `Super+key` for `Q`,
 `A`, `Z`, `X`, `C`, `V` and `B`, and this layer turns them into the shortcuts listed
@@ -127,7 +137,7 @@ a global state machine, so this configuration avoids that extra complexity.
 
 | Symbol | Description | Symbol      | Description | Symbol      | Description |
 |--------|-------------|-------------|-------------|-------------|-------------|
-| `F16`  | Raycast     | `⌘␣`        | Spotlight   | `⇧` + `F16` | Emojis      |
+| `F16`  | Raycast     | `⌘` + `␣`   | `⇧⏎`        | `⇧` + `F16` | Emojis      |
 | `⌘⎋`   | Lock Mac    | `⌘` + `F16` | Lock Mac    |             |             |
 
 ### Super

@@ -45,10 +45,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -96,10 +93,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -151,10 +145,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -224,10 +215,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -277,10 +265,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -323,10 +308,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -369,10 +351,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -415,10 +394,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -461,10 +437,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -507,10 +480,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -561,10 +531,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -607,10 +574,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -653,10 +617,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -699,10 +660,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -745,10 +703,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -791,10 +746,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -837,10 +789,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -883,10 +832,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -929,10 +875,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -975,10 +918,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1026,10 +966,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1072,10 +1009,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1118,10 +1052,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1164,10 +1095,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1212,10 +1140,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1258,10 +1183,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1304,10 +1226,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1350,10 +1269,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1396,10 +1312,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1442,10 +1355,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1496,10 +1406,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1542,10 +1449,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1588,10 +1492,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1634,10 +1535,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1680,10 +1578,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },
@@ -1726,10 +1621,7 @@
               "type": "device_unless",
               "identifiers": [
                 {
-                  "is_keyboard": true,
-                  "is_pointing_device": false,
-                  "vendor_id": 48875,
-                  "product_id": 1
+                  "vendor_id": 48875
                 }
               ]
             },

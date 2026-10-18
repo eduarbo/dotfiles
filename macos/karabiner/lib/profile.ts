@@ -61,7 +61,8 @@ export const profile = (
     parameters: {
       'basic.simultaneous_threshold_milliseconds': 50,
       'basic.to_delayed_action_delay_milliseconds': 500,
-      'basic.to_if_alone_timeout_milliseconds': 500,
+      // Matches QMK TAPPING_TERM so tap/hold thumbs feel the same on every keyboard.
+      'basic.to_if_alone_timeout_milliseconds': 250,
       'basic.to_if_held_down_threshold_milliseconds': 500,
     },
     rules: collectRules(complexModifications),

@@ -19,12 +19,23 @@ has_required_node() {
   _is_callable node || return 1
   local required=$(<.node-version)
   local current=$(node -v 2>/dev/null)
-  # node -v outputs "v22.x.y", strip the prefix and compare major
-  [[ ${current#v} == ${required}* ]]
+  # node -v outputs "v24.x.y"; accept the pinned major or any newer one
+  local major=${${current#v}%%.*}
+  (( major >= ${required%%.*} ))
 }
 
 link() {
   mkdir -p "$KARABINER_CONFIG_DIR"
+
+  # Saving settings in the Karabiner UI replaces the symlink with a regular file.
+  # Keep that copy instead of silently overwriting it.
+  local config="$KARABINER_CONFIG_DIR/karabiner.json"
+  if [[ -f $config && ! -L $config ]]; then
+    local backup="$config.$(date +%Y%m%d%H%M%S).bak"
+    mv "$config" "$backup"
+    echo-info "Backed up unmanaged karabiner.json to $backup"
+  fi
+
   mklink json/karabiner.json $KARABINER_CONFIG_DIR
 
   # Karabiner owns assets/ as a real directory — link individual files inside it

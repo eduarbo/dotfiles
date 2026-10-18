@@ -16,6 +16,15 @@ const rules = [
   {
     description: `${LAYER} layer: Thumbs cluster`,
     manipulators: [
+      // While Space holds R Command, a L Command tap sends Shift+Return like the QMK
+      // thumbs; holding it keeps R Command and adds L Shift.
+      modTap(
+        ['left_command', ['right_command'], ['any']],
+        [['left_shift', ['right_command']]],
+        [['return_or_enter', ['left_shift']]],
+        { manipulatorOptions, toOptions },
+      ),
+
       // L Command -> L Shift on hold, SPACE on tap
       modTap(['left_command', null, ['any']], [['left_shift']], [['spacebar']], {
         manipulatorOptions,

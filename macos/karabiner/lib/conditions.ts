@@ -70,7 +70,11 @@ export const ignoreCrkbd: Condition = {
 
 export const ignoreBeekeb: Condition = {
   type: 'device_unless',
-  identifiers: [BEEKEEB],
+  identifiers: [
+    {
+      vendor_id: BEEKEEB.vendor_id,
+    },
+  ],
 };
 
 export const ignoreGames: Condition = {
