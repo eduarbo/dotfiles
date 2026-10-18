@@ -4107,56 +4107,6 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
                     "type": "device_unless",
                   },
                 ],
-                "description": "right_command+left_command to right_command+left_shift, send left_shift+return_or_enter on tap",
-                "from": {
-                  "key_code": "left_command",
-                  "modifiers": {
-                    "mandatory": [
-                      "right_command",
-                    ],
-                    "optional": [
-                      "any",
-                    ],
-                  },
-                },
-                "to": [
-                  {
-                    "key_code": "left_shift",
-                    "lazy": true,
-                    "modifiers": [
-                      "right_command",
-                    ],
-                  },
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "return_or_enter",
-                    "modifiers": [
-                      "left_shift",
-                    ],
-                  },
-                ],
-                "type": "basic",
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "vendor_id": 18003,
-                      },
-                    ],
-                    "type": "device_unless",
-                  },
-                  {
-                    "identifiers": [
-                      {
-                        "vendor_id": 48875,
-                      },
-                    ],
-                    "type": "device_unless",
-                  },
-                ],
                 "description": "left_command to left_shift, send spacebar on tap",
                 "from": {
                   "key_code": "left_command",
@@ -8649,56 +8599,6 @@ exports[`generated JSON structure > snapshot: full config structure 1`] = `
           {
             "description": "BASE layer: Thumbs cluster",
             "manipulators": [
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "vendor_id": 18003,
-                      },
-                    ],
-                    "type": "device_unless",
-                  },
-                  {
-                    "identifiers": [
-                      {
-                        "vendor_id": 48875,
-                      },
-                    ],
-                    "type": "device_unless",
-                  },
-                ],
-                "description": "right_command+left_command to right_command+left_shift, send left_shift+return_or_enter on tap",
-                "from": {
-                  "key_code": "left_command",
-                  "modifiers": {
-                    "mandatory": [
-                      "right_command",
-                    ],
-                    "optional": [
-                      "any",
-                    ],
-                  },
-                },
-                "to": [
-                  {
-                    "key_code": "left_shift",
-                    "lazy": true,
-                    "modifiers": [
-                      "right_command",
-                    ],
-                  },
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "return_or_enter",
-                    "modifiers": [
-                      "left_shift",
-                    ],
-                  },
-                ],
-                "type": "basic",
-              },
               {
                 "conditions": [
                   {

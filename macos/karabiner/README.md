@@ -46,9 +46,8 @@ The built-in keyboard and the QMK keyboards share every layer, including FN, and
 the same 250 ms tap window for tap/hold keys. The one intentional exception is
 `SYMBOLS+Z`: Caps Lock here, Caps Word in QMK.
 
-Holding Space (Right Command) and tapping Left Command sends `Shift+Return`, like
-holding a Return thumb and tapping Space on the QMK keyboards. Holding both still
-gives `Command+Shift`.
+Holding Space (Right Command) and tapping Left Command sends `Command+Space`, like
+holding a Return thumb and tapping Space on the QMK keyboards.
 
 The SUPER layer has no device condition on purpose: QMK sends `Super+key` for `Q`,
 `A`, `Z`, `X`, `C`, `V` and `B`, and this layer turns them into the shortcuts listed
@@ -137,7 +136,7 @@ a global state machine, so this configuration avoids that extra complexity.
 
 | Symbol | Description | Symbol      | Description | Symbol      | Description |
 |--------|-------------|-------------|-------------|-------------|-------------|
-| `F16`  | Raycast     | `⌘` + `␣`   | `⇧⏎`        | `⇧` + `F16` | Emojis      |
+| `F16`  | Raycast     | `⌘␣`        | Spotlight   | `⇧` + `F16` | Emojis      |
 | `⌘⎋`   | Lock Mac    | `⌘` + `F16` | Lock Mac    |             |             |
 
 ### Super

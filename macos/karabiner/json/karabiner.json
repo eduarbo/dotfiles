@@ -4011,56 +4011,6 @@
                 "from": {
                   "key_code": "left_command",
                   "modifiers": {
-                    "mandatory": [
-                      "right_command"
-                    ],
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "right_command"
-                    ],
-                    "lazy": true
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "return_or_enter",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "description": "right_command+left_command to right_command+left_shift, send left_shift+return_or_enter on tap",
-                "conditions": [
-                  {
-                    "type": "device_unless",
-                    "identifiers": [
-                      {
-                        "vendor_id": 18003
-                      }
-                    ]
-                  },
-                  {
-                    "type": "device_unless",
-                    "identifiers": [
-                      {
-                        "vendor_id": 48875
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "left_command",
-                  "modifiers": {
                     "optional": [
                       "any"
                     ]
@@ -8499,56 +8449,6 @@
           {
             "description": "BASE layer: Thumbs cluster",
             "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "left_command",
-                  "modifiers": {
-                    "mandatory": [
-                      "right_command"
-                    ],
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "right_command"
-                    ],
-                    "lazy": true
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "return_or_enter",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "description": "right_command+left_command to right_command+left_shift, send left_shift+return_or_enter on tap",
-                "conditions": [
-                  {
-                    "type": "device_unless",
-                    "identifiers": [
-                      {
-                        "vendor_id": 18003
-                      }
-                    ]
-                  },
-                  {
-                    "type": "device_unless",
-                    "identifiers": [
-                      {
-                        "vendor_id": 48875
-                      }
-                    ]
-                  }
-                ]
-              },
               {
                 "type": "basic",
                 "from": {

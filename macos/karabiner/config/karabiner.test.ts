@@ -104,7 +104,7 @@ describe('complexModifications exports', () => {
     }
   });
 
-  it('sends Shift+Return for a Left Command tap while Space holds Right Command', () => {
+  it('keeps Command+Space when Space holds Right Command and Left Command is tapped', () => {
     const thumbCluster = complexModifications.baseLayer.rules.find(
       (rule) => rule.description === 'BASE layer: Thumbs cluster',
     );
@@ -113,18 +113,10 @@ describe('complexModifications exports', () => {
         'key_code' in manipulator.from && manipulator.from.key_code === 'left_command',
     );
 
-    expect(leftCommandBindings).toHaveLength(2);
-    expect(leftCommandBindings[0].from.modifiers).toEqual({
-      mandatory: ['right_command'],
-      optional: ['any'],
-    });
-    expect(leftCommandBindings[0]).toEqual(
-      expect.objectContaining({
-        to: [{ key_code: 'left_shift', modifiers: ['right_command'], lazy: true }],
-        to_if_alone: [{ key_code: 'return_or_enter', modifiers: ['left_shift'] }],
-      }),
-    );
-    expect(leftCommandBindings[1].from.modifiers?.mandatory).toBeUndefined();
+    // A single binding with optional `any` lets a held Right Command reach the Space tap.
+    expect(leftCommandBindings).toHaveLength(1);
+    expect(leftCommandBindings[0].from.modifiers).toEqual({ optional: ['any'] });
+    expect(leftCommandBindings[0].to_if_alone).toEqual([{ key_code: 'spacebar' }]);
   });
 
   it('mirrors Right Option on Space while Super is active', () => {
