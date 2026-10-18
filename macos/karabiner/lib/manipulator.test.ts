@@ -90,9 +90,7 @@ describe('remap', () => {
         my_layer: { to: 1, to_after_key_up: 0 },
       },
     });
-    expect(result.to_after_key_up).toEqual([
-      { set_variable: { name: 'my_layer', value: 0 } },
-    ]);
+    expect(result.to_after_key_up).toEqual([{ set_variable: { name: 'my_layer', value: 0 } }]);
   });
 
   it('handles setVariables with to_if_alone', () => {
@@ -101,9 +99,7 @@ describe('remap', () => {
         mode: { to_if_alone: 'off' },
       },
     });
-    expect(result.to_if_alone).toEqual([
-      { set_variable: { name: 'mode', value: 'off' } },
-    ]);
+    expect(result.to_if_alone).toEqual([{ set_variable: { name: 'mode', value: 'off' } }]);
   });
 
   it('handles setVariables with to_if_held_down', () => {
@@ -112,9 +108,7 @@ describe('remap', () => {
         mode: { to_if_held_down: true },
       },
     });
-    expect(result.to_if_held_down).toEqual([
-      { set_variable: { name: 'mode', value: true } },
-    ]);
+    expect(result.to_if_held_down).toEqual([{ set_variable: { name: 'mode', value: true } }]);
   });
 });
 
@@ -166,9 +160,7 @@ describe('modTap', () => {
       setVariables: { layer: { to: 1, to_after_key_up: 0 } },
     });
     expect(result.to?.[0]).toEqual({ set_variable: { name: 'layer', value: 1 } });
-    expect(result.to_after_key_up).toEqual([
-      { set_variable: { name: 'layer', value: 0 } },
-    ]);
+    expect(result.to_after_key_up).toEqual([{ set_variable: { name: 'layer', value: 0 } }]);
   });
 
   it('merges to options like lazy', () => {

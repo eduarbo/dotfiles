@@ -1,5 +1,11 @@
 import { modTap, remap, CIV5 } from '../../lib/index.js';
-import type { ComplexModifications, ManipulatorOptions, FromKeyCodeTuple, ToKeyCodeTuple, RemapOptions } from '../../lib/index.js';
+import type {
+  ComplexModifications,
+  ManipulatorOptions,
+  FromKeyCodeTuple,
+  ToKeyCodeTuple,
+  RemapOptions,
+} from '../../lib/index.js';
 
 const LAYER = 'Civ V';
 
@@ -16,11 +22,17 @@ const manipulatorOptions: ManipulatorOptions = {
 
 const toOptions = { lazy: true };
 
-const civRemap = (fromTuple: FromKeyCodeTuple, toTuples: ToKeyCodeTuple[], extra: RemapOptions = {}) =>
-  remap(fromTuple, toTuples, { manipulatorOptions, ...extra });
+const civRemap = (
+  fromTuple: FromKeyCodeTuple,
+  toTuples: ToKeyCodeTuple[],
+  extra: RemapOptions = {},
+) => remap(fromTuple, toTuples, { manipulatorOptions, ...extra });
 
-const civModTap = (fromTuple: FromKeyCodeTuple, toTuples: ToKeyCodeTuple[], toTuplesOnTap: ToKeyCodeTuple[]) =>
-  modTap(fromTuple, toTuples, toTuplesOnTap, { manipulatorOptions, toOptions });
+const civModTap = (
+  fromTuple: FromKeyCodeTuple,
+  toTuples: ToKeyCodeTuple[],
+  toTuplesOnTap: ToKeyCodeTuple[],
+) => modTap(fromTuple, toTuples, toTuplesOnTap, { manipulatorOptions, toOptions });
 
 const rules = [
   {

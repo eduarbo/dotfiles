@@ -24,10 +24,7 @@ type ModifiersProps = {
 
 type SimultaneousProps = {
   simultaneous?: (
-    | FromKeyCodeProp
-    | FromConsumerKeyCodeProp
-    | FromPointingButtonProp
-    | FromAnyProp
+    FromKeyCodeProp | FromConsumerKeyCodeProp | FromPointingButtonProp | FromAnyProp
   )[];
   simultaneous_options?: {
     detect_key_down_uninterruptedly?: boolean;
@@ -46,10 +43,7 @@ type FromPointingButtonEvent = FromEventCommon & FromPointingButtonProp;
 type FromAnyEvent = FromEventCommon & FromAnyProp;
 
 export type FromEvent =
-  | FromKeyCodeEvent
-  | FromConsumerKeyCodeEvent
-  | FromPointingButtonEvent
-  | FromAnyEvent;
+  FromKeyCodeEvent | FromConsumerKeyCodeEvent | FromPointingButtonEvent | FromAnyEvent;
 
 export type FromKeyCodeTuple = [KeyCode, (Modifier[] | null)?, ModifierOptional[]?];
 

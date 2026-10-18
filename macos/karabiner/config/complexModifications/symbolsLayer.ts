@@ -11,11 +11,7 @@ import { SUPER_LAYER_VARIABLE, SYMBOLS_LAYER_VARIABLE } from './layerVariables.j
 const LAYER = 'SYMBOLS';
 const shiftedLayerMods: Modifier[] = ['shift'];
 const optionalMods: ModifierOptional[] = ['shift', 'right_command', 'right_control', 'caps_lock'];
-const shiftedOptionalMods: ModifierOptional[] = [
-  'right_command',
-  'right_control',
-  'caps_lock',
-];
+const shiftedOptionalMods: ModifierOptional[] = ['right_command', 'right_control', 'caps_lock'];
 
 const manipulatorOptions = {
   conditions: [

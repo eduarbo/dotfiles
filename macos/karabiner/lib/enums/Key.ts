@@ -1,9 +1,4 @@
-export const BASE_MODIFIER_KEY_CODE = [
-  'command',
-  'option',
-  'control',
-  'shift',
-] as const;
+export const BASE_MODIFIER_KEY_CODE = ['command', 'option', 'control', 'shift'] as const;
 
 export const MODIFIER_KEY_CODE = [
   'caps_lock',
