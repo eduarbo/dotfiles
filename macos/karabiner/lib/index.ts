@@ -7,3 +7,4 @@ export * from './profile.js';
 export * from './karabinerConfig.js';
 export * from './manipulator.js';
 export * from './conditions.js';
+export * from './selectedProfile.js';

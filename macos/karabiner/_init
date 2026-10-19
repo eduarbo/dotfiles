@@ -27,16 +27,15 @@ has_required_node() {
 link() {
   mkdir -p "$KARABINER_CONFIG_DIR"
 
-  # Saving settings in the Karabiner UI replaces the symlink with a regular file.
-  # Keep that copy instead of silently overwriting it.
+  # Karabiner rewrites karabiner.json whenever a profile is picked in its menu, so
+  # deploy a copy that keeps the selected profile instead of a symlink.
   local config="$KARABINER_CONFIG_DIR/karabiner.json"
-  if [[ -f $config && ! -L $config ]]; then
-    local backup="$config.$(date +%Y%m%d%H%M%S).bak"
-    mv "$config" "$backup"
-    echo-info "Backed up unmanaged karabiner.json to $backup"
+  if [[ -f dist/scripts/deploy.js ]] && _is_callable node; then
+    node dist/scripts/deploy.js
+  else
+    [[ -L $config ]] && rm -f "$config"
+    cp json/karabiner.json "$config"
   fi
-
-  mklink json/karabiner.json $KARABINER_CONFIG_DIR
 
   # Karabiner owns assets/ as a real directory — link individual files inside it
   mkdir -p "$KARABINER_CONFIG_DIR/assets/complex_modifications"

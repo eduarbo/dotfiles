@@ -63,14 +63,14 @@ Tapping right ⌘ sends `⇧Return` (next turn).
 
 | Command | Does |
 | --- | --- |
-| `npm run build` | Generates `json/` and makes Karabiner reload the deployed config |
+| `npm run build` | Generates `json/` and deploys it to Karabiner |
 | `npm test` | Runs the tests, including parity with the QMK userspace |
 | `npm run docs` | Redraws `docs/macbook.svg` from `docs/macbook.yaml` |
 | `npm run prettier` | Formats the sources |
 
-- **Deploy:** `./_init link` symlinks `json/karabiner.json` into `~/.config/karabiner`. Saving
-  settings in the Karabiner app replaces that symlink with a regular file; `link` backs the
-  file up and restores the symlink.
+- **Deploy:** the build copies `json/karabiner.json` to `~/.config/karabiner` and keeps the
+  profile selected in Karabiner's menu; Karabiner reloads it on its own. Edit the TypeScript,
+  not Karabiner's settings, because the next build replaces them.
 - **Parity test:** it reads `~/dev/eduarbo/qmk_userspace` (set `QMK_USERSPACE` for another
   path) and is skipped when that checkout is missing. Run it after changing either side.
 - **Rule order:** Karabiner uses the first rule that matches, so app-specific and chord rules
