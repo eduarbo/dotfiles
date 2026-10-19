@@ -1,284 +1,74 @@
-# KEGen
+# Karabiner-Elements config
 
-This is my Karabiner-Elements Configuration Generator in an attempt to manage my configuration easily.
+Makes the MacBook keyboard type like my 36-key
+[QMK layout](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md)
+(Piantor and Corne), so switching keyboards needs no relearning. The config is generated
+from TypeScript.
 
-## Development: Build JSON files
+![MacBook keyboard mapping](docs/macbook.svg)
 
-Use the following command to generate the JSON files for `karabiner.json` and complex modifications:
+Highlighted keys are remapped; the small legend is the printed key. The space bar plays both
+Return thumbs, and the keys around it play the other four thumbs: tap for the upper legend,
+hold for the lower one.
 
-``` shell
-npm run build
-```
+## Layers
 
-When `~/.config/karabiner/karabiner.json` is the deployed symlink, the build touches it
-so Karabiner reloads the new file. If saving settings in the Karabiner UI replaced the
-symlink with a regular file, `./_init link` backs that file up and restores the symlink.
+The layers match the [QMK diagrams](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#layers)
+key for key. On the MacBook you reach them like this:
 
-`npm test` also compares the base, Symbols and F-Keys layers with the
-[QMK userspace](https://github.com/eduarbo/qmk_userspace) when it is checked out at
-`~/dev/eduarbo/qmk_userspace` (set `QMK_USERSPACE` to use another path). Run it after
-changing either side.
+| Layer | Hold |
+| --- | --- |
+| Symbols | Right ⌘ |
+| Super (`⌘⌥⌃`) | Left ⌥ |
+| Hyper (`⌘⌥⌃⇧`) | Left ⌥ and right ⌘, in either order |
+| FN (F-Keys) | Left ⌥, then the space bar or right ⌥ |
 
-## My layout
+A few things differ from QMK:
 
-This layout is designed to match the
-[QMK userspace](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md)
-of my main keyboards, a 36-key Piantor and a 3x5 Corne. The two central keys in the
-thumb cluster represent the spacebar on the MacBook keyboard. My goal is to seamlessly switch
-between the two keyboards, as I don't always carry my mechanical keyboard with me 😞
+- `Symbols+Z` sends Caps Lock; QMK uses Caps Word.
+- Super with the space bar reaches FN, because the space bar is easier to reach than the
+  ⌘ key that plays the Space thumb.
+- There is no Adjust layer: firmware controls and layout toggles only exist in QMK.
+- The Super layer has no device condition, so it also turns `Super+Q/A/Z/X/C/V/B` from the
+  QMK keyboards into the screenshot and app-switching shortcuts.
 
-### Why this layout distribuition?
+## App-specific rules
 
-- Super Mod: Frequently used shortcuts. Placed on the left hand for ease of use with the mouse in the right hand.
-- Shift: Positioned on the left to be used with modifiers on the opposite side and with the mouse.
-- Symbols Layer: For all symbols that didn’t fit on the base layer. Positioned on the right to use the arrow keys (hjkl) with one hand.
-- Command: Placed on both sides since, like the Shift key, it is often used with other modifiers. This placement maintains consistency with the integrated keyboard, where the spacebar can be used with any modifier on either side.
-- Alt/Option: This modifier is less used in macOS, so I prioritized the Super key in the thumbs cluster.
-- Space: Placed in the most accessible positions, such as the Shift or Symbols keys, which are the most used modifiers when typing.
-- Enter: Positioned on both the left and right sides to facilitate copying, pasting, and pressing Enter while using the mouse. Keeping Enter on the left side prevents the need to move the right hand from the mouse to the keyboard.
-- Layer chords: Symbols and Super can be held together for Hyper; releasing either
-  layer key immediately removes the part it owns, so no modifier remains sticky.
-- Avoid placing Enter on the Shift or Symbols keys to prevent accidental presses while typing.
+**Emacs-style editing** works everywhere except editors, terminals, games, virtual
+machines, remote desktops and X11 apps:
 
-### Differences with QMK
+| Shortcut | Action |
+| --- | --- |
+| `⌃W` / `⌃U` / `⌃D` | Delete the previous word / to line start / to line end |
+| `⌃B` / `⌃F` | Move one word back / forward |
+| `⌃⌫` | Delete forward |
 
-The built-in keyboard and the QMK keyboards share every layer, including FN, and
-the same 250 ms tap window for tap/hold keys. The one intentional exception is
-`SYMBOLS+Z`: Caps Lock here, Caps Word in QMK.
+**Civilization V** gets a one-handed layer on every keyboard while the game is in front:
 
-Holding Space (Right Command) and tapping Left Command sends `Command+Space`, like
-holding a Return thumb and tapping Space on the QMK keyboards.
+| Key | Sends | Key | Sends |
+| --- | --- | --- | --- |
+| `Q` | `⌫` | `F` | `.` (next unit) |
+| `W` | `Home` (previous city) | `G` | `M` (move) |
+| `R` | `End` (next city) | `Z` | `F` (fortify) |
+| `T` | `U` (upgrade) | `X` | `H` (heal) |
+| `S` | `,` (previous unit) | `C` | `S` (set up artillery) |
+| `D` | `F3` | `V` | `⌃A` (attack) |
 
-The SUPER layer has no device condition on purpose: QMK sends `Super+key` for `Q`,
-`A`, `Z`, `X`, `C`, `V` and `B`, and this layer turns them into the shortcuts listed
-below. QMK keeps its layout toggles (macOS/Winux base and Gamepad) on its Adjust
-layer, which has no Karabiner equivalent.
+Tapping right ⌘ sends `⇧Return` (next turn).
 
-### Symbols chart
+## Development
 
-#### Modifiers
+| Command | Does |
+| --- | --- |
+| `npm run build` | Generates `json/` and makes Karabiner reload the deployed config |
+| `npm test` | Runs the tests, including parity with the QMK userspace |
+| `npm run docs` | Redraws `docs/macbook.svg` from `docs/macbook.yaml` |
+| `npm run prettier` | Formats the sources |
 
-| Symbol | description | Symbol | description   | Symbol | description    |
-|--------|-------------|--------|---------------|--------|----------------|
-| `⌘`    | command     | `⌃`    | control       | `⇧`    | shift          |
-| `⌥`    | option      | `≡`    | super (`⌘⌥⌃`) | `≢`    | hyper (`⇧⌘⌥⌃`) |
-
-#### Layers
-
-| Symbol | description | Symbol | description | Symbol | description  |
-|--------|-------------|--------|-------------|--------|--------------|
-| `⇪`    | symbols     | `ƒ`    | f-keys      | `⊕`    | adjust (QMK) |
-
-#### Other Keys
-
-| Symbol | Description | Symbol | Description | Symbol | Description |
-|--------|-------------|--------|-------------|--------|-------------|
-| `␣`    | Space       | `⌫`    | Backspace   | `⇞`    | Home        |
-| `⇥`    | Tab         | `⌦`    | Delete      | `⇟`    | End         |
-| `⏎`    | Enter       | `▼`    | Page Down   | `⇧´`   | Caps Lock   |
-| `⎋`    | Escape      | `▲`    | Page Up     |        |             |
-
-### Base
-
-Standard QWERTY layout, with the delete key replacing the slash key. Modifiers are set as mod-tap (acting as a modifier when held and a regular keycode when tapped). Central modifiers are treated as one, allowing the layout to be replicated on a MacBook keyboard by using the space key in place of the central modifiers.
-
-On the built-in keyboard, Caps Lock is an additional left Shift and `'` is an additional right Shift. Caps Lock and `'` remain available as `SYMBOLS+Z` and `SYMBOLS+M`.
-
-```text
-╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ ⌫ │
-╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │ ⎋ │ ␣ │ ⏎ │ │ ⏎ │ ⇥ │F16│ ← on tap
-           │ ≡ │ ⇧ │ ⌘ │ │ ⌘ │ ⇪ │ ⌃ │ ← on hold
-           ╰───┴───┴───╯ ╰───┴───┴───╯
-```
-
-### Symbols
-
-Left-side numpad, right-side symbols and arrows, with `,`, `.`, and `⌫` retained for easy number typing.
-
-```text
-╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│ ⇞ │ 7 │ 8 │ 9 │ 0 │       │ \ │ [ │ ] │ / │ ▼ │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│´⇧ │ 4 │ 5 │ 6 │ = │       │ ← │ ↓ │ ↑ │ → │˜⇧ │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│⇧´ │ 1 │ 2 │ 3 │ - │       │ ` │ ' │ , │ . │ ⌫ │
-╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │⇧+⎋│⇧+␣│⌘+⏎│ │   │▐█▌│   │ ← on tap
-           │ ≢ │   │ ⌘ │ │   │▐█▌│   │ ← on hold
-           ╰───┴───┴───╯ ╰───┴───┴───╯
-```
-
-On the built-in keyboard, `SYMBOLS+A` and `SYMBOLS+;` are mod-taps. Tap them for the
-acute-accent and tilde dead keys. Hold either combination while pressing another key to
-add Shift without leaving the Symbols layer. For example, `B` produces `_`, `W` produces
-`&`, and the shifted `Q`/`P` bindings produce Home/End.
-
-Because Command and Return share the same mod-tap, `SYMBOLS+Shift+Return` sends
-`Command+Return` directly. Holding `SYMBOLS+Left Option` produces Hyper
-(`Control+Option+Command+Shift`) for application-launcher shortcuts, regardless of
-which modifier is pressed first. Releasing either key first immediately removes its
-contribution, so continuing to hold only Left Option behaves as Super, not Hyper.
-Tapping the Symbols-first combination remains `Shift+Escape`.
-
-On the built-in keyboard, tapping Space while Symbols is active sends
-`Command+Return`; holding it remains Right Command. The Shift-specific
-binding stays first so Shift is not included in the emitted chord.
-
-`SYMBOLS+Z` is the one intentional QMK/Karabiner difference: QMK uses native Caps
-Word, while Karabiner sends Caps Lock. Emulating Caps Word in Karabiner would require
-a global state machine, so this configuration avoids that extra complexity.
-
-| Symbol | Description | Symbol      | Description | Symbol      | Description |
-|--------|-------------|-------------|-------------|-------------|-------------|
-| `F16`  | Raycast     | `⌘␣`        | Spotlight   | `⇧` + `F16` | Emojis      |
-| `⌘⎋`   | Lock Mac    | `⌘` + `F16` | Lock Mac    |             |             |
-
-### Super
-
-Left-side shortcuts for one-handed use, ideal for multitasking with mouse/trackpad or eating Cheetos.
-
-```text
-╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│⇧⌘3│MIC│⌥⌘I│⇧⌘C│⌘\ │       │SND│1PW│GPT│CLP│ ✗ │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│⇧⌘4│⇧⌃⇥│⌘[ │⌘] │⌃⇥ │       │W←½│WNS│WTM│W→½│WGR│
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│⇧⌘5│⌃↓ │⌘` │⌘⇥ │⌃↑ │       │ ✗ │EMJ│SNP│UAC│ ✗ │
-╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │▐█▌│   │   │ │   │   │   │ ← layer shortcuts above
-           │▐█▌│   │   │ │   │ ≢ │ ƒ │ ← Symbols / FN chords
-           ╰───┴───┴───╯ ╰───┴───┴───╯
-```
-
-The Super thumb is held, not sticky. `Super+Symbols` produces Hyper in either press
-order. `Super+Space` mirrors the right FN thumb: tap for `F16`, or hold for the FN
-layer. The Space alias intentionally requires Super to be pressed first.
-
-#### Right side
-
-**Top Row**
-- `SND`: Change Sound output
-- `1PW`: Bitwarden
-- `GPT`: ChatGPT Launcher
-- `CLP`: Raycast Clipboard History
-
-**Home Row (HammerSpoon bindings)**
-- `W←½`: Cycles the window to the left 1/2, 1/3 and 2/3 of the screen
-- `WNS`: Moves the window to the next screen
-- `WTM`: Maximizes the window or restores it to its previous size
-- `W→½`: Cycles the window to the right 1/2, 1/3 and 2/3 of the screen
-- `WGR`: moves and resizes window in a grid
-
-**Bottom Row**
-- `EMJ`: Raycast Emojis
-- `SNP`: Raycast Snippets
-- `UAC`: Raycast Universal Actions
-
-#### Left side
-
-- `MIC`: Toggle Mic
-
-**Screenshots**
-- `⇧⌘3`: Entire screen
-- `⇧⌘4`: Section or window
-- `⇧⌘5`: Record screen
-
-**Debugger**
-- `⌥⌘I`: Toggle DevTools
-- `⇧⌘C`: Inspect element
-- `⌘\`: Pause/Resume script
-
-**Browser navigation**
-- `⇧⌃⇥` : Previous tab
-- `⌘[` : Back
-- `⌘]` : Forward
-- `⌃⇥`: Next tab
-
-**App navigation**
-- `⌃↓`: App windows
-- `` ⌘\` ``: Switch window app / Switch previous app
-- `⌘⇥`: Switch next app
-- `⌃↑`: Mission control
-
-### F-Keys
-
-Function keys are on the left; media, brightness, and system controls remain on the right.
-
-```text
-╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│F12│F7 │F8 │F9 │PRT│       │V+ │RW │PLY│FF │PRT│
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│F11│F4 │F5 │F6 │LCK│       │V- │V- │MUT│V+ │LCK│
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│F10│F1 │F2 │F3 │PAU│       │MUT│B- │B+ │MIS│PAU│
-╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │▐█▌│ ⇧ │   │ │   │ ⇧ │▐█▌│
-           ╰───┴───┴───╯ ╰───┴───┴───╯
-```
-
-`V±` changes volume, `RW`/`FF` seek, `PLY` controls playback, `MUT` toggles mute, `B±` changes brightness, and `MIS` opens Mission Control.
-
-On the built-in keyboard, `Left Option+Space` mirrors `Left Option+Right Option` for
-easier access to this layer. Within SUPER, Space is `F16` on tap and Right Control on
-hold; outside SUPER it remains Enter on tap and Right Command on hold.
-
-### Civ V
-
-This application-specific layer is evaluated before the global base layer and intentionally applies to both the built-in keyboard and external keyboards. The general `gamingLayer` remains defined but inactive.
-
-- ⌃A: Attack
-- B: Ranged attack
-- M: Move
-- SPC: Do nothing
-- A: Alert
-- E: Explore
-- F: Sleep/Fortify
-- S: Setup artillery
-- H: Fortify Heal
-- U: Upgrade unit
-- Shift+ENTER: Next turn
-- .: Next unit
-- ,: Prev unit
-- F10: Strategic view
-- HOME: Prev city
-- END: Next city
-
-```text
-╭───┬───┬───┬───┬───╮
-│ ⌫ │HOM│   │END│ U │
-├───┼───┼───┼───┼───┤
-│   │ , │F10│ . │ M │
-├───┼───┼───┼───┼───┤
-│ F │ H │ S │⌃A │   │
-╰───┴───┴──┬┴──┬┴──┬┴──╮
-           │   │   │⇧⏎ │
-           ╰───┴───┴───╯
-```
-
-### Template
-
-```text
-╭───┬───┬───┬───┬───╮       ╭───┬───┬───┬───┬───╮
-│   │   │   │   │   │       │   │   │   │   │   │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│   │   │   │   │   │       │   │   │   │   │   │
-├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-│   │   │   │   │   │       │   │   │   │   │   │
-╰───┴───┴──┬┴──┬┴──┬┴──╮ ╭──┴┬──┴┬──┴┬──┴───┴───╯
-           │   │   │   │ │   │   │   │
-           │   │   │   │ │   │   │   │
-           ╰───┴───┴───╯ ╰───┴───┴───╯
-```
-
-## Frequently Asked Questions (FAQ)
-### How does **Karabiner-Elements** handle complex modifications precedence?
-
-Karabiner-Elements operates on a “first match, first served” basis. When scanning, it applies the first matching modification it encounters and ceases further search. To prioritize a particular rule, position it at the top of your list in the configuration. You can rearrange rules via drag-and-drop in the GUI or by editing the JSON file (higher positioned = higher priority). Beware that overlapping rules can cause unforeseen behavior, so strive for mutually exclusive criteria in your rules where feasible.
-
-<!-- [![Keyboard Layout Editor](keyboard-layout.png)](http://www.keyboard-layout-editor.com/#/gists/3b8aa95c07c388e37f393d3b0e141f25) -->
+- **Deploy:** `./_init link` symlinks `json/karabiner.json` into `~/.config/karabiner`. Saving
+  settings in the Karabiner app replaces that symlink with a regular file; `link` backs the
+  file up and restores the symlink.
+- **Parity test:** it reads `~/dev/eduarbo/qmk_userspace` (set `QMK_USERSPACE` for another
+  path) and is skipped when that checkout is missing. Run it after changing either side.
+- **Rule order:** Karabiner uses the first rule that matches, so app-specific and chord rules
+  come before the base layer in `config/karabiner.ts`.
