@@ -1,0 +1,286 @@
+<svg width="850" height="220" viewBox="0 0 850 220" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<style>/* inherit to force styles through use tags */
+svg path {
+    fill: inherit;
+}
+
+/* font and background color specifications */
+svg.keymap {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 14px;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    fill: #24292e;
+}
+
+/* default key styling */
+rect.key {
+    fill: #f6f8fa;
+}
+
+rect.key, rect.combo {
+    stroke: #c9cccf;
+    stroke-width: 1;
+}
+
+/* default key side styling, only used is draw_key_sides is set */
+rect.side {
+    filter: brightness(90%);
+}
+
+/* color accent for combo boxes */
+rect.combo, rect.combo-separate {
+    fill: #cdf;
+}
+
+/* color accent for held keys */
+rect.held, rect.combo.held {
+    fill: #fdd;
+}
+
+/* color accent for ghost (optional) keys */
+rect.ghost, rect.combo.ghost {
+    stroke-dasharray: 4, 4;
+    stroke-width: 2;
+}
+
+text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+/* styling for layer labels */
+text.label {
+    font-weight: bold;
+    text-anchor: start;
+    stroke: white;
+    stroke-width: 4;
+    paint-order: stroke;
+}
+
+/* styling for optional footer */
+text.footer {
+    text-anchor: end;
+    dominant-baseline: auto;
+    stroke: white;
+    stroke-width: 4;
+    paint-order: stroke;
+}
+
+/* styling for combo tap, and key non-tap label text */
+text.combo, text.hold, text.shifted, text.left, text.right, text.tl, text.tr, text.bl, text.br {
+    font-size: 11px;
+}
+
+text.hold, text.bl, text.br {
+    text-anchor: middle;
+    dominant-baseline: auto;
+}
+
+text.shifted, text.tl, text.tr {
+    text-anchor: middle;
+    dominant-baseline: hanging;
+}
+
+text.left, text.tl, text.bl {
+    text-anchor: start;
+}
+
+text.right, text.tr, text.br {
+    text-anchor: end;
+}
+
+text.layer-activator {
+    text-decoration: underline;
+}
+
+/* styling for hold/shifted label text in combo box */
+text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right {
+    font-size: 8px;
+}
+
+/* lighter symbol for transparent keys */
+text.trans {
+    fill: #7b7e81;
+}
+
+/* styling for combo dendrons */
+path.combo {
+    stroke-width: 1;
+    stroke: gray;
+    fill: none;
+}
+
+/* Start Tabler Icons Cleanup */
+/* cannot use height/width with glyphs */
+.icon-tabler > path {
+    fill: inherit;
+    stroke: inherit;
+    stroke-width: 2;
+}
+/* hide tabler's default box */
+.icon-tabler > path[stroke="none"][fill="none"] {
+    visibility: hidden;
+}
+/* End Tabler Icons Cleanup */
+
+@media (prefers-color-scheme: dark) {
+svg.keymap { fill: #d1d6db; }
+rect.key { fill: #3f4750; }
+rect.key, rect.combo { stroke: #60666c; }
+rect.combo, rect.combo-separate { fill: #1f3d7a; }
+rect.held, rect.combo.held { fill: #854747; }
+text.label, text.footer { stroke: black; }
+text.trans { fill: #7e8184; }
+path.combo { stroke: #7f7f7f; }
+
+}
+svg.keymap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; } text.label { display: none; }</style>
+<g transform="translate(30, 0)" class="layer-Hyper">
+<text x="0" y="10" class="label" id="Hyper">Hyper:</text>
+<g transform="translate(0, 20)">
+<g transform="translate(38, 30)" class="key keypos-0">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.3em" style="font-size: 88%">Activity</tspan><tspan x="0" dy="1.2em" style="font-size: 88%">Monitor</tspan>
+</text>
+<text x="0" y="-26" class="key shifted">Q</text>
+</g>
+<g transform="translate(114, 30)" class="key keypos-1">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 88%">WhatsApp</tspan></text>
+<text x="0" y="-26" class="key shifted">W</text>
+</g>
+<g transform="translate(190, 30)" class="key keypos-2">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Emacs</text>
+<text x="0" y="-26" class="key shifted">E</text>
+</g>
+<g transform="translate(266, 30)" class="key keypos-3">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 78%">Reminders</tspan></text>
+<text x="0" y="-26" class="key shifted">R</text>
+</g>
+<g transform="translate(342, 30)" class="key keypos-4">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 88%">Telegram</tspan></text>
+<text x="0" y="-26" class="key shifted">T</text>
+</g>
+<g transform="translate(448, 30)" class="key ghost keypos-5">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">Y</text>
+</g>
+<g transform="translate(524, 30)" class="key keypos-6">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 78%">Bitwarden</tspan></text>
+<text x="0" y="-26" class="key shifted">U</text>
+</g>
+<g transform="translate(600, 30)" class="key keypos-7">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Gemini</text>
+<text x="0" y="-26" class="key shifted">I</text>
+</g>
+<g transform="translate(676, 30)" class="key ghost keypos-8">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">O</text>
+</g>
+<g transform="translate(752, 30)" class="key ghost keypos-9">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">P</text>
+</g>
+<g transform="translate(38, 90)" class="key ghost keypos-10">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">A</text>
+</g>
+<g transform="translate(114, 90)" class="key keypos-11">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Spotify</text>
+<text x="0" y="-26" class="key shifted">S</text>
+</g>
+<g transform="translate(190, 90)" class="key keypos-12">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.3em">Brave</tspan><tspan x="0" dy="1.2em">Browser</tspan>
+</text>
+<text x="0" y="-26" class="key shifted">D</text>
+</g>
+<g transform="translate(266, 90)" class="key keypos-13">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Finder</text>
+<text x="0" y="-26" class="key shifted">F</text>
+</g>
+<g transform="translate(342, 90)" class="key ghost keypos-14">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">G</text>
+</g>
+<g transform="translate(448, 90)" class="key keypos-15">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Reload</text>
+<text x="0" y="-26" class="key shifted">H</text>
+</g>
+<g transform="translate(524, 90)" class="key keypos-16">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Codex</text>
+<text x="0" y="-26" class="key shifted">J</text>
+</g>
+<g transform="translate(600, 90)" class="key keypos-17">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">kitty</text>
+<text x="0" y="-26" class="key shifted">K</text>
+</g>
+<g transform="translate(676, 90)" class="key ghost keypos-18">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">L</text>
+</g>
+<g transform="translate(752, 90)" class="key ghost keypos-19">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">;</text>
+</g>
+<g transform="translate(38, 150)" class="key keypos-20">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">zoom.us</text>
+<text x="0" y="-26" class="key shifted">Z</text>
+</g>
+<g transform="translate(114, 150)" class="key ghost keypos-21">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">X</text>
+</g>
+<g transform="translate(190, 150)" class="key keypos-22">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 88%">Calendar</tspan></text>
+<text x="0" y="-26" class="key shifted">C</text>
+</g>
+<g transform="translate(266, 150)" class="key keypos-23">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Preview</text>
+<text x="0" y="-26" class="key shifted">V</text>
+</g>
+<g transform="translate(342, 150)" class="key ghost keypos-24">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">B</text>
+</g>
+<g transform="translate(448, 150)" class="key keypos-25">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Craft</text>
+<text x="0" y="-26" class="key shifted">N</text>
+</g>
+<g transform="translate(524, 150)" class="key keypos-26">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Mail</text>
+<text x="0" y="-26" class="key shifted">M</text>
+</g>
+<g transform="translate(600, 150)" class="key ghost keypos-27">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">,</text>
+</g>
+<g transform="translate(676, 150)" class="key ghost keypos-28">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">.</text>
+</g>
+<g transform="translate(752, 150)" class="key ghost keypos-29">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
+<text x="0" y="-26" class="key ghost shifted">/</text>
+</g>
+</g>
+</g>
+</svg>
