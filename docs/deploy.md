@@ -75,6 +75,5 @@ init "$@"
 ```
 
 Save it as `category/mytool/_init`, make it executable and run `dot category/mytool`.
-Then run `python3 docs/draw.py` so the [topic map](topics.svg) includes it.
 `mklink` resolves sources relative to the topic, and `_os`, `_is_callable` and the
 `echo-*` helpers come from [`env`](../env) and [`deploy`](../deploy).

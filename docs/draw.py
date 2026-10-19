@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
-"""Draw the diagrams in docs/ with Graphviz.
-
-- topics.svg: every topic grouped by category, with the dependencies that each
-  `_init deps` reports, so it always matches what `dot` installs.
-- lifecycle.svg: what `dot TOPIC` does.
+"""Draw docs/lifecycle.svg, what `dot TOPIC` does, with Graphviz.
 
 Run `python3 docs/draw.py` from anywhere; it needs Graphviz (`brew install graphviz`).
 """
 
-import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -19,7 +14,6 @@ DOCS = ROOT / "docs"
 # Colors readable on GitHub's light and dark themes.
 BLUE, PURPLE, GRAY = "#0969da", "#8250df", "#8b949e"
 FONT = "Helvetica"
-CATEGORIES = {"macos": "macOS", "shell": "Shell", "editor": "Editors", "dev": "Development"}
 
 STYLE = f"""
   graph [bgcolor=transparent, fontname="{FONT}", fontsize=12, fontcolor="{GRAY}", pad=0.2];
@@ -27,30 +21,6 @@ STYLE = f"""
          color=none, fillcolor="{BLUE}", margin="0.14,0.05", height=0.32];
   edge  [color="{GRAY}", fontcolor="{GRAY}", fontname="{FONT}", fontsize=10, arrowsize=0.6];
 """
-
-
-def init_query(topic: str, what: str) -> list[str]:
-    env = {**os.environ, "DOTFILES": str(ROOT), "TOPIC": topic}
-    result = subprocess.run(["./_init", what], cwd=ROOT / topic, env=env, capture_output=True, text=True)
-    return result.stdout.split()
-
-
-def topics_dot() -> str:
-    topics = sorted(str(p.parent.relative_to(ROOT)) for p in ROOT.glob("*/*/_init") if os.access(p, os.X_OK))
-    lines = ["digraph topics {", "  rankdir=LR; newrank=true; concentrate=true; nodesep=0.18; ranksep=0.6;", STYLE]
-    for category, title in CATEGORIES.items():
-        lines.append(f'  subgraph cluster_{category} {{ label="{title}"; labeljust=l; style="rounded,dashed"; color="{GRAY}";')
-        for topic in topics:
-            if topic.startswith(category + "/"):
-                macos_only = init_query(topic, "os") == ["macos"]
-                fill = f', fillcolor="{PURPLE}"' if macos_only else ""
-                lines.append(f'    "{topic}" [label="{topic.split("/")[1]}"{fill}];')
-        lines.append("  }")
-    for topic in topics:
-        for dep in init_query(topic, "deps"):
-            lines.append(f'  "{topic}" -> "{dep}";')
-    lines.append("}")
-    return "\n".join(lines)
 
 
 LIFECYCLE = f"""digraph lifecycle {{
@@ -86,5 +56,4 @@ def render(source: str, name: str) -> None:
 
 
 if __name__ == "__main__":
-    render(topics_dot(), "topics.svg")
     render(LIFECYCLE, "lifecycle.svg")

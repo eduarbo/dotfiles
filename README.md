@@ -21,7 +21,7 @@ Intel Macs and on Debian 12.
 ## Topics
 
 Every folder below is a topic. `dot TOPIC` installs it after the topics it depends on;
-📖 marks the ones with their own guide.
+📖 marks the ones with their own guide. Debian skips `macos/*`, `personal-ops` and `php`.
 
 ### macOS
 
@@ -66,13 +66,6 @@ Every folder below is a topic. `dot TOPIC` installs it after the topics it depen
 | `php` | PHP with Composer |
 | [`agent-config`](dev/agent-config) 📖 | Bootstraps and audits my AI agent configuration repositories |
 | [`personal-ops`](dev/personal-ops) 📖 | Clones and validates my Personal Ops control plane |
-
-## How the topics depend on each other
-
-`dot macos/workstation` walks this graph and installs each dependency first. Purple topics
-are macOS-only and are skipped on Debian.
-
-![Topics grouped by category, with arrows to the topics each one needs](docs/topics.svg)
 
 ## Everyday commands
 
