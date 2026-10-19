@@ -9,9 +9,8 @@ from TypeScript.
 
 ![MacBook keyboard mapping](docs/macbook.svg)
 
-Highlighted keys are remapped; the small legend is the printed key. The space bar plays both
-Return thumbs, and the keys around it play the other four thumbs: tap for the upper legend,
-hold for the lower one.
+Highlighted keys are remapped. The small top legend is the printed key; the middle one is
+the tap and the bottom one the hold.
 
 ## Layers
 

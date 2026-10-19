@@ -11,9 +11,9 @@ dot shell/ssh
 
 ```mermaid
 flowchart LR
-  ssh["ssh / git"] --> config["~/.ssh/config<br/>(this topic)"]
-  config --> local["~/.config/ssh/local.conf<br/>private hosts, never committed"]
-  config --> agent["Bitwarden SSH agent<br/>keys stay in the vault"]
+  ssh["ssh / git"] --> config["~/.ssh/config"]
+  config --> local["~/.config/ssh/local.conf"]
+  config --> agent["Bitwarden SSH agent"]
 ```
 
 ## What it sets up

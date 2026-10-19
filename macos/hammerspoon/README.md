@@ -13,13 +13,13 @@ dot macos/hammerspoon
 
 ## App launcher
 
-Hold Hyper and tap a letter to open or focus an app. `I` belongs to the Gemini app's mini
-Gemini, and `,` and `.` stay free because macOS uses them for sysdiagnose.
+Hold Hyper and tap a letter to open or focus that app.
 
 ![Hyper app launcher](docs/launcher.svg)
 
-Edit the list in [`config/bindings.lua`](config/bindings.lua), then redraw the diagram with
-`python3 docs/draw_launcher.py`.
+To change it, edit [`config/bindings.lua`](config/bindings.lua) and redraw the diagram with
+`python3 docs/draw_launcher.py`. `,` and `.` can't be used: macOS reserves them for
+sysdiagnose.
 
 ## Other hotkeys
 
@@ -34,9 +34,8 @@ Edit the list in [`config/bindings.lua`](config/bindings.lua), then redraw the d
 | `⌘F16` or `⌘Esc` | Lock the screen |
 | `⇧F16` | Emoji picker |
 
-Super `I` opens mini Gemini from the Gemini app, and Raycast owns the rest of Super's right
-hand: `U` Bitwarden, `O` clipboard history, `M` emoji, `,` snippets and `.` universal
-actions.
+The rest of Super's keys are in the
+[Super layer diagram](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#super--hold-esc).
 
 A menu bar icon mutes and unmutes the mic. Its push-to-talk hotkey is off; enable it in
 `config/bindings.lua`.
