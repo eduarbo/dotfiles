@@ -13,8 +13,8 @@ dot macos/hammerspoon
 
 ## App launcher
 
-Hold Hyper and tap a letter to open or focus an app. Gemini is a Raycast hotkey, and `,`
-and `.` stay free because macOS uses them for sysdiagnose.
+Hold Hyper and tap a letter to open or focus an app. `I` belongs to the Gemini app's mini
+Gemini, and `,` and `.` stay free because macOS uses them for sysdiagnose.
 
 ![Hyper app launcher](docs/launcher.svg)
 
@@ -34,8 +34,9 @@ Edit the list in [`config/bindings.lua`](config/bindings.lua), then redraw the d
 | `⌘F16` or `⌘Esc` | Lock the screen |
 | `⇧F16` | Emoji picker |
 
-Raycast owns the rest of Super's right hand: `U` Bitwarden, `I` Gemini, `O` clipboard
-history, `M` emoji, `,` snippets and `.` universal actions.
+Super `I` opens mini Gemini from the Gemini app, and Raycast owns the rest of Super's right
+hand: `U` Bitwarden, `O` clipboard history, `M` emoji, `,` snippets and `.` universal
+actions.
 
 A menu bar icon mutes and unmutes the mic. Its push-to-talk hotkey is off; enable it in
 `config/bindings.lua`.

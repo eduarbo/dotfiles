@@ -177,7 +177,9 @@ svg.keymap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helveti
 </g>
 <g transform="translate(600, 30)" class="key keypos-7">
 <rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
-<text x="0" y="0" class="key tap">Gemini</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.3em">Mini</tspan><tspan x="0" dy="1.2em">Gemini</tspan>
+</text>
 <text x="0" y="-26" class="key shifted">I</text>
 </g>
 <g transform="translate(676, 30)" class="key ghost keypos-8">
@@ -209,9 +211,10 @@ svg.keymap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helveti
 <text x="0" y="0" class="key tap">Finder</text>
 <text x="0" y="-26" class="key shifted">F</text>
 </g>
-<g transform="translate(342, 90)" class="key ghost keypos-14">
-<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
-<text x="0" y="-26" class="key ghost shifted">G</text>
+<g transform="translate(342, 90)" class="key keypos-14">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Gemini</text>
+<text x="0" y="-26" class="key shifted">G</text>
 </g>
 <g transform="translate(448, 90)" class="key keypos-15">
 <rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
@@ -228,9 +231,10 @@ svg.keymap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helveti
 <text x="0" y="0" class="key tap">kitty</text>
 <text x="0" y="-26" class="key shifted">K</text>
 </g>
-<g transform="translate(676, 90)" class="key ghost keypos-18">
-<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>
-<text x="0" y="-26" class="key ghost shifted">L</text>
+<g transform="translate(676, 90)" class="key keypos-18">
+<rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key"/>
+<text x="0" y="0" class="key tap">Claude</text>
+<text x="0" y="-26" class="key shifted">L</text>
 </g>
 <g transform="translate(752, 90)" class="key ghost keypos-19">
 <rect rx="6" ry="6" x="-36" y="-28" width="72" height="56" class="key ghost"/>

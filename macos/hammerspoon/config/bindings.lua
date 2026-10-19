@@ -24,7 +24,7 @@ hs.hotkey.bind("shift", "f16", function() hs.eventtap.keyStroke({"cmd", "ctrl"},
 sound.bind(mods.super, "y")
 
 -- U: Taken by Bitwarden in Raycast
--- I: Taken by Gemini in Raycast
+-- I: Taken by mini Gemini in the Gemini app
 -- O: Taken by Clipboard History in Raycast
 
 -- Window Nav
@@ -57,12 +57,12 @@ spoon.SpoonInstall:andUse("AppLauncher", {
         d = "Brave Browser",
         e = "Emacs",
         f = "Finder",
-        -- g = "",
+        g = "Gemini",
         -- h = "", -- already bound to reload 🔨🥄
-        -- i = "", -- already bound to Gemini in Raycast
+        -- i = "", -- already bound to mini Gemini
         j = "Codex",
         k = "kitty",
-        -- l = "",
+        l = "Claude",
         m = "Mail",
         n = "Craft",
         -- o = "",

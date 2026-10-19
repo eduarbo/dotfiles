@@ -27,8 +27,8 @@ def hyper_bindings(source: str) -> dict[str, str]:
         for line in launcher.group(1).splitlines():
             if app := re.match(r'\s*(\w)\s*=\s*"([^"]+)"', line):
                 labels[app.group(1)] = app.group(2)
-            elif taken := re.match(r'\s*--\s*(\w)\s*=\s*"",\s*--\s*already bound to (.+?) in Raycast', line):
-                labels.setdefault(taken.group(1), taken.group(2))
+            elif taken := re.match(r'\s*--\s*(\w)\s*=\s*"",\s*--\s*already bound to (.+?)(?: in Raycast)?\s*$', line):
+                labels.setdefault(taken.group(1), taken.group(2)[:1].upper() + taken.group(2)[1:])
     for key in re.findall(r'hs\.hotkey\.bind\(mods\.hyper,\s*"(\w)",\s*hs\.reload\)', source):
         labels[key] = "Reload"
     return labels
