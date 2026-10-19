@@ -8,17 +8,7 @@ once `shell/zsh` is enabled it is also the `dot` alias.
 
 ## What `dot TOPIC` does
 
-```mermaid
-flowchart TD
-  start(["dot TOPIC"]) --> os{"Runs on this OS?"}
-  os -- no --> skip(["Skipped"])
-  os -- yes --> deps["Install missing dependencies first, with this same flow"]
-  deps --> enabled{"Already enabled?"}
-  enabled -- no --> link["Link the topic into ~/.local/share/dotfiles<br/>then run _init link"]
-  link --> install["_init install"]
-  install -- fails --> undo(["Topic disabled again"])
-  enabled -- yes --> update["_init update"]
-```
+![dot TOPIC checks the OS, installs dependencies, then links and installs a new topic or updates an enabled one](lifecycle.svg)
 
 An enabled topic is just a symlink: `~/.local/share/dotfiles/shell.zsh.topic` points at
 `shell/zsh` in this repository, so `dot -L` lists those links.
@@ -85,5 +75,6 @@ init "$@"
 ```
 
 Save it as `category/mytool/_init`, make it executable and run `dot category/mytool`.
+Then run `python3 docs/draw.py` so the [topic map](topics.svg) includes it.
 `mklink` resolves sources relative to the topic, and `_os`, `_is_callable` and the
 `echo-*` helpers come from [`env`](../env) and [`deploy`](../deploy).

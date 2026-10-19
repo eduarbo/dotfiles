@@ -67,26 +67,12 @@ Every folder below is a topic. `dot TOPIC` installs it after the topics it depen
 | [`agent-config`](dev/agent-config) 📖 | Bootstraps and audits my AI agent configuration repositories |
 | [`personal-ops`](dev/personal-ops) 📖 | Clones and validates my Personal Ops control plane |
 
-Topics marked macOS-only (`macos/*`, `personal-ops` and `php`) are skipped on Debian.
-
 ## How the topics depend on each other
 
-`dot macos/workstation` walks this graph and installs each dependency first.
+`dot macos/workstation` walks this graph and installs each dependency first. Purple topics
+are macOS-only and are skipped on Debian.
 
-```mermaid
-flowchart LR
-  workstation --> apps & agent-config & personal-ops
-  personal-ops --> agent-config
-  agent-config --> git
-  apps --> emacs & hammerspoon & karabiner & claude-code & codex & kitty & ssh
-  emacs --> git & python
-  karabiner --> node
-  codex --> node
-  php --> node & mise
-  node --> mise
-  golang --> mise
-  tmux --> git
-```
+![Topics grouped by category, with arrows to the topics each one needs](docs/topics.svg)
 
 ## Everyday commands
 
