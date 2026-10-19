@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › macos › raycast
+
 # Raycast
 
 Raycast stores everything in **encrypted SQLite** under

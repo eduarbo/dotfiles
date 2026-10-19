@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › dev › agent-config
+
 # Agent configuration
 
 Bootstraps the private `agent-config-global` repository and its optional

@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › macos › workstation
+
 # macOS workstation
 
 Bootstrap and validate the personal Mac profile through one topic:

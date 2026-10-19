@@ -1,47 +1,30 @@
-# Claude Code Configuration
+[dotfiles](../../README.md) › shell › claude-code
 
-Status line configuration for [Claude Code](https://claude.com/claude-code) CLI, integrated with Powerlevel10k theme.
+# Claude Code
 
-## What's included
-
-- **statusline.sh**: Custom status line script that displays:
-  - Current AI model (e.g., 󱚟 Sonnet 4.5)
-  - Current directory (📁 dotfiles)
-  - Context usage with visual progress bar
-  - Session cost
-  - Color-coded warnings based on context usage (cyan → yellow → red)
-
-- **settings.json**: Claude Code settings that enable the custom status line
-
-## Installation
+Installs [Claude Code](https://claude.com/claude-code) and a status line that matches the
+Powerlevel10k prompt.
 
 ```sh
-deploy shell/claude-code
+dot shell/claude-code
 ```
 
-This will:
-1. Install `jq` (required for JSON parsing)
-2. Install the stable Claude Code Homebrew cask on macOS when missing
-3. Create symlinks from this directory to `~/.claude/`
+On macOS it installs `jq` and the stable Homebrew cask when `claude` is missing; on Debian
+it installs `jq` and asks you to install Claude Code from an official package. Both link
+[`settings.json`](settings.json) and [`statusline.sh`](statusline.sh) into `~/.claude/`.
 
-Authentication remains machine-local. Run `claude`, complete the browser login, and disable
-usage credits/overage before enabling Claude in Personal Ops. Never copy `~/.claude` auth or
-session files from another computer.
+## Status line
 
-## Customization
-
-Edit `statusline.sh` to customize:
-- Colors and formatting
-- Information displayed
-- Progress bar style
-- Context usage thresholds
-
-The status line uses Powerlevel10k's 8-color palette for consistency with your zsh theme.
-
-## Status Line Preview
-
-```
-in 󱚟 Sonnet 4.5 at 📁 dotfiles [━━━━━━━─── 75%] $0.35
+```text
+in 󱚟 Opus 5.5 at 📁 dotfiles [━━━━━━━─── 75%] $0.35
 ```
 
-Colors are applied automatically based on your terminal theme.
+It shows the model, the current directory, how full the context window is and the session
+cost. The context bar turns from cyan to yellow to red as it fills, using Powerlevel10k's
+8-color palette. Edit `statusline.sh` to change what it shows.
+
+## Sign-in stays local
+
+Run `claude` and complete the browser login on each machine, and turn off usage credits
+or overage before enabling Claude in Personal Ops. Never copy `~/.claude` auth or session
+files between computers.

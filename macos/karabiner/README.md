@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › macos › karabiner
+
 # Karabiner-Elements config
 
 Makes the MacBook keyboard type like my 36-key
@@ -22,6 +24,8 @@ key for key. On the MacBook you reach them like this:
 | Super (`⌘⌥⌃`) | Left ⌥ |
 | Hyper (`⌘⌥⌃⇧`) | Left ⌥ and right ⌘, in either order |
 | FN (F-Keys) | Left ⌥, then the space bar or right ⌥ |
+
+Hyper is also my app launcher: see [Hammerspoon](../hammerspoon/README.md#app-launcher).
 
 A few things differ from QMK:
 

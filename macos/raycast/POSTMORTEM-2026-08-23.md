@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › macos › [raycast](README.md) › post mortem
+
 # Raycast recovery post mortem — 2026-08-23
 
 ## Summary

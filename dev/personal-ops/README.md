@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › dev › personal-ops
+
 # Personal Ops bootstrap
 
 Clones or updates the canonical Personal Ops checkout, validates the control plane

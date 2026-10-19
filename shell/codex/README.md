@@ -1,3 +1,5 @@
+[dotfiles](../../README.md) › shell › codex
+
 # Codex CLI
 
 Installs the official `@openai/codex` package through the managed Node toolchain:

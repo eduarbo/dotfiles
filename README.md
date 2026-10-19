@@ -1,207 +1,127 @@
-# My homies ese! 😎
+# dotfiles
 
-A tidy `$HOME` is a tidy mind.
+My macOS and Debian setup, split into small **topics** that install, link and update
+themselves. A tidy `$HOME` is a tidy mind.
 
-
-![Kitty and Emacs - Jul-2023 Screenshot of macOS Ventura](assets/kitty-emacs.png)
-
-![Doom Emacs - Jul-2023 Screenshot of macOS Ventura](assets/doom-emacs.png)
-
-These are my dotfiles, designed for macOS (Apple Silicon and Intel) and Debian 12, heavily inspired by
-[hlissner/dotfiles](https://github.com/hlissner/dotfiles). Topics are split into `category/topic` (e.g. `shell/zsh`), aim for XDG compliance, and clutter your `$HOME` as little as possible.
-
-
-## Dependencies
-- [Homebrew](https://brew.sh/) (for macOS)
-- git
-- zsh
-- curl
-
+![Kitty and Doom Emacs](assets/kitty-emacs.png)
 
 ## Quick start
 
 ```sh
-git clone --recurse-submodules <DOTFILES_REPOSITORY_URL> ~/.config/dotfiles
-cd ~/.config/dotfiles
-
-# On a fresh clone the `dot` alias doesn't exist yet, so invoke the script
-# directly. Deploy the shell first — the `dot` alias is available afterwards.
-./deploy shell/zsh
+git clone --recurse-submodules https://github.com/eduarbo/dotfiles.git ~/dev/eduarbo/dotfiles
+cd ~/dev/eduarbo/dotfiles
+./deploy shell/zsh       # the first topic; afterwards the `dot` alias exists
+dot macos/workstation    # the whole personal Mac profile
 ```
 
-If you cloned without `--recurse-submodules`, fetch the Doom snippets submodule
-with `git submodule update --init` before deploying `editor/emacs`.
+Clone it anywhere: topics are linked from wherever the repository lives. You need git,
+zsh and curl, plus [Homebrew](https://brew.sh/) on macOS. It runs on Apple Silicon and
+Intel Macs and on Debian 12.
 
+## Topics
 
-## What does it include?
+Every folder below is a topic. `dot TOPIC` installs it after the topics it depends on;
+📖 marks the ones with their own guide.
 
-The following are the categories and topics you can install:
+### macOS
 
-- `macos/` – Mac-specific tools and tweaks
-  - `apps` – The essential macOS app lineup I can't live without
-  - `workstation` – One entry point to bootstrap and validate the personal Mac profile
-  - `defaults` – Opinionated values for a saner (and possibly sassier) macOS
-  - `hammerspoon` – Lua-powered automation for pro-level productivity
-    - Window wrangling without the wrestling
-    - Lightning-fast app launcher
-    - Push-to-talk mic sorcery (menubar toggle; hotkey opt-in via `bindings.lua`)
-    - Instantly swap your audio outputs like a DJ
-  - `karabiner` – The ultimate keyboard wizardry to remap all the things
-  - `raycast` – Encrypted snapshot of my Raycast config, with export/import helpers
+| Topic | What it does |
+| --- | --- |
+| [`workstation`](macos/workstation) 📖 | One command for the whole personal Mac profile, plus `workstation-doctor` |
+| `apps` | Desktop apps and CLIs I can't live without, through Homebrew and the App Store |
+| `defaults` | Opinionated macOS defaults for a saner system (`macosdefaults`) |
+| [`hammerspoon`](macos/hammerspoon) 📖 | Window management, a Hyper app launcher and sound-output switching |
+| [`karabiner`](macos/karabiner) 📖 | Turns the MacBook keyboard into my 36-key layout |
+| [`raycast`](macos/raycast) 📖 | Encrypted Raycast snapshot with export and import helpers |
 
-- `editor/` – My battle-stations for text and code
-  - `emacs` – The best of both Emacs and Vim worlds, with extra chaos
-  - `nvim` – My nimble sidekick for those “just one quick edit” moments
-  - `coding-style` – Keep your code prettier than your neighbor's garden
+### Shell
 
-- `shell/` – Terminal superpowers and creature comforts
-  - `git` – Git aliases plus isolated, signed GitHub multi-account support
-  - `ssh` – SSH client config with Bitwarden agent support and local-only identities
-  - `tmux` – Tab-multiplying terminal wizardry
-  - `zsh` – The shell with speed, features, and a prompt that actually sparks joy
-  - `kitty` – The terminal so full-featured, even your cat would approve
-  - `claude-code` – Custom status line for Claude Code CLI, integrated with Powerlevel10k
-  - `codex` – Codex CLI installed through the managed Node toolchain
+| Topic | What it does |
+| --- | --- |
+| `zsh` | zinit, Powerlevel10k and a `bin/` of small utilities |
+| [`git`](shell/git) 📖 | Aliases, hooks and isolated, signed GitHub accounts |
+| [`ssh`](shell/ssh) 📖 | Bitwarden SSH agent and machine-local hosts |
+| [`kitty`](shell/kitty) 📖 | Terminal with vi mode, a custom theme and safe remote control |
+| `tmux` | Terminal multiplexer config |
+| [`claude-code`](shell/claude-code) 📖 | Claude Code with a Powerlevel10k-style status line |
+| [`codex`](shell/codex) 📖 | Codex CLI through the managed Node toolchain |
 
-- `dev/` – Essential tools and setups for a life in code
-  - `mise` – Universal version manager for Node, Python, Lua and more
-  - `lua` – Lua toolchain (brew/apt), luarocks packages, and luacheck linter
-  - `node` – npm/pnpm package management — runtime versions handled by mise
-  - `python` – Python tooling via brew and pipx — runtime versions handled by mise
-  - `golang` – Go fast, install Go, and grab some must-have packages
-  - `personal-ops` – Clone/update and validate the provider-neutral personal control plane
-  - `php` – Composer support included, because sometimes you just can’t avoid PHP
+### Editors
 
+| Topic | What it does |
+| --- | --- |
+| [`emacs`](editor/emacs) 📖 | Doom Emacs with Evil, plus my keybindings |
+| [`nvim`](editor/nvim) 📖 | Neovim for quick edits, mirroring Doom's bindings where possible |
+| `coding-style` | EditorConfig, ESLint, Prettier and Stylelint defaults |
 
-## Dotfile management
+### Development
 
-The manager is the `deploy` script. On a fresh clone run it directly as
-`./deploy`; once `shell/zsh` is enabled it's also available as the `dot` alias.
+| Topic | What it does |
+| --- | --- |
+| `mise` | Version manager for Node, Python, Lua and more |
+| `node` | npm and pnpm packages; mise owns the runtime |
+| `python` | pipx tools; mise owns the runtime |
+| `golang` | Go and a few must-have packages |
+| `lua` | Lua, LuaRocks packages and luacheck |
+| `php` | PHP with Composer |
+| [`agent-config`](dev/agent-config) 📖 | Bootstraps and audits my AI agent configuration repositories |
+| [`personal-ops`](dev/personal-ops) 📖 | Clones and validates my Personal Ops control plane |
 
-```
-Usage: dot [-AacdfhlLit] [TOPIC...]
+Topics marked macOS-only (`macos/*`, `personal-ops` and `php`) are skipped on Debian.
 
-  -A   Target all available topics supported on this OS (shell bootstrap first)
-  -a   Target all enabled topics (ignores TOPIC args)
-  -c   Afterwards, remove dead symlinks & empty dot-directories in $HOME.
-       Can be used alone.
-  -d   Disable & unlink topic(s), runs `clean()`
-  -f   Force install & link
-  -l   Only relink topic(s) (implies -i)
-  -L   List enabled topics
-  -i   Inhibit install/update/clean init scripts
-  -t   Do a test run; do not actually do anything
+## How the topics depend on each other
 
-TOPIC can be an exact topic (`shell/zsh`), a group (`shell`), or a glob
-(`shell/*`, `editor/n*`). Expanded groups and globs are filtered to topics that
-support the current OS.
-```
+`dot macos/workstation` walks this graph and installs each dependency first.
 
-### Examples
-+ `dot shell/zsh shell/kitty`: enables `shell/zsh` and `shell/kitty`
-+ `dot shell`: enables all `shell/*` topics supported on this OS
-+ `dot 'editor/*'`: enables all matching editor topics supported on this OS
-+ `dot -A`: enables all available topics supported on this OS
-+ `dot -d shell/zsh`: disables shell/zsh & cleans up after it
-+ `dot -l shell/zsh`: refresh links for shell/zsh (inhibits init script)
-+ `dot -f macos/karabiner`: force re-run install & link for an enabled topic
-+ `dot -l`: relink all enabled topics
-+ `dot -L`: list all enabled topics
-
-Here's a breakdown of what the script does:
-
-``` sh
-cd $topic
-if [[ -L $DOTFILES_DATA/${topic/\//.}.topic ]]; then
-    ./_init update
-else
-    ln -sfv $DOTFILES/$topic $DOTFILES_DATA/${topic/\//.}.topic
-
-    ./_init install
-    ./_init link
-fi
+```mermaid
+flowchart LR
+  workstation --> apps & agent-config & personal-ops
+  personal-ops --> agent-config
+  agent-config --> git
+  apps --> emacs & hammerspoon & karabiner & claude-code & codex & kitty & ssh
+  emacs --> git & python
+  karabiner --> node
+  codex --> node
+  php --> node & mise
+  node --> mise
+  golang --> mise
+  tmux --> git
 ```
 
-## Best practices
+## Everyday commands
 
-### Kitty automation
+| Command | Does |
+| --- | --- |
+| `dot TOPIC…` | Install or update topics; accepts `shell`, `'editor/*'` or `-A` for everything |
+| `dot -l TOPIC` | Relink only, without running install scripts |
+| `dot -d TOPIC` | Disable a topic and clean up after it |
+| `dot -t TOPIC` | Dry run: print what would happen |
+| `dot -L` | List enabled topics |
 
-The kitty topic enables native remote control over a Unix socket while rejecting
-control sequences sent through terminal or SSH sessions. The socket is kept in a
-per-user directory with mode `0700`:
+[How `dot` works and how to add a topic →](docs/deploy.md)
 
-```sh
-kitty-remote ls
-```
+## Secrets stay on the machine
 
-`kitty-remote` uses the current kitty connection when available and otherwise
-discovers a user-owned socket in that private directory. This is the supported
-interface for local scripts. It does not relax application restrictions imposed
-by external automation tools such as Codex Computer Use.
+Nothing secret is committed. Tokens, keys, hostnames and account details live under
+`~/.config` on each machine:
 
-- If you use a password manager like Bitwarden, managing SSH keys is a breeze. If you prefer local keys, generate one without embedding a device name or email in its public comment:
+- GitHub accounts and signing keys: [`git account`](shell/git/README.md)
+- Private SSH hosts: `~/.config/ssh/local.conf` ([ssh](shell/ssh/README.md))
+- Forge tokens for Magit: `authinfo.gpg` ([emacs](editor/emacs/README.md#forge-tokens))
+- Raycast: an encrypted snapshot behind your export password ([raycast](macos/raycast/README.md))
 
-  ```sh
-  ssh-keygen -t ed25519 -C ""
-  ```
+## More
 
-### Multiple GitHub accounts
+- [Managing topics](docs/deploy.md) and [troubleshooting](docs/troubleshooting.md)
+- [My keyboard layout](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md),
+  shared by the Piantor, the Corne and Karabiner
+- Built on [hlissner/dotfiles](https://github.com/hlissner/dotfiles),
+  [Doom Emacs](https://github.com/doomemacs/doomemacs) and
+  [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
-Ordinary GitHub SSH uses Bitwarden without a profile. When explicit account
-selection is needed, deploy `shell/git` and `shell/ssh`, then run
-`git account add` once per SSH/Git profile. Profiles may use separate keys for
-the same GitHub login, isolated sessions for future client logins, or no `gh`
-session for SSH-only automation. Each provides a repository-local SSH selector,
-commit identity, and optional SSH signing key. Sensitive metadata and public
-keys are generated only under `~/.config`; nothing is written into this
-repository. See the
-[complete bootstrap, migration, and testing guide](shell/git/README.md).
+<details>
+<summary>More screenshots</summary>
 
-### Managing Forge/GitHub Tokens
+![Doom Emacs](assets/doom-emacs.png)
 
-Forge (Magit’s helper for GitHub/GitLab) reads your personal access token from the file set in `auth-sources`. This config points it at `~/.config/doom/authinfo.gpg` (see `editor/emacs/doom/+defaults.el`). This file should never be committed to your repository.
-
-To set up your tokens securely:
-- This repo provides a template at `editor/emacs/doom/authinfo.gpg.example`. Copy it to `editor/emacs/doom/authinfo.gpg` (same directory)
-- Run `dot -l editor/emacs` to relink the `doom/` directory (the file then appears at `~/.config/doom/authinfo.gpg`)
-- Open and edit the file in Emacs to add your tokens, then save. Emacs will manage the GPG encryption for you
-
-By following these steps, your dotfiles remain clean, secure, and portable—reducing the risk of accidentally exposing your credentials.
-
-## Intel vs Apple Silicon
-
-These dotfiles work on both Intel and Apple Silicon Macs. A few things to be aware of:
-
-- **Homebrew paths**: Homebrew installs to `/opt/homebrew` on Apple Silicon and `/usr/local` on Intel. The shell config auto-detects the correct path.
-- **ARM-only apps**: Some casks like OrbStack are Apple Silicon only and will be skipped automatically on Intel Macs.
-- **macOS defaults**: The `macos/defaults` script detects the macOS version to handle differences between System Preferences (pre-Ventura) and System Settings (Ventura+).
-- **SSH agent**: If using Bitwarden's SSH agent, the `SSH_AUTH_SOCK` is only set when the socket file exists.
-- **Private SSH hosts**: Put hostnames, public keys, organizations, and proxy details in `~/.config/ssh/local.conf`. The optional `cloudflared-ssh-service` helper reads a local `keychain_service_prefix` from `~/.config/ssh/cloudflared-service.conf`; when its Keychain entries are absent, it preserves interactive browser login.
-
-
-## Troubleshooting
-
-### Signing Git commit with GPG ask passphrase everytime
-
-Make sure the GPG key ID is correct. You can get a list of GPG keys with
-`gpg --list-secret-keys --keyid-format LONG` and then set it in Git with
-`git config --global user.signingkey [GPG-key-ID]`.
-
-More details in [Telling Git about your GPG key](https://help.github.com/articles/telling-git-about-your-gpg-key/).
-
-### git@github.com: Permission denied (publickey)
-
-Normal `git clone git@github.com:OWNER/REPO.git` uses the Bitwarden SSH agent;
-no local account profile is required. Run `ssh-agent-check` to check effective
-SSH configuration and socket availability without requesting keys or unlocking
-the vault. Installation and socket presence do not prove repository access.
-
-If several GitHub accounts need different keys, configure an optional profile
-with `git account add`, then use `git account clone account-N OWNER/REPO`.
-See [GitHub SSH profiles](shell/git/README.md) for explicit selection and tests.
-
-
-## Relevant projects/resources
-
-+ [DOOM Emacs](https://github.com/doomemacs/doomemacs) (pulled by `editor/emacs`)
-+ [Powerlevel10k](https://github.com/romkatv/powerlevel10k) (zsh prompt, loaded via zinit in `shell/zsh`)
+</details>
