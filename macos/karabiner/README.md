@@ -42,6 +42,7 @@ Both holds send left Shift. On the base, the printed **Caps Lock** and **quote**
 ### What changes on the laptop
 
 - **Caps.** Symbols + `Z` toggles macOS Caps Lock. The splits use QMK Caps Word there.
+- **Raycast.** Tap the printed **right ⌥** to send **F16**, my Raycast shortcut. On the Piantor, tap the right outer thumb.
 - **Thumb shortcuts.** Hold the **space bar** and tap **left ⌘** to send ⌘Space. Hold **right ⌘** and tap the **space bar** to send ⌘Return.
 - **Profiles.** Both Default profiles contain the layout. The one labeled “disable built-in kbd” also disables the laptop keyboard when a matching Corne or Piantor is connected. **Empty** has no custom rules.
 - **External keyboards.** Firmware settings, Winux and Gamepad live on the QMK boards. Karabiner's Super rule also handles `Q A Z X C V B` from those boards, so the screenshot and app-switching shortcuts work when I plug a split into my Mac.
