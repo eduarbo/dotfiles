@@ -2,7 +2,7 @@
 
 # My 36-key layout on the MacBook
 
-My Piantor and Corne have six thumb keys. On the MacBook, the space bar stands in for both inner thumbs. Tap it for Return, hold it for Command. The two Command and two Option keys take the other four jobs.
+I use a Piantor every day. Like my Corne, it has six thumb keys. On the MacBook, the space bar stands in for both inner thumbs. Tap it for Return, hold it for Command. The two Command and two Option keys take the other four jobs.
 
 **[Find a character or shortcut](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#find-a-key)** · [All layer maps](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#layers) · [App-specific rules](#app-specific-rules)
 
@@ -22,12 +22,14 @@ On each highlighted key the small top label is the **printed keycap**, the cente
 | Hyper · [my app launcher](../hammerspoon/README.md#app-launcher) | **Left ⌥ + right ⌘**, either order, then tap a letter |
 | FN · function keys, media and brightness | **Left ⌥ first**, then the **space bar** or **right ⌥** |
 
+**Everyday Shift is under my left thumb.** Hold the printed **left ⌘** and tap a letter for a capital. For shifted punctuation, hold **right ⌘** for Symbols, add **left ⌘** for Shift, then tap `U` / `I` for `{` / `}` or `B` for `_`. On the split, those same thumbs hold Tab and Space.
+
 ### MacBook rollover and Shift
 
-Some simultaneous combinations don't register on my built-in keyboard. To work around that rollover limit, I can keep **right ⌘** held for Symbols and choose a Shift on either side of the home row. Try these two gestures with the same key:
+My built-in keyboard sometimes drops a key when several are held together. Karabiner can only remap the events it receives. If a Symbols chord hits that rollover limit, I keep **right ⌘** held and use **A** or **;** in place of **left ⌘**. The same key still gives me an accent when tapped.
 
 - **Type ñ** on the U.S. input layout. Hold **right ⌘**, tap **;**, release **right ⌘**, then type **N**.
-- **Type an underscore**. Hold **right ⌘** and **;**, tap **B**, then release both. For the other hand, hold **A** in place of **;** and tap **U** for **{**.
+- **Recover a dropped underscore**. Hold **right ⌘** and **;**, tap **B**, then release both. For the other hand, hold **A** in place of **;** and tap **U** for **{**.
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/eduarbo/qmk_userspace/main/docs/symbols-tap-hold.svg">
