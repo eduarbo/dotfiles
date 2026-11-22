@@ -1,39 +1,39 @@
-[dotfiles](../../README.md) › macos › karabiner
+[dotfiles](../../README.md) › macOS › Karabiner
 
-# Karabiner-Elements config
+# My 36-key layout on the MacBook
 
-Makes the MacBook keyboard type like my 36-key
-[QMK layout](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md)
-(Piantor and Corne), so switching keyboards needs no relearning. The config is generated
-from TypeScript.
+My Piantor and Corne have six thumb keys. On the MacBook, the space bar stands in for both inner thumbs. Tap it for Return, hold it for Command. The two Command and two Option keys take the other four jobs.
 
-![MacBook keyboard mapping](docs/macbook.svg)
+**[Find a character or shortcut](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#find-a-key)** · [All layer maps](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#layers) · [App-specific rules](#app-specific-rules)
 
-Highlighted keys are remapped. The small top legend is the printed key; the middle one is
-the tap and the bottom one the hold.
+![MacBook keycaps with remapped positions highlighted, including the two Option keys, both Command keys, the space bar, Caps Lock, quote and slash.](docs/macbook.svg)
+
+On each highlighted key the small top label is the **printed keycap**, the center is the **tap**, and the bottom is the **hold**. A single action applies on press.
 
 ## Layers
 
-The layers match the [QMK diagrams](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#layers)
-key for key. On the MacBook you reach them like this:
-
-| Layer | Hold |
+| I want… | Hold these printed MacBook keys |
 | --- | --- |
-| Symbols | Right ⌘ |
-| Super (`⌘⌥⌃`) | Left ⌥ |
-| Hyper (`⌘⌥⌃⇧`) | Left ⌥ and right ⌘, in either order |
-| FN (F-Keys) | Left ⌥, then the space bar or right ⌥ |
+| Symbols · digits, punctuation and arrows | **Right ⌘** |
+| Super · browser, screenshot and window shortcuts | **Left ⌥** |
+| Hyper · [my app launcher](../hammerspoon/README.md#app-launcher) | **Left ⌥ + right ⌘**, either order, then tap a letter |
+| FN · function keys, media and brightness | **Left ⌥ first**, then the **space bar** or **right ⌥** |
 
-Hyper is also my app launcher: see [Hammerspoon](../hammerspoon/README.md#app-launcher).
+### MacBook rollover and Shift
 
-A few things differ from QMK:
+Some simultaneous combinations don't register on my built-in keyboard. To work around that rollover limit, I can keep **right ⌘** held for Symbols and choose a Shift on either side of the home row. Try these two gestures with the same key:
 
-- `Symbols+Z` sends Caps Lock; QMK uses Caps Word.
-- Super with the space bar reaches FN, because the space bar is easier to reach than the
-  ⌘ key that plays the Space thumb.
-- There is no Adjust layer: firmware controls and layout toggles only exist in QMK.
-- The Super layer has no device condition, so it also turns `Super+Q/A/Z/X/C/V/B` from the
-  QMK keyboards into the screenshot and app-switching shortcuts.
+- **Type ñ** on the U.S. input layout. Hold **right ⌘**, tap **;**, release **right ⌘**, then type **N**.
+- **Type an underscore**. Hold **right ⌘** and **;**, tap **B**, then release both. For the other hand, hold **A** in place of **;** and tap **U** for **{**.
+
+Both holds send left Shift. On the base, the printed **Caps Lock** and **quote** keys are extra left and right Shift keys. The [shared Symbols guide](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#macbook-rollover-and-shift) shows the tap/hold diagram and character lookup.
+
+### What changes on the laptop
+
+- **Caps.** Symbols + `Z` toggles macOS Caps Lock. The splits use QMK Caps Word there.
+- **Thumb shortcuts.** Hold the **space bar** and tap **left ⌘** to send ⌘Space. Hold **right ⌘** and tap the **space bar** to send ⌘Return.
+- **Profiles.** Both Default profiles contain the layout. The one labeled “disable built-in kbd” also disables the laptop keyboard when a matching Corne or Piantor is connected. **Empty** has no custom rules.
+- **External keyboards.** Firmware settings, Winux and Gamepad live on the QMK boards. Karabiner's Super rule also handles `Q A Z X C V B` from those boards, so the screenshot and app-switching shortcuts work when I plug a split into my Mac.
 
 ## App-specific rules
 
@@ -61,6 +61,8 @@ Tapping right ⌘ sends `⇧Return` (next turn).
 
 ## Development
 
+From `macos/karabiner`, use the Node version in [.node-version](.node-version) and install dependencies with `npm ci`. The TypeScript [rules and profile order](config/karabiner.ts) generate the checked-in JSON.
+
 | Command | Does |
 | --- | --- |
 | `npm run build` | Generates `json/` and deploys it to Karabiner |
@@ -71,7 +73,7 @@ Tapping right ⌘ sends `⇧Return` (next turn).
 - **Deploy:** the build copies `json/karabiner.json` to `~/.config/karabiner` and keeps the
   profile selected in Karabiner's menu; Karabiner reloads it on its own. Edit the TypeScript,
   not Karabiner's settings, because the next build replaces them.
-- **Parity test:** it reads `~/dev/eduarbo/qmk_userspace` (set `QMK_USERSPACE` for another
+- **Parity test:** it compares the thirty finger-key positions on Base, Symbols and FN. It reads `~/dev/eduarbo/qmk_userspace` (set `QMK_USERSPACE` for another
   path) and is skipped when that checkout is missing. Run it after changing either side.
 - **Rule order:** Karabiner uses the first rule that matches, so app-specific and chord rules
   come before the base layer in `config/karabiner.ts`.
