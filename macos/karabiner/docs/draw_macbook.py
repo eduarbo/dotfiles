@@ -29,110 +29,99 @@ def legend(group, kind):
     return ""
 
 
-def mobile_reference(deck, thumbs):
-    mobile = element(
-        "svg",
-        width=470,
-        height=490,
-        viewBox="0 0 470 490",
-        role="img",
-        aria_label="MacBook typing area and tap and hold legend",
-        font_family="Inter, Arial, sans-serif",
-        fill="#142d31",
-    )
-    mobile.append(element("rect", width=470, height=490, rx=15, fill="#f6f0e2"))
-    label(
-        mobile,
-        18,
-        27,
-        "KARABINER-ELEMENTS  /  macOS",
-        13,
-        font_family="Menlo, monospace",
-    )
-    label(mobile, 17, 66, "MacBook keycaps", 34, font_weight="750")
-    scaled = element("g", transform="translate(0 25) scale(.49)")
-    scaled.append(deepcopy(deck))
-    mobile.append(scaled)
-    for x, title in [(19, "Printed key"), (191, "Tap"), (330, "Hold")]:
-        label(mobile, x, 244, title, 15, font_weight="650", fill="#41595b")
-    for i, (name, tap, hold) in enumerate(thumbs):
-        y = 257 + i * 42
-        mobile.append(element("path", d=f"M18 {y}h434", stroke="#bec7b9"))
-        label(mobile, 19, y + 26, name, 18, font_weight="650")
-        label(mobile, 191, y + 26, tap, 18)
-        label(mobile, 330, y + 26, hold, 18, font_weight="650")
-    ET.indent(mobile)
-    (ROOT / "docs/macbook-mobile.svg").write_text(
-        ET.tostring(mobile, encoding="unicode") + "\n"
-    )
+DARK, FACE, INK, MINT, MUTED = "#193132", "#f6f0e0", "#183131", "#a3eccb", "#bdd0c8"
+FONT = "Inter, Arial, sans-serif"
+MONO = "IBM Plex Mono, Menlo, monospace"
 
 
-def draw():
-    generated = check_output(
-        [
-            "uvx",
-            "--from",
-            "keymap-drawer==0.23.0",
-            "keymap",
-            "draw",
-            "docs/macbook.yaml",
-        ],
-        cwd=ROOT,
-    )
-    raw = ET.fromstring(generated)
-    canvas = element(
+def write_reference(board, thumbs, mobile):
+    width, height = (520, 550) if mobile else (1200, 451)
+    pad = 23 if mobile else 34
+    svg = element(
         "svg",
-        width=960,
-        height=463,
-        viewBox="0 0 960 463",
+        width=width,
+        height=height,
+        viewBox=f"0 0 {width} {height}",
         role="img",
         aria_labelledby="title desc",
-        font_family="Inter, Arial, sans-serif",
-        fill="#142d31",
+        font_family=FONT,
+        fill=INK,
     )
-    for tag, value in [
-        ("title", "MacBook keycaps · Karabiner-Elements"),
+    for tag, content in [
+        ("title", "MacBook · base"),
         (
             "desc",
-            "Typing area of the ANSI MacBook. The two Option keys, two Command keys and space bar do the work of six split thumbs.",
+            "Printed labels, tap actions and holds on the ANSI MacBook typing area.",
         ),
     ]:
         child = element(tag, id=tag)
-        child.text = value
-        canvas.append(child)
-    canvas.append(element("rect", width=960, height=463, rx=19, fill="#f6f0e2"))
+        child.text = content
+        svg.append(child)
+    svg.append(element("rect", width=width, height=height, fill=DARK))
     label(
-        canvas,
-        30,
-        31,
-        "KARABINER-ELEMENTS  /  macOS",
-        13,
-        font_family="Menlo, monospace",
-        fill="#41595b",
-        font_weight="650",
+        svg,
+        pad,
+        32,
+        "MACBOOK   /   KARABINER",
+        16,
+        fill=MUTED,
+        font_family=MONO,
+        font_weight=650,
     )
-    label(canvas, 29, 77, "MacBook keycaps", 42, font_weight="750")
     label(
-        canvas,
-        930,
-        71,
-        "Printed key · tap · hold",
-        19,
-        text_anchor="end",
-        fill="#41595b",
+        svg, pad, 79, "Base · macOS", 44 if mobile else 49, fill=FACE, font_weight=720
     )
-    canvas.append(element("path", d="M30 98H930 M30 401H930", stroke="#b2bcb1"))
-    # The board group has its own local coordinate system, also used by the gesture tutorial.
-    deck = element("g", id="board")
-    canvas.append(deck)
-    deck.append(
-        element("rect", x=30, y=123, width=900, height=261, rx=17, fill="#adb1a7")
+    if mobile:
+        label(svg, pad, 117, "Printed key · tap · hold", 23, fill=MINT, font_weight=600)
+    else:
+        label(
+            svg,
+            width - pad,
+            72,
+            "Printed key · tap · hold",
+            29,
+            fill=MINT,
+            font_weight=600,
+            text_anchor="end",
+        )
+    holder = element(
+        "g",
+        transform=(
+            "translate(18 145) scale(.555)"
+            if mobile
+            else "translate(34 116) scale(1.3)"
+        ),
     )
-    deck.append(
-        element("rect", x=30, y=118, width=900, height=259, rx=17, fill="#334d50")
+    holder.append(deepcopy(board))
+    svg.append(holder)
+    if mobile:
+        for x, title in [(23, "Printed key"), (213, "Tap"), (363, "Hold")]:
+            label(svg, x, 319, title, 17, fill=MUTED, font_weight=600)
+        for i, (name, tap, hold) in enumerate(thumbs):
+            y = 355 + i * 43
+            label(svg, 23, y, name, 22, fill=FACE, font_weight=650)
+            label(svg, 213, y, tap, 22, fill=FACE)
+            label(svg, 363, y, hold, 22, fill=FACE, font_weight=650)
+    ET.indent(svg)
+    dest = ROOT / "docs" / ("macbook-mobile.svg" if mobile else "macbook.svg")
+    dest.write_text(ET.tostring(svg, encoding="unicode") + "\n")
+
+
+def draw():
+    raw = ET.fromstring(
+        check_output(
+            [
+                "uvx",
+                "--from",
+                "keymap-drawer==0.23.0",
+                "keymap",
+                "draw",
+                "docs/macbook.yaml",
+            ],
+            cwd=ROOT,
+        )
     )
-    keys = element("g", transform="translate(45 128)")
-    deck.append(keys)
+    board = element("g", id="board", font_family=FONT, fill=INK)
     thumbs = []
     for group in raw.iter(f"{{{NS}}}g"):
         if "keypos-" not in group.get("class", ""):
@@ -149,61 +138,41 @@ def draw():
             data_hold=hold,
             text_anchor="middle",
         )
-        keys.append(key)
+        board.append(key)
         face = group.find(f"{{{NS}}}rect")
         x, y, w, h = (float(face.get(k)) for k in ("x", "y", "width", "height"))
-        color = (
-            "#cdbaff"
-            if hold in {"Symbols", "Super"}
-            else "#9ee6ca"
-            if printed
-            else "#fff8e8"
-        )
         key.append(
-            element("rect", x=x, y=y + 3, width=w, height=h, rx=6, fill="#142d31")
-        )
-        key.append(
-            element("rect", x=x, y=y, width=w, height=h - 1, rx=6, fill="#94a29a")
+            element("rect", x=x, y=y + 2.5, width=w, height=h, rx=6, fill="#0e2426")
         )
         key.append(
             element(
                 "rect",
-                x=x + 1,
+                x=x,
                 y=y,
-                width=w - 2,
-                height=h - 4,
-                rx=5,
-                fill=color,
+                width=w,
+                height=h - 1,
+                rx=6,
+                fill=FACE if printed else "#d7dfd3",
                 **{"class": "face"},
             )
         )
         if printed:
-            label(key, 0, -14, printed, 11.5, font_weight="550")
-        label(key, 0, 5, tap, 17 if len(tap) > 2 else 21, font_weight="700")
+            label(key, 0, -14, printed, 12, font_weight=600)
+        label(
+            key, 0, 4 if hold else 7, tap, 18 if len(tap) > 2 else 22, font_weight=700
+        )
         if hold:
-            label(key, 0, 19, hold, 11.5, font_weight="650")
-            if printed == "space":
-                name = "Space bar"
-            else:
-                side = "Left" if hold in {"Super", "Shift"} else "Right"
-                name = f"{side} {printed.title()}"
-            thumbs.append((name, tap, hold))
-    mobile_reference(deck, thumbs)
-    canvas.append(
-        element("rect", x=30, y=423, width=6, height=19, rx=3, fill="#34776b")
-    )
-    label(
-        canvas,
-        48,
-        439,
-        "Hold right Command for Symbols. Tap it for Tab.",
-        17,
-        font_weight="650",
-    )
-    ET.indent(canvas)
-    (ROOT / "docs/macbook.svg").write_text(
-        ET.tostring(canvas, encoding="unicode") + "\n"
-    )
+            label(key, 0, 20, hold, 13, font_weight=650)
+            side = "Left" if hold in {"Super", "Shift"} else "Right"
+            thumbs.append(
+                (
+                    "Space bar" if printed == "space" else f"{side} {printed.title()}",
+                    tap,
+                    hold,
+                )
+            )
+    for mobile in (False, True):
+        write_reference(board, thumbs, mobile)
 
 
 if __name__ == "__main__":

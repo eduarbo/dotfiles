@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="884" viewBox="0 0 520 884" role="img" aria-labelledby="title desc">
+<title id="title">Piantor · Hyper · ⌘⌥⌃⇧</title><desc id="desc">Hold Esc + Tab.</desc>
+<rect x="0" y="0" width="520" height="884" rx="0" fill="#193132" />
+<text x="23" y="32" text-anchor="start" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="16" font-weight="650" fill="#bdd0c8" >PIANTOR   /   36</text>
+<text x="23" y="79" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="720" fill="#f6f0e0" >Hyper · ⌘⌥⌃⇧</text>
+<text x="23" y="117" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="600" fill="#a3eccb" >Hold Esc + Tab.</text>
+<g transform="translate(356.00 346.00) scale(0.8081)">
+<g id="key-24" data-position="B" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >B</text></g>
+</g>
+<g transform="translate(284.00 338.00) scale(0.8081)">
+<g id="key-23" data-position="V" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >V</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#183131" >Preview</text></g>
+</g>
+<g transform="translate(68.00 386.00) scale(0.8081)">
+<g id="key-20" data-position="Z" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >Z</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#183131" >zoom.us</text></g>
+</g>
+<g transform="translate(140.00 202.00) scale(0.8081)">
+<g id="key-1" data-position="W" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >W</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15.75" font-weight="700" fill="#183131" >WhatsApp</text></g>
+</g>
+<g transform="translate(284.00 202.00) scale(0.8081)">
+<g id="key-3" data-position="R" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >R</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#183131" >Reminders</text></g>
+</g>
+<g transform="translate(140.00 270.00) scale(0.8081)">
+<g id="key-11" data-position="S" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >S</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#183131" >Spotify</text></g>
+</g>
+<g transform="translate(264.00 422.00) scale(0.8081)">
+<g id="key-30" data-position="Esc" transform="rotate(-5)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#a3eccb" class="face"/><text x="0" y="3" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" fill="#183131" >Esc</text><text x="0" y="24" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#183131" >held</text></g>
+</g>
+<g transform="translate(68.00 250.00) scale(0.8081)">
+<g id="key-0" data-position="Q" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >Q</text><text x="0" y="0" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15.75" font-weight="700" fill="#183131" >Activity</text><text x="0" y="22" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#183131" >Monitor</text></g>
+</g>
+<g transform="translate(284.00 270.00) scale(0.8081)">
+<g id="key-13" data-position="F" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >F</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Finder</text></g>
+</g>
+<g transform="translate(212.00 318.00) scale(0.8081)">
+<g id="key-22" data-position="C" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >C</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15.75" font-weight="700" fill="#183131" >Calendar</text></g>
+</g>
+<g transform="translate(212.00 182.00) scale(0.8081)">
+<g id="key-2" data-position="E" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >E</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="25.2" font-weight="700" fill="#183131" >Emacs</text></g>
+</g>
+<g transform="translate(140.00 338.00) scale(0.8081)">
+<g id="key-21" data-position="X" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >X</text></g>
+</g>
+<g transform="translate(356.00 278.00) scale(0.8081)">
+<g id="key-14" data-position="G" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >G</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Gemini</text></g>
+</g>
+<g transform="translate(436.00 454.00) scale(0.8081)">
+<g id="key-32" data-position="Return" transform="rotate(25)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="0" y="3" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Return</text><text x="0" y="24" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#183131" >Cmd</text></g>
+</g>
+<g transform="translate(68.00 318.00) scale(0.8081)">
+<g id="key-10" data-position="A" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >A</text></g>
+</g>
+<g transform="translate(356.00 210.00) scale(0.8081)">
+<g id="key-4" data-position="T" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >T</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15.75" font-weight="700" fill="#183131" >Telegram</text></g>
+</g>
+<g transform="translate(212.00 250.00) scale(0.8081)">
+<g id="key-12" data-position="D" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >D</text><text x="0" y="0" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Brave</text><text x="0" y="22" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#183131" >Browser</text></g>
+</g>
+<g transform="translate(352.00 426.00) scale(0.8081)">
+<g id="key-31" data-position="Space" transform="rotate(10)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="0" y="3" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="25.2" font-weight="700" fill="#183131" >Space</text><text x="0" y="24" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#183131" >Shift</text></g>
+</g>
+<g transform="translate(164.00 709.00) scale(0.8081)">
+<g id="key-25" data-position="N" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >N</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="25.2" font-weight="700" fill="#183131" >Craft</text></g>
+</g>
+<g transform="translate(236.00 701.00) scale(0.8081)">
+<g id="key-26" data-position="M" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >M</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="31.5" font-weight="700" fill="#183131" >Mail</text></g>
+</g>
+<g transform="translate(452.00 749.00) scale(0.8081)">
+<g id="key-29" data-position="⌫" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >⌫</text></g>
+</g>
+<g transform="translate(380.00 565.00) scale(0.8081)">
+<g id="key-8" data-position="O" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >O</text></g>
+</g>
+<g transform="translate(236.00 565.00) scale(0.8081)">
+<g id="key-6" data-position="U" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >U</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#183131" >Bitwarden</text></g>
+</g>
+<g transform="translate(380.00 633.00) scale(0.8081)">
+<g id="key-18" data-position="L" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >L</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Claude</text></g>
+</g>
+<g transform="translate(256.00 785.00) scale(0.8081)">
+<g id="key-35" data-position="F16" transform="rotate(5)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="0" y="3" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" fill="#183131" >F16</text><text x="0" y="24" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#183131" >Ctrl</text></g>
+</g>
+<g transform="translate(452.00 613.00) scale(0.8081)">
+<g id="key-9" data-position="P" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >P</text></g>
+</g>
+<g transform="translate(236.00 633.00) scale(0.8081)">
+<g id="key-16" data-position="J" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >J</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="25.2" font-weight="700" fill="#183131" >Codex</text></g>
+</g>
+<g transform="translate(308.00 681.00) scale(0.8081)">
+<g id="key-27" data-position="," transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >,</text></g>
+</g>
+<g transform="translate(308.00 545.00) scale(0.8081)">
+<g id="key-7" data-position="I" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >I</text><text x="0" y="0" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Mini</text><text x="0" y="22" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Gemini</text></g>
+</g>
+<g transform="translate(380.00 701.00) scale(0.8081)">
+<g id="key-28" data-position="." transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >.</text></g>
+</g>
+<g transform="translate(164.00 641.00) scale(0.8081)">
+<g id="key-15" data-position="H" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >H</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Reload</text></g>
+</g>
+<g transform="translate(84.00 817.00) scale(0.8081)">
+<g id="key-33" data-position="Return" transform="rotate(-25)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="0" y="3" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700" fill="#183131" >Return</text><text x="0" y="24" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#183131" >Cmd</text></g>
+</g>
+<g transform="translate(452.00 681.00) scale(0.8081)">
+<g id="key-19" data-position=";" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >;</text></g>
+</g>
+<g transform="translate(164.00 573.00) scale(0.8081)">
+<g id="key-5" data-position="Y" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#344b4c" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#bdd0c8" >Y</text></g>
+</g>
+<g transform="translate(308.00 613.00) scale(0.8081)">
+<g id="key-17" data-position="K" transform="rotate(0)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#f6f0e0" class="face"/><text x="-34" y="-22" text-anchor="start" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#183131" >K</text><text x="0" y="11" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="25.2" font-weight="700" fill="#183131" >kitty</text></g>
+</g>
+<g transform="translate(168.00 789.00) scale(0.8081)">
+<g id="key-34" data-position="Tab" transform="rotate(-10)"><rect x="-41" y="-36" width="82" height="76" rx="9" fill="#0e2426" /><rect x="-41" y="-38" width="82" height="74" rx="9" fill="#a3eccb" class="face"/><text x="0" y="3" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" fill="#183131" >Tab</text><text x="0" y="24" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" fill="#183131" >held</text></g>
+</g>
+</svg>

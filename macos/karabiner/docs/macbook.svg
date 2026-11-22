@@ -1,331 +1,276 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="463" viewBox="0 0 960 463" role="img" aria-labelledby="title desc" font-family="Inter, Arial, sans-serif" fill="#142d31">
-  <title id="title">MacBook keycaps · Karabiner-Elements</title>
-  <desc id="desc">Typing area of the ANSI MacBook. The two Option keys, two Command keys and space bar do the work of six split thumbs.</desc>
-  <rect width="960" height="463" rx="19" fill="#f6f0e2" />
-  <text x="30" y="31" font-size="13" font-family="Menlo, monospace" fill="#41595b" font-weight="650">KARABINER-ELEMENTS  /  macOS</text>
-  <text x="29" y="77" font-size="42" font-weight="750">MacBook keycaps</text>
-  <text x="930" y="71" font-size="19" text-anchor="end" fill="#41595b">Printed key · tap · hold</text>
-  <path d="M30 98H930 M30 401H930" stroke="#b2bcb1" />
-  <g id="board">
-    <rect x="30" y="123" width="900" height="261" rx="17" fill="#adb1a7" />
-    <rect x="30" y="118" width="900" height="259" rx="17" fill="#334d50" />
-    <g transform="translate(45 128)">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="451" viewBox="0 0 1200 451" role="img" aria-labelledby="title desc" font-family="Inter, Arial, sans-serif" fill="#183131">
+  <title id="title">MacBook · base</title>
+  <desc id="desc">Printed labels, tap actions and holds on the ANSI MacBook typing area.</desc>
+  <rect width="1200" height="451" fill="#193132" />
+  <text x="34" y="32" font-size="16" fill="#bdd0c8" font-family="IBM Plex Mono, Menlo, monospace" font-weight="650">MACBOOK   /   KARABINER</text>
+  <text x="34" y="79" font-size="49" fill="#f6f0e0" font-weight="720">Base · macOS</text>
+  <text x="1166" y="72" font-size="29" fill="#a3eccb" font-weight="600" text-anchor="end">Printed key · tap · hold</text>
+  <g transform="translate(34 116) scale(1.3)">
+    <g id="board" font-family="Inter, Arial, sans-serif" fill="#183131">
       <g id="key-0" transform="translate(45, 30)" data-position="tab" data-hold="" text-anchor="middle">
-        <rect x="-43.0" y="-25.0" width="86.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-43.0" y="-28.0" width="86.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-42.0" y="-28.0" width="84.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="17" font-weight="700">tab</text>
+        <rect x="-43.0" y="-25.5" width="86.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-43.0" y="-28.0" width="86.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="18" font-weight="700">tab</text>
       </g>
       <g id="key-1" transform="translate(120, 30)" data-position="Q" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">Q</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">Q</text>
       </g>
       <g id="key-2" transform="translate(180, 30)" data-position="W" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">W</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">W</text>
       </g>
       <g id="key-3" transform="translate(240, 30)" data-position="E" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">E</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">E</text>
       </g>
       <g id="key-4" transform="translate(300, 30)" data-position="R" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">R</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">R</text>
       </g>
       <g id="key-5" transform="translate(360, 30)" data-position="T" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">T</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">T</text>
       </g>
       <g id="key-6" transform="translate(420, 30)" data-position="Y" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">Y</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">Y</text>
       </g>
       <g id="key-7" transform="translate(480, 30)" data-position="U" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">U</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">U</text>
       </g>
       <g id="key-8" transform="translate(540, 30)" data-position="I" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">I</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">I</text>
       </g>
       <g id="key-9" transform="translate(600, 30)" data-position="O" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">O</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">O</text>
       </g>
       <g id="key-10" transform="translate(660, 30)" data-position="P" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">P</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">P</text>
       </g>
       <g id="key-11" transform="translate(720, 30)" data-position="[" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">[</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">[</text>
       </g>
       <g id="key-12" transform="translate(780, 30)" data-position="]" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">]</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">]</text>
       </g>
       <g id="key-13" transform="translate(840, 30)" data-position="\" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">\</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">\</text>
       </g>
       <g id="key-14" transform="translate(52, 90)" data-position="caps lock" data-hold="" text-anchor="middle">
-        <rect x="-50.0" y="-25.0" width="101.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-50.0" y="-28.0" width="101.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-49.0" y="-28.0" width="99.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">caps lock</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Shift</text>
+        <rect x="-50.0" y="-25.5" width="101.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-50.0" y="-28.0" width="101.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">caps lock</text>
+        <text x="0" y="7" font-size="18" font-weight="700">Shift</text>
       </g>
       <g id="key-15" transform="translate(135, 90)" data-position="A" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">A</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">A</text>
       </g>
       <g id="key-16" transform="translate(195, 90)" data-position="S" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">S</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">S</text>
       </g>
       <g id="key-17" transform="translate(255, 90)" data-position="D" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">D</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">D</text>
       </g>
       <g id="key-18" transform="translate(315, 90)" data-position="F" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">F</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">F</text>
       </g>
       <g id="key-19" transform="translate(375, 90)" data-position="G" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">G</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">G</text>
       </g>
       <g id="key-20" transform="translate(435, 90)" data-position="H" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">H</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">H</text>
       </g>
       <g id="key-21" transform="translate(495, 90)" data-position="J" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">J</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">J</text>
       </g>
       <g id="key-22" transform="translate(555, 90)" data-position="K" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">K</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">K</text>
       </g>
       <g id="key-23" transform="translate(615, 90)" data-position="L" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">L</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">L</text>
       </g>
       <g id="key-24" transform="translate(675, 90)" data-position=";" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">;</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">;</text>
       </g>
       <g id="key-25" transform="translate(735, 90)" data-position="quote" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">quote</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Shift</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">quote</text>
+        <text x="0" y="7" font-size="18" font-weight="700">Shift</text>
       </g>
       <g id="key-26" transform="translate(818, 90)" data-position="return" data-hold="" text-anchor="middle">
-        <rect x="-50.0" y="-25.0" width="101.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-50.0" y="-28.0" width="101.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-49.0" y="-28.0" width="99.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="17" font-weight="700">return</text>
+        <rect x="-50.0" y="-25.5" width="101.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-50.0" y="-28.0" width="101.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="18" font-weight="700">return</text>
       </g>
       <g id="key-27" transform="translate(68, 150)" data-position="shift" data-hold="" text-anchor="middle">
-        <rect x="-66.0" y="-25.0" width="131.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-66.0" y="-28.0" width="131.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-65.0" y="-28.0" width="129.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="17" font-weight="700">shift</text>
+        <rect x="-66.0" y="-25.5" width="131.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-66.0" y="-28.0" width="131.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="18" font-weight="700">shift</text>
       </g>
       <g id="key-28" transform="translate(165, 150)" data-position="Z" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">Z</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">Z</text>
       </g>
       <g id="key-29" transform="translate(225, 150)" data-position="X" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">X</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">X</text>
       </g>
       <g id="key-30" transform="translate(285, 150)" data-position="C" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">C</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">C</text>
       </g>
       <g id="key-31" transform="translate(345, 150)" data-position="V" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">V</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">V</text>
       </g>
       <g id="key-32" transform="translate(405, 150)" data-position="B" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">B</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">B</text>
       </g>
       <g id="key-33" transform="translate(465, 150)" data-position="N" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">N</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">N</text>
       </g>
       <g id="key-34" transform="translate(525, 150)" data-position="M" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">M</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">M</text>
       </g>
       <g id="key-35" transform="translate(585, 150)" data-position="," data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">,</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">,</text>
       </g>
       <g id="key-36" transform="translate(645, 150)" data-position="." data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">.</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">.</text>
       </g>
       <g id="key-37" transform="translate(705, 150)" data-position="slash" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">slash</text>
-        <text x="0" y="5" font-size="21" font-weight="700">⌫</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">slash</text>
+        <text x="0" y="7" font-size="22" font-weight="700">⌫</text>
       </g>
       <g id="key-38" transform="translate(802, 150)" data-position="shift" data-hold="" text-anchor="middle">
-        <rect x="-66.0" y="-25.0" width="131.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-66.0" y="-28.0" width="131.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-65.0" y="-28.0" width="129.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="17" font-weight="700">shift</text>
+        <rect x="-66.0" y="-25.5" width="131.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-66.0" y="-28.0" width="131.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="18" font-weight="700">shift</text>
       </g>
       <g id="key-39" transform="translate(30, 210)" data-position="fn" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">fn</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">fn</text>
       </g>
       <g id="key-40" transform="translate(90, 210)" data-position="control" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">control</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Option</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">control</text>
+        <text x="0" y="7" font-size="18" font-weight="700">Option</text>
       </g>
       <g id="key-41" transform="translate(150, 210)" data-position="option" data-hold="Super" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#cdbaff" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">option</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Esc</text>
-        <text x="0" y="19" font-size="11.5" font-weight="650">Super</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">option</text>
+        <text x="0" y="4" font-size="18" font-weight="700">Esc</text>
+        <text x="0" y="20" font-size="13" font-weight="650">Super</text>
       </g>
       <g id="key-42" transform="translate(218, 210)" data-position="command" data-hold="Shift" text-anchor="middle">
-        <rect x="-36.0" y="-25.0" width="71.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-36.0" y="-28.0" width="71.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-35.0" y="-28.0" width="69.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">command</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Space</text>
-        <text x="0" y="19" font-size="11.5" font-weight="650">Shift</text>
+        <rect x="-36.0" y="-25.5" width="71.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-36.0" y="-28.0" width="71.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">command</text>
+        <text x="0" y="4" font-size="18" font-weight="700">Space</text>
+        <text x="0" y="20" font-size="13" font-weight="650">Shift</text>
       </g>
       <g id="key-43" transform="translate(405, 210)" data-position="space" data-hold="Cmd" text-anchor="middle">
-        <rect x="-148.0" y="-25.0" width="296.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-148.0" y="-28.0" width="296.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-147.0" y="-28.0" width="294.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">space</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Return</text>
-        <text x="0" y="19" font-size="11.5" font-weight="650">Cmd</text>
+        <rect x="-148.0" y="-25.5" width="296.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-148.0" y="-28.0" width="296.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">space</text>
+        <text x="0" y="4" font-size="18" font-weight="700">Return</text>
+        <text x="0" y="20" font-size="13" font-weight="650">Cmd</text>
       </g>
       <g id="key-44" transform="translate(592, 210)" data-position="command" data-hold="Symbols" text-anchor="middle">
-        <rect x="-36.0" y="-25.0" width="71.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-36.0" y="-28.0" width="71.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-35.0" y="-28.0" width="69.0" height="52.0" rx="5" fill="#cdbaff" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">command</text>
-        <text x="0" y="5" font-size="17" font-weight="700">Tab</text>
-        <text x="0" y="19" font-size="11.5" font-weight="650">Symbols</text>
+        <rect x="-36.0" y="-25.5" width="71.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-36.0" y="-28.0" width="71.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">command</text>
+        <text x="0" y="4" font-size="18" font-weight="700">Tab</text>
+        <text x="0" y="20" font-size="13" font-weight="650">Symbols</text>
       </g>
       <g id="key-45" transform="translate(660, 210)" data-position="option" data-hold="Ctrl" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#9ee6ca" class="face" />
-        <text x="0" y="-14" font-size="11.5" font-weight="550">option</text>
-        <text x="0" y="5" font-size="17" font-weight="700">F16</text>
-        <text x="0" y="19" font-size="11.5" font-weight="650">Ctrl</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#f6f0e0" class="face" />
+        <text x="0" y="-14" font-size="12" font-weight="600">option</text>
+        <text x="0" y="4" font-size="18" font-weight="700">F16</text>
+        <text x="0" y="20" font-size="13" font-weight="650">Ctrl</text>
       </g>
       <g id="key-46" transform="translate(720, 210)" data-position="←" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">←</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">←</text>
       </g>
       <g id="key-47" transform="translate(780, 195)" data-position="↑" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-10.0" width="56.0" height="26.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-13.0" width="56.0" height="25.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-13.0" width="54.0" height="22.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">↑</text>
+        <rect x="-28.0" y="-10.5" width="56.0" height="26.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-13.0" width="56.0" height="25.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">↑</text>
       </g>
       <g id="key-48" transform="translate(780, 225)" data-position="↓" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-10.0" width="56.0" height="26.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-13.0" width="56.0" height="25.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-13.0" width="54.0" height="22.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">↓</text>
+        <rect x="-28.0" y="-10.5" width="56.0" height="26.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-13.0" width="56.0" height="25.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">↓</text>
       </g>
       <g id="key-49" transform="translate(840, 210)" data-position="→" data-hold="" text-anchor="middle">
-        <rect x="-28.0" y="-25.0" width="56.0" height="56.0" rx="6" fill="#142d31" />
-        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#94a29a" />
-        <rect x="-27.0" y="-28.0" width="54.0" height="52.0" rx="5" fill="#fff8e8" class="face" />
-        <text x="0" y="5" font-size="21" font-weight="700">→</text>
+        <rect x="-28.0" y="-25.5" width="56.0" height="56.0" rx="6" fill="#0e2426" />
+        <rect x="-28.0" y="-28.0" width="56.0" height="55.0" rx="6" fill="#d7dfd3" class="face" />
+        <text x="0" y="7" font-size="22" font-weight="700">→</text>
       </g>
     </g>
   </g>
-  <rect x="30" y="423" width="6" height="19" rx="3" fill="#34776b" />
-  <text x="48" y="439" font-size="17" font-weight="650">Hold right Command for Symbols. Tap it for Tab.</text>
 </svg>

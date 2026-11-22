@@ -15,11 +15,14 @@ dot macos/hammerspoon
 
 Hold Hyper and tap a letter to open or focus that app.
 
-![Hyper app launcher](docs/launcher.svg)
+<picture>
+  <source media="(max-width: 600px)" srcset="docs/launcher-mobile.svg">
+  <img src="docs/launcher.svg" alt="Hyper app shortcuts on the Piantor. Hold Esc and Tab on the split or left Option and right Command on the MacBook. F opens Finder, D opens Brave Browser and H reloads Hammerspoon.">
+</picture>
 
-To change it, edit [`config/bindings.lua`](config/bindings.lua) and redraw the diagram with
-`python3 docs/draw_launcher.py`. `,` and `.` can't be used: macOS reserves them for
-sysdiagnose.
+On the MacBook, hold the printed **left ⌥** and **right ⌘** for Hyper. macOS reserves Hyper with comma or period for sysdiagnose.
+
+To update the maps, edit [`config/bindings.lua`](config/bindings.lua) and run `python3 docs/draw_launcher.py` here. The generator uses the Piantor renderer from a sibling [qmk_userspace checkout](https://github.com/eduarbo/qmk_userspace). Set `QMK_USERSPACE` if yours is elsewhere. Switch positions come from [beekeeb’s Piantor PCB](https://github.com/beekeeb/piantor/tree/cd847afb4f9a86e8c1c8e36f243140644013afb2/pcb) ([GPLv3](https://github.com/eduarbo/qmk_userspace/blob/main/docs/cover/COPYING)).
 
 ## Other hotkeys
 
