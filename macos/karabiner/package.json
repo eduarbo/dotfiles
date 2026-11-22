@@ -10,7 +10,7 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "prettier": "prettier config lib scripts --write",
-    "docs": "uvx --from keymap-drawer==0.23.0 keymap draw docs/macbook.yaml -o docs/macbook.svg"
+    "docs": "python3 docs/draw_macbook.py"
   },
   "keywords": [
     "karabiner-elements",

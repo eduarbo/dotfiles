@@ -6,7 +6,10 @@ My Piantor and Corne have six thumb keys. On the MacBook, the space bar stands i
 
 **[Find a character or shortcut](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#find-a-key)** · [All layer maps](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#layers) · [App-specific rules](#app-specific-rules)
 
-![MacBook keycaps with remapped positions highlighted, including the two Option keys, both Command keys, the space bar, Caps Lock, quote and slash.](docs/macbook.svg)
+<picture>
+  <source media="(max-width: 600px)" srcset="docs/macbook-mobile.svg">
+  <img src="docs/macbook.svg" alt="Physical MacBook keycaps with printed labels, tap actions and hold actions.">
+</picture>
 
 On each highlighted key the small top label is the **printed keycap**, the center is the **tap**, and the bottom is the **hold**. A single action applies on press.
 
@@ -25,6 +28,12 @@ Some simultaneous combinations don't register on my built-in keyboard. To work a
 
 - **Type ñ** on the U.S. input layout. Hold **right ⌘**, tap **;**, release **right ⌘**, then type **N**.
 - **Type an underscore**. Hold **right ⌘** and **;**, tap **B**, then release both. For the other hand, hold **A** in place of **;** and tap **U** for **{**.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/eduarbo/qmk_userspace/main/docs/symbols-tap-hold.svg">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/eduarbo/qmk_userspace/main/docs/gestures/macbook-symbols-mobile.gif">
+  <img src="https://raw.githubusercontent.com/eduarbo/qmk_userspace/main/docs/gestures/macbook-symbols.gif" alt="On a MacBook, hold right Command. Tap semicolon, release the layer and tap N for ñ. Hold right Command and semicolon, then tap B for underscore.">
+</picture>
 
 Both holds send left Shift. On the base, the printed **Caps Lock** and **quote** keys are extra left and right Shift keys. The [shared Symbols guide](https://github.com/eduarbo/qmk_userspace/blob/main/users/eduarbo/README.md#macbook-rollover-and-shift) shows the tap/hold diagram and character lookup.
 
@@ -67,7 +76,7 @@ From `macos/karabiner`, use the Node version in [.node-version](.node-version) a
 | --- | --- |
 | `npm run build` | Generates `json/` and deploys it to Karabiner |
 | `npm test` | Runs the tests, including parity with the QMK userspace |
-| `npm run docs` | Redraws `docs/macbook.svg` from `docs/macbook.yaml` |
+| `npm run docs` | Redraws both MacBook maps from the YAML legends and JSON positions |
 | `npm run prettier` | Formats the sources |
 
 - **Deploy:** the build copies `json/karabiner.json` to `~/.config/karabiner` and keeps the
